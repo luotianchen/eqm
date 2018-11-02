@@ -5,20 +5,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import start.jdbc.jdbc;
 import start.user.user;
 
 import java.sql.*;
+
 @CrossOrigin
 @Controller
 public class login {                                                                        //登录
-    public static String DBDRIVER = "com.mysql.cj.jdbc.Driver";
-    public static String DBURL = "jdbc:mysql://localhost:3306/eqm?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC";
-    public static String DBUSER = "root";
-    public static String DBPASS = "123456";
     @RequestMapping(value = "login")
     public @ResponseBody loginresult login(@RequestBody user ur) throws ClassNotFoundException, SQLException {
-        Class.forName(DBDRIVER);
-        Connection conn = DriverManager.getConnection(DBURL, DBUSER, DBPASS);
+        jdbc j = new jdbc();
+        Class.forName(j.getDBDRIVER());
+        Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
         ps=conn.prepareStatement("SELECT * FROM user");
