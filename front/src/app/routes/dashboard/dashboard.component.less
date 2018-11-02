@@ -1,0 +1,71 @@
+@import "../../themes/index";
+.col1{
+  color: rgb(100, 234, 145);
+}
+.col2{
+  color: rgb(143, 201, 251);
+}
+.col3{
+  color: rgb(216, 151, 235);
+}
+:host /deep/ .ant-row{
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  height: auto;
+  zoom: 1;
+  display: block;
+
+  .numberCard {
+    padding: 32px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    background: #fff;
+
+    .iconWarp {
+      font-size: 54px;
+      float: left;
+    }
+
+    .content {
+      width: 100%;
+      padding-left: 78px;
+      min-height: inherit;
+
+      .title {
+        line-height: 16px;
+        font-size: 16px;
+        margin-bottom: 8px;
+        height: 16px;
+        .text-overflow();
+      }
+
+      .number {
+        line-height: 32px;
+        font-size: 24px;
+        height: 32px;
+        .text-overflow();
+      }
+    }
+    &:hover{
+      box-shadow: 0 0 100px rgba(0,0,0,.08);
+    }
+  }
+}
+.update_btn{
+  display: block;
+  width: 80px;
+  height:30px;
+  border:0;
+  margin: 10px auto;
+  background: rgb(143, 201, 251);
+  border-radius: 3px;
+  color: #fff;
+  font-size: 16px;
+
+  &:active{
+    border:0;
+    outline: none;
+  }
+}
+

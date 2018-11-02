@@ -1,0 +1,132 @@
+{
+  "data": [
+    {
+      "name": "材料管理",
+      "data": [
+        {
+          "icon": "home",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "database",
+          "name": "材料验收管理",
+          "route": "/material",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "材料入库登记",
+              "route": "/registration"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表生成",
+              "route": "/dashboard"
+            },
+            {
+              "icon": "laptop",
+              "name": "审核输入",
+              "route": "/dashboard"
+            }
+          ]
+        },
+        {
+          "icon": "code-o",
+          "name": "材料代用管理",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            },
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            }]
+        },
+        {
+          "icon": "code-o",
+          "name": "材料发放管理",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            },
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            }]
+        },
+        {
+          "icon": "code-o",
+          "name": "材料查询",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            },
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            }]
+        },
+        {
+          "icon": "code-o",
+          "name": "报表生成",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            },
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            }]
+        }
+      ]
+    },
+    {
+      "name": "bbb",
+      "data": [
+        {
+          "icon": "laptop",
+          "name": "Qashboard",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "user",
+          "name": "User",
+          "route": "/user",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            },
+            {
+              "icon": "laptop",
+              "name": "Dashboard",
+              "route": "/dashboard"
+            }
+          ]
+        },
+        {
+          "icon": "code-o",
+          "name": "Charts",
+          "route": "/charts"
+        }
+      ]
+    }
+  ]
+}

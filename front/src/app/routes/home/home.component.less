@@ -1,0 +1,112 @@
+@import "../../themes/index";
+
+:host /deep/ .layout {
+  &.fold {
+    .sider {
+      width: 80px!important;
+      min-width: 80px!important;
+
+      .logo {
+        img {
+          width: 28px !important;
+          margin: 6px 7px;
+        }
+      }
+
+      :global {
+        .ant-menu-root {
+          width: 100%;
+          overflow: visible;
+
+          & > .ant-menu-item {
+            padding: 0;
+            text-align: center;
+
+            .anticon {
+              font-size: 14px;
+              margin-right: 0;
+            }
+          }
+
+          & > .ant-menu-submenu {
+            & > .ant-menu-submenu-title {
+              padding: 0;
+              text-align: center;
+
+              .anticon {
+                font-size: 14px;
+                margin-right: 0;
+              }
+
+              &::after {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .main {
+      margin-left: 80px;
+    }
+  }
+  .main {
+    margin-left: 256px;
+    overflow: auto;
+    background: #f4f4f4;
+    transition: @transition-ease-out;
+
+    :global {
+      .content-inner {
+        background: #fff;
+        padding: 24px;
+        box-shadow: @shadow-1;
+        min-height: e("calc(100vh - 184px)");
+      }
+    }
+
+    .content {
+      min-height: e("calc(100vh - 184px)");
+      position: relative;
+    }
+  }
+
+  .popovermenu {
+    width: 280px;
+    margin-left: 6px;
+
+    :global .ant-popover-inner-content {
+      padding: 0;
+
+      .ant-menu-inline .ant-menu-item,
+      .ant-menu-vertical .ant-menu-item {
+        border-right: 0;
+        height: 48px;
+        line-height: 48px;
+      }
+
+      .ant-menu-inline .ant-menu-item-selected,
+      .ant-menu-inline .ant-menu-selected {
+        border-right: 0;
+      }
+    }
+  }
+
+}
+
+.contentInner {
+  background: #fff;
+  box-shadow: @shadow-1;
+  padding: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  min-height: e("calc(100vh - 184px)");
+}
+
+@media (max-width: 767px) {
+  .contentInner {
+    padding: 12px;
+    min-height: e("calc(100vh - 160px)");
+  }
+}
