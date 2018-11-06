@@ -20,10 +20,12 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@nguniversal/express-engine": "^7.0.2",
     "core-js": "^2.5.4",
+    "express-engine": "^1.0.1",
     "moment": "^2.22.2",
     "ng-zorro-antd": "^1.7.1",
-    "ngx-cookie": "^4.0.2",
+    "ngx-cookie": "^4.1.2",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
