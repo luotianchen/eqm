@@ -22,13 +22,90 @@ public class putmaterial {                                                      
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
-        String warrantystatus_id;
-        String matlname_id;
-        String matlstand_id;
-        String designation_id;
-        String millunit_id;
+        int warrantystatus_id=0;
+        int matlname_id=0;
+        int matlstand_id=0;
+        int designation_id=0;
+        int millunit_id=0;
+        int impacttemp_id=0;
+        int bendangle_id=0;
+        int utclass_id=0;
+        int supplier_id=0;
         putmaterialresult result=new putmaterialresult();
         try{
+
+
+            ps=conn.prepareStatement("SELECT * from warrantystatus WHERE certsitu=?");
+            ps.setString(1,pp.getWarrantysitu());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                warrantystatus_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from matlname WHERE matlname=?");
+            ps.setString(1,pp.getMatlname());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                matlname_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from contraststand WHERE matlstand=?");
+            ps.setString(1,pp.getMatlstand());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                matlstand_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from contraststand WHERE designation=?");
+            ps.setString(1,pp.getDesignation());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                designation_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from millunit WHERE millunit=?");
+            ps.setString(1,pp.getMillunit());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                millunit_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from bending WHERE impacttemp=?");
+            ps.setString(1,pp.getImpacttemp());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                impacttemp_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from bending WHERE bendangle=?");
+            ps.setString(1,pp.getBendangle());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                bendangle_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from bending WHERE utclass=?");
+            ps.setString(1,pp.getUtclass());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                utclass_id=rs.getInt("id");
+            }
+
+
+            ps=conn.prepareStatement("SELECT * from supplier WHERE supplier=?");
+            ps.setString(1,pp.getSupplier());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                supplier_id=rs.getInt("id");
+            }
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date d1 = sdf.parse(pp.getIndate());
             java.sql.Date d = new java.sql.Date(d1.getTime());
@@ -36,9 +113,14 @@ public class putmaterial {                                                      
                     "(codedmarking,note,indate,warrantyno,modelstand,spec,qty,unit,dimension,deliverycond,heatbatchno," +
                     "c,si,mn,cu,ni,cr,mo,nb,v,ti,alt,n,mg,p,s," +
                     "rel1,rel2,rm1,rm2,elong1,elong2,hardness1,hardness2,hardness3,impactp1,impactp2,impactp3," +
-                    "bendaxdia,supplier)values(?,?,?,?,?,?,?,?,?,?,?," +
+                    "bendaxdia," +
+                    "supplier_id_supplier,warrantystatus_id_certsitu,matlname_id_matlname,contraststand_id_matlstand,contraststand_id_designation,millunit_id_millunit," +
+                    "bending_id_impacttemp,bending_id_bendangle,bending_id_utclass" +
+                    ")values(?,?,?,?,?,?,?,?,?,?,?," +
                     "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    "?,?,?,?,?,?,?,?,?,?,?,?,?," +
+                    "?,?,?,?,?,?," +
+                    "?,?,?)");
             ps.setString(1,pp.getCodedmarking());
             ps.setString(2,pp.getNote());
             ps.setDate(3,d);
@@ -78,49 +160,18 @@ public class putmaterial {                                                      
             ps.setString(37,pp.getImpactp2());
             ps.setString(38,pp.getImpactp3());
             ps.setString(39,pp.getBendaxdia());
-            ps.setString(40,pp.getSupplier());
+            ps.setInt(40,supplier_id);
+            ps.setInt(41,warrantystatus_id);
+            ps.setInt(42,matlname_id);
+            ps.setInt(43,matlstand_id);
+            ps.setInt(44,designation_id);
+            ps.setInt(45,millunit_id);
+            ps.setInt(46,impacttemp_id);
+            ps.setInt(47,bendangle_id);
+            ps.setInt(48,utclass_id);
             ps.executeUpdate();
             ps.close();
 
-
-            ps=conn.prepareStatement("SELECT * from warrantystatus WHERE certsitu=?");
-            ps.setString(1,pp.getWarrantysitu());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                warrantystatus_id=rs.getString("id");
-            }
-
-
-            ps=conn.prepareStatement("SELECT * from matlname WHERE matlname=?");
-            ps.setString(1,pp.getMatlname());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                matlname_id=rs.getString("id");
-            }
-
-
-            ps=conn.prepareStatement("SELECT * from contraststand WHERE matlstand=?");
-            ps.setString(1,pp.getMatlstand());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                matlstand_id=rs.getString("id");
-            }
-
-
-            ps=conn.prepareStatement("SELECT * from contraststand WHERE designation=?");
-            ps.setString(1,pp.getDesignation());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                designation_id=rs.getString("id");
-            }
-
-
-            ps=conn.prepareStatement("SELECT * from millunit WHERE millunit=?");
-            ps.setString(1,pp.getMillunit());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                millunit_id=rs.getString("id");
-            }
 
             result.setResult("success");
         }catch (Exception e){

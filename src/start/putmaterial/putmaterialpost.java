@@ -2,21 +2,21 @@ package start.putmaterial;
 
 public class putmaterialpost {
     private String codedmarking;                        //入库编号
-    private String warrantysitu;                        //质保书情况**
+    private String warrantysitu;                        //质保书情况***
     private String note;                                 //说明
     private String indate;                               //入库日期
-    private String matlname;                            //材料名称**
+    private String matlname;                            //材料名称***
     private String warrantyno;                          //质保书号
-    private String matlstand;                           //材料标准**
+    private String matlstand;                           //材料标准***
     private String modelstand;                          //型号标准
     private String supplier;                            //供货单位
-    private String designation;                         //牌号**
+    private String designation;                         //牌号***
     private String spec;                                //规格
     private String qty;                                 //数量
     private String unit;                                //单位
     private String dimension;                             //尺寸
     private String deliverycond;                        //供货状态(热处理状态)
-    private String millunit;                            //生存单位**
+    private String millunit;                            //生存单位***
     private String heatbatchno;                         //炉批号
     private String c;
     private String si;
@@ -45,10 +45,10 @@ public class putmaterialpost {
     private String impactp1;                                //冲击功
     private String impactp2;
     private String impactp3;
-    private String impacttemp;                              //冲击温度*
-    private String bendangle;                               //弯曲角度*
+    private String impacttemp;                              //冲击温度**
+    private String bendangle;                               //弯曲角度**
     private String bendaxdia;                               //弯曲直径
-    private String utclass;                                 //ut级别*
+    private String utclass;                                 //ut级别**
     public putmaterialpost(){
         super();
     }
