@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import start.getputmaterial.warrantystatusdata;
 import start.jdbc.jdbc;
 
 import java.sql.*;
@@ -86,6 +85,8 @@ public class getputmaterial {                                                   
         data.setModelstand(modelstand);                                                           //添加到data
         rs.close();
         ps.close();
+        conn.close();
+
         res.setData(data);                                                                          //返回data
         return res;
     }

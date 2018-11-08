@@ -154,10 +154,13 @@ public class contraststand {                                                    
 
             result.setResult("success");
             result.setData(data);
+            rs.close();
+            ps.close();
+
         }catch (Exception e ){
             result.setResult("fail");
         }
-
+        conn.close();
         return result;
     }
 }
