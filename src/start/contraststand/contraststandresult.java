@@ -1,11 +1,9 @@
-package start.stand;
+package start.contraststand;
 
-import java.util.ArrayList;
-
-public class standresult {
+public class contraststandresult {
     private String result;
-    private ArrayList<String> data= new ArrayList<String>();
-    public standresult(){
+    private contraststanddata data;
+    public contraststandresult(){
         super();
     }
     public String getResult() {
@@ -16,11 +14,11 @@ public class standresult {
         this.result = result;
     }
 
-    public ArrayList<String> getData() {
+    public contraststanddata getData() {
         return data;
     }
 
-    public void setData(ArrayList<String> data) {
+    public void setData(contraststanddata data) {
         this.data = data;
     }
 }
