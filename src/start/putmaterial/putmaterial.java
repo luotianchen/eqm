@@ -31,7 +31,7 @@ public class putmaterial {                                                      
         int bendangle_id=0;
         int utclass_id=0;
         int supplier_id=0;
-        int deliverycond_id=0;
+        int heatcondi_id=0;
         putmaterialresult result=new putmaterialresult();
         try{
 
@@ -117,11 +117,11 @@ public class putmaterial {                                                      
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * from heattreatcondition WHERE deliverycond=?");
-            ps.setString(1,pp.getDeliverycond());
+            ps=conn.prepareStatement("SELECT * from heattreatcondition WHERE heatcondi=?");
+            ps.setString(1,pp.getHeatcondi());
             rs=ps.executeQuery();
             while(rs.next()){
-                deliverycond_id=rs.getInt("id");
+                heatcondi_id=rs.getInt("id");
             }
             rs.close();
             ps.close();
@@ -130,7 +130,7 @@ public class putmaterial {                                                      
             java.util.Date d1 = sdf.parse(pp.getIndate());
             java.sql.Date d = new java.sql.Date(d1.getTime());
             ps=conn.prepareStatement("INSERT INTO putmaterial " +
-                    "(codedmarking,note,indate,warrantyno,modelstand,spec,qty,unit,dimension,heattreatcondition_id_deliverycond,heatbatchno," +
+                    "(codedmarking,note,indate,warrantyno,modelstand,spec,qty,unit,dimension,heattreatcondition_id_heatcondi,heatbatchno," +
                     "c,si,mn,cu,ni,cr,mo,nb,v,ti,alt,n,mg,p,s," +
                     "rel1,rel2,rm1,rm2,elong1,elong2,hardness1,hardness2,hardness3,impactp1,impactp2,impactp3," +
                     "bendaxdia," +
@@ -150,7 +150,7 @@ public class putmaterial {                                                      
             ps.setString(7,pp.getQty());
             ps.setString(8,pp.getUnit());
             ps.setString(9,pp.getDimension());
-            ps.setInt(10,deliverycond_id);
+            ps.setInt(10,heatcondi_id);
             ps.setString(11,pp.getHeatbatchno());
             ps.setString(12,pp.getC());
             ps.setString(13,pp.getSi());

@@ -31,7 +31,7 @@ public class getmaterial {                                                      
         int bendangle_id=0;
         int utclass_id=0;
         int supplier_id=0;
-        int deliverycond_id=0;
+        int heatcondi_id=0;
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         data.setCodedmarking(gp.getCodedmarking());
 
@@ -86,7 +86,7 @@ public class getmaterial {                                                      
                 bendangle_id=rs.getInt("bending_id_bendangle");
                 utclass_id=rs.getInt("bending_id_utclass");
                 supplier_id=rs.getInt("supplier_id_supplier");
-                deliverycond_id=rs.getInt("heattreatcondition_id_deliverycond");
+                heatcondi_id=rs.getInt("heattreatcondition_id_heatcondi");
             }
             rs.close();
             ps.close();
@@ -183,10 +183,10 @@ public class getmaterial {                                                      
 
 
             ps=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-            ps.setInt(1,deliverycond_id);
+            ps.setInt(1,heatcondi_id);
             rs=ps.executeQuery();
             while (rs.next()){
-                data.setDeliverycond(rs.getString("deliverycond"));
+                data.setHeatcondi(rs.getString("heatcondi"));
             }
             rs.close();
             ps.close();

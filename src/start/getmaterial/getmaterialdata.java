@@ -15,7 +15,7 @@ public class getmaterialdata {
     private String qty;                                 //数量
     private String unit;                                //单位
     private String dimension;                             //尺寸
-    private String deliverycond;                        //供货状态(热处理状态)*
+    private String heatcondi;                        //热处理状态*
     private String millunit;                            //生存单位*
     private String heatbatchno;                         //炉批号
     private String c;
@@ -166,13 +166,7 @@ public class getmaterialdata {
         this.dimension = dimension;
     }
 
-    public String getDeliverycond() {
-        return deliverycond;
-    }
 
-    public void setDeliverycond(String deliverycond) {
-        this.deliverycond = deliverycond;
-    }
 
     public String getMillunit() {
         return millunit;
@@ -436,5 +430,13 @@ public class getmaterialdata {
 
     public void setUtclass(String utclass) {
         this.utclass = utclass;
+    }
+
+    public String getHeatcondi() {
+        return heatcondi;
+    }
+
+    public void setHeatcondi(String heatcondi) {
+        this.heatcondi = heatcondi;
     }
 }

@@ -36,6 +36,7 @@ public class contraststand {                                                    
         minmax mg = new minmax();
         minmax p = new minmax();
         minmax s = new minmax();
+        int heatcondi_id=0;
         String heatcondi=null;
         minmax rel1 = new minmax();
         minmax rel2 = new minmax();
@@ -89,7 +90,7 @@ public class contraststand {                                                    
                 p.setMax(rs.getString("p_big"));
                 s.setMin(rs.getString("s_small"));
                 s.setMax(rs.getString("s_big"));
-                heatcondi = rs.getString("heatcondi");
+                heatcondi_id = rs.getInt("heattreatcondition_id_heatcondi");                    //热处理状态，
                 rel1.setMin(rs.getString("rel1_small"));
                 rel1.setMax(rs.getString("rel1_big"));
                 rel2.setMin(rs.getString("rel2_small"));
@@ -117,8 +118,16 @@ public class contraststand {                                                    
                 impacttemp=rs.getString("impacttemp");
                 note=rs.getString("note");
             }
+            rs.close();
+            ps.close();
 
 
+            ps=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
+            ps.setInt(1,heatcondi_id);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                heatcondi=rs.getString("heatcondi");
+            }
 
             data.setC(c);
             data.setSi(si);
