@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 
 @CrossOrigin
 @Controller
-public class getmaterial {                                                                                                              //根据产品编号查询材料数据
+public class getmaterial {                                                                                                              //根据入库编号查询材料数据
     @RequestMapping(value = "getmaterial")
     public @ResponseBody getmaterialresult getmaterial(@RequestBody getmaterialpost gp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();
