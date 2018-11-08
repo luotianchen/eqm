@@ -31,6 +31,7 @@ public class putmaterial {                                                      
         int bendangle_id=0;
         int utclass_id=0;
         int supplier_id=0;
+        int deliverycond_id=0;
         putmaterialresult result=new putmaterialresult();
         try{
 
@@ -41,7 +42,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 warrantystatus_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from matlname WHERE matlname=?");
             ps.setString(1,pp.getMatlname());
@@ -49,7 +51,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 matlname_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from contraststand WHERE matlstand=?");
             ps.setString(1,pp.getMatlstand());
@@ -57,7 +60,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 matlstand_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from contraststand WHERE designation=?");
             ps.setString(1,pp.getDesignation());
@@ -65,7 +69,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 designation_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from millunit WHERE millunit=?");
             ps.setString(1,pp.getMillunit());
@@ -73,7 +78,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 millunit_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from bending WHERE impacttemp=?");
             ps.setString(1,pp.getImpacttemp());
@@ -81,7 +87,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 impacttemp_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from bending WHERE bendangle=?");
             ps.setString(1,pp.getBendangle());
@@ -89,7 +96,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 bendangle_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from bending WHERE utclass=?");
             ps.setString(1,pp.getUtclass());
@@ -97,7 +105,8 @@ public class putmaterial {                                                      
             while(rs.next()){
                 utclass_id=rs.getInt("id");
             }
-
+            rs.close();
+            ps.close();
 
             ps=conn.prepareStatement("SELECT * from supplier WHERE supplier=?");
             ps.setString(1,pp.getSupplier());
@@ -105,12 +114,23 @@ public class putmaterial {                                                      
             while(rs.next()){
                 supplier_id=rs.getInt("id");
             }
+            rs.close();
+            ps.close();
+
+            ps=conn.prepareStatement("SELECT * from heattreatcondition WHERE deliverycond=?");
+            ps.setString(1,pp.getDeliverycond());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                deliverycond_id=rs.getInt("id");
+            }
+            rs.close();
+            ps.close();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date d1 = sdf.parse(pp.getIndate());
             java.sql.Date d = new java.sql.Date(d1.getTime());
             ps=conn.prepareStatement("INSERT INTO putmaterial " +
-                    "(codedmarking,note,indate,warrantyno,modelstand,spec,qty,unit,dimension,deliverycond,heatbatchno," +
+                    "(codedmarking,note,indate,warrantyno,modelstand,spec,qty,unit,dimension,heattreatcondition_id_deliverycond,heatbatchno," +
                     "c,si,mn,cu,ni,cr,mo,nb,v,ti,alt,n,mg,p,s," +
                     "rel1,rel2,rm1,rm2,elong1,elong2,hardness1,hardness2,hardness3,impactp1,impactp2,impactp3," +
                     "bendaxdia," +
@@ -130,7 +150,7 @@ public class putmaterial {                                                      
             ps.setString(7,pp.getQty());
             ps.setString(8,pp.getUnit());
             ps.setString(9,pp.getDimension());
-            ps.setString(10,pp.getDeliverycond());
+            ps.setInt(10,deliverycond_id);
             ps.setString(11,pp.getHeatbatchno());
             ps.setString(12,pp.getC());
             ps.setString(13,pp.getSi());
@@ -172,11 +192,11 @@ public class putmaterial {                                                      
             ps.executeUpdate();
             ps.close();
 
-
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
         }
+        conn.close();
         return result;
     }
 }
