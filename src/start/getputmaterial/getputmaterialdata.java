@@ -1,16 +1,15 @@
-package start.putmaterial;
+package start.getputmaterial;
 
-import start.getputmaterial.warrantystatusdata;
 
 import java.util.ArrayList;
 
-public class putmaterialdata {
+public class getputmaterialdata {
     private ArrayList<warrantystatusdata> warrantysitu=new ArrayList<warrantystatusdata>();             //质保书情况
     private ArrayList<String> matlname = new ArrayList<String>();                                       //材料名称
     private ArrayList<String> millunit = new ArrayList<String>();                                       //生存单位
     private ArrayList<String> matlstand = new ArrayList<String>();                                      //材料标准
     private ArrayList<String> modelstand = new ArrayList<String>();                                     //型号标准
-    public putmaterialdata(){
+    public getputmaterialdata(){
         super();
     }
     public ArrayList<warrantystatusdata> getWarrantysitu() {

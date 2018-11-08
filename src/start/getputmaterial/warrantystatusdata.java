@@ -1,4 +1,4 @@
-package start.putmaterial;
+package start.getputmaterial;
 
 public class warrantystatusdata {
     private String certsitu;                            //质保书情况

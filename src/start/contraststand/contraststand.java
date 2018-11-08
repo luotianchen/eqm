@@ -11,7 +11,7 @@ import java.sql.*;
 
 @CrossOrigin
 @Controller
-public class contraststand {
+public class contraststand {                                                                //根据标准牌号厚度查询
     @RequestMapping(value = "contraststand")
     public @ResponseBody contraststandresult contraststand(@RequestBody contraststandpost cp) throws ClassNotFoundException, SQLException{
         jdbc j = new jdbc();

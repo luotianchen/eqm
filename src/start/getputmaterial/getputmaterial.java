@@ -1,4 +1,4 @@
-package start.putmaterial;
+package start.getputmaterial;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 @CrossOrigin
 @Controller
-public class putmaterial {                                                                              //返回
-    @RequestMapping(value = "putmaterial" ,method = RequestMethod.GET)
-    public @ResponseBody putmaterialresult putmaterial() throws ClassNotFoundException, SQLException {          //生存单位，在单位名称内
+public class getputmaterial {                                                                              //返回
+    @RequestMapping(value = "getputmaterial" ,method = RequestMethod.GET)
+    public @ResponseBody getputmaterialresult getputmaterial() throws ClassNotFoundException, SQLException {          //生存单位，在单位名称内
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -25,8 +25,8 @@ public class putmaterial {                                                      
 
         ps=conn.prepareStatement("SELECT * FROM warrantystatus");                           //查询质保书情况
         rs=ps.executeQuery();
-        putmaterialresult res=new putmaterialresult();
-        putmaterialdata data=new putmaterialdata();
+        getputmaterialresult res=new getputmaterialresult();
+        getputmaterialdata data=new getputmaterialdata();
         warrantystatusdata wdata = null;
         ArrayList<warrantystatusdata> warrantysitu = new ArrayList<warrantystatusdata>();
         while(rs.next()){
