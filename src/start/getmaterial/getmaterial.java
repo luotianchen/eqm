@@ -87,6 +87,16 @@ public class getmaterial {                                                      
                 utclass_id=rs.getInt("bending_id_utclass");
                 supplier_id=rs.getInt("supplier_id_supplier");
                 heatcondi_id=rs.getInt("heattreatcondition_id_heatcondi");
+                data.setAls(rs.getString("als"));
+                data.setFe(rs.getString("fe"));
+                data.setZn(rs.getString("zn"));
+                data.setB(rs.getString("b"));
+                data.setW(rs.getString("w"));
+                data.setSb(rs.getString("sb"));
+                data.setAl(rs.getString("al"));
+                data.setZr(rs.getString("zr"));
+                data.setCa(rs.getString("ca"));
+                data.setBe(rs.getString("be"));
             }
             rs.close();
             ps.close();
@@ -166,7 +176,7 @@ public class getmaterial {                                                      
             ps.setInt(1,utclass_id);
             rs=ps.executeQuery();
             while (rs.next()){
-                data.setUtclass(rs.getString("utclass"));
+                data.setUtclass(rs.getInt("utclass"));
             }
             rs.close();
             ps.close();

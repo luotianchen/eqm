@@ -11,9 +11,19 @@ public class contraststanddata {
     private minmax nb;
     private minmax v;
     private minmax ti;
+    private minmax als;                     //****
     private minmax alt;
     private minmax n;
+    private minmax fe;                      //****
     private minmax mg;
+    private minmax zn;                      //****
+    private minmax b;                      //****
+    private minmax w;                      //****
+    private minmax sb;                      //****
+    private minmax al;                      //****
+    private minmax zr;                      //****
+    private minmax ca;                      //****
+    private minmax be;                      //****
     private minmax p;
     private minmax s;
     private String heatcondi;
@@ -31,6 +41,8 @@ public class contraststanddata {
     private minmax impactp3;
     private String impacttemp;
     private String note;
+    private String bendaxdia;                           //弯轴直径
+    private int utclass;                                //UT级别
     public contraststanddata(){
         super();
     }
@@ -273,5 +285,101 @@ public class contraststanddata {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public minmax getAls() {
+        return als;
+    }
+
+    public void setAls(minmax als) {
+        this.als = als;
+    }
+
+    public minmax getFe() {
+        return fe;
+    }
+
+    public void setFe(minmax fe) {
+        this.fe = fe;
+    }
+
+    public minmax getZn() {
+        return zn;
+    }
+
+    public void setZn(minmax zn) {
+        this.zn = zn;
+    }
+
+    public minmax getB() {
+        return b;
+    }
+
+    public void setB(minmax b) {
+        this.b = b;
+    }
+
+    public minmax getW() {
+        return w;
+    }
+
+    public void setW(minmax w) {
+        this.w = w;
+    }
+
+    public minmax getSb() {
+        return sb;
+    }
+
+    public void setSb(minmax sb) {
+        this.sb = sb;
+    }
+
+    public minmax getAl() {
+        return al;
+    }
+
+    public void setAl(minmax al) {
+        this.al = al;
+    }
+
+    public minmax getZr() {
+        return zr;
+    }
+
+    public void setZr(minmax zr) {
+        this.zr = zr;
+    }
+
+    public minmax getCa() {
+        return ca;
+    }
+
+    public void setCa(minmax ca) {
+        this.ca = ca;
+    }
+
+    public minmax getBe() {
+        return be;
+    }
+
+    public void setBe(minmax be) {
+        this.be = be;
+    }
+
+    public String getBendaxdia() {
+        return bendaxdia;
+    }
+
+    public void setBendaxdia(String bendaxdia) {
+        this.bendaxdia = bendaxdia;
+    }
+
+    public int getUtclass() {
+        return utclass;
+    }
+
+    public void setUtclass(int utclass) {
+        this.utclass = utclass;
     }
 }

@@ -3,7 +3,7 @@ package start.contraststand;
 public class contraststandpost {
     private String matlstand;
     private String designation;
-    private String thickness;
+    private String spec;
     public contraststandpost(){
         super();
     }
@@ -23,11 +23,12 @@ public class contraststandpost {
         this.designation = designation;
     }
 
-    public String getThickness() {
-        return thickness;
+
+    public String getSpec() {
+        return spec;
     }
 
-    public void setThickness(String thickness) {
-        this.thickness = thickness;
+    public void setSpec(String spec) {
+        this.spec = spec;
     }
 }

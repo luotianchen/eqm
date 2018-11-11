@@ -28,9 +28,19 @@ public class getmaterialdata {
     private String nb;
     private String v;
     private String ti;
+    private String als;                 //*
     private String alt;
     private String n;
+    private String fe;                  //*
     private String mg;
+    private String zn;                  //*
+    private String b;                   //*
+    private String w;                   //*
+    private String sb;                  //*
+    private String al;                  //*
+    private String zr;                  //*
+    private String ca;                  //*
+    private String be;                  //*
     private String p;
     private String s;
     private String rel1;                                    //屈服强度
@@ -48,7 +58,7 @@ public class getmaterialdata {
     private String impacttemp;                              //冲击温度*
     private String bendangle;                               //弯曲角度*
     private String bendaxdia;                               //弯曲直径
-    private String utclass;                                 //ut级别*
+    private int utclass;                                 //ut级别*
 
     public getmaterialdata(){
         super();
@@ -424,13 +434,6 @@ public class getmaterialdata {
         this.bendaxdia = bendaxdia;
     }
 
-    public String getUtclass() {
-        return utclass;
-    }
-
-    public void setUtclass(String utclass) {
-        this.utclass = utclass;
-    }
 
     public String getHeatcondi() {
         return heatcondi;
@@ -438,5 +441,93 @@ public class getmaterialdata {
 
     public void setHeatcondi(String heatcondi) {
         this.heatcondi = heatcondi;
+    }
+
+    public String getAls() {
+        return als;
+    }
+
+    public void setAls(String als) {
+        this.als = als;
+    }
+
+    public String getFe() {
+        return fe;
+    }
+
+    public void setFe(String fe) {
+        this.fe = fe;
+    }
+
+    public String getZn() {
+        return zn;
+    }
+
+    public void setZn(String zn) {
+        this.zn = zn;
+    }
+
+    public String getB() {
+        return b;
+    }
+
+    public void setB(String b) {
+        this.b = b;
+    }
+
+    public String getW() {
+        return w;
+    }
+
+    public void setW(String w) {
+        this.w = w;
+    }
+
+    public String getSb() {
+        return sb;
+    }
+
+    public void setSb(String sb) {
+        this.sb = sb;
+    }
+
+    public String getAl() {
+        return al;
+    }
+
+    public void setAl(String al) {
+        this.al = al;
+    }
+
+    public String getZr() {
+        return zr;
+    }
+
+    public void setZr(String zr) {
+        this.zr = zr;
+    }
+
+    public String getCa() {
+        return ca;
+    }
+
+    public void setCa(String ca) {
+        this.ca = ca;
+    }
+
+    public String getBe() {
+        return be;
+    }
+
+    public void setBe(String be) {
+        this.be = be;
+    }
+
+    public int getUtclass() {
+        return utclass;
+    }
+
+    public void setUtclass(int utclass) {
+        this.utclass = utclass;
     }
 }

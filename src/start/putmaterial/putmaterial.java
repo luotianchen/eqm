@@ -100,7 +100,7 @@ public class putmaterial {                                                      
             ps.close();
 
             ps=conn.prepareStatement("SELECT * from bending WHERE utclass=?");
-            ps.setString(1,pp.getUtclass());
+            ps.setInt(1,pp.getUtclass());
             rs=ps.executeQuery();
             while(rs.next()){
                 utclass_id=rs.getInt("id");
@@ -135,12 +135,13 @@ public class putmaterial {                                                      
                     "rel1,rel2,rm1,rm2,elong1,elong2,hardness1,hardness2,hardness3,impactp1,impactp2,impactp3," +
                     "bendaxdia," +
                     "supplier_id_supplier,warrantystatus_id_certsitu,matlname_id_matlname,contraststand_id_matlstand,contraststand_id_designation,millunit_id_millunit," +
-                    "bending_id_impacttemp,bending_id_bendangle,bending_id_utclass" +
-                    ")values(?,?,?,?,?,?,?,?,?,?,?," +
+                    "bending_id_impacttemp,bending_id_bendangle,bending_id_utclass," +
+                    "als,fe,zn,b,w,sb,al,zr,ca,be)values(?,?,?,?,?,?,?,?,?,?,?," +
                     "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
                     "?,?,?,?,?,?,?,?,?,?,?,?,?," +
                     "?,?,?,?,?,?," +
-                    "?,?,?)");
+                    "?,?,?," +
+                    "?,?,?,?,?,?,?,?,?,?)");
             ps.setString(1,pp.getCodedmarking());
             ps.setString(2,pp.getNote());
             ps.setDate(3,d);
@@ -189,6 +190,16 @@ public class putmaterial {                                                      
             ps.setInt(46,impacttemp_id);
             ps.setInt(47,bendangle_id);
             ps.setInt(48,utclass_id);
+            ps.setString(49,pp.getAls());
+            ps.setString(50,pp.getFe());
+            ps.setString(51,pp.getZn());
+            ps.setString(52,pp.getB());
+            ps.setString(53,pp.getW());
+            ps.setString(54,pp.getSb());
+            ps.setString(55,pp.getAl());
+            ps.setString(56,pp.getZr());
+            ps.setString(57,pp.getCa());
+            ps.setString(58,pp.getBe());
             ps.executeUpdate();
             ps.close();
 
