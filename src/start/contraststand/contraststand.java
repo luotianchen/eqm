@@ -36,7 +36,6 @@ public class contraststand {                                                    
         minmax mg = new minmax();
         minmax p = new minmax();
         minmax s = new minmax();
-        int heatcondi_id=0;
         String heatcondi=null;
         minmax rel1 = new minmax();
         minmax rel2 = new minmax();
@@ -63,6 +62,7 @@ public class contraststand {                                                    
         minmax ca = new minmax();
         minmax be = new minmax();
         String bendaxdia=null;
+        int utclass_id=0;
         int utclass=0;
         int a=0;                                                         //判断是否为空
 
@@ -113,7 +113,7 @@ public class contraststand {                                                    
                         p.setMax(rs.getString("p_big"));
                         s.setMin(rs.getString("s_small"));
                         s.setMax(rs.getString("s_big"));
-                        heatcondi_id = rs.getInt("heattreatcondition_id_heatcondi");                    //热处理状态，
+                        heatcondi = rs.getString("heatcondi");                    //热处理状态，
                         rel1.setMin(rs.getString("rel1_small"));
                         rel1.setMax(rs.getString("rel1_big"));
                         rel2.setMin(rs.getString("rel2_small"));
@@ -161,17 +161,17 @@ public class contraststand {                                                    
                         be.setMin(rs.getString("be_small"));
                         be.setMax(rs.getString("be_big"));
                         bendaxdia=rs.getString("bendaxdia");
-                        utclass=rs.getInt("utclass");
+                        utclass_id=rs.getInt("bending_id_utclass");
                     }
                     rs.close();
                     ps.close();
 
 
-                    ps=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-                    ps.setInt(1,heatcondi_id);
+                    ps=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
+                    ps.setInt(1,utclass_id);
                     rs=ps.executeQuery();
                     while(rs.next()){
-                        heatcondi=rs.getString("heatcondi");
+                        utclass=rs.getInt("utclass");
                     }
 
                     data.setC(c);
@@ -278,7 +278,7 @@ public class contraststand {                                                    
                             p.setMax(rs.getString("p_big"));
                             s.setMin(rs.getString("s_small"));
                             s.setMax(rs.getString("s_big"));
-                            heatcondi_id = rs.getInt("heattreatcondition_id_heatcondi");                    //热处理状态，
+                            heatcondi = rs.getString("heatcondi");                    //热处理状态，
                             rel1.setMin(rs.getString("rel1_small"));
                             rel1.setMax(rs.getString("rel1_big"));
                             rel2.setMin(rs.getString("rel2_small"));
@@ -326,19 +326,20 @@ public class contraststand {                                                    
                             be.setMin(rs.getString("be_small"));
                             be.setMax(rs.getString("be_big"));
                             bendaxdia=rs.getString("bendaxdia");
-                            utclass=rs.getInt("utclass");
+                            utclass_id=rs.getInt("bending_id_utclass");
 
                         }
                         rs.close();
                         ps.close();
 
 
-                        ps=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-                        ps.setInt(1,heatcondi_id);
+                        ps=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
+                        ps.setInt(1,utclass_id);
                         rs=ps.executeQuery();
                         while(rs.next()){
-                            heatcondi=rs.getString("heatcondi");
+                            utclass=rs.getInt("utclass");
                         }
+
 
                         data.setC(c);
                         data.setSi(si);
