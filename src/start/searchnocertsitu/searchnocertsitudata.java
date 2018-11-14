@@ -9,7 +9,7 @@ public class searchnocertsitudata {
     private String supplier;                            //供货单位*
     private String qty;                                 //数量
     private String note;                                 //说明
-    private String millunit;                            //生存单位*
+    private String millunit;                            //生产单位*
     private String indate;                               //入库日期
     private String heatbatchno;                         //炉批号
     private String warrantyno;                          //质保书号

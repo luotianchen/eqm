@@ -1,14 +1,12 @@
-package start.searchnocertsitu;
-
-import org.springframework.http.ResponseEntity;
+package start.searchusematerial;
 
 import java.util.ArrayList;
 
-public class searchnocertsituresult {
+public class searchusematerialresult {
     private String result;
     private int total;                                                  //总页数
-    private ArrayList<searchnocertsitudata> data;
-    public searchnocertsituresult(){
+    private ArrayList<searchusematerialdata> data;
+    public searchusematerialresult(){
         super();
     }
 
@@ -28,12 +26,11 @@ public class searchnocertsituresult {
         this.total = total;
     }
 
-    public ArrayList<searchnocertsitudata> getData() {
+    public ArrayList<searchusematerialdata> getData() {
         return data;
     }
 
-    public void setData(ArrayList<searchnocertsitudata> data) {
+    public void setData(ArrayList<searchusematerialdata> data) {
         this.data = data;
     }
-
 }
