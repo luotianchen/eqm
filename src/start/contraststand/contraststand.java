@@ -398,6 +398,8 @@ public class contraststand {                                                    
 
 
         }catch (Exception e ){
+            rs.close();
+            ps.close();
             result.setResult("fail");
         }
         conn.close();

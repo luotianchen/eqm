@@ -87,7 +87,7 @@ public class getputmaterial {                                                   
         ps.close();
 
 
-        ps=conn.prepareStatement("SELECT * FROM putmaterial");                             //查询入库登记表
+        ps=conn.prepareStatement("SELECT * FROM modelstand");                             //查询型号标准
         rs=ps.executeQuery();
         ArrayList<String> modelstand = new ArrayList<String>();
         while(rs.next()){

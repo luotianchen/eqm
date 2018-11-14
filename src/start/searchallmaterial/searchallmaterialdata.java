@@ -1,9 +1,11 @@
-package start.getmaterial;
+package start.searchallmaterial;
 
-public class getmaterialdata {
+public class searchallmaterialdata {
+    private String user;                                    //提交入库登记的用户*
+    private int status;                                 //审核状态
     private String codedmarking;                        //入库编号
     private String warrantysitu;                        //质保书情况*
-    private String note;                                 //说明(原来的型号标准和备注)
+    private String note;                                 //说明
     private String indate;                               //入库日期
     private String matlname;                            //材料名称*
     private String warrantyno;                          //质保书号
@@ -15,7 +17,6 @@ public class getmaterialdata {
     private String qty;                                 //数量
     private String unit;                                //单位
     private String dimension;                             //尺寸
-    private String heatcondi;                        //热处理状态*
     private String millunit;                            //生存单位*
     private String heatbatchno;                         //炉批号
     private String c;
@@ -28,21 +29,22 @@ public class getmaterialdata {
     private String nb;
     private String v;
     private String ti;
-    private String als;                 //*
+    private String als;
     private String alt;
     private String n;
-    private String fe;                  //*
+    private String fe;
     private String mg;
-    private String zn;                  //*
-    private String b;                   //*
-    private String w;                   //*
-    private String sb;                  //*
-    private String al;                  //*
-    private String zr;                  //*
-    private String ca;                  //*
-    private String be;                  //*
+    private String zn;
+    private String b;
+    private String w;
+    private String sb;
+    private String al;
+    private String zr;
+    private String ca;
+    private String be;
     private String p;
     private String s;
+    private String heatcondi;                        //热处理状态*
     private String rel1;                                    //屈服强度
     private String rel2;
     private String rm1;                                     //抗拉强度
@@ -55,15 +57,13 @@ public class getmaterialdata {
     private String impactp1;                                //冲击功
     private String impactp2;
     private String impactp3;
-    private String impacttemp;                              //冲击温度*
+    private int impacttemp;                              //冲击温度*
     private String bendangle;                               //弯曲角度*
     private String bendaxdia;                               //弯曲直径
     private int utclass;                                 //ut级别*
-
-    public getmaterialdata(){
+    public searchallmaterialdata(){
         super();
     }
-
     public String getCodedmarking() {
         return codedmarking;
     }
@@ -175,7 +175,6 @@ public class getmaterialdata {
     public void setDimension(String dimension) {
         this.dimension = dimension;
     }
-
 
 
     public String getMillunit() {
@@ -410,14 +409,6 @@ public class getmaterialdata {
         this.impactp3 = impactp3;
     }
 
-    public String getImpacttemp() {
-        return impacttemp;
-    }
-
-    public void setImpacttemp(String impacttemp) {
-        this.impacttemp = impacttemp;
-    }
-
     public String getBendangle() {
         return bendangle;
     }
@@ -433,6 +424,7 @@ public class getmaterialdata {
     public void setBendaxdia(String bendaxdia) {
         this.bendaxdia = bendaxdia;
     }
+
 
 
     public String getHeatcondi() {
@@ -529,5 +521,29 @@ public class getmaterialdata {
 
     public void setUtclass(int utclass) {
         this.utclass = utclass;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getImpacttemp() {
+        return impacttemp;
+    }
+
+    public void setImpacttemp(int impacttemp) {
+        this.impacttemp = impacttemp;
     }
 }

@@ -1,6 +1,7 @@
 package start.putmaterial;
 
 public class putmaterialpost {
+    private String user;
     private String codedmarking;                        //入库编号
     private String warrantysitu;                        //质保书情况***
     private String note;                                 //说明
@@ -8,7 +9,7 @@ public class putmaterialpost {
     private String matlname;                            //材料名称***
     private String warrantyno;                          //质保书号
     private String matlstand;                           //材料标准***
-    private String modelstand;                          //型号标准
+    private String modelstand;                          //型号标准*
     private String supplier;                            //供货单位***
     private String designation;                         //牌号***
     private String spec;                                //规格
@@ -529,5 +530,13 @@ public class putmaterialpost {
 
     public void setUtclass(int utclass) {
         this.utclass = utclass;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

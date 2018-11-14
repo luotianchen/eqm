@@ -9,7 +9,7 @@ public class getputmaterialdata {
     private ArrayList<String> millunit = new ArrayList<String>();                                       //生产单位
     private ArrayList<String> supplier = new ArrayList<String>();                                   //供货单位*
     private ArrayList<String> matlstand = new ArrayList<String>();                                      //材料标准
-    private ArrayList<String> modelstand = new ArrayList<String>();                                     //型号标准
+    private ArrayList<String> modelstand = new ArrayList<String>();                                     //型号标准*
     private ArrayList<String> designation = new ArrayList<String>();                                       //牌号*
     private ArrayList<String> heatcondi = new ArrayList<String>();                                       //热处理状态*
     public getputmaterialdata(){
