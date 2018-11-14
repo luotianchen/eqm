@@ -7,6 +7,7 @@ public class searchallmaterialpostdata {
     private String spec;                                            //规格
     private String millunit;                                        //生产单位*
     private int status;                                             //审核状态
+    private String indate;                                              //入库日期
     public searchallmaterialpostdata(){
         super();
     }
@@ -57,5 +58,13 @@ public class searchallmaterialpostdata {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getIndate() {
+        return indate;
+    }
+
+    public void setIndate(String indate) {
+        this.indate = indate;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import start.jdbc.jdbc;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,11 +17,13 @@ import java.util.Collections;
 @Controller
 public class searchallmaterial {                                                            //查询所有材料入库信息带分页
     @RequestMapping(value = "searchallmaterial")
-    public @ResponseBody searchallmaterialresult searchallmaterial(@RequestBody searchallmaterialpost sp) throws ClassNotFoundException, SQLException {
+    public @ResponseBody searchallmaterialresult searchallmaterial(@RequestBody searchallmaterialpost sp) throws ClassNotFoundException, SQLException, ParseException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
         ArrayList<searchallmaterialdata> as=new ArrayList<searchallmaterialdata>();
         searchallmaterialdata samd;
         searchallmaterialresult result = new searchallmaterialresult();
@@ -35,6 +38,7 @@ public class searchallmaterial {                                                
         int millunit_p=0;
         int millunit_id=0;
         int status_p=0;
+        int indate_p=0;
 
         int user_rid=0;
         int warrantysitu_rid=0;
@@ -52,6 +56,7 @@ public class searchallmaterial {                                                
         PreparedStatement ps1 = null;
         ResultSet rs=null;
         ResultSet rs1=null;
+
 
         try{
             sql="SELECT * FROM putmaterial WHERE 1=1 ";
@@ -78,6 +83,10 @@ public class searchallmaterial {                                                
             if(!(sp.getSearchdata().getStatus()==-1)){
                 sql=sql+"and status=? ";
                 status_p=1;
+            }
+            if(!(sp.getSearchdata().getIndate()==null || sp.getSearchdata().getIndate().equals(""))){
+                sql=sql+"and indate = ? ";
+                indate_p=1;
             }
 
             if(matlname_p==1){
@@ -138,7 +147,10 @@ public class searchallmaterial {                                                
                 ps.setInt(num,sp.getSearchdata().getStatus());
                 num++;
             }
-
+            if(indate_p==1){
+                ps.setString(num,sp.getSearchdata().getIndate());
+                num++;
+            }
 
             rs=ps.executeQuery();
             while(rs.next()){
