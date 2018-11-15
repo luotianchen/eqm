@@ -11,7 +11,7 @@ import java.sql.*;
 
 @CrossOrigin
 @Controller
-public class putaudit {
+public class putaudit {                                             //提交审核
     @RequestMapping(value = "putaudit")
     public @ResponseBody putauditresult putaudit(@RequestBody putauditpost pp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();

@@ -6,7 +6,8 @@ public class searchusematerialdata {
     private String spec;                                //规格
     private String qty;                                 //数量
     private String prodno;                              //产品编号
-    private String spartname;                           //零件名称，即受压元件里的name
+    private String spartname;                           //零件名称*，即受压元件里的name
+    private String prodname;                            //产品名称(入库编号查产品编号，产品编号查产品名称)
     public searchusematerialdata(){
         super();
     }
@@ -57,5 +58,13 @@ public class searchusematerialdata {
 
     public void setSpartname(String spartname) {
         this.spartname = spartname;
+    }
+
+    public String getProdname() {
+        return prodname;
+    }
+
+    public void setProdname(String prodname) {
+        this.prodname = prodname;
     }
 }

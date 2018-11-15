@@ -28,7 +28,7 @@ import java.util.Collections;
 @CrossOrigin
 @Controller
 public class searchnocertsitu {
-    @RequestMapping(value = "searchnocertsituresult")
+    @RequestMapping(value = "searchnocertsituresult")                                       //质保书未到查询
     public @ResponseBody searchnocertsituresult searchnocertsituresult(@RequestBody searchnocertsitupost sp) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
@@ -224,11 +224,10 @@ public class searchnocertsitu {
         conn.close();
         return result;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     }
 
-    @RequestMapping(value = "searchnocertsituexcel")
+    @RequestMapping(value = "searchnocertsituexcel")                                        //质保书未到查询生成excel表格
     public @ResponseBody ResponseEntity<byte[]> searchnocertsituexcel(@RequestBody searchnocertsituexcelpost sp) throws ClassNotFoundException, SQLException, UnsupportedEncodingException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
@@ -250,7 +249,7 @@ public class searchnocertsitu {
         int supplier_id=0;
         int millunit_id=0;
 
-        //try {
+        try {
             ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE certsitu= '质保书未到'");
             rs=ps.executeQuery();
             while(rs.next()){
@@ -401,9 +400,9 @@ public class searchnocertsitu {
             Collections.reverse(as);                                          //将list倒序
 
 
-        //}catch (Exception e){
+        }catch (Exception e){
             System.out.println("error");
-       // }
+        }
 
         Workbook wb = new HSSFWorkbook();
         Sheet sh=wb.createSheet();;
