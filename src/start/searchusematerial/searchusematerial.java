@@ -294,7 +294,7 @@ public class searchusematerial {
             e.printStackTrace();
         }
         HttpHeaders headers = new HttpHeaders();
-        String fileName = new String("质保书未到.xls".getBytes("UTF-8"), "iso-8859-1");//为了解决中文名称乱码问题
+        String fileName = new String("材料使用情况.xls".getBytes("UTF-8"), "iso-8859-1");//为了解决中文名称乱码问题
         headers.setContentDispositionFormData("attachment", fileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(out.toByteArray(),headers, HttpStatus.CREATED);
