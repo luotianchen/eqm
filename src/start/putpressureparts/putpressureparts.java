@@ -31,7 +31,10 @@ public class putpressureparts {                                                 
         int spartname_id=0;
         int designation_id=0;
         int picker_id=0;
+        int issuematl_id=0;
         String uid = UUID.randomUUID().toString();                                  //生成随机字符串
+
+
         try {
             for(int i=0;i<pp.getData().size();i++){
                 java.util.Date d1 = sdf.parse(pp.getData().get(i).getIssuedate());
@@ -65,10 +68,21 @@ public class putpressureparts {                                                 
                 rs.close();
                 ps.close();
 
+                ps = conn.prepareStatement("SELECT * FROM warehouseperson WHERE name=?");
+                ps.setString(1,pp.getData().get(i).getIssuematl());
+                rs=ps.executeQuery();
+                while (rs.next()){
+                    issuematl_id=rs.getInt("id");
+                }
+                rs.close();
+                ps.close();
+
                 ps = conn.prepareStatement("INSERT INTO pressureparts " +
                         "(prodno,parts_id_name,spec,dimension,partno," +
-                        "contraststand_id_designation,qty,codedmarking,issuedate,workshopperson_id_name,note,audit)" +
-                        "value (?,?,?,?,?,?,?,?,?,?,?,?)");
+                        "contraststand_id_designation,qty,codedmarking,issuedate,workshopperson_id_name,note,audit," +
+                        "ispresspart,weldno,returnqty,warehouseperson_id_name)" +
+                        "value (?,?,?,?,?,?,?,?,?,?,?,?," +
+                        "?,?,?,?)");
                 ps.setString(1,pp.getProdno());
                 ps.setInt(2,spartname_id);
                 ps.setString(3,pp.getData().get(i).getSpec());
@@ -81,6 +95,10 @@ public class putpressureparts {                                                 
                 ps.setInt(10,picker_id);
                 ps.setString(11,pp.getData().get(i).getNote());
                 ps.setString(12,uid);
+                ps.setString(13,pp.getData().get(i).getIspresspart());
+                ps.setString(14,pp.getData().get(i).getWeldno());
+                ps.setInt(15,pp.getData().get(i).getReturnqty());
+                ps.setInt(16,issuematl_id);
                 ps.executeUpdate();
                 ps.close();
 
@@ -89,7 +107,7 @@ public class putpressureparts {                                                 
         }catch (Exception e){
             result.setResult("fail");
         }
-
+        conn.close();
         return result;
     }
 }

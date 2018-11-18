@@ -30,11 +30,14 @@ public class getprodno {                                                        
             while (rs.next()){
                 data.add(rs.getString("prodno"));
             }
+            rs.close();
+            ps.close();
             result.setData(data);
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
         }
+        conn.close();
         return result;
     }
 }
