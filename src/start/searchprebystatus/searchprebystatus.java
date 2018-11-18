@@ -37,7 +37,6 @@ public class searchprebystatus {                                //查询审核�
                 data = new searchprebystatusdata();
                 data.setAudit(rs.getString("audit"));
                 data.setProdno(rs.getString("prodno"));
-                System.out.println(""+sdf.format(rs.getTimestamp("updatetime")));
                 data.setUpdatetime(sdf.format(rs.getTimestamp("updatetime")));
                 as.add(data);
             }
