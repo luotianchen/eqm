@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @CrossOrigin
 @Controller
-public class getprodno {
+public class getprodno {                                                            //获取所有产品编号
     @RequestMapping(value = "getprodno" ,method = RequestMethod.GET)
     public @ResponseBody getprodnoresult getprodno() throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();
