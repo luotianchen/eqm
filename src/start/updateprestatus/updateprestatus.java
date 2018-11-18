@@ -11,7 +11,7 @@ import java.sql.*;
 
 @CrossOrigin
 @Controller
-public class updateprestatus {
+public class updateprestatus {                                          //发放记录审核
     @RequestMapping(value = "updateprestatus")
     public @ResponseBody updateprestatusresult updateprestatus(@RequestBody updateprestatuspost up) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();

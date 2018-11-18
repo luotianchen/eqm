@@ -1,12 +1,12 @@
-package start.user;
+package start.login;
 
-public class user {
-    private String username;
-    private String password;
-    private String role;
-    public user(){
+public class loginpost {
+    private String username;                //用户名
+    private String password;                //密码
+    public loginpost(){
         super();
     }
+
     public String getUsername() {
         return username;
     }
@@ -21,13 +21,5 @@ public class user {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }
