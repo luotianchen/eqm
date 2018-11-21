@@ -32,6 +32,7 @@ public class putsupplier {                                                      
         }catch (Exception e){
             result.setResult("fail");
         }
+        conn.close();
         return result;
     }
 }

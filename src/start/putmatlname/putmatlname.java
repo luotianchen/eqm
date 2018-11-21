@@ -32,7 +32,7 @@ public class putmatlname {                                      //添加材料�
         }catch (Exception e){
             result.setResult("fail");
         }
-
+        conn.close();
         return result;
     }
 }

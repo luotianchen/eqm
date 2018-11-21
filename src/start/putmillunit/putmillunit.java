@@ -30,6 +30,7 @@ public class putmillunit {                                                      
         }catch (Exception e){
             result.setResult("fail");
         }
+        conn.close();
         return result;
     }
 }

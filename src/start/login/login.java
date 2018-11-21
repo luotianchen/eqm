@@ -22,22 +22,33 @@ public class login {                                                            
 
         ps=conn.prepareStatement("SELECT * FROM userform");
         rs=ps.executeQuery();
+
+        int roll_id=0;
         String pwd = null;                                                    //存储密码
-        String role=null;                                                      //存储角色(权限)
-        String name=null;                                                       //存储用户真实名字
         int a=0;                                                         //判断
         loginresult result = new loginresult();                                      //返回结果
         while (rs.next()) {											//循环找出账号
             if(rs.getString("username").equals(lp.getUsername())){
                 a=1;												//存在账号输出a=1
-                result.setRole(rs.getString("role"));               //存入与该用户对应的角色(权限)
                 result.setName(rs.getString("name"));               //存入与该用户对应的真实姓名
+                roll_id=rs.getInt("roll_id");                       //取出角色id
                 pwd=rs.getString("password");						//查找与该用户对应的密码
                 break;												//跳出循环
             }else{
                 a=0;												//不存在账号输出a=0
             }
         }
+
+        rs.close();
+        ps.close();
+        ps=conn.prepareStatement("SELECT * FROM roll WHERE id=?");
+        ps.setInt(1,roll_id);
+        rs=ps.executeQuery();
+        while (rs.next()){
+            result.setRoll(rs.getString("rollname"));
+        }
+        rs.close();
+        ps.close();
         if(a==1){
             if(pwd.equals(lp.getPassword())){
                 result.setResult("success");
@@ -48,6 +59,7 @@ public class login {                                                            
         if(a==0){
             result.setResult("fail");
         }
+        conn.close();
         return result;
     }
 }

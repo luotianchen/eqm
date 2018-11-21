@@ -39,6 +39,7 @@ public class putaudit {                                             //提交审�
         }catch (Exception e){
             result.setResult("fail");
         }
+        conn.close();
         return result;
     }
 }

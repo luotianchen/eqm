@@ -49,7 +49,7 @@ public class searchprebystatus {                                //查询审核�
         }catch (Exception e){
             result.setResult("fail");
         }
-
+        conn.close();
         return result;
 
     }
