@@ -1,0 +1,191 @@
+<div>
+  <h3 class="title">材料发放登记</h3>
+  <span style="float: right">
+    <button class="tool-button" nz-button nzType="default">添加车间人员</button>
+    <button class="tool-button" nz-button nzType="default" (click)="createTplModal(matlnameTitle, matlnameContent, matlnameFooter,'millunit')">添加材料名称</button>
+  </span>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="prodno">产品编号</nz-form-label>
+          <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select [nzMaxMultipleCount]="1" style="width: 100%" nzMode="tags" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodno" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="prodname">产品名称</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input nz-input placeHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData(true)">查询</button>
+    </div>
+  </div>
+</form>
+<div *ngIf="status">
+  <button nz-button (click)="addRow()" class="editable-add-btn" style="margin-top: 30px">添加一行</button>
+  <nz-table
+    #editRowTable
+    nzBordered
+    [nzScroll]="{x:'1300px'}"
+    [nzData]="dataSet">
+    <thead>
+    <tr>
+      <th nzLeft="0px">名称</th>
+      <th>规格</th>
+      <th>尺寸</th>
+      <th>件号</th>
+      <th>牌号</th>
+      <th>数量</th>
+      <th>入库编号</th>
+      <th>发料日期</th>
+      <th>领料人</th>
+      <th>备注</th>
+      <th style="min-width: 150px;" nzRight="0px">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of editRowTable.data">
+      <td nzLeft="0px">
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.spartname}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.spartname">
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.spec}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.spec">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.dimension}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.dimension">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.partno}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.partno">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.designation}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.designation">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.qty}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <nz-input-number [nzStep]="1" [(ngModel)]="editCache[data.key].data.qty"></nz-input-number>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.codedmarking}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.codedmarking">
+        </ng-container>
+      </td>
+      <td style="min-width: 100px">
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.issuedate}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.issuedate" (blur)="formatInDate(data.key)">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.picker}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.picker">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.note}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.note">
+        </ng-container>
+      </td>
+      <td nzRight="0px">
+        <div class="editable-row-operations">
+          <ng-container *ngIf="!editCache[data.key].edit">
+            <a (click)="startEdit(data.key)">修改</a>
+            <nz-popconfirm [nzTitle]="'确认删除本行数据吗?'" (nzOnConfirm)="deleteRow(data.key)" style="margin-left: 10px;">
+              <a nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </ng-container>
+          <ng-container *ngIf="editCache[data.key].edit">
+            <a (click)="saveEdit(data.key)">保存</a>
+            <nz-popconfirm [nzTitle]="'确定要取消修改吗？'" (nzOnConfirm)="cancelEdit(data.key)" style="margin-left: 10px;">
+              <a nz-popconfirm>取消</a>
+            </nz-popconfirm>
+          </ng-container>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <div style="text-align: center">
+    <button nz-button nzType="primary" (click)="putdustribute()">提交</button>
+  </div>
+</div>
+<div id="addMatlname">
+  <form nz-form [formGroup]="matlnameValidateForm">
+    <ng-template #matlnameTitle>
+      <span>添加材料名称</span>
+    </ng-template>
+    <ng-template #matlnameContent>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="matlname" nzRequired>材料名称</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="matlname" nz-input placeholder="材料名称">
+          <nz-form-explain *ngIf="matlnameValidateForm.get('matlname').dirty && matlnameValidateForm.get('matlname').errors">材料名称不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+    <ng-template #matlnameFooter>
+      <button nz-button nzType="primary" (click)="submitInfo('matlname')" [nzLoading]="tplModalButtonLoading">提交</button>
+    </ng-template>
+  </form>
+</div>

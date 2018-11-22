@@ -24,24 +24,22 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.loadStatus = true;
       this.loginBtn = '登录中...';
-      const userName = this.validateForm.value.userName;
+      const username = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
-      if (userName === 'admin' && password === 'admin') {
-        this._storage.set('username', userName);
-        this.router.navigate(['']);
-      }
-      // this.loginService.login(userName, password).subscribe(res => {
-      //   if (res['result'] === 'success') {
-      //     this._storage.set('username', userName);
-      //     this.router.navigate(['']);
-      //   } else {
-      //     this.loadStatus = false;
-      //     this.loginBtn = '登录';
-      //     this.message.error('账号或密码错误！');
-      //   }
-      // });
+      this.loginService.login(username, password).subscribe(res => {
+        if (res['result'] === 'success') {
+          this._storage.set('username', username);
+          this._storage.set('name', name);
+          this.router.navigate(['']);
+        } else {
+          this.loadStatus = false;
+          this.loginBtn = '登录';
+          this.message.error('账号或密码错误！');
+        }
+      });
     }
   }
+
   constructor(private fb: FormBuilder, private message: NzMessageService,
               private loginService: LoginService, private router: Router, private _storage: SessionStorageService) {
   }
@@ -51,6 +49,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this._storage.get('username')!=null){
+      this.router.navigate(['']);
+    }
     this.validateForm = this.fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],

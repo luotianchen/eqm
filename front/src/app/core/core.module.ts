@@ -3,6 +3,7 @@ import {NHttpClinet} from './utils/http.client';
 import {CanAuthProvide} from './services/auth.service';
 import {SettingsService} from './services/settings.service';
 import {MenuService} from "./services/menu.service";
+import {ApiService} from "./api/api.service";
 
 @NgModule({
   providers: [
@@ -10,6 +11,7 @@ import {MenuService} from "./services/menu.service";
     CanAuthProvide,
     SettingsService,
     MenuService,
+    ApiService
   ]
 })
 

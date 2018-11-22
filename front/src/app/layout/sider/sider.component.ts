@@ -31,6 +31,7 @@ export class SiderComponent {
     });
   }
 
+
   openHandler(value: string): void {
     for (const key in this.menuOpenMap) {
       if (key !== value) {

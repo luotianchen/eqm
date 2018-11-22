@@ -1,4 +1,3 @@
-
 import {filter} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET} from '@angular/router';

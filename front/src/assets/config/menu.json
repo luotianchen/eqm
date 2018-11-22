@@ -10,23 +10,22 @@
         },
         {
           "icon": "database",
-          "name": "材料验收管理",
-          "route": "/material",
+          "name": "材料入库管理",
           "submenu": [
             {
               "icon": "laptop",
               "name": "材料入库登记",
-              "route": "/registration"
+              "route": "/material/warehousingRegistration"
             },
             {
               "icon": "laptop",
-              "name": "报表生成",
-              "route": "/dashboard"
+              "name": "入库登记审核",
+              "route": "/material/warehousingAudit"
             },
             {
               "icon": "laptop",
-              "name": "审核输入",
-              "route": "/dashboard"
+              "name": "材料入库查询",
+              "route": "/material/warehousingQuery"
             }
           ]
         },
@@ -53,13 +52,23 @@
           "submenu": [
             {
               "icon": "laptop",
-              "name": "Dashboard",
-              "route": "/dashboard"
+              "name": "材料发放登记",
+              "route": "/material/materialDistribute"
             },
             {
               "icon": "laptop",
-              "name": "Dashboard",
-              "route": "/dashboard"
+              "name": "焊材发放登记",
+              "route": "/material/weldingDistribute"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件发放登记",
+              "route": "/material/pressurePartsDistribute"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件登记审核",
+              "route": "/material/pressurePartsAudit"
             }]
         },
         {
@@ -69,13 +78,28 @@
           "submenu": [
             {
               "icon": "laptop",
-              "name": "Dashboard",
-              "route": "/dashboard"
+              "name": "质保书未到情况查询",
+              "route": "/material/warrantyAbsent"
             },
             {
               "icon": "laptop",
-              "name": "Dashboard",
-              "route": "/dashboard"
+              "name": "单项质保书未到查询",
+              "route": "/material/singleWarrantyAbsent"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料使用查询",
+              "route": "/material/materialUsing"
+            },
+            {
+              "icon": "laptop",
+              "name": "月材料查询",
+              "route": "/material/monthMaterial"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件对照表",
+              "route": "/material/presureParts"
             }]
         },
         {
@@ -97,7 +121,7 @@
       ]
     },
     {
-      "name": "bbb",
+      "name": "理化管理",
       "data": [
         {
           "icon": "laptop",

@@ -1,0 +1,69 @@
+<div>
+  <h3 class="title">入库材料审核</h3>
+</div>
+<div style="margin-top: 30px;">
+  <nz-table
+    #ajaxTable
+    nzBordered
+    [nzData]="dataSet">
+    <thead>
+    <tr>
+      <th></th>
+      <th>提交时间</th>
+      <th>产品编号</th>
+      <th style="min-width: 100px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+      <tr>
+        <td nzShowExpand [(nzExpand)]="data.expand" (click)="search(data.audit)"></td>
+        <td>{{data.updatetime}}</td>
+        <td>{{data.prodno}}</td>
+        <td><a (click)="Audit(data.audit,1)">通过</a>&nbsp;&nbsp;<a (click)="Audit(data.audit,2)">不通过</a></td>
+      </tr>
+      <tr [nzExpand]="data.expand">
+        <td></td>
+        <td colspan="7">
+          <nz-table #innerTable [nzData]="dataDetail[data.audit]" nzSize="middle" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th>提交人</th>
+                <th>零件名称</th>
+                <th>规格</th>
+                <th>尺寸</th>
+                <th>件号</th>
+                <th>牌号</th>
+                <th>数量</th>
+                <th>入库编号</th>
+                <th>发料日期</th>
+                <th>领料人</th>
+                <th>焊缝号</th>
+                <th>退回数量</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of innerTable.data">
+                <td>{{data.issuematl}}</td>
+                <td>{{data.spartname}}</td>
+                <td>{{data.spec}}</td>
+                <td>{{data.dimension}}</td>
+                <td>{{data.partno}}</td>
+                <td>{{data.designation}}</td>
+                <td>{{data.qty}}</td>
+                <td>{{data.codedmarking}}</td>
+                <td>{{data.issuedate}}</td>
+                <td>{{data.picker}}</td>
+                <td>{{data.weldno}}</td>
+                <td>{{data.returnqty}}</td>
+                <td>{{data.note}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+</div>

@@ -1,0 +1,190 @@
+<div>
+  <h3 class="title">材料入库情况查询</h3>
+</div>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form" (ngSubmit)="search()">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="codedmarking">入库编号</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input nz-input placeholder="入库编号" formControlName="codedmarking" name="codedmarking" id="codedmarking" >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="matlname">材料名称</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <nz-select formControlName="matlname" name="matlname" id="matlname" nzPlaceHolder="材料名称" nzShowSearch nzAllowClear>
+            <nz-option *ngFor="let o of this.matlname" [nzValue]="o" [nzLabel]="o"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="designation">牌号</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input nz-input placeholder="牌号" formControlName="designation" name="designation" id="designation" >
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="spec">规格</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <div class="spec-input">
+            <input placeholder="规格" nz-input  formControlName="spec" name="spec" id="spec" (input)="onSpecInput($event.target?.value)" (click)="onSpecInput($event.target?.value)" [nzAutocomplete]="specauto">
+            <nz-autocomplete nzBackfill #specauto>
+              <nz-auto-option *ngFor="let option of specs" [nzValue]="option">
+                {{option}}
+              </nz-auto-option>
+            </nz-autocomplete>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="millunit">生产单位</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <nz-select nzMode="default" formControlName="millunit" name="millunit" id="millunit" nzShowSearch nzAllowClear nzPlaceHolder="生产单位">
+            <nz-option *ngFor="let option of millunits" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="indate">入库日期</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input nz-input formControlName="indate" name="indate" placeholder="入库日期" type="text" id="indate" (blur)="formatInDate()">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <!--
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="status">审核状态</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <nz-select  formControlName="status" name="status" placeholder="审核状态" type="text" id="status" >
+            <ng-container *ngFor="let o of statusQ">
+              <nz-option [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+            </ng-container>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    -->
+    <div nz-col [nzSpan]="8">
+      <div nz-col nzSpan="8">
+        <button nz-button [nzType]="'primary'" (click)="searchData(true)">查询</button>
+      </div>
+      <div nz-col nzSpan="8">
+        <button nz-button (click)="resetForm()">重置</button>
+      </div>
+    </div>
+  </div>
+</form>
+<div style="margin-top: 30px;">
+  <nz-table
+    #ajaxTable
+    nzShowSizeChanger
+    [nzFrontPagination]="false"
+    [nzData]="dataset"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageindex"
+    [(nzPageSize)]="pagesize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+    <thead>
+    <tr>
+      <th nzShowExpand></th>
+      <th>入库编号</th>
+      <th>材料名称</th>
+      <th>牌号</th>
+      <th>规格</th>
+      <th>生产单位</th>
+      <th>数量</th>
+      <th>供货单位</th>
+      <th>入库日期</th>
+      <!--<th>状态</th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+        <tr>
+          <td nzShowExpand [(nzExpand)]="data.expand"></td>
+          <td>{{data.codedmarking}}</td>
+          <td>{{data.matlname}}</td>
+          <td>{{data.designation}}</td>
+          <td>{{data.spec}}</td>
+          <td>{{data.millunit}}</td>
+          <td>{{data.qty}}</td>
+          <td>{{data.supplier}}</td>
+          <td>{{data.indate}}</td>
+          <!--<td *ngIf="data.status"><nz-badge nzStatus="success"></nz-badge></td>
+          <td *ngIf="!data.status"><nz-badge nzStatus="error"></nz-badge></td>-->
+        </tr>
+        <tr [nzExpand]="data.expand">
+          <td></td>
+          <td colspan="9">
+            <div nz-row>
+              <span nz-col nzSpan="4" *ngIf="data.warrantysitu!=null">质保书情况：{{data.warrantysitu}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.note!=null">备注：{{data.note}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.warrantyno!=null">质保书号：{{data.warrantyno}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.matlstand!=null">材料标准号：{{data.matlstand}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.modelstand!=null">型号标准号：{{data.modelstand}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.unit!=null">数量单位：{{data.unit}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.dimension!=null">尺寸：{{data.dimension}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.heatbatchno!=null">炉批号：{{data.heatbatchno}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.c!=null">C%:{{data.c}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.s!=null">S%:{{data.s}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.mn!=null">Mn%:{{data.mn}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.cu!=null">Cu%:{{data.cu}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.ni!=null">Ni%:{{data.ni}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.cr!=null">Cr%:{{data.cr}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.mo!=null">Mo%:{{data.mo}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.nb!=null">Nb%:{{data.nb}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.v!=null">V%:{{data.v}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.ti!=null">Ti%:{{data.ti}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.als!=null">ALs%:{{data.als}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.alt!=null">ALt%:{{data.alt}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.n!=null">N%:{{data.n}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.fe!=null">Fe%:{{data.fe}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.mg!=null">Mg%:{{data.mg}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.zn!=null">Zn%:{{data.zn}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.b!=null">B%:{{data.b}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.w!=null">W%:{{data.w}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.sb!=null">Sb%:{{data.sb}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.al!=null">Al%:{{data.al}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.zr!=null">Zr%:{{data.zr}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.ca!=null">Ca%:{{data.ca}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.be!=null">Be%:{{data.be}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.p!=null">P%:{{data.p}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.s!=null">S%:{{data.s}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.heatcondi!=null">热处理状态:{{data.heatcondi}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.rel1!=null">屈服强度1:{{data.rel1}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.rel2!=null">屈服强度2:{{data.rel2}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.rm1!=null">抗拉强度1:{{data.rm1}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.rm2!=null">抗拉强度2:{{data.rm2}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.elong1!=null">延长率1:{{data.elong1}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.elong2!=null">延长率2:{{data.elong2}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.hardness1!=null">硬度1:{{data.hardness1}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.hardness2!=null">硬度2:{{data.hardness2}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.hardness3!=null">硬度3:{{data.hardness3}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.impactp1!=null">冲击功1:{{data.impactp1}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.impactp2!=null">冲击功2:{{data.impactp2}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.impactp3!=null">冲击功3:{{data.impactp3}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.impacttemp!=null">冲击温度:{{data.impacttemp}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.bendangle!=null">弯曲角度:{{data.bendangle}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.bendaxdia!=null">弯曲直径:{{data.bendaxdia}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.utclass!=null">超声波级别:{{utclass[data.utclass]}}</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+  </div>

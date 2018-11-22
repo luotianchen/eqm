@@ -13,6 +13,8 @@ import {SessionStorageService} from 'src/app/core/storage/storage.module';
 export class HeaderComponent {
   navs = null;
   constructor(public settings: SettingsService, public menu: MenuService, private router: Router, public _storage: SessionStorageService) {
+  }
+  ngOnInit(){
     this.menu.getNavs().then((result: any) => {
       this.navs = result.data;
       this.settings.setnav(this.navs[0].name.toString());
