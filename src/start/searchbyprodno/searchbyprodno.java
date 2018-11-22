@@ -73,105 +73,97 @@ public class searchbyprodno {                                               //�
                 num++;
             }
             rs=ps.executeQuery();
-            if(!rs.next()){
-                result.setResult("fail");
-                rs.close();
-                ps.close();
-            }else {
-                rs.close();
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data = new searchbyprodnodata();
-                    prodno = rs.getString("prodno");
-                    data.setSpec(rs.getString("spec"));
-                    data.setDimension(rs.getString("dimension"));
-                    data.setPartno(rs.getString("partno"));
-                    data.setQty(rs.getString("qty"));
-                    data.setCodedmarking(rs.getString("codedmarking"));
-                    data.setIssuedate(sdf.format(rs.getDate("issuedate")));
-                    data.setIspresspart(rs.getString("ispresspart"));
-                    data.setWeldno(rs.getString("weldno"));
-                    data.setReturnqty(rs.getInt("returnqty"));
-                    data.setNote(rs.getString("note"));
-                    spartname_id=rs.getInt("parts_id_name");
-                    designation_id=rs.getInt("contraststand_id_designation");
-                    picker_id=rs.getInt("workshopperson_id_name");
-                    issuematl_id=rs.getInt("warehouseperson_id_name");
+            while (rs.next()){
+                data = new searchbyprodnodata();
+                prodno = rs.getString("prodno");
+                data.setSpec(rs.getString("spec"));
+                data.setDimension(rs.getString("dimension"));
+                data.setPartno(rs.getString("partno"));
+                data.setQty(rs.getString("qty"));
+                data.setCodedmarking(rs.getString("codedmarking"));
+                data.setIssuedate(sdf.format(rs.getDate("issuedate")));
+                data.setIspresspart(rs.getString("ispresspart"));
+                data.setWeldno(rs.getString("weldno"));
+                data.setReturnqty(rs.getInt("returnqty"));
+                data.setNote(rs.getString("note"));
+                spartname_id=rs.getInt("parts_id_name");
+                designation_id=rs.getInt("contraststand_id_designation");
+                picker_id=rs.getInt("workshopperson_id_name");
+                issuematl_id=rs.getInt("warehouseperson_id_name");
 
-                    ps1=conn.prepareStatement("SELECT * FROM parts WHERE id=?");
-                    ps1.setInt(1,spartname_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        data.setSpartname(rs1.getString("partsname"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                    ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                    ps1.setInt(1,designation_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        data.setDesignation(rs1.getString("designation"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                    ps1=conn.prepareStatement("SELECT * FROM workshopperson WHERE id=?");
-                    ps1.setInt(1,picker_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        data.setPicker(rs1.getString("name"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                    ps1=conn.prepareStatement("SELECT * FROM warehouseperson WHERE id=?");
-                    ps1.setInt(1,issuematl_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        data.setIssuematl(rs1.getString("name"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                    as.add(data);
+                ps1=conn.prepareStatement("SELECT * FROM parts WHERE id=?");
+                ps1.setInt(1,spartname_id);
+                rs1=ps1.executeQuery();
+                while (rs1.next()){
+                    data.setSpartname(rs1.getString("partsname"));
                 }
-                rs.close();
-                ps.close();
+                rs1.close();
+                ps1.close();
 
-                Collections.reverse(as);                                          //将list1倒序
-
-                ps=conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno=?");
-                ps.setString(1,prodno);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    dwgno_id=rs.getInt("proparlist_id_dwgno");
+                ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
+                ps1.setInt(1,designation_id);
+                rs1=ps1.executeQuery();
+                while (rs1.next()){
+                    data.setDesignation(rs1.getString("designation"));
                 }
-                rs.close();
-                ps.close();
+                rs1.close();
+                ps1.close();
 
-                ps=conn.prepareStatement("SELECT * FROM proparlist WHERE id=?");
-                ps.setInt(1,dwgno_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    result.setDwgno(rs.getString("dwgno"));
-                    prodname_id=rs.getInt("productname_id_prodname");
+                ps1=conn.prepareStatement("SELECT * FROM workshopperson WHERE id=?");
+                ps1.setInt(1,picker_id);
+                rs1=ps1.executeQuery();
+                while (rs1.next()){
+                    data.setPicker(rs1.getString("name"));
                 }
-                rs.close();
-                ps.close();
+                rs1.close();
+                ps1.close();
 
-                ps=conn.prepareStatement("SELECT * FROM productname WHERE id=?");
-                ps.setInt(1,prodname_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    result.setProdname(rs.getString("prodname"));
+                ps1=conn.prepareStatement("SELECT * FROM warehouseperson WHERE id=?");
+                ps1.setInt(1,issuematl_id);
+                rs1=ps1.executeQuery();
+                while (rs1.next()){
+                    data.setIssuematl(rs1.getString("name"));
                 }
-                rs.close();
-                ps.close();
+                rs1.close();
+                ps1.close();
 
-                result.setData(as);
-                result.setResult("success");
+                as.add(data);
             }
+            rs.close();
+            ps.close();
+
+            Collections.reverse(as);                                          //将list1倒序
+
+            ps=conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno=?");
+            ps.setString(1,prodno);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                dwgno_id=rs.getInt("proparlist_id_dwgno");
+            }
+            rs.close();
+            ps.close();
+
+            ps=conn.prepareStatement("SELECT * FROM proparlist WHERE id=?");
+            ps.setInt(1,dwgno_id);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                result.setDwgno(rs.getString("dwgno"));
+                prodname_id=rs.getInt("productname_id_prodname");
+            }
+            rs.close();
+            ps.close();
+
+            ps=conn.prepareStatement("SELECT * FROM productname WHERE id=?");
+            ps.setInt(1,prodname_id);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                result.setProdname(rs.getString("prodname"));
+            }
+            rs.close();
+            ps.close();
+
+            result.setData(as);
+            result.setResult("success");
 
         }catch (Exception e){
             result.setResult("fail");
