@@ -11,7 +11,7 @@ import java.sql.*;
 
 @CrossOrigin
 @Controller
-public class putdepartment {
+public class putdepartment {                                    // 增加部门
     @RequestMapping(value = "putdepartment")
     public @ResponseBody putdepartmentresult putdepartment(@RequestBody putdepartmentpost pp) throws SQLException, ClassNotFoundException {
         jdbc j = new jdbc();

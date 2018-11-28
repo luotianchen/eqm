@@ -38,6 +38,11 @@ public class searchmonthmatl {
         PreparedStatement ps1 = null;
         ResultSet rs1=null;
 
+        int inmonth =Integer.parseInt(sp.getInmonth());
+        if(inmonth<10){
+            sp.setInmonth("0"+sp.getInmonth());
+        }
+
         int warrantysitu_id=0;
         int supplier_id=0;
         int millunit_id=0;
@@ -160,12 +165,11 @@ public class searchmonthmatl {
                 result.setResult("success");
                 result.setData(as_q);
                 result.setTotal(as_q.size());
-            }else {
+            }else{
                 as_q=new ArrayList<searchmonthmatldata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),(sp.getPageindex()*sp.getPagesize())));
                 result.setResult("success");
                 result.setData(as_q);
                 result.setTotal(as_q.size());
-                System.out.println(""+as_q.size());
             }
         }catch (Exception e){
             result.setResult("fail");

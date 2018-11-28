@@ -1,14 +1,14 @@
-package start.getuserform;
+package start.changerole;
 
-public class getuserformdata {
+public class changerolepost {
     private String username;                            //用户名
-    private int role;                                   //角色(权限)id_1
+    private int role;                                   //角色(权限)的id_1
     private int role2;                                   //角色(权限)的id_2
     private int role3;                                   //角色(权限)的id_3
     private int role4;                                   //角色(权限)的id_4
     private int role5;                                   //角色(权限)的id_5
-    private String name;                                //真实姓名
-    public getuserformdata(){
+
+    public changerolepost(){
         super();
     }
 
@@ -18,14 +18,6 @@ public class getuserformdata {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getRole() {

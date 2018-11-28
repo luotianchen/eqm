@@ -11,7 +11,7 @@ import java.sql.*;
 
 @CrossOrigin
 @Controller
-public class changedepartmentname {
+public class changedepartmentname {                                 //修改部门名称
     @RequestMapping(value = "changedepartmentname")
     public @ResponseBody changedepartmentnameresult changedepartmentname(@RequestBody changedepartmentnamepost cp) throws SQLException, ClassNotFoundException {
         jdbc j = new jdbc();

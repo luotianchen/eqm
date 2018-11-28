@@ -1,11 +1,11 @@
-package start.getroll;
+package start.getrole;
 
 import java.util.ArrayList;
 
-public class getrollresult {
+public class getroleresult {
     private String result;
-    private ArrayList<getrolldata> data = new ArrayList<getrolldata>();
-    public getrollresult(){
+    private ArrayList<getroledata> data = new ArrayList<getroledata>();
+    public getroleresult(){
         super();
     }
 
@@ -17,11 +17,11 @@ public class getrollresult {
         this.result = result;
     }
 
-    public ArrayList<getrolldata> getData() {
+    public ArrayList<getroledata> getData() {
         return data;
     }
 
-    public void setData(ArrayList<getrolldata> data) {
+    public void setData(ArrayList<getroledata> data) {
         this.data = data;
     }
 }

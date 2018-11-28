@@ -31,7 +31,11 @@ public class getuserform {                                                  //èŽ
             while (rs.next()){
                 data = new getuserformdata();
                 data.setName(rs.getString("name"));
-                data.setRoll(rs.getInt("roll_id"));
+                data.setRole(rs.getInt("role_id"));
+                data.setRole2(rs.getInt("role2_id"));
+                data.setRole3(rs.getInt("role3_id"));
+                data.setRole4(rs.getInt("role4_id"));
+                data.setRole5(rs.getInt("role5_id"));
                 data.setUsername(rs.getString("username"));
                 ag.add(data);
             }

@@ -30,7 +30,7 @@ public class searchprebystatus {                                //查询审核�
         ArrayList<searchprebystatusdata> as = new ArrayList<searchprebystatusdata>();
 
         try {
-            ps=conn.prepareStatement("SELECT * FROM pressureparts WHERE status=?");
+            ps=conn.prepareStatement("SELECT distinct audit,prodno,updatetime FROM pressureparts WHERE status=?");
             ps.setInt(1,sp.getStatus());
             rs=ps.executeQuery();
             while (rs.next()){

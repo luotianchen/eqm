@@ -1,8 +1,8 @@
-package start.deleteroll;
+package start.putrole;
 
-public class deleterollresult {
+public class putroleresult {
     private String result;
-    public deleterollresult(){
+    public putroleresult(){
         super();
     }
 

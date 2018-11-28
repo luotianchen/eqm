@@ -1,18 +1,18 @@
-package start.putroll;
+package start.putrole;
 
-public class putrollpost {
-    private String rollname;                                    //角色名称
+public class putrolepost {
+    private String rolename;                                    //角色名称
     private String department;                                  //角色所处部门名称
-    public putrollpost(){
+    public putrolepost(){
         super();
     }
 
-    public String getRollname() {
-        return rollname;
+    public String getRolename() {
+        return rolename;
     }
 
-    public void setRollname(String rollname) {
-        this.rollname = rollname;
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
     }
 
     public String getDepartment() {

@@ -1,4 +1,4 @@
-package start.deleteroll;
+package start.changerolename;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,20 +11,22 @@ import java.sql.*;
 
 @CrossOrigin
 @Controller
-public class deleteroll {
-    @RequestMapping(value = "deleteroll")
-    public @ResponseBody deleterollresult deleteroll(@RequestBody deleterollpost dp) throws SQLException, ClassNotFoundException {
+public class changerolename {                                               //修改角色名称
+    @RequestMapping(value = "changerolename")
+    public @ResponseBody
+    changerolenameresult changerolename(@RequestBody changerolenamepost cp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
 
-        deleterollresult result = new deleterollresult();
+        changerolenameresult result = new changerolenameresult();
 
         try {
-            ps = conn.prepareStatement("DELETE FROM roll WHERE id = ?");
-            ps.setInt(1,dp.getRoll());
+            ps = conn.prepareStatement("UPDATE role SET rolename = ? WHERE id = ?");
+            ps.setString(1,cp.getRolename());
+            ps.setInt(2,cp.getRole());
             ps.executeUpdate();
             ps.close();
             result.setResult("success");

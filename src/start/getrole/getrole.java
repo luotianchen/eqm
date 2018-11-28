@@ -1,4 +1,4 @@
-package start.getroll;
+package start.getrole;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,28 +12,32 @@ import java.util.ArrayList;
 
 @CrossOrigin
 @Controller
-public class getroll {                              //获取所有角色
-    @RequestMapping(value = "getroll",method = RequestMethod.GET)
-    public @ResponseBody getrollresult getroll() throws ClassNotFoundException, SQLException {
+public class getrole {                              //获取所有角色
+    @RequestMapping(value = "getrole",method = RequestMethod.GET)
+    public @ResponseBody getroleresult getrole() throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
 
-        getrollresult result = new getrollresult();
-        getrolldata data = null;
-        ArrayList<getrolldata> ag = new ArrayList<getrolldata>();
+        getroleresult result = new getroleresult();
+        getroledata data = null;
+        ArrayList<getroledata> ag = new ArrayList<getroledata>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM roll");
+            ps = conn.prepareStatement("SELECT * FROM role");
             rs= ps.executeQuery();
             while (rs.next()){
-                data = new getrolldata();
-                data.setRoll(rs.getInt("id"));
-                data.setRollname(rs.getString("rollname"));
-                data.setDepartment(rs.getInt("department_id"));
-                ag.add(data);
+                data = new getroledata();
+                if(rs.getInt("id")==0){
+                    continue;
+                }else {
+                    data.setRole(rs.getInt("id"));
+                    data.setRolename(rs.getString("rolename"));
+                    data.setDepartment(rs.getInt("department_id"));
+                    ag.add(data);
+                }
             }
             rs.close();
             ps.close();

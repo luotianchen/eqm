@@ -1,8 +1,8 @@
-package start.changeroll;
+package start.changerole;
 
-public class changerollresult {
+public class changeroleresult {
     private String result;
-    public changerollresult(){
+    public changeroleresult(){
         super();
     }
 

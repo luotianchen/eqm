@@ -41,13 +41,26 @@ public class putsignature {                                                 //ä¸
                 FileUtils.copyInputStreamToFile(inputStream, file);
                 String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/upload/" + filename;
 
-                ps = conn.prepareStatement("UPDATE userform SET signature = ? WHERE username = ?");
-                ps.setString(1,url);
-                ps.setString(2,username);
-                ps.executeUpdate();
-                ps.close();
+                ps = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
+                ps.setString(1,username);
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    rs.close();
+                    ps.close();
+                    ps = conn.prepareStatement("UPDATE userform SET signature = ? WHERE username = ?");
+                    ps.setString(1,url);
+                    ps.setString(2,username);
+                    ps.executeUpdate();
+                    ps.close();
 
-                result.setResult("success");
+                    result.setResult("success");
+                }else {
+                    rs.close();
+                    ps.close();
+                    result.setResult("fail");
+                }
+
+
             }else {
                 result.setResult("fail");
             }

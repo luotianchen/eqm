@@ -35,7 +35,7 @@ public class putpressureparts {                                                 
         String uid = UUID.randomUUID().toString();                                  //生成随机字符串
 
 
-        try {
+        //try {
             for(int i=0;i<pp.getData().size();i++){
                 java.util.Date d1 = sdf.parse(pp.getData().get(i).getIssuedate());
                 java.sql.Date d = new java.sql.Date(d1.getTime());
@@ -104,9 +104,9 @@ public class putpressureparts {                                                 
 
             }
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }

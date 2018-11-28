@@ -1,8 +1,9 @@
-package start.changerollname;
+package start.changerolename;
 
-public class changerollnameresult {
+public class changerolenameresult {
+
     private String result;
-    public changerollnameresult(){
+    public changerolenameresult(){
         super();
     }
 
