@@ -9,20 +9,20 @@
     <ul nz-menu [nzMode]="'inline'" [nzTheme]="theme?'dark':'light'" [nzInlineCollapsed]="settings.layout.isCollapsed"
         [nzMode]="settings.layout.isCollapsed?'vertical':'inline'"
         *ngIf="menus.name == (typeofNav()? navs[0].name:getSettingNav())"
-    >
-      <ng-container *ngFor="let item of menus.data;let i = index">
+        style="height: calc(100% - 80px);overflow: scroll;">
+      <ng-container *ngFor="let item of menus.data;">
           <span>
-             <li nz-submenu *ngIf="item.submenu&&item.submenu.length>0;else elseBlock"  [(nzOpen)]="menuOpenMap[item.name]" (nzOpenChange)="openHandler(item.name)">
+             <li nz-submenu *ngIf="item.submenu && item.submenu.length>0;else elseBlock" [(nzOpen)]="menuOpenMap[item.name]" (nzOpenChange)="openHandler(item.name)">
             <span title><i class="anticon anticon-{{item.icon}}"></i> <span class="nav-text">{{item.name}}</span></span>
             <ul>
-              <li nz-menu-item routerLink="{{subItem.route}}" *ngFor="let subItem of item.submenu">
+              <li nz-menu-item routerLink="{{subItem.route}}" *ngFor="let subItem of item.submenu" [nzSelected]="subItem.highlight">
                 <span title><i class="anticon anticon-{{subItem.icon}}"></i> <span class="nav-text"> {{subItem.name}}</span></span>
               </li>
             </ul>
           </li>
           </span>
           <ng-template #elseBlock>
-            <li nz-menu-item routerLink="{{item.route}}" [nzSelected]="i==0?true:false"><span title><i nz-icon type="{{item.icon}}"></i><span
+            <li nz-menu-item routerLink="{{item.route}}" [nzSelected]="router.highlight"><span title><i nz-icon type="{{item.icon}}"></i><span
               class="nav-text">{{item.name}}</span></span>
             </li>
           </ng-template>

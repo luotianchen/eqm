@@ -1,0 +1,150 @@
+<div>
+  <h3 class="title">材料入库情况查询</h3>
+</div>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <div nz-col nzSpan="8">
+        <button nz-button [nzType]="'primary'" (click)="searchData(true)">查询</button>
+      </div>
+      <div nz-col nzSpan="8">
+        <button nz-button (click)="resetForm()">重置</button>
+      </div>
+    </div>
+  </div>
+</form>
+<div style="margin-top: 30px;" *ngIf="!status">
+  <nz-table
+    #ajaxTable
+    nzShowSizeChanger
+    [nzFrontPagination]="false"
+    [nzData]="dataset"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageindex"
+    [(nzPageSize)]="pagesize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+    <thead>
+    <tr>
+      <th>提交人</th>
+      <th>提交时间</th>
+      <th>产品编号</th>
+      <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+        <tr>
+          <td>{{data.user}}</td>
+          <td>{{data.date}}</td>
+          <td>{{data.prodno}}</td>
+          <td><a (click)="setUrlParam(data);">生成报表</a></td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+</div>
+<div *ngIf="status" #print>
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <button nz-button nzType="primary" *ngIf="printBtnBoolean" (click)="status = false" style="margin-right: 20px;">返回列表</button>
+    <essence-ng2-print
+      [mode]="'iframe'"
+      [popTitle]="'材料代用单'"
+      [btnText]="'打印材料代用单'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <p>
+    <iframe id="reportframe" src="../assets/report/cailiaodaiyongdan.html" style="width:100%;height:1000px;border: none;"
+            [attr.data-prodname]="reportData.prodname"
+            [attr.data-prodno]="reportData.prodno"
+            [attr.data-dwgno]="reportData.dwgno"
+            [attr.data-date]="reportData.date"
+            [attr.data-why]="reportData.why"
+            [attr.data-user]="reportData.user"
+            [attr.data-index1]="reportData.index1"
+            [attr.data-name1]="reportData.name1"
+            [attr.data-designmatl1]="reportData.designmatl1"
+            [attr.data-designspec1]="reportData.designspec1"
+            [attr.data-substitutematl1]="reportData.substitutematl1"
+            [attr.data-substitutespec1]="reportData.substitutespec1"
+            [attr.data-type1]="reportData.type1"
+            [attr.data-index2]="reportData.index2"
+            [attr.data-name2]="reportData.name2"
+            [attr.data-designmatl2]="reportData.designmatl2"
+            [attr.data-designspec2]="reportData.designspec2"
+            [attr.data-substitutematl2]="reportData.substitutematl2"
+            [attr.data-substitutespec2]="reportData.substitutespec2"
+            [attr.data-type2]="reportData.type2"
+            [attr.data-index3]="reportData.index3"
+            [attr.data-name3]="reportData.name3"
+            [attr.data-designmatl3]="reportData.designmatl3"
+            [attr.data-designspec3]="reportData.designspec3"
+            [attr.data-substitutematl3]="reportData.substitutematl3"
+            [attr.data-substitutespec3]="reportData.substitutespec3"
+            [attr.data-type3]="reportData.type3"
+            [attr.data-index4]="reportData.index4"
+            [attr.data-name4]="reportData.name4"
+            [attr.data-designmatl4]="reportData.designmatl4"
+            [attr.data-designspec4]="reportData.designspec4"
+            [attr.data-substitutematl4]="reportData.substitutematl4"
+            [attr.data-substitutespec4]="reportData.substitutespec4"
+            [attr.data-type4]="reportData.type4"
+            [attr.data-index5]="reportData.index5"
+            [attr.data-name5]="reportData.name5"
+            [attr.data-designmatl5]="reportData.designmatl5"
+            [attr.data-designspec5]="reportData.designspec5"
+            [attr.data-substitutematl5]="reportData.substitutematl5"
+            [attr.data-substitutespec5]="reportData.substitutespec5"
+            [attr.data-type5]="reportData.type5"
+            [attr.data-design_note]="reportData.design_note"
+            [attr.data-matl_note]="reportData.matl_note"
+            [attr.data-welding_note]="reportData.welding_note"
+            [attr.data-process_note]="reportData.process_note"
+            [attr.data-inspection_note]="reportData.inspection_note"
+            [attr.data-b_note]="reportData.b_note"
+            [attr.data-c_note]="reportData.c_note"
+            [attr.data-design_date]="reportData.design_date"
+            [attr.data-matl_date]="reportData.matl_date"
+            [attr.data-welding_date]="reportData.welding_date"
+            [attr.data-process_date]="reportData.process_date"
+            [attr.data-inspection_date]="reportData.inspection_date"
+            [attr.data-b_date]="reportData.b_date"
+            [attr.data-c_date]="reportData.c_date"
+            [attr.data-design_username]="reportData.design_username"
+            [attr.data-matl_username]="reportData.matl_username"
+            [attr.data-welding_username]="reportData.welding_username"
+            [attr.data-process_username]="reportData.process_username"
+            [attr.data-inspection_username]="reportData.inspection_username"
+            [attr.data-b_username]="reportData.b_username"
+            [attr.data-c_username]="reportData.c_username"
+            [attr.data-code]="reportData.code"
+    ></iframe>
+  </p>
+</div>

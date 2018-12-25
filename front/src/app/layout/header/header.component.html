@@ -4,7 +4,7 @@
   </div>
   <ul nz-menu [nzMode]="'horizontal'" style="line-height: 64px;">
     <ng-container *ngFor="let nav of navs;let i = index">
-      <li nz-menu-item [nzSelected]="i==0?true:false" (click)="setNav(nav.name.toString())">{{nav.name.toString()}}</li>
+      <li nz-menu-item [nzSelected]="nav.name == getSettingNav()" (click)="setNav(nav.name.toString())">{{nav.name.toString()}}</li>
     </ng-container>
   </ul>
   <div class="rightWarpper">
@@ -16,10 +16,10 @@
         <span title><i nz-icon type="user"></i>{{ _storage.get("username") }}</span>
       </a>
       <ul nz-menu nzSelectable style="width: 130px;text-align: center">
-        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="router.navigate(['/#/profile']);">
+        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="router.navigate(['/profile']);">
           <i nz-icon type="solution" theme="outline"></i>个人资料</li>
-        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item>
-          <i nz-icon type="setting" theme="outline"></i>账号设置</li>
+        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="router.navigate(['/changePassword']);">
+          <i nz-icon type="setting" theme="outline"></i>修改密码</li>
         <li nz-menu-divider></li>
         <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="signOut()">
           <i nz-icon type="logout" theme="outline"></i>注销</li>

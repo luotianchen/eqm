@@ -1,0 +1,53 @@
+<div>
+  <div>
+    <h3 class="title">真空参数审核</h3>
+  </div>
+  <div style="margin-top: 30px;">
+    <nz-table
+      #ajaxTable
+      nzBordered
+      nzSize="small"
+      [nzData]="dataSet">
+      <thead>
+      <tr>
+        <th>提交人</th>
+        <th>提交时间</th>
+        <th>产品编号</th>
+        <th>初始</th>
+        <th>静置后</th>
+        <th>规管加热电流</th>
+        <th>检测开始日期</th>
+        <th>检测结束日期</th>
+        <th>封口真空</th>
+        <th>封口日期</th>
+        <th>侧漏放气率温度</th>
+        <th>封口温度</th>
+        <th>真空考核操作工</th>
+        <th>漏放气速率</th>
+        <th style="min-width: 100px">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+        <tr>
+          <td>{{data.user}}</td>
+          <td>{{data.date}}</td>
+          <td>{{data.prodno}}</td>
+          <td>{{data.initnum==null?data.initpa+"pa":data.initnum}}</td>
+          <td>{{data.statnum==null?data.statpa+"pa":data.statnum}}</td>
+          <td>{{data.htcurrent}}</td>
+          <td>{{data.initdate}}</td>
+          <td>{{data.enddate}}</td>
+          <td>{{data.sealvacu}}{{data.initnum==null?"pa":""}}</td>
+          <td>{{data.sealdate}}</td>
+          <td>{{data.testtemp}}</td>
+          <td>{{data.sealtemp}}</td>
+          <td>{{data.vacuop}}</td>
+          <td>{{data.leakoutrate}}</td>
+          <td><a (click)="audit(data.prodno,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.prodno,2)">拒绝</a></td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

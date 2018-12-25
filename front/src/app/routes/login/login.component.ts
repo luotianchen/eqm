@@ -26,16 +26,28 @@ export class LoginComponent implements OnInit {
       this.loginBtn = '登录中...';
       const username = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
+      this._storage.set('username', "sundaiyue");
+      this.router.navigate(['']);
       this.loginService.login(username, password).subscribe(res => {
         if (res['result'] === 'success') {
           this._storage.set('username', username);
-          this._storage.set('name', name);
+          this._storage.set('name', res['name']);
+          this._storage.set('role', res['role']);
+          this._storage.set('role2', res['role2']);
+          this._storage.set('role3', res['role3']);
+          this._storage.set('role4', res['role4']);
+          this._storage.set('role5', res['role5']);
+          this._storage.set('email', res['email']);
           this.router.navigate(['']);
         } else {
           this.loadStatus = false;
           this.loginBtn = '登录';
           this.message.error('账号或密码错误！');
         }
+      },(err)=>{
+        this.loadStatus = false;
+        this.loginBtn = '登录';
+        this.message.error('登录失败，请检查网络后重试！');
       });
     }
   }

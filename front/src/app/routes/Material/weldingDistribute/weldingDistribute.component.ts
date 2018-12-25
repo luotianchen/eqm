@@ -39,7 +39,7 @@ export class WeldingDistributeComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-      this.weldingDistributeService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
+      this.weldingDistributeService.getdistribute(this.validateForm.value.prodno).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
@@ -72,7 +72,7 @@ export class WeldingDistributeComponent implements OnInit {
       "codedmarking":"",//入库编号
       "issuedate":"",//发料日期
       "picker":"",//领料人
-      "ispresspart":"",//是否为主要受压元件
+      "ispresspart":"是",//是否为主要受压元件
       "weldno":"",//焊缝号
       "returnqty":"",//退回数量
       "note":""//备注
@@ -126,7 +126,7 @@ export class WeldingDistributeComponent implements OnInit {
       this.dataSet[j]['issuematl'] = this._storage.get('name');
     }
     this.weldingDistributeService.putdistribute({
-      prodno:this.validateForm.controls['prodno'].value[0],
+      prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
     }).subscribe((res)=>{
       if(res['result']=="success"){

@@ -17,9 +17,12 @@ export class HeaderComponent {
   ngOnInit(){
     this.menu.getNavs().then((result: any) => {
       this.navs = result.data;
-      this.settings.setnav(this.navs[0].name.toString());
     });
   }
+  getSettingNav() {
+    return this.settings.nav;
+  }
+
   toggleCollapsed() {
     this.settings.setLayout('isCollapsed', !this.settings.layout.isCollapsed);
   }

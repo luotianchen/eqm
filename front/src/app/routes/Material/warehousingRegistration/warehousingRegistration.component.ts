@@ -308,9 +308,9 @@ export class WarehousingRegistrationComponent implements OnInit {
   formatInDate(){ //日期格式化
     let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    if(monthDay.test(this.validateForm.controls["indate"].value)){
-      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.controls["indate"].value);
-    }else if(!yearMonthDay.test(this.validateForm.controls["indate"].value)){
+    if(monthDay.test(this.validateForm.value.indate)){
+      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.indate);
+    }else if(!yearMonthDay.test(this.validateForm.value.indate)){
       this.validateForm.controls["indate"].setValue(null);
     }
   }
@@ -338,8 +338,8 @@ export class WarehousingRegistrationComponent implements OnInit {
    * 当输入材料标准、牌号都输入完后，会先通过这两项去查询相应标准，若查不到，则检测规格是否输入，已输入则用材料标准、牌号、规格三项查询相应标准内容。
    */
   checkForContraststand(){
-    if(this.validateForm.controls['matlstand'].value!=null && this.validateForm.controls['designation'].value!=null &&this.validateForm.controls['matlstand'].value!="" && this.validateForm.controls['designation'].value!=""){
-      this.warehousingregistrationService.contraststand(this.validateForm.controls['matlstand'].value,this.validateForm.controls['designation'].value ,null).subscribe(res => {
+    if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null &&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!=""){
+      this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,null).subscribe(res => {
         if(res['result'] == "success") {
           this.dataDetail = res['data'];
           this.dataDetail.status = true;
@@ -390,12 +390,12 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.validateForm.controls[item].setValidators([Validators.required]);
             }
           }
-        }else if(this.validateForm.controls['matlstand'].value!=null && this.validateForm.controls['designation'].value!=null && this.validateForm.controls['spec'].value!=null&&this.validateForm.controls['matlstand'].value!="" && this.validateForm.controls['designation'].value!="" && this.validateForm.controls['spec'].value!=""){
-          let specData = this.validateForm.controls['spec'].value;
-          if(this.validateForm.controls['spec'].value.indexOf("δ=")!=-1){
-            specData = parseFloat(this.validateForm.controls['spec'].value.substring(2,specData.length));
+        }else if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
+          let specData = this.validateForm.value.spec;
+          if(this.validateForm.value.spec.indexOf("δ=")!=-1){
+            specData = parseFloat(this.validateForm.value.spec.substring(2,specData.length));
           };
-          this.warehousingregistrationService.contraststand(this.validateForm.controls['matlstand'].value,this.validateForm.controls['designation'].value ,specData).subscribe(res => {
+          this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,specData).subscribe(res => {
             if(res['result'] == "success"){
               this.dataDetail = res['data'];
               this.dataDetail.status = true;
@@ -459,10 +459,10 @@ export class WarehousingRegistrationComponent implements OnInit {
    * 判断弯曲直径大小（格式：数组+'a'），输入弯曲直径应大于标准中的直径大小
    */
   judgeBendaxdia(){
-    let value = this.validateForm["controls"]["bendaxdia"].value;
-    let exp = /^[0-9]*(a)$/;
+    let value = this.validateForm.value.bendaxdia;
+    let exp = /^([1-9]\d*|0)(\.\d{1,2})*(a)$/;
     if(!exp.test(value)){
-      this.validateForm["controls"]["bendaxdia"].setValue(null);
+      this.validateForm.controls["bendaxdia"].setValue(null);
       return;
     }
     if(this.dataDetail.bendaxdia){
@@ -471,7 +471,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       let index2 = value.indexOf("a");
       let newValue = parseFloat(value.substring(0,index2));
       if(newValue > yaoqiu){
-        this.validateForm["controls"]["bendaxdia"].setValue(null);
+        this.validateForm.controls["bendaxdia"].setValue(null);
       }
     }
 
@@ -484,64 +484,64 @@ export class WarehousingRegistrationComponent implements OnInit {
     }
     let data = {
       "user":this.storage.get("username"),
-      "codedmarking":this.validateForm["controls"]["codedmarking"].value,
-      "warrantysitu":this.validateForm["controls"]["warrantysitu"].value,
-      "note":this.validateForm["controls"]["note"].value,
-      "indate":this.validateForm["controls"]["indate"].value,
-      "matlname":this.validateForm["controls"]["matlname"].value,
-      "warrantyno":this.validateForm["controls"]["warrantyno"].value,
-      "matlstand":this.validateForm["controls"]["matlstand"].value,
-      "modelstand":this.validateForm["controls"]["modelstand"].value,
-      "supplier":this.validateForm["controls"]["supplier"].value,
-      "designation":this.validateForm["controls"]["designation"].value,
-      "spec":this.validateForm["controls"]["spec"].value,
-      "qty":this.validateForm["controls"]["qty"].value,
-      "unit":this.validateForm["controls"]["unit"].value,
-      "dimension":this.validateForm["controls"]["dimension"].value,
-      "millunit":this.validateForm["controls"]["millunit"].value,
-      "heatbatchno":this.validateForm["controls"]["heatbatchno"].value,
-      "c":this.validateForm["controls"]["c"].value,
-      "si":this.validateForm["controls"]["si"].value,
-      "mn":this.validateForm["controls"]["mn"].value,
-      "cu":this.validateForm["controls"]["cu"].value,
-      "ni":this.validateForm["controls"]["ni"].value,
-      "cr":this.validateForm["controls"]["cr"].value,
-      "mo":this.validateForm["controls"]["mo"].value,
-      "nb":this.validateForm["controls"]["nb"].value,
-      "v":this.validateForm["controls"]["v"].value,
-      "ti":this.validateForm["controls"]["ti"].value,
-      "als":this.validateForm["controls"]["als"].value,
-      "alt":this.validateForm["controls"]["alt"].value,
-      "n":this.validateForm["controls"]["n"].value,
-      "fe":this.validateForm["controls"]["fe"].value,
-      "mg":this.validateForm["controls"]["mg"].value,
-      "zn":this.validateForm["controls"]["zn"].value,
-      "b":this.validateForm["controls"]["b"].value,
-      "w":this.validateForm["controls"]["w"].value,
-      "sb":this.validateForm["controls"]["sb"].value,
-      "al":this.validateForm["controls"]["al"].value,
-      "zr":this.validateForm["controls"]["zr"].value,
-      "ca":this.validateForm["controls"]["ca"].value,
-      "be":this.validateForm["controls"]["be"].value,
-      "p":this.validateForm["controls"]["p"].value,
-      "s":this.validateForm["controls"]["s"].value,
-      "heatcondi":this.validateForm["controls"]["heatcondi"].value,
-      "rel1":this.validateForm["controls"]["rel1"].value,
-      "rel2":this.validateForm["controls"]["rel2"].value,
-      "rm1":this.validateForm["controls"]["rm1"].value,
-      "rrm2":this.validateForm["controls"]["rm2"].value,
-      "elong1":this.validateForm["controls"]["elong1"].value,
-      "elong2":this.validateForm["controls"]["elong2"].value,
-      "hardness1":this.validateForm["controls"]["hardness1"].value,
-      "hardness2":this.validateForm["controls"]["hardness2"].value,
-      "hardness3":this.validateForm["controls"]["hardness3"].value,
-      "impactp1":this.validateForm["controls"]["impactp1"].value,
-      "impactp2":this.validateForm["controls"]["impactp2"].value,
-      "impactp3":this.validateForm["controls"]["impactp3"].value,
-      "impacttemp":this.validateForm["controls"]["impacttemp"].value,
-      "bendangle":this.validateForm["controls"]["bendangle"].value,
-      "bendaxdia":this.validateForm["controls"]["bendaxdia"].value,
-      "utclass":this.utclass[this.validateForm["controls"]["utclass"].value]
+      "codedmarking":this.validateForm.value.codedmarking,
+      "warrantysitu":this.validateForm.value.warrantysitu,
+      "note":this.validateForm.value.note,
+      "indate":this.validateForm.value.indate,
+      "matlname":this.validateForm.value.matlname,
+      "warrantyno":this.validateForm.value.warrantyno,
+      "matlstand":this.validateForm.value.matlstand,
+      "modelstand":this.validateForm.value.modelstand,
+      "supplier":this.validateForm.value.supplier,
+      "designation":this.validateForm.value.designation,
+      "spec":this.validateForm.value.spec,
+      "qty":this.validateForm.value.qty,
+      "unit":this.validateForm.value.unit,
+      "dimension":this.validateForm.value.dimension,
+      "millunit":this.validateForm.value.millunit,
+      "heatbatchno":this.validateForm.value.heatbatchno,
+      "c":this.validateForm.value.c,
+      "si":this.validateForm.value.si,
+      "mn":this.validateForm.value.mn,
+      "cu":this.validateForm.value.cu,
+      "ni":this.validateForm.value.ni,
+      "cr":this.validateForm.value.cr,
+      "mo":this.validateForm.value.mo,
+      "nb":this.validateForm.value.nb,
+      "v":this.validateForm.value.v,
+      "ti":this.validateForm.value.ti,
+      "als":this.validateForm.value.als,
+      "alt":this.validateForm.value.alt,
+      "n":this.validateForm.value.n,
+      "fe":this.validateForm.value.fe,
+      "mg":this.validateForm.value.mg,
+      "zn":this.validateForm.value.zn,
+      "b":this.validateForm.value.b,
+      "w":this.validateForm.value.w,
+      "sb":this.validateForm.value.sb,
+      "al":this.validateForm.value.al,
+      "zr":this.validateForm.value.zr,
+      "ca":this.validateForm.value.ca,
+      "be":this.validateForm.value.be,
+      "p":this.validateForm.value.p,
+      "s":this.validateForm.value.s,
+      "heatcondi":this.validateForm.value.heatcondi,
+      "rel1":this.validateForm.value.rel1,
+      "rel2":this.validateForm.value.rel2,
+      "rm1":this.validateForm.value.rm1,
+      "rrm2":this.validateForm.value.rm2,
+      "elong1":this.validateForm.value.elong1,
+      "elong2":this.validateForm.value.elong2,
+      "hardness1":this.validateForm.value.hardness1,
+      "hardness2":this.validateForm.value.hardness2,
+      "hardness3":this.validateForm.value.hardness3,
+      "impactp1":this.validateForm.value.impactp1,
+      "impactp2":this.validateForm.value.impactp2,
+      "impactp3":this.validateForm.value.impactp3,
+      "impacttemp":this.validateForm.value.impacttemp,
+      "bendangle":this.validateForm.value.bendangle,
+      "bendaxdia":this.validateForm.value.bendaxdia,
+      "utclass":this.utclass[this.validateForm.value.utclass]
     };
     if (this.validateForm.valid) {
       this.warehousingregistrationService.submitForm(data).subscribe(res => {
@@ -814,7 +814,7 @@ export class WarehousingRegistrationComponent implements OnInit {
         this.millunitValidateForm.controls[ i ].updateValueAndValidity();
       }
       if (this.millunitValidateForm.valid) {
-        this.warehousingregistrationService.addMillunit(this.millunitValidateForm.controls['millunit'].value,this.millunitValidateForm.controls['millunitename'].value).subscribe(res => {
+        this.warehousingregistrationService.addMillunit(this.millunitValidateForm.value.millunit,this.millunitValidateForm.value.millunitename).subscribe(res => {
           if (res['result'] == "success") {
             let modal = this.modalService.success({
               nzTitle: '添加成功',
@@ -834,7 +834,7 @@ export class WarehousingRegistrationComponent implements OnInit {
         this.supplierValidateForm.controls[ i ].updateValueAndValidity();
       }
       if (this.supplierValidateForm.valid){
-        this.warehousingregistrationService.addSupplier(this.supplierValidateForm.controls['supplier'].value).subscribe(res =>{
+        this.warehousingregistrationService.addSupplier(this.supplierValidateForm.value.supplier).subscribe(res =>{
           if(res['result'] == "success"){
             let modal = this.modalService.success({
               nzTitle: '添加成功',
@@ -853,7 +853,7 @@ export class WarehousingRegistrationComponent implements OnInit {
         this.matlnameValidateForm.controls[ i ].updateValueAndValidity();
       }
       if (this.matlnameValidateForm.valid){
-        this.warehousingregistrationService.addMatlname(this.matlnameValidateForm.controls['matlname'].value).subscribe(res=>{
+        this.warehousingregistrationService.addMatlname(this.matlnameValidateForm.value.matlname).subscribe(res=>{
           if(res['result'] == "success"){
             let modal = this.modalService.success({
               nzTitle: '添加成功',
@@ -872,7 +872,7 @@ export class WarehousingRegistrationComponent implements OnInit {
         this.modelstandValidateForm.controls[ i ].updateValueAndValidity();
       }
       if (this.modelstandValidateForm.valid) {
-        this.warehousingregistrationService.addModelstand(this.modelstandValidateForm.controls['modelstand'].value).subscribe(res => {
+        this.warehousingregistrationService.addModelstand(this.modelstandValidateForm.value.modelstand).subscribe(res => {
           if (res['result'] == "success") {
             let modal = this.modalService.success({
               nzTitle: '添加成功',

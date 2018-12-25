@@ -85,9 +85,9 @@ export class WarehousingQueryComponent implements OnInit {
   formatInDate(){
     let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    if(monthDay.test(this.validateForm.controls["indate"].value)){
-      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.controls["indate"].value);
-    }else if(!yearMonthDay.test(this.validateForm.controls["indate"].value)){
+    if(monthDay.test(this.validateForm.value.indate)){
+      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.indate);
+    }else if(!yearMonthDay.test(this.validateForm.value.indate)){
       this.validateForm.controls["indate"].setValue(null);
     }
   }
@@ -97,10 +97,10 @@ export class WarehousingQueryComponent implements OnInit {
       this.pageindex = 1;
     }
     this.loading = true;
-    if(this.validateForm.controls["status"].value==null){
-      this.validateForm.controls["status"].setValue(1);
+    if(this.validateForm.value.status==null){
+      this.validateForm.controls['status'].setValue(1);
     }
-    this.warehousingQueryService.searchallmaterial(this.pageindex,this.pagesize,this.validateForm.controls['codedmarking'].value,this.validateForm.controls["matlname"].value,this.validateForm.controls["designation"].value,this.validateForm.controls["spec"].value,this.validateForm.controls["millunit"].value,this.validateForm.controls["indate"].value,this.validateForm.controls["status"].value).subscribe((res)=>{
+    this.warehousingQueryService.searchallmaterial(this.pageindex,this.pagesize,this.validateForm.value.codedmarking,this.validateForm.value.matlname,this.validateForm.value.designation,this.validateForm.value.spec,this.validateForm.value.millunit,this.validateForm.value.indate,this.validateForm.value.status).subscribe((res)=>{
       if(res["result"]=="success"){
         this.total = res["total"];
         this.dataset = res["data"];

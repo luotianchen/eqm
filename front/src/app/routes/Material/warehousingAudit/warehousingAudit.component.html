@@ -110,7 +110,11 @@
         <td>{{data.millunit}}</td>
         <td>{{data.qty}}</td>
         <td>{{data.supplier}}</td>
-        <td><a (click)="Audit(data.codedmarking,1)">通过</a>&nbsp;&nbsp;<a (click)="Audit(data.codedmarking,2)">不通过</a></td>
+        <td>
+          <a (click)="Audit(data.codedmarking,1)">通过</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="Audit(data.codedmarking,2)">不通过</a>
+        </td>
       </tr>
       <tr [nzExpand]="data.expand">
         <td></td>

@@ -1,0 +1,58 @@
+<div>
+  <h3 class="title">设备计量台帐邮箱设置</h3>
+</div>
+<nz-divider></nz-divider>
+<form nzLayout='horizontal' nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4"></div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="system_email">
+          发件邮箱
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="system_email" id="system_email" type="email" placeholder="发件邮箱">
+          <nz-form-explain *ngIf="validateForm.get('system_email').dirty && validateForm.get('system_email').errors">
+            发件邮箱不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12"></div>
+    <div nz-col nzSpan="4"></div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="authorization_code">
+          授权码
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <textarea rows="4" nz-input formControlName="authorization_code" id="authorization_code" type="text" placeholder="授权码"></textarea>
+          <nz-form-explain *ngIf="validateForm.get('authorization_code').dirty && validateForm.get('authorization_code').errors">
+            授权码不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12"></div>
+    <div nz-col nzSpan="4"></div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="tosend_email">收件邮箱</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select formControlName="tosend_email" style="width: 100%" id="tosend_email" nzMode="multiple">
+            <nz-option *ngFor="let option of userform" [nzLabel]="option.name" [nzValue]="option.email"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="validateForm.get('tosend_email').dirty && validateForm.get('tosend_email').errors">
+            收件邮箱不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-col nzSpan="12"></div>
+  <div nz-col nzSpan="12">
+    <div style="text-align:center;margin-top: 20px">
+      <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+    </div>
+  </div>
+</form>

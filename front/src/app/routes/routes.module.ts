@@ -17,7 +17,32 @@ import {MaterialDistributeModule} from "./Material/materialDistribute/materialDi
 import {WeldingDistributeModule} from "./Material/weldingDistribute/weldingDistribute.module";
 import {PressurePartsAuditModule} from "./Material/pressurePartsAudit/pressurePartsAudit.module";
 import {PressurePartsDistributeModule} from "./Material/pressurePartsDistribute/pressurePartsDistribute.module";
-
+import {ProfileModule} from "./Profile/profile/profile.module";
+import {ChangePasswordModule} from "./Profile/changePassword/changePassword.module";
+import {UserModule} from "./System/user/user.module";
+import {RoleModule} from "./System/role/role.module";
+import {WarehouseEntryNoticeModule} from "./Material/warehouseEntryNotice/warehouseEntryNotice.module";
+import {MaterialSubstitutionModule} from "./Material/materialSubstitution/materialSubstitution.module";
+import {MaterialSubstitutionAuditModule} from "./Material/materialSubstitutionAudit/materialSubstitutionAudit.module";
+import {MaterialSubstitutionQueryModule} from "./Material/materialSubstitutionQuery/materialSubstitutionQuery.module";
+import {DesignInputModule} from "./Design/designInput/designInput.module";
+import {DesignAuditModule} from './Design/designAudit/designAudit.module';
+import {PressurePartsReportModule} from './Material/pressurePartsReport/pressurePartsReport.module';
+import {MaterialDistributionLedgerModule} from './Material/materialDistributionLedger/materialDistributionLedger.module';
+import {TestParametersModule} from './InspectionAndTest/testParameters/testParameters.module';
+import {InspectionRecordsModule} from './Material/inspectionRecords/inspectionRecords.module';
+import {TestParametersAuditModule} from './InspectionAndTest/testParametersAudit/testParametersAudit.module';
+import {MeasuringInstrumentLedgerModule} from './Instrument/measuringInstrumentLedger/measuringInstrumentLedger.module';
+import {MeasuringInstrumentLedgerAuditModule} from './Instrument/measuringInstrumentLedgerAudit/measuringInstrumentLedgerAudit.module';
+import {MeasuringInstrumentLedgerQueryModule} from './Instrument/measuringInstrumentLedgerQuery/measuringInstrumentLedgerQuery.module';
+import {VacuumParameterModule} from './InspectionAndTest/vacuumParameter/vacuumParameter.module';
+import {ProductTestBoardDataRegistrationModule} from './PhysicalAndChemical/productTestBoardDataRegistration/productTestBoardDataRegistration.module';
+import {MeasuringInstrumentSettingModule} from './Instrument/measuringInstrumentSetting/measuringInstrumentSetting.module';
+import {ProductManufacturingParametersModule} from './InspectionAndTest/productManufacturingParameters/productManufacturingParameters.module';
+import {ProductTestBoardCommissionModule} from './PhysicalAndChemical/productTestBoardCommission/productTestBoardCommission.module';
+import {VacuumParameterAuditModule} from './InspectionAndTest/vacuumParameterAudit/vacuumParameterAudit.module';
+import {ProductTestBoardCommissionAuditModule} from './PhysicalAndChemical/productTestBoardCommissionAudit/productTestBoardCommissionAudit.module';
+import {ProductTestBoardCommissionQueryModule} from './PhysicalAndChemical/productTestBoardCommissionQuery/productTestBoardCommissionQuery.module';
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -38,7 +63,33 @@ import {PressurePartsDistributeModule} from "./Material/pressurePartsDistribute/
     MaterialDistributeModule,
     WeldingDistributeModule,
     PressurePartsAuditModule,
-    PressurePartsDistributeModule
+    PressurePartsDistributeModule,
+    ProfileModule,
+    ChangePasswordModule,
+    UserModule,
+    RoleModule,
+    WarehouseEntryNoticeModule,
+    MaterialSubstitutionModule,
+    MaterialSubstitutionAuditModule,
+    MaterialSubstitutionQueryModule,
+    DesignInputModule,
+    DesignAuditModule,
+    PressurePartsReportModule,
+    MaterialDistributionLedgerModule,
+    InspectionRecordsModule,
+    TestParametersModule,
+    TestParametersAuditModule,
+    MeasuringInstrumentLedgerModule,
+    MeasuringInstrumentLedgerAuditModule,
+    MeasuringInstrumentLedgerQueryModule,
+    MeasuringInstrumentSettingModule,
+    VacuumParameterModule,
+    ProductTestBoardDataRegistrationModule,
+    ProductTestBoardCommissionModule,
+    ProductManufacturingParametersModule,
+    VacuumParameterAuditModule,
+    ProductTestBoardCommissionAuditModule,
+    ProductTestBoardCommissionQueryModule
   ]
 })
 

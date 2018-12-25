@@ -1,0 +1,212 @@
+<div>
+  <h3 class="title">入库材料审核</h3>
+</div>
+<div style="margin-top: 30px;">
+  <nz-table
+    #ajaxTable
+    nzBordered
+    [nzLoading]="loading"
+    [nzData]="dataSet">
+    <thead>
+    <tr>
+      <th>提交人</th>
+      <th>提交时间</th>
+      <th>图号</th>
+      <th style="min-width: 100px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+      <tr>
+        <td>{{data.user}}</td>
+        <td>{{data.date}}</td>
+        <td>{{data.dwgno}}</td>
+        <td>
+          <a (click)="open(data.dwgno)">查看详细内容</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="Audit(data.dwgno,1)">通过</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="Audit(data.dwgno,2)">拒绝</a>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+</div>
+<nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"[nzMaskClosable]="false" [nzPlacement]="placement" [nzWidth]="720" [nzVisible]="visible" nzTitle="详细内容" (nzOnClose)="close()">
+  <nz-radio-group [(ngModel)]="placement">
+    <label nz-radio nzValue="left">左</label>
+    <label nz-radio nzValue="right">右</label>
+  </nz-radio-group>
+  <div>
+    <div nz-row nzGutter="16" style="margin:15px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>图号1：{{modelData.data.dwgno1}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>图号2：{{modelData.data.dwgno2}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>产品名称：{{modelData.data.prodname}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>容器类别：{{modelData.data.type}}</span>
+      </div>
+    </div>
+    <div nz-row nzGutter="16" style="margin:15px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>产品标准1：{{modelData.data.mainstand}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>产品标准2：{{modelData.data.minorstand}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>设计使用年限：{{modelData.data.deservicelife}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>设备重量：{{modelData.data.weight}}</span>
+      </div>
+    </div>
+    <div nz-row nzGutter="16" style="margin:15px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>充装重量：{{modelData.data.chweight}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>安装型式：{{modelData.data.installtype}}({{modelData.data.einstalltype}})</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>支座型式：{{modelData.data.supptype}}({{modelData.data.esupptype}})</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>保温绝热方式：{{modelData.data.insultype}}({{modelData.data.einsultype}})</span>
+      </div>
+    </div>
+    <div nz-row nzGutter="16" style="margin:15px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>无损检验方式：{{modelData.data.ndetype}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>无损检测比例：{{modelData.data.nderatio}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>低温贮槽：{{modelData.data.crytank}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>试板情况：{{modelData.data.testplatesitu}}</span>
+      </div>
+    </div>
+    <div nz-row nzGutter="16" style="margin:15px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>热处理种类：{{modelData.data.httype}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>热处理试板：{{modelData.data.httsetplate}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>热处理温度：{{modelData.data.httemp}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>安全泄放装置：{{modelData.data.saferel}}</span>
+      </div>
+    </div>
+    <div nz-row nzGutter="16" style="margin:15px;">
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>按疲劳分析设置：{{modelData.data.analyde}}</span>
+      </div>
+      <div nz-col class="gutter-row" nzSpan="6">
+        <span>换热面积：{{modelData.data.pvclass}}<span *ngIf="modelData.data.unit!='/'">{{modelData.data.unit}}</span></span>
+      </div>
+    </div>
+    <div *ngIf="modelData.saferel!=null && modelData.saferel.length!=0">
+      <nz-divider></nz-divider>
+      <h3>安全泄放装置</h3>
+    </div>
+    <div *ngFor="let data of modelData.saferel">
+      <div nz-row nzGutter="16" style="margin:15px;">
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>名称：{{data.name}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>型号：{{data.model}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>数量：{{data.qty}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>规格：{{data.spec}}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="modelData.channel!=null && modelData.channel.length!=0">
+      <nz-divider></nz-divider>
+      <h3>通道数据</h3>
+    </div>
+    <div *ngFor="let data of modelData.channel;let i = index;" style="margin-bottom: 5px">
+      <h5>通道{{i+1}}：</h5>
+      <div nz-row nzGutter="16" style="margin:15px;">
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>通道名称：{{data.name}}({{data.ename}})</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>{{i==1?'夹套容积':'容器容积'}}：{{data.volume}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>{{i==1?'夹套内径':'容器内径'}}：{{data.innerdia}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="8">
+          <span>{{i==1?'夹套材料':'容器材料'}}：{{data.shmatl1}} {{data.shmatl2}} {{data.shmatl3}}</span>
+        </div>
+      </div>
+      <div nz-row nzGutter="16" style="margin:15px;">
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>{{i==1?'夹套封头厚度':'封头厚度'}}：{{data.hdthick1}} {{data.hdthick2}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>{{i==1?'夹套介质':'工作介质'}}：{{data.wmedia}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>最高工作压力：{{data.maxwpress}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="8">
+          <span>{{i==1?'夹套厚度':'容器厚度'}}：{{data.shthick1}} {{data.shthick2}} {{data.shthick3}}</span>
+        </div>
+      </div>
+      <div nz-row nzGutter="16" style="margin:15px;">
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>设计压力：{{data.depress}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>设计温度：{{data.detemp}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>工作压力：{{data.wpress}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="8">
+          <span>试压类别：{{data.pttype}}({{data.epttype}})</span>
+        </div>
+      </div>
+      <div nz-row nzGutter="16" style="margin:15px;">
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>气密性试验压力：{{data.leaktestp}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>试验压力：{{data.testpress}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="5">
+          <span>工作温度：{{data.wtemp}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="8">
+          <span>泄漏试验方式：{{data.leaktest}}({{data.eleaktest}})</span>
+        </div>
+      </div>
+      <div nz-row nzGutter="16" style="margin:15px;" *ngIf="i==0">
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>衬里材料：{{data.liningmatl}}</span>
+        </div>
+        <div nz-col class="gutter-row" nzSpan="6">
+          <span>衬里厚度：{{data.liningthick}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-drawer>

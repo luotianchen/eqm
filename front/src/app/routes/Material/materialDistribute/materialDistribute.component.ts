@@ -72,7 +72,7 @@ export class MaterialDistributeComponent implements OnInit {
       "codedmarking":"",//入库编号
       "issuedate":"",//发料日期
       "picker":"",//领料人
-      "ispresspart":"",//是否为主要受压元件
+      "ispresspart":"否",//是否为主要受压元件
       "weldno":"",//焊缝号
       "returnqty":"",//退回数量
     } ];
@@ -127,7 +127,7 @@ export class MaterialDistributeComponent implements OnInit {
     }
 
     this.materialDistributeService.putdistribute({
-      prodno:this.validateForm.controls['prodno'].value[0],
+      prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
     }).subscribe((res)=>{
       if(res['result']=="success"){

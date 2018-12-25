@@ -20,7 +20,11 @@
         <td nzShowExpand [(nzExpand)]="data.expand" (click)="search(data.audit)"></td>
         <td>{{data.updatetime}}</td>
         <td>{{data.prodno}}</td>
-        <td><a (click)="Audit(data.audit,1)">通过</a>&nbsp;&nbsp;<a (click)="Audit(data.audit,2)">不通过</a></td>
+        <td>
+          <a (click)="Audit(data.audit,1)">通过</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="Audit(data.audit,2)">不通过</a>
+        </td>
       </tr>
       <tr [nzExpand]="data.expand">
         <td></td>
