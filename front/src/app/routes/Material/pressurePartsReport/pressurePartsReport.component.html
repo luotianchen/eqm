@@ -1,0 +1,112 @@
+<div>
+  <h3 class="title">材料清单</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData(true)">查询一览表</button>
+    </div>
+  </div>
+</form>
+<div *ngIf="this.prodno!=''" #print>
+  <p>
+    <essence-ng2-print
+      [mode]="'iframe'"
+      [btnText]="'打印材料清单'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <div style="width:900px;border: none;padding-bottom: 25px" *ngFor="let reportData of reportDatas;let i = index;">
+    <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
+   collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left:50px;font-size: 12px'>
+      <colgroup width=44 style='mso-width-source:userset;mso-width-alt:1408;width:33pt'></colgroup>
+      <colgroup width=111 style='mso-width-source:userset;mso-width-alt:3541;width:83pt'></colgroup>
+      <colgroup width=79 style='mso-width-source:userset;mso-width-alt:2517;width:59pt'></colgroup>
+      <colgroup width=73 style='mso-width-source:userset;mso-width-alt:2346;width:55pt'></colgroup>
+      <colgroup width=85 style='mso-width-source:userset;mso-width-alt:2730;width:64pt'></colgroup>
+      <colgroup width=197 style='mso-width-source:userset;mso-width-alt:6314;width:148pt'></colgroup>
+      <colgroup width=64 style='mso-width-source:userset;mso-width-alt:2048;width:48pt'></colgroup>
+      <colgroup width=84 style='mso-width-source:userset;mso-width-alt:2688;width:63pt'></colgroup>
+      <tr>
+        <td colspan="8" style="border:none;padding-left: 5px">表 C-10</td>
+      </tr>
+      <tr>
+        <td colspan="8" style="text-align: center;border:none;"><h1 style="margin:0">材料清单</h1></td>
+      </tr>
+      <tr>
+        <td colspan="8" style="text-align: center;border:none;"><h2>Material List</h2></td>
+      </tr>
+      <tr style="vertical-align: bottom">
+        <td colspan="4" style="border:none;"><span style="padding-left: 70px">产品名称：{{reportData.prodname}}</span></td>
+        <td style="border:none;">产品编号：</td>
+        <td rowspan="2" style="border:none;line-height: 46px">{{prodno}}</td>
+        <td style="border:none;text-align: right">№:</td>
+        <td style="border:none">{{i+1}}/{{reportDatas.length}}</td>
+      </tr>
+      <tr style="vertical-align: top">
+        <td colspan="4" style="border:none;"><span style="padding-left: 70px">Product name：{{reportData.ename}}</span></td>
+        <td style="border:none;">Product NO:</td>
+        <td colspan="2" style="border:none;"></td>
+      </tr>
+      <tr style="border:1px solid #000;border-left: 2px solid #000;border-right: 2px solid #000;border-top:solid 2px #000">
+        <td rowspan="2" style="border:1px solid #000;text-align: center;" width="45">序号<br>NO</td>
+        <td colspan="2" style="border:1px solid #000;text-align: center">受压元件<br>Product part</td>
+        <td colspan="3" style="border:1px solid #000;text-align: center">受压元件使用材料<br>Material of pressure part</td>
+        <td rowspan="2" style="border:1px solid #000;text-align: center">供货状态<br>Delivery<br>condition</td>
+        <td rowspan="2" style="border:1px solid #000;text-align: center">入库编号<br>ID NO</td>
+      </tr>
+      <tr style="border:1px solid #000;border-left: 2px solid #000;border-right: 2px solid #000">
+        <td style="border:1px solid #000;text-align: center;width:111px;">名称<br>Name</td>
+        <td style="border:1px solid #000;text-align: center">件号<br>Pic NO</td>
+        <td style="border:1px solid #000;text-align: center">牌号<br>Designation</td>
+        <td style="border:1px solid #000;text-align: center">规格（mm）<br>Size</td>
+        <td style="border:1px solid #000;text-align: center;width: 197px">生产单位<br>Mill Name</td>
+      </tr>
+      <tr *ngFor="let data of reportData.data" style="border:1px solid #000;border-left: 2px solid #000;border-right: 2px solid #000;">
+        <td style="border:1px solid #000;text-align: center;height: 50px" width="45">{{data.index}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.spartname}}<br>{{data.etrans}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.partno}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.designation}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.spec}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.millunit}}<br>{{data.millunitename}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.heatcondi}}</td>
+        <td style="border:1px solid #000;text-align: center;height: 50px">{{data.codedmarking}}</td>
+      </tr>
+      <tr style="border: 2px solid #000;border-top-width: 1px">
+        <td style="text-align: center;height: 35px;width: 45px">备注<br>Note</td>
+        <td colspan="7" style="height: 35px;white-space: normal;">1.S=固溶solid solution AR=热轧Hot rolling N=正火Normalizing A=退火Annealing T=回火Temper CR=控轧Controlledrolled Q=淬火Quench O=退火（铝材）Anneal H112=热轧（铝材）Hot-working</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="border:none;">填表人(Filled by)：<img height="50px" style="vertical-align: middle;margin-top: 3px" [src]="reportData.issuematl"/></td>
+        <td colspan="3" style="border:none;">材料责任人(Reviewed by)：<img height="50px" style="vertical-align: middle;margin-top: 3px" [src]="reportData.audit_user"></td>
+        <td colspan="2" style="border:none;text-align: center">日期(Date)：{{reportData.issuedate}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

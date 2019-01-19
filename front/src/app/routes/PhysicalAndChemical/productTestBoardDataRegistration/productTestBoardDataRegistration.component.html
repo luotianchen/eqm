@@ -1,0 +1,202 @@
+<div>
+  <h3 class="title">产品试板数据登记</h3>
+  <span style="float: right">
+  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(testboardstandTitle, testboardstandContent, testboardstandFooter,'testboardstand')">添加试板标准</button>
+  </span>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="prodno">产品编号</nz-form-label>
+          <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="searchData();getdatarange()">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="prodname">产品名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="testboardstand">试板标准</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试板标准"  formControlName="testboardstand" name="testboardstand" id="testboardstand">
+            <nz-option *ngFor="let option of testboardstands" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="matlstand">材料标准</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="材料标准"  formControlName="matlstand" name="matlstand" id="matlstand" (ngModelChange)="getdatarange()">
+            <nz-option *ngFor="let option of matlstands" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="designation">牌号</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select formControlName="designation" name="designation" id="designation" nzPlaceHolder="牌号" nzShowSearch nzAllowClear>
+            <nz-option *ngFor="let o of this.designation" [nzValue]="o" [nzLabel]="o" (ngModelChange)="getdatarange()"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="rm">抗拉强度</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="rm" name="rm" id="rm" [nzMax]="datarange.rm.max" [nzMin]="datarange.rm.min" nzPlaceHolder="抗拉强度" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="elong">延长率</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="elong" name="elong" id="elong" [nzMax]="datarange.elong.max" [nzMin]="datarange.elong.min" nzPlaceHolder="延长率" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impacttemp">冲击温度</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="datarange.impacttemp" nzPlaceHolder="冲击温度" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactpa1">热影响区冲击功1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impactpa1" name="impactpa1" id="impactpa1" [nzMax]="datarange.impactpa1.max" [nzMin]="datarange.impactpa1.min" nzPlaceHolder="热影响区冲击功1" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactpa2">热影响区冲击功2</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impactpa2" name="impactpa2" id="impactpa2" [nzMax]="datarange.impactpa2.max" [nzMin]="datarange.impactpa2.min" nzPlaceHolder="热影响区冲击功2" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactpa3">热影响区冲击功3</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impactpa3" name="impactpa3" id="impactpa3" [nzMax]="datarange.impactpa3.max" [nzMin]="datarange.impactpa3.min" nzPlaceHolder="热影响区冲击功3" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactpb1">焊缝区冲击功1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impactpb1" name="impactpb1" id="impactpb1" [nzMax]="datarange.impactpb1.max" [nzMin]="datarange.impactpb1.min" nzPlaceHolder="焊缝区冲击功1" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactpb2">焊缝区冲击功2</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impactpb2" name="impactpb2" id="impactpb2" [nzMax]="datarange.impactpb2.max" [nzMin]="datarange.impactpb2.min" nzPlaceHolder="焊缝区冲击功2" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactpb3">焊缝区冲击功3</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="impactpb3" name="impactpb3" id="impactpb3" [nzMax]="datarange.impactpb3.max" [nzMin]="datarange.impactpb3.min" nzPlaceHolder="焊缝区冲击功3" style="width: 100%"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="bendpara">弯曲参数</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="弯曲参数"  formControlName="bendpara" name="bendpara" id="bendpara">
+            <nz-option *ngFor="let option of bendparas" [nzLabel]="option.name" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="benddia">弯曲直径</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input placeholder="弯曲直径" nz-input formControlName="benddia" name="benddia" id="benddia" (blur)="judgeBenddia()">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="fractposit">断裂位置</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="断裂位置"  formControlName="fractposit" name="fractposit" id="fractposit">
+            <nz-option *ngFor="let option of fractposits" [nzLabel]="option.name" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="entrustdate">委托日期：</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input formControlName="entrustdate" name="entrustdate" placeholder="委托日期" type="text" id="entrustdate" (blur)="formatEntrustdate()">
+          <nz-form-explain style="color: red" *ngIf="validateForm.get('entrustdate').value!=null">
+            查询试板无损检测合格日期！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</form>
+
+
+<div id="addTestboardstand">
+  <form nz-form [formGroup]="testboardstandValidateForm">
+    <ng-template #testboardstandTitle>
+      <span>添加试板标准</span>
+    </ng-template>
+    <ng-template #testboardstandContent>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="testboardstand" nzRequired>试板标准</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="testboardstand" nz-input placeholder="试板标准">
+          <nz-form-explain *ngIf="testboardstandValidateForm.get('testboardstand').dirty && testboardstandValidateForm.get('testboardstand').errors">试板标准不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+    <ng-template #testboardstandFooter>
+      <button nz-button nzType="primary" (click)="addtestboardstand()" [nzLoading]="tplModalButtonLoading">提交</button>
+    </ng-template>
+  </form>
+</div>

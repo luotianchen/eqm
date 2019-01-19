@@ -1,0 +1,66 @@
+<div>
+  <h3 class="title">计量台帐审核</h3>
+</div>
+<div style="margin-top: 30px;">
+  <nz-table
+    #ajaxTable
+    nzBordered
+    nzSize="small"
+    [nzLoading]="loading"
+    [nzData]="dataSet">
+    <thead>
+    <tr>
+      <th nzShowExpand></th>
+      <th>提交人</th>
+      <th>提交时间</th>
+      <th>名称</th>
+      <th>厂内编号</th>
+      <th>出厂编号</th>
+      <th>型号</th>
+      <th>测量范围</th>
+      <th>精度等级</th>
+      <th>生产单位</th>
+      <th>出厂日期</th>
+      <th>管理类别</th>
+      <th>检定日期</th>
+      <th>下次检定日期</th>
+      <th style="min-width: 100px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+      <tr>
+        <td nzShowExpand [(nzExpand)]="data.expand"></td>
+        <td>{{data.user}}</td>
+        <td>{{data.date}}</td>
+        <td>{{data.gaugename}}</td>
+        <td>{{data.gaugeno}}</td>
+        <td>{{data.exitno}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.measrangemin}} ~ {{data.measrangemax}}</td>
+        <td>{{data.accuclass}}</td>
+        <td>{{data.millunit}}</td>
+        <td>{{data.exitdate}}</td>
+        <td>{{data.managlevel}}</td>
+        <td>{{data.calibdate}}</td>
+        <td>{{data.recalibdate}}</td>
+        <td>
+          <a (click)="Audit(data.id,1)">通过</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="Audit(data.id,2)">拒绝</a>
+        </td>
+      </tr>
+      <tr [nzExpand]="data.expand">
+        <td colspan="15" style="text-align: center">
+          <p>专管人：
+            <span *ngFor="let s of data.specialist;let i = index;">
+              {{s}}
+              <span *ngIf="i!=data.specialist.length - 1">、</span>
+            </span>
+          </p>
+        </td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+</div>

@@ -12,7 +12,7 @@ export class PressurePartsAuditService {
   getdistribute(audit){
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{audit:audit,status:0})
   }
-  audit(audit,status){
-    return this.http.post(this.api.BASEURL+"/auditpressureAudit",{audit:audit,status:status});
+  audit(audit,status,audit_user){
+    return this.http.post(this.api.BASEURL+"/updateprestatus",{audit:audit,status:status,audit_user:audit_user});
   }
 }

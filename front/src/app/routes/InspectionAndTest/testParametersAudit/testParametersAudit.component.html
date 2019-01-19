@@ -1,0 +1,40 @@
+<div>
+  <h3 class="title">试验参数审核</h3>
+</div>
+<nz-divider></nz-divider>
+<nz-table #basicTable [nzData]="dataSet">
+  <thead>
+  <tr>
+    <th>提交时间</th>
+    <th>提交人</th>
+    <th>产品编号</th>
+    <th>图号</th>
+    <th>试压部位</th>
+    <th>开具日期1</th>
+    <th>开具日期2</th>
+    <th>开具日期3</th>
+    <th>试验介质</th>
+    <th>氯离子含量</th>
+    <th style="min-width: 120px">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.date}}</td>
+    <td>{{data.user}}</td>
+    <td>{{data.prodno}}</td>
+    <td>{{data.dwgno}}</td>
+    <td>{{data.ppart}}({{data.eppart}})</td>
+    <td>{{data.dated1}}</td>
+    <td>{{data.dated2}}</td>
+    <td>{{data.dated3}}</td>
+    <td>{{data.testmedia}}({{data.etestmedia}})</td>
+    <td>{{data.clcontent}}</td>
+    <td>
+      <a (click)="audit(data.prodno,data.ppart,1)">通过</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a (click)="audit(data.prodno,data.ppart,2)">拒绝</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

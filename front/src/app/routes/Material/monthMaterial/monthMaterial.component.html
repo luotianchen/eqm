@@ -31,7 +31,7 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzFor]="matlcode">入库月份</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzFor]="month">入库月份</nz-form-label>
         <nz-form-control [nzSm]="14">
           <nz-input-number [nzPlaceHolder]="'入库月份'" [nzMin]="1" [nzMax]="12" [nzStep]="1" formControlName="inmonth" name="inmonth" id="inmonth" style="width: 100%"></nz-input-number>
           <nz-form-explain *ngIf="validateForm.get('inmonth').dirty && validateForm.get('inmonth').errors">

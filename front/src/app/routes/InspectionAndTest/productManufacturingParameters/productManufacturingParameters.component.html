@@ -1,0 +1,152 @@
+<div>
+  <h3 class="title">真空参数输入</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="prodno">产品编号</nz-form-label>
+          <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="searchData()">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="prodname">产品名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="type">请选择：</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select style="width: 100%" nzPlaceHolder="请选择"  formControlName="type" name="type" id="type" onblur="choose()">
+            <nz-option [nzLabel]="'格数'" [nzValue]="'格数'"></nz-option>
+            <nz-option [nzLabel]="'压力'" [nzValue]="'压力'"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='格数'">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="initnum">初始格数</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="初始格数"  formControlName="initnum" name="initnum" id="initnum"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='压力'">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="initpa">初始压力(Pa)</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="初始压力(Pa)"  formControlName="initpa" name="initpa" id="initpa"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='格数'">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="statnum">静置后格数</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="静置后格数"  formControlName="statnum" name="statnum" id="statnum"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='压力'">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="statpa">静置后压力(Pa)</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="静置后压力(Pa)"  formControlName="statpa" name="statpa" id="statpa"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="htcurrent">规管加热电流</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="规管加热电流"  formControlName="htcurrent" name="htcurrent" id="htcurrent"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="initdate">检测开始日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="检测开始日期"  formControlName="initdate" name="initdate" id="initdate" (blur)="formatInDate(this.validateForm.controls['initdate']);check();"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="enddate">检测结束日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="检测结束日期"  formControlName="enddate" name="enddate" id="enddate" (blur)="formatInDate(this.validateForm.controls['enddate']);check();"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="sealvacu">封口真空</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width:100%;" placeHolder="封口真空" formControlName="sealvacu" name="sealvacu" id="sealvacu"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="sealdate">封口日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="封口日期"  formControlName="sealdate" name="sealdate" id="sealdate" (blur)="formatInDate(this.validateForm.controls['sealdate']);"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="testtemp">测漏放气率温度</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width:100%;" placeHolder="测漏放气率温度" formControlName="testtemp" name="testtemp" id="testtemp"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="sealtemp">封口温度</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width:100%;" placeHolder="封口温度" formControlName="sealtemp" name="sealtemp" id="sealtemp"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="vacuop">真空考核操作工</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="真空考核操作工" formControlName="vacuop" name="vacuop" id="vacuop"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="leakoutrate">漏放气速率</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="漏放气速率" disabled formControlName="leakoutrate" name="leakoutrate" id="leakoutrate" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</form>

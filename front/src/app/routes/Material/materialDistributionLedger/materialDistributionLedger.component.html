@@ -1,0 +1,207 @@
+<div>
+  <h3 class="title">材料发放台帐</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzFor]="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData(true)">查询</button>
+    </div>
+  </div>
+</form>
+<nz-tabset>
+  <nz-tab nzTitle="材料发放台帐">
+    <div *ngIf="status" #print>
+      <p>
+        <essence-ng2-print
+          [mode]="'iframe'"
+          [btnText]="'打印材料发放台帐'"
+          [printHTML]="print"
+          [showBtn]="printBtnBoolean"
+          [btnClass]="{'ant-btn':true}"
+          (click)="beforePrint()"
+          (printComplete)="printComplete()">
+        </essence-ng2-print>
+        <button
+          nz-button
+          nz-popover
+          *ngIf="printBtnBoolean"
+          nzType="primary"
+          nzTitle="注意事项"
+          nzContent="请在打印页面，点击更多设置-边距-最小值。"
+          nzShape="circle"
+          style="margin-left: 20px;margin-top: 4px">
+          <i nz-icon type="question-circle" theme="outline"></i>
+        </button>
+      </p>
+      <div *ngFor="let dataSet of dataSets" style="padding-top: 5px;padding-bottom: 30px;">
+        <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
+         collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 12px'>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=4 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <colgroup width=37 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
+          <tr>
+            <td colspan="27">表 C-11</td>
+          </tr>
+          <tr>
+            <td colspan="27" style="text-align: center;border-bottom: solid 1px #000"><h2 style="margin: 0">材 料 发 放 台 帐</h2></td>
+          </tr>
+          <tr style="border: 1px solid #000;border-left-width:2px;border-top: solid 2px #000;height: 24px;">
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">产品编号</td>
+            <td colspan="4" style="text-align: center;border: 1px solid #000;">{{prodno}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">产品图号</td>
+            <td colspan="6" style="text-align: center;border: 1px solid #000;">{{dwgno}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">产品名称</td>
+            <td colspan="11" style="text-align: center;border: 1px solid #000;border-right-width: 2px;">{{prodname}}</td>
+          </tr>
+          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 24px;">
+            <td style="text-align: center;border: 1px solid #000;">序号</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">发料日期</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">部件名称</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">牌号</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">规格</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">炉批号</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">材料入库编号</td>
+            <td style="text-align: center;border: 1px solid #000;">数量</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">领料人</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">发料人</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">备注</td>
+          </tr>
+          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 30px;" *ngFor="let data of dataSet">
+            <td style="text-align: center;border: 1px solid #000;">{{data.index}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.issuedate}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.spartname}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.designation}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.spec}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.heatbatchno}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.codedmarking}}</td>
+            <td style="text-align: center;border: 1px solid #000;">{{data.qty}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.picker}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.issuematl}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.note}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="焊材发放、回收登记表">
+    <div *ngIf="status" #print>
+      <p>
+        <essence-ng2-print
+          [mode]="'iframe'"
+          [btnText]="'打印材料发放台帐'"
+          [printHTML]="print"
+          [showBtn]="printBtnBoolean"
+          [btnClass]="{'ant-btn':true}"
+          (click)="beforePrint()"
+          (printComplete)="printComplete()">
+        </essence-ng2-print>
+        <button
+          nz-button
+          nz-popover
+          *ngIf="printBtnBoolean"
+          nzType="primary"
+          nzTitle="注意事项"
+          nzContent="请在打印页面，点击更多设置-边距-最小值。"
+          nzShape="circle"
+          style="margin-left: 20px;margin-top: 4px">
+          <i nz-icon type="question-circle" theme="outline"></i>
+        </button>
+      </p>
+      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;padding-bottom: 25px;">
+        <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
+         collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 14px'>
+          <colgroup width=49 style='mso-width-source:userset;mso-width-alt:1578;width:37pt'></colgroup>
+          <colgroup width=41 style='mso-width-source:userset;mso-width-alt:1322;width:31pt'></colgroup>
+          <colgroup width=47 style='mso-width-source:userset;mso-width-alt:1493;width:35pt'></colgroup>
+          <colgroup width=47 span=3 style='mso-width-source:userset;mso-width-alt:1493;
+ width:35pt'></colgroup>
+          <colgroup width=47 span=2 style='mso-width-source:userset;mso-width-alt:1493;
+ width:35pt'></colgroup>
+          <colgroup width=41 style='mso-width-source:userset;mso-width-alt:1322;width:31pt'></colgroup>
+          <colgroup width=41 style='mso-width-source:userset;mso-width-alt:1322;width:31pt'></colgroup>
+          <colgroup width=47 span=2 style='mso-width-source:userset;mso-width-alt:1493;
+ width:40pt'></colgroup>
+          <colgroup width=50 style='mso-width-source:userset;mso-width-alt:1493;
+ width:48pt'></colgroup>
+          <colgroup width=45 style='mso-width-source:userset;mso-width-alt:1237;width:35pt'></colgroup>
+          <colgroup width=45 style='mso-width-source:userset;mso-width-alt:1237;width:35pt'></colgroup>
+          <colgroup width=48 style='mso-width-source:userset;mso-width-alt:1322;width:38pt'></colgroup>
+
+          <tr>
+            <td colspan="16">表 C-11</td>
+          </tr>
+          <tr style="height: 30px">
+            <td colspan="16" style="text-align: center;"><h1 style="margin: 0">焊材发放、回收登记表</h1></td>
+          </tr>
+          <tr style="height: 24px;">
+            <td colspan="2" style="text-align: center;">产品编号</td>
+            <td colspan="3" style="text-align: center;">{{prodno}}</td>
+            <td colspan="2" style="text-align: center;">产品名称</td>
+            <td colspan="4" style="text-align: center;">{{prodname}}</td>
+            <td colspan="2" style="text-align: center;">产品图号</td>
+            <td colspan="3" style="text-align: center;">{{dwgno}}</td>
+          </tr>
+          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height:55px">
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">发料日期</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">焊缝号</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">焊材牌号</td>
+            <td colspan="1" style="text-align: center;border: 1px solid #000;">规格</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">入库编号</td>
+            <td style="text-align: center;border: 1px solid #000;"><small>发放数量</small><hr><small>(根/KG)</small></td>
+            <td style="text-align: center;border: 1px solid #000;"><small>退回数量</small><hr><small>(根/KG)</small></td>
+            <td style="text-align: center;border: 1px solid #000;"><small>回收焊条头</small><hr><small>(个)</small></td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">领料人</td>
+            <td style="text-align: center;border: 1px solid #000;">备注</td>
+          </tr>
+          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 41px;" *ngFor="let data of dataSet">
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.issuedate}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.weldno}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.designation}}</td>
+            <td colspan="1" style="text-align: center;border: 1px solid #000;">{{data.spec}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.codedmarking}}</td>
+            <td style="text-align: center;border: 1px solid #000;">{{data.qty}}</td>
+            <td style="text-align: center;border: 1px solid #000;">{{data.returnqty}}</td>
+            <td style="text-align: center;border: 1px solid #000;">{{data.dimension}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.picker}}</td>
+            <td style="text-align: center;border: 1px solid #000;">{{data.note}}</td>
+          </tr>
+          <tr>
+            <td colspan="16" style="height: 30px">
+              注：①、焊条、焊丝（盒装）单位以根计，焊丝（盘）、焊剂单位以Kg计。 ②、单台设备完工后，焊材登记表上交保存
+            </td>
+          </tr>
+          <tr>
+            <td colspan="16" style="height: 30px">
+              管理员：
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </nz-tab>
+</nz-tabset>

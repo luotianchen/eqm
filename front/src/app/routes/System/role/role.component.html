@@ -1,0 +1,118 @@
+<div>
+  <h3 class="title">部门角色管理</h3>
+  <span style="float: right"><button nz-button nzType="primary" (click)="showModal('addDepartment',null)">新增部门</button></span>
+</div>
+<nz-divider></nz-divider>
+<nz-table #nzTable [nzData]="data" nzBordered>
+  <thead>
+  <tr>
+    <th nzWidth="40%">名称</th>
+    <th style="text-align: center">类别</th>
+    <th style="text-align: center">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
+      <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+        <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
+          <span *ngIf="item.role && item.department">{{item.rolename}}</span>
+          <span *ngIf="!item.role && item.department">{{item.departmentname}}</span>
+          <span *ngIf="!item.department">{{item.username}}</span>
+        </td>
+        <td *ngIf="!item.role && item.department" style="text-align: center">
+          部门
+        </td>
+        <td *ngIf="item.role && item.department" style="text-align: center">
+          角色
+        </td>
+        <td *ngIf="!item.department" style="text-align: center">
+          用户
+        </td>
+        <td *ngIf="!item.role && item.department" style="text-align: center">
+          <a (click)="showModal('changeDepartmentName',item.department)">修改部门名称</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="showModal('addRole',item.department)">增加角色</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm nzTitle="您确定要删除此部门？" (nzOnConfirm)="confirmDeleteDepartment(item.department)">删除部门</a>
+        </td>
+        <td *ngIf="item.role && item.department" style="text-align: center">
+          <a (click)="showModal('changeRoleName',item.role)">修改角色名称</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="showModal('moveRole',item.role)">移动角色</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a nz-popconfirm nzTitle="您确定要删除此角色？" (nzOnConfirm)="confirmDeleteRole(item.role)">删除角色</a>
+        </td>
+        <td *ngIf="!item.department" style="text-align: center">
+          <a (click)="showModal('showUser',{username:item.username,name:item.name,role:item.role,role2:item.role2,role3:item.role3,role4:item.role4,role5:item.role5})">查看用户</a>
+        </td>
+      </tr>
+    </ng-template>
+  </ng-template>
+  </tbody>
+</nz-table>
+<nz-modal [(nzVisible)]="isVisible.changeDepartmentName" nzTitle="修改部门名称" (nzOnCancel)="handleCancel('changeDepartmentName')" (nzOnOk)="handleOk('changeDepartmentName')">
+  <div nz-row>
+    <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">新部门名称：</div>
+    <div nz-col [nzSpan]="8">
+      <input nz-input [(ngModel)]="datamodel.departmentname" placeholder="请输入新的部门名称"/>
+    </div>
+  </div>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisible.addRole" nzTitle="新增角色" (nzOnCancel)="handleCancel('addRole')" (nzOnOk)="handleOk('addRole')">
+  <div nz-row>
+    <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">角色名称：</div>
+    <div nz-col [nzSpan]="8">
+      <input nz-input [(ngModel)]="datamodel.roleName" placeholder="请输入新角色名称"/>
+    </div>
+  </div>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisible.addDepartment" nzTitle="新增部门" (nzOnCancel)="handleCancel('addDepartment')" (nzOnOk)="handleOk('addDepartment')">
+  <div nz-row>
+    <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">部门名称：</div>
+    <div nz-col [nzSpan]="8">
+      <input nz-input [(ngModel)]="datamodel.departmentname" placeholder="请输入新部门名称"/>
+    </div>
+  </div>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisible.changeRoleName" nzTitle="修改角色名" (nzOnCancel)="handleCancel('changeRoleName')" (nzOnOk)="handleOk('changeRoleName')">
+  <div nz-row>
+    <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">角色名称：</div>
+    <div nz-col [nzSpan]="8">
+      <input nz-input [(ngModel)]="datamodel.roleName" disabled placeholder="请输入新角色名称"/>
+    </div>
+  </div>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisible.moveRole" nzTitle="移动角色" (nzOnCancel)="handleCancel('moveRole')" (nzOnOk)="handleOk('moveRole')">
+  <div nz-row>
+    <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">请选择移动至：</div>
+    <div nz-col [nzSpan]="8">
+      <nz-select style="width: 100%" [(ngModel)]="datamodel.department">
+        <nz-option *ngFor="let option of data" [nzLabel]="option.departmentname" [nzValue]="option.department"></nz-option>
+      </nz-select>
+    </div>
+  </div>
+</nz-modal>
+<nz-modal [(nzVisible)]="isVisible.showUser" nzTitle="查看个人信息" (nzOnCancel)="handleCancel('showUser')" (nzOnOk)="handleOk('showUser')">
+  <div nz-row>
+    <div nz-col [nzSpan]="5">用户名：</div>
+    <div nz-col [nzSpan]="19">{{username}}</div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="5">姓名：</div>
+    <div nz-col [nzSpan]="19">{{name}}</div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="5">角色：</div>
+    <div nz-col [nzSpan]="19">
+      <span>{{role}}</span>
+      <span *ngIf="role2">、{{role2}}</span>
+      <span *ngIf="role3">、{{role3}}</span>
+      <span *ngIf="role4">、{{role4}}</span>
+      <span *ngIf="role5">、{{role5}}</span>
+    </div>
+  </div>
+</nz-modal>
+
+
+

@@ -8,8 +8,12 @@ import {Component, Renderer2} from '@angular/core';
 export class AppComponent {
   constructor(private renderer: Renderer2) {
     window.onload = () => {
-      const ele = document.querySelector('.loader');
-      this.renderer.addClass(ele, 'hidden');
+      const ele = document.querySelector('#loaders');
+      this.renderer.addClass(ele, 'hideSlow');
+      setTimeout(
+        ()=>this.renderer.addClass(ele,"hidden"),
+        300
+      )
     };
   }
 }

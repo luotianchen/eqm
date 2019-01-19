@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {WarehousingAuditService} from "./warehousingAudit.service";
 import {NzMessageService} from "ng-zorro-antd";
-
+import {SessionStorageService} from "../../../core/storage/storage.service";
 @Component({
   selector: 'app-warehousingAudit',
   templateUrl: 'warehousingAudit.component.html',
@@ -42,7 +42,7 @@ export class WarehousingAuditComponent implements OnInit {
       "10~60目"
     ];
   }
-  constructor(private fb: FormBuilder, private warehousingAuditService:WarehousingAuditService,private message : NzMessageService) {
+  constructor(private fb: FormBuilder, private warehousingAuditService:WarehousingAuditService,private message : NzMessageService,private _storage:SessionStorageService) {
     this.warehousingAuditService.getputmaterial().subscribe(res => {
       if (res['result'] === 'success') {
         this.matlname = res['data']['matlname'];
@@ -80,7 +80,7 @@ export class WarehousingAuditComponent implements OnInit {
     let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
     if(monthDay.test(this.validateForm.controls["indate"].value)){
       this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.controls["indate"].value);
-    }else if(!yearMonthDay.test(this.validateForm.controls["indate"].value)){
+    }else if(!yearMonthDay.test(this.validateForm.value.indate)){
       this.validateForm.controls["indate"].setValue(null);
     }
   }
@@ -90,7 +90,7 @@ export class WarehousingAuditComponent implements OnInit {
       this.pageindex = 1;
     }
     this.loading = true;
-    this.warehousingAuditService.searchallmaterial(this.pageindex,this.pagesize,this.validateForm.controls['codedmarking'].value,this.validateForm.controls["matlname"].value,this.validateForm.controls["designation"].value,this.validateForm.controls["spec"].value,this.validateForm.controls["millunit"].value,this.validateForm.controls["indate"].value).subscribe((res)=>{
+    this.warehousingAuditService.searchallmaterial(this.pageindex,this.pagesize,this.validateForm.controls['codedmarking'].value,this.validateForm.value.matlname,this.validateForm.value.designation,this.validateForm.value.spec,this.validateForm.value.millunit,this.validateForm.value.indate).subscribe((res)=>{
       if(res["result"]=="success"){
         this.total = res["total"];
         this.dataset = res["data"];
@@ -99,7 +99,7 @@ export class WarehousingAuditComponent implements OnInit {
     })
   }
   Audit(codedmarking,status){
-    this.warehousingAuditService.audit(codedmarking,status).subscribe((res)=>{
+    this.warehousingAuditService.audit(codedmarking,status,this._storage.get("username")).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
         this.searchData();

@@ -12,6 +12,9 @@
         <nz-form-label [nzSm]="6" [nzFor]="matlcode">材料代码</nz-form-label>
         <nz-form-control [nzSm]="14">
           <input nz-input placeholder="材料代码" formControlName="matlcode" name="matlcode" id="matlcode" >
+          <nz-form-explain *ngIf="validateForm.get('matlcode').dirty && validateForm.get('matlcode').errors">
+            材料代码不能为空！
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>

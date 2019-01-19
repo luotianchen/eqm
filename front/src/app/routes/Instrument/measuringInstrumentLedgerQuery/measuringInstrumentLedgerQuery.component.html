@@ -1,0 +1,50 @@
+<div>
+  <h3 class="title">计量台帐查询</h3>
+</div>
+<div style="margin-top: 30px;">
+  <nz-table
+    #ajaxTable
+    nzBordered
+    nzSize="small"
+    [nzLoading]="loading"
+    [nzData]="dataSet">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>厂内编号</th>
+      <th>出厂编号</th>
+      <th>型号</th>
+      <th>测量范围</th>
+      <th>精度等级</th>
+      <th>生产单位</th>
+      <th>出厂日期</th>
+      <th>管理类别</th>
+      <th>检定日期</th>
+      <th>下次检定日期</th>
+      <th>专管人</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+      <tr>
+        <td>{{data.gaugename}}</td>
+        <td>{{data.gaugeno}}</td>
+        <td>{{data.exitno}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.measrangemin}} ~ {{data.measrangemax}}</td>
+        <td>{{data.accuclass}}</td>
+        <td>{{data.millunit}}</td>
+        <td>{{data.exitdate}}</td>
+        <td>{{data.managlevel}}</td>
+        <td>{{data.calibdate}}</td>
+        <td>{{data.recalibdate}}</td>
+        <td>
+          <span *ngFor="let s of data.specialist;let i = index;">
+              {{s}}
+              <span *ngIf="i!=data.specialist.length - 1">、</span>
+            </span></td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+</div>

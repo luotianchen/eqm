@@ -14,6 +14,7 @@ export class MaterialDistributeService {
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
   }
   putdistribute(data){
+    console.log(JSON.stringify(data))
     return this.http.post(this.api.BASEURL+"/putpressureparts",data);
   }
   addMatlname(matlname){

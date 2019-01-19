@@ -1,0 +1,86 @@
+<div>
+  <h3 class="title">个人资料</h3>
+  <a style="float: right;margin-right: 100px;" *ngIf="!edit" (click)="edit = true">修改信息</a>
+  <a style="float: right;margin-right: 100px;" *ngIf="edit" (click)="edit = false;editimg = false;avatarUrl=null;fileList=[]">退出修改</a>
+</div>
+<nz-divider></nz-divider>
+<div id="main">
+  <div nz-row style="height: 44px;line-height: 44px">
+    <div nz-col nzSpan="4" nzOffset="4">
+      <strong>用户名：</strong>
+    </div>
+    <div nz-col nzSpan="16">
+      <span>{{_storage.get("username")}}</span>
+    </div>
+  </div>
+  <div nz-row style="height: 44px;line-height: 44px">
+    <div nz-col nzSpan="4" nzOffset="4">
+      <strong>姓名：</strong>
+    </div>
+    <div nz-col nzSpan="16" *ngIf="!edit">
+      <span>{{_storage.get("name")}}</span>
+    </div>
+    <div nz-col nzSpan="16" *ngIf="edit">
+      <input nz-input placeholder="请输入您的姓名" [(ngModel)]="name" style="width:150px">
+      <button nz-button nzType="primary" style="margin-left: 30px" (click)="editName()">修改姓名</button>
+    </div>
+  </div>
+  <div nz-row style="height: 44px;line-height: 44px">
+    <div nz-col nzSpan="4" nzOffset="4">
+      <strong>邮箱：</strong>
+    </div>
+    <div nz-col nzSpan="16" *ngIf="!edit">
+      <span>{{_storage.get("email")}}</span>
+    </div>
+    <div nz-col nzSpan="16" *ngIf="edit">
+      <input nz-input placeholder="请输入邮箱" type="email" [(ngModel)]="email" style="width:150px">
+      <button nz-button nzType="primary" style="margin-left: 30px" (click)="editEmail()">修改邮箱</button>
+    </div>
+  </div>
+  <div nz-row style="height: 44px;line-height: 44px">
+    <div nz-col nzSpan="4" nzOffset="4">
+      <strong>职位：</strong>
+    </div>
+    <div nz-col nzSpan="16">
+      <span>{{_storage.get("role")}}</span>
+      <span *ngIf="_storage.get('role2')!='null'">、{{_storage.get("role2")}}</span>
+      <span *ngIf="_storage.get('role3')!='null'">、{{_storage.get("role3")}}</span>
+      <span *ngIf="_storage.get('role4')!='null'">、{{_storage.get("role4")}}</span>
+      <span *ngIf="_storage.get('role5')!='null'">、{{_storage.get("role5")}}</span>
+    </div>
+  </div>
+  <div nz-row style="height: 44px;line-height: 44px">
+    <div nz-col nzSpan="4" nzOffset="4">
+      <strong>所属部门：</strong>
+    </div>
+    <div nz-col nzSpan="16">
+      <span *ngFor="let item of department">{{item}} </span>
+    </div>
+  </div>
+  <div nz-row style="padding-top: 8px;">
+    <div nz-col nzSpan="4" nzOffset="4">
+      <strong>签名：</strong>
+    </div>
+    <div nz-col nzSpan="16">
+      <div class="clearfix editImg" *ngIf="editimg">
+        <nz-upload class="avatar-uploader" nzName="avatar"
+                   *ngIf="!avatarUrl"
+           nzListType="picture-card"
+          [(nzFileList)]="fileList"
+          [nzShowButton]="fileList.length < 1"
+          [nzFilter]="filters"
+          [nzBeforeUpload]="beforeUpload">
+          <i nz-icon type="plus"></i>
+          <div class="ant-upload-text">上传签名</div>
+        </nz-upload>
+        <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+        <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-left:20px">
+          {{ uploading ? '上传中' : '开始上传' }}
+        </button>
+      </div>
+
+      <img src="{{imgURL}}" style="width:200px;" *ngIf="imgURL!=null && !editimg">
+      <button nz-button nzType="primary" style="margin-left: 30px" (click)="editimg = true" *ngIf="edit && !editimg">上传签名</button>
+    </div>
+  </div>
+</div>

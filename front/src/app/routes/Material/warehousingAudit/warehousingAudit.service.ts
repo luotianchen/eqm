@@ -24,7 +24,7 @@ export class WarehousingAuditService {
       }
     })
   }
-  audit(codedmarking,status){
-    return this.http.post(this.api.BASEURL+"/putaudit",{codedmarking:codedmarking,status:status})
+  audit(codedmarking,status,audit_user){
+    return this.http.post(this.api.BASEURL+"/putaudit",{codedmarking:codedmarking,status:status,audit_user:audit_user})
   }
 }

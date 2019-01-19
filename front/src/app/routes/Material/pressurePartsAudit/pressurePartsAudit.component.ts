@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PressurePartsAuditService} from "./pressurePartsAudit.service";
 import {NzMessageService} from "ng-zorro-antd";
+import {SessionStorageService} from '../../../core/storage/storage.service';
 
 @Component({
   selector: 'app-pressurePartsAudit',
@@ -11,7 +12,7 @@ import {NzMessageService} from "ng-zorro-antd";
 export class PressurePartsAuditComponent implements OnInit {
   private dataSet:any;
   private dataDetail = {};
-  constructor(private pressurePartsAuditService:PressurePartsAuditService,private message : NzMessageService){
+  constructor(private pressurePartsAuditService:PressurePartsAuditService,private message : NzMessageService,private _storage:SessionStorageService){
   }
   search(audit){
     this.pressurePartsAuditService.getdistribute(audit).subscribe((response)=>{
@@ -32,7 +33,7 @@ export class PressurePartsAuditComponent implements OnInit {
     })
   }
   Audit(audit,result){
-    this.pressurePartsAuditService.audit(audit,result).subscribe((res)=>{
+    this.pressurePartsAuditService.audit(audit,result,this._storage.get("username")).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
         this.searchData();

@@ -1,0 +1,223 @@
+<div>
+  <h3 class="title">产品试板数据登记</h3>
+  <span style="float: right">
+  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(testboardstandTitle, testboardstandContent, testboardstandFooter,'testboardstand')">添加试板标准</button>
+  </span>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="prodno">产品编号</nz-form-label>
+          <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="searchData()">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="prodname">产品名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="evaluastand">评定标准</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="评定标准"  formControlName="evaluastand" name="evaluastand" id="evaluastand"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="specimenno">试件编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="试件编号"  formControlName="specimenno" name="specimenno" id="specimenno"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="specimenname">试件名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="试件名称"  formControlName="specimenname" name="specimenname" id="specimenname"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="weldingsteelseal">焊工钢印</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊工钢印"  formControlName="weldingsteelseal" name="weldingsteelseal" id="weldingsteelseal">
+            <nz-option *ngFor="let option of userinfo" [nzLabel]="option.note" [nzValue]="option.note"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="designation">材料牌号</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="材料牌号"  formControlName="designation" name="designation" id="designation">
+            <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="spec">规格</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="规格"  formControlName="spec" name="spec" id="spec">
+            <nz-option *ngFor="let option of specs" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="groovetype">坡口型式</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="坡口型式"  formControlName="groovetype" name="groovetype" id="groovetype"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="weldingmethod">焊接方法</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="焊接方法"  formControlName="weldingmethod" name="weldingmethod" id="weldingmethod"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="weldingposition">焊接位置</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="焊接位置"  formControlName="weldingmethod" name="weldingposition" id="weldingposition"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="heatcondi">热处理状态</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="热处理状态"  formControlName="heatcondi" name="heatcondi" id="heatcondi">
+            <nz-option *ngFor="let option of heatcondis" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="representno">代表产品批号</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="代表产品批号"  formControlName="representno" name="representno" id="representno"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="representpart">代表部位</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="代表部位"  formControlName="representpart" name="representpart" id="representpart">
+            <nz-option *ngFor="let option of representparts" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="drawingnumber">拉伸数量</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="拉伸数量"  formControlName="drawingnumber" name="drawingnumber" id="drawingnumber">
+            <nz-option  nzLabel="1" nzValue="1"></nz-option>
+            <nz-option  nzLabel="2" nzValue="2"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="surfacebending">面弯</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="面弯"  formControlName="surfacebending" name="surfacebending" id="surfacebending" (ngModelChange)="changeLateralbending()">
+            <nz-option  nzLabel="1" nzValue="1"></nz-option>
+            <nz-option  nzLabel="2" nzValue="2"></nz-option>
+            <nz-option  nzLabel="/" nzValue="/"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="backbending">背弯</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="背弯"  formControlName="backbending" name="backbending" id="backbending">
+            <nz-option  nzLabel="1" nzValue="1"></nz-option>
+            <nz-option  nzLabel="2" nzValue="2"></nz-option>
+            <nz-option  nzLabel="/" nzValue="/"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="lateralbending">侧弯</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="侧弯"  formControlName="lateralbending" name="lateralbending" id="lateralbending" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="flattening">压扁</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="压扁"  formControlName="flattening" name="flattening" id="flattening">
+            <nz-option  nzLabel="1" nzValue="1"></nz-option>
+            <nz-option  nzLabel="2" nzValue="2"></nz-option>
+            <nz-option  nzLabel="/" nzValue="/"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="shocktemperature">冲击温度</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="冲击温度"  formControlName="shocktemperature" name="shocktemperature" id="shocktemperature"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="weldzoneshocknum">焊缝区冲击数量</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊缝区冲击数量"  formControlName="weldzoneshocknum" name="weldzoneshocknum" id="weldzoneshocknum">
+            <nz-option  nzLabel="3" nzValue="3"></nz-option>
+            <nz-option  nzLabel="/" nzValue="/"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired [nzFor]="thermalimpactzonenum">热影响区冲击数量</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="热影响区冲击数量"  formControlName="thermalimpactzonenum" name="thermalimpactzonenum" id="thermalimpactzonenum">
+            <nz-option  nzLabel="3" nzValue="3"></nz-option>
+            <nz-option  nzLabel="/" nzValue="/"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</form>

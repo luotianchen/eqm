@@ -12,7 +12,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzFor]="prodno">产品编号</nz-form-label>
           <nz-form-control [nzSm]="14" nzHasFeedback>
-          <nz-select [nzMaxMultipleCount]="1" style="width: 100%" nzMode="tags" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+          <nz-select style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
             <nz-option *ngFor="let option of prodno" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -44,28 +44,30 @@
   <nz-table
     #editRowTable
     nzBordered
-    [nzScroll]="{x:'1300px'}"
+    nzSize="small"
+    [nzPageSize]="50"
     [nzData]="dataSet">
     <thead>
     <tr>
-      <th nzLeft="0px">名称</th>
+      <th>名称</th>
       <th>规格</th>
       <th>尺寸</th>
       <th>件号</th>
       <th>牌号</th>
       <th>数量</th>
-      <th>入库编号</th>
-      <th>发料日期</th>
+      <th style="min-width: 100px">入库编号</th>
+      <th style="min-width: 100px">发料日期</th>
       <th>领料人</th>
       <th>备注</th>
       <th>焊缝号</th>
       <th>退回数量</th>
-      <th style="min-width: 150px;" nzRight="0px">操作</th>
+      <th>是否主要</th>
+      <th style="min-width: 100px;">操作</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let data of editRowTable.data">
-      <td nzLeft="0px">
+      <td>
         <div class="editable-cell">
           <div class="editable-cell-text-wrapper">
             <ng-container *ngIf="!editCache[data.key].edit">
@@ -165,7 +167,15 @@
           <input type="text" nz-input [(ngModel)]="editCache[data.key].data.returnqty">
         </ng-container>
       </td>
-      <td nzRight="0px">
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.ispresspart}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.ispresspart">
+        </ng-container>
+      </td>
+      <td>
         <div class="editable-row-operations">
           <ng-container *ngIf="!editCache[data.key].edit">
             <a (click)="startEdit(data.key)">修改</a>

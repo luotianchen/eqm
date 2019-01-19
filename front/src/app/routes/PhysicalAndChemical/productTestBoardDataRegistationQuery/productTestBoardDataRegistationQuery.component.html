@@ -1,0 +1,64 @@
+<div>
+  <h3 class="title">产品试板数据审核</h3>
+</div>
+<nz-divider></nz-divider>
+<nz-table
+  nzSize="small"
+  #nzTable
+  [nzData]="dataSet"
+  [nzPageSize]="10">
+  <thead>
+  <tr>
+    <th nzShowExpand></th>
+    <th>提交人</th>
+    <th>提交时间</th>
+    <th>产品编号</th>
+    <th>评定标准</th>
+    <th>试件编号</th>
+    <th>试件名称</th>
+    <th>焊工钢印</th>
+    <th>材料牌号</th>
+    <th>规格</th>
+    <th>坡口形式</th>
+    <th>焊接方法</th>
+    <th>焊接位置</th>
+    <th>热处理状态</th>
+    <th>代表产品批号</th>
+    <th>代表部位</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <tr>
+      <td nzShowExpand [(nzExpand)]="data.expand"></td>
+      <td>{{data.user}}</td>
+      <td>{{data.date}}</td>
+      <td>{{data.prodno}}</td>
+      <td>{{data.evaluastand}}</td>
+      <td>{{data.specimenno}}</td>
+      <td>{{data.specimenname}}</td>
+      <td>{{data.weldingsteelseal}}</td>
+      <td>{{data.designation}}</td>
+      <td>{{data.spec}}</td>
+      <td>{{data.groovetype}}</td>
+      <td>{{data.weldingmethod}}</td>
+      <td>{{data.weldingposition}}</td>
+      <td>{{data.heatcondi}}</td>
+      <td>{{data.representno}}</td>
+      <td>{{data.representpart}}</td>
+    </tr>
+    <tr [nzExpand]="data.expand">
+      <td colspan="16" style="text-align: center">
+        拉伸数量:{{data.drawingnumber}}，
+        面弯:{{data.surfacebending}}，
+        背弯:{{data.backbending}}，
+        侧弯:{{data.lateralbending}}，
+        压扁：{{data.flattening}}，
+        冲击温度：{{data.shocktemperature}}，
+        焊缝区冲击数量：{{data.weldzoneshocknum}}，
+        热影响区冲击数量：{{data.thermalimpactzonenum}}
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>
