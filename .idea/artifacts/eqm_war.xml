@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="eqm:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/eqm_war</output-path>
+    <root id="archive" name="eqm_war.war">
+      <element id="artifact" artifact-name="eqm:war exploded" />
+    </root>
+  </artifact>
+</component>

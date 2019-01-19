@@ -1,0 +1,453 @@
+{
+  "data": [
+    {
+      "name": "材料管理",
+      "data": [
+        {
+          "icon": "home",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "code-o",
+          "name": "材料入库管理",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "材料入库登记",
+              "route": "/material/warehousingRegistration"
+            },
+            {
+              "icon": "laptop",
+              "name": "入库登记审核",
+              "route": "/material/warehousingAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料入库查询",
+              "route": "/material/warehousingQuery"
+            }
+          ]
+        },
+        {
+          "icon": "code-o",
+          "name": "材料代用管理",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "材料代用申请",
+              "route": "/material/materialSubstitution"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料代用审核",
+              "route": "/material/materialSubstitutionAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "代用通知单查询",
+              "route": "/material/materialSubstitutionQuery"
+            }]
+        },
+        {
+          "icon": "code-o",
+          "name": "材料发放管理",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "材料发放登记",
+              "route": "/material/materialDistribute"
+            },
+            {
+              "icon": "laptop",
+              "name": "焊材发放登记",
+              "route": "/material/weldingDistribute"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件发放登记",
+              "route": "/material/pressurePartsDistribute"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件登记审核",
+              "route": "/material/pressurePartsAudit"
+            }]
+        },
+        {
+          "icon": "code-o",
+          "name": "材料查询",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "质保书未到情况查询",
+              "route": "/material/warrantyAbsent"
+            },
+            {
+              "icon": "laptop",
+              "name": "单项质保书未到查询",
+              "route": "/material/singleWarrantyAbsent"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料使用查询",
+              "route": "/material/materialUsing"
+            },
+            {
+              "icon": "laptop",
+              "name": "月材料查询",
+              "route": "/material/monthMaterial"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件对照表",
+              "route": "/material/presureParts"
+            }]
+        },
+        {
+          "icon": "code-o",
+          "name": "报表生成",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "入库通知单",
+              "route": "/material/warehouseEntryNotice"
+            },
+            {
+              "icon": "laptop",
+              "name": "受压元件使用材料一览表",
+              "route": "/material/pressurePartsReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料台帐",
+              "route": "/material/distributionLedger"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料合格证",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "检验记录",
+              "route": "/material/inspectionRecords"
+            }]
+        }
+      ]
+    },
+    {
+      "name": "理化管理",
+      "data": [
+        {
+          "icon": "laptop",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "user",
+          "name": "材料复验",
+          "route": "/user",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "材料复验申请",
+              "route": "/physicalAndChemical/materialReinspectionCommission"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料复验申请审核",
+              "route": "/physicalAndChemical/materialReinspectionCommissionAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料复验申请查询",
+              "route": "/physicalAndChemical/materialReinspectionCommissionQuery"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料复验登记",
+              "route": "/physicalAndChemical/materialReinspection"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料复验登记审核",
+              "route": "/physicalAndChemical/materialReinspectionAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "材料复验登记查询",
+              "route": "/physicalAndChemical/materialReinspectionQuery"
+            }
+          ]
+        },
+        {
+          "icon": "code-o",
+          "name": "产品试板",
+          "route": "/charts",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "产品试板委托申请",
+              "route": "/physicalAndChemical/productTestBoardCommission"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品试板委托审核",
+              "route": "/physicalAndChemical/productTestBoardCommissionAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品试板委托查询",
+              "route": "/physicalAndChemical/productTestBoardCommissionQuery"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品试板数据登记",
+              "route": "/physicalAndChemical/productTestBoardDataRegistration"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品试板登记审核",
+              "route": "/physicalAndChemical/productTestBoardDataRegistrationAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品试板登记查询",
+              "route": "/physicalAndChemical/productTestBoardDataRegistrationQuery"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "检验与试验管理",
+      "data": [
+        {
+          "icon": "laptop",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "user",
+          "name": "参数输入",
+          "route": "/system/user",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "试压参数输入",
+              "route": "/inspectionAndTest/testParameters"
+            },
+            {
+              "icon": "laptop",
+              "name": "真空参数输入",
+              "route": "/inspectionAndTest/vacuumParameters"
+            },
+            {
+              "icon": "laptop",
+              "name": "真空参数审核",
+              "route": "/inspectionAndTest/vacuumParameterAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品制造参数输入",
+              "route": "/inspectionAndTest/productManufacturingParameters"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品制造参数审核",
+              "route": "/inspectionAndTest/productManufacturingParametersAudit"
+            }
+          ]
+        },
+        {
+          "icon": "code-o",
+          "name": "报表生成",
+          "route": "/report",
+          "submenu": [
+            {
+              "icon": "laptop",
+              "name": "压力试验通知单",
+              "route": "/report/pressTestReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "气压（气液组合）试验过程卡 ",
+              "route": "/report/pneumaticTestProcedureReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "液（水）压试验过程卡",
+              "route": "/report/liquidPressTestReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "压力容器封面",
+              "route": "/report/coverReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "压力容器产品合格证",
+              "route": "/report/pressVesProdQuaCerReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "真空考核报告",
+              "route": "/report/vacuumTestReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "真空检测报告",
+              "route": "/report/vacuumInspectionReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "压力容器产品质量计划",
+              "route": "/report/quaPressVesPlanReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表9",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表10",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表11",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表12",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表13",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表14",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表15",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表16",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表17",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表18",
+              "route": "/404"
+            },
+            {
+              "icon": "laptop",
+              "name": "报表19",
+              "route": "/404"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name":"设计数据管理",
+      "data":[
+        {
+          "icon": "laptop",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon" : "laptop",
+          "name" : "设计参数输入",
+          "route" : "/design/input"
+        },
+        {
+          "icon" : "laptop",
+          "name" : "设计参数审核",
+          "route" : "/design/audit"
+        }
+      ]
+    },
+    {
+      "name": "设备管理",
+      "data": [
+        {
+          "icon": "laptop",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "laptop",
+          "name": "计量器具台帐",
+          "submenu": [
+            {
+              "icon": "user",
+              "name": "计量器具台帐输入",
+              "route": "/instrument/measuringInstrumentLedger"
+            },
+            {
+              "icon": "user",
+              "name": "计量器具台帐审核",
+              "route": "/instrument/measuringInstrumentLedgerAudit"
+            },
+            {
+              "icon": "user",
+              "name": "计量器具台帐查询",
+              "route": "/instrument/measuringInstrumentLedgerQuery"
+            }
+          ]
+        },
+        {
+          "icon": "laptop",
+          "name": "设备计量台帐邮箱设置",
+          "route": "/instrument/measuringInstrumentSetting"
+        }
+      ]
+    },
+    {
+      "name": "系统管理",
+      "data": [
+        {
+          "icon": "laptop",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon": "code-o",
+          "name": "系统设置",
+          "route": "/system/setting"
+        },
+        {
+          "icon": "user",
+          "name": "用户管理",
+          "route": "/system/user"
+        },
+        {
+          "icon": "code-o",
+          "name": "部门角色管理",
+          "route": "/system/role"
+        }
+      ]
+    }
+  ]
+}
