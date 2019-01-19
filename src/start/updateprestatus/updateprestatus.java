@@ -21,16 +21,16 @@ public class updateprestatus {                                          //发放
 
         updateprestatusresult result = new updateprestatusresult();
 
-        //try {
+        try {
             ps = conn.prepareStatement("UPDATE pressureparts SET status = ? WHERE audit=?");
             ps.setInt(1,up.getStatus());
             ps.setString(2,up.getAudit());
             ps.executeUpdate();
             ps.close();
             result.setResult("success");
-        //}catch (Exception e){
-        //    result.setResult("fail");
-        //}
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }

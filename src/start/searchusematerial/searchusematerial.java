@@ -26,7 +26,7 @@ import java.util.Collections;
 
 @CrossOrigin
 @Controller
-public class searchusematerial {
+public class searchusematerial {                                                //材料使用查询
     @RequestMapping(value = "searchusematerialresult")                                                      //材料使用查询(返回result)
     public @ResponseBody searchusematerialresult searchusematerialresult(@RequestBody searchusematerialpost sp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();

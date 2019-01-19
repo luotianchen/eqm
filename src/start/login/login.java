@@ -38,6 +38,7 @@ public class login {                                                            
             if(rs.getString("username").equals(lp.getUsername())){
                 a=1;												//存在账号输出a=1
                 result.setName(rs.getString("name"));               //存入与该用户对应的真实姓名
+                result.setEmail(rs.getString("email"));             //取出角色email
                 role_id=rs.getInt("role_id");                       //取出角色id
                 role2_id=rs.getInt("role2_id");                       //取出角色id
                 role3_id=rs.getInt("role3_id");                       //取出角色id

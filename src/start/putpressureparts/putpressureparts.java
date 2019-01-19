@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @Controller
-public class putpressureparts {                                                                     //提交材料发放记录
+public class putpressureparts {                                         //发放记录提交                                                         //提交材料发放记录
     @RequestMapping(value = "putpressureparts")
     public @ResponseBody putpressurepartsresult putpressureparts(@RequestBody putpressurepartspost pp) throws ClassNotFoundException, SQLException, ParseException {
         jdbc j = new jdbc();
@@ -35,7 +35,7 @@ public class putpressureparts {                                                 
         String uid = UUID.randomUUID().toString();                                  //生成随机字符串
 
 
-        //try {
+        try {
             for(int i=0;i<pp.getData().size();i++){
                 java.util.Date d1 = sdf.parse(pp.getData().get(i).getIssuedate());
                 java.sql.Date d = new java.sql.Date(d1.getTime());
@@ -81,7 +81,7 @@ public class putpressureparts {                                                 
                         "(prodno,parts_id_name,spec,dimension,partno," +
                         "contraststand_id_designation,qty,codedmarking,issuedate,workshopperson_id_name,note,audit," +
                         "ispresspart,weldno,returnqty,warehouseperson_id_name)" +
-                        "value (?,?,?,?,?,?,?,?,?,?,?,?," +
+                        "values (?,?,?,?,?,?,?,?,?,?,?,?," +
                         "?,?,?,?)");
                 ps.setString(1,pp.getProdno());
                 ps.setInt(2,spartname_id);
@@ -104,9 +104,9 @@ public class putpressureparts {                                                 
 
             }
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }

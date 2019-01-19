@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @CrossOrigin
 @Controller
-public class searchprebystatus {                                //查询审核有关记录
+public class searchprebystatus {                                //根据审核情况查询记录
     @RequestMapping(value = "searchprebystatus")
     public @ResponseBody searchprebystatusresult searchprebystatus(@RequestBody searchprebystatuspost sp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();

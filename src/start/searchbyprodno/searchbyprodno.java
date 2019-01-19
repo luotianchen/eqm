@@ -91,6 +91,13 @@ public class searchbyprodno {                                               //é€
                 picker_id=rs.getInt("workshopperson_id_name");
                 issuematl_id=rs.getInt("warehouseperson_id_name");
 
+                ps1=conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ?");
+                ps1.setString(1,rs.getString("codedmarking"));
+                rs1=ps1.executeQuery();
+                while (rs1.next()){
+                    data.setHeatbatchno(rs1.getString("heatbatchno"));
+                }
+
                 ps1=conn.prepareStatement("SELECT * FROM parts WHERE id=?");
                 ps1.setInt(1,spartname_id);
                 rs1=ps1.executeQuery();

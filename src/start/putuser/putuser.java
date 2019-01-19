@@ -19,6 +19,8 @@ public class putuser {                                                  //新增
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
 
         putuserresult result = new putuserresult();
 
@@ -33,8 +35,62 @@ public class putuser {                                                  //新增
         int role4_p=0;
         int role5_p=0;
         int num=2;
+        int id = 0;
 
         try {
+            ps = conn.prepareStatement("SELECT * FROM department WHERE id = 0");
+            rs = ps.executeQuery();
+            if(!rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("INSERT INTO department(id) VALUES (?)");
+                ps.setInt(1,0);
+                ps.executeUpdate();
+                ps.close();
+
+                ps = conn.prepareStatement("SELECT * FROM department ");
+                rs = ps.executeQuery();
+                while (rs.next()){
+                    id = rs.getInt("id");
+                }
+                rs.close();
+                ps.close();
+
+                ps = conn.prepareStatement("UPDATE department SET id = 0 WHERE id = ?");
+                ps.setInt(1,id);
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+            }
+
+            ps = conn.prepareStatement("SELECT * FROM role WHERE id = 0");
+            rs = ps.executeQuery();
+            if(!rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("INSERT INTO role(id,department_id) VALUES (0,0)");
+                ps.executeUpdate();
+                ps.close();
+
+                ps = conn.prepareStatement("SELECT * FROM role ");
+                rs = ps.executeQuery();
+                while (rs.next()){
+                    id = rs.getInt("id");
+                }
+                rs.close();
+                ps.close();
+
+                ps = conn.prepareStatement("UPDATE role SET id = 0 WHERE id = ?");
+                ps.setInt(1,id);
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+            }
+
             sql_1 = "INSERT INTO userform(username";
             sql_2 = ",name) values (?";
             sql_3 = ",?)";

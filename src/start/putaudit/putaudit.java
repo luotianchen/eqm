@@ -29,9 +29,10 @@ public class putaudit {                                             //提交审�
             }else {
                 ps.close();
                 rs.close();
-                ps=conn.prepareStatement("UPDATE putmaterial SET status=? WHERE codedmarking=?");
+                ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=?");
                 ps.setInt(1,pp.getStatus());
-                ps.setString(2,pp.getCodedmarking());
+                ps.setString(2,pp.getAudit_user());
+                ps.setString(3,pp.getCodedmarking());
                 ps.executeUpdate();
                 ps.close();
                 result.setResult("success");

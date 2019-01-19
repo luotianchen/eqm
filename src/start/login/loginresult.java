@@ -2,6 +2,7 @@ package start.login;
 
 public class loginresult {                                                   //返回结果
     private String result;
+    private String email;                                   //email地址
     private String role;                                   //角色(权限)的name
     private String role2;                                   //角色(权限)的name
     private String role3;                                   //角色(权限)的name
@@ -66,5 +67,13 @@ public class loginresult {                                                   //�
 
     public void setRole5(String role5) {
         this.role5 = role5;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

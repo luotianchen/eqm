@@ -37,6 +37,9 @@ public class getuserform {                                                  //èŽ
                 data.setRole4(rs.getInt("role4_id"));
                 data.setRole5(rs.getInt("role5_id"));
                 data.setUsername(rs.getString("username"));
+                data.setSign(rs.getString("signature"));
+                data.setEmail(rs.getString("email"));
+                data.setNote(rs.getString("note"));
                 ag.add(data);
             }
             rs.close();

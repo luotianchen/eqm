@@ -8,6 +8,9 @@ public class getuserformdata {
     private int role4;                                   //角色(权限)的id_4
     private int role5;                                   //角色(权限)的id_5
     private String name;                                //真实姓名
+    private String email;                               //邮箱
+    private String sign;                                    //签名
+    private String note;                                    //备注
     public getuserformdata(){
         super();
     }
@@ -66,5 +69,29 @@ public class getuserformdata {
 
     public void setRole5(int role5) {
         this.role5 = role5;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

@@ -15,6 +15,7 @@ public class searchbyprodnodata {
     private String weldno;                              //焊缝号
     private int returnqty;                           //退回数量
     private String note;                                //备注
+    private String heatbatchno;                             //炉批号
     public searchbyprodnodata(){
         super();
     }
@@ -129,5 +130,13 @@ public class searchbyprodnodata {
 
     public void setIssuematl(String issuematl) {
         this.issuematl = issuematl;
+    }
+
+    public String getHeatbatchno() {
+        return heatbatchno;
+    }
+
+    public void setHeatbatchno(String heatbatchno) {
+        this.heatbatchno = heatbatchno;
     }
 }
