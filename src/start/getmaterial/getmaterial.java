@@ -92,7 +92,7 @@ public class getmaterial {                                                      
                     matlstand_id=rs.getInt("contraststand_id_matlstand");
                     designation_id=rs.getInt("contraststand_id_designation");
                     millunit_id=rs.getInt("millunit_id_millunit");
-                    impacttemp_id=rs.getInt("bending_id_impacttemp");
+                    data.setImpacttemp(rs.getString("bending_id_impacttemp"));
                     bendangle_id=rs.getInt("bending_id_bendangle");
                     utclass_id=rs.getInt("bending_id_utclass");
                     supplier_id=rs.getInt("supplier_id_supplier");
@@ -171,15 +171,6 @@ public class getmaterial {                                                      
                 rs.close();
                 ps.close();
 
-
-                ps=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
-                ps.setInt(1,impacttemp_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setImpacttemp(rs.getString("impacttemp"));
-                }
-                rs.close();
-                ps.close();
 
 
                 ps=conn.prepareStatement("SELECT * FROM bending WHERE id=?");

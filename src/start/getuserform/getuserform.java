@@ -9,6 +9,7 @@ import start.jdbc.jdbc;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @CrossOrigin
 @Controller
@@ -44,6 +45,7 @@ public class getuserform {                                                  //�
             }
             rs.close();
             ps.close();
+            Collections.reverse(ag);                                          //将list倒序
             result.setData(ag);
             result.setResult("success");
         }catch (Exception e){

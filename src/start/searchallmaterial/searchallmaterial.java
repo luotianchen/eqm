@@ -212,7 +212,7 @@ public class searchallmaterial {                                                
                 designation_rid=rs.getInt("contraststand_id_designation");
                 millunit_rid=rs.getInt("millunit_id_millunit");
                 heatcondi_rid=rs.getInt("heattreatcondition_id_heatcondi");
-                impacttemp_rid=rs.getInt("bending_id_impacttemp");
+                samd.setImpacttemp(rs.getString("bending_id_impacttemp"));
                 bendangle_rid=rs.getInt("bending_id_bendangle");
                 utclass_rid=rs.getInt("bending_id_utclass");
 
@@ -305,15 +305,6 @@ public class searchallmaterial {                                                
                 rs1.close();
                 ps1.close();
 
-
-                ps1=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
-                ps1.setInt(1,impacttemp_rid);
-                rs1=ps1.executeQuery();
-                while(rs1.next()){
-                    samd.setImpacttemp(rs1.getInt("impacttemp"));
-                }
-                rs1.close();
-                ps1.close();
 
 
                 ps1=conn.prepareStatement("SELECT * FROM bending WHERE id=?");

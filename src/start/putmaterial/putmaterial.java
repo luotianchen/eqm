@@ -103,15 +103,6 @@ public class putmaterial {                                                      
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * from bending WHERE impacttemp=?");
-            ps.setString(1,pp.getImpacttemp());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                impacttemp_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
             ps=conn.prepareStatement("SELECT * from bending WHERE bendangle=?");
             ps.setString(1,pp.getBendangle());
             rs=ps.executeQuery();
@@ -219,7 +210,7 @@ public class putmaterial {                                                      
                 ps.setInt(43,matlstand_id);
                 ps.setInt(44,designation_id);
                 ps.setInt(45,millunit_id);
-                ps.setInt(46,impacttemp_id);
+                ps.setString(46,pp.getImpacttemp());
                 ps.setInt(47,bendangle_id);
                 ps.setInt(48,utclass_id);
                 ps.setString(49,pp.getAls());
@@ -292,7 +283,7 @@ public class putmaterial {                                                      
                 ps.setInt(42,matlstand_id);
                 ps.setInt(43,designation_id);
                 ps.setInt(44,millunit_id);
-                ps.setInt(45,impacttemp_id);
+                ps.setString(45,pp.getImpacttemp());
                 ps.setInt(46,bendangle_id);
                 ps.setInt(47,utclass_id);
                 ps.setString(48,pp.getAls());

@@ -18,15 +18,32 @@ public class putmillunit {                                                      
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
+        ResultSet rs = null;
         putmillunitresult result = new putmillunitresult();
 
         try{
-            ps=conn.prepareStatement("INSERT INTO millunit (millunit,millunitename)values(?,?)");
+            ps = conn.prepareStatement("SELECT * FROM millunit WHERE millunit = ?");
             ps.setString(1,pp.getMillunit());
-            ps.setString(2,pp.getMillunitename());
-            ps.executeUpdate();
-            ps.close();
-            result.setResult("success");
+            rs = ps.executeQuery();
+            if(rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("UPDATE millunit SET millunitename = ? WHERE millunit = ?");
+                ps.setString(1,pp.getMillunitename());
+                ps.setString(2,pp.getMillunit());
+                ps.executeUpdate();
+                ps.close();
+                result.setResult("success");
+            }else {
+                rs.close();
+                ps.close();
+                ps=conn.prepareStatement("INSERT INTO millunit (millunit,millunitename)values(?,?)");
+                ps.setString(1,pp.getMillunit());
+                ps.setString(2,pp.getMillunitename());
+                ps.executeUpdate();
+                ps.close();
+                result.setResult("success");
+            }
         }catch (Exception e){
             result.setResult("fail");
         }

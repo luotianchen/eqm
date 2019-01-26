@@ -57,7 +57,7 @@ public class searchallmaterialdata {
     private String impactp1;                                //冲击功
     private String impactp2;
     private String impactp3;
-    private int impacttemp;                              //冲击温度*
+    private String impacttemp;                              //冲击温度*
     private String bendangle;                               //弯曲角度*
     private String bendaxdia;                               //弯曲直径
     private int utclass;                                 //ut级别*
@@ -539,11 +539,11 @@ public class searchallmaterialdata {
         this.status = status;
     }
 
-    public int getImpacttemp() {
+    public String getImpacttemp() {
         return impacttemp;
     }
 
-    public void setImpacttemp(int impacttemp) {
+    public void setImpacttemp(String impacttemp) {
         this.impacttemp = impacttemp;
     }
 }
