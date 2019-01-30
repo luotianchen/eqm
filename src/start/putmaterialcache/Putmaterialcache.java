@@ -39,110 +39,6 @@ public class Putmaterialcache {                                                 
         try{
 
 
-            ps=conn.prepareStatement("SELECT * from modelstand WHERE modelstand = ?");
-            ps.setString(1,pp.getModelstand());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                modelstand_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-
-            ps=conn.prepareStatement("SELECT * from userform WHERE username = ?");
-            ps.setString(1,pp.getUser());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                user_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-
-            ps=conn.prepareStatement("SELECT * from warrantystatus WHERE certsitu=?");
-            ps.setString(1,pp.getWarrantysitu());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                warrantystatus_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from matlname WHERE matlname=?");
-            ps.setString(1,pp.getMatlname());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                matlname_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from contraststand WHERE matlstand=?");
-            ps.setString(1,pp.getMatlstand());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                matlstand_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from contraststand WHERE designation=?");
-            ps.setString(1,pp.getDesignation());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                designation_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from millunit WHERE millunit=?");
-            ps.setString(1,pp.getMillunit());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                millunit_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from bending WHERE bendangle=?");
-            ps.setString(1,pp.getBendangle());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                bendangle_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from bending WHERE utclass=?");
-            ps.setInt(1,pp.getUtclass());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                utclass_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from supplier WHERE supplier=?");
-            ps.setString(1,pp.getSupplier());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                supplier_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * from heattreatcondition WHERE heatcondi=?");
-            ps.setString(1,pp.getHeatcondi());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                heatcondi_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date d1 = sdf.parse(pp.getIndate());
-            Date d = new Date(d1.getTime());
 
 
             ps=conn.prepareStatement("SELECT * from putmaterialcache WHERE codedmarking = ?");
@@ -168,14 +64,14 @@ public class Putmaterialcache {                                                 
                         "?)");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(2,pp.getNote());
-                ps.setDate(3,d);
+                ps.setString(3,pp.getIndate());
                 ps.setString(4,pp.getWarrantyno());
-                ps.setInt(5,modelstand_id);
+                ps.setString(5,pp.getModelstand());
                 ps.setString(6,pp.getSpec());
                 ps.setString(7,pp.getQty());
                 ps.setString(8,pp.getUnit());
                 ps.setString(9,pp.getDimension());
-                ps.setInt(10,heatcondi_id);
+                ps.setString(10,pp.getHeatcondi());
                 ps.setString(11,pp.getHeatbatchno());
                 ps.setString(12,pp.getC());
                 ps.setString(13,pp.getSi());
@@ -205,15 +101,15 @@ public class Putmaterialcache {                                                 
                 ps.setString(37,pp.getImpactp2());
                 ps.setString(38,pp.getImpactp3());
                 ps.setString(39,pp.getBendaxdia());
-                ps.setInt(40,supplier_id);
-                ps.setInt(41,warrantystatus_id);
-                ps.setInt(42,matlname_id);
-                ps.setInt(43,matlstand_id);
-                ps.setInt(44,designation_id);
-                ps.setInt(45,millunit_id);
+                ps.setString(40,pp.getSupplier());
+                ps.setString(41,pp.getWarrantysitu());
+                ps.setString(42,pp.getMatlname());
+                ps.setString(43,pp.getMatlstand());
+                ps.setString(44,pp.getDesignation());
+                ps.setString(45,pp.getMillunit());
                 ps.setString(46,pp.getImpacttemp());
-                ps.setInt(47,bendangle_id);
-                ps.setInt(48,utclass_id);
+                ps.setString(47,pp.getBendangle());
+                ps.setInt(48,pp.getUtclass());
                 ps.setString(49,pp.getAls());
                 ps.setString(50,pp.getFe());
                 ps.setString(51,pp.getZn());
@@ -224,7 +120,7 @@ public class Putmaterialcache {                                                 
                 ps.setString(56,pp.getZr());
                 ps.setString(57,pp.getCa());
                 ps.setString(58,pp.getBe());
-                ps.setInt(59,user_id);
+                ps.setString(59,pp.getUser());
                 ps.executeUpdate();
                 ps.close();
             }else{
@@ -241,14 +137,14 @@ public class Putmaterialcache {                                                 
                         "user_id=? WHERE codedmarking=?");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(1,pp.getNote());
-                ps.setDate(2,d);
+                ps.setString(2,pp.getIndate());
                 ps.setString(3,pp.getWarrantyno());
-                ps.setInt(4,modelstand_id);
+                ps.setString(4,pp.getModelstand());
                 ps.setString(5,pp.getSpec());
                 ps.setString(6,pp.getQty());
                 ps.setString(7,pp.getUnit());
                 ps.setString(8,pp.getDimension());
-                ps.setInt(9,heatcondi_id);
+                ps.setString(9,pp.getHeatcondi());
                 ps.setString(10,pp.getHeatbatchno());
                 ps.setString(11,pp.getC());
                 ps.setString(12,pp.getSi());
@@ -278,15 +174,15 @@ public class Putmaterialcache {                                                 
                 ps.setString(36,pp.getImpactp2());
                 ps.setString(37,pp.getImpactp3());
                 ps.setString(38,pp.getBendaxdia());
-                ps.setInt(39,supplier_id);
-                ps.setInt(40,warrantystatus_id);
-                ps.setInt(41,matlname_id);
-                ps.setInt(42,matlstand_id);
-                ps.setInt(43,designation_id);
-                ps.setInt(44,millunit_id);
+                ps.setString(39,pp.getSupplier());
+                ps.setString(40,pp.getWarrantysitu());
+                ps.setString(41,pp.getMatlname());
+                ps.setString(42,pp.getMatlstand());
+                ps.setString(43,pp.getDesignation());
+                ps.setString(44,pp.getMillunit());
                 ps.setString(45,pp.getImpacttemp());
-                ps.setInt(46,bendangle_id);
-                ps.setInt(47,utclass_id);
+                ps.setString(46,pp.getBendangle());
+                ps.setInt(47,pp.getUtclass());
                 ps.setString(48,pp.getAls());
                 ps.setString(49,pp.getFe());
                 ps.setString(50,pp.getZn());
@@ -297,7 +193,7 @@ public class Putmaterialcache {                                                 
                 ps.setString(55,pp.getZr());
                 ps.setString(56,pp.getCa());
                 ps.setString(57,pp.getBe());
-                ps.setInt(58,user_id);
+                ps.setString(58,pp.getUser());
                 ps.setString(59,pp.getCodedmarking());
                 ps.executeUpdate();
                 ps.close();
