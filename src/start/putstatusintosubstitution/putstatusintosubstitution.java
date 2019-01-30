@@ -21,6 +21,8 @@ public class putstatusintosubstitution {                                        
         ResultSet rs=null;
 
         putstatusintosubstitutionresult result = new putstatusintosubstitutionresult();
+        String sql = null;
+        int num = 1;
 
         java.util.Date date=new java.util.Date();
 
@@ -32,75 +34,137 @@ public class putstatusintosubstitution {                                        
                 rs.close();
                 ps.close();
                 if(pp.getDesign_status()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET design_status = ?,design_note=?,design_username=?,design_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getDesign_status());
-                    ps.setString(2,pp.getDesign_note());
-                    ps.setString(3,pp.getDesign_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET design_status = ?,design_note=?,design_username=?,design_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET design_status = ?,design_username=?,design_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getDesign_status());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        ps.setString(num++,pp.getDesign_note());
+                    }
+                    ps.setString(num++,pp.getDesign_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
+                    sql = null;
+                    num = 1;
                 }
                 if(pp.getMatl_status()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET matl_status = ?,matl_note=?,matl_username=?,matl_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getMatl_status());
-                    ps.setString(2,pp.getMatl_note());
-                    ps.setString(3,pp.getMatl_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET matl_status = ?,matl_note=?,matl_username=?,matl_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET matl_status = ?,matl_username=?,matl_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getMatl_status());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))) {
+                        ps.setString(num++, pp.getMatl_note());
+                    }
+                    ps.setString(num++,pp.getMatl_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
+                    sql = null;
+                    num = 1;
                 }
                 if(pp.getWelding_status()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET welding_status = ?,welding_note=?,welding_username=?,welding_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getWelding_status());
-                    ps.setString(2,pp.getWelding_note());
-                    ps.setString(3,pp.getWelding_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET welding_status = ?,welding_note=?,welding_username=?,welding_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET welding_status = ?,welding_username=?,welding_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getWelding_status());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))) {
+                        ps.setString(num++, pp.getWelding_note());
+                    }
+                    ps.setString(num++,pp.getWelding_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
+                    sql = null;
+                    num = 1;
                 }
                 if(pp.getProcess_status()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET process_status = ?,process_note=?,process_username=?,process_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getProcess_status());
-                    ps.setString(2,pp.getProcess_note());
-                    ps.setString(3,pp.getProcess_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET process_status = ?,process_note=?,process_username=?,process_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET process_status = ?,process_username=?,process_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getProcess_status());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))) {
+                        ps.setString(num++, pp.getProcess_note());
+                    }
+                    ps.setString(num++,pp.getProcess_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
+                    sql = null;
+                    num = 1;
                 }
                 if(pp.getInspection_status()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET inspection_status = ?,inspection_note=?,inspection_username=?,inspection_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getInspection_status());
-                    ps.setString(2,pp.getInspection_note());
-                    ps.setString(3,pp.getInspection_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET inspection_status = ?,inspection_note=?,inspection_username=?,inspection_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET inspection_status = ?,inspection_username=?,inspection_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getInspection_status());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))) {
+                        ps.setString(num++, pp.getInspection_note());
+                    }
+                    ps.setString(num++,pp.getInspection_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
+                    sql = null;
+                    num = 1;
                 }
                 if(pp.getStatus_b()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET status_b = ?,b_note=?,b_username=?,b_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getStatus_b());
-                    ps.setString(2,pp.getB_note());
-                    ps.setString(3,pp.getB_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET status_b = ?,b_note=?,b_username=?,b_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET status_b = ?,b_username=?,b_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getStatus_b());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))) {
+                        ps.setString(num++, pp.getB_note());
+                    }
+                    ps.setString(num++,pp.getB_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
+                    sql = null;
+                    num = 1;
                 }
                 if(pp.getStatus_c()==1){
-                    ps = conn.prepareStatement("UPDATE matlsubstitution SET status_c = ?,c_note=?,c_username=?,c_date=? WHERE audit=?");
-                    ps.setInt(1,pp.getStatus_c());
-                    ps.setString(2,pp.getC_note());
-                    ps.setString(3,pp.getC_username());
-                    ps.setDate(4,new java.sql.Date(date.getTime()));
-                    ps.setString(5,pp.getAudit());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
+                        sql = "UPDATE matlsubstitution SET status_c = ?,c_note=?,c_username=?,c_date=? WHERE audit=?";
+                    }else {
+                        sql = "UPDATE matlsubstitution SET status_c = ?,c_username=?,c_date=? WHERE audit=?";
+                    }
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(num++,pp.getStatus_c());
+                    if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))) {
+                        ps.setString(num++, pp.getC_note());
+                    }
+                    ps.setString(num++,pp.getC_username());
+                    ps.setDate(num++,new java.sql.Date(date.getTime()));
+                    ps.setString(num++,pp.getAudit());
                     ps.executeUpdate();
                     ps.close();
-
+                    sql = null;
+                    num = 1;
                 }
                 result.setResult("success");
             }else {
