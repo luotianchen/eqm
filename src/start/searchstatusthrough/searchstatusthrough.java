@@ -33,7 +33,7 @@ public class searchstatusthrough {                                              
         int type_B = 0;
         int type_C = 0;
         String sql1 = "SELECT * FROM matlsubstitution WHERE design_status=1 AND matl_status=1 AND welding_status=1 AND process_status=1 AND inspection_status=1 ";
-        String sql2 = "group by audit";
+        String sql2 = "group by audit,id";
 
         //try {
             if(!(sp.getProdno() == null || sp.getProdno().equals(""))){
