@@ -37,7 +37,7 @@
     <div nz-col nzSpan="4"></div>
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="tosend_email">收件邮箱</nz-form-label>
+        <nz-form-label nzRequired nzFor="tosend_email">收件邮箱</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select formControlName="tosend_email" style="width: 100%" id="tosend_email" nzMode="multiple">
             <nz-option *ngFor="let option of userform" [nzLabel]="option.name" [nzValue]="option.email"></nz-option>

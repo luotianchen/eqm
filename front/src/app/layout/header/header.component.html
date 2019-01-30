@@ -8,20 +8,23 @@
     </ng-container>
   </ul>
   <div class="rightWarpper">
-    <div class="button">
-      <i class="anticon anticon-mail"></i>
+    <div class="buttonR">
+      <i nz-icon type="search" theme="outline"></i>
     </div>
-    <nz-dropdown style="margin-right: 20px">
-      <a class="menu" nz-dropdown style="width: 100px;height:64px;padding-left: 30px;padding-right: 30px;line-height: 64px">
-        <span title><i nz-icon type="user"></i>{{ _storage.get("username") }}</span>
+    <div class="buttonR">
+      <i nz-icon type="mail" theme="outline"></i>
+    </div>
+    <nz-dropdown class="drop" style="margin-right: 20px" [nzPlacement]="'bottom'">
+      <a class="menu" nz-dropdown>
+        <span title><i nz-icon type="user" style="margin-right: 10px;"></i>{{ _storage.get("username") }}</span>
       </a>
-      <ul nz-menu nzSelectable style="width: 130px;text-align: center">
-        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="router.navigate(['/profile']);">
+      <ul nz-menu nzSelectable style="width: 160px;text-align: center">
+        <li nz-menu-item (click)="router.navigate(['/profile']);">
           <i nz-icon type="solution" theme="outline"></i>个人资料</li>
-        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="router.navigate(['/changePassword']);">
+        <li nz-menu-item (click)="router.navigate(['/changePassword']);">
           <i nz-icon type="setting" theme="outline"></i>修改密码</li>
         <li nz-menu-divider></li>
-        <li style="width: 130px;padding:5px 20px 5px 20px;text-align: center" nz-menu-item (click)="signOut()">
+        <li nz-menu-item (click)="signOut()">
           <i nz-icon type="logout" theme="outline"></i>注销</li>
       </ul>
     </nz-dropdown>

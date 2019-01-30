@@ -11,7 +11,7 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [ProductTestBoardCommissionQueryService]
 })
 export class ProductTestBoardCommissionQueryComponent implements OnInit {
-  constructor(private productTestBoardCommissionQueryService: ProductTestBoardCommissionQueryService,private fb:FormBuilder,private message:NzMessageService,private modalService: NzModalService, private _storage: SessionStorageService) {
+  constructor(public productTestBoardCommissionQueryService: ProductTestBoardCommissionQueryService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
   dataSet = [];
   ngOnInit(): void {

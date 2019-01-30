@@ -26,7 +26,7 @@ export class UserService {
   }
 
   editNote(username,newnote){
-    return this.http.post(this.api.BASEURL+"/changenote",{username:username,note:newnote})
+    return this.http.post(this.api.BASEURL+"/changenotebyurname",{username:username,note:newnote})
   }
   getSignImage(username){
     return this.http.post(this.api.BASEURL+"/getsignatureurl",{username:username})

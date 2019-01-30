@@ -9,14 +9,14 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   providers: [SingleWarrantyAbsentService]
 })
 export class SingleWarrantyAbsentComponent implements OnInit {
-  private pageindex = 1;
-  private pagesize = 25;
-  private dataset = [];
-  private total = 0;
-  private loading = true;
-  private matlcode = null;
+  public pageindex = 1;
+  public pagesize = 25;
+  public dataset = [];
+  public total = 0;
+  public loading = true;
+  public matlcode = null;
   validateForm: FormGroup;
-  constructor(private singleWarrantyAbsentService: SingleWarrantyAbsentService,private fb: FormBuilder){
+  constructor(public singleWarrantyAbsentService: SingleWarrantyAbsentService,public fb: FormBuilder){
   }
 
   searchData(reset: boolean = false): void {
@@ -35,6 +35,10 @@ export class SingleWarrantyAbsentComponent implements OnInit {
           this.dataset = res["data"];
           this.loading = false;
           this.matlcode = this.validateForm['controls']["matlcode"].value;
+        }else{
+          this.total = 0;
+          this.dataset = [];
+          this.loading = false;
         }
       });
     }
@@ -42,11 +46,22 @@ export class SingleWarrantyAbsentComponent implements OnInit {
 
   ngOnInit(): void {
     this.validateForm = this.validateForm = this.fb.group({
-      "matlcode":[null, [Validators.required]]
+      "matlcode":['', [Validators.required]],
+      "dimension":['']
     });
   }
   download(){
-    if(this.matlcode!=null)
-      this.singleWarrantyAbsentService.download(this.matlcode);
+    if(this.matlcode!=null) {this.singleWarrantyAbsentService.download(this.matlcode).subscribe((res:any)=>{
+      let blob = new Blob([res])
+      let objectUrl = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      document.body.appendChild(a);
+      let date = new Date();
+      a.setAttribute('style', 'display:none');
+      a.setAttribute('href', objectUrl);
+      a.setAttribute('download', "单项质保书未到"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xls");
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });}
   }
 }

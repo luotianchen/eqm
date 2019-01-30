@@ -9,7 +9,7 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzSpan]="8">
         <nz-form-item>
-          <nz-form-label [nzSm]="6" [nzFor]="matlcode">材料代码</nz-form-label>
+          <nz-form-label [nzSm]="6" nzFor="matlcode">材料代码</nz-form-label>
           <nz-form-control [nzSm]="14">
             <input nz-input placeholder="材料代码" formControlName="matlcode" name="matlcode" id="matlcode" >
             <nz-form-explain *ngIf="validateForm.get('matlcode').dirty && validateForm.get('matlcode').errors">
@@ -20,7 +20,7 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzFor]="inyear">入库年份</nz-form-label>
+        <nz-form-label [nzSm]="6" nzFor="inyear">入库年份</nz-form-label>
         <nz-form-control [nzSm]="14">
           <nz-input-number [nzPlaceHolder]="'入库年份'" [nzMin]="1990" [nzMax]="thisyear" [nzStep]="1" formControlName="inyear" name="inyear" id="inyear" style="width: 100%"></nz-input-number>
           <nz-form-explain *ngIf="validateForm.get('inyear').dirty && validateForm.get('inyear').errors">
@@ -31,7 +31,7 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzFor]="month">入库月份</nz-form-label>
+        <nz-form-label [nzSm]="6" nzFor="month">入库月份</nz-form-label>
         <nz-form-control [nzSm]="14">
           <nz-input-number [nzPlaceHolder]="'入库月份'" [nzMin]="1" [nzMax]="12" [nzStep]="1" formControlName="inmonth" name="inmonth" id="inmonth" style="width: 100%"></nz-input-number>
           <nz-form-explain *ngIf="validateForm.get('inmonth').dirty && validateForm.get('inmonth').errors">
@@ -53,6 +53,7 @@
     [nzData]="dataset"
     [nzLoading]="loading"
     [nzTotal]="total"
+    nzSize="middle"
     [(nzPageIndex)]="pageindex"
     [(nzPageSize)]="pagesize"
     (nzPageIndexChange)="searchData()"

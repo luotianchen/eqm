@@ -14,10 +14,17 @@
   &.dark{
     .logo h1{
       color: #fff;
+
     }
   }
   &.light {
     background: #fff;
+    .logo {
+      background-color: #fff;
+      h1{
+        color: #1890ff;
+      }
+    }
 
     .switchtheme {
       background: #fff;
@@ -32,21 +39,24 @@
     padding-left: 24px;
     transition: all .3s;
     overflow: hidden;
+    background-color: #002140;
+
+
+    h1 {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 18px;
+      margin: 0 0 0 12px;
+      font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+      font-weight: 400;
+      height: 55px;
+    }
+
 
     img {
       width: 40px;
       margin-right: 8px;
       transition: @transition-ease-out;
-    }
-
-    h1 {
-      color: #000;
-      display: inline-block;
-      vertical-align: middle;
-      font-size: 20px;
-      margin: 0 0 0 12px;
-      font-family: Myriad Pro,Helvetica Neue,Arial,Helvetica,sans-serif;
-      font-weight: 600;
     }
 
     .anticon {
@@ -80,4 +90,8 @@
       }
     }
   }
+}
+.ant-menu-inline[_ngcontent-c2], .ant-menu-vertical[_ngcontent-c2], .ant-menu-vertical-left[_ngcontent-c2] {
+  border:none!important;
+  box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.01)!important;
 }

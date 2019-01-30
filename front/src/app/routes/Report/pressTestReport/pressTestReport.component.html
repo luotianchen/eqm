@@ -1,0 +1,285 @@
+<div>
+  <h3 class="title">ya</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+
+<div #print>
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <essence-ng2-print
+      [mode]="'popup'"
+      [popTitle]="'报表'"
+      [btnText]="'打印报表'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      [printCSS]="printCSS"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <table border=0 cellpadding=0 cellspacing=0 width=677 style='border-collapse:
+ collapse;table-layout:fixed;width:508pt'>
+    <colgroup width=47 style='mso-width-source:userset;mso-width-alt:1493;width:35pt'></colgroup>
+    <colgroup width=33 style='mso-width-source:userset;mso-width-alt:1066;width:25pt'></colgroup>
+    <colgroup width=0 style='display:none;mso-width-source:userset;mso-width-alt:597'></colgroup>
+    <colgroup width=61 style='mso-width-source:userset;mso-width-alt:1962;width:46pt'></colgroup>
+    <colgroup width=71 style='mso-width-source:userset;mso-width-alt:2261;width:53pt'></colgroup>
+    <colgroup width=43 style='mso-width-source:userset;mso-width-alt:1365;width:32pt'></colgroup>
+    <colgroup width=39 style='mso-width-source:userset;mso-width-alt:1237;width:29pt'></colgroup>
+    <colgroup width=89 style='mso-width-source:userset;mso-width-alt:2858;width:67pt'></colgroup>
+    <colgroup width=53 style='mso-width-source:userset;mso-width-alt:1706;width:40pt'></colgroup>
+    <colgroup width=48 style='mso-width-source:userset;mso-width-alt:1536;width:36pt'></colgroup>
+    <colgroup width=41 style='mso-width-source:userset;mso-width-alt:1322;width:31pt'></colgroup>
+    <colgroup width=83 style='mso-width-source:userset;mso-width-alt:2645;width:62pt'></colgroup>
+    <colgroup width=69 style='mso-width-source:userset;mso-width-alt:2218;width:52pt'></colgroup>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td height=33 class=xl65 width=47 style='height:25.0pt;width:35pt'>表 J-20</td>
+      <td width=33 style='width:25pt'></td>
+      <td width=0></td>
+      <td width=61 style='width:46pt'></td>
+      <td width=71 style='width:53pt'></td>
+      <td width=43 style='width:32pt'></td>
+      <td width=39 style='width:29pt'></td>
+      <td width=89 style='width:67pt'></td>
+      <td width=53 style='width:40pt'></td>
+      <td width=48 style='width:36pt'></td>
+      <td width=41 style='width:31pt'></td>
+      <td width=83 style='width:62pt'></td>
+      <td width=69 style='width:52pt'></td>
+    </tr>
+    <tr height=36 style='mso-height-source:userset;height:27.0pt'>
+      <td colspan=13 height=36 class=xl119 style='border-right:1.0pt solid black;
+  height:27.0pt'>压 力 试 验 通 知 单</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=4 height=33 class=xl89 width=141 style='border-right:.5pt solid black;
+  height:25.0pt;width:106pt'>产品编号</td>
+      <td colspan=2 class=xl80 width=114 style='border-right:.5pt solid black;
+  border-left:none;width:85pt'>17R051</td>
+      <td colspan=4 class=xl80 width=229 style='border-left:none;width:172pt'>产品图号</td>
+      <td colspan=3 class=xl122 width=193 style='border-right:1.0pt solid black;
+  width:145pt'>HTD10F3.000</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=4 height=33 class=xl89 width=141 style='height:25.0pt;width:106pt'>试压类别</td>
+      <td colspan=5 class=xl115 width=295 style='width:221pt'>气压试验</td>
+      <td colspan=4 class=xl113 width=241 style='border-right:1.0pt solid black;
+  width:181pt'>/</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=4 height=33 class=xl89 width=141 style='height:25.0pt;width:106pt'>产品名称：</td>
+      <td colspan=6 class=xl90 width=343 style='width:257pt'>　</td>
+      <td colspan=3 class=xl117 width=193 style='border-right:1.0pt solid black;
+  width:145pt'>Ⅰ通道</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl92 style='border-right:1.0pt solid black;
+  height:25.0pt'>产 品 技 术 特 性</td>
+    </tr>
+    <tr height=20 style='mso-height-source:userset;height:15.75pt'>
+      <td colspan=3 rowspan=2 height=41 class=xl95 width=80 style='border-right:
+  .5pt solid black;border-bottom:.5pt solid black;height:32.25pt;width:60pt'>设计压力(Mpa)：<ruby><font
+        class="font6"><rt class=font6></rt></font></ruby></td>
+      <td rowspan=2 class=xl101 width=61 style='border-bottom:.5pt solid black;
+  border-top:none;width:46pt'>1</td>
+      <td rowspan=2 class=xl101 width=71 style='border-bottom:.5pt solid black;
+  border-top:none;width:53pt'>设计温度(℃)：<ruby><font class="font6"><rt
+        class=font6></rt></font></ruby></td>
+      <td colspan=2 rowspan=2 class=xl103 style='border-bottom:.5pt solid black'>　</td>
+      <td rowspan=2 class=xl97 width=89 style='border-bottom:.5pt solid black;
+  border-top:none;width:67pt'>工作介质：<ruby><font class="font6"><rt class=font6></rt></font></ruby></td>
+      <td colspan=3 rowspan=2 class=xl107 width=142 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;width:107pt'>水</td>
+      <td rowspan=2 class=xl101 width=83 style='border-bottom:.5pt solid black;
+  border-top:none;width:62pt'>试验压力(Mpa)：<ruby><font class="font6"><rt
+        class=font6></rt></font></ruby></td>
+      <td class=xl75 width=69 style='border-top:none;border-left:none;width:52pt'>1</td>
+    </tr>
+    <tr height=21 style='mso-height-source:userset;height:16.5pt'>
+      <td height=21 class=xl76 width=69 style='height:16.5pt;border-left:none;
+  width:52pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl92 style='border-right:1.0pt solid black;
+  height:25.0pt'>审<span style='mso-spacerun:yes'>&nbsp; </span>查<span
+        style='mso-spacerun:yes'>&nbsp; </span>项<span style='mso-spacerun:yes'>&nbsp;
+  </span>目</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td height=33 class=xl71 width=47 style='height:25.0pt;border-top:none;
+  width:35pt'>序号</td>
+      <td colspan=8 class=xl80 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>项目与内容</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>是</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>否</td>
+      <td class=xl69 width=83 style='border-top:none;border-left:none;width:62pt'>检验员</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>备注</td>
+    </tr>
+    <tr height=48 style='mso-height-source:userset;height:36.75pt'>
+      <td height=48 class=xl71 width=47 style='height:36.75pt;border-top:none;
+  width:35pt'>1</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>按图纸要求，所有装配工作是否完成，外观几何尺寸检查是否合格。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl69 width=83 style='border-top:none;border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=44 style='mso-height-source:userset;height:33.75pt'>
+      <td height=44 class=xl71 width=47 style='height:33.75pt;border-top:none;
+  width:35pt'>2</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>审查所代表产品的焊接试板是否合格，见证资料及签字手续是否齐全。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl67 width=83 style='border-top:none;border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=44 style='mso-height-source:userset;height:33.0pt'>
+      <td height=44 class=xl71 width=47 style='height:33.0pt;border-top:none;
+  width:35pt'>3</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>审查焊缝的无损检测结果是否合格，见证资料及签字手续是否齐全。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl67 width=83 style='border-top:none;border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=40 style='mso-height-source:userset;height:30.0pt'>
+      <td height=40 class=xl71 width=47 style='height:30.0pt;border-top:none;
+  width:35pt'>4</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>审查是否有材料代用，代用时的审批手续是否完整。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl67 width=83 style='border-top:none;border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=45 style='mso-height-source:userset;height:34.5pt'>
+      <td height=45 class=xl71 width=47 style='height:34.5pt;border-top:none;
+  width:35pt'>5</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>审查有否焊缝返修（含不合格处理），其结果是否合格，审批手续是否齐全。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl67 width=83 style='border-top:none;border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=39 style='mso-height-source:userset;height:29.25pt'>
+      <td height=39 class=xl71 width=47 style='height:29.25pt;border-top:none;
+  width:35pt'>6</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>按程序文件Q/HTG 1022-2013第3.4条审查各类见证资料是否齐全。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl66 width=83 style='border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=36 style='mso-height-source:userset;height:27.75pt'>
+      <td height=36 class=xl71 width=47 style='height:27.75pt;border-top:none;
+  width:35pt'>7</td>
+      <td colspan=8 class=xl77 width=389 style='border-right:.5pt solid black;
+  border-left:none;width:292pt'>试验现场是否经安全管理部门确认合格。</td>
+      <td class=xl69 width=48 style='border-top:none;border-left:none;width:36pt'>　</td>
+      <td class=xl69 width=41 style='border-top:none;border-left:none;width:31pt'>　</td>
+      <td class=xl69 width=83 style='border-top:none;border-left:none;width:62pt'>　</td>
+      <td class=xl70 width=69 style='border-top:none;width:52pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl126 width=677 style='border-right:1.0pt solid black;
+  height:25.0pt;width:508pt'>经审查，上述项目已合格或符合要求，准予试压。</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl83 width=677 style='border-right:1.0pt solid black;
+  height:25.0pt;width:508pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl86 width=677 style='border-right:1.0pt solid black;
+  height:25.0pt;width:508pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl86 width=677 style='border-right:1.0pt solid black;
+  height:25.0pt;width:508pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=4 height=33 class=xl132 width=141 style='height:25.0pt;
+  width:106pt'>工艺责任人：<span
+        style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><ruby><font
+        class="font6"><rt class=font6></rt></font></ruby></td>
+      <td class=xl68 width=71 style='width:53pt'></td>
+      <td class=xl68 width=43 style='width:32pt'></td>
+      <td class=xl68 width=39 style='width:29pt'></td>
+      <td class=xl68 width=89 style='width:67pt'></td>
+      <td class=xl68 width=53 style='width:40pt'>日期：</td>
+      <td colspan=4 class=xl130 width=241 style='border-right:1.0pt solid black;
+  width:181pt'>2018年9月20日 星期四</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl83 width=677 style='border-right:1.0pt solid black;
+  height:25.0pt;width:508pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=4 height=33 class=xl132 width=141 style='height:25.0pt;
+  width:106pt'>检验责任人：<span
+        style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><ruby><font
+        class="font6"><rt class=font6></rt></font></ruby></td>
+      <td class=xl68 width=71 style='width:53pt'></td>
+      <td class=xl68 width=43 style='width:32pt'></td>
+      <td class=xl68 width=39 style='width:29pt'></td>
+      <td class=xl68 width=89 style='width:67pt'></td>
+      <td class=xl68 width=53 style='width:40pt'>日期：</td>
+      <td colspan=4 class=xl130 width=241 style='border-right:1.0pt solid black;
+  width:181pt'>2018年9月20日 星期四</td>
+    </tr>
+    <tr height=40 style='mso-height-source:userset;height:30.75pt'>
+      <td height=40 class=xl72 width=47 style='height:30.75pt;width:35pt'>　</td>
+      <td class=xl73 width=33 style='width:25pt'>　</td>
+      <td class=xl73 width=0>　</td>
+      <td class=xl73 width=61 style='width:46pt'>　</td>
+      <td class=xl73 width=71 style='width:53pt'>　</td>
+      <td class=xl73 width=43 style='width:32pt'>　</td>
+      <td class=xl73 width=39 style='width:29pt'>　</td>
+      <td class=xl73 width=89 style='width:67pt'>　</td>
+      <td class=xl73 width=53 style='width:40pt'>　</td>
+      <td class=xl73 width=48 style='width:36pt'>　</td>
+      <td class=xl73 width=41 style='width:31pt'>　</td>
+      <td class=xl73 width=83 style='width:62pt'>　</td>
+      <td class=xl74 width=69 style='width:52pt'>　</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl129 style='height:25.0pt'>注：①合格项在“是”栏中打上“√”；不合格项在“否”栏中打上“√”。</td>
+    </tr>
+    <tr height=33 style='mso-height-source:userset;height:25.0pt'>
+      <td colspan=13 height=33 class=xl125 style='height:25.0pt'>②由车间负责人填报，相关责任人审批后由质管部归档，一式两份</td>
+    </tr>
+  </table>
+
+</div>

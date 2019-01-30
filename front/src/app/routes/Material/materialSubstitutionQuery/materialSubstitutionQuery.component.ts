@@ -10,20 +10,20 @@ import {MaterialSubstitutionQueryService} from "./materialSubstitutionQuery.serv
 })
 export class MaterialSubstitutionQueryComponent implements OnInit {
   validateForm: FormGroup;
-  private pageindex = 1;
-  private pagesize = 25;
-  private total = 0;
-  private loading = true;
+  public pageindex = 1;
+  public pagesize = 25;
+  public total = 0;
+  public loading = true;
   prodnos = [];
-  private dataset = [];
-  private status = false;
-  private reportData = {
+  public dataset = [];
+  public status = false;
+  public reportData = {
     prodname:"",
     prodno:"",
     dwgno:"",
-    date:"",
+    date:[],
     why:"",
-    user:"",
+    user:null,
     index1:"",
     name1:"",
     designmatl1:"",
@@ -66,22 +66,22 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
     inspection_note:"",
     b_note:"",
     c_note:"",
-    design_username:"",
-    matl_username:"",
-    welding_username:"",
-    process_username:"",
-    inspection_username:"",
-    b_username:"",
-    c_username:"",
-    design_date:"",
-    matl_date:"",
-    welding_date:"",
-    process_date:"",
-    inspection_date:"",
-    b_date:"",
-    c_date:"",
+    design_username:null,
+    matl_username:null,
+    welding_username:null,
+    process_username:null,
+    inspection_username:null,
+    b_username:null,
+    c_username:null,
+    design_date:[],
+    matl_date:[],
+    welding_date:[],
+    process_date:[],
+    inspection_date:[],
+    b_date:[],
+    c_date:[],
   };
-  constructor(private fb: FormBuilder, private materialSubstitutionQueryService: MaterialSubstitutionQueryService) {
+  constructor(public fb: FormBuilder, public materialSubstitutionQueryService: MaterialSubstitutionQueryService) {
   }
   resetForm(): void {
     for (const i in this.validateForm.controls) {
@@ -98,6 +98,7 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
       "prodno":[null]
     })
     this.searchData();
+    this.printCSS = ['assets/css/matlSubstitutionReport.css'];
   }
 
   searchData(reset: boolean = false): void {
@@ -110,25 +111,22 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
         this.total = res["total"];
         this.dataset = res["data"];
         this.loading = false;
+      }else{
+        this.total = 0;
+        this.dataset = [];
+        this.loading = false;
       }
     })
   }
-  printCSS: string[];
-  printStyle: string;
-  printBtnBoolean = true;
-  printComplete() {
-    this.printBtnBoolean = true;
-  }
-  beforePrint() {
-    this.printBtnBoolean = false;
-  }
   setUrlParam(data){
     this.reportData.prodno = data.prodno;
-    this.reportData.date = data.date;
+    this.reportData.date = data.date.split("-");
     this.reportData.why = data.why;
-    this.materialSubstitutionQueryService.getSignImage(data.user).subscribe((res)=>{
+    this.materialSubstitutionQueryService.getSignImage(data.user).then((res)=>{
       if(res["result"]=="success")
         this.reportData.user = res['url'];
+    }).catch((err)=>{
+      this.reportData.user = null;
     });
     this.materialSubstitutionQueryService.getByProdno(data.prodno).subscribe((res)=>{
       if(res["result"]=="success"){
@@ -149,66 +147,72 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
           this.reportData["code"] = res["data"][i]["code"];
         }
         this.reportData.design_note = res["data"][0]["design_note"];
-        this.reportData.design_date = res["data"][0]["design_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["design_username"]).subscribe((res)=>{
+        this.reportData.design_date = res["data"][0]["design_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["design_username"]).then((res)=>{
           if(res["result"]=="success")
             this.reportData.design_username = res['url'];
-        },(err)=>{
-          this.reportData.design_username = null;
         });
         this.reportData.matl_note = res["data"][0]["matl_note"];
-        this.reportData.matl_date = res["data"][0]["matl_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["matl_username"]).subscribe((res)=>{
+        this.reportData.matl_date = res["data"][0]["matl_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["matl_username"]).then((res)=>{
           if(res["result"]=="success")
             this.reportData.matl_username = res['url'];
-        },(err)=>{
+        }).catch((err)=>{
           this.reportData.matl_username = null;
         });
         this.reportData.welding_note = res["data"][0]["welding_note"];
-        this.reportData.welding_date = res["data"][0]["welding_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["welding_username"]).subscribe((res)=>{
+        this.reportData.welding_date = res["data"][0]["welding_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["welding_username"]).then((res)=>{
           if(res["result"]=="success")
             this.reportData.welding_username = res['url'];
-        },(err)=>{
+        }).catch((err)=>{
           this.reportData.welding_username = null;
         });
         this.reportData.process_note = res["data"][0]["process_note"];
-        this.reportData.process_date = res["data"][0]["process_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["process_username"]).subscribe((res)=>{
+        this.reportData.process_date = res["data"][0]["process_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["process_username"]).then((res)=>{
           if(res["result"]=="success")
             this.reportData.process_username = res['url'];
-        },(err)=>{
+        }).catch((err)=>{
           this.reportData.process_username = null;
         });
         this.reportData.inspection_note = res["data"][0]["inspection_note"];
-        this.reportData.inspection_date = res["data"][0]["inspection_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["inspection_username"]).subscribe((res)=>{
+        this.reportData.inspection_date = res["data"][0]["inspection_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["inspection_username"]).then((res)=>{
           if(res["result"]=="success")
             this.reportData.inspection_username = res['url'];
-        },(err)=>{
+        }).catch((err)=>{
           this.reportData.inspection_username = null;
         });
         this.reportData.b_note = res["data"][0]["b_note"];
-        this.reportData.b_date = res["data"][0]["b_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["b_username"]).subscribe((res)=>{
+        this.reportData.b_date = res["data"][0]["b_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["b_username"]).then((res)=>{
           if(res["result"]=="success"){
             this.reportData.b_username = res['url'];
           }
-        },(err)=>{
+        }).catch((err)=>{
           this.reportData.b_username = null;
         });
         this.reportData.c_note = res["data"][0]["c_note"];
-        this.reportData.c_date = res["data"][0]["c_date"];
-        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["c_username"]).subscribe((res)=>{
+        this.reportData.c_date = res["data"][0]["c_date"].split("-");
+        this.materialSubstitutionQueryService.getSignImage(res["data"][0]["c_username"]).then((res)=>{
           if(res["result"]=="success"){
             this.reportData.c_username = res['url'];
           }
-        },(err)=>{
+        }).catch((err)=>{
           this.reportData.c_username = null;
         });
-        console.log(this.reportData);
         this.status = true;
       }
     });
+  }
+  printCSS: string[];
+  printStyle: string;
+  printBtnBoolean = true;
+  printComplete() {
+    this.printBtnBoolean = true;
+  }
+  beforePrint() {
+    this.printBtnBoolean = false;
   }
 }

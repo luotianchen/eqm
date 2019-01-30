@@ -1,0 +1,476 @@
+<div>
+  <h3 class="title">材料复验登记</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="codedmarking">入库编号</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请选择入库编号"  formControlName="codedmarking" name="codedmarking" id="codedmarking" (ngModelChange)="autoSelect()">
+            <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="designation">牌号</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input placeholder="牌号" formControlName="designation" name="designation" id="designation" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="stand">材料标准</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input placeholder="材料标准" formControlName="stand" name="stand" id="stand" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="spec">规格</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input placeholder="规格" formControlName="spec" name="spec" id="spec" disabled/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="indate">复验日期</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input placeholder="复验日期" formControlName="indate" name="indate" id="indate"  (blur)="formatInDate()"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['c'].max!==null||dataDetail['c'].min!==null">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="c">C%</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-input-number style="width:100%" formControlName="c" name="c" id="c" [nzMin]="dataDetail['c']['min']==null?0:dataDetail['c']['min']" [nzMax]="dataDetail['c']['max']==null?999999:dataDetail['c']['max']" [nzStep]="0.001" [nzPlaceHolder]="'C%'"></nz-input-number>
+              <nz-form-explain *ngIf="validateForm.get('c').dirty && validateForm.get('c').errors">
+                C%不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['si'].max!==null||dataDetail['si'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="c">Si%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="si" name="si" id="si" [nzMin]="dataDetail['si']['min']==null?0:dataDetail['si']['min']" [nzMax]="dataDetail['si']['max']==null?999999:dataDetail['si']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Si%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('si').dirty && validateForm.get('si').errors">
+            Si%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['mn'].max!==null||dataDetail['mn'].min!==null">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="mn">Mn%</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-input-number style="width:100%" formControlName="mn" name="mn" id="mn" [nzMin]="dataDetail['mn']['min']==null?0:dataDetail['mn']['min']" [nzMax]="dataDetail['mn']['max']==null?999999:dataDetail['mn']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Mn%'"></nz-input-number>
+              <nz-form-explain *ngIf="validateForm.get('mn').dirty && validateForm.get('mn').errors">
+                Mn%不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['cu'].max!==null||dataDetail['cu'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="mn">Cu%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="cu" name="cu" id="cu" [nzMin]="dataDetail['cu']['min']==null?0:dataDetail['cu']['min']" [nzMax]="dataDetail['cu']['max']==null?999999:dataDetail['cu']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Cu%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('cu').dirty && validateForm.get('cu').errors">
+            Cu%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['ni'].max!==null||dataDetail['ni'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="ni">Ni%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="ni" name="ni" id="ni" [nzMin]="dataDetail['ni']['min']==null?0:dataDetail['ni']['min']" [nzMax]="dataDetail['ni']['max']==null?999999:dataDetail['ni']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Ni%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('ni').dirty && validateForm.get('ni').errors">
+            Ni%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['cr'].max!==null||dataDetail['cr'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="cr">Cr%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="cr" name="cr" id="cr" [nzMin]="dataDetail['cr']['min']==null?0:dataDetail['cr']['min']" [nzMax]="dataDetail['cr']['max']==null?999999:dataDetail['cr']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Cr%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('cr').dirty && validateForm.get('cr').errors">
+            Cr%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['mo'].max!==null||dataDetail['mo'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="mo">Mo%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="mo" name="mo" id="mo" [nzMin]="dataDetail['mo']['min']==null?0:dataDetail['mo']['min']" [nzMax]="dataDetail['mo']['max']==null?999999:dataDetail['mo']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Mo%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('mo').dirty && validateForm.get('mo').errors">
+            Mo%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['nb'].max!==null||dataDetail['nb'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="nb">Nb%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="nb" name="nb" id="nb" [nzMin]="dataDetail['nb']['min']==null?0:dataDetail['nb']['min']" [nzMax]="dataDetail['nb']['max']==null?999999:dataDetail['nb']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Nb%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('nb').dirty && validateForm.get('nb').errors">
+            Nb%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['v'].max!==null||dataDetail['v'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="v">V%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="v" name="v" id="v" [nzMin]="dataDetail['v']['min']==null?0:dataDetail['v']['min']" [nzMax]="dataDetail['v']['max']==null?999999:dataDetail['v']['max']" [nzStep]="0.001" [nzPlaceHolder]="'V%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('v').dirty && validateForm.get('v').errors">
+            V%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['ti'].max!==null||dataDetail['ti'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="ti">Ti%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="ti" name="ti" id="ti" [nzMin]="dataDetail['ti']['min']==null?0:dataDetail['ti']['min']" [nzMax]="dataDetail['ti']['max']==null?999999:dataDetail['ti']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Ti%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('ti').dirty && validateForm.get('ti').errors">
+            Ti%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['als'].max!==null||dataDetail['als'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="als">ALs%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="als" name="als" id="als" [nzMin]="dataDetail['als']['min']==null?0:dataDetail['als']['min']" [nzMax]="dataDetail['als']['max']==null?999999:dataDetail['als']['max']" [nzStep]="0.001" [nzPlaceHolder]="'ALs%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('als').dirty && validateForm.get('als').errors">
+            ALs%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['alt'].max!==null||dataDetail['alt'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="alt">ALt%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="alt" name="alt" id="alt" [nzMin]="dataDetail['alt']['min']==null?0:dataDetail['alt']['min']" [nzMax]="dataDetail['alt']['max']==null?999999:dataDetail['alt']['max']" [nzStep]="0.001" [nzPlaceHolder]="'ALt%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('alt').dirty && validateForm.get('alt').errors">
+            ALt%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['n'].max!==null||dataDetail['n'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="n">N%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="n" name="n" id="n" [nzMin]="dataDetail['n']['min']==null?0:dataDetail['n']['min']" [nzMax]="dataDetail['n']['max']==null?999999:dataDetail['n']['max']" [nzStep]="0.001" [nzPlaceHolder]="'N%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('n').dirty && validateForm.get('n').errors">
+            N%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['fe'].max!==null||dataDetail['fe'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="fe">N%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="fe" name="fe" id="fe" [nzMin]="dataDetail['fe']['min']==null?0:dataDetail['fe']['min']" [nzMax]="dataDetail['fe']['max']==null?999999:dataDetail['fe']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Fe%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('fe').dirty && validateForm.get('fe').errors">
+            Fe%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['mg'].max!==null||dataDetail['mg'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="mg">Mg%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="mg" name="mg" id="mg" [nzMin]="dataDetail['mg']['min']==null?0:dataDetail['mg']['min']" [nzMax]="dataDetail['mg']['max']==null?999999:dataDetail['mg']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Mg%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('mg').dirty && validateForm.get('mg').errors">
+            Mg%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['zn'].max!==null||dataDetail['zn'].min!==null">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="zn">zn%</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-input-number style="width:100%" formControlName="zn" name="zn" id="zn" [nzMin]="dataDetail['zn']['min']==null?0:dataDetail['zn']['min']" [nzMax]="dataDetail['zn']['max']==null?999999:dataDetail['zn']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Zn%'"></nz-input-number>
+              <nz-form-explain *ngIf="validateForm.get('zn').dirty && validateForm.get('zn').errors">
+                Zn%不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['b'].max!==null||dataDetail['b'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="b">b%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="b" name="b" id="b" [nzMin]="dataDetail['b']['min']==null?0:dataDetail['b']['min']" [nzMax]="dataDetail['b']['max']==null?999999:dataDetail['b']['max']" [nzStep]="0.001" [nzPlaceHolder]="'B%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('b').dirty && validateForm.get('b').errors">
+            B%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['w'].max!==null||dataDetail['w'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="w">w%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="w" name="w" id="w" [nzMin]="dataDetail['w']['min']==null?0:dataDetail['w']['min']" [nzMax]="dataDetail['w']['max']==null?999999:dataDetail['w']['max']" [nzStep]="0.001" [nzPlaceHolder]="'W%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('w').dirty && validateForm.get('w').errors">
+            W%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['sb'].max!==null||dataDetail['sb'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="sb">sb%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="sb" name="sb" id="sb" [nzMin]="dataDetail['sb']['min']==null?0:dataDetail['sb']['min']" [nzMax]="dataDetail['sb']['max']==null?999999:dataDetail['sb']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Sb%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('sb').dirty && validateForm.get('sb').errors">
+            Sb%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['al'].max!==null||dataDetail['al'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="al">al%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="al" name="al" id="al" [nzMin]="dataDetail['al']['min']==null?0:dataDetail['al']['min']" [nzMax]="dataDetail['al']['max']==null?999999:dataDetail['al']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Al%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('al').dirty && validateForm.get('al').errors">
+            Al%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['zr'].max!==null||dataDetail['zr'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="zr">zr%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="zr" name="zr" id="zr" [nzMin]="dataDetail['zr']['min']==null?0:dataDetail['zr']['min']" [nzMax]="dataDetail['zr']['max']==null?999999:dataDetail['zr']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Zr%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('zr').dirty && validateForm.get('zr').errors">
+            Zr%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['ca'].max!==null||dataDetail['ca'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="ca">ca%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="ca" name="ca" id="ca" [nzMin]="dataDetail['ca']['min']==null?0:dataDetail['ca']['min']" [nzMax]="dataDetail['ca']['max']==null?999999:dataDetail['ca']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Ca%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('ca').dirty && validateForm.get('ca').errors">
+            Ca%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['be'].max!==null||dataDetail['be'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="be">be%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="be" name="be" id="be" [nzMin]="dataDetail['be']['min']==null?0:dataDetail['be']['min']" [nzMax]="dataDetail['be']['max']==null?999999:dataDetail['be']['max']" [nzStep]="0.001" [nzPlaceHolder]="'Be%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('be').dirty && validateForm.get('be').errors">
+            Be%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['p'].max!==null||dataDetail['p'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="p">P%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="p" name="p" id="p" [nzMin]="dataDetail['p']['min']==null?0:dataDetail['p']['min']" [nzMax]="dataDetail['p']['max']==null?999999:dataDetail['p']['max']" [nzStep]="0.001" [nzPlaceHolder]="'P%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('p').dirty && validateForm.get('p').errors">
+            P%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['s'].max!==null||dataDetail['s'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="s">S%</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="s" name="s" id="s" [nzMin]="dataDetail['s']['min']==null?0:dataDetail['s']['min']" [nzMax]="dataDetail['s']['max']==null?999999:dataDetail['s']['max']" [nzStep]="0.001" [nzPlaceHolder]="'S%'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('s').dirty && validateForm.get('s').errors">
+            S%不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['rel1'].max!==null||dataDetail['rel1'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="rel1">屈服强度1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="rel1" name="rel1" id="rel1" [nzMin]="dataDetail['rel1']['min']==null?0:dataDetail['rel1']['min']" [nzMax]="dataDetail['rel1']['max']==null?999999:dataDetail['rel1']['max']" [nzStep]="1" [nzPlaceHolder]="'屈服强度1'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('rel1').dirty && validateForm.get('rel1').errors">
+            屈服强度1不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['rel2'].max!==null||dataDetail['rel2'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="rel2"> </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="rel2" name="rel2" id="rel2" [nzMin]="dataDetail['rel2']['min']==null?0:dataDetail['rel2']['min']" [nzMax]="dataDetail['rel2']['max']==null?999999:dataDetail['rel2']['max']" [nzStep]="1" [nzPlaceHolder]="'屈服强度2'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('rel2').dirty && validateForm.get('rel2').errors">
+            屈服强度2不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['rm1'].max!==null||dataDetail['rm1'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="rm1">抗拉强度1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="rm1" name="rm1" id="rm1" [nzMin]="dataDetail['rm1']['min']==null?0:dataDetail['rm1']['min']" [nzMax]="dataDetail['rm1']['max']==null?999999:dataDetail['rm1']['max']" [nzStep]="1" [nzPlaceHolder]="'抗拉强度1'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('rm1').dirty && validateForm.get('rm1').errors">
+            抗拉强度1不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['rm2'].max!==null||dataDetail['rm2'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="rm2"> </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="rm2" name="rm2" id="rm2" [nzMin]="dataDetail['rm2']['min']==null?0:dataDetail['rm2']['min']" [nzMax]="dataDetail['rm2']['max']==null?999999:dataDetail['rm2']['max']" [nzStep]="1" [nzPlaceHolder]="'抗拉强度2'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('rm2').dirty && validateForm.get('rm2').errors">
+            抗拉强度2不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['elong1'].max!==null||dataDetail['elong1'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="elong1">延长率1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="elong1" name="elong1" id="elong1" [nzMin]="dataDetail['elong1']['min']==null?0:dataDetail['elong1']['min']" [nzMax]="dataDetail['elong1']['max']==null?999999:dataDetail['elong1']['max']" [nzStep]="0.1" [nzPlaceHolder]="'延长率1'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('elong1').dirty && validateForm.get('elong1').errors">
+            延长率1不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['elong2'].max!==null||dataDetail['elong2'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="elong2">延长率2</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="elong2" name="elong2" id="elong2" [nzMin]="dataDetail['elong2']['min']==null?0:dataDetail['elong2']['min']" [nzMax]="dataDetail['elong2']['max']==null?999999:dataDetail['elong2']['max']" [nzStep]="0.1" [nzPlaceHolder]="'延长率2'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('elong2').dirty && validateForm.get('elong2').errors">
+            延长率2不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['hardness1'].max!==null||dataDetail['hardness1'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="hardness1">硬度1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="hardness1" name="hardness1" id="hardness1" [nzMin]="dataDetail['hardness1']['min']==null?0:dataDetail['hardness1']['min']" [nzMax]="dataDetail['hardness1']['max']==null?999999:dataDetail['hardness1']['max']" [nzStep]="0.1" [nzPlaceHolder]="'硬度1'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('hardness1').dirty && validateForm.get('hardness1').errors">
+            硬度1不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['hardness2'].max!==null||dataDetail['hardness2'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="hardness2">硬度2</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="hardness2" name="hardness2" id="hardness2" [nzMin]="dataDetail['hardness2']['min']==null?0:dataDetail['hardness2']['min']" [nzMax]="dataDetail['hardness2']['max']==null?999999:dataDetail['hardness2']['max']" [nzStep]="0.1" [nzPlaceHolder]="'硬度2'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('hardness2').dirty && validateForm.get('hardness2').errors">
+            硬度2不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['hardness3'].max!==null||dataDetail['hardness3'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="hardness3">硬度3</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="hardness3" name="hardness3" id="hardness3" [nzMin]="dataDetail['hardness3']['min']==null?0:dataDetail['hardness3']['min']" [nzMax]="dataDetail['hardness3']['max']==null?999999:dataDetail['hardness3']['max']" [nzStep]="0.1" [nzPlaceHolder]="'硬度3'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('hardness3').dirty && validateForm.get('hardness3').errors">
+            硬度3不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['impactp1'].max!==null||dataDetail['impactp1'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactp1">冲击功1</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="impactp1" name="impactp1" id="impactp1" [nzMin]="dataDetail['impactp1']['min']==null?0:dataDetail['impactp1']['min']" [nzMax]="dataDetail['impactp1']['max']==null?999999:dataDetail['impactp1']['max']" [nzStep]="1" [nzPlaceHolder]="'冲击功1'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('impactp1').dirty && validateForm.get('impactp1').errors">
+            冲击功1不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['impactp2'].max!==null||dataDetail['impactp2'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactp2">冲击功2</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="impactp2" name="impactp2" id="impactp2" [nzMin]="dataDetail['impactp2']['min']==null?0:dataDetail['impactp2']['min']" [nzMax]="dataDetail['impactp2']['max']==null?999999:dataDetail['impactp2']['max']" [nzStep]="1" [nzPlaceHolder]="'冲击功2'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('impactp2').dirty && validateForm.get('impactp2').errors">
+            冲击功2不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['impactp3'].max!==null||dataDetail['impactp3'].min!==null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impactp3">冲击功3</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="impactp3" name="impactp3" id="impactp3" [nzMin]="dataDetail['impactp3']['min']==null?0:dataDetail['impactp3']['min']" [nzMax]="dataDetail['impactp3']['max']==null?999999:dataDetail['impactp3']['max']" [nzStep]="1" [nzPlaceHolder]="'冲击功3'"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('impactp3').dirty && validateForm.get('impactp3').errors">
+            冲击功3不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['impacttemp']!=null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="impacttemp">冲击温度</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number style="width:100%" formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="dataDetail['impacttemp']==null?99999:dataDetail['impacttemp']"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4"  *ngIf="dataDetail['bendaxdia']!=null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input placeholder="弯曲直径" nz-input formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" (blur)="judgeBendaxdia()">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</form>

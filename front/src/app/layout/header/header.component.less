@@ -31,10 +31,47 @@
       background-color: fade(@primary-color, 15%);
     }
   }
+
+  .buttonR {
+    width: 44px;
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: @transition-ease-in;
+
+    &:hover {
+      color: @primary-color;
+      background-color: fade(@primary-color, 15%);
+    }
+  }
   .menu{
     font-size:14px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-left: 30px;
+    padding-right: 30px;
+    line-height: 64px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all .3s;
+    color:#3e3e3e;
+    &:hover{
+      color: @primary-color;
+      background-color: fade(@primary-color, 15%);
+    }
   }
   .menu i{
     font-size: 20px!important;
   }
+  .drop li{
+    width: 100%;padding:5px 20px 5px 20px;text-align: center
+  }
+}
+.ant-menu-horizontal[_ngcontent-c3] {
+  border: 0!important;
 }

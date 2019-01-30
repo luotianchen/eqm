@@ -10,7 +10,7 @@ export class MaterialUsingService {
     return this.http.post(this.api.BASEURL+"/searchusematerialresult",{pageindex:pageindex,pagesize:pagesize,codedmarking:codedmarking});
   }
   download(codedmarking){
-    return this.http.post(this.api.BASEURL+"/searchusematerialexcel",{codedmarking:codedmarking});
+    return this.http.post(this.api.BASEURL+"/searchusematerialexcel",{codedmarking:codedmarking},{responseType:"arraybuffer"});
   }
 }
 

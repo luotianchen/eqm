@@ -7,8 +7,14 @@ export class LoginService {
   constructor( private http: HttpClient,private apiService:ApiService) {
   }
   login(username: string, password: string) {
-    return this.http.post(this.apiService.BASEURL+'/login',
-      {username: username, password: password});
+    return new Promise((resolve, reject) => {
+      this.http.post(this.apiService.BASEURL+'/login',
+        {username: username, password: password}).subscribe(result=>{
+          resolve(result);
+      },err=>{
+          reject(err);
+      })
+    });
   }
 
 }

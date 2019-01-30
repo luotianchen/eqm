@@ -12,7 +12,7 @@ import {SessionStorageService} from 'src/app/core/storage/storage.module';
 
 export class HeaderComponent {
   navs = null;
-  constructor(public settings: SettingsService, public menu: MenuService, private router: Router, public _storage: SessionStorageService) {
+  constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService) {
   }
   ngOnInit(){
     this.menu.getNavs().then((result: any) => {

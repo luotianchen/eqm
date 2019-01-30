@@ -11,18 +11,23 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [MaterialDistributeService]
 })
 export class MaterialDistributeComponent implements OnInit {
-  private prodno:any;
+  public prodno:any;
   validateForm: FormGroup;
   matlnameValidateForm: FormGroup;
   status = false;
   i=1;
-
+  matlnames = [];
   ngOnInit(): void {
     this.materialDistributeService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
         this.prodno = res['data'];
       }
     });
+    this.materialDistributeService.getputmaterial().subscribe(res=>{
+      if(res['result']=='success'){
+        this.matlnames = res['matlname'];
+      }
+    })
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
@@ -56,7 +61,7 @@ export class MaterialDistributeComponent implements OnInit {
       this.status = false;
     }
   }
-  constructor(private materialDistributeService: MaterialDistributeService,private fb:FormBuilder,private message:NzMessageService,private modalService: NzModalService, private _storage: SessionStorageService) {
+  constructor(public materialDistributeService: MaterialDistributeService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
   addRow(): void {
@@ -142,8 +147,8 @@ export class MaterialDistributeComponent implements OnInit {
   }
 
   formatInDate(key) { //日期格式化
-    let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     if (monthDay.test(this.editCache[key].data.issuedate)) {
       this.editCache[key].data.issuedate = (new Date().getFullYear() + "-" + this.editCache[key].data.issuedate);
     } else if (!yearMonthDay.test(this.editCache[key].data.issuedate)) {
@@ -151,8 +156,8 @@ export class MaterialDistributeComponent implements OnInit {
     }
   }
 
-  private tplModal: NzModalRef;
-  private tplModalButtonLoading = false;
+  public tplModal: NzModalRef;
+  public tplModalButtonLoading = false;
   createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     this.tplModal = this.modalService.create({
       nzTitle: tplTitle,

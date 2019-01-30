@@ -1,10 +1,11 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {WarehousingRegistrationService} from "./warehousingRegistration.service";
 import {NzNotificationService, NzMessageService, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
 import {NzModalRef} from "ng-zorro-antd/modal";
+import {Observable, Observer} from "rxjs/index";
 
 @Component({
   selector: 'app-warehousingRegistration',
@@ -14,66 +15,66 @@ import {NzModalRef} from "ng-zorro-antd/modal";
 })
 
 export class WarehousingRegistrationComponent implements OnInit {
-  private validateForm: FormGroup;
-  private millunitValidateForm: FormGroup;
-  private supplierValidateForm: FormGroup;
-  private matlnameValidateForm: FormGroup;
-  private modelstandValidateForm: FormGroup;
-  private warrantysitu:any;
-  private matlname:any;
-  private matlstand:any;
-  private modelstand:any;
-  private supplier:any;
-  private millunits:any;
-  private designation:any;
+  public validateForm: FormGroup;
+  public millunitValidateForm: FormGroup;
+  public supplierValidateForm: FormGroup;
+  public matlnameValidateForm: FormGroup;
+  public modelstandValidateForm: FormGroup;
+  public warrantysitu:any;
+  public matlname:any;
+  public matlstand:any;
+  public modelstand:any;
+  public supplier:any;
+  public millunits:any;
+  public designation:any;
 
-  private direct = [ //直接判断是否为null来控制是否现实的
+  public direct = [ //直接判断是否为null来控制是否现实的
     "heatcondi",
     "impacttemp",
     "bendaxdia",
     "utclass"
   ];
-  private maxmin = [ //判断是否上下限都为null开控制是否显示的
+  public maxmin = [ //判断是否上下限都为null开控制是否显示的
     "c",
     "si",
     "mn",
-   "cu",
-   "ni",
-   "cr",
-   "mo",
-   "nb",
-   "v",
-   "ti",
-   "als",
-   "alt",
-   "n",
-   "fe",
-   "mg",
-   "zn",
-   "b",
-   "w",
-   "sb",
-   "al",
-   "zr",
-   "ca",
-   "be",
-   "p",
-   "s",
-   "rel1",
-   "rel2",
-   "rm1",
-   "rm2",
-   "elong1",
-   "elong2",
-   "hardness1",
-   "hardness2",
-   "hardness3",
-   "impactp1",
-   "impactp2",
-   "impactp3"
+    "cu",
+    "ni",
+    "cr",
+    "mo",
+    "nb",
+    "v",
+    "ti",
+    "als",
+    "alt",
+    "n",
+    "fe",
+    "mg",
+    "zn",
+    "b",
+    "w",
+    "sb",
+    "al",
+    "zr",
+    "ca",
+    "be",
+    "p",
+    "s",
+    "rel1",
+    "rel2",
+    "rm1",
+    "rm2",
+    "elong1",
+    "elong2",
+    "hardness1",
+    "hardness2",
+    "hardness3",
+    "impactp1",
+    "impactp2",
+    "impactp3"
   ];
 
-  private dataDetail = { //获取的数据格式
+  public dataDetail = { //获取的数据格式
     "status":false,
     "c":{
       "max":null,
@@ -196,7 +197,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       "max":null,
       "min":null
     },
-    "Elong2":{
+    "elong2":{
       "max":null,
       "min":null
     },
@@ -220,21 +221,37 @@ export class WarehousingRegistrationComponent implements OnInit {
     "bendaxdia": null,//弯曲直径
     "utclass":null//UT级别
   };
-  private notes = []; //备注选项
-  private warrantynos = []; //质保书号选项
-  private utclass = {//ut等级罗马字母转阿拉伯
+
+  //最大最小值检验
+  MaxMinAsyncValidator = (control: FormControl): { [ s: string ]: boolean } => {
+    let name:string;
+    for(let controlname in this.validateForm.controls){
+      if(this.validateForm.controls[controlname] == control)
+        name = controlname;
+    }
+    if(this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
+    if(this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
+    if (!control.value && control.value!==0) {
+      return { required: true };
+    } else if(control.value > this.dataDetail[name].max || control.value < this.dataDetail[name].min){
+      return { overflow: true, error: true };
+    }
+  };
+  public notes = []; //备注选项
+  public warrantynos = []; //质保书号选项
+  public utclass = {//ut等级罗马字母转阿拉伯
     "I":1,
     "II":2,
     "III":3,
     "IV":4
   };
-  private utclass2 = {//ut等级阿拉伯转罗马字母
+  public utclass2 = {//ut等级阿拉伯转罗马字母
     "1":"I",
     "2":"II",
     "3":"III",
     "4":"IV"
   };
-  private specs = [];//规格选项
+  public specs = [];//规格选项
 
   onSpecInput(value: string): void { //当规格输入时展开选项
     this.specs = value ? [
@@ -292,22 +309,22 @@ export class WarehousingRegistrationComponent implements OnInit {
     ];
   }
 
-  private units = [ //单位选项
+  public units = [ //单位选项
     " ",
     "KG",
     "m",
     "张",
     "支"
   ];
-  private utclasses = [];
-  private bendangles = [ //角度选项
+  public utclasses = [];
+  public bendangles = [ //角度选项
     "OK",
     "180",
     "120"
   ];
   formatInDate(){ //日期格式化
-    let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     if(monthDay.test(this.validateForm.value.indate)){
       this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.indate);
     }else if(!yearMonthDay.test(this.validateForm.value.indate)){
@@ -315,12 +332,11 @@ export class WarehousingRegistrationComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private router: Router,private modalService: NzModalService, private warehousingregistrationService:WarehousingRegistrationService,private notification: NzNotificationService,private message : NzMessageService, private storage: SessionStorageService) {
+  constructor(public fb: FormBuilder, public router: Router,public modalService: NzModalService, public warehousingregistrationService:WarehousingRegistrationService,public notification: NzNotificationService,public message : NzMessageService, public storage: SessionStorageService) {
     this.warehousingregistrationService.getputmaterial().subscribe(res => {
       if (res['result'] === 'success') {
         this.warrantysitu = res['data']['warrantysitu'];
         this.matlname = res['data']['matlname'];
-        this.matlstand = res['data']['matlstand'];
         this.modelstand = res['data']['modelstand'];
         this.supplier = res['data']['supplier'];
         this.millunits = res['data']['millunit'];
@@ -334,6 +350,18 @@ export class WarehousingRegistrationComponent implements OnInit {
   }
 
 
+  getMatlstand(){
+    if(this.validateForm.value.designation!=null){
+      this.matlstand = [];
+      this.validateForm.controls['matlstand'].reset();
+      this.warehousingregistrationService.getmatlstandbydesignation(this.validateForm.value.designation).subscribe(res=>{
+        if(res['result']=="success"){
+          this.matlstand = res['matlstand'];
+        }
+      })
+    }
+  }
+
   /**
    * 当输入材料标准、牌号都输入完后，会先通过这两项去查询相应标准，若查不到，则检测规格是否输入，已输入则用材料标准、牌号、规格三项查询相应标准内容。
    */
@@ -345,7 +373,7 @@ export class WarehousingRegistrationComponent implements OnInit {
           this.dataDetail.status = true;
           this.notification.remove();
           this.notification.blank('注意', this.dataDetail.note, {
-            nzDuration: 0,
+            nzDuration: 5,
             nzStyle: {
               color: "red"
             }
@@ -381,7 +409,9 @@ export class WarehousingRegistrationComponent implements OnInit {
           for (let i =0;i<this.maxmin.length;i++){
             let item = this.maxmin[i];
             if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-              this.validateForm.controls[item].setValidators([Validators.required]);
+              this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+            }else{
+              this.validateForm.controls[item].setValidators([]);
             }
           }
           for(let i =0;i<this.direct.length;i++){
@@ -400,8 +430,8 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.dataDetail = res['data'];
               this.dataDetail.status = true;
               this.notification.remove();
-          this.notification.blank('注意', this.dataDetail.note, {
-                nzDuration: 0,
+              this.notification.blank('注意', this.dataDetail.note, {
+                nzDuration: 5,
                 nzStyle: {
                   color:"red"
                 }
@@ -437,7 +467,9 @@ export class WarehousingRegistrationComponent implements OnInit {
               for (let i =0;i<this.maxmin.length;i++){
                 let item = this.maxmin[i];
                 if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([Validators.required]);
+                  this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                }else{
+                  this.validateForm.controls[item].setValidators([]);
                 }
               }
               for(let i =0;i<this.direct.length;i++){
@@ -476,7 +508,87 @@ export class WarehousingRegistrationComponent implements OnInit {
     }
 
   }
+  savetocache(e){
+    if (e) {
+      e.preventDefault();
+    }
+    let data = {
+      "user":this.storage.get("username"),
+      "codedmarking":this.validateForm.value.codedmarking,
+      "warrantysitu":this.validateForm.value.warrantysitu,
+      "note":this.validateForm.value.note,
+      "indate":this.validateForm.value.indate,
+      "matlname":this.validateForm.value.matlname,
+      "warrantyno":this.validateForm.value.warrantyno,
+      "matlstand":this.validateForm.value.matlstand,
+      "modelstand":this.validateForm.value.modelstand,
+      "supplier":this.validateForm.value.supplier,
+      "designation":this.validateForm.value.designation,
+      "spec":this.validateForm.value.spec,
+      "qty":this.validateForm.value.qty,
+      "unit":this.validateForm.value.unit,
+      "dimension":this.validateForm.value.dimension,
+      "millunit":this.validateForm.value.millunit,
+      "heatbatchno":this.validateForm.value.heatbatchno,
+      "c":this.validateForm.value.c,
+      "si":this.validateForm.value.si,
+      "mn":this.validateForm.value.mn,
+      "cu":this.validateForm.value.cu,
+      "ni":this.validateForm.value.ni,
+      "cr":this.validateForm.value.cr,
+      "mo":this.validateForm.value.mo,
+      "nb":this.validateForm.value.nb,
+      "v":this.validateForm.value.v,
+      "ti":this.validateForm.value.ti,
+      "als":this.validateForm.value.als,
+      "alt":this.validateForm.value.alt,
+      "n":this.validateForm.value.n,
+      "fe":this.validateForm.value.fe,
+      "mg":this.validateForm.value.mg,
+      "zn":this.validateForm.value.zn,
+      "b":this.validateForm.value.b,
+      "w":this.validateForm.value.w,
+      "sb":this.validateForm.value.sb,
+      "al":this.validateForm.value.al,
+      "zr":this.validateForm.value.zr,
+      "ca":this.validateForm.value.ca,
+      "be":this.validateForm.value.be,
+      "p":this.validateForm.value.p,
+      "s":this.validateForm.value.s,
+      "heatcondi":this.validateForm.value.heatcondi,
+      "rel1":this.validateForm.value.rel1,
+      "rel2":this.validateForm.value.rel2,
+      "rm1":this.validateForm.value.rm1,
+      "rrm2":this.validateForm.value.rm2,
+      "elong1":this.validateForm.value.elong1,
+      "elong2":this.validateForm.value.elong2,
+      "hardness1":this.validateForm.value.hardness1,
+      "hardness2":this.validateForm.value.hardness2,
+      "hardness3":this.validateForm.value.hardness3,
+      "impactp1":this.validateForm.value.impactp1,
+      "impactp2":this.validateForm.value.impactp2,
+      "impactp3":this.validateForm.value.impactp3,
+      "impacttemp":this.validateForm.value.impacttemp,
+      "bendangle":this.validateForm.value.bendangle,
+      "bendaxdia":this.validateForm.value.bendaxdia,
+      "utclass":this.utclass[this.validateForm.value.utclass]
+    };
+    if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
+      if(this.validateForm.value.warrantysitu!='质保书未到')
+        this.message.error("请将质保书情况修改为质保书未到！");
+      else
+        this.warehousingregistrationService.putmaterialcache(data).subscribe(res => {
+          if (res['result'] == "success") {
+            this.message.error("保存成功！");
+          }else{
+            this.message.error("提交失败，请稍后重试！");
 
+          }
+        })
+    }else{
+      this.message.error("入库编号不能为空！");
+    }
+  }
   submitForm() {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
@@ -544,6 +656,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       "utclass":this.utclass[this.validateForm.value.utclass]
     };
     if (this.validateForm.valid) {
+      console.log(JSON.stringify(data));
       this.warehousingregistrationService.submitForm(data).subscribe(res => {
         if (res['result'] == "success") {
           const modal = this.modalService.success({
@@ -582,8 +695,8 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.dataDetail = res1['data'];
               this.dataDetail.status = true;
               this.notification.remove();
-          this.notification.blank('注意', this.dataDetail.note, {
-                nzDuration: 0,
+              this.notification.blank('注意', this.dataDetail.note, {
+                nzDuration: 5,
                 nzStyle: {
                   color: "red"
                 }
@@ -619,7 +732,9 @@ export class WarehousingRegistrationComponent implements OnInit {
               for (let i =0;i<this.maxmin.length;i++){
                 let item = this.maxmin[i];
                 if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([Validators.required]);
+                  this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                }else{
+                  this.validateForm.controls[item].setValidators([]);
                 }
               }
               for(let i =0;i<this.direct.length;i++){
@@ -638,8 +753,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.dataDetail = res2['data'];
                   this.dataDetail.status = true;
                   this.notification.remove();
-          this.notification.blank('注意', this.dataDetail.note, {
-                    nzDuration: 0,
+                  this.notification.blank('注意', this.dataDetail.note, {
+                    nzDuration: 5,
                     nzStyle: {
                       color:"red"
                     }
@@ -675,7 +790,9 @@ export class WarehousingRegistrationComponent implements OnInit {
                   for (let i =0;i<this.maxmin.length;i++){
                     let item = this.maxmin[i];
                     if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                      this.validateForm.controls[item].setValidators([Validators.required]);
+                      this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                    }else{
+                      this.validateForm.controls[item].setValidators([]);
                     }
                   }
                   for(let i =0;i<this.direct.length;i++){
@@ -725,7 +842,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       spec:[null],
       qty:[null,[Validators.required]],
       unit:[null,[Validators.required]],
-      dimension:[null,[Validators.required]],
+      dimension:[null],
       millunit:[null,[Validators.required]],
       heatbatchno:[null,[Validators.required]],
       c:[null],
@@ -786,8 +903,8 @@ export class WarehousingRegistrationComponent implements OnInit {
     });
   };
 
-  private tplModal: NzModalRef;
-  private tplModalButtonLoading = false;
+  public tplModal: NzModalRef;
+  public tplModalButtonLoading = false;
 
   createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     this.tplModal = this.modalService.create({
@@ -820,6 +937,17 @@ export class WarehousingRegistrationComponent implements OnInit {
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
+            this.warehousingregistrationService.getputmaterial().subscribe(res => {
+              if (res['result'] === 'success') {
+                this.warrantysitu = res['data']['warrantysitu'];
+                this.matlname = res['data']['matlname'];
+                this.matlstand = res['data']['matlstand'];
+                this.modelstand = res['data']['modelstand'];
+                this.supplier = res['data']['supplier'];
+                this.millunits = res['data']['millunit'];
+                this.designation = res['data']['designation'];
+              }
+            });
             this.destroyTplModal();
           }else{
             this.message.error("添加失败，请稍后重试！");
@@ -840,6 +968,17 @@ export class WarehousingRegistrationComponent implements OnInit {
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
+            this.warehousingregistrationService.getputmaterial().subscribe(res => {
+              if (res['result'] === 'success') {
+                this.warrantysitu = res['data']['warrantysitu'];
+                this.matlname = res['data']['matlname'];
+                this.matlstand = res['data']['matlstand'];
+                this.modelstand = res['data']['modelstand'];
+                this.supplier = res['data']['supplier'];
+                this.millunits = res['data']['millunit'];
+                this.designation = res['data']['designation'];
+              }
+            });
             this.destroyTplModal();
           }else{
             this.message.error("添加失败，请稍后重试！");
@@ -859,6 +998,17 @@ export class WarehousingRegistrationComponent implements OnInit {
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
+            this.warehousingregistrationService.getputmaterial().subscribe(res => {
+              if (res['result'] === 'success') {
+                this.warrantysitu = res['data']['warrantysitu'];
+                this.matlname = res['data']['matlname'];
+                this.matlstand = res['data']['matlstand'];
+                this.modelstand = res['data']['modelstand'];
+                this.supplier = res['data']['supplier'];
+                this.millunits = res['data']['millunit'];
+                this.designation = res['data']['designation'];
+              }
+            });
             this.destroyTplModal();
           }else{
             this.message.error("添加失败，请稍后重试！");
@@ -877,6 +1027,17 @@ export class WarehousingRegistrationComponent implements OnInit {
             let modal = this.modalService.success({
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
+            });
+            this.warehousingregistrationService.getputmaterial().subscribe(res => {
+              if (res['result'] === 'success') {
+                this.warrantysitu = res['data']['warrantysitu'];
+                this.matlname = res['data']['matlname'];
+                this.matlstand = res['data']['matlstand'];
+                this.modelstand = res['data']['modelstand'];
+                this.supplier = res['data']['supplier'];
+                this.millunits = res['data']['millunit'];
+                this.designation = res['data']['designation'];
+              }
             });
             this.destroyTplModal();
           } else {

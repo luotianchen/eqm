@@ -43,6 +43,25 @@ import {ProductTestBoardCommissionModule} from './PhysicalAndChemical/productTes
 import {VacuumParameterAuditModule} from './InspectionAndTest/vacuumParameterAudit/vacuumParameterAudit.module';
 import {ProductTestBoardCommissionAuditModule} from './PhysicalAndChemical/productTestBoardCommissionAudit/productTestBoardCommissionAudit.module';
 import {ProductTestBoardCommissionQueryModule} from './PhysicalAndChemical/productTestBoardCommissionQuery/productTestBoardCommissionQuery.module';
+import {ProductTestBoardDataRegistrationAuditModule} from './PhysicalAndChemical/productTestBoardDataRegistrationAudit/productTestBoardDataRegistrationAudit.module';
+import {ProductTestBoardDataRegistrationQueryModule} from './PhysicalAndChemical/productTestBoardDataRegistrationQuery/productTestBoardDataRegistrationQuery.module';
+import {
+  MaterialReinspectionCommissionModule
+} from './PhysicalAndChemical/materialReinspectionCommission/materialReinspectionCommission.module';
+import {MaterialReinspectionCommissionAuditModule} from './PhysicalAndChemical/materialReinspectionCommissionAudit/materialReinspectionCommissionAudit.module';
+import {MaterialReinspectionCommissionQueryModule} from './PhysicalAndChemical/materialReinspectionCommissionQuery/materialReinspectionCommissionQuery.module';
+import {MaterialReinspectionModule} from './PhysicalAndChemical/materialReinspection/materialReinspection.module';
+import {ProductManufacturingParametersAuditModule} from './InspectionAndTest/productManufacturingParametersAudit/productManufacturingParametersAudit.module';
+import {MaterialReinspectionAuditModule} from './PhysicalAndChemical/materialReinspectionAudit/materialReinspectionAudit.module';
+import {MaterialReinspectionQueryModule} from './PhysicalAndChemical/materialReinspectionQuery/materialReinspectionQuery.module';
+import {SettingModule} from './System/setting/setting.module';
+import {pressTestReportModule} from './Report/pressTestReport/pressTestReport.module';
+import {PneumaticTestProcedureReportModule} from './Report/pneumaticTestProcedureReport/pneumaticTestProcedureReport.module';
+import {LiquidPressTestReportModule} from './Report/liquidPressTestReport/liquidPressTestReport.module';
+import {PressVesProdQuaCerReportModule} from './Report/pressVesProdQuaCerReport/pressVesProdQuaCerReport.module';
+import {VacuumTestReportModule} from './Report/vacuumTestReport/vacuumTestReport.module';
+import {VacuumInspectionReportModule} from './Report/vacuumInspectionReport/vacuumInspectionReport.module';
+import {QuaPressVesPlanReportModule} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.module';
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -89,7 +108,24 @@ import {ProductTestBoardCommissionQueryModule} from './PhysicalAndChemical/produ
     ProductManufacturingParametersModule,
     VacuumParameterAuditModule,
     ProductTestBoardCommissionAuditModule,
-    ProductTestBoardCommissionQueryModule
+    ProductTestBoardCommissionQueryModule,
+    MaterialReinspectionCommissionModule,
+    MaterialReinspectionCommissionAuditModule,
+    MaterialReinspectionCommissionQueryModule,
+    MaterialReinspectionModule,
+    MaterialReinspectionAuditModule,
+    MaterialReinspectionQueryModule,
+    ProductTestBoardDataRegistrationAuditModule,
+    ProductTestBoardDataRegistrationQueryModule,
+    ProductManufacturingParametersAuditModule,
+    SettingModule,
+    pressTestReportModule,
+    PneumaticTestProcedureReportModule,
+    LiquidPressTestReportModule,
+    PressVesProdQuaCerReportModule,
+    VacuumTestReportModule,
+    VacuumInspectionReportModule,
+    QuaPressVesPlanReportModule
   ]
 })
 

@@ -11,7 +11,7 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [VacuumParameterService]
 })
 export class VacuumParameterComponent implements OnInit {
-  private prodnos:any;
+  public prodnos:any;
   validateForm: FormGroup;
   dataSet = [];
 
@@ -65,12 +65,12 @@ export class VacuumParameterComponent implements OnInit {
       this.validateForm.controls['statpa'].setValidators(Validators.required);
     }
   }
-  constructor(private vacuumParameterService: VacuumParameterService,private fb:FormBuilder,private message:NzMessageService,private modalService: NzModalService, private _storage: SessionStorageService) {
+  constructor(public vacuumParameterService: VacuumParameterService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
   formatInDate(control){
-    let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     if(monthDay.test(control.value)){
       control.setValue(new Date().getFullYear()+"-"+control.value);
     }else if(!yearMonthDay.test(control.value)){
@@ -85,7 +85,8 @@ export class VacuumParameterComponent implements OnInit {
     }
   }
   submitForm(){
-    this.validateForm.controls['leakoutrate'].setValue("123");//公式待定
+    // TODO 这里的公式记得要写上
+    this.validateForm.controls['leakoutrate'].setValue("123");
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();

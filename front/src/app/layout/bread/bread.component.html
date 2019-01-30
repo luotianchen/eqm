@@ -7,7 +7,10 @@
       <ng-container *ngFor="let breadcrumb of breadcrumbs;">
         <nz-breadcrumb-item *ngIf="breadcrumb.url!=='/dashboard'">
           <ng-template *ngIf="index!==breadcrumbs.length-1">
-            <a routerLink="{{breadcrumb.url}}" routerLinkActive="active"><i nz-icon type="{{breadcrumb.icon}}" theme="outline"></i><span>{{ breadcrumb.label }}</span></a>
+            <a routerLink="{{breadcrumb.url}}" routerLinkActive="active">
+              <i nz-icon type="{{breadcrumb.icon}}" theme="outline"></i>
+              <span>{{ breadcrumb.label }}</span>
+            </a>
           </ng-template>
           <span #elseBlock><i nz-icon type="{{breadcrumb.icon}}" theme="outline"></i><span>{{ breadcrumb.label }}</span></span>
         </nz-breadcrumb-item>

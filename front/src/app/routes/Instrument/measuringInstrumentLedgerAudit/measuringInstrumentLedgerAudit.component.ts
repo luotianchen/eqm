@@ -10,9 +10,9 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [MeasuringInstrumentLedgerAuditService]
 })
 export class MeasuringInstrumentLedgerAuditComponent implements OnInit {
-  private dataSet:any;
+  public dataSet:any;
   loading = true;
-  constructor(private measuringInstrumentLedgerAuditService:MeasuringInstrumentLedgerAuditService,private message : NzMessageService,private _storage:SessionStorageService){
+  constructor(public measuringInstrumentLedgerAuditService:MeasuringInstrumentLedgerAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
   ngOnInit(): void {
     this.searchData();

@@ -6,7 +6,7 @@
   <div nz-row [nzGutter]="16">
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label [nzSm]="10" [nzFor]="prodno">产品编号</nz-form-label>
+        <nz-form-label [nzSm]="10" nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
           <input nz-input placeHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="getChannel()"/>
         </nz-form-control>
@@ -14,7 +14,7 @@
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label [nzSm]="10" [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-label [nzSm]="10" nzFor="dwgno">图号</nz-form-label>
         <nz-form-control [nzSm]="14">
           <nz-select formControlName="dwgno" name="dwgno" id="dwgno" nzPlaceHolder="图号" nzShowSearch nzAllowClear (ngModelChange)="getChannel()">
             <nz-option *ngFor="let o of this.dwgnos" [nzValue]="o" [nzLabel]="o"></nz-option>
@@ -31,7 +31,7 @@
     <div nz-row [nzGutter]="16">
       <div nz-col [nzSpan]="6">
         <nz-form-item>
-          <nz-form-label [nzFor]="ppart">试压部件</nz-form-label>
+          <nz-form-label nzFor="ppart">试压部件</nz-form-label>
           <nz-form-control nzHasFeedback>
             <input nz-input placeHolder="试压部件"  formControlName="ppart" name="ppart" id="ppart" disabled/>
           </nz-form-control>
@@ -39,7 +39,7 @@
       </div>
       <div nz-col [nzSpan]="6">
         <nz-form-item>
-          <nz-form-label [nzFor]="testmedia">试验介质</nz-form-label>
+          <nz-form-label nzFor="testmedia">试验介质</nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试验介质"  formControlName="testmedia" name="testmedia" id="testmedia">
               <nz-option *ngFor="let option of testmedias" [nzLabel]="option.name" [nzValue]="option"></nz-option>
@@ -54,9 +54,9 @@
       <div nz-col [nzSpan]="6">
         <form nz-form [formGroup]="this.channelForms[i]">
           <nz-form-item>
-            <nz-form-label [nzFor]="dated1">开具日期1</nz-form-label>
+            <nz-form-label nzFor="dated1">开具日期1</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <input nz-input formControlName="dated1" name="dated1" placeholder="开具日期1" type="text" id="dated1" [disabled]="dataModel[i]['dated1'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated1'])">
+              <input nz-input formControlName="dated1" name="dated1" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated1" [disabled]="dataModel[i]['dated1'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated1'])">
             </nz-form-control>
           </nz-form-item>
         </form>
@@ -152,9 +152,9 @@
     <div nz-col [nzSpan]="6">
       <form nz-form [formGroup]="this.channelForms[i]">
         <nz-form-item>
-          <nz-form-label [nzFor]="dated2">开具日期2</nz-form-label>
+          <nz-form-label nzFor="dated2">开具日期2</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input nz-input formControlName="dated2" name="dated2" placeholder="开具日期2" type="text" id="dated2" [disabled]="dataModel[i]['dated2'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated2'])">
+            <input nz-input formControlName="dated2" name="dated2" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated2" [disabled]="dataModel[i]['dated2'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated2'])">
           </nz-form-control>
         </nz-form-item>
       </form>
@@ -249,9 +249,9 @@
     <div nz-col [nzSpan]="6">
       <form nz-form [formGroup]="this.channelForms[i]">
         <nz-form-item>
-          <nz-form-label [nzFor]="dated2">开具日期3</nz-form-label>
+          <nz-form-label nzFor="dated2">开具日期3</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input nz-input formControlName="dated3" name="dated3" placeholder="开具日期3" type="text" id="dated3" [disabled]="dataModel[i]['dated3'].status==3" (blur)="formatInDate(this.channelForms[i].controls['dated3'])">
+            <input nz-input formControlName="dated3" name="dated3" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated3" [disabled]="dataModel[i]['dated3'].status==3" (blur)="formatInDate(this.channelForms[i].controls['dated3'])">
           </nz-form-control>
         </nz-form-item>
       </form>

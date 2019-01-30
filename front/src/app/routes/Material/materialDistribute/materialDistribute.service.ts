@@ -13,8 +13,10 @@ export class MaterialDistributeService {
   getdistribute(prodno){
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
   }
+  getputmaterial() {
+    return this.http.get(`${this.api.BASEURL}/getputmaterial`);
+  }
   putdistribute(data){
-    console.log(JSON.stringify(data))
     return this.http.post(this.api.BASEURL+"/putpressureparts",data);
   }
   addMatlname(matlname){

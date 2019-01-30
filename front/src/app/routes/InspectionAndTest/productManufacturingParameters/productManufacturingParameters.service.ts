@@ -8,16 +8,49 @@ export class ProductManufacturingParametersService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getprodno(){
-    return this.http.get(this.api.BASEURL+"/getprodno");
+    return this.http.get(this.api.BASEURL+"/getprodnoforpreno");
   }
   getdistribute(prodno){
-    return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
+    return new Promise((resolve, reject) => {
+      this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1}).subscribe(result=>{
+      resolve(result);
+    })
+    })
   }
-  putdistribute(data){
-    console.log(JSON.stringify(data))
-    return this.http.post(this.api.BASEURL+"/putpressureparts",data);
+  addOrderunit(orderunit,orderunitename){
+    return this.http.post(this.api.BASEURL+"/putorderunit",{orderunit:orderunit,orderunitename:orderunitename})
   }
-  addMatlname(matlname){
-    return this.http.post(this.api.BASEURL+"/putmatlname",{matlname:matlname});
+  getOrderunit(){
+    return new Promise((resolve, reject) => {
+      this.http.get(this.api.BASEURL+"/searchorderunit").subscribe(result=>{
+        resolve(result);
+      })
+    })
+  }
+  getUsers(){
+    return this.http.get(this.api.BASEURL+"/getuserform");
+  }
+  getDataStand(dwgno){
+    return new Promise((resolve, reject) => {
+      this.http.post(this.api.BASEURL+"/searchdatacontraststand",{dwgno:dwgno}).subscribe(result=>{
+        resolve(result);
+      })
+    })
+  }
+  getDataStand2(dwgno){
+    return new Promise((resolve, reject) => {
+      this.http.post(this.api.BASEURL+"/searchdatacontraststand2",{dwgno:dwgno}).subscribe(result=>{
+        resolve(result);
+      })
+    })
+  }
+  putManufacturing(data){
+    return this.http.post(this.api.BASEURL+"/putpromanparlist",data);
+  }
+  putManufacturing2(data){
+    return this.http.post(this.api.BASEURL+"/putmanufacturing2",data);
+  }
+  getdwgno1and2(prodno){
+    return this.http.post(this.api.BASEURL+"/searchdwgnoot",{prodno:prodno});
   }
 }

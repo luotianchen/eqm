@@ -53,7 +53,7 @@
     <td>
       <a nz-popconfirm nzTitle="是否将此用户的密码重置为123456？（重置后用户可自行修改密码）" (nzOnConfirm)="confirm(data.username)">重置密码</a>
       <nz-divider nzType="vertical"></nz-divider>
-      <a (click)="showModal('name',data.name)">修改姓名</a>
+      <a (click)="showModal('name',{username:data.username,name:data.name})">修改姓名</a>
       <nz-divider nzType="vertical"></nz-divider>
       <a (click)="showModal('role',{username:data.username,role:data.role,role2:data.role2,role3:data.role3,role4:data.role4,role5:data.role5})">修改角色</a>
       <br>
@@ -84,7 +84,7 @@
     </div>
   </div>
 </nz-modal>
-<nz-modal [(nzVisible)]="isVisible.note" nzTitle="修改姓名" (nzOnOk)="handleOk('note')" (nzOnCancel)="handleCancel('note')">
+<nz-modal [(nzVisible)]="isVisible.note" nzTitle="修改备注" (nzOnOk)="handleOk('note')" (nzOnCancel)="handleCancel('note')">
   <div nz-row>
     <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">备注：</div>
     <div nz-col [nzSpan]="8">

@@ -8,9 +8,9 @@ export class ProductTestBoardCommissionQueryService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getAudit(){
-    return this.http.post(this.api.BASEURL+'/searchproducttestboardcommission',{
+    return this.http.post(this.api.BASEURL+'/searchprotestboardcom',{
       prodno:null,
-      status:0
+      status:1
     })
   }
 }

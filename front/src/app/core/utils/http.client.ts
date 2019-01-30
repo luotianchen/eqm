@@ -65,7 +65,7 @@ export class NHttpClinet {
   }
 
   /** 服务端URL地址 */
-  get SERVER_URL(): string {
+  static get SERVER_URL(): string {
     return environment.SERVER_URL;
   }
 

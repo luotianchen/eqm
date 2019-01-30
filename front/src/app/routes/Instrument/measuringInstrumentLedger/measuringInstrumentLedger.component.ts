@@ -16,15 +16,12 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
   millunits = [];
   managlevels = [];
   userform = [];
-  private notes = []; //备注选项
-  constructor(private fb: FormBuilder, private measuringInstrumentLedgerService: MeasuringInstrumentLedgerService,private _storage: SessionStorageService,private msg:NzMessageService,private modalService: NzModalService) {
+  public notes = []; //备注选项
+  constructor(public fb: FormBuilder, public measuringInstrumentLedgerService: MeasuringInstrumentLedgerService,public _storage: SessionStorageService,public msg:NzMessageService,public modalService: NzModalService) {
   }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      id:[null],
       user:[null],
-      date:[null],
-      audit_user:[null],
       gaugename:[null,[Validators.required]],
       gaugeno:[null,[Validators.required]],
       exitno:[null,[Validators.required]],
@@ -64,8 +61,8 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
   }
 
   formatInDate(control){
-    let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     if(monthDay.test(control.value)){
       control.setValue(new Date().getFullYear()+"-"+control.value);
     }else if(!yearMonthDay.test(control.value)){
@@ -164,6 +161,7 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.validateForm.controls['user'].setValue(this._storage.get("username"));
       console.log(this.validateForm.value);
       this.measuringInstrumentLedgerService.putMeasuringInstrumentLedger(this.validateForm.value).subscribe((res)=>{
         if(res['result']=="success"){
@@ -175,9 +173,9 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
   onNoteInput(value:string):void{ //当备注输入时展开选项
     this.notes = value ? [
       value,
-      "默认报废",
+      "报废",
     ]: [
-      "默认报废",
+      "报废",
     ];
   }
   getInfoByGaugeno(){

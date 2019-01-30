@@ -10,16 +10,16 @@ import {FormBuilder,  FormGroup, Validators} from "@angular/forms";
 })
 export class MaterialDistributionLedgerComponent implements OnInit {
   validateForm: FormGroup;
-  private prodnos:any;
-  private prodno:any;
-  private prodname:any;
-  private dwgno:any;
-  private status = false;
-  private dataSet = [];
-  private dataSet2 = [];
-  private dataSets = [];
-  private dataSets2 = [];
-  constructor(private fb: FormBuilder, private materialDistributionLedgerService: MaterialDistributionLedgerService) {
+  public prodnos:any;
+  public prodno:any;
+  public prodname:any;
+  public dwgno:any;
+  public status = false;
+  public dataSet = [];
+  public dataSet2 = [];
+  public dataSets = [];
+  public dataSets2 = [];
+  constructor(public fb: FormBuilder, public materialDistributionLedgerService: MaterialDistributionLedgerService) {
   }
   ngOnInit(): void {
     this.materialDistributionLedgerService.getprodno().subscribe((res) => {

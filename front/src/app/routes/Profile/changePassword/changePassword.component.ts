@@ -55,7 +55,7 @@ export class ChangePasswordComponent {
     }
   };
 
-  constructor(private fb: FormBuilder,private changePasswordService: ChangePasswordService, private _storage: SessionStorageService, private msg: NzMessageService, private router: Router) {
+  constructor(public fb: FormBuilder,public changePasswordService: ChangePasswordService, public _storage: SessionStorageService, public msg: NzMessageService, public router: Router) {
     this.validateForm = this.fb.group({
       password: [ null, [ Validators.required ] ],
       newpassword: [ null, [ Validators.required ] ],

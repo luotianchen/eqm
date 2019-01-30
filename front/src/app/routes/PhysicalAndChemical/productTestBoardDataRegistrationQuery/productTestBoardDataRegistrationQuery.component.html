@@ -1,0 +1,58 @@
+<div>
+  <h3 class="title">产品试板数据查询</h3>
+</div>
+<nz-divider></nz-divider>
+<nz-table
+  nzSize="small"
+  #nzTable
+  nzBordered
+  [nzData]="dataSet"
+  [nzPageSize]="20">
+  <thead>
+  <tr>
+    <th rowspan="2">提交人</th>
+    <th rowspan="2">提交时间</th>
+    <th rowspan="2">产品编号</th>
+    <th rowspan="2">试板标准</th>
+    <th rowspan="2">材料标准</th>
+    <th rowspan="2">牌号</th>
+    <th rowspan="2">抗拉强度</th>
+    <th rowspan="2">延长率</th>
+    <th rowspan="2">冲击温度</th>
+    <th colspan="6">冲击功</th>
+    <th rowspan="2">断裂位置</th>
+    <th rowspan="2">弯曲参数</th>
+    <th rowspan="2">弯曲直径</th>
+    <th rowspan="2">委托日期</th>
+  </tr>
+  <tr>
+    <th colspan="3" style="width: 50%">热处理区</th>
+    <th colspan="3" style="width: 50%">焊缝区</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <tr>
+      <td>{{data.user}}</td>
+      <td>{{data.date}}</td>
+      <td>{{data.prodno}}</td>
+      <td>{{data.testboardstand}}</td>
+      <td>{{data.matlstand}}</td>
+      <td>{{data.designation}}</td>
+      <td>{{data.rm}}</td>
+      <td>{{data.elong}}</td>
+      <td>{{data.impacttemp}}</td>
+      <td>{{data.impactpa1}}</td>
+      <td>{{data.impactpa2}}</td>
+      <td>{{data.impactpa3}}</td>
+      <td>{{data.impactpb1}}</td>
+      <td>{{data.impactpb2}}</td>
+      <td>{{data.impactpb3}}</td>
+      <td>{{data.fractposit}}({{data.efractposit}})</td>
+      <td>{{data.bendpara}}({{data.ebendpara}})</td>
+      <td>{{data.benddia}}</td>
+      <td>{{data.entrustdate}}</td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

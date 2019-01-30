@@ -10,14 +10,14 @@ import {UploadFilter} from "ng-zorro-antd/upload";
   providers: [ProfileService]
 })
 export class ProfileComponent {
-  private department = new Set();
-  private edit = false;
-  private imgURL = null;
-  private editimg = false;
-  private name = this._storage.get("name");
-  private email = this._storage.get("email");
+  public department = new Set();
+  public edit = false;
+  public imgURL = null;
+  public editimg = false;
+  public name = this._storage.get("name");
+  public email = this._storage.get("email");
 
-  constructor(private profileService: ProfileService, private _storage: SessionStorageService, private msg: NzMessageService) {
+  constructor(public profileService: ProfileService, public _storage: SessionStorageService, public msg: NzMessageService) {
   }
 
   ngOnInit(): void {
@@ -25,25 +25,25 @@ export class ProfileComponent {
       if (res['result'] == "success")
         this.department.add(res['departmentname']);
     });
-    if(this._storage.get("role2")!='null')
+    if(this._storage.get("role2")!=null)
       this.profileService.getDepartment(this._storage.get("role2")).subscribe((res) => {
         if (res['result'] == "success")
           this.department.add(res['departmentname']);
 
       });
-    if(this._storage.get("role3")!='null')
+    if(this._storage.get("role3")!=null)
       this.profileService.getDepartment(this._storage.get("role3")).subscribe((res) => {
         if (res['result'] == "success")
           this.department.add(res['departmentname']);
 
       });
-    if(this._storage.get("role4")!='null')
+    if(this._storage.get("role4")!=null)
       this.profileService.getDepartment(this._storage.get("role4")).subscribe((res) => {
         if (res['result'] == "success")
           this.department.add(res['departmentname']);
 
       });
-    if(this._storage.get("role5")!='null')
+    if(this._storage.get("role5")!=null)
       this.profileService.getDepartment(this._storage.get("role5")).subscribe((res) => {
         if (res['result'] == "success")
           this.department.add(res['departmentname']);
@@ -148,7 +148,7 @@ export class ProfileComponent {
       );
   }
 
-  private getBase64(img: File, callback: (img: {}) => void): void {
+  public getBase64(img: File, callback: (img: {}) => void): void {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);

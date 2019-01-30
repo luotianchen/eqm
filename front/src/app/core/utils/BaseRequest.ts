@@ -18,7 +18,7 @@ export class BaseService {
    */
   queryAll() {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.http.SERVER_URL}${this.module}/all`).subscribe((response: ResponseModel) => {
+      this.http.get(`${NHttpClinet.SERVER_URL}${this.module}/all`).subscribe((response: ResponseModel) => {
         if (response.result === '00000000') {
           resolve(response.data);
         } else {
@@ -33,7 +33,7 @@ export class BaseService {
    */
   queryById(id: string) {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.http.SERVER_URL}${this.module}/${id}`).subscribe((response: ResponseModel) => {
+      this.http.get(`${NHttpClinet.SERVER_URL}${this.module}/${id}`).subscribe((response: ResponseModel) => {
         if (response.result === '00000000') {
           resolve(response.data);
         } else {
@@ -48,7 +48,7 @@ export class BaseService {
    */
   create(params: Object) {
     return new Promise((resolve, reject) => {
-      this.http.post(`${this.http.SERVER_URL}${this.module}`, params).subscribe((response: ResponseModel) => {
+      this.http.post(`${NHttpClinet.SERVER_URL}${this.module}`, params).subscribe((response: ResponseModel) => {
         if (response.result === '00000000') {
           resolve(response.data);
         } else {
@@ -63,7 +63,7 @@ export class BaseService {
    */
   update(id: string, params: any) {
     return new Promise((resolve, reject) => {
-      this.http.put(`${this.http.SERVER_URL}${this.module}/${id}`, params).subscribe((response: ResponseModel) => {
+      this.http.put(`${NHttpClinet.SERVER_URL}${this.module}/${id}`, params).subscribe((response: ResponseModel) => {
         if (response.result === '00000000') {
           resolve(response.data);
         } else {
@@ -78,7 +78,7 @@ export class BaseService {
    */
   queryList(pageIndex: number, pageSize: number, searchParmas?: {}) {
     return new Promise((resolve, reject) => {
-      this.http.get(`${this.http.SERVER_URL}${this.module}?pageNum=${pageIndex}&pageSize=${pageSize}`, searchParmas).subscribe((response: ResponseModel) => {
+      this.http.get(`${NHttpClinet.SERVER_URL}${this.module}?pageNum=${pageIndex}&pageSize=${pageSize}`, searchParmas).subscribe((response: ResponseModel) => {
         if (response.result === '00000000') {
           resolve(response.data);
         } else {
@@ -93,7 +93,7 @@ export class BaseService {
    */
   remove(id: string) {
     return new Promise((resolve, reject) => {
-      this.http.delete(`${this.http.SERVER_URL}${this.module}/` + id).subscribe((response: ResponseModel) => {
+      this.http.delete(`${NHttpClinet.SERVER_URL}${this.module}/` + id).subscribe((response: ResponseModel) => {
         if (response.result === '00000000') {
           resolve(response.data);
         } else {

@@ -19,6 +19,6 @@ export class DesignAuditService {
     return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno})
   }
   audit(dwgno,status,audit_user){
-    return this.http.post(this.api.BASEURL+"/designaudit",{dwgno:dwgno,audit:status,audit_user:audit_user});
+    return this.http.post(this.api.BASEURL+"/putproparlistaudit",{dwgno:dwgno,audit:status,audit_user:audit_user});
   }
 }

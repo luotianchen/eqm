@@ -43,10 +43,10 @@
     </div>
     <div nz-col nzSpan="16">
       <span>{{_storage.get("role")}}</span>
-      <span *ngIf="_storage.get('role2')!='null'">、{{_storage.get("role2")}}</span>
-      <span *ngIf="_storage.get('role3')!='null'">、{{_storage.get("role3")}}</span>
-      <span *ngIf="_storage.get('role4')!='null'">、{{_storage.get("role4")}}</span>
-      <span *ngIf="_storage.get('role5')!='null'">、{{_storage.get("role5")}}</span>
+      <span *ngIf="_storage.get('role2')!=null"> {{_storage.get("role2")}}</span>
+      <span *ngIf="_storage.get('role3')!=null"> {{_storage.get("role3")}}</span>
+      <span *ngIf="_storage.get('role4')!=null"> {{_storage.get("role4")}}</span>
+      <span *ngIf="_storage.get('role5')!=null"> {{_storage.get("role5")}}</span>
     </div>
   </div>
   <div nz-row style="height: 44px;line-height: 44px">

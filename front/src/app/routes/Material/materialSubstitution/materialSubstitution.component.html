@@ -6,8 +6,8 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzFor]="prodno">产品编号</nz-form-label>
-          <nz-form-control [nzSm]="14" nzHasFeedback>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
@@ -16,7 +16,7 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzFor]="prodname">产品名称</nz-form-label>
+        <nz-form-label [nzSm]="6" nzFor="prodname">产品名称</nz-form-label>
         <nz-form-control [nzSm]="14">
           <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
         </nz-form-control>
@@ -24,14 +24,14 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-label [nzSm]="6" nzFor="dwgno">图号</nz-form-label>
         <nz-form-control [nzSm]="14">
           <input nz-input placeHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" disabled/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="8">
-      <button nz-button [nzType]="'primary'" (click)="searchData(true)">确定</button>
+      <button nz-button [nzType]="'primary'" (click)="searchData()">确定</button>
     </div>
   </div>
 </form>
@@ -40,20 +40,21 @@
   <nz-table
     #editRowTable
     nzBordered
+    nzSize="middle"
     [nzTitle]="'安全泄放装置'"
     [nzData]="dataSet">
     <thead>
     <tr>
-      <th rowspan="2">零件名称</th>
+      <th rowspan="2" style="min-width: 150px">零件名称</th>
       <th colspan="2">设计</th>
       <th colspan="2">代用</th>
       <th rowspan="2">代用材料类别</th>
       <th rowspan="2" style="min-width: 140px">操作</th>
     </tr>
     <tr>
-      <th>材料材质</th>
+      <th style="min-width: 150px">材料材质</th>
       <th>材料规格</th>
-      <th>材料材质</th>
+      <th style="min-width: 150px">材料材质</th>
       <th>材料规格</th>
     </tr>
     </thead>
@@ -66,7 +67,9 @@
               {{data.name}}
             </ng-container>
             <ng-container *ngIf="editCache[data.key].edit">
-              <input type="text" nz-input [(ngModel)]="editCache[data.key].data.name">
+              <nz-select style="width: 100%" [(ngModel)]="editCache[data.key].data.name" id="designation" nzPlaceHolder="名称" nzShowSearch>
+                <nz-option *ngFor="let o of this.prodname" [nzValue]="o" [nzLabel]="o"></nz-option>
+              </nz-select>
             </ng-container>
           </div>
         </div>
@@ -76,7 +79,9 @@
           {{data.designmatl}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.designmatl">
+          <nz-select style="width: 100%" [(ngModel)]="editCache[data.key].data.designmatl" id="designmatl" nzPlaceHolder="材质" nzShowSearch>
+            <nz-option *ngFor="let o of this.designation" [nzValue]="o" [nzLabel]="o"></nz-option>
+          </nz-select>
         </ng-container>
       </td>
       <td>
@@ -92,7 +97,9 @@
           {{data.substitutematl}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.substitutematl">
+          <nz-select style="width: 100%" [(ngModel)]="editCache[data.key].data.substitutematl" id="substitutematl" nzPlaceHolder="材质" nzShowSearch>
+            <nz-option *ngFor="let o of this.designation" [nzValue]="o" [nzLabel]="o"></nz-option>
+          </nz-select>
         </ng-container>
       </td>
       <td>

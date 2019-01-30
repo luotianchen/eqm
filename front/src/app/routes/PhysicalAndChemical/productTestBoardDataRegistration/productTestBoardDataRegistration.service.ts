@@ -17,7 +17,7 @@ export class ProductTestBoardDataRegistrationService {
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
   }
   addtestboardstand(testboardstand){
-    return this.http.post(this.api.BASEURL+"/addtestboardstand",{testboardstand:testboardstand})
+    return this.http.post(this.api.BASEURL+"/puttestboardstand",{testboardstand:testboardstand})
   }
   getputmaterial(){
     return this.http.get(this.api.BASEURL+"/getputmaterial");
@@ -30,6 +30,6 @@ export class ProductTestBoardDataRegistrationService {
     })
   }
   puttestboardparam(data){
-    return this.http.post(this.api.BASEURL+"/puttestboardparam",data);
+    return this.http.post(this.api.BASEURL+"/putproductplatedata",data);
   }
 }

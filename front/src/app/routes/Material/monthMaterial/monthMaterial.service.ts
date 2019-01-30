@@ -10,6 +10,6 @@ export class MonthMaterialService {
     return this.http.post(this.api.BASEURL+"/searchmonthmatlresult",{pageindex:pageindex,pagesize:pagesize,matlcode:matlcode,inyear:inyear,inmonth:inmonth});
   }
   download(matlcode,inyear,inmonth){
-    return this.http.post(this.api.BASEURL+"searchmonthmatlexcel",{matlcode:matlcode,inyear:inyear,inmonth:inmonth})
+    return this.http.post(this.api.BASEURL+"/searchmonthmatlexcel",{matlcode:matlcode,inyear:inyear,inmonth:inmonth},{responseType:"arraybuffer"})
   }
 }

@@ -10,10 +10,16 @@ export class MaterialSubstitutionService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
+  getprodname(){
+    return this.http.get(this.api.BASEURL+"/getprodname");
+  }
   getdistribute(prodno){
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
   }
   putSubstitution(data){
-    return this.http.post(this.api.BASEURL+'/putsubstitution',data)
+    return this.http.post(this.api.BASEURL+'/putmatlsubstitution',data)
+  }
+  getdesignation(){
+    return this.http.get(this.api.BASEURL+'/getputmaterial')
   }
 }

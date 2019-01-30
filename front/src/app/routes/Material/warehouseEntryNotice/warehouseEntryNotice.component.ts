@@ -11,9 +11,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   providers: [WarehouseEntryNoticeService]
 })
 export class WarehouseEntryNoticeComponent implements OnInit {
-
-  private validateForm: FormGroup;
-  private validateForm2: FormGroup;
+  public thisyear = new Date().getFullYear
+  public validateForm: FormGroup;
+  public validateForm2: FormGroup;
   matlType = {
     1:1,
     2:1,
@@ -22,7 +22,7 @@ export class WarehouseEntryNoticeComponent implements OnInit {
     5:3
   };
   mode = null;
-  constructor(private sanitizer: DomSanitizer,private warehouseEntryNoticeService: WarehouseEntryNoticeService,private fb: FormBuilder,private msg:NzMessageService) {
+  constructor(public sanitizer: DomSanitizer,public warehouseEntryNoticeService: WarehouseEntryNoticeService,public fb: FormBuilder,public msg:NzMessageService) {
     this.printStyle =
       `
       th, td {

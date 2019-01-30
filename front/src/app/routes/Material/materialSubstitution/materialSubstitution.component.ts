@@ -15,12 +15,25 @@ export class MaterialSubstitutionComponent implements OnInit {
   prodno = null;
   prodnos = [];
   why = "";
+  prodname = [];
+  designation = [];
   ngOnInit(): void {
     this.materialSubstitutionService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
         this.prodnos = res['data'];
       }
     });
+    this.materialSubstitutionService.getprodname().subscribe((res) => {
+      if(res['result']=="success"){
+        this.prodname = res['data'];
+      }
+    })
+    this.materialSubstitutionService.getdesignation().subscribe(res=>{
+      if(res['result']=="success"){
+        if(res['data']!=null)
+          this.designation = res['data']['designation'];
+      }
+    })
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
@@ -45,7 +58,7 @@ export class MaterialSubstitutionComponent implements OnInit {
       })
     }
   }
-  constructor(private materialSubstitutionService: MaterialSubstitutionService,private fb:FormBuilder,private message:NzMessageService,private modalService: NzModalService, private _storage: SessionStorageService) {
+  constructor(public materialSubstitutionService: MaterialSubstitutionService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
   i = 1;

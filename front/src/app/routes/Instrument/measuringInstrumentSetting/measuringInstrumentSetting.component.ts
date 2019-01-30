@@ -13,7 +13,7 @@ import {MeasuringInstrumentSettingService} from './measuringInstrumentSetting.se
 export class MeasuringInstrumentSettingComponent implements OnInit {
   validateForm: FormGroup;
   userform = [];
-  constructor(private fb: FormBuilder, private measuringInstrumentSettingService: MeasuringInstrumentSettingService,private _storage: SessionStorageService,private msg:NzMessageService,private modalService: NzModalService) {
+  constructor(public fb: FormBuilder, public measuringInstrumentSettingService: MeasuringInstrumentSettingService,public _storage: SessionStorageService,public msg:NzMessageService,public modalService: NzModalService) {
   }
   ngOnInit(): void {
     this.validateForm = this.fb.group({

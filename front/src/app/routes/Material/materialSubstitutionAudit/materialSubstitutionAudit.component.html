@@ -26,101 +26,157 @@
       <tbody>
       <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
         <tr>
-          <td nzShowExpand [(nzExpand)]="data.expand" (click)="search(data.audit)"></td>
+          <td nzShowExpand [(nzExpand)]="data.expand"></td>
           <td>{{data.user}}</td>
           <td>{{data.date}}</td>
           <td>{{data.prodno}}</td>
           <td>{{data.why}}</td>
           <td *ngIf="rolename=='设计责任工程师'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].design_note">
-            </p>
-            <a (click)="Audit('design_status',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('design_status',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].design_status==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].design_note">
+              </p>
+              <a (click)="Audit('design_status',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('design_status',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].design_status==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].design_status==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
           <td *ngIf="rolename=='材料责任工程师'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].matl_note">
-            </p>
-            <a (click)="Audit('matl_status',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('matl_status',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].matl_status==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].matl_note">
+              </p>
+              <a (click)="Audit('matl_status',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('matl_status',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].matl_status==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].matl_status==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
           <td *ngIf="rolename=='焊接责任工程师'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].welding_note">
-            </p>
-            <a (click)="Audit('welding_status',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('welding_status',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].welding_status==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].welding_note">
+              </p>
+              <a (click)="Audit('welding_status',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('welding_status',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].welding_status==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].welding_status==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
           <td *ngIf="rolename=='工艺责任工程师'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].process_note">
-            </p>
-            <a (click)="Audit('process_status',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('process_status',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].process_status==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].process_note">
+              </p>
+              <a (click)="Audit('process_status',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('process_status',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].process_status==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].process_status==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
           <td *ngIf="rolename=='检验与试验责任工程师'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].inspection_note">
-            </p>
-            <a (click)="Audit('inspection_status',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('inspection_status',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].inspection_status==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].inspection_note">
+              </p>
+              <a (click)="Audit('inspection_status',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('inspection_status',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].inspection_status==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].inspection_status==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
           <td *ngIf="rolename=='设计责任工程师'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].c_note">
-            </p>
-            <a (click)="Audit('status_c',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('status_c',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].status_c==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].c_note">
+              </p>
+              <a (click)="Audit('status_c',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('status_c',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].status_c==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].status_c==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
           <td *ngIf="rolename=='技术负责人'||rolename=='超级管理员'">
-            <p>
-              <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].b_note">
-            </p>
-            <a (click)="Audit('status_b',data.audit,1)">通过</a>
-            <nz-divider nzType="vertical"></nz-divider>
-            <a (click)="Audit('status_b',data.audit,2)">不通过</a>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].status_b==0">
+              <p>
+                <input nz-input placeholder="请输入审批备注" [(ngModel)]="dataDetail[data.audit].b_note">
+              </p>
+              <a (click)="Audit('status_b',data.audit,1)">通过</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="Audit('status_b',data.audit,2)">不通过</a>
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].status_b==1">
+              <nz-badge nzStatus="success"></nz-badge>已审核通过
+            </div>
+            <div *ngIf="dataDetail[data.audit].length>0 && dataDetail[data.audit][0].status_b==2">
+              <nz-badge nzStatus="error"></nz-badge>已审核拒绝
+            </div>
           </td>
         </tr>
         <tr [nzExpand]="data.expand">
           <td></td>
           <td colspan="10">
             <nz-table #innerTable [nzData]="dataDetail[data.audit]" nzSize="middle" [nzShowPagination]="false">
-              <thead>
-                <tr>
-                  <th>零件名称</th>
-                  <th>设计材料材质</th>
-                  <th>设计材料规格</th>
-                  <th>代用材料材质</th>
-                  <th>代用材料规格</th>
-                  <th>材料种类</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of innerTable.data">
-                  <td>{{data.name}}</td>
-                  <td>{{data.designmatl}}</td>
-                  <td>{{data.designspec}}</td>
-                  <td>{{data.substitutematl}}</td>
-                  <td>{{data.substitutespec}}</td>
-                  <td>{{data.type}}</td>
-                </tr>
-              </tbody>
-            </nz-table>
-          </td>
-        </tr>
-      </ng-template>
+      <thead>
+      <tr>
+        <th>零件名称</th>
+        <th>设计材料材质</th>
+        <th>设计材料规格</th>
+        <th>代用材料材质</th>
+        <th>代用材料规格</th>
+        <th>材料种类</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of innerTable.data">
+        <td>{{data.name}}</td>
+        <td>{{data.designmatl}}</td>
+        <td>{{data.designspec}}</td>
+        <td>{{data.substitutematl}}</td>
+        <td>{{data.substitutespec}}</td>
+        <td>{{data.type}}</td>
+      </tr>
       </tbody>
+    </nz-table>
+    </td>
+    </tr>
+    </ng-template>
+    </tbody>
     </nz-table>
   </div>
 </div>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="选择审核身份" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="选择审核身份" (nzOnOk)="handleOk()" (nzOnCancel)="handleCancle()">
   <p>请选择你的身份：</p>
   <nz-select [(ngModel)]="rolename" nzPlaceHolder="请选择" style="width: 100%">
     <nz-option *ngFor="let option of roles" [nzValue]="option" [nzLabel]="option"></nz-option>

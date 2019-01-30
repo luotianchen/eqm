@@ -10,8 +10,8 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [VacuumParameterAuditService]
 })
 export class VacuumParameterAuditComponent implements OnInit {
-  private dataSet:any;
-  constructor(private vacuumParameterAuditService:VacuumParameterAuditService,private message : NzMessageService,private _storage:SessionStorageService){
+  public dataSet:any;
+  constructor(public vacuumParameterAuditService:VacuumParameterAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
 
   ngOnInit(): void {

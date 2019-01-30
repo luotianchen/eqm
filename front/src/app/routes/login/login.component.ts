@@ -26,18 +26,23 @@ export class LoginComponent implements OnInit {
       this.loginBtn = '登录中...';
       const username = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
-      this._storage.set('username', "sundaiyue");
-      this.router.navigate(['']);
-      this.loginService.login(username, password).subscribe(res => {
+      this.loginService.login(username, password).then((res: any) => {
         if (res['result'] === 'success') {
           this._storage.set('username', username);
-          this._storage.set('name', res['name']);
-          this._storage.set('role', res['role']);
-          this._storage.set('role2', res['role2']);
-          this._storage.set('role3', res['role3']);
-          this._storage.set('role4', res['role4']);
-          this._storage.set('role5', res['role5']);
-          this._storage.set('email', res['email']);
+          if(res['name']!=null)
+            this._storage.set('name', res['name']);
+          if(res['role']!=null)
+            this._storage.set('role', res['role']);
+          if(res['role2']!=null)
+            this._storage.set('role2', res['role2']);
+          if(res['role3']!=null)
+            this._storage.set('role3', res['role3']);
+          if(res['role4']!=null)
+            this._storage.set('role4', res['role4']);
+          if(res['role5']!=null)
+            this._storage.set('role5', res['role5']);
+          if(res['email']!=null)
+            this._storage.set('email', res['email']);
           this.router.navigate(['']);
         } else {
           this.loadStatus = false;
@@ -52,8 +57,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private message: NzMessageService,
-              private loginService: LoginService, private router: Router, private _storage: SessionStorageService) {
+  constructor(public fb: FormBuilder, public message: NzMessageService,
+              public loginService: LoginService, public router: Router, public _storage: SessionStorageService) {
   }
 
   getFormControl(name) {

@@ -11,7 +11,7 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [ProductTestBoardCommissionService]
 })
 export class ProductTestBoardCommissionComponent implements OnInit {
-  private prodnos:any;
+  public prodnos:any;
   validateForm: FormGroup;
   testboardstandValidateForm: FormGroup;
   dataSet = [];
@@ -137,4 +137,5 @@ export class ProductTestBoardCommissionComponent implements OnInit {
       })
     }
   }
+
 }

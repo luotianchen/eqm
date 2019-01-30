@@ -45,6 +45,7 @@ export class SiderComponent {
             for (let sub of item.submenu) {
               sub.highlight = sub.route == this.router.url;
               if(sub.route == this.router.url){
+                flag = false;
                 this.menuOpenMap[item.name] = true;
                 this.settings.setnav(name.toString());
               }
@@ -53,10 +54,11 @@ export class SiderComponent {
         }
       }
 
-      if (flag) {
+      if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
         for (let sider of this.menulist) {
           sider.data[0].highlight = true;
         }
+        this.settings.setnav(this.navs[0].name);
       }
     });
   }

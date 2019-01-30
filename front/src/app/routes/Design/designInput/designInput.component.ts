@@ -16,10 +16,11 @@ export class DesignInputComponent implements OnInit {
   validateForm2: FormGroup;
   prodnameValidateForm: FormGroup;
   wmediaValidateForm: FormGroup;
+  decoValidateForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private designInputService: DesignInputService,private _storage: SessionStorageService,private msg:NzMessageService,private modalService: NzModalService) {
+  constructor(public fb: FormBuilder, public designInputService: DesignInputService,public _storage: SessionStorageService,public msg:NzMessageService,public modalService: NzModalService) {
   }
-
+  deconames = [];
   prodnames = [];
   types = [
     "I",
@@ -190,6 +191,11 @@ export class DesignInputComponent implements OnInit {
     }
   ];//无
   ngOnInit(): void {
+    this.designInputService.getDeconame().then(res=>{
+      if(res['result']=="success"){
+        this.deconames = res['data'];
+      }
+    });
     this.validateForm = this.fb.group({
       dwgno: [null, [Validators.required]],//总图号
       dwgno1: [null, [Validators.required]],//图号1
@@ -216,6 +222,10 @@ export class DesignInputComponent implements OnInit {
       pvclass: [null, [Validators.required]],//换热面积
       unit: ['/', [Validators.required]],//换热面积单位
       channelnum: [0, [Validators.required]],//通道数
+      proheight:[0, [Validators.required]],//产品总高
+      length:[0, [Validators.required]],//筒体长度
+      designdate: [null, [Validators.required]],//设计日期
+      deconame: [this.deconames[0], [Validators.required]]//设计单位名称
     });
     this.validateForm1 = this.fb.group({
       name:[null, [Validators.required]],
@@ -272,6 +282,14 @@ export class DesignInputComponent implements OnInit {
     this.wmediaValidateForm = this.fb.group({
       wmedia:[null, [Validators.required]],
       wmediaen:[null, [Validators.required]]
+    });
+    this.decoValidateForm = this.fb.group({
+      deconame:[null, [Validators.required]],
+      edeconame:[null, [Validators.required]],
+      delicense:[null, [Validators.required]],
+      time:[null, [Validators.required]],
+      orgcode:[null, [Validators.required]],
+      code:[null],
     });
     this.designInputService.getprodname().subscribe((res) => {
       if (res["result"] == "success") {
@@ -560,6 +578,10 @@ export class DesignInputComponent implements OnInit {
       "analyde": this.validateForm.value.analyde,//按疲劳分析设置
       "pvclass": this.validateForm.value.pvclass,//换热面积
       "unit":this.validateForm.value.unit,//换热面积单位
+      "proheight":this.validateForm.value.proheight,//产品总高
+      "length":this.validateForm.value.length,//筒体长度
+      "designdate": this.validateForm.value.designdate,//设计日期
+      "deconame": this.validateForm.value.deconame//设计单位名称
     }).subscribe((res)=>{
       if(res['result']=="success"){
         this.msg.success("提交成功！");
@@ -567,8 +589,8 @@ export class DesignInputComponent implements OnInit {
     })
   }
 
-  private tplModal: NzModalRef;
-  private tplModalButtonLoading = false;
+  public tplModal: NzModalRef;
+  public tplModalButtonLoading = false;
 
   createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     this.tplModal = this.modalService.create({
@@ -598,6 +620,7 @@ export class DesignInputComponent implements OnInit {
         this.designInputService.putProdname(this.prodnameValidateForm.value.prodname,this.prodnameValidateForm.value.ename).subscribe((res)=>{
           if(res["result"]=="success"){
             this.msg.success("提交成功！");
+            this.prodnameValidateForm.reset();
           }
         })
       }
@@ -611,9 +634,39 @@ export class DesignInputComponent implements OnInit {
         this.designInputService.putWmedia(this.wmediaValidateForm.value.wmedia,this.wmediaValidateForm.value.wmediaen).subscribe((res)=>{
           if(res["result"]=="success"){
             this.msg.success("提交成功！");
+            this.wmediaValidateForm.reset();
           }
         })
       }
+    }
+    if(which == "deco"){
+      for (const i in this.decoValidateForm.controls) {
+        this.decoValidateForm.controls[ i ].markAsDirty();
+        this.decoValidateForm.controls[ i ].updateValueAndValidity();
+      }
+      if (this.decoValidateForm.valid) {
+        this.designInputService.putDeco(this.decoValidateForm.value).subscribe((res)=>{
+          if(res["result"]=="success"){
+            this.msg.success("提交成功！");
+            this.decoValidateForm.reset();
+            this.designInputService.getDeconame().then(res=>{
+              if(res['result']=="success"){
+                this.deconames = res['data'];
+              }
+            });
+          }
+        })
+      }
+    }
+  }
+
+  formatDate(control){ //日期格式化
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(monthDay.test(control.value)){
+      control.setValue(new Date().getFullYear()+"-"+control.value);
+    }else if(!yearMonthDay.test(control.value)){
+      control.setValue(null);
     }
   }
 }

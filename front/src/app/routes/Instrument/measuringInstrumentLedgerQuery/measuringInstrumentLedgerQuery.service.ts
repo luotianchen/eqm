@@ -7,6 +7,6 @@ export class MeasuringInstrumentLedgerQueryService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getaudit(){
-    return this.http.post(this.api.BASEURL+"/searchpregaubystatusr",{audit:1});
+    return this.http.post(this.api.BASEURL+"/searchpregaubystatus",{audit:1});
   }
 }

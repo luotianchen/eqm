@@ -1,0 +1,186 @@
+<div>
+  <h3 class="title">系统信息设置</h3>
+</div>
+<nz-divider></nz-divider>
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
+  <nz-tab nzTitle="制造单位设置">
+    <form nzLayout='horizontal' nz-form [formGroup]="validateForm">
+      <div nz-row [nzGutter]="16" nzType="flex">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="deconame">
+              公司名称
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="deconame" id="deconame" placeholder="公司名称">
+              <nz-form-explain *ngIf="validateForm.get('deconame').dirty && validateForm.get('deconame').errors">
+                公司名称不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="edeconame">
+              英文名称
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="edeconame" id="edeconame" placeholder="英文名称">
+              <nz-form-explain *ngIf="validateForm.get('edeconame').dirty && validateForm.get('edeconame').errors">
+                英文名称不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="delicense">
+              制造许可证号
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="delicense" id="delicense" placeholder="制造许可证号">
+              <nz-form-explain *ngIf="validateForm.get('delicense').dirty && validateForm.get('delicense').errors">
+                制造许可证号不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="manulevel">
+              制造许可级别
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="manulevel" id="manulevel" placeholder="制造许可级别">
+              <nz-form-explain *ngIf="validateForm.get('manulevel').dirty && validateForm.get('manulevel').errors">
+                制造许可级别不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="manulevel">
+              有效期
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="time" id="time" placeholder="有效期" (blur)="formatDate(validateForm.controls['time'])">
+              <nz-form-explain *ngIf="validateForm.get('time').dirty && validateForm.get('time').errors">
+                有效期不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="orgcode">
+              社会许可信用代码
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="orgcode" id="orgcode" placeholder="社会许可信用代码">
+              <nz-form-explain *ngIf="validateForm.get('orgcode').dirty && validateForm.get('orgcode').errors">
+                社会许可信用代码不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8" style="text-align:center;margin-top: 20px">
+          <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+        </div>
+      </div>
+    </form>
+  </nz-tab>
+  <nz-tab nzTitle="监督单位设置">
+    <form nzLayout='horizontal' nz-form [formGroup]="validateForm">
+      <div nz-row [nzGutter]="16" nzType="flex">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="name">
+              监督检验机构名称
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="name" id="name" placeholder="监督检验机构名称">
+              <nz-form-explain *ngIf="validateForm.get('name').dirty && validateForm.get('name').errors">
+                监督检验机构名称不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="ename">
+              英文名称
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="ename" id="ename" placeholder="英文名称">
+              <nz-form-explain *ngIf="validateForm.get('edeconame').dirty && validateForm.get('ename').errors">
+                英文名称不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="uniformcode">
+              统一社会信用代码
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="uniformcode" id="uniformcode" placeholder="统一社会信用代码">
+              <nz-form-explain *ngIf="validateForm.get('uniformcode').dirty && validateForm.get('uniformcode').errors">
+                统一社会信用代码不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="manuno">
+              机构核准证号码
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="manuno" id="manuno" placeholder="机构核准证号码">
+              <nz-form-explain *ngIf="validateForm.get('manuno').dirty && validateForm.get('manuno').errors">
+                机构核准证号码不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8" style="text-align:center;margin-top: 20px">
+          <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+        </div>
+      </div>
+    </form>
+  </nz-tab>
+</nz-tabset>

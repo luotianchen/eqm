@@ -17,7 +17,7 @@ export class ProfileService {
     return this.http.post(this.apiService.BASEURL+"/changename",{username:username,newname:newname})
   }
   editEmail(username,email){
-    return this.http.post(this.apiService.BASEURL+"/changename",{username:username,email:email})
+    return this.http.post(this.apiService.BASEURL+"/changeemail",{username:username,email:email})
   }
   uploadImg(formData){
     const req = new HttpRequest('POST', this.apiService.BASEURL+'/putsignature', formData, {

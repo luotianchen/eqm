@@ -8,16 +8,16 @@ import {WarrantyAbsentService} from './warrantyAbsent.service';
   providers: [WarrantyAbsentService]
 })
 export class WarrantyAbsentComponent implements OnInit {
-  private pageindex = 1;
-  private pagesize = 25;
-  private dataset = [];
-  private total = 0;
-  private loading = true;
+  public pageindex = 1;
+  public pagesize = 25;
+  public dataset = [];
+  public total = 0;
+  public loading = true;
 
   ngOnInit(): void {
     this.searchData();
   }
-  constructor(private warrantyAbsentService: WarrantyAbsentService){
+  constructor(public warrantyAbsentService: WarrantyAbsentService){
   }
   searchData(reset: boolean = false): void {
     if (reset) {
@@ -33,5 +33,16 @@ export class WarrantyAbsentComponent implements OnInit {
     });
   }
   download(){
-    this.warrantyAbsentService.download();
+    this.warrantyAbsentService.download().subscribe((res:any)=>{
+      let blob = new Blob([res]);
+      let objectUrl = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      let date = new Date();
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display:none');
+      a.setAttribute('href', objectUrl);
+      a.setAttribute('download', "质保书未到"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xls");
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });
   }}

@@ -113,6 +113,9 @@
 
 @import "../../themes/index";
 
+html,body{
+  min-width:960px;
+}
 :host /deep/ .layout {
   &.fold {
     .sider {
@@ -121,8 +124,8 @@
 
       .logo {
         img {
-          width: 28px !important;
-          margin: 6px 7px;
+          margin: -15px!important;
+          height: 20px!important;
         }
       }
 
@@ -136,7 +139,7 @@
             text-align: center;
 
             .anticon {
-              font-size: 14px;
+              font-size: 12px;
               margin-right: 0;
             }
           }
@@ -180,10 +183,12 @@
     }
 
     .container {
-      margin: 24px;
+      background: #f0f2f5;
     }
 
     .content {
+      margin-left: 24px;
+      margin-right: 24px;
       min-height: e("calc(100vh - 184px)");
       position: relative;
     }

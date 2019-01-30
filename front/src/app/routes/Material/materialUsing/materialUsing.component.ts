@@ -9,14 +9,14 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   providers: [MaterialUsingService]
 })
 export class MaterialUsingComponent implements OnInit {
-  private pageindex = 1;
-  private pagesize = 25;
-  private dataset = [];
-  private total = 0;
-  private loading = true;
+  public pageindex = 1;
+  public pagesize = 25;
+  public dataset = [];
+  public total = 0;
+  public loading = true;
   validateForm: FormGroup;
-  private codedmarking = null;
-  constructor(private materialUsingService: MaterialUsingService,private fb: FormBuilder){
+  public codedmarking = null;
+  constructor(public materialUsingService: MaterialUsingService,public fb: FormBuilder){
   }
   searchData(reset: boolean = false): void {
     for (const i in this.validateForm.controls) {
@@ -45,7 +45,16 @@ export class MaterialUsingComponent implements OnInit {
     });
   }
   download(){
-    if(this.codedmarking!=null)
-      this.materialUsingService.download(this.codedmarking);
+    if(this.codedmarking!=null) {this.materialUsingService.download(this.codedmarking).subscribe((res:any)=>{
+      let blob = new Blob([res])
+      let objectUrl = URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display:none');
+      a.setAttribute('href', objectUrl);
+      a.setAttribute('download', "content.xls");
+      a.click();
+      URL.revokeObjectURL(objectUrl);
+    });}
   }
 }

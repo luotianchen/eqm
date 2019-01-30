@@ -10,6 +10,6 @@ export class SingleWarrantyAbsentService {
     return this.http.post(this.api.BASEURL+"/searchnocertsituresult",{pageindex:pageindex,pagesize:pagesize,matlcode:matlcode});
   }
   download(matlcode){
-    return this.http.post(this.api.BASEURL+"/searchnocertsituexcel",{matlcode:matlcode});
+    return this.http.post(this.api.BASEURL+"/searchnocertsituexcel",{matlcode:matlcode},{responseType:"arraybuffer"});
   }
 }

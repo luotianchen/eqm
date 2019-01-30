@@ -10,13 +10,13 @@ import {FormBuilder,  FormGroup, Validators} from "@angular/forms";
 })
 export class InspectionRecordsComponent implements OnInit {
   validateForm: FormGroup;
-  private prodnos:any;
-  private prodno:any;
-  private prodname:any;
-  private dwgno:any;
-  private status = false;
-  private dataSet = [];
-  constructor(private fb: FormBuilder, private inspectionRecordsService: InspectionRecordsService) {
+  public prodnos:any;
+  public prodno:any;
+  public prodname:any;
+  public dwgno:any;
+  public status = false;
+  public dataSet = [];
+  constructor(public fb: FormBuilder, public inspectionRecordsService: InspectionRecordsService) {
   }
   ngOnInit(): void {
     this.inspectionRecordsService.getprodno().subscribe((res) => {

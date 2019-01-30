@@ -1,39 +1,45 @@
 <nz-sider [nzWidth]="256" class="sider {{theme?'dark':'light'}}" style="height: 100%;">
   <div class="logo">
     <a href="/#/">
-      <img src="../assets/logo.png" alt="">
-      <h1>AntD Admin</h1>
+      <img src="assets/logo.png" draggable="false">
+      <h1>企业质量管理系统</h1>
     </a>
   </div>
   <ng-container *ngFor="let menus of menulist">
     <ul nz-menu [nzMode]="'inline'" [nzTheme]="theme?'dark':'light'" [nzInlineCollapsed]="settings.layout.isCollapsed"
         [nzMode]="settings.layout.isCollapsed?'vertical':'inline'"
-        *ngIf="menus.name == (typeofNav()? navs[0].name:getSettingNav())"
-        style="height: calc(100% - 80px);overflow: scroll;">
+        *ngIf="navs.length > 0 && menus.name == (typeofNav()? navs[0].name:getSettingNav())"
+        style="height: calc(100% - 80px);overflow: auto;">
       <ng-container *ngFor="let item of menus.data;">
-          <span>
-             <li nz-submenu *ngIf="item.submenu && item.submenu.length>0;else elseBlock" [(nzOpen)]="menuOpenMap[item.name]" (nzOpenChange)="openHandler(item.name)">
-            <span title><i class="anticon anticon-{{item.icon}}"></i> <span class="nav-text">{{item.name}}</span></span>
-            <ul>
-              <li nz-menu-item routerLink="{{subItem.route}}" *ngFor="let subItem of item.submenu" [nzSelected]="subItem.highlight">
-                <span title><i class="anticon anticon-{{subItem.icon}}"></i> <span class="nav-text"> {{subItem.name}}</span></span>
-              </li>
-            </ul>
-          </li>
-          </span>
-          <ng-template #elseBlock>
-            <li nz-menu-item routerLink="{{item.route}}" [nzSelected]="router.highlight"><span title><i nz-icon type="{{item.icon}}"></i><span
-              class="nav-text">{{item.name}}</span></span>
+            <span>
+               <li nz-submenu *ngIf="item.submenu && item.submenu.length>0;else elseBlock" [(nzOpen)]="menuOpenMap[item.name]" (nzOpenChange)="openHandler(item.name)">
+              <span title nzPlacement="right" [nzTitle]="item.name" nz-tooltip [nzMouseEnterDelay]="1">
+                  <i nz-icon type="{{item.icon}}"></i>
+                  <span class="nav-text" >{{item.name}}</span>
+              </span>
+              <ul>
+                <li nz-menu-item routerLink="{{subItem.route}}" *ngFor="let subItem of item.submenu" [nzSelected]="subItem.highlight">
+                  <span title nzPlacement="right" [nzTitle]="subItem.name" nz-tooltip [nzMouseEnterDelay]="1">
+                    <i nz-icon type="{{subItem.icon}}"></i>
+                    <span class="nav-text"> {{subItem.name}}</span>
+                  </span>
+                </li>
+              </ul>
             </li>
-          </ng-template>
+            </span>
+        <ng-template #elseBlock>
+          <li nz-menu-item routerLink="{{item.route}}" [nzSelected]="item.highlight">
+                <span title nzPlacement="right" [nzTitle]="item.name" nz-tooltip [nzMouseEnterDelay]="1">
+                  <i nz-icon type="{{item.icon}}"></i>
+                  <span class="nav-text">{{item.name}}</span>
+                </span>
+          </li>
+        </ng-template>
       </ng-container>
     </ul>
   </ng-container>
   <div class="switchtheme" *ngIf="!settings.layout.isCollapsed">
     <span><i nz-icon type="bulb" style="margin-right: 5px"></i>切换主题</span>
-    <nz-switch [(ngModel)]="theme" (click)="switch()">
-      <span checked>夜间</span>
-      <span unchecked>日间</span>
-    </nz-switch>
+    <nz-switch [(ngModel)]="theme" (click)="switch()"  nzCheckedChildren="夜间" nzUnCheckedChildren="日间"></nz-switch>
   </div>
 </nz-sider>

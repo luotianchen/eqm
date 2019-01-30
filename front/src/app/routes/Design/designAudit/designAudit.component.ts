@@ -10,15 +10,15 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [DesignAuditService]
 })
 export class DesignAuditComponent implements OnInit {
-  private dataSet:any;
+  public dataSet:any;
   placement = 'left';
-  private modelData = {
+  public modelData = {
     data:{},
     channel:[],
     saferel:[]
   };
   loading = true;
-  constructor(private designAuditService:DesignAuditService,private message : NzMessageService,private _storage:SessionStorageService){
+  constructor(public designAuditService:DesignAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
   ngOnInit(): void {
     this.searchData();

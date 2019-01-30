@@ -10,14 +10,14 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [MaterialSubstitutionAuditService]
 })
 export class MaterialSubstitutionAuditComponent implements OnInit {
-  private dataSet:any;
-  private dataDetail = {};
+  public dataSet:any;
+  public dataDetail = {};
   isVisible = true;
-  private roles = [
+  public roles = [
     this._storage.get("role")
   ];
-  private rolename;
-  private role_audit = {
+  public rolename;
+  public role_audit = {
     "设计责任工程师" : ["design_status","status_c"],
     "材料责任工程师" : ["matl_status"],
     "焊接责任工程师" : ["welding_status"],
@@ -63,7 +63,7 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
     status_c:"c_user",
   };
 
-  constructor(private materialSubstitutionAuditService:MaterialSubstitutionAuditService,private message : NzMessageService,private _storage:SessionStorageService){
+  constructor(public materialSubstitutionAuditService:MaterialSubstitutionAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
 
   search(audit){
@@ -74,12 +74,17 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    if(this._storage.get("substitutionRole")!=null){
+      this.rolename = this._storage.get("substitutionRole");
+      this.isVisible = false;
+      this.searchData();
+    }
     if(this._storage.get("role2")!="null")
-      this.roles.push(this._storage.get("role2"))
+      this.roles.push(this._storage.get("role2"));
     if(this._storage.get("role3")!="null")
-      this.roles.push(this._storage.get("role3"))
+      this.roles.push(this._storage.get("role3"));
     if(this._storage.get("role4")!="null")
-      this.roles.push(this._storage.get("role4"))
+      this.roles.push(this._storage.get("role4"));
     if(this._storage.get("role5")!="null")
       this.roles.push(this._storage.get("role5"))
   }
@@ -119,6 +124,7 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
             b_note:null,
             c_note:null
           };
+          this.search(audit.audit);
         }
       }
     })
@@ -146,9 +152,14 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
 
   handleOk(): void {
     if(this.rolename!=null&&this.rolename!=""){
+      this._storage.set("substitutionRole",this.rolename);
+      this.message.info("已将默认审核身份设置为："+this.rolename+"，下次进入将自动选择！");
       this.isVisible = false;
       this.searchData();
     }
+  }
+  handleCancle(): void {
+    this.message.error("请选择审核身份！");
   }
   changeRole(){
     this.isVisible = true;

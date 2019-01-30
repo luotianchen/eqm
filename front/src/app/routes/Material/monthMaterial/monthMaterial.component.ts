@@ -9,18 +9,18 @@ import {MonthMaterialService} from "./monthMaterial.service";
   providers: [MonthMaterialService]
 })
 export class MonthMaterialComponent implements OnInit {
-  private pageindex = 1;
-  private pagesize = 25;
-  private dataset = [];
-  private total = 0;
-  private loading = true;
-  private matlcode = null;
-  private inyear = null;
-  private inmonth = null;
+  public pageindex = 1;
+  public pagesize = 25;
+  public dataset = [];
+  public total = 0;
+  public loading = true;
+  public matlcode = null;
+  public inyear = null;
+  public inmonth = null;
   validateForm: FormGroup;
-  private status = false;
-  private thisyear = new Date().getFullYear();
-  constructor(private monthMaterialService: MonthMaterialService,private fb: FormBuilder){
+  public status = false;
+  public thisyear = new Date().getFullYear();
+  constructor(public monthMaterialService: MonthMaterialService,public fb: FormBuilder){
   }
   searchData(reset: boolean = false): void {
     for (const i in this.validateForm.controls) {
@@ -58,6 +58,16 @@ export class MonthMaterialComponent implements OnInit {
 
   download(){
     if(this.status)
-      this.monthMaterialService.download(this.matlcode,this.inyear,this.inmonth);
+      this.monthMaterialService.download(this.matlcode,this.inyear,this.inmonth).subscribe((res:any)=>{
+        let blob = new Blob([res]);
+        let objectUrl = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display:none');
+        a.setAttribute('href', objectUrl);
+        a.setAttribute('download', "月材料查询.xls");
+        a.click();
+        URL.revokeObjectURL(objectUrl);
+      });
   }
 }

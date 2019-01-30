@@ -42,6 +42,25 @@ import {ProductTestBoardCommissionComponent} from './PhysicalAndChemical/product
 import {VacuumParameterAuditComponent} from './InspectionAndTest/vacuumParameterAudit/vacuumParameterAudit.component';
 import {ProductTestBoardCommissionAuditComponent} from './PhysicalAndChemical/productTestBoardCommissionAudit/productTestBoardCommissionAudit.component';
 import {ProductTestBoardCommissionQueryComponent} from './PhysicalAndChemical/productTestBoardCommissionQuery/productTestBoardCommissionQuery.component';
+import {ProductTestBoardDataRegistrationAuditComponent} from './PhysicalAndChemical/productTestBoardDataRegistrationAudit/productTestBoardDataRegistrationAudit.component';
+import {ProductTestBoardDataRegistrationQueryComponent} from './PhysicalAndChemical/productTestBoardDataRegistrationQuery/productTestBoardDataRegistrationQuery.component';
+import {MaterialReinspectionCommissionComponent} from './PhysicalAndChemical/materialReinspectionCommission/materialReinspectionCommission.component';
+import {MaterialReinspectionCommissionAuditComponent} from './PhysicalAndChemical/materialReinspectionCommissionAudit/materialReinspectionCommissionAudit.component';
+import {MaterialReinspectionCommissionQueryComponent} from './PhysicalAndChemical/materialReinspectionCommissionQuery/materialReinspectionCommissionQuery.component';
+import {MaterialReinspectionComponent} from './PhysicalAndChemical/materialReinspection/materialReinspection.component';
+import {MaterialReinspectionAuditComponent} from './PhysicalAndChemical/materialReinspectionAudit/materialReinspectionAudit.component';
+import {MaterialReinspectionQueryComponent} from './PhysicalAndChemical/materialReinspectionQuery/materialReinspectionQuery.component';
+import {
+  ProductManufacturingParametersAuditComponent
+} from './InspectionAndTest/productManufacturingParametersAudit/productManufacturingParametersAudit.component';
+import {SettingComponent} from './System/setting/setting.component';
+import {PressTestReportComponent} from './Report/pressTestReport/pressTestReport.component';
+import {PneumaticTestProcedureReportComponent} from './Report/pneumaticTestProcedureReport/pneumaticTestProcedureReport.component';
+import {LiquidPressTestReportComponent} from './Report/liquidPressTestReport/liquidPressTestReport.component';
+import {PressVesProdQuaCerReportComponent} from './Report/pressVesProdQuaCerReport/pressVesProdQuaCerReport.component';
+import {VacuumTestReportComponent} from './Report/vacuumTestReport/vacuumTestReport.component';
+import {VacuumInspectionReportComponent} from './Report/vacuumInspectionReport/vacuumInspectionReport.component';
+import {QuaPressVesPlanReportComponent} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.component';
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -132,6 +151,11 @@ export const routes: Routes = [
         path: 'system/role', component: RoleComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '角色管理'
+        }
+      },{
+        path: 'system/setting', component: SettingComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '系统设置'
         }
       },{
         path: 'changePassword', component: ChangePasswordComponent, canActivate: [CanAuthProvide],
@@ -246,9 +270,89 @@ export const routes: Routes = [
           breadcrumb: '产品试板查询'
         }
       },{
+        path: 'physicalAndChemical/productTestBoardDataRegistrationAudit', component: ProductTestBoardDataRegistrationAuditComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品试板数据审核'
+        }
+      },{
+        path: 'physicalAndChemical/productTestBoardDataRegistrationQuery', component: ProductTestBoardDataRegistrationQueryComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品试板数据查询'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspectionCommission', component: MaterialReinspectionCommissionComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验申请'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspectionCommissionAudit',component:MaterialReinspectionCommissionAuditComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验申请审核'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspectionCommissionQuery', component:MaterialReinspectionCommissionQueryComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验申请查询'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspection', component: MaterialReinspectionComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验登记'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspectionAudit', component: MaterialReinspectionAuditComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验登记审核'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspectionQuery', component: MaterialReinspectionQueryComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验登记查询'
+        }
+      },{
         path: 'inspectionAndTest/productManufacturingParameters', component: ProductManufacturingParametersComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '产品制造参数输入'
+        }
+      },{
+        path: 'inspectionAndTest/productManufacturingParametersAudit', component: ProductManufacturingParametersAuditComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品制造参数审核'
+        }
+      },{
+        path: 'report/pressTestReport', component: PressTestReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '压力试验通知单'
+        }
+      },{
+        path: 'report/pneumaticTestProcedureReport', component: PneumaticTestProcedureReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '气压（气液组合）试验过程卡'
+        }
+      },{
+        path: 'report/liquidPressTestReport', component: LiquidPressTestReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '液（水）压试验过程卡'
+        }
+      },{
+        path: 'report/pressVesProdQuaCerReport', component: PressVesProdQuaCerReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '压力容器产品合格证'
+        }
+      },{
+        path: 'report/vacuumTestReport', component: VacuumTestReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '真空考核报告'
+        }
+      },{
+        path: 'report/vacuumInspectionReport', component: VacuumInspectionReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '真空检测报告'
+        }
+      },{
+        path: 'report/quaPressVesPlanReport', component: QuaPressVesPlanReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '压力容器产品质量计划'
         }
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},

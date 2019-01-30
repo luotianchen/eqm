@@ -10,13 +10,13 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class PressurePartsComponent implements OnInit {
   validateForm: FormGroup;
-  private pageindex = 1;
-  private pagesize = 25;
-  private total = 0;
-  private dataset = [];
-  private loading = true;
-  private prodno = null;
-  constructor(private fb: FormBuilder, private pressurePartsService: PressurePartsService) {
+  public pageindex = 1;
+  public pagesize = 25;
+  public total = 0;
+  public dataset = [];
+  public loading = true;
+  public prodno = null;
+  constructor(public fb: FormBuilder, public pressurePartsService: PressurePartsService) {
   }
 
   ngOnInit(): void {

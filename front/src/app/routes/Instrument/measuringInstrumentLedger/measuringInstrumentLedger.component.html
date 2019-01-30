@@ -21,9 +21,9 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="gaugeno">厂内编号</nz-form-label>
+        <nz-form-label nzRequired nzFor="gaugeno">厂内编号</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input style="width: 100%" placeholder="厂内编号"  formControlName="gaugeno" name="gaugeno" id="gaugeno" (blur)="getInfoByGaugeno($event)"/>
+          <input nz-input style="width: 100%" placeholder="厂内编号"  formControlName="gaugeno" name="gaugeno" id="gaugeno" (blur)="getInfoByGaugeno()"/>
           <nz-form-explain *ngIf="validateForm.get('gaugeno').dirty && validateForm.get('gaugeno').errors">
             厂内编号不能为空！
           </nz-form-explain>
@@ -32,7 +32,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="exitno">出厂编号</nz-form-label>
+        <nz-form-label nzRequired nzFor="exitno">出厂编号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="出厂编号"  formControlName="exitno" name="exitno" id="exitno"/>
           <nz-form-explain *ngIf="validateForm.get('exitno').dirty && validateForm.get('exitno').errors">
@@ -43,7 +43,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="type">型号</nz-form-label>
+        <nz-form-label nzRequired nzFor="type">型号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input style="width: 100%" placeholder="型号"  formControlName="type" name="type" id="type"/>
           <nz-form-explain *ngIf="validateForm.get('type').dirty && validateForm.get('type').errors">
@@ -54,7 +54,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="measrange">测量范围</nz-form-label>
+        <nz-form-label nzRequired nzFor="measrange">测量范围</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-group nzCompact>
             <nz-input-number formControlName="measrangemin" [nzPlaceHolder]="'小'" style="width: calc(50% - 15px); text-align: center;"></nz-input-number>
@@ -66,7 +66,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="accuclass">精度等级</nz-form-label>
+        <nz-form-label nzRequired nzFor="accuclass">精度等级</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input style="width: 100%" placeholder="精度等级"  formControlName="accuclass" name="accuclass" id="accuclass"/>
           <nz-form-explain *ngIf="validateForm.get('accuclass').dirty && validateForm.get('accuclass').errors">
@@ -77,7 +77,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="millunit">生产单位</nz-form-label>
+        <nz-form-label nzRequired nzFor="millunit">生产单位</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="生产单位"  formControlName="millunit" name="millunit" id="millunit">
             <nz-option *ngFor="let option of millunits" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -90,11 +90,11 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="exitdate">出厂日期</nz-form-label>
+        <nz-form-label nzRequired nzFor="exitdate">出厂日期</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="exitdate" name="exitdate" placeholder="出厂日期" type="text" id="exitdate" (blur)="formatInDate(this.validateForm.controls['exitdate']);">
           <nz-form-explain *ngIf="validateForm.get('exitdate').dirty && validateForm.get('exitdate').errors">
-            出厂日期不能为空！
+            出厂日期不能为空！(格式：YYYY-MM-DD或MM-DD)
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -116,18 +116,18 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="calibdate">检定日期</nz-form-label>
+        <nz-form-label nzRequired nzFor="calibdate">检定日期</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="calibdate" name="calibdate" placeholder="检定日期" type="text" id="calibdateexitdate" (blur)="formatInDate(validateForm.controls['calibdate']);nextdate()">
           <nz-form-explain *ngIf="validateForm.get('calibdate').dirty && validateForm.get('calibdate').errors">
-            检定日期不能为空！
+            检定日期不能为空！(格式：YYYY-MM-DD或MM-DD)
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="calibinterval">确认间隔</nz-form-label>
+        <nz-form-label nzRequired nzFor="calibinterval">确认间隔</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="calibinterval" name="calibinterval" placeholder="确认间隔" type="text" id="calibinterval" disabled>
         </nz-form-control>
@@ -135,7 +135,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="recalibdate">下次检定日期</nz-form-label>
+        <nz-form-label nzRequired nzFor="recalibdate">下次检定日期</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="recalibdate" name="recalibdate" placeholder="下次检定日期" type="text" id="recalibdate" disabled>
         </nz-form-control>
@@ -143,7 +143,7 @@
     </div>
     <div nz-col nzSpan="6">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="specialist">专管人</nz-form-label>
+        <nz-form-label nzRequired nzFor="specialist">专管人</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select formControlName="specialist" [nzMaxMultipleCount]="5" style="width: 100%" id="specialist" nzMode="multiple">
             <nz-option *ngFor="let option of userform" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>

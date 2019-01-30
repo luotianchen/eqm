@@ -1,0 +1,82 @@
+<div>
+  <h3 class="title">材料复验申请查询</h3>
+</div>
+<nz-divider></nz-divider>
+<nz-table
+  #nzTable
+  [nzData]="dataSet"
+  [nzPageSize]="20">
+  <thead>
+  <tr>
+    <th nzShowExpand></th>
+    <th>提交人</th>
+    <th>提交时间</th>
+    <th>入库编号</th>
+    <th>复验日期</th>
+    <th>入库编号</th>
+    <th>牌号</th>
+    <th>规格</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <tr>
+      <td nzShowExpand [(nzExpand)]="data.expand"></td>
+      <td>{{data.user}}</td>
+      <td>{{data.date}}</td>
+      <td>{{data.codedmarking}}</td>
+      <td>{{data.indate}}</td>
+      <td>{{data.designation}}</td>
+      <td>{{data.stand}}</td>
+      <td>{{data.spec}}</td>
+    </tr>
+    <tr [nzExpand]="data.expand">
+      <td></td>
+      <td colspan="10">
+        <div nz-row class="datas">
+          <span nz-col nzSpan="4" *ngIf="data.c!=null"><strong>C%：</strong>{{data.c}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.s!=null"><strong>S%：</strong>{{data.s}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.mn!=null"><strong>Mn%：</strong>{{data.mn}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.cu!=null"><strong>Cu%：</strong>{{data.cu}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.ni!=null"><strong>Ni%：</strong>{{data.ni}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.cr!=null"><strong>Cr%：</strong>{{data.cr}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.mo!=null"><strong>Mo%：</strong>{{data.mo}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.nb!=null"><strong>Nb%：</strong>{{data.nb}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.v!=null"><strong>V%：</strong>{{data.v}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.ti!=null"><strong>Ti%：</strong>{{data.ti}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.als!=null"><strong>ALs%：</strong>{{data.als}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.alt!=null"><strong>ALt%：</strong>{{data.alt}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.n!=null"><strong>N%：</strong>{{data.n}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.fe!=null"><strong>Fe%：</strong>{{data.fe}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.mg!=null"><strong>Mg%：</strong>{{data.mg}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.zn!=null"><strong>Zn%：</strong>{{data.zn}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.b!=null"><strong>B%：</strong>{{data.b}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.w!=null"><strong>W%：</strong>{{data.w}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.sb!=null"><strong>Sb%：</strong>{{data.sb}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.al!=null"><strong>Al%：</strong>{{data.al}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.zr!=null"><strong>Zr%：</strong>{{data.zr}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.ca!=null"><strong>Ca%：</strong>{{data.ca}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.be!=null"><strong>Be%：</strong>{{data.be}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.p!=null"><strong>P%：</strong>{{data.p}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.s!=null"><strong>S%：</strong>{{data.s}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.rel1!=null"><strong>屈服强度1：</strong>{{data.rel1}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.rel2!=null"><strong>屈服强度2：</strong>{{data.rel2}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.rm1!=null"><strong>抗拉强度1：</strong>{{data.rm1}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.rm2!=null"><strong>抗拉强度2：</strong>{{data.rm2}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.elong1!=null"><strong>延长率1：</strong>{{data.elong1}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.elong2!=null"><strong>延长率2：</strong>{{data.elong2}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.hardness1!=null"><strong>硬度1：</strong>{{data.hardness1}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.hardness2!=null"><strong>硬度2：</strong>{{data.hardness2}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.hardness3!=null"><strong>硬度3：</strong>{{data.hardness3}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.impactp1!=null"><strong>冲击功1：</strong>{{data.impactp1}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.impactp2!=null"><strong>冲击功2：</strong>{{data.impactp2}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.impactp3!=null"><strong>冲击功3：</strong>{{data.impactp3}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.impacttemp!=null"><strong>冲击温度：</strong>{{data.impacttemp}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.bendangle!=null"><strong>弯曲角度：</strong>{{data.bendangle}}</span>
+          <span nz-col nzSpan="4" *ngIf="data.bendaxdia!=null"><strong>弯曲直径：</strong>{{data.bendaxdia}}</span>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

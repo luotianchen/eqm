@@ -1,8 +1,9 @@
 <div>
   <h3 class="title">设计材料输入</h3>
   <span style="float: right">
-  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(prodnameTitle, prodnameContent, prodnameFooter,'prodname')">添加产品名称</button>
-  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(wmediaTitle, wmediaContent, wmediaFooter,'wmedia')">添加工作介质</button>
+  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(decoTitle, decoContent, decoFooter)">添加设计单位</button>
+  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(prodnameTitle, prodnameContent, prodnameFooter)">添加产品名称</button>
+  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(wmediaTitle, wmediaContent, wmediaFooter)">添加工作介质</button>
   </span>
 </div>
 <nz-divider></nz-divider>
@@ -15,7 +16,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="dwgno" name="dwgno" placeholder="总图号" type="text" id="dwgno">
-          <nz-form-explain *ngIf="validateForm.get('dwgno').dirty && validateForm.get('dwgno').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('dwgno').dirty && validateForm.get('dwgno').errors">
             总图号不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -28,7 +29,7 @@
         </nz-form-label>
           <nz-form-control nzHasFeedback>
             <input nz-input formControlName="dwgno1" name="dwgno1" placeholder="图号1" type="text" id="dwgno1">
-            <nz-form-explain *ngIf="validateForm.get('dwgno1').dirty && validateForm.get('dwgno1').errors">
+            <nz-form-explain *ngIf="this.validateForm.get('dwgno1').dirty && this.validateForm.get('dwgno1').errors">
               图号1不能为空！
             </nz-form-explain>
           </nz-form-control>
@@ -41,7 +42,7 @@
         </nz-form-label>
           <nz-form-control nzHasFeedback>
             <input nz-input formControlName="dwgno2" name="dwgno2" placeholder="图号2" type="text" id="dwgno2">
-            <nz-form-explain *ngIf="validateForm.get('dwgno2').dirty && validateForm.get('dwgno2').errors">
+            <nz-form-explain *ngIf="this.validateForm.get('dwgno2').dirty && this.validateForm.get('dwgno2').errors">
               图号2不能为空！
             </nz-form-explain>
           </nz-form-control>
@@ -56,7 +57,7 @@
           <nz-select formControlName="prodname" name="prodname" id="prodname" nzPlaceHolder="产品名称" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.prodnames" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('prodname').dirty && validateForm.get('prodname').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('prodname').dirty && this.validateForm.get('prodname').errors">
             产品名称为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -71,7 +72,7 @@
           <nz-select formControlName="type" name="type" id="type" nzPlaceHolder="容器类别" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.types" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('type').dirty && validateForm.get('type').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('type').dirty && this.validateForm.get('type').errors">
             容器类别为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -86,7 +87,7 @@
           <nz-select formControlName="mainstand" name="mainstand" id="mainstand" nzPlaceHolder="产品标准" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.stands" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('mainstand').dirty && validateForm.get('mainstand').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('mainstand').dirty && this.validateForm.get('mainstand').errors">
             产品标准为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -101,7 +102,7 @@
           <nz-select formControlName="minorstand" name="minorstand" id="minorstand" nzPlaceHolder="产品标准2" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.stands" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('minorstand').dirty && validateForm.get('minorstand').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('minorstand').dirty && this.validateForm.get('minorstand').errors">
             产品标准2为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -114,7 +115,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="deservicelife" name="deservicelife" placeholder="设计使用年限" type="text" id="deservicelife">
-          <nz-form-explain *ngIf="validateForm.get('deservicelife').dirty && validateForm.get('deservicelife').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('deservicelife').dirty && this.validateForm.get('deservicelife').errors">
             设计使用年限不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -127,7 +128,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number formControlName="weight" [nzMin]="0" name="weight" id="weight" [nzStep]="1" [nzPlaceHolder]="'设备重量'" style="width:100%;"></nz-input-number>
-          <nz-form-explain *ngIf="validateForm.get('weight').dirty && validateForm.get('weight').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('weight').dirty && this.validateForm.get('weight').errors">
             设备重量不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -140,7 +141,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number formControlName="chweight" [nzMin]="0" name="chweight" id="chweight" [nzStep]="1" [nzPlaceHolder]="'充装重量'" style="width:100%;"></nz-input-number>
-          <nz-form-explain *ngIf="validateForm.get('chweight').dirty && validateForm.get('chweight').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('chweight').dirty && this.validateForm.get('chweight').errors">
             充装重量不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -155,7 +156,7 @@
           <nz-select formControlName="installtype" name="installtype" id="installtype" nzPlaceHolder="安装型式" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.installtypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('installtype').dirty && validateForm.get('installtype').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('installtype').dirty && this.validateForm.get('installtype').errors">
             安装型式为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -170,7 +171,7 @@
           <nz-select formControlName="supptype" name="supptype" id="supptype" nzPlaceHolder="支座型式" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.supptypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('supptype').dirty && validateForm.get('supptype').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('supptype').dirty && this.validateForm.get('supptype').errors">
             支座型式为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -185,7 +186,7 @@
           <nz-select formControlName="insultype" name="insultype" id="insultype" nzPlaceHolder="保温绝热方式" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.insultypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('insultype').dirty && validateForm.get('insultype').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('insultype').dirty && this.validateForm.get('insultype').errors">
             保温绝热方式为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -198,7 +199,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="ndetype" name="ndetype" placeholder="无损检测方法" type="text" id="ndetype">
-          <nz-form-explain *ngIf="validateForm.get('ndetype').dirty && validateForm.get('ndetype').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('ndetype').dirty && this.validateForm.get('ndetype').errors">
             无损检测方法不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -211,7 +212,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="nderatio" name="nderatio" placeholder="无损检测比例" type="text" id="nderatio">
-          <nz-form-explain *ngIf="validateForm.get('nderatio').dirty && validateForm.get('nderatio').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('nderatio').dirty && this.validateForm.get('nderatio').errors">
             无损检测比例不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -227,7 +228,7 @@
             <nz-option [nzValue]="'是'" [nzLabel]="'是'"></nz-option>
             <nz-option [nzValue]="'否'" [nzLabel]="'否'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('crytank').dirty && validateForm.get('crytank').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('crytank').dirty && this.validateForm.get('crytank').errors">
             低温贮槽为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -243,7 +244,7 @@
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('testplatesitu').dirty && validateForm.get('testplatesitu').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('testplatesitu').dirty && this.validateForm.get('testplatesitu').errors">
             试板情况为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -261,7 +262,7 @@
             <nz-option [nzValue]="'固溶'" [nzLabel]="'固溶'"></nz-option>
             <nz-option [nzValue]="'--'" [nzLabel]="'--'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('httype').dirty && validateForm.get('httype').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('httype').dirty && this.validateForm.get('httype').errors">
             热处理种类为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -277,7 +278,7 @@
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('httsetplate').dirty && validateForm.get('httsetplate').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('httsetplate').dirty && this.validateForm.get('httsetplate').errors">
             热处理试板为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -290,7 +291,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number formControlName="httemp" [nzMin]="0" name="httemp" id="httemp" [nzStep]="1" [nzPlaceHolder]="'热处理温度'" style="width:100%;"></nz-input-number>
-          <nz-form-explain *ngIf="validateForm.get('httemp').dirty && validateForm.get('httemp').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('httemp').dirty && this.validateForm.get('httemp').errors">
             热处理温度不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -306,7 +307,7 @@
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('saferel').dirty && validateForm.get('saferel').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('saferel').dirty && this.validateForm.get('saferel').errors">
             安全泄放装置为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -322,7 +323,7 @@
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('analyde').dirty && validateForm.get('analyde').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('analyde').dirty && this.validateForm.get('analyde').errors">
             按疲劳分析设置为必选项！
           </nz-form-explain>
         </nz-form-control>
@@ -335,7 +336,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number formControlName="pvclass" [nzMin]="0" name="pvclass" id="pvclass" [nzStep]="0.01" [nzPlaceHolder]="'换热面积'" style="width:100%;"></nz-input-number>
-          <nz-form-explain *ngIf="validateForm.get('pvclass').dirty && validateForm.get('pvclass').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('pvclass').dirty && this.validateForm.get('pvclass').errors">
             换热面积不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -352,8 +353,60 @@
             <nz-option [nzValue]="'m³'" [nzLabel]="'m³'"></nz-option>
             <nz-option [nzValue]="'/'" [nzLabel]="'/'"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="validateForm.get('unit').dirty && validateForm.get('unit').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('unit').dirty && this.validateForm.get('unit').errors">
             单位为必选项！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="proheight">
+          产品总高
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="proheight" [nzMin]="0" name="proheight" id="proheight" [nzStep]="1" [nzPlaceHolder]="'产品总高'" style="width:100%;"></nz-input-number>
+          <nz-form-explain *ngIf="this.validateForm.get('proheight').dirty && this.validateForm.get('proheight').errors">
+            产品总高不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="length">
+          筒体长度
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-number formControlName="length" [nzMin]="0" name="length" id="length" [nzStep]="1" [nzPlaceHolder]="'筒体长度'" style="width:100%;"></nz-input-number>
+          <nz-form-explain *ngIf="this.validateForm.get('length').dirty && this.validateForm.get('length').errors">
+            筒体长度不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="designdate">设计日期</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input placeHolder="YYYY-MM-DD或MM-DD" formControlName="designdate" name="designdate" id="designdate" (blur)="formatDate(validateForm.controls['designdate'])"/>
+        </nz-form-control>
+        <nz-form-explain *ngIf="this.validateForm.get('designdate').dirty && this.validateForm.get('designdate').errors">
+          设计日期为必选项！
+        </nz-form-explain>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="deconame">
+          设计单位
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位" nzShowSearch nzAllowClear>
+            <nz-option *ngFor="let o of this.deconames" [nzValue]="o" [nzLabel]="o"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="this.validateForm.get('deconame').dirty && this.validateForm.get('deconame').errors">
+            设计单位为必选项！
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -365,7 +418,7 @@
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number formControlName="channelnum" [nzMin]="0" name="channelnum" id="channelnum" [nzStep]="1" [nzPlaceHolder]="'通道数'" style="width:100%;" (ngModelChange)="setChannelNum()"></nz-input-number>
-          <nz-form-explain *ngIf="validateForm.get('channelnum').dirty && validateForm.get('channelnum').errors">
+          <nz-form-explain *ngIf="this.validateForm.get('channelnum').dirty && this.validateForm.get('channelnum').errors">
             通道数不能为空！
           </nz-form-explain>
         </nz-form-control>
@@ -617,7 +670,7 @@
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-select formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="工作介质" nzShowSearch>
-              <nz-option *ngFor="let o of this.wmedias" [nzValue]="o" [nzLabel]="o"></nz-option>
+              <nz-option *ngFor="let o of this.wmedias" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('wmedia').dirty && validateForm1.get('wmedia').errors">
               工作介质不能为空！
@@ -911,7 +964,9 @@
             夹套介质
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input nz-input formControlName="wmedia" name="wmedia" placeholder="夹套介质" type="text" id="wmedia">
+            <nz-select formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="夹套介质" nzShowSearch>
+              <nz-option *ngFor="let o of this.wmedias" [nzValue]="o.name" [nzLabel]="o.name"></nz-option>
+            </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('wmedia').dirty && validateForm2.get('wmedia').errors">
               夹套介质不能为空！
             </nz-form-explain>
@@ -1121,7 +1176,9 @@
       </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">工作介质</p>
-            <input nz-input placeholder="容器介质" type="text" [(ngModel)]="data.wmedia">
+        <nz-select [(ngModel)]="data.wmedia" nzPlaceHolder="夹套介质" nzShowSearch>
+          <nz-option *ngFor="let o of this.wmedias" [nzValue]="o.name" [nzLabel]="o.name"></nz-option>
+        </nz-select>
       </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">封头厚度1</p>
@@ -1234,6 +1291,60 @@
     </ng-template>
     <ng-template #wmediaFooter>
       <button nz-button nzType="primary" (click)="submitInfo('wmedia')" [nzLoading]="tplModalButtonLoading">提交</button>
+    </ng-template>
+  </form>
+</div>
+
+<div id="addDeco">
+  <form nz-form [formGroup]="decoValidateForm">
+    <ng-template #decoTitle>
+      <span>添加设计单位</span>
+    </ng-template>
+    <ng-template #decoContent>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" nzFor="deconame" nzRequired>公司名称</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="deconame" nz-input placeholder="公司名称">
+          <nz-form-explain *ngIf="decoValidateForm.get('deconame').dirty && decoValidateForm.get('deconame').errors">公司名称不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" nzFor="edeconame" nzRequired>英文名称</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="edeconame" nz-input placeholder="英文名称">
+          <nz-form-explain *ngIf="decoValidateForm.get('edeconame').dirty && decoValidateForm.get('edeconame').errors">英文名称不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" nzFor="delicense" nzRequired>设计许可</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="delicense" nz-input placeholder="设计许可">
+          <nz-form-explain *ngIf="decoValidateForm.get('delicense').dirty && decoValidateForm.get('delicense').errors">设计许可不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" nzFor="time" nzRequired>有效期</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="time" nz-input placeholder="有效期">
+          <nz-form-explain *ngIf="decoValidateForm.get('time').dirty && decoValidateForm.get('time').errors">有效期不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" nzFor="orgcode" nzRequired>统一社会信用代码</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="orgcode" nz-input placeholder="统一社会信用代码">
+          <nz-form-explain *ngIf="decoValidateForm.get('orgcode').dirty && decoValidateForm.get('orgcode').errors">统一社会信用代码不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" nzFor="code">代码</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="code" nz-input placeholder="代码">
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+    <ng-template #decoFooter>
+      <button nz-button nzType="primary" (click)="submitInfo('deco')" [nzLoading]="tplModalButtonLoading">提交</button>
     </ng-template>
   </form>
 </div>

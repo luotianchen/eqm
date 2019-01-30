@@ -16,7 +16,7 @@ export class DesignInputService {
     return this.http.get(this.api.BASEURL+"/getwmedia");
   }
   getstand(){
-    return this.http.get(this.api.BASEURL+"/getstand");
+    return this.http.get(this.api.BASEURL+"/getprostand");
   }
   putSaferel(data){
     return this.http.post(this.api.BASEURL+"/putsafedisdevice",data);
@@ -32,5 +32,15 @@ export class DesignInputService {
   }
   putWmedia(wmedia,wmediaen){
     return this.http.post(this.api.BASEURL+"/putwmedia",{wmedia:wmedia,wmediaen:wmediaen})
+  }
+  getDeconame(){
+    return new Promise(((resolve, reject) =>
+      this.http.get(this.api.BASEURL+"/getdeconames").subscribe((result)=>{
+      resolve(result)
+      })
+    ))
+  }
+  putDeco(data){
+    return this.http.post(this.api.BASEURL+"/putdeco",data);
   }
 }

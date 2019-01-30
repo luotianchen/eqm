@@ -1,0 +1,33 @@
+<div>
+  <h3 class="title">材料复验申请审核</h3>
+</div>
+<nz-divider></nz-divider>
+<nz-table
+  #nzTable
+  [nzData]="dataSet"
+  [nzPageSize]="20">
+  <thead>
+  <tr>
+    <th>提交人</th>
+    <th>提交时间</th>
+    <th>入库编号</th>
+    <th>复验原因</th>
+    <th>力学性能</th>
+    <th>化学成分</th>
+    <th style="min-width: 100px;">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="nzTable.data">
+    <tr>
+      <td>{{data.user}}</td>
+      <td>{{data.date}}</td>
+      <td>{{data.codedmarking}}</td>
+      <td>{{data.explain}}</td>
+      <td>{{data.forceperformance}}</td>
+      <td>{{data.chemicalcomposition}}</td>
+      <td><a (click)="audit(data.codedmarking,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.codedmarking,2)">拒绝</a></td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

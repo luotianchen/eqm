@@ -23,7 +23,7 @@ export class PressurePartsReportComponent implements OnInit {
     data:[]
   };
   reportDatas = [];
-  constructor(private fb: FormBuilder, private pressurePartsReportService: PressurePartsReportService,private msg:NzMessageService) {
+  constructor(public fb: FormBuilder, public pressurePartsReportService: PressurePartsReportService,public msg:NzMessageService) {
   }
   ngOnInit(): void {
     this.pressurePartsReportService.getprodno().subscribe((res) => {

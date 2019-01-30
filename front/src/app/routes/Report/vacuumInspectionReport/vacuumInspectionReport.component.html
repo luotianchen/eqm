@@ -1,0 +1,294 @@
+<div>
+  <h3 class="title">报表模版页</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+
+<div #print>
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <essence-ng2-print
+      [mode]="'popup'"
+      [printCSS]="printCSS"
+      [popTitle]="'报表'"
+      [btnText]="'打印报表'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <table border="0" cellpadding="0" cellspacing="0" width="1012" style="border-collapse:
+ collapse;table-layout:fixed;width:760pt">
+    <colgroup width="117" style="mso-width-source:userset;mso-width-alt:3754;width:88pt"></colgroup>
+      <colgroup width="43" style="mso-width-source:userset;mso-width-alt:1365;width:32pt"></colgroup>
+      <colgroup width="41" style="mso-width-source:userset;mso-width-alt:1322;width:31pt"></colgroup>
+      <colgroup width="49" span="2" style="mso-width-source:userset;mso-width-alt:1578;
+ width:37pt"></colgroup>
+      <colgroup width="29" style="mso-width-source:userset;mso-width-alt:938;width:22pt"></colgroup>
+      <colgroup width="53" style="mso-width-source:userset;mso-width-alt:1706;width:40pt"></colgroup>
+      <colgroup width="21" span="2" style="mso-width-source:userset;mso-width-alt:682;
+ width:16pt"></colgroup>
+      <colgroup width="169" style="mso-width-source:userset;mso-width-alt:5418;width:127pt"></colgroup>
+      <colgroup width="47" style="mso-width-source:userset;mso-width-alt:1493;width:35pt"></colgroup>
+      <colgroup width="19" style="mso-width-source:userset;mso-width-alt:597;width:14pt"></colgroup>
+      <colgroup width="16" style="mso-width-source:userset;mso-width-alt:512;width:12pt"></colgroup>
+      <colgroup width="40" style="mso-width-source:userset;mso-width-alt:1280;width:30pt"></colgroup>
+      <colgroup width="24" style="mso-width-source:userset;mso-width-alt:768;width:18pt"></colgroup>
+      <colgroup width="0" style="display:none;mso-width-source:userset;mso-width-alt:2304"></colgroup>
+      <colgroup width="24" style="mso-width-source:userset;mso-width-alt:768;width:18pt"></colgroup>
+      <colgroup width="47" style="mso-width-source:userset;mso-width-alt:1493;width:35pt"></colgroup>
+      <colgroup width="25" style="mso-width-source:userset;mso-width-alt:810;width:19pt"></colgroup>
+      <colgroup width="39" style="mso-width-source:userset;mso-width-alt:1237;width:29pt"></colgroup>
+      <colgroup width="16" style="mso-width-source:userset;mso-width-alt:512;width:12pt"></colgroup>
+      <colgroup width="0" style="display:none;mso-width-source:userset;mso-width-alt:2304"></colgroup>
+      <colgroup width="123" style="mso-width-source:userset;mso-width-alt:3925;width:92pt"></colgroup>
+    <tbody><tr height="32" style="height:24.0pt">
+    <td colspan="23" height="32" class="xl158" width="1012" style="height:24.0pt;
+  width:760pt">杭州川空通用设备有限公司</td>
+  </tr>
+  <tr height="20" style="height:15.0pt">
+    <td colspan="23" height="20" class="xl159" style="height:15.0pt">Hangzhou Chuankong
+      General Equipment Co.,Ltd.</td>
+  </tr>
+  <tr height="37" style="height:28.0pt">
+    <td colspan="23" height="37" class="xl160" style="height:28.0pt">真<font class="font7"> </font><font class="font6">空</font><font class="font7"> </font><font class="font6">检</font><font class="font7"> </font><font class="font6">测</font><font class="font7"> </font><font class="font6">报</font><font class="font7"> </font><font class="font6">告</font></td>
+  </tr>
+  <tr height="25" style="height:19.0pt">
+    <td colspan="23" height="25" class="xl161" style="height:19.0pt">Vacuum Inspection
+      Report</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="2" height="20" class="xl162" width="160" style="border-right:1.0pt solid black;
+  height:15.75pt;width:120pt">产品图号</td>
+    <td colspan="3" rowspan="2" class="xl164" width="139" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:105pt">HTD10F3.000</td>
+    <td colspan="4" class="xl170" width="124" style="border-right:1.0pt solid black;
+  border-left:none;width:94pt">产品名称</td>
+    <td colspan="5" class="xl170" width="291" style="border-right:1.0pt solid black;
+  border-left:none;width:218pt">0</td>
+    <td colspan="5" class="xl170" width="120" style="border-right:1.0pt solid black;
+  border-left:none;width:90pt">出厂编号</td>
+    <td colspan="4" rowspan="2" class="xl172" width="178" style="border-right:1.5pt solid black;
+  border-bottom:1.0pt solid black;width:133pt">17R051</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="2" height="20" class="xl157" width="160" style="border-right:1.0pt solid black;
+  height:15.75pt;width:120pt">Product DWG No</td>
+    <td colspan="4" class="xl74" width="124" style="border-right:1.0pt solid black;
+  border-left:none;width:94pt">Description</td>
+    <td colspan="5" class="xl98" width="291" style="border-right:1.0pt solid black;
+  border-left:none;width:218pt">1</td>
+    <td colspan="5" class="xl74" width="120" style="border-right:1.0pt solid black;
+  border-left:none;width:90pt">Ex-works No.</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="2" height="20" class="xl122" width="160" style="border-right:1.0pt solid black;
+  height:15.75pt;width:120pt">测试仪器型号</td>
+    <td colspan="7" rowspan="2" class="xl95" width="263" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:199pt">ZDO - 1</td>
+    <td colspan="5" class="xl83" width="291" style="border-right:1.0pt solid black;
+  border-left:none;width:218pt">仪器测量范围</td>
+    <td colspan="9" rowspan="2" class="xl95" width="298" style="border-right:1.5pt solid black;
+  border-bottom:1.0pt solid black;width:223pt">20 - 0.1<span style="mso-spacerun:yes">&nbsp; </span>Pa</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="2" height="20" class="xl157" width="160" style="border-right:1.0pt solid black;
+  height:15.75pt;width:120pt">Type of Test Instrument</td>
+    <td colspan="5" class="xl74" width="291" style="border-right:1.0pt solid black;
+  border-left:none;width:218pt">Range of Measure</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="2" height="20" class="xl122" width="160" style="border-right:1.0pt solid black;
+  height:15.75pt;width:120pt">真空测量仪编号</td>
+    <td colspan="7" rowspan="2" class="xl95" width="263" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:199pt">--</td>
+    <td colspan="5" class="xl83" width="291" style="border-right:1.0pt solid black;
+  border-left:none;width:218pt">规管加热电流（mA）</td>
+    <td colspan="9" rowspan="2" class="xl95" width="298" style="border-right:1.5pt solid black;
+  border-bottom:1.0pt solid black;width:223pt">110</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="2" height="20" class="xl125" width="160" style="border-right:1.0pt solid black;
+  height:15.75pt;width:120pt">No. of Vacuum Test Instrument</td>
+    <td colspan="5" class="xl74" width="291" style="border-right:1.0pt solid black;
+  border-left:none;width:218pt">Heat Currentcy of gauge</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td colspan="4" height="20" class="xl122" width="250" style="border-right:1.0pt solid black;
+  height:15.75pt;width:188pt">检<font class="font5"><span style="mso-spacerun:yes">&nbsp;&nbsp; </span></font><font class="font9">测</font><font class="font5"><span style="mso-spacerun:yes">&nbsp;&nbsp; </span></font><font class="font9">项</font><font class="font5"><span style="mso-spacerun:yes">&nbsp;&nbsp; </span></font><font class="font9">目</font></td>
+    <td colspan="19" class="xl83" width="762" style="border-right:1.5pt solid black;
+  border-left:none;width:572pt">检<font class="font5"><span style="mso-spacerun:yes">&nbsp; </span></font><font class="font9">测</font><font class="font5"><span style="mso-spacerun:yes">&nbsp; </span></font><font class="font9">结</font><font class="font5"><span style="mso-spacerun:yes">&nbsp; </span></font><font class="font9">果</font></td>
+  </tr>
+  <tr height="21" style="height:16.0pt">
+    <td colspan="4" height="21" class="xl149" width="250" style="border-right:1.0pt solid black;
+  height:16.0pt;width:188pt">Inspection Item</td>
+    <td colspan="19" class="xl74" width="762" style="border-right:1.5pt solid black;
+  border-left:none;width:572pt"><span style="mso-spacerun:yes">&nbsp;</span>Inspection Result</td>
+  </tr>
+  <tr height="19" style="mso-height-source:userset;height:14.25pt">
+    <td colspan="4" height="19" class="xl152" width="250" style="border-right:1.0pt solid black;
+  height:14.25pt;width:188pt">真空夹层漏放气速率（ Pa.m3/S）</td>
+    <td colspan="3" rowspan="2" class="xl181" width="131" style="border-bottom:1.0pt solid black;
+  width:99pt">1.09×10</td>
+    <td class="xl73" width="21" style="border-top:none;width:16pt">-4 </td>
+    <td colspan="2" class="xl83" width="190" style="border-right:1.0pt solid black;
+  border-left:none;width:143pt">合格指标（ Pa.m3/S）</td>
+    <td colspan="4" rowspan="2" class="xl185" width="122" style="border-bottom:1.0pt solid black;
+  width:91pt">≤2×10</td>
+    <td class="xl71" width="24" style="border-top:none;width:18pt">-5</td>
+    <td class="xl69" width="0" style="border-top:none">　</td>
+    <td colspan="3" class="xl83" width="96" style="border-right:1.0pt solid black;
+  border-left:none;width:72pt">检测日期</td>
+    <td colspan="4" class="xl89" width="178" style="border-right:1.5pt solid black;
+  border-left:none;width:133pt">2016/9/22</td>
+  </tr>
+  <tr height="23" style="height:17.0pt">
+    <td colspan="4" height="23" class="xl130" width="250" style="border-right:1.0pt solid black;
+  height:17.0pt;width:188pt">Outgassing and leakage of vacuum jacket</td>
+    <td class="xl67" width="21" style="width:16pt">　</td>
+    <td colspan="2" class="xl74" width="190" style="border-right:1.0pt solid black;
+  border-left:none;width:143pt">qualified indicator</td>
+    <td class="xl68" width="24" style="width:18pt">　</td>
+    <td class="xl70" width="0">　</td>
+    <td colspan="3" class="xl98" width="96" style="border-right:1.0pt solid black;
+  border-left:none;width:72pt">Test Date</td>
+    <td colspan="4" class="xl92" width="178" style="border-right:1.5pt solid black;
+  border-left:none;width:133pt">2016/9/23</td>
+  </tr>
+  <tr height="25" style="mso-height-source:userset;height:19.5pt">
+    <td rowspan="2" height="41" class="xl133" width="117" style="height:31.5pt;
+  border-top:none;width:88pt">环境温度</td>
+    <td colspan="6" class="xl110" width="264" style="border-right:1.0pt solid black;
+  border-left:none;width:199pt">测漏放气速率时温度（℃）<span style="mso-spacerun:yes">&nbsp;</span></td>
+    <td colspan="6" rowspan="2" class="xl113" width="293" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:220pt">30</td>
+    <td colspan="7" rowspan="2" class="xl134" width="199" style="border-right:1.0pt solid black;
+  width:149pt">内容器几何容积（m<font class="font10"><sup>3</sup></font><font class="font9">）</font></td>
+    <td colspan="3" rowspan="4" class="xl140" width="139" style="border-right:1.5pt solid black;
+  border-bottom:1.0pt solid black;width:104pt">6</td>
+  </tr>
+  <tr height="16" style="mso-height-source:userset;height:12.0pt">
+    <td colspan="6" height="16" class="xl119" width="264" style="border-right:1.0pt solid black;
+  height:12.0pt;border-left:none;width:199pt">Temperature of Outgassing &amp;
+      Leakage Test</td>
+  </tr>
+  <tr height="17" style="mso-height-source:userset;height:13.5pt">
+    <td rowspan="2" height="38" class="xl108" width="117" style="border-bottom:1.0pt solid black;
+  height:29.5pt;width:88pt">Temperature of Environment</td>
+    <td colspan="6" class="xl110" width="264" style="border-right:1.0pt solid black;
+  border-left:none;width:199pt">封口时温度（℃）<span style="mso-spacerun:yes">&nbsp;</span></td>
+    <td colspan="6" rowspan="2" class="xl113" width="293" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:220pt">32</td>
+    <td colspan="7" rowspan="2" class="xl116" width="199" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:149pt">Inner tank geometric volume</td>
+  </tr>
+  <tr height="21" style="height:16.0pt">
+    <td colspan="6" height="21" class="xl74" width="264" style="border-right:1.0pt solid black;
+  height:16.0pt;border-left:none;width:199pt">Temperature of Sealing-off</td>
+  </tr>
+  <tr height="19" style="mso-height-source:userset;height:14.25pt">
+    <td colspan="3" height="19" class="xl122" width="201" style="border-right:1.0pt solid black;
+  height:14.25pt;width:151pt">封口真空度（Pa）</td>
+    <td colspan="3" rowspan="2" class="xl95" width="127" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:96pt">0.48</td>
+    <td colspan="6" class="xl83" width="330" style="border-right:1.0pt solid black;
+  border-left:none;width:248pt">封口真空度合格指标（Pa）</td>
+    <td colspan="2" rowspan="2" class="xl185" width="56" style="border-bottom:1.0pt solid black;
+  width:42pt">≤</td>
+    <td colspan="3" rowspan="2" class="xl78" width="48" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:36pt">2</td>
+    <td colspan="4" class="xl83" width="127" style="border-right:1.0pt solid black;
+  border-left:none;width:95pt">封口日期</td>
+    <td rowspan="2" class="xl123" width="123" style="border-bottom:1.0pt solid black;
+  border-top:none;width:92pt" colspan="2">2016/9/30</td>
+  </tr>
+  <tr height="19" style="mso-height-source:userset;height:14.25pt">
+    <td colspan="3" height="19" class="xl157" width="201" style="border-right:1.0pt solid black;
+  height:14.25pt;width:151pt">Sealing-off Vacuum Degree</td>
+    <td colspan="6" class="xl128" width="330" style="border-right:1.0pt solid black;
+  border-left:none;width:248pt">Sealing-off Vacuum degree qualified indicator</td>
+    <td colspan="4" class="xl74" width="127" style="border-right:1.0pt solid black;
+  border-left:none;width:95pt">Date of Sealing-off</td>
+  </tr>
+  <tr height="20" style="mso-height-source:userset;height:15.75pt">
+    <td height="20" class="xl72" width="117" style="height:15.75pt;width:88pt">结<font class="font5"><span style="mso-spacerun:yes">&nbsp; </span></font><font class="font9">论</font></td>
+    <td colspan="22" class="xl83" width="895" style="border-right:1.5pt solid black;
+  border-left:none;width:672pt">合<font class="font5"><span style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></font><font class="font9">格</font></td>
+  </tr>
+  <tr height="23" style="height:17.0pt">
+    <td height="23" class="xl65" width="117" style="height:17.0pt;width:88pt">Result:</td>
+    <td colspan="22" class="xl74" width="895" style="border-right:1.5pt solid black;
+  border-left:none;width:672pt">OK</td>
+  </tr>
+  <tr height="24" style="mso-height-source:userset;height:18.0pt">
+    <td height="24" class="xl72" width="117" style="height:18.0pt;width:88pt">试<font class="font5"><span style="mso-spacerun:yes">&nbsp; </span></font><font class="font9">验</font><font class="font5"> </font><font class="font9">者：</font><font class="font5"><span style="mso-spacerun:yes">&nbsp;</span></font></td>
+    <td colspan="14" rowspan="2" class="xl83" width="621" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:467pt">余来富</td>
+    <td colspan="3" class="xl192" width="71" style="border-right:1.0pt solid black;
+  border-left:none;width:53pt">试验日期</td>
+    <td colspan="5" rowspan="2" class="xl89" width="203" style="border-right:1.5pt solid black;
+  border-bottom:1.0pt solid black;width:152pt">2016/9/30</td>
+  </tr>
+  <tr height="23" style="height:17.0pt">
+    <td height="23" class="xl65" width="117" style="height:17.0pt;width:88pt">Operator</td>
+    <td colspan="3" class="xl98" width="71" style="border-right:1.0pt solid black;
+  border-left:none;width:53pt">Date:</td>
+  </tr>
+  <tr height="24" style="mso-height-source:userset;height:18.75pt">
+    <td height="24" class="xl72" width="117" style="height:18.75pt;width:88pt">检<font class="font5"> </font><font class="font9">验</font><font class="font5"> </font><font class="font9">员：</font></td>
+    <td colspan="6" rowspan="2" class="xl95" width="264" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:199pt">　</td>
+    <td colspan="4" class="xl83" width="258" style="border-right:1.0pt solid black;
+  border-left:none;width:194pt">检验责任师：</td>
+    <td colspan="7" rowspan="2" class="xl101" width="170" style="border-right:1.0pt solid black;
+  border-bottom:1.0pt solid black;width:127pt">　</td>
+    <td colspan="3" class="xl83" width="80" style="border-right:1.0pt solid black;
+  border-left:none;width:60pt">日期：</td>
+    <td colspan="2" rowspan="2" class="xl89" width="123" style="border-right:1.5pt solid black;
+  border-bottom:1.0pt solid black;width:92pt">2016/9/30</td>
+  </tr>
+  <tr height="23" style="height:17.0pt">
+    <td height="23" class="xl65" width="117" style="height:17.0pt;width:88pt">Inspector:</td>
+    <td colspan="4" class="xl74" width="258" style="border-right:1.0pt solid black;
+  border-left:none;width:194pt">Inspection Engineer in Duty:</td>
+    <td colspan="3" class="xl74" width="80" style="border-right:1.0pt solid black;
+  border-left:none;width:60pt">Date:</td>
+  </tr>
+  <tr height="21" style="height:16.0pt">
+    <td height="21" class="xl72" width="117" style="height:16.0pt;width:88pt">备<font class="font5"><span style="mso-spacerun:yes">&nbsp; </span></font><font class="font9">注：</font></td>
+    <td colspan="22" rowspan="2" class="xl77" width="895" style="border-right:1.5pt solid black;
+  border-bottom:1.5pt solid black;width:672pt">　</td>
+  </tr>
+  <tr height="21" style="height:16.0pt">
+    <td height="21" class="xl66" width="117" style="height:16.0pt;width:88pt">Remark:</td>
+  </tr>
+  </tbody></table>
+</div>

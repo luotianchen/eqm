@@ -1,7 +1,7 @@
 <div>
   <h3 class="title">产品试板数据登记</h3>
   <span style="float: right">
-  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(testboardstandTitle, testboardstandContent, testboardstandFooter,'testboardstand')">添加试板标准</button>
+  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(testboardstandTitle, testboardstandContent, testboardstandFooter)">添加试板标准</button>
   </span>
 </div>
 <nz-divider></nz-divider>
@@ -9,7 +9,7 @@
   <div nz-row [nzGutter]="16" nzType="flex">
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="prodno">产品编号</nz-form-label>
+        <nz-form-label nzRequired nzFor="prodno">产品编号</nz-form-label>
           <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="searchData();getdatarange()">
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -19,7 +19,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="prodname">产品名称</nz-form-label>
+        <nz-form-label nzRequired nzFor="prodname">产品名称</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
         </nz-form-control>
@@ -27,7 +27,7 @@
     </div>
     <div nz-col [nzSpan]="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-label nzRequired nzFor="dwgno">图号</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" disabled/>
         </nz-form-control>
@@ -35,7 +35,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="testboardstand">试板标准</nz-form-label>
+        <nz-form-label nzRequired nzFor="testboardstand">试板标准</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试板标准"  formControlName="testboardstand" name="testboardstand" id="testboardstand">
             <nz-option *ngFor="let option of testboardstands" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -45,7 +45,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="matlstand">材料标准</nz-form-label>
+        <nz-form-label nzRequired nzFor="matlstand">材料标准</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="材料标准"  formControlName="matlstand" name="matlstand" id="matlstand" (ngModelChange)="getdatarange()">
             <nz-option *ngFor="let option of matlstands" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -137,7 +137,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="bendpara">弯曲参数</nz-form-label>
+        <nz-form-label nzRequired nzFor="bendpara">弯曲参数</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="弯曲参数"  formControlName="bendpara" name="bendpara" id="bendpara">
             <nz-option *ngFor="let option of bendparas" [nzLabel]="option.name" [nzValue]="option"></nz-option>
@@ -155,7 +155,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="fractposit">断裂位置</nz-form-label>
+        <nz-form-label nzRequired nzFor="fractposit">断裂位置</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="断裂位置"  formControlName="fractposit" name="fractposit" id="fractposit">
             <nz-option *ngFor="let option of fractposits" [nzLabel]="option.name" [nzValue]="option"></nz-option>
@@ -167,7 +167,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="entrustdate">委托日期：</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input formControlName="entrustdate" name="entrustdate" placeholder="委托日期" type="text" id="entrustdate" (blur)="formatEntrustdate()">
+          <input nz-input formControlName="entrustdate" name="entrustdate" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="entrustdate" (blur)="formatEntrustdate()">
           <nz-form-explain style="color: red" *ngIf="validateForm.get('entrustdate').value!=null">
             查询试板无损检测合格日期！
           </nz-form-explain>

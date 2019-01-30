@@ -10,9 +10,9 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [PressurePartsAuditService]
 })
 export class PressurePartsAuditComponent implements OnInit {
-  private dataSet:any;
-  private dataDetail = {};
-  constructor(private pressurePartsAuditService:PressurePartsAuditService,private message : NzMessageService,private _storage:SessionStorageService){
+  public dataSet:any;
+  public dataDetail = {};
+  constructor(public pressurePartsAuditService:PressurePartsAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
   search(audit){
     this.pressurePartsAuditService.getdistribute(audit).subscribe((response)=>{

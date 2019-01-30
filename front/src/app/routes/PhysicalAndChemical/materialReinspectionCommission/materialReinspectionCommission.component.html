@@ -1,0 +1,38 @@
+<div>
+  <h3 class="title">材料复验申请提交</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="codedmarking">入库编号</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请选择入库编号"  formControlName="codedmarking" name="codedmarking" id="codedmarking">
+        <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="explain">复验原因</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input placeHolder="复验原因"  formControlName="explain" name="explain" id="explain"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="forceperformance">力学性能</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <input nz-input placeHolder="力学性能"  formControlName="forceperformance" name="forceperformance" id="forceperformance"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="chemicalcomposition">化学成分</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
+      <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="化学成分"  formControlName="chemicalcomposition" name="chemicalcomposition" id="chemicalcomposition">
+        <nz-option nzLabel="有" nzValue="有"></nz-option>
+        <nz-option nzLabel="无" nzValue="无"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <div style="text-align:center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</form>

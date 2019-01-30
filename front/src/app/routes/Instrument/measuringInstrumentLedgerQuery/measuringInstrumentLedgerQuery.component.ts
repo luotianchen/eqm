@@ -10,9 +10,9 @@ import {MeasuringInstrumentLedgerQueryService} from './measuringInstrumentLedger
   providers: [MeasuringInstrumentLedgerQueryService]
 })
 export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
-  private dataSet:any;
+  public dataSet:any;
   loading = true;
-  constructor(private measuringInstrumentLedgerQueryService:MeasuringInstrumentLedgerQueryService,private message : NzMessageService,private _storage:SessionStorageService){
+  constructor(public measuringInstrumentLedgerQueryService:MeasuringInstrumentLedgerQueryService,public message : NzMessageService,public _storage:SessionStorageService){
   }
   ngOnInit(): void {
     this.searchData();

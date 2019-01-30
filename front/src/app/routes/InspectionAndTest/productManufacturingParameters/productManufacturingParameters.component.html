@@ -1,13 +1,16 @@
 <div>
-  <h3 class="title">真空参数输入</h3>
+  <h3 class="title">产品制造参数输入</h3>
+  <span style="float: right">
+    <button class="tool-button" nz-button nzType="default" (click)="createTplModal(orderunitTitle, orderunitContent, orderunitFooter)">添加订货单位</button>
+  </span>
 </div>
 <nz-divider></nz-divider>
 <form nz-form [formGroup]="validateForm">
   <div nz-row [nzGutter]="16" nzType="flex">
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="prodno">产品编号</nz-form-label>
-          <nz-form-control nzHasFeedback>
+        <nz-form-label nzRequired nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="searchData()">
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
@@ -16,137 +19,677 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="prodname">产品名称</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="产品名称"  formControlName="prodname" name="prodname" id="prodname" disabled/>
+        <nz-form-label nzRequired nzFor="orderunit">订货单位</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="订货单位"  formControlName="orderunit" name="orderunit" id="orderunit">
+            <nz-option *ngFor="let option of orderunits" [nzLabel]="option.name" [nzValue]="option"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="dwgno">图号</nz-form-label>
+        <nz-form-label nzRequired nzFor="dwgno">图号</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" disabled/>
         </nz-form-control>
       </nz-form-item>
     </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="ecode">设备代码</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="设备代码"  formControlName="ecode" name="ecode" id="ecode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="type">请选择：</nz-form-label>
+        <nz-form-label nzRequired nzFor="dealter">设计变更</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select style="width: 100%" nzPlaceHolder="请选择"  formControlName="type" name="type" id="type" onblur="choose()">
-            <nz-option [nzLabel]="'格数'" [nzValue]="'格数'"></nz-option>
-            <nz-option [nzLabel]="'压力'" [nzValue]="'压力'"></nz-option>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="设计变更"  formControlName="dealter" name="dealter" id="dealter">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='格数'">
+    <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="initnum">初始格数</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="初始格数"  formControlName="initnum" name="initnum" id="initnum"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='压力'">
-      <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="initpa">初始压力(Pa)</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="初始压力(Pa)"  formControlName="initpa" name="initpa" id="initpa"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='格数'">
-      <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="statnum">静置后格数</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="静置后格数"  formControlName="statnum" name="statnum" id="statnum"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.type=='压力'">
-      <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="statpa">静置后压力(Pa)</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="静置后压力(Pa)"  formControlName="statpa" name="statpa" id="statpa"/>
+        <nz-form-label nzRequired nzFor="submatl">材料代用</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="材料代用"  formControlName="submatl" name="submatl" id="submatl">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="htcurrent">规管加热电流</nz-form-label>
+        <nz-form-label nzRequired nzFor="prodno">资料员</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="资料员"  formControlName="docum" name="docum" id="docum">
+            <nz-option *ngFor="let option of users" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="dedate">设计日期</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="规管加热电流"  formControlName="htcurrent" name="htcurrent" id="htcurrent"/>
+          <input nz-input placeHolder="设计日期" formControlName="dedate" name="dedate" id="dedate" (blur)="formatDate(validateForm.controls['dedate'])"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="blankdate">下料日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="下料日期" formControlName="blankdate" name="blankdate" id="blankdate" (blur)="formatDate(validateForm.controls['blankdate'])"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="initdate">检测开始日期</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="检测开始日期"  formControlName="initdate" name="initdate" id="initdate" (blur)="formatInDate(this.validateForm.controls['initdate']);check();"/>
+        <nz-form-label nzRequired nzFor="matlretest">材料复验</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="材料复验"  formControlName="matlretest" name="matlretest" id="matlretest">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="enddate">检测结束日期</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="检测结束日期"  formControlName="enddate" name="enddate" id="enddate" (blur)="formatInDate(this.validateForm.controls['enddate']);check();"/>
+        <nz-form-label nzRequired nzFor="specmatl">特殊材料</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="特殊材料"  formControlName="specmatl" name="specmatl" id="specmatl">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="sealvacu">封口真空</nz-form-label>
-        <nz-form-control>
-          <nz-input-number style="width:100%;" placeHolder="封口真空" formControlName="sealvacu" name="sealvacu" id="sealvacu"></nz-input-number>
+        <nz-form-label nzRequired nzFor="overmatl">境外材料</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="境外材料"  formControlName="overmatl" name="overmatl" id="overmatl">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="sealdate">封口日期</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="封口日期"  formControlName="sealdate" name="sealdate" id="sealdate" (blur)="formatInDate(this.validateForm.controls['sealdate']);"/>
+        <nz-form-label nzRequired nzFor="nwpq">新焊接工艺评定</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="新焊接工艺评定"  formControlName="nwpq" name="nwpq" id="nwpq">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="testtemp">测漏放气率温度</nz-form-label>
-        <nz-form-control>
-          <nz-input-number style="width:100%;" placeHolder="测漏放气率温度" formControlName="testtemp" name="testtemp" id="testtemp"></nz-input-number>
+        <nz-form-label nzRequired nzFor="nprocess">新工艺</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="新工艺（固容规规定外的情况）"  formControlName="nprocess" name="nprocess" id="nprocess">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="sealtemp">封口温度</nz-form-label>
-        <nz-form-control>
-          <nz-input-number style="width:100%;" placeHolder="封口温度" formControlName="sealtemp" name="sealtemp" id="sealtemp"></nz-input-number>
+        <nz-form-label nzRequired nzFor="copsitu">外协情况</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="外协情况"  formControlName="copsitu" name="copsitu" id="copsitu">
+            <nz-option nzLabel="有" nzValue="有"></nz-option>
+            <nz-option nzLabel="无" nzValue="无"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="vacuop">真空考核操作工</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="真空考核操作工" formControlName="vacuop" name="vacuop" id="vacuop"/>
+        <nz-form-label nzRequired nzFor="type">结构型式</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="结构型式"  formControlName="type" name="type" id="type">
+            <nz-option *ngFor="let option of types" [nzLabel]="option.name" [nzValue]="option"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col nzSpan="4">
+    <div nz-col [nzSpan]="4">
       <nz-form-item>
-        <nz-form-label nzRequired [nzFor]="leakoutrate">漏放气速率</nz-form-label>
+        <nz-form-label nzRequired nzFor="exworkdate">制造完工日期</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="漏放气速率" disabled formControlName="leakoutrate" name="leakoutrate" id="leakoutrate" />
+          <input nz-input placeHolder="下料日期" formControlName="exworkdate" name="exworkdate" id="exworkdate" (blur)="formatDate(validateForm.controls['exworkdate'])"/>
         </nz-form-control>
       </nz-form-item>
     </div>
-  </div>
-  <div style="text-align:center;margin-top: 20px">
-    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="thick">冷卷筒体投料厚度实测值</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="冷卷筒体投料厚度实测值" formControlName="thick" name="thick" id="thick"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="minthickstand">封头成形最小厚度标准值</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="封头成形最小厚度标准值" formControlName="minthickstand" name="minthickstand" id="minthickstand"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="thick">封头成形最小厚度实测值</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="封头成形最小厚度实测值" formControlName="minthick" name="minthick" id="minthick"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4"
+         *ngIf="this.validateForm.value.dwgno!=null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="proheight">产品总高（标准值：{{dataStand.proheight}}）</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="产品总高实测值" formControlName="proheight" name="proheight" id="proheight"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4"
+         *ngIf="this.validateForm.value.dwgno!=null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="length">筒体长度（标准值：{{dataStand.length}}）</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="筒体长度实测值" formControlName="length" name="length" id="length"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4"
+         *ngIf="this.validateForm.value.dwgno!=null">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="straightness">筒体直线度（标准值：{{dataStand.straightness}}）</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="筒体直线度实测值" formControlName="straightness" name="straightness" id="straightness"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
   </div>
 </form>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="A类焊缝最大棱角度">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.aweldmaxangul">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.aweldmaxangul">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.aweldmaxangul">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="B类焊缝最大棱角度">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.bweldmaxangul">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.bweldmaxangul">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.bweldmaxangul">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="A类焊缝最大错边量">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.aweldmaxalign">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.aweldmaxalign">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.aweldmaxalign">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="筒体内径">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.innerdia">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.innerdia">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.innerdia">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="筒体圆度">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.roundness">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.roundness">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.roundness">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="筒体直线度">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.straightness">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.straightness">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.straightness">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="封头形状偏差外凸">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.outward">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.outward">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.outward">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="封头形状偏差内凹">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.concave">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.concave">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.concave">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="B类焊缝最大错边量">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.bweldmaxalign">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.bweldmaxalign">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.bweldmaxalign">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="焊缝余高（单面坡口）">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.weldreinfs">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.weldreinfs">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.weldreinfs">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-table
+  *ngIf="this.validateForm.value.dwgno!=null"
+  [nzNoResult]="' '"
+  nzSize="small"
+  nzTitle="焊缝余高（双面坡口）">
+  <thead>
+  <tr>
+    <th>类型</th>
+    <th *ngFor="let item of dataStand.weldreinfd">标准值</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>标准值</td>
+    <td *ngFor="let item of dataStand.weldreinfd">0~{{item}}</td>
+  </tr>
+  <tr>
+    <td>实测值</td>
+    <td *ngFor="let item of dataDetail.weldreinfd">
+      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<div style="text-align:center;margin-top: 20px">
+  <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+</div>
+
+<div id="addOrderunit">
+  <form nz-form [formGroup]="orderunitValidateForm">
+    <ng-template #orderunitTitle>
+      <span>添加订货单位</span>
+    </ng-template>
+    <ng-template #orderunitContent>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="orderunit" nzRequired>订货单位</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="orderunit" nz-input placeholder="订货单位名称">
+          <nz-form-explain *ngIf="orderunitValidateForm.get('orderunit').dirty && orderunitValidateForm.get('orderunit').errors">订货单位名称不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="orderunitename" nzRequired>英文名称</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input formControlName="orderunitename" nz-input placeholder="订货单位英文名称">
+          <nz-form-explain *ngIf="orderunitValidateForm.get('orderunitename').dirty && orderunitValidateForm.get('orderunitename').errors">订货单位英文名称不能为空</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-template>
+    <ng-template #orderunitFooter>
+      <button nz-button nzType="primary" (click)="submitInfo('orderunit')" [nzLoading]="tplModalButtonLoading">提交</button>
+    </ng-template>
+  </form>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm2">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno2" (ngModelChange)="searchData2()">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="dwgno">图号</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno2">
+            <nz-option *ngFor="let option of dwgnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="exworkdate">制造完工日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="制造完工日期" formControlName="exworkdate" name="exworkdate" id="exworkdate2" (blur)="formatDate(validateForm2.controls['exworkdate'])"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="16" nzType="flex"
+       *ngIf="this.validateForm2.value.dwgno!=null">
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="aweldmaxangul2">A类焊缝最大棱角度(标准值：{{dataStand2.aweldmaxangul}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="aweldmaxangul" name="aweldmaxangul" id="aweldmaxangul2" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="bweldmaxangul2">B类焊缝最大棱角度(标准值：{{dataStand2.bweldmaxangul}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="bweldmaxangul" name="bweldmaxangul" id="bweldmaxangul2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="aweldmaxalign2">A类焊缝最大错边量(标准值：{{dataStand2.aweldmaxalign}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="aweldmaxangul" name="aweldmaxangul" id="aweldmaxangul2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="bweldmaxalign2">B类焊缝最大错边量(标准值：{{dataStand2.bweldmaxalign}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="bweldmaxangul" name="bweldmaxangul" id="bweldmaxangul2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="weldreinfs2">焊缝余高（单面坡口）(标准值：{{dataStand2.weldreinfs}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="weldreinfs" name="weldreinfs" id="weldreinfs2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="weldreinfd">焊缝余高（双面坡口）(标准值：{{dataStand2.weldreinfd}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="weldreinfd" name="weldreinfd" id="weldreinfd"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="thick2">冷卷筒体投料厚度实测值</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="冷卷筒体投料厚度实测值" formControlName="thick" name="thick" id="thick2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="minthickstand2">封头成形最小厚度标准值</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="封头成形最小厚度标准值" formControlName="minthickstand" name="minthickstand" id="minthickstand2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="thick2">封头成形最小厚度实测值</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="封头成形最小厚度实测值" formControlName="minthick" name="minthick" id="minthick2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="proheight2">产品总高（标准值：{{dataStand.proheight}}）</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="产品总高实测值" formControlName="proheight" name="proheight" id="proheight2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="length2">筒体长度（标准值：{{dataStand.length}}）</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="筒体长度实测值" formControlName="length" name="length" id="length2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+
+
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="innerdia2">筒体内径(标准值：{{dataStand2.innerdia}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="innerdia" name="innerdia" id="innerdia2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="roundness2">筒体圆度(标准值：{{dataStand2.roundness}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="roundness" name="roundness" id="roundness2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="straightness2">筒体直线度(标准值：{{dataStand2.straightness}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="straightness" name="straightness" id="straightness2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="outward2">封头形状偏差外凸(标准值：{{dataStand2.outward}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="outward" name="outward" id="outward2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="concave2">封头形状偏差内凹(标准值：{{dataStand2.aweldmaxalign}})</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="请输入实测值" formControlName="concave" name="concave" id="concave2"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</form>
+<div style="text-align:center;margin-top: 20px">
+  <button nz-button nzType="primary" (click)="submitForm2()">提交</button>
+</div>
+

@@ -12,14 +12,14 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
 
 export class WarehousingAuditComponent implements OnInit {
   validateForm: FormGroup;
-  private pageindex = 1;
-  private pagesize = 25;
-  private total = 0;
-  private loading = true;
-  private matlname = [];
-  private millunits = [];
-  private specs = [];
-  private dataset = [];
+  public pageindex = 1;
+  public pagesize = 25;
+  public total = 0;
+  public loading = true;
+  public matlname = [];
+  public millunits = [];
+  public specs = [];
+  public dataset = [];
     onSpecInput(value: string): void {
     this.specs = value ? [
       value,
@@ -42,7 +42,7 @@ export class WarehousingAuditComponent implements OnInit {
       "10~60目"
     ];
   }
-  constructor(private fb: FormBuilder, private warehousingAuditService:WarehousingAuditService,private message : NzMessageService,private _storage:SessionStorageService) {
+  constructor(public fb: FormBuilder, public warehousingAuditService:WarehousingAuditService,public message : NzMessageService,public _storage:SessionStorageService) {
     this.warehousingAuditService.getputmaterial().subscribe(res => {
       if (res['result'] === 'success') {
         this.matlname = res['data']['matlname'];
@@ -57,7 +57,7 @@ export class WarehousingAuditComponent implements OnInit {
     }
   }
 
-  private utclass = {
+  public utclass = {
     "1":"I",
     "2":"II",
     "3":"III",
@@ -76,8 +76,8 @@ export class WarehousingAuditComponent implements OnInit {
     this.searchData();
   }
   formatInDate(){
-    let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-    let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     if(monthDay.test(this.validateForm.controls["indate"].value)){
       this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.controls["indate"].value);
     }else if(!yearMonthDay.test(this.validateForm.value.indate)){

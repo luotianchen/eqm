@@ -11,14 +11,14 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [ProductTestBoardDataRegistrationService]
 })
 export class ProductTestBoardDataRegistrationComponent implements OnInit {
-  private prodnos:any;
+  public prodnos:any;
   validateForm: FormGroup;
   testboardstandValidateForm: FormGroup;
   dataSet = [];
   testboardstands = [];
   matlstands = [];
   spec : any;
-  private designation:any;
+  public designation:any;
   bendparas = [
     {
       name:"面弯",ename:'surfacebending'
@@ -111,7 +111,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     })
   }
 
-  constructor(private productTestBoardDataRegistrationService: ProductTestBoardDataRegistrationService,private fb:FormBuilder,private message:NzMessageService,private modalService: NzModalService, private _storage: SessionStorageService) {
+  constructor(public productTestBoardDataRegistrationService: ProductTestBoardDataRegistrationService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
   searchData(): void {
@@ -125,8 +125,8 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     }
   }
 
-  private tplModal: NzModalRef;
-  private tplModalButtonLoading = false;
+  public tplModal: NzModalRef;
+  public tplModalButtonLoading = false;
 
   createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     this.tplModal = this.modalService.create({
@@ -192,8 +192,8 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
 
   }
   formatEntrustdate(){//日期格式化
-      let monthDay = /^([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
-      let yearMonthDay = /^[1-9]\d{3}-([1-9]|1[0-2])-([1-9]|[1-2][0-9]|3[0-1])$/;
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
       if(monthDay.test(this.validateForm.value.entrustdate)){
         this.validateForm.controls["entrustdate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.entrustdate);
       }else if(!yearMonthDay.test(this.validateForm.value.entrustdate)){
@@ -227,6 +227,13 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
         "efractposit":this.validateForm.value.fractposit.ename,
         "entrustdate":this.validateForm.value.entrustdate,
         "user":this._storage.get("username")
+      }).subscribe((res)=>{
+        if(res['result']=="success"){
+          this.modalService.success({
+            nzTitle: '成功',
+            nzContent: '您已提交成功！'
+          });
+        }
       })
     }
   }

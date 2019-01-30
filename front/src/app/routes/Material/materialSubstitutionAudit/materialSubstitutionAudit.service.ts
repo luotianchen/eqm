@@ -7,12 +7,12 @@ export class MaterialSubstitutionAuditService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getaudit(data){
-    return this.http.post(this.api.BASEURL+"/searchSubstitutionUnAudit",data);
+    return this.http.post(this.api.BASEURL+"/searchsubstitutestatus",data);
   }
   getSubstitution(audit){
-    return this.http.post(this.api.BASEURL+'/getSubstitutionByAudit',{audit:audit})
+    return this.http.post(this.api.BASEURL+'/searchbystatus',{audit:audit})
   }
   audit(data){
-    return this.http.post(this.api.BASEURL+"/substituteAudit",data);
+    return this.http.post(this.api.BASEURL+"/putstatusintosubstitution",data);
   }
 }

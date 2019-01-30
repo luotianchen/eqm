@@ -20,6 +20,7 @@ export class UserComponent {
   isVisible = {
     name:false,
     sign:false,
+    showsign:false,
     role:false,
     add:false,
     email:false,
@@ -36,7 +37,7 @@ export class UserComponent {
   rolemodel = [];
   role_username = null;
   img_username = null;
-  private editimg = false;
+  public editimg = false;
 
 
   ngOnInit(): void {
@@ -125,7 +126,7 @@ export class UserComponent {
     }
     if(type == "note"){
       if(this.note==null||this.note==""){
-        this.msg.error("邮箱不能为空！");
+        this.msg.error("备注不能为空！");
       }else{
         this.userService.editNote(this.note_username,this.note).subscribe((res)=>{
           if(res["result"]=="success"){
@@ -200,7 +201,7 @@ export class UserComponent {
       this.fileList = [];
     }
   }
-  constructor(private _storage: SessionStorageService,private userService: UserService, private msg: NzMessageService, private router: Router) {
+  constructor(public _storage: SessionStorageService,public userService: UserService, public msg: NzMessageService, public router: Router) {
     this.userService.getRoles().subscribe((res)=>{
       if(res["result"]=="success"){
         this.roles = [];
@@ -280,7 +281,7 @@ export class UserComponent {
       }
     );
   }
-  private getBase64(img: File, callback: (img: {}) => void): void {
+  public getBase64(img: File, callback: (img: {}) => void): void {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
@@ -298,6 +299,12 @@ export class UserComponent {
     this.userService.deleteUser(username).subscribe((res)=>{
       if(res['result']=="success"){
         this.msg.success("删除成功！");
+        this.userService.getUsers().subscribe((res)=>{
+          if(res["result"]=="success"){
+            this.dataSet = res["data"];
+            this.dataSetDisplay = this.dataSet;
+          }
+        });
       }else{
         this.msg.error("因系统中存在该用户的操作记录，本次操作失败！")
       }

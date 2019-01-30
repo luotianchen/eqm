@@ -10,6 +10,6 @@ export class WarrantyAbsentService {
     return this.http.post(this.api.BASEURL+"/searchnocertsituresult",{pageindex:pageindex,pagesize:pagesize,matlcode:null});
   }
   download(){
-    return this.http.post(this.api.BASEURL+"/searchnocertsituexcel",{matlcode:null});
+    return this.http.post(this.api.BASEURL+"/searchnocertsituexcel",{matlcode:null},{responseType:"arraybuffer"});
   }
 }

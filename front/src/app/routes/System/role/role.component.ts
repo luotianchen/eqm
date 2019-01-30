@@ -27,6 +27,7 @@ export class RoleComponent implements OnInit {
   roles2 = null;
   username = null;
   name = null;
+  email = null;
   role=null;
   role2=null;
   role3=null;
@@ -40,6 +41,7 @@ export class RoleComponent implements OnInit {
   isVisible = {
     changeDepartmentName:false,
     addRole:false,
+    showUser:false,
     moveRole:false,
     addDepartment:false,
     changeRoleName:false
@@ -49,7 +51,7 @@ export class RoleComponent implements OnInit {
     roleName:null,
     department:null
   };
-  constructor(private roleService: RoleService, private msg: NzMessageService) {
+  constructor(public roleService: RoleService, public msg: NzMessageService) {
   }
   ngOnInit(): void {
     this.getData();
@@ -151,6 +153,7 @@ export class RoleComponent implements OnInit {
     if(type=="showUser"){
       this.username = args.username;
       this.name = args.name;
+      this.email = args.email;
       this.role = this.roles2[args.role];
       this.role2 = this.roles2[args.role2];
       this.role3 = this.roles2[args.role3];
