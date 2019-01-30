@@ -35,7 +35,7 @@ public class searchstatusthrough {                                              
         String sql1 = "SELECT * FROM matlsubstitution WHERE design_status=1 AND matl_status=1 AND welding_status=1 AND process_status=1 AND inspection_status=1 ";
         String sql2 = "group by audit";
 
-        try {
+        //try {
             if(!(sp.getProdno() == null || sp.getProdno().equals(""))){
                 sql1 = sql1 + "AND prodno = ? ";
             }
@@ -60,11 +60,9 @@ public class searchstatusthrough {                                              
                 ps1.close();
 
                 if(type_B==1 && rs.getInt("status_b")!=1){
-                    type_B=0;
                     continue;
                 }
                 if(type_C==1 && rs.getInt("status_c")!=1){
-                    type_C=0;
                     continue;
                 }
                 data = new searchstatusthroughdata();
@@ -74,6 +72,8 @@ public class searchstatusthrough {                                              
                 data.setUser(rs.getString("user"));
                 data.setWhy(rs.getString("why"));
                 as.add(data);
+                type_B=0;
+                type_B=0;
             }
             rs.close();
             ps.close();
@@ -93,9 +93,9 @@ public class searchstatusthrough {                                              
                 result.setData(as_q);
                 result.setTotal(as_q.size());
             }
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
