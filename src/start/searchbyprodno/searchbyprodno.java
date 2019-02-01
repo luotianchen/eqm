@@ -120,7 +120,7 @@ public class searchbyprodno {                                               //é€
                 ps1.setInt(1,picker_id);
                 rs1=ps1.executeQuery();
                 while (rs1.next()){
-                    data.setPicker(rs1.getString("name"));
+                    data.setPicker(rs1.getString("username"));
                 }
                 rs1.close();
                 ps1.close();
@@ -129,7 +129,7 @@ public class searchbyprodno {                                               //é€
                 ps1.setInt(1,issuematl_id);
                 rs1=ps1.executeQuery();
                 while (rs1.next()){
-                    data.setIssuematl(rs1.getString("name"));
+                    data.setIssuematl(rs1.getString("username"));
                 }
                 rs1.close();
                 ps1.close();

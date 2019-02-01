@@ -59,7 +59,7 @@ public class putpressureparts {                                         //发放
                 rs.close();
                 ps.close();
 
-                ps = conn.prepareStatement("SELECT * FROM workshopperson WHERE name=?");
+                ps = conn.prepareStatement("SELECT * FROM workshopperson WHERE username=?");
                 ps.setString(1,pp.getData().get(i).getPicker());
                 rs=ps.executeQuery();
                 while (rs.next()){
@@ -68,7 +68,7 @@ public class putpressureparts {                                         //发放
                 rs.close();
                 ps.close();
 
-                ps = conn.prepareStatement("SELECT * FROM warehouseperson WHERE name=?");
+                ps = conn.prepareStatement("SELECT * FROM warehouseperson WHERE username=?");
                 ps.setString(1,pp.getData().get(i).getIssuematl());
                 rs=ps.executeQuery();
                 while (rs.next()){

@@ -4,6 +4,7 @@ public class searchnocertsitupost {
     private int pageindex;                               //请求第n页，从1开始
     private int pagesize;                                //页面容量
     private String matlcode;                                //材料代码：入库编号第五位数字，null为不做要求
+    private String dimension;                               //牌号
     public searchnocertsitupost(){
         super();
     }
@@ -29,5 +30,13 @@ public class searchnocertsitupost {
 
     public void setMatlcode(String matlcode) {
         this.matlcode = matlcode;
+    }
+
+    public String getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
     }
 }
