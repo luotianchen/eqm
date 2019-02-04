@@ -9,20 +9,22 @@
     <th nzCustomFilter>
       用户名
       <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown1>
-        <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown1.nzVisible" nz-dropdown></i>
+        <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown1.nzVisible" nz-dropdown></i>
         <div class="custom-filter-dropdown">
           <input type="text" nz-input placeholder="搜索用户名" [(ngModel)]="searchUname" class="searchInput">
           <button nz-button [nzType]="'primary'" (click)="searchUsername()">搜索</button>
+          <button style="margin-left: 5px" nz-button [nzType]="'default'" (click)="this.searchUname = '';searchUsername()">重置</button>
         </div>
       </nz-dropdown>
     </th>
     <th nzCustomFilter>
       姓名
       <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown2>
-        <i nz-icon type="smile-o" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown2.nzVisible" nz-dropdown></i>
+        <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown2.nzVisible" nz-dropdown></i>
         <div class="custom-filter-dropdown">
           <input type="text" nz-input placeholder="搜索姓名" [(ngModel)]="searchname" class="searchInput">
           <button nz-button [nzType]="'primary'" (click)="searchName()">搜索</button>
+          <button style="margin-left: 5px" nz-button [nzType]="'default'" (click)="this.searchname = '';searchName()">重置</button>
         </div>
       </nz-dropdown>
     </th>

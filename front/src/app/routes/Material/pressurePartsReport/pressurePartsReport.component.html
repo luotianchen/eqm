@@ -22,7 +22,7 @@
 <div *ngIf="this.prodno!=''" #print>
   <p>
     <essence-ng2-print
-      [mode]="'iframe'"
+      [mode]="'popup'"
       [btnText]="'打印材料清单'"
       [printHTML]="print"
       [showBtn]="printBtnBoolean"
@@ -103,8 +103,8 @@
         <td colspan="7" style="height: 35px;white-space: normal;">1.S=固溶solid solution AR=热轧Hot rolling N=正火Normalizing A=退火Annealing T=回火Temper CR=控轧Controlledrolled Q=淬火Quench O=退火（铝材）Anneal H112=热轧（铝材）Hot-working</td>
       </tr>
       <tr>
-        <td colspan="3" style="border:none;">填表人(Filled by)：<img height="50px" style="vertical-align: middle;margin-top: 3px" [src]="reportData.issuematl"/></td>
-        <td colspan="3" style="border:none;">材料责任人(Reviewed by)：<img height="50px" style="vertical-align: middle;margin-top: 3px" [src]="reportData.audit_user"></td>
+        <td colspan="3" style="border:none;">填表人(Filled by)：<img *ngIf="reportData.issuematl!=null" height="50px" style="vertical-align: middle;margin-top: 3px" [(src)]="reportData.issuematl"/></td>
+        <td colspan="3" style="border:none;">材料责任人(Reviewed by)：<img *ngIf="reportData.audit_user!=null" height="50px" style="vertical-align: middle;margin-top: 3px" [(src)]="reportData.audit_user"></td>
         <td colspan="2" style="border:none;text-align: center">日期(Date)：{{reportData.issuedate}}</td>
       </tr>
     </table>

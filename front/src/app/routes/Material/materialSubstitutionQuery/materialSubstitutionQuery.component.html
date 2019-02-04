@@ -36,7 +36,7 @@
     <tbody>
     <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
       <tr>
-        <td>{{data.user}}</td>
+        <td>{{data.user.split('|')[1]}}</td>
         <td>{{data.date}}</td>
         <td>{{data.prodno}}</td>
         <td><a (click)="setUrlParam(data);">生成报表</a></td>

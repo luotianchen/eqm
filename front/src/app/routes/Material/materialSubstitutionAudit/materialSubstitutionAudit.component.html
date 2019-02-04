@@ -27,7 +27,7 @@
       <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
         <tr>
           <td nzShowExpand [(nzExpand)]="data.expand"></td>
-          <td>{{data.user}}</td>
+          <td>{{data.user.split('|')[1]}}</td>
           <td>{{data.date}}</td>
           <td>{{data.prodno}}</td>
           <td>{{data.why}}</td>

@@ -13,28 +13,51 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
 export class MaterialDistributeComponent implements OnInit {
   public prodno:any;
   validateForm: FormGroup;
-  matlnameValidateForm: FormGroup;
+  partsnameValidateForm: FormGroup;
   status = false;
   i=1;
-  matlnames = [];
+  partsnames = [];
+  designations = [];
+  codedmarkings = [];
+  users = [];
+  username2name = {};
   ngOnInit(): void {
     this.materialDistributeService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
         this.prodno = res['data'];
       }
     });
+    this.materialDistributeService.getPartsname().subscribe(res=>{
+      if(res['result']=='success'){
+        this.partsnames = res['matlname'];
+      }
+    });
+    this.materialDistributeService.getcodedmarking().subscribe(res=>{
+      if(res['result']=="success"){
+        this.codedmarkings = res['data'];
+      }
+    });
     this.materialDistributeService.getputmaterial().subscribe(res=>{
       if(res['result']=='success'){
-        this.matlnames = res['matlname'];
+        this.designations = res['data']['designation'];
       }
-    })
+    });
+    this.materialDistributeService.getuserform().subscribe(res=>{
+      if(res['result']=='success'){
+        this.users = res['data'];
+        for(let user of this.users){
+          this.username2name[user.username] = user.name;
+        }
+      }
+    });
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
       "dwgno":[null],
     });
-    this.matlnameValidateForm = this.fb.group({
-      matlname:[null, [Validators.required]]
+    this.partsnameValidateForm = this.fb.group({
+      partsname:[null, [Validators.required]],
+      enpartsname:[null, [Validators.required]]
     });
     this.updateEditCache();
   }
@@ -128,9 +151,12 @@ export class MaterialDistributeComponent implements OnInit {
     }
 
     for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('name');
+      this.dataSet[j]['issuematl'] = this._storage.get('username');
     }
-
+    let data = [...this.dataSet];
+    for(let item of data){
+      item.parts
+    }
     this.materialDistributeService.putdistribute({
       prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
@@ -178,22 +204,24 @@ export class MaterialDistributeComponent implements OnInit {
   }
 
   submitInfo(which){
-    if(which == "matlname"){
-      for (const i in this.matlnameValidateForm.controls) {
-        this.matlnameValidateForm.controls[ i ].markAsDirty();
-        this.matlnameValidateForm.controls[ i ].updateValueAndValidity();
+    if(which == "partsname"){
+      for (const i in this.partsnameValidateForm.controls) {
+        this.partsnameValidateForm.controls[ i ].markAsDirty();
+        this.partsnameValidateForm.controls[ i ].updateValueAndValidity();
       }
-      if (this.matlnameValidateForm.valid){
-        this.materialDistributeService.addMatlname(this.matlnameValidateForm.controls['matlname'].value).subscribe(res=>{
+      if (this.partsnameValidateForm.valid){
+        this.materialDistributeService.addPartsname(this.partsnameValidateForm.controls['partsname'].value,this.partsnameValidateForm.controls['enpartsname'].value).subscribe(res=>{
           if(res['result'] == "success"){
             let modal = this.modalService.success({
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
+            this.partsnames.push(this.partsnameValidateForm.controls['partsname'].value);
             this.destroyTplModal();
+            this.partsnameValidateForm.reset();
+            this.partsnameValidateForm.clearValidators();
           }else{
             this.message.error("添加失败，请稍后重试！");
-            this.destroyTplModal();
           }
         });
       }

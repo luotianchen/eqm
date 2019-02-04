@@ -54,13 +54,13 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
   };
 
   audit_user = {
-    design_status:"design_user",
-    matl_status:"matl_user",
-    welding_status:"welding_user",
-    process_status:"process_user",
-    inspection_status:"inspection_user",
-    status_b:"b_user",
-    status_c:"c_user",
+    design_status:"design_username",
+    matl_status:"matl_username",
+    welding_status:"welding_username",
+    process_status:"process_username",
+    inspection_status:"inspection_username",
+    status_b:"b_username",
+    status_c:"c_username",
   };
 
   constructor(public materialSubstitutionAuditService:MaterialSubstitutionAuditService,public message : NzMessageService,public _storage:SessionStorageService){

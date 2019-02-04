@@ -95,6 +95,10 @@ export class WarehousingAuditComponent implements OnInit {
         this.total = res["total"];
         this.dataset = res["data"];
         this.loading = false;
+      }else{
+        this.total = 0;
+        this.dataset = [];
+        this.loading = false;
       }
     })
   }

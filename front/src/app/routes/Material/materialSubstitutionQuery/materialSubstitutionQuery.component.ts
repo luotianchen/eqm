@@ -122,7 +122,7 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
     this.reportData.prodno = data.prodno;
     this.reportData.date = data.date.split("-");
     this.reportData.why = data.why;
-    this.materialSubstitutionQueryService.getSignImage(data.user).then((res)=>{
+    this.materialSubstitutionQueryService.getSignImage(data.user.split('|')[0]).then((res)=>{
       if(res["result"]=="success")
         this.reportData.user = res['url'];
     }).catch((err)=>{

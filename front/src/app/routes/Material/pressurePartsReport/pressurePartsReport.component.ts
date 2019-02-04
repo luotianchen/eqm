@@ -46,10 +46,10 @@ export class PressurePartsReportComponent implements OnInit {
         if(res['result']=="success"){
           if(res['data'].length>0){
             this.reportData = res;
-            this.pressurePartsReportService.getSignImage(this.reportData['issuematl']).subscribe((res)=>{
+            this.pressurePartsReportService.getSignImage(this.reportData['issuematl']).then((res)=>{
               if(res['result']=="success"){
                 this.reportData['issuematl'] = res['url'];
-                this.pressurePartsReportService.getSignImage(this.reportData['audit_user']).subscribe((res)=>{
+                this.pressurePartsReportService.getSignImage(this.reportData['audit_user']).then((res)=>{
                   if(res['result']=="success"){
                     this.reportData['audit_user'] = res['url'];
                     let num = Math.ceil(this.reportData['data'].length/19)*19;
@@ -72,11 +72,15 @@ export class PressurePartsReportComponent implements OnInit {
                       });
                       this.reportData['data'] = this.reportData['data'].slice(19);
                     }
+                    console.log(this.reportDatas);
+                  }else{
+                    this.msg.error("请检查材料责任人"+this.reportData['audit_user']+"是否正确上传签名！");
                   }
                 });
+              }else{
+                this.msg.error("请检查填表人"+this.reportData['issuematl']+"是否正确上传签名！");
               }
-            });
-            console.log(this.reportDatas);
+            });//使用promise来实现同步操作
           }
           else
             this.msg.error("未查到受压元件材料记录！")

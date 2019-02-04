@@ -661,10 +661,11 @@ export class WarehousingRegistrationComponent implements OnInit {
         if (res['result'] == "success") {
           const modal = this.modalService.success({
             nzTitle: '录入成功',
-            nzContent: '3秒后将回到首页'
+            nzContent: '录入成功1条记录'
           });
-
-          window.setTimeout(() => this.backtoDashboard(modal), 3000);
+          this.validateForm.reset();
+          this.validateForm.clearValidators();
+          // window.setTimeout(() => this.backtoDashboard(modal), 3000);
 
         }else{
           this.message.error("提交失败，请检查输入的数据后重新提交！");

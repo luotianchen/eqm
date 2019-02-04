@@ -11,8 +11,11 @@ export class WarrantyAbsentComponent implements OnInit {
   public pageindex = 1;
   public pagesize = 25;
   public dataset = [];
+  public dataSetDisplay = [];
   public total = 0;
   public loading = true;
+  public searchheatbatchno = '';
+  public searchwarrantyno = '';
 
   ngOnInit(): void {
     this.searchData();
@@ -28,6 +31,7 @@ export class WarrantyAbsentComponent implements OnInit {
       if(res["result"]=="success"){
         this.total = res["total"];
         this.dataset = res["data"];
+        this.dataSetDisplay = this.dataset;
         this.loading = false;
       }
     });
@@ -45,4 +49,20 @@ export class WarrantyAbsentComponent implements OnInit {
       a.click();
       URL.revokeObjectURL(objectUrl);
     });
-  }}
+  }
+
+  searchHeatbatchno(): void { //炉批号筛选
+    const filterFunc = (item) => {
+      return item.heatbatchno.indexOf(this.searchheatbatchno) !== -1;
+    };
+    this.dataSetDisplay = this.dataset.filter(item => filterFunc(item));
+  }
+
+  searchWarrantyno(): void { //质保书号筛选
+    const filterFunc = (item) => {
+      return item.warrantyno.indexOf(this.searchwarrantyno) !== -1;
+    };
+    this.dataSetDisplay = this.dataset.filter(item => filterFunc(item));
+  }
+
+}

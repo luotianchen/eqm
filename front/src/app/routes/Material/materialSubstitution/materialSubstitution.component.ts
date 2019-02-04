@@ -12,10 +12,11 @@ import {MaterialSubstitutionService} from "./materialSubstitution.service";
 })
 export class MaterialSubstitutionComponent implements OnInit {
   validateForm: FormGroup;
+  partsnameValidateForm: FormGroup;
   prodno = null;
   prodnos = [];
   why = "";
-  prodname = [];
+  partsname = [];
   designation = [];
   ngOnInit(): void {
     this.materialSubstitutionService.getprodno().subscribe((res) => {
@@ -23,21 +24,25 @@ export class MaterialSubstitutionComponent implements OnInit {
         this.prodnos = res['data'];
       }
     });
-    this.materialSubstitutionService.getprodname().subscribe((res) => {
+    this.materialSubstitutionService.getPartsname().subscribe((res) => {
       if(res['result']=="success"){
-        this.prodname = res['data'];
+        this.partsname = res['data'];
       }
-    })
+    });
     this.materialSubstitutionService.getdesignation().subscribe(res=>{
       if(res['result']=="success"){
         if(res['data']!=null)
           this.designation = res['data']['designation'];
       }
-    })
+    });
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
       "dwgno":[null],
+    });
+    this.partsnameValidateForm = this.fb.group({
+      partsname:[null, [Validators.required]],
+      enpartsname:[null, [Validators.required]]
     });
   }
 
@@ -128,7 +133,7 @@ export class MaterialSubstitutionComponent implements OnInit {
       data:null
     };
     data.prodno = this.prodno;
-    data.user = this._storage.get("name");
+    data.user = this._storage.get("username") + '|' + this._storage.get("name");
     data.why = this.why;
     data.data = this.dataSet;
     this.materialSubstitutionService.putSubstitution(data).subscribe((res)=>{
@@ -151,4 +156,49 @@ export class MaterialSubstitutionComponent implements OnInit {
     })
   }
 
+  public tplModal: NzModalRef;
+  public tplModalButtonLoading = false;
+  createTplModal(tplTitle: TemplateRef<{}>, tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
+    this.tplModal = this.modalService.create({
+      nzTitle: tplTitle,
+      nzContent: tplContent,
+      nzFooter: tplFooter,
+      nzMaskClosable: false,
+      nzClosable: true,
+      nzOnOk: null
+    });
+  }
+
+  destroyTplModal(): void {
+    this.tplModalButtonLoading = true;
+    window.setTimeout(() => {
+      this.tplModalButtonLoading = false;
+      this.tplModal.destroy();
+    }, 1000);
+  }
+
+  submitInfo(which){
+    if(which == "partsname"){
+      for (const i in this.partsnameValidateForm.controls) {
+        this.partsnameValidateForm.controls[ i ].markAsDirty();
+        this.partsnameValidateForm.controls[ i ].updateValueAndValidity();
+      }
+      if (this.partsnameValidateForm.valid){
+        this.materialSubstitutionService.addPartsname(this.partsnameValidateForm.controls['partsname'].value,this.partsnameValidateForm.controls['enpartsname'].value).subscribe(res=>{
+          if(res['result'] == "success"){
+            let modal = this.modalService.success({
+              nzTitle: '添加成功',
+              nzContent: '已成功添加一条记录！'
+            });
+            this.partsname.push(this.partsnameValidateForm.controls['partsname'].value);
+            this.destroyTplModal();
+            this.partsnameValidateForm.reset();
+            this.partsnameValidateForm.clearValidators();
+          }else{
+            this.message.error("添加失败，请稍后重试！");
+          }
+        });
+      }
+    }
+  }
 }

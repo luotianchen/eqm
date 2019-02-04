@@ -13,6 +13,10 @@ export class PressurePartsReportService {
     return this.http.post(this.api.BASEURL+"/searchprematl",{prodno:prodno});
   }
   getSignImage(username){
-    return this.http.post(this.api.BASEURL+"/getsignatureurl",{username:username})
+    return new Promise((resolve, reject) => {
+      this.http.post(this.api.BASEURL+"/getsignatureurl",{username:username}).subscribe(result=>{
+        resolve(result);
+      })
+    })
   }
 }
