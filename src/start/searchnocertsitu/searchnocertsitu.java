@@ -46,7 +46,6 @@ public class searchnocertsitu {
         searchnocertsituresult result = new searchnocertsituresult();
 
         int nocertsitu_id=0;
-        int dimension_id=0;
 
         int matlname_id=0;
         int designation_id=0;
@@ -62,19 +61,10 @@ public class searchnocertsitu {
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * FROM contraststand WHERE designation= ?");
-            ps.setString(1,sp.getDimension());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                dimension_id = rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
 
-
-            ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? AND contraststand_id_designation=?");
+            ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? AND dimension=?");
             ps.setInt(1,nocertsitu_id);
-            ps.setInt(2,dimension_id);
+            ps.setString(2,sp.getDimension());
             rs=ps.executeQuery();
             while (rs.next()){
                 sncd = new searchnocertsitudata();

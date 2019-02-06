@@ -84,7 +84,7 @@ public class searchprematl {                                //受压元件使用
             ps.setInt(1,issuematl_id);
             rs = ps.executeQuery();
             if(rs.next()){
-                result.setIssuematl(rs.getString("name"));
+                result.setIssuematl(rs.getString("username"));
             }
             rs.close();
             ps.close();

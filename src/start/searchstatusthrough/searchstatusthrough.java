@@ -35,7 +35,7 @@ public class searchstatusthrough {                                              
         String sql1 = "SELECT * FROM matlsubstitution WHERE design_status=1 AND matl_status=1 AND welding_status=1 AND process_status=1 AND inspection_status=1 ";
         String sql2 = "group by audit,id";
 
-        //try {
+        try {
             if(!(sp.getProdno() == null || sp.getProdno().equals(""))){
                 sql1 = sql1 + "AND prodno = ? ";
             }
@@ -93,9 +93,9 @@ public class searchstatusthrough {                                              
                 result.setData(as_q);
                 result.setTotal(as_q.size());
             }
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
