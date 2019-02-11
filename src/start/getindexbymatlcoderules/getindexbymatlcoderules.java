@@ -27,6 +27,11 @@ public class getindexbymatlcoderules {                                          
             rs = ps.executeQuery();
             if (rs.next()){
                 result.setIndex(rs.getInt("indexx"));
+                result.setPlank(rs.getString("plank"));
+                result.setPipe(rs.getString("pipe"));
+                result.setFlange(rs.getString("flange"));
+                result.setHead(rs.getString("head"));
+                result.setWelding(rs.getString("welding"));
                 result.setResult("success");
                 rs.close();
                 ps.close();
