@@ -59,6 +59,9 @@ public class getmaterialdata {
     private String bendangle;                               //弯曲角度*
     private String bendaxdia;                               //弯曲直径
     private int utclass;                                 //ut级别*
+    private String user;
+    private String audit_user;
+    private String date;
 
     public getmaterialdata(){
         super();
@@ -529,5 +532,29 @@ public class getmaterialdata {
 
     public void setUtclass(int utclass) {
         this.utclass = utclass;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getAudit_user() {
+        return audit_user;
+    }
+
+    public void setAudit_user(String audit_user) {
+        this.audit_user = audit_user;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

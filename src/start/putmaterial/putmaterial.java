@@ -158,13 +158,13 @@ public class putmaterial {                                                      
                         "supplier_id_supplier,warrantystatus_id_certsitu,matlname_id_matlname,contraststand_id_matlstand,contraststand_id_designation,millunit_id_millunit," +
                         "bending_id_impacttemp,bending_id_bendangle,bending_id_utclass," +
                         "als,fe,zn,b,w,sb,al,zr,ca,be," +
-                        "user_id)values(?,?,?,?,?,?,?,?,?,?,?," +
+                        "user_id,date)values(?,?,?,?,?,?,?,?,?,?,?," +
                         "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
                         "?,?,?,?,?,?,?,?,?,?,?,?,?," +
                         "?,?,?,?,?,?," +
                         "?,?,?," +
                         "?,?,?,?,?,?,?,?,?,?," +
-                        "?)");
+                        "?,?)");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(2,pp.getNote());
                 ps.setDate(3,d);
@@ -224,6 +224,7 @@ public class putmaterial {                                                      
                 ps.setString(57,pp.getCa());
                 ps.setString(58,pp.getBe());
                 ps.setInt(59,user_id);
+                ps.setDate(60,new java.sql.Date(new java.util.Date().getTime()));
                 ps.executeUpdate();
                 ps.close();
             }else{

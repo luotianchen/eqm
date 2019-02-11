@@ -33,6 +33,7 @@ public class getmaterial {                                                      
         int supplier_id=0;
         int heatcondi_id=0;
         int modelstand_id=0;
+        int user_id=0;
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         data.setCodedmarking(gp.getCodedmarking());
 
@@ -107,6 +108,9 @@ public class getmaterial {                                                      
                     data.setZr(rs.getString("zr"));
                     data.setCa(rs.getString("ca"));
                     data.setBe(rs.getString("be"));
+                    user_id = rs.getInt("user_id");
+                    data.setAudit_user(rs.getString("audit_user"));
+                    data.setDate(rs.getString("date"));
                 }
                 rs.close();
                 ps.close();
@@ -208,6 +212,16 @@ public class getmaterial {                                                      
                 rs=ps.executeQuery();
                 while (rs.next()){
                     data.setHeatcondi(rs.getString("heatcondi"));
+                }
+                rs.close();
+                ps.close();
+
+
+                ps=conn.prepareStatement("SELECT * FROM userform WHERE id=?");
+                ps.setInt(1,user_id);
+                rs=ps.executeQuery();
+                while (rs.next()){
+                    data.setUser(rs.getString("username"));
                 }
                 rs.close();
                 ps.close();

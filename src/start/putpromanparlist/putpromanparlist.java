@@ -24,7 +24,7 @@ public class putpromanparlist {                                 //产品制造�
 
         int dwgno_id = 0;
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
             ps.setString(1,pp.getDwgno());
             rs = ps.executeQuery();
@@ -97,9 +97,9 @@ public class putpromanparlist {                                 //产品制造�
             ps.executeUpdate();
             ps.close();
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
