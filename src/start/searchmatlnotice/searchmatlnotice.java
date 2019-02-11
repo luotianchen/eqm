@@ -29,11 +29,17 @@ public class searchmatlnotice {                                                 
         searchmatlnoticeresult result = new searchmatlnoticeresult();
 
 
-        //try {
+        try {
             if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
                 if(!(sp.getMatlcode().charAt(0)!='1' &&  sp.getMatlcode().charAt(0)!='2' &&  sp.getMatlcode().charAt(0)!='7' &&  sp.getMatlcode().charAt(0)!='8' &&  sp.getMatlcode().charAt(0)!='5')){
+                    int inmonth =Integer.parseInt(sp.getMonth());
+                    if(inmonth<10){
+                        sp.setMonth("0"+sp.getMonth());
+                    }
+                    String year_month = sp.getYear()+"-"+sp.getMonth()+"%";
 
-                    ps = conn.prepareStatement("SELECT * FROM putmaterial ");
+                    ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE indate LIKE ?");
+                    ps.setString(1,year_month);
                     rs = ps.executeQuery();
                     while (rs.next()){
                         if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(4))){
@@ -144,14 +150,8 @@ public class searchmatlnotice {                                                 
                 }
             }else {
                 if(sp.getCodedmarking().charAt(4)=='1' || sp.getCodedmarking().charAt(4)=='2' || sp.getCodedmarking().charAt(4)=='7' || sp.getCodedmarking().charAt(4)=='8' || sp.getCodedmarking().charAt(4)=='5' ){
-                    int inmonth =Integer.parseInt(sp.getMonth());
-                    if(inmonth<10){
-                        sp.setMonth("0"+sp.getMonth());
-                    }
-                    String year_month = sp.getYear()+"-"+sp.getMonth()+"%";
-                    ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking=? AND indate LIKE ?");
+                    ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking=? ");
                     ps.setString(1,sp.getCodedmarking());
-                    ps.setString(2,year_month);
                     rs = ps.executeQuery();
                     while (rs.next()){
                         data = new searchmatlnoticedata();
@@ -258,9 +258,9 @@ public class searchmatlnotice {                                                 
                     result.setResult("fail");
                 }
             }
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
