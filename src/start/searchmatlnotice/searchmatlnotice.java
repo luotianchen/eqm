@@ -29,7 +29,7 @@ public class searchmatlnotice {                                                 
         searchmatlnoticeresult result = new searchmatlnoticeresult();
 
 
-        try {
+        //try {
             if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
                 if(!(sp.getMatlcode().charAt(0)!='1' &&  sp.getMatlcode().charAt(0)!='2' &&  sp.getMatlcode().charAt(0)!='7' &&  sp.getMatlcode().charAt(0)!='8' &&  sp.getMatlcode().charAt(0)!='5')){
 
@@ -258,9 +258,9 @@ public class searchmatlnotice {                                                 
                     result.setResult("fail");
                 }
             }
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
