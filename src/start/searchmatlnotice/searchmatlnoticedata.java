@@ -1,6 +1,7 @@
 package start.searchmatlnotice;
 
 public class searchmatlnoticedata {
+    private String user;
     private String matlname;                            //材料名称*
     private String audit_user;                          //审核人
     private String designation;                         //牌号*
@@ -239,5 +240,13 @@ public class searchmatlnoticedata {
 
     public void setAudit_user(String audit_user) {
         this.audit_user = audit_user;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

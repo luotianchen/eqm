@@ -28,6 +28,8 @@ public class searchmatlnotice {                                                 
         ArrayList<searchmatlnoticedata> as = new ArrayList<searchmatlnoticedata>();
         searchmatlnoticeresult result = new searchmatlnoticeresult();
 
+        int user_id=0;
+
 
         try {
             if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
@@ -44,6 +46,7 @@ public class searchmatlnotice {                                                 
                     while (rs.next()){
                         if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(4))){
                             data = new searchmatlnoticedata();
+                            user_id=rs.getInt("user_id");
                             data.setAudit_user(rs.getString("audit_user"));
                             data.setCodedmarking(rs.getString("codedmarking"));
                             data.setSpec(rs.getString("spec"));
@@ -136,6 +139,15 @@ public class searchmatlnotice {                                                 
                             rs1.close();
                             ps1.close();
 
+                            ps1 = conn.prepareStatement("SELECT * FROM userform WHERE id = ?");
+                            ps1.setInt(1,user_id);
+                            rs1 = ps1.executeQuery();
+                            while (rs1.next()){
+                                data.setUser(rs1.getString("username"));
+                            }
+                            rs1.close();
+                            ps1.close();
+
                             as.add(data);
                         }else {
                             continue;
@@ -155,6 +167,7 @@ public class searchmatlnotice {                                                 
                     rs = ps.executeQuery();
                     while (rs.next()){
                         data = new searchmatlnoticedata();
+                        user_id=rs.getInt("user_id");
                         data.setAudit_user(rs.getString("audit_user"));
                         data.setCodedmarking(rs.getString("codedmarking"));
                         data.setSpec(rs.getString("spec"));
@@ -243,6 +256,15 @@ public class searchmatlnotice {                                                 
                         rs1 = ps1.executeQuery();
                         while (rs1.next()){
                             data.setModelstand(rs1.getString("modelstand"));
+                        }
+                        rs1.close();
+                        ps1.close();
+
+                        ps1 = conn.prepareStatement("SELECT * FROM userform WHERE id = ?");
+                        ps1.setInt(1,user_id);
+                        rs1 = ps1.executeQuery();
+                        while (rs1.next()){
+                            data.setUser(rs1.getString("username"));
                         }
                         rs1.close();
                         ps1.close();
