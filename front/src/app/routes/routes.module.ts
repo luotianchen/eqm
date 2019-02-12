@@ -62,6 +62,7 @@ import {PressVesProdQuaCerReportModule} from './Report/pressVesProdQuaCerReport/
 import {VacuumTestReportModule} from './Report/vacuumTestReport/vacuumTestReport.module';
 import {VacuumInspectionReportModule} from './Report/vacuumInspectionReport/vacuumInspectionReport.module';
 import {QuaPressVesPlanReportModule} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.module';
+import {CertificateReportModule} from "./Material/certificateReport/certificateReport.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -125,7 +126,8 @@ import {QuaPressVesPlanReportModule} from './Report/quaPressVesPlanReport/quaPre
     PressVesProdQuaCerReportModule,
     VacuumTestReportModule,
     VacuumInspectionReportModule,
-    QuaPressVesPlanReportModule
+    QuaPressVesPlanReportModule,
+    CertificateReportModule
   ]
 })
 

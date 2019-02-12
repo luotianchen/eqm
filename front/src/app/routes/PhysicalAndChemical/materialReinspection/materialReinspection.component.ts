@@ -11,7 +11,7 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [MaterialReinspectionService]
 })
 export class  MaterialReinspectionComponent implements OnInit {
-  public codedmarkings:any;
+  public codedmarkings;
   validateForm: FormGroup;
 
   public direct = [ //直接判断是否为null来控制是否现实的
@@ -227,65 +227,71 @@ export class  MaterialReinspectionComponent implements OnInit {
   ngOnInit(): void {
     this.materialReinspectionService.getcodedmarking().then((res:any)=>{
       if(res['result']=="success")
-        this.codedmarkings = res.data;
+        this.codedmarkings = [];
+      for(let item of res.data){
+        if(this.codedmarkings.indexOf(item['codedmarking']) == -1){
+          this.codedmarkings.push(item['codedmarking']);
+        }
+      }
+
     });
 
     this.validateForm = this.fb.group({
-        "codedmarking":[null, [Validators.required]],
-        "designation":[null, [Validators.required]],
-        "stand":[null, [Validators.required]],
-        "spec":[null, [Validators.required]],
-        "indate":[null, [Validators.required]],
-        c:[null],
-        si:[null],
-        mn:[null],
-        cu:[null],
-        ni:[null],
-        cr:[null],
-        mo:[null],
-        nb:[null],
-        v:[null],
-        ti:[null],
-        als:[null],
-        alt:[null],
-        n:[null],
-        fe:[null],
-        mg:[null],
-        zn:[null],
-        b:[null],
-        w:[null],
-        sb:[null],
-        al:[null],
-        zr:[null],
-        ca:[null],
-        be:[null],
-        p:[null],
-        s:[null],
-        rel1:[null],
-        rel2:[null],
-        rm1:[null],
-        rm2:[null],
-        elong1:[null],
-        elong2:[null],
-        hardness1:[null],
-        hardness2:[null],
-        hardness3:[null],
-        impactp1:[null],
-        impactp2:[null],
-        impactp3:[null],
-        impacttemp:[null],
-        bendangle:[null],
-        bendaxdia:[null]
+      "codedmarking":[null, [Validators.required]],
+      "designation":[null, [Validators.required]],
+      "stand":[null, [Validators.required]],
+      "spec":[null, [Validators.required]],
+      "indate":[null, [Validators.required]],
+      c:[null],
+      si:[null],
+      mn:[null],
+      cu:[null],
+      ni:[null],
+      cr:[null],
+      mo:[null],
+      nb:[null],
+      v:[null],
+      ti:[null],
+      als:[null],
+      alt:[null],
+      n:[null],
+      fe:[null],
+      mg:[null],
+      zn:[null],
+      b:[null],
+      w:[null],
+      sb:[null],
+      al:[null],
+      zr:[null],
+      ca:[null],
+      be:[null],
+      p:[null],
+      s:[null],
+      rel1:[null],
+      rel2:[null],
+      rm1:[null],
+      rm2:[null],
+      elong1:[null],
+      elong2:[null],
+      hardness1:[null],
+      hardness2:[null],
+      hardness3:[null],
+      impactp1:[null],
+      impactp2:[null],
+      impactp3:[null],
+      impacttemp:[null],
+      bendangle:[null],
+      bendaxdia:[null]
     });
   }
   autoSelect(){
     if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
       this.materialReinspectionService.searchmatlnotice(this.validateForm.value.codedmarking).then((res:any)=>{
         if(res['result']=="success"){
-          this.validateForm.controls['designation'].setValue(res['data'][0]['designation']);
-          this.validateForm.controls['stand'].setValue(res['data'][0]['matlstand']);
-          this.validateForm.controls['spec'].setValue(res['data'][0]['spec']);
-          this.validateForm.controls['indate'].setValue(res['data'][0]['indate']);
+          this.validateForm.controls['designation'].setValue(res['data']['designation']);
+          this.validateForm.controls['stand'].setValue(res['data']['matlstand']);
+          this.validateForm.controls['spec'].setValue(res['data']['spec']);
+          this.validateForm.controls['indate'].setValue(res['data']['indate']);
           this.checkForContraststand();
         }
       })

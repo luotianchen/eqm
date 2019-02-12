@@ -61,6 +61,7 @@ import {PressVesProdQuaCerReportComponent} from './Report/pressVesProdQuaCerRepo
 import {VacuumTestReportComponent} from './Report/vacuumTestReport/vacuumTestReport.component';
 import {VacuumInspectionReportComponent} from './Report/vacuumInspectionReport/vacuumInspectionReport.component';
 import {QuaPressVesPlanReportComponent} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.component';
+import {CertificateReportComponent} from "./Material/certificateReport/certificateReport.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -110,6 +111,12 @@ export const routes: Routes = [
         path: 'material/monthMaterial', component: MonthMaterialComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '月材料查询'
+        }
+      },
+      {
+        path: 'material/approvalCertificate', component: CertificateReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '检验合格证'
         }
       },
       {

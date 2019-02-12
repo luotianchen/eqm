@@ -7,7 +7,7 @@ export class WarehouseEntryNoticeService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getReport(codedmarking,year,month,matlcode){
-    return this.http.post(this.api.BASEURL+"/searchmatlnotice",{codedmarking:codedmarking,year:year,month:month,matlcode:matlcode})
+    return this.http.post(this.api.BASEURL+"/searchbyprodnocache",{codedmarking:codedmarking,year:year,month:month,matlcode:matlcode})
   }
   getSignImage(username){
     return new Promise((resolve, reject) => {
@@ -17,9 +17,9 @@ export class WarehouseEntryNoticeService {
     })
   }
   getMatlTypeByCodedmarking(codedmarking){
-    return this.http.post(`${this.api.BASEURL}/getmatltypebycodedmarking`,{codedmarking:codedmarking});
+    return this.http.post(`${this.api.BASEURL}/searchtypebycodedmarking`,{codedmarking:codedmarking});
   }
   getMatlTypeByMatlcode(matlcode){
-    return this.http.post(`${this.api.BASEURL}/getmatltypebymatlcode`,{matlcode:matlcode});
+    return this.http.post(`${this.api.BASEURL}/searchtypebymatlcode`,{matlcode:matlcode});
   }
 }

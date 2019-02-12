@@ -3,6 +3,36 @@
 </div>
 <nz-divider></nz-divider>
 <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
+  <nz-tab nzTitle="基本设置">
+
+    <div nz-row style="padding-top: 8px;">
+      <div nz-col nzSpan="4" nzOffset="4">
+        <strong>LOGO：</strong>
+      </div>
+      <div nz-col nzSpan="16">
+        <div class="clearfix editImg" *ngIf="editimg">
+          <nz-upload class="avatar-uploader" nzName="avatar"
+                     *ngIf="!avatarUrl"
+                     nzListType="picture-card"
+                     [(nzFileList)]="fileList"
+                     [nzShowButton]="fileList.length < 1"
+                     [nzFilter]="filters"
+                     [nzBeforeUpload]="beforeUpload">
+            <i nz-icon type="plus"></i>
+            <div class="ant-upload-text">上传LOGO</div>
+          </nz-upload>
+          <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar">
+          <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-left:20px">
+            {{ uploading ? '上传中' : '开始上传' }}
+          </button>
+        </div>
+
+        <img src="{{imgURL}}" style="width:200px;" *ngIf="imgURL!=null && !editimg">
+        <button nz-button type="primary" (click)="editimg = true" *ngIf="!editimg">修改logo</button>
+        <button nz-button nzType="primary" style="margin-left: 30px" (click)="editimg = true" *ngIf="edit && !editimg">上传LOGO</button>
+      </div>
+    </div>
+  </nz-tab>
   <nz-tab nzTitle="制造单位设置">
     <form nzLayout='horizontal' nz-form [formGroup]="validateForm">
       <div nz-row [nzGutter]="16" nzType="flex">
@@ -179,6 +209,112 @@
         <div nz-col nzSpan="4"></div>
         <div nz-col nzSpan="8" style="text-align:center;margin-top: 20px">
           <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+        </div>
+      </div>
+    </form>
+  </nz-tab>
+  <nz-tab nzTitle="材料代码规则设置">
+    <form nzLayout='horizontal' nz-form [formGroup]="matlcodeValidateForm">
+      <div nz-row [nzGutter]="16" nzType="flex">
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="index">
+              材料代码为入库编号的第几位
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-input-number nz-input formControlName="index" id="index" nzPlaceHolder="请输入正确的位数"></nz-input-number>
+              <nz-form-explain *ngIf="matlcodeValidateForm.get('index').dirty && matlcodeValidateForm.get('index').errors">
+                必填项，不能为空！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="plank">
+              代表板材所用的数字或英文字母
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="plank" id="plank" placeholder="请输入一位数字或字母">
+              <nz-form-explain *ngIf="matlcodeValidateForm.get('plank').dirty && matlcodeValidateForm.get('plank').errors">
+                请输入一位数字或字母！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="pipe">
+              代表管件所用的数字或英文字母
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="pipe" id="pipe" placeholder="请输入一位数字或字母">
+              <nz-form-explain *ngIf="matlcodeValidateForm.get('pipe').dirty && matlcodeValidateForm.get('pipe').errors">
+                请输入一位数字或字母！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="flange">
+              代表法兰所用的数字或英文字母
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="flange" id="flange" placeholder="请输入一位数字或字母">
+              <nz-form-explain *ngIf="matlcodeValidateForm.get('flange').dirty && matlcodeValidateForm.get('flange').errors">
+                请输入一位数字或字母！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="head">
+              代表封头所用的数字或英文字母
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="head" id="head" placeholder="请输入一位数字或字母">
+              <nz-form-explain *ngIf="matlcodeValidateForm.get('head').dirty && matlcodeValidateForm.get('head').errors">
+                请输入一位数字或字母！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="welding">
+              代表焊材所用的数字或英文字母
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input formControlName="welding" id="welding" placeholder="请输入一位数字或字母">
+              <nz-form-explain *ngIf="matlcodeValidateForm.get('welding').dirty && matlcodeValidateForm.get('welding').errors">
+                请输入一位数字或字母！
+              </nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12"></div>
+
+        <div nz-col nzSpan="4"></div>
+        <div nz-col nzSpan="8" style="text-align:center;margin-top: 20px">
+          <button nz-button nzType="primary" (click)="submitMatlCodeForm()">提交</button>
         </div>
       </div>
     </form>

@@ -3,7 +3,7 @@
     <div nz-col [nzSpan]="8">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
-          <nz-form-control [nzSm]="14" nzHasFeedback>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
           <nz-select style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
             <nz-option *ngFor="let option of prodno" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
@@ -204,7 +204,8 @@
   </nz-table>
   <button nz-button (click)="addRow()" class="editable-add-btn" style="margin-top: 30px">添加一行</button>
   <div style="text-align: center">
-    <button nz-button nzType="primary" (click)="putdustribute()">提交</button>
+    <button nz-button nzType="default" (click)="savedistribute()" style="margin-right: 20px">保存</button>
+    <button nz-button nzType="primary" (click)="putdistribute()">提交</button>
   </div>
 </div>
 <div id="addPartsname">

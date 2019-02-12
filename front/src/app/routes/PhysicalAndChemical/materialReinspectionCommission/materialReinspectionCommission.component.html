@@ -17,10 +17,85 @@
       <input nz-input placeHolder="复验原因"  formControlName="explain" name="explain" id="explain"/>
     </nz-form-control>
   </nz-form-item>
+
+  <div nz-row style="padding-top: 8px;">
+    <div nz-col nzSpan="20" nzOffset="4">
+      <strong>力学性能：{{result()}}</strong>
+    </div>
+  </div>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="forceperformance">力学性能</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzHasFeedback>
-      <input nz-input placeHolder="力学性能"  formControlName="forceperformance" name="forceperformance" id="forceperformance"/>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tensile">拉伸试验</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-switch  formControlName="tensile" id="tensile"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="validateForm.value.tensile">
+    <div nz-col [nzSm]="6" [nzXs]="0"></div>
+    <nz-form-control style="display: inline-block">
+      <nz-input-number nzMin="0" formControlName="tensileTest" id="tensileTest"></nz-input-number>
+    </nz-form-control>个（
+
+    <nz-form-control style="display: inline-block">
+      <nz-checkbox-group formControlName="tensileDetail"></nz-checkbox-group>
+    </nz-form-control>）
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="impact">冲击试验</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-switch  formControlName="impact" id="impact"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="validateForm.value.impact">
+    <div nz-col [nzSm]="6" [nzXs]="0"></div>
+    <nz-form-control style="display: inline-block">
+      <nz-input-number nzMin="0" formControlName="impactTest" id="impactTest"></nz-input-number>
+    </nz-form-control>个，冲击温度：
+    <nz-form-control style="display: inline-block">
+      <nz-input-number formControlName="impactDetail" id="impactDetail"></nz-input-number>
+    </nz-form-control>℃
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tensile">弯曲</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-radio-group   formControlName="bending">
+        <label nz-radio nzValue="无">无</label>
+        <label nz-radio nzValue="面弯、背弯">面弯、背弯</label>
+        <label nz-radio nzValue="侧弯">侧弯</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="validateForm.value.bending != '无'">
+    <div nz-col [nzSm]="6" [nzXs]="0"></div>
+    <nz-form-control style="display: inline-block">
+      <nz-input-number nzMin="0" formControlName="bendingTest" id="bendingTest"></nz-input-number>
+    </nz-form-control>个，弯曲角度
+    <nz-form-control style="display: inline-block">
+      <nz-input-number formControlName="bendingDetail" id="bendingDetail"></nz-input-number>
+    </nz-form-control>℃
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tensile">压扁扩口</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-radio-group   formControlName="flattening">
+        <label nz-radio nzValue="无">无</label>
+        <label nz-radio nzValue="压扁">压扁</label>
+        <label nz-radio nzValue="扩口">扩口</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="validateForm.value.flattening != '无'">
+    <div nz-col [nzSm]="6" [nzXs]="0"></div>
+    <nz-form-control style="display: inline-block">
+      <nz-input-number nzMin="0" formControlName="flatteningTest" id="flatteningTest"></nz-input-number>
+    </nz-form-control>个
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="other">其它</nz-form-label>
+    <nz-form-control style="display: inline-block">
+      <nz-switch  formControlName="other" id="other"></nz-switch>
+    </nz-form-control>：
+    <nz-form-control style="display: inline-block" *ngIf="validateForm.value.other">
+      <input nz-input formControlName="otherDetail">
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

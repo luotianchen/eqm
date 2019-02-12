@@ -11,10 +11,13 @@ export class WeldingDistributeService {
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
   getdistribute(prodno){
-    return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
+    return this.http.post(this.api.BASEURL+'/searchbyprodnocache',{prodno:prodno,status:1})
   }
   putdistribute(data){
     return this.http.post(this.api.BASEURL+"/putpressureparts",data);
+  }
+  savedistribute(data){
+    return this.http.post(`${this.api.BASEURL}/putpressurepartscache`,data);
   }
   getPartsname(){
     return this.http.get(this.api.BASEURL+"/getpartsname");

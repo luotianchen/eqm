@@ -7,9 +7,9 @@ import {ApiService} from '../../../core/api/api.service';
 export class MaterialReinspectionService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
-  getcodedmarking(){
+  getcodedmarking(){ //复验申请审核通过的codedmarking
     return new Promise((resolve, reject) => {
-      this.http.get(this.api.BASEURL+"/getcodedmarking").subscribe(
+      this.http.post(this.api.BASEURL+"/searchrematerialitem",{status:1}).subscribe(
         result=>{
           resolve(result);
         }
@@ -18,7 +18,7 @@ export class MaterialReinspectionService {
   }
   searchmatlnotice(codedmarking){
     return new Promise((resolve, reject) =>{
-      this.http.post(this.api.BASEURL+"/searchmatlnotice",{codedmarking:codedmarking}).subscribe(
+      this.http.post(this.api.BASEURL+"/getmaterial",{codedmarking:codedmarking}).subscribe(
         result=>{
           resolve(result);
         }

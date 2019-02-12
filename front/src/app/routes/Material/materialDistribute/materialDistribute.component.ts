@@ -29,7 +29,7 @@ export class MaterialDistributeComponent implements OnInit {
     });
     this.materialDistributeService.getPartsname().subscribe(res=>{
       if(res['result']=='success'){
-        this.partsnames = res['matlname'];
+        this.partsnames = res['data'];
       }
     });
     this.materialDistributeService.getcodedmarking().subscribe(res=>{
@@ -142,20 +142,16 @@ export class MaterialDistributeComponent implements OnInit {
     });
   }
 
-  putdustribute(){
+  putdistribute(){
     for(let item in this.editCache){
       if(this.editCache[item].edit){
-        this.message.error("您有尚未保存的数据，请保存后再提交！");
+        this.message.error("您有尚未保存的数据行，请保存后再提交！");
         return;
       }
     }
 
     for(let j = 0;j<this.dataSet.length;j++){
       this.dataSet[j]['issuematl'] = this._storage.get('username');
-    }
-    let data = [...this.dataSet];
-    for(let item of data){
-      item.parts
     }
     this.materialDistributeService.putdistribute({
       prodno:this.validateForm.controls['prodno'].value,
@@ -168,6 +164,31 @@ export class MaterialDistributeComponent implements OnInit {
         });
       }else{
         this.message.error("提交失败，请稍后再试！")
+      }
+    })
+  }
+
+  savedistribute(){
+    for(let item in this.editCache){
+      if(this.editCache[item].edit){
+        this.message.error("您有尚未保存的数据行，请保存后再提交！");
+        return;
+      }
+    }
+    for(let j = 0;j<this.dataSet.length;j++){
+      this.dataSet[j]['issuematl'] = this._storage.get('name');
+    }
+    this.materialDistributeService.savedistribute({
+      prodno:this.validateForm.controls['prodno'].value,
+      data:this.dataSet
+    }).subscribe((res)=>{
+      if(res['result']=="success"){
+        let modal = this.modalService.success({
+          nzTitle: '保存成功',
+          nzContent: '发放记录保存成功！'
+        });
+      }else{
+        this.message.error("保存失败，请稍后再试！")
       }
     })
   }

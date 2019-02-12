@@ -1,0 +1,63 @@
+<div>
+  <h3 class="title">材料合格证</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="codedmarking">入库编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="入库编号"  formControlName="codedmarking" name="codedmarking" id="codedmarking">
+            <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+
+<div #print *ngIf="codedmarking!=null">
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <essence-ng2-print
+      [mode]="'iframe'"
+      [printCSS]="printCSS"
+      [popTitle]="'材料合格证'"
+      [btnText]="'打印材料合格证'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <div style="width: 1000px;height: 350px;position: relative;overflow: hidden">
+    <img src="assets/report/hegezheng.png" draggable="false" style="width: 100%;height:auto;position: absolute;left: 0;top: 0;">
+    <qrcode class="qrcode" [qrdata]="information" [size]="256" [level]="'L'"></qrcode>
+    <div style="position: absolute;font-size: 10px;top: 74px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.codedmarking}}</div>
+    <div style="position: absolute;font-size: 10px;top: 74px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.modelstand}}</div>
+    <div style="position: absolute;font-size: 10px;top: 102px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.designation}}</div>
+    <div style="position: absolute;font-size: 10px;top: 102px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.heatbatchno}}</div>
+    <div style="position: absolute;font-size: 10px;top: 130px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.spec}}</div>
+    <div style="position: absolute;font-size: 10px;top: 130px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.millunit}}</div>
+    <div style="position: absolute;font-size: 10px;top: 158px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.user}}</div>
+    <div style="position: absolute;font-size: 10px;top: 158px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.indate}}</div>
+    <div style="position: absolute;font-size: 10px;top: 48px;left: 322px;letter-spacing: 0;font-family: serif;">{{year}}</div>
+    <div style="position: absolute;font-size: 10px;top: 48px;left: 353px;letter-spacing: 0;font-family: serif;">{{month}}</div>
+    <div style="position: absolute;font-size: 10px;top: 48px;left: 368px;letter-spacing: 0;font-family: serif;">{{day}}</div>
+  </div>
+</div>
