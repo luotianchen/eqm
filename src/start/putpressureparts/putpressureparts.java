@@ -42,7 +42,7 @@ public class putpressureparts {                                         //发放
             if(rs.next()){
                 rs.close();
                 ps.close();
-                ps = conn.prepareStatement("DELETE pressureparts WHERE prodno = ?");
+                ps = conn.prepareStatement("UPDATE pressureparts SET status = 3 WHERE prodno = ?");
                 ps.setString(1,pp.getProdno());
                 ps.close();
             }else {
