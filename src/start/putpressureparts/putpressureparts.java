@@ -36,6 +36,20 @@ public class putpressureparts {                                         //发放
 
 
         try {
+            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ?");
+            ps.setString(1,pp.getProdno());
+            rs = ps.executeQuery();
+            if(rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("DELETE pressureparts WHERE prodno = ?");
+                ps.setString(1,pp.getProdno());
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+            }
+
             for(int i=0;i<pp.getData().size();i++){
                 java.util.Date d1 = sdf.parse(pp.getData().get(i).getIssuedate());
                 java.sql.Date d = new java.sql.Date(d1.getTime());
