@@ -52,6 +52,8 @@ public class searchnocertsitu {
         int matlstand_id=0;
         int supplier_id=0;
         int millunit_id=0;
+        String sql=null;
+
         try{
             ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE certsitu= '质保书未到'");
             rs=ps.executeQuery();
@@ -61,10 +63,15 @@ public class searchnocertsitu {
             rs.close();
             ps.close();
 
-
-            ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? AND dimension=?");
+            sql="SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? ";
+            if(!(sp.getDimension()==null || sp.getDimension().equals(""))){
+                sql=sql+"AND dimension=?";
+            }
+            ps=conn.prepareStatement(sql);
             ps.setInt(1,nocertsitu_id);
-            ps.setString(2,sp.getDimension());
+            if(!(sp.getDimension()==null || sp.getDimension().equals(""))){
+                ps.setString(2,sp.getDimension());
+            }
             rs=ps.executeQuery();
             while (rs.next()){
                 sncd = new searchnocertsitudata();

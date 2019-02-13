@@ -33,7 +33,7 @@ public class putstatusintosubstitution {                                        
             if(rs.next()){
                 rs.close();
                 ps.close();
-                if(pp.getDesign_status()==1){
+                if(pp.getDesign_status()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET design_status = ?,design_note=?,design_username=?,design_date=? WHERE audit=?";
                     }else {
@@ -52,7 +52,7 @@ public class putstatusintosubstitution {                                        
                     sql = null;
                     num = 1;
                 }
-                if(pp.getMatl_status()==1){
+                if(pp.getMatl_status()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET matl_status = ?,matl_note=?,matl_username=?,matl_date=? WHERE audit=?";
                     }else {
@@ -71,7 +71,7 @@ public class putstatusintosubstitution {                                        
                     sql = null;
                     num = 1;
                 }
-                if(pp.getWelding_status()==1){
+                if(pp.getWelding_status()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET welding_status = ?,welding_note=?,welding_username=?,welding_date=? WHERE audit=?";
                     }else {
@@ -90,7 +90,7 @@ public class putstatusintosubstitution {                                        
                     sql = null;
                     num = 1;
                 }
-                if(pp.getProcess_status()==1){
+                if(pp.getProcess_status()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET process_status = ?,process_note=?,process_username=?,process_date=? WHERE audit=?";
                     }else {
@@ -109,7 +109,7 @@ public class putstatusintosubstitution {                                        
                     sql = null;
                     num = 1;
                 }
-                if(pp.getInspection_status()==1){
+                if(pp.getInspection_status()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET inspection_status = ?,inspection_note=?,inspection_username=?,inspection_date=? WHERE audit=?";
                     }else {
@@ -128,7 +128,7 @@ public class putstatusintosubstitution {                                        
                     sql = null;
                     num = 1;
                 }
-                if(pp.getStatus_b()==1){
+                if(pp.getStatus_b()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET status_b = ?,b_note=?,b_username=?,b_date=? WHERE audit=?";
                     }else {
@@ -147,7 +147,7 @@ public class putstatusintosubstitution {                                        
                     sql = null;
                     num = 1;
                 }
-                if(pp.getStatus_c()==1){
+                if(pp.getStatus_c()!=0){
                     if(!(pp.getDesign_note()==null || pp.getDesign_note().equals(""))){
                         sql = "UPDATE matlsubstitution SET status_c = ?,c_note=?,c_username=?,c_date=? WHERE audit=?";
                     }else {
