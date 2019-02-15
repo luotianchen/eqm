@@ -17,7 +17,7 @@
     <tbody>
     <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
       <tr>
-        <td nzShowExpand [(nzExpand)]="data.expand" (click)="search(data.audit)"></td>
+        <td nzShowExpand [(nzExpand)]="data.expand"></td>
         <td>{{data.updatetime}}</td>
         <td>{{data.prodno}}</td>
         <td>

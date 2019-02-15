@@ -63,6 +63,12 @@ import {VacuumTestReportModule} from './Report/vacuumTestReport/vacuumTestReport
 import {VacuumInspectionReportModule} from './Report/vacuumInspectionReport/vacuumInspectionReport.module';
 import {QuaPressVesPlanReportModule} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.module';
 import {CertificateReportModule} from "./Material/certificateReport/certificateReport.module";
+import {PressCoverReportModule} from "./Report/pressCoverReport/pressCoverReport.module";
+import {QuaPlanPressVesReportModule} from "./Profile/quaPlanPressVesReport/quaPlanPressVesReport.module";
+import {WelderMatlTraceRecordModule} from "./Report/welderMatlTraceRecord/welderMatlTraceRecord.module";
+import {PressVesShapeSizeInsReportModule} from "./Report/pressVesShapeSizeInsReport/pressVesShapeSizeInsReport.module";
+import {CleaningInsReportModule} from "./Report/cleaningInsReport/cleaningInsReport.module";
+import {ConQuaInfoFbSheetModule} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSheet.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -127,7 +133,13 @@ import {CertificateReportModule} from "./Material/certificateReport/certificateR
     VacuumTestReportModule,
     VacuumInspectionReportModule,
     QuaPressVesPlanReportModule,
-    CertificateReportModule
+    CertificateReportModule,
+    PressCoverReportModule,
+    QuaPlanPressVesReportModule,
+    WelderMatlTraceRecordModule,
+    PressVesShapeSizeInsReportModule,
+    CleaningInsReportModule,
+    ConQuaInfoFbSheetModule
   ]
 })
 

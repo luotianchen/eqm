@@ -1,0 +1,364 @@
+<div>
+  <h3 class="title">报表模版页</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+
+<div #print>
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <essence-ng2-print
+      [mode]="'popup'"
+      [printCSS]="printCSS"
+      [popTitle]="'报表'"
+      [btnText]="'打印报表'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <table border=0 cellpadding=0 cellspacing=0 width=765 style='border-collapse:
+ collapse;table-layout:fixed;width:575pt'>
+    <colgroup width=69 style='mso-width-source:userset;mso-width-alt:2218;width:52pt'></colgroup>
+    <colgroup width=48 style='mso-width-source:userset;mso-width-alt:1536;width:36pt'></colgroup>
+    <colgroup width=57 style='mso-width-source:userset;mso-width-alt:1834;width:43pt'></colgroup>
+    <colgroup width=25 style='mso-width-source:userset;mso-width-alt:810;width:19pt'></colgroup>
+    <colgroup width=69 style='mso-width-source:userset;mso-width-alt:2218;width:52pt'></colgroup>
+    <colgroup width=75 style='mso-width-source:userset;mso-width-alt:2389;width:56pt'></colgroup>
+    <colgroup width=13 style='mso-width-source:userset;mso-width-alt:426;width:10pt'></colgroup>
+    <colgroup width=45 style='mso-width-source:userset;mso-width-alt:1450;width:34pt'></colgroup>
+    <colgroup width=13 style='mso-width-source:userset;mso-width-alt:426;width:10pt'></colgroup>
+    <colgroup width=65 style='mso-width-source:userset;mso-width-alt:2090;width:49pt'></colgroup>
+    <colgroup width=121 style='mso-width-source:userset;mso-width-alt:3882;width:91pt'></colgroup>
+    <colgroup width=51 style='mso-width-source:userset;mso-width-alt:1621;width:38pt'></colgroup>
+    <colgroup width=43 style='mso-width-source:userset;mso-width-alt:1365;width:32pt'></colgroup>
+    <colgroup width=71 style='width:53pt'></colgroup>
+    <tr height=0 style='display:none'>
+      <td class=xl64 width=69 style='width:52pt'></td>
+      <td width=48 style='width:36pt'></td>
+      <td width=57 style='width:43pt'></td>
+      <td width=25 style='width:19pt'></td>
+      <td width=69 style='width:52pt'></td>
+      <td width=75 style='width:56pt'></td>
+      <td width=13 style='width:10pt'></td>
+      <td width=45 style='width:34pt'></td>
+      <td width=13 style='width:10pt'></td>
+      <td width=65 style='width:49pt'></td>
+      <td width=121 style='width:91pt'></td>
+      <td width=51 style='width:38pt'></td>
+      <td width=43 style='width:32pt'></td>
+      <td width=71 style='width:53pt'></td>
+    </tr>
+    <tr height=0 style='display:none'>
+      <td class=xl64></td>
+      <td colspan=13 style='mso-ignore:colspan'></td>
+    </tr>
+    <tr height=21 style='height:16.0pt'>
+      <td height=21 class=xl70 style='height:16.0pt'>表H-22-02</td>
+      <td colspan=13 style='mso-ignore:colspan'></td>
+    </tr>
+    <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+      <td colspan=14 height=28 class=xl99 width=765 style='border-right:2.0pt double black;
+  height:21.0pt;width:575pt'>焊工/材料跟踪记录</td>
+    </tr>
+    <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+      <td colspan=14 height=28 class=xl102 width=765 style='border-right:2.0pt double black;
+  height:21.0pt;width:575pt'>Welder &amp; Material Traceability Record</td>
+    </tr>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=2 height=17 class=xl73 width=117 style='height:13.5pt;width:88pt'>产品编号</td>
+      <td rowspan=2 class=xl63 width=57 style='border-bottom:.5pt solid black;
+  border-top:none;width:43pt'>17R051</td>
+      <td colspan=2 class=xl63 width=94 style='border-left:none;width:71pt'>产品图号</td>
+      <td colspan=3 rowspan=2 class=xl63 width=133 style='border-bottom:.5pt solid black;
+  width:100pt'>HTD10F3.000</td>
+      <td colspan=2 class=xl63 width=78 style='border-left:none;width:59pt'>产品名称</td>
+      <td colspan=2 class=xl63 width=172 style='border-left:none;width:129pt'>0</td>
+      <td class=xl63 width=43 style='border-top:none;border-left:none;width:32pt'>页数</td>
+      <td rowspan=2 class=xl76 width=71 style='border-bottom:.5pt solid black;
+  border-top:none;width:53pt'>　</td>
+    </tr>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=2 height=17 class=xl88 width=117 style='height:13.5pt;width:88pt'>Product
+        No</td>
+      <td colspan=2 class=xl90 width=94 style='border-left:none;width:71pt'>Product
+        DWG No.</td>
+      <td colspan=2 class=xl74 width=78 style='border-left:none;width:59pt'>Product
+        Name</td>
+      <td colspan=2 class=xl92 style='border-left:none'>1</td>
+      <td class=xl74 width=43 style='border-left:none;width:32pt'>Page</td>
+    </tr>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=9 rowspan=22 height=654 class=xl80 width=414 style='height:487.0pt;
+  width:312pt'>简图如下<font class="font7">The sketch as follow:</font></td>
+      <td class=xl63 width=65 style='border-top:none;border-left:none;width:49pt'>部件名称</td>
+      <td colspan=3 class=xl63 width=215 style='border-left:none;width:161pt'>牌号、识别标记</td>
+      <td class=xl76 width=71 style='border-top:none;border-left:none;width:53pt'>规格<font
+        class="font7"><span style='mso-spacerun:yes'> </span></font></td>
+    </tr>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td height=17 class=xl74 width=65 style='height:13.5pt;border-left:none;
+  width:49pt'>Part Name<span style='mso-spacerun:yes'> </span></td>
+      <td colspan=3 class=xl74 width=215 style='border-left:none;width:161pt'>Trade
+        mark &amp; Coded Marking</td>
+      <td class=xl71 width=71 style='border-left:none;width:53pt'>Size <font
+        class="font6">(mm)</font></td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl68 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl72 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl69 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td height=31 class=xl72 width=65 style='height:23.0pt;border-top:none;
+  border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=2 height=17 class=xl73 width=117 style='height:13.5pt;width:88pt'>焊缝编号</td>
+      <td colspan=2 class=xl63 width=82 style='border-left:none;width:62pt'>焊工代号</td>
+      <td colspan=2 class=xl63 width=144 style='border-left:none;width:108pt'>焊缝编号</td>
+      <td colspan=3 class=xl63 width=71 style='border-left:none;width:54pt'>焊工代号</td>
+      <td rowspan=2 class=xl72 width=65 style='border-top:none;width:49pt'>　</td>
+      <td colspan=3 rowspan=2 class=xl77 width=215 style='width:161pt'>　</td>
+      <td rowspan=2 class=xl75 width=71 style='border-top:none;width:53pt'>　</td>
+    </tr>
+    <tr height=19 style='mso-height-source:userset;height:14.25pt'>
+      <td colspan=2 height=19 class=xl88 width=117 style='height:14.25pt;
+  width:88pt'>Welding No.</td>
+      <td colspan=2 class=xl82 width=82 style='border-left:none;width:62pt'>Welder
+        stamp No.</td>
+      <td colspan=2 class=xl74 width=144 style='border-left:none;width:108pt'>Welding
+        No.</td>
+      <td colspan=3 class=xl82 width=71 style='border-left:none;width:54pt'>Welder
+        stamp No.</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=31 style='mso-height-source:userset;height:23.0pt'>
+      <td colspan=2 height=31 class=xl78 width=117 style='height:23.0pt;width:88pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=82 style='border-left:none;width:62pt'><sub>　</sub></td>
+      <td colspan=2 class=xl79 width=144 style='border-left:none;width:108pt'><sub>　</sub></td>
+      <td colspan=3 class=xl79 width=71 style='border-left:none;width:54pt'><sub>　</sub></td>
+      <td class=xl72 width=65 style='border-top:none;border-left:none;width:49pt'>　</td>
+      <td colspan=3 class=xl77 width=215 style='border-left:none;width:161pt'>　</td>
+      <td class=xl75 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+    </tr>
+    <tr height=20 style='height:15.0pt'>
+      <td height=20 class=xl73 width=69 style='height:15.0pt;border-top:none;
+  width:52pt'>编制</td>
+      <td colspan=3 rowspan=2 class=xl93 width=130 style='border-bottom:2.0pt double black;
+  width:98pt'>吴</td>
+      <td class=xl63 width=69 style='border-top:none;border-left:none;width:52pt'>日期</td>
+      <td colspan=4 class=xl85 width=146 style='border-right:.5pt solid black;
+  border-left:none;width:110pt'>2018年7月31日 星期二</td>
+      <td class=xl63 width=65 style='border-top:none;border-left:none;width:49pt'>审核</td>
+      <td rowspan=2 class=xl93 width=121 style='border-bottom:2.0pt double black;
+  border-top:none;width:91pt'>　</td>
+      <td class=xl63 width=51 style='border-top:none;border-left:none;width:38pt'>日期</td>
+      <td colspan=2 class=xl83 width=114 style='border-right:2.0pt double black;
+  border-left:none;width:85pt'>2018年7月31日</td>
+    </tr>
+    <tr height=21 style='height:16.0pt'>
+      <td height=21 class=xl65 width=69 style='height:16.0pt;width:52pt'>Prepared
+        By</td>
+      <td class=xl66 width=69 style='border-left:none;width:52pt'>Date</td>
+      <td colspan=4 class=xl95 width=146 style='border-right:.5pt solid black;
+  border-left:none;width:110pt'>Jul.31,2018</td>
+      <td class=xl67 width=65 style='border-left:none;width:49pt'>Reviewed By</td>
+      <td class=xl66 width=51 style='border-left:none;width:38pt'>Date</td>
+      <td colspan=2 class=xl95 width=114 style='border-right:2.0pt double black;
+  border-left:none;width:85pt'>Jul.31,2018</td>
+    </tr>
+  </table>
+</div>

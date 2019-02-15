@@ -72,11 +72,11 @@
           </tr>
           <tr style="border: 1px solid #000;border-left-width:2px;border-top: solid 2px #000;height: 24px;">
             <td colspan="2" style="text-align: center;border: 1px solid #000;">产品编号</td>
-            <td colspan="4" style="text-align: center;border: 1px solid #000;">{{prodno}}</td>
+            <td colspan="4" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{prodno}}</td>
             <td colspan="2" style="text-align: center;border: 1px solid #000;">产品图号</td>
-            <td colspan="6" style="text-align: center;border: 1px solid #000;">{{dwgno}}</td>
+            <td colspan="6" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{dwgno}}</td>
             <td colspan="2" style="text-align: center;border: 1px solid #000;">产品名称</td>
-            <td colspan="11" style="text-align: center;border: 1px solid #000;border-right-width: 2px;">{{prodname}}</td>
+            <td colspan="11" style="text-align: center;border: 1px solid #000;border-right-width: 2px;word-break:break-all;white-space:pre-wrapwhite-space:pre-wrap">{{prodname}}</td>
           </tr>
           <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 24px;">
             <td style="text-align: center;border: 1px solid #000;">序号</td>
@@ -92,17 +92,17 @@
             <td colspan="3" style="text-align: center;border: 1px solid #000;">备注</td>
           </tr>
           <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 30px;" *ngFor="let data of dataSet">
-            <td style="text-align: center;border: 1px solid #000;">{{data.index}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.issuedate}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.spartname}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.designation}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.spec}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.heatbatchno}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.codedmarking}}</td>
-            <td style="text-align: center;border: 1px solid #000;">{{data.qty}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.picker}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.issuematl}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.note}}</td>
+            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.index}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuedate}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spartname}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.designation}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spec}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.heatbatchno}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
+            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuematl}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
         </table>
       </div>
@@ -132,7 +132,7 @@
           <i nz-icon type="question-circle" theme="outline"></i>
         </button>
       </p>
-      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;padding-bottom: 25px;">
+      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;padding-bottom: 25px;width: 900px">
         <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
          collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 14px'>
           <colgroup width=49 style='mso-width-source:userset;mso-width-alt:1578;width:37pt'></colgroup>
@@ -160,11 +160,11 @@
           </tr>
           <tr style="height: 24px;">
             <td colspan="2" style="text-align: center;">产品编号</td>
-            <td colspan="3" style="text-align: center;">{{prodno}}</td>
+            <td colspan="3" style="text-align: center;word-break:break-all;white-space:pre-wrap">{{prodno}}</td>
             <td colspan="2" style="text-align: center;">产品名称</td>
-            <td colspan="4" style="text-align: center;">{{prodname}}</td>
+            <td colspan="4" style="text-align: center;word-break:break-all;white-space:pre-wrap">{{prodname}}</td>
             <td colspan="2" style="text-align: center;">产品图号</td>
-            <td colspan="3" style="text-align: center;">{{dwgno}}</td>
+            <td colspan="3" style="text-align: center;word-break:break-all;white-space:pre-wrap">{{dwgno}}</td>
           </tr>
           <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height:55px">
             <td colspan="2" style="text-align: center;border: 1px solid #000;">发料日期</td>
@@ -179,16 +179,16 @@
             <td style="text-align: center;border: 1px solid #000;">备注</td>
           </tr>
           <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 41px;" *ngFor="let data of dataSet">
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.issuedate}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">{{data.weldno}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.designation}}</td>
-            <td colspan="1" style="text-align: center;border: 1px solid #000;">{{data.spec}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.codedmarking}}</td>
-            <td style="text-align: center;border: 1px solid #000;">{{data.qty}}</td>
-            <td style="text-align: center;border: 1px solid #000;">{{data.returnqty}}</td>
-            <td style="text-align: center;border: 1px solid #000;">{{data.dimension}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">{{data.picker}}</td>
-            <td style="text-align: center;border: 1px solid #000;">{{data.note}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuedate}}</td>
+            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.weldno}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.designation}}</td>
+            <td colspan="1" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spec}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
+            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
+            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.returnqty}}</td>
+            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.dimension}}</td>
+            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
+            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
           <tr>
             <td colspan="16" style="height: 30px">

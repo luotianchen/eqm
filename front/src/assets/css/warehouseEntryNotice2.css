@@ -1,4 +1,7 @@
 /* 外购件 */
+table{
+  margin: 0 auto;
+}
 @page
 {margin:.75in .44in .75in .7in;
   mso-header-margin:.3in;

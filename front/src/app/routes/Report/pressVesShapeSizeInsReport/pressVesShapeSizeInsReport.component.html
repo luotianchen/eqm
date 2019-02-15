@@ -1,0 +1,682 @@
+<div>
+  <h3 class="title">报表模版页</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+
+<div #print>
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <essence-ng2-print
+      [mode]="'popup'"
+      [printCSS]="printCSS"
+      [popTitle]="'报表'"
+      [btnText]="'打印报表'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+  <table border=0 cellpadding=0 cellspacing=0 width=732 style='border-collapse:
+ collapse;table-layout:fixed;width:549pt'>
+    <colgroup width=33 style='mso-width-source:userset;mso-width-alt:1066;width:25pt'></colgroup>
+    <colgroup width=125 style='mso-width-source:userset;mso-width-alt:4010;width:94pt'></colgroup>
+    <colgroup width=43 style='mso-width-source:userset;mso-width-alt:1365;width:32pt'></colgroup>
+    <colgroup width=237 style='mso-width-source:userset;mso-width-alt:7594;width:178pt'></colgroup>
+    <colgroup width=147 style='mso-width-source:userset;mso-width-alt:4693;width:110pt'></colgroup>
+    <colgroup width=43 style='mso-width-source:userset;mso-width-alt:1365;width:32pt'></colgroup>
+    <colgroup width=35 style='mso-width-source:userset;mso-width-alt:1109;width:26pt'></colgroup>
+    <colgroup width=69 style='mso-width-source:userset;mso-width-alt:2218;width:52pt'></colgroup>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=2 height=17 class=xl85 width=158 style='height:13.5pt;width:119pt'>表J-08</td>
+      <td colspan=3 class=xl90 width=427 style='width:320pt'>　</td>
+      <td width=43 style='width:32pt'></td>
+      <td width=35 style='width:26pt'></td>
+      <td width=69 style='width:52pt'></td>
+    </tr>
+    <tr height=19 style='mso-height-source:userset;height:14.25pt'>
+      <td colspan=2 height=19 class=xl93 width=158 style='height:14.25pt;
+  width:119pt'>产品代号</td>
+      <td colspan=4 rowspan=2 class=xl94 width=470 style='width:352pt'>压力容器外观及几何尺寸检验报告</td>
+      <td colspan=2 class=xl91 width=104 style='border-right:2.0pt double black;
+  border-left:none;width:78pt'>出厂编号</td>
+    </tr>
+    <tr height=16 style='mso-height-source:userset;height:12.75pt'>
+      <td colspan=2 height=16 class=xl86 width=158 style='height:12.75pt;
+  width:119pt'>Product No.</td>
+      <td colspan=2 class=xl87 width=104 style='border-right:2.0pt double black;
+  border-left:none;width:78pt'>Ex-works No.</td>
+    </tr>
+    <tr height=12 style='mso-height-source:userset;height:9.75pt'>
+      <td colspan=2 rowspan=2 height=28 class=xl96 width=158 style='height:22.5pt;
+  width:119pt'>HTD10F3.000</td>
+      <td colspan=4 rowspan=2 class=xl89 width=470 style='width:352pt'>Inspection
+        Report for Profile and Geometric Size of Pressure Vessel</td>
+      <td colspan=2 rowspan=2 class=xl97 width=104 style='border-right:2.0pt double black;
+  width:78pt'>17R051</td>
+    </tr>
+    <tr height=16 style='mso-height-source:userset;height:12.75pt'>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td height=15 class=xl69 width=33 style='height:11.0pt;border-top:none;
+  width:25pt'>序号</td>
+      <td colspan=3 class=xl65 width=405 style='border-left:none;width:304pt'>检<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">查</font><font class="font6"><span style='mso-spacerun:yes'>
+  </span></font><font class="font9">项</font><font class="font6"><span
+        style='mso-spacerun:yes'>  </span></font><font class="font9">目</font></td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>标准规定</td>
+      <td colspan=2 class=xl65 width=78 style='border-left:none;width:58pt'>实测结果</td>
+      <td class=xl70 width=69 style='border-top:none;border-left:none;width:52pt'>检查结论</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td height=15 class=xl71 width=33 style='height:11.0pt;border-top:none;
+  width:25pt'>No.</td>
+      <td colspan=3 class=xl66 width=405 style='border-left:none;width:304pt'>Inspection
+        Items</td>
+      <td class=xl76 width=147 style='border-left:none;width:110pt'>Specified in
+        Std.<span style='mso-spacerun:yes'> </span></td>
+      <td colspan=2 class=xl66 width=78 style='border-left:none;width:58pt'>Actual
+        Result</td>
+      <td class=xl72 width=69 style='border-left:none;width:52pt;transform: scale(0.7);white-space: nowrap'>Insp. Conclusion</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>1</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>产品总高<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Product Total Height</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>2</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>壳体内径<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Inside Diameter of Shell</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>3</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>壳体长度<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Length of Shell</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>4</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>壳体直线度<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Straightness of Shell</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>5</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>壳体圆度<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Roundness of Shell</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>6</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>冷卷筒节投料的钢材厚度<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Thickness of Steel Plate Used for cold-rolled
+        Cylindrical Segment</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>7</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>封头成型后最小厚度<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Min. Thickness of Formed Head</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>8</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>封头内表面形状偏差<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>外凸≤1.25%Di</td>
+      <td colspan=2 class=xl103 width=78 style='border-left:none;width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Shape Deviation of Head Inner Surface</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'><span
+        style='mso-spacerun:yes'> </span>内凹≤0.625%Di</td>
+      <td colspan=2 class=xl66 width=78 style='border-left:none;width:58pt'>0</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>9</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>封头直边纵向皱折深度<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl82 width=147 style='width:110pt'>无None</td>
+      <td colspan=2 rowspan=2 class=xl82 width=78 style='width:58pt'>无None</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Longitudinal Wrinkling Depth of Head Skirt</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>10</td>
+      <td colspan=3 class=xl101 width=405 style='border-left:none;width:304pt'>A<font
+        class="font9">类焊缝最大棱角度</font><font class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>≤</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Max. Abrupt Ridge-or-Valley of Category A Weld</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>11</td>
+      <td colspan=3 class=xl101 width=405 style='border-left:none;width:304pt'>B<font
+        class="font9">类焊缝最大棱角度</font><font class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>≤</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Max. Abrupt Ridge-or-Valley of Category B
+        Weld<span style='mso-spacerun:yes'> </span></td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>12</td>
+      <td colspan=3 class=xl101 width=405 style='border-left:none;width:304pt'>A<font
+        class="font9">类焊缝最大错边量</font><font class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>≤</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl70 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Max Alignment-Offset of Category A Weld</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>13</td>
+      <td colspan=3 class=xl101 width=405 style='border-left:none;width:304pt'>B<font
+        class="font9">类焊缝最大错边量</font><font class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>≤</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Max Alignment-Offset of Category B Weld</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>14</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>焊缝最大咬边深度、长度<font
+        class="font6">/</font><font class="font9">连续长度</font><font class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl99 width=147 style='border-top:none;width:110pt'>无None</td>
+      <td colspan=2 rowspan=2 class=xl99 width=78 style='width:58pt'>无None</td>
+      <td class=xl70 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Max Undercut Depth, length/Continuous length of
+        Weld</td>
+      <td class=xl73 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=4 height=60 class=xl96 width=33 style='height:44.0pt;border-top:
+  none;width:25pt'>15</td>
+      <td rowspan=2 class=xl81 width=125 style='border-top:none;width:94pt'>焊缝余高</td>
+      <td colspan=2 class=xl104 width=280 style='border-left:none;width:210pt'>单面坡口<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=2 height=15 class=xl100 width=280 style='height:11.0pt;
+  border-left:none;width:210pt'>Single-Side Groove</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl129 width=125 style='height:22.0pt;
+  width:94pt'>Weld Reinforcement</td>
+      <td colspan=2 class=xl104 width=280 style='border-left:none;width:210pt'>双面坡口<font
+        class="font6"><span
+        style='mso-spacerun:yes'>
+  </span>mm</font></td>
+      <td rowspan=2 class=xl98 width=147 style='border-top:none;width:110pt'>0</td>
+      <td colspan=2 rowspan=2 class=xl98 width=78 style='width:58pt'>0</td>
+      <td class=xl75 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=2 height=15 class=xl102 width=280 style='height:11.0pt;
+  border-left:none;width:210pt'>Double-Side Groove</td>
+      <td class=xl74 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>16</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>焊缝外观质量</td>
+      <td class=xl65 width=147 style='border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl83 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl77 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Visual Quality of Weld</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>17</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>角焊缝质量</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl83 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl77 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Quality of Fillet Weld</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>18</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>端盖开合及联锁</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 rowspan=2 class=xl108 width=78 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;width:58pt'>--------</td>
+      <td rowspan=2 class=xl118 width=69 style='border-bottom:.5pt solid black;
+  border-top:none;width:52pt'>--------</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Open/Close and Interlock of Closure</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>19</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>法兰面垂直于接管或筒体</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 rowspan=2 class=xl108 width=78 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;width:58pt'>--------</td>
+      <td rowspan=2 class=xl118 width=69 style='border-bottom:.5pt solid black;
+  border-top:none;width:52pt'>--------</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Flange Face Perpendicular to Nozzle or
+        Cylindrical Shell</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>20</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>法兰密封面质量</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 rowspan=2 class=xl108 width=78 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;width:58pt'>--------</td>
+      <td rowspan=2 class=xl118 width=69 style='border-bottom:.5pt solid black;
+  border-top:none;width:52pt'>--------</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Quality of Flange Seal Face</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>21</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>法兰螺栓孔与设备主轴中心线位置</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 rowspan=2 class=xl108 width=78 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;width:58pt'>--------</td>
+      <td rowspan=2 class=xl118 width=69 style='border-bottom:.5pt solid black;
+  border-top:none;width:52pt'>--------</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Location of Flange-bolt-holes Relative to Main
+        Axis Center Line of Equipment</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>22</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>支座位置及地脚螺栓孔间距</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl83 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl77 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Support Location and Distance between Anchor
+        Bolt Holes</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>23</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>管口方位及尺寸</td>
+      <td class=xl65 width=147 style='border-top:none;border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl83 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl77 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Orientation and Size of Nozzle</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>24</td>
+      <td colspan=3 class=xl127 width=405 style='border-left:none;width:304pt'>补强圈</td>
+      <td class=xl68 width=147 style='border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 rowspan=2 class=xl108 width=78 style='border-right:.5pt solid black;
+  border-bottom:.5pt solid black;width:58pt'>--------</td>
+      <td rowspan=2 class=xl118 width=69 style='border-bottom:.5pt solid black;
+  border-top:none;width:52pt'>--------</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl102 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Pad Reinforcement</td>
+      <td class=xl67 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>25</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>主要内件位置及尺寸</td>
+      <td class=xl65 width=147 style='border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl83 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl77 width=69 style='border-top:none;border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Location and Size of Nozzle</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>26</td>
+      <td colspan=3 class=xl127 width=405 style='border-left:none;width:304pt'>容器内外表面质量</td>
+      <td class=xl68 width=147 style='border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl105 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl79 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl102 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Inner and Outer Surface Quality of Vessel</td>
+      <td class=xl67 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl112 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl80 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>27</td>
+      <td colspan=3 class=xl104 width=405 style='border-left:none;width:304pt'>铭牌安装位置及拓印件</td>
+      <td class=xl65 width=147 style='border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl83 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl77 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Location of Nameplate Mounting and
+        Corresponding Rubbing</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td rowspan=2 height=30 class=xl96 width=33 style='height:22.0pt;border-top:
+  none;width:25pt'>28</td>
+      <td colspan=3 class=xl127 width=405 style='border-left:none;width:304pt'>标志、油漆、包装</td>
+      <td class=xl68 width=147 style='border-left:none;width:110pt'>符合图样及标准</td>
+      <td colspan=2 class=xl105 width=78 style='border-left:none;width:58pt'>符<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">合</font></td>
+      <td class=xl79 width=69 style='border-left:none;width:52pt'>合<font
+        class="font6"><span style='mso-spacerun:yes'>  </span></font><font
+        class="font9">格</font></td>
+    </tr>
+    <tr height=15 style='mso-height-source:userset;height:11.0pt'>
+      <td colspan=3 height=15 class=xl100 width=405 style='height:11.0pt;
+  border-left:none;width:304pt'>Marking, Painting, and Packing</td>
+      <td class=xl66 width=147 style='border-left:none;width:110pt'>Conforming to
+        DWG and Std</td>
+      <td colspan=2 class=xl84 width=78 style='border-left:none;width:58pt'>Conforming</td>
+      <td class=xl78 width=69 style='border-left:none;width:52pt'>Acceptable</td>
+    </tr>
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=8 height=17 class=xl115 width=732 style='border-right:2.0pt double black;
+  height:13.5pt;width:549pt'>结论：<span style='mso-spacerun:yes'>
+  </span>本台产品外观及几何尺寸经检验符合 之要求，结论合格。</td>
+    </tr>
+    <tr height=24 style='mso-height-source:userset;height:18.75pt'>
+      <td colspan=8 height=24 class=xl122 width=732 style='border-right:2.0pt double black;
+  height:18.75pt;width:549pt'>Conlusion: The profile and geometric size of
+        product has been inspected and is conforming to the requirements in , the
+        result is Acceptable.<span style='mso-spacerun:yes'> </span></td>
+    </tr>
+
+    <tr height=17 style='mso-height-source:userset;height:13.5pt'>
+      <td colspan=5 height=17 class=xl125 width=585 style='height:13.5pt;
+  width:439pt'>检验责任师：<font class="font5"><span
+        style='mso-spacerun:yes'>                                                  
+  </span></font><font class="font8">产品检验员：</font><font class="font5"><span
+        style='mso-spacerun:yes'>                          </span></font></td>
+      <td colspan=3 class=xl113 width=147 style='border-right:2.0pt double black;
+  width:110pt'>2017年9月7日</td>
+    </tr>
+    <tr height=19 style='mso-height-source:userset;height:14.25pt'>
+      <td colspan=5 height=19 class=xl119 width=585 style='height:14.25pt;
+  width:439pt'>Inspector Engineer in Duty<span
+        style='mso-spacerun:yes'>                                               
+  </span>Inspector:<span
+        style='mso-spacerun:yes'>                                                      </span></td>
+      <td colspan=3 class=xl106 width=147 style='border-right:2.0pt double black;
+  width:110pt'>Sep.07,2017</td>
+    </tr>
+  </table>
+
+</div>

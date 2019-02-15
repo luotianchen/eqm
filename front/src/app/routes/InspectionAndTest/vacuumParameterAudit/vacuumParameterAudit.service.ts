@@ -10,6 +10,6 @@ export class VacuumParameterAuditService {
     return this.http.post(this.api.BASEURL+"/searchvacuumbystatus",{prodno:null,status:0});
   }
   audit(prodno,audit_user,status){//提交真空参数审核
-    return this.http.post(this.api.BASEURL+"/auditvacuumparameter",{prodno:prodno,audit_user:audit_user,status:status});
+    return this.http.post(this.api.BASEURL+"/changestatusforvacuum",{prodno:prodno,audit_user:audit_user,status:status});
   }
 }

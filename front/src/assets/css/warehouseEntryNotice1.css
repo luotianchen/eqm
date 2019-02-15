@@ -1,4 +1,7 @@
 /* 材料入库通知单 */
+table{
+  margin: 0 auto;
+}
 @page
 {margin:.51in .63in .75in .75in;
   mso-header-margin:.31in;

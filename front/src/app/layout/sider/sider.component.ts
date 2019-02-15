@@ -11,10 +11,9 @@ import {Router} from '@angular/router';
 
 export class SiderComponent {
   theme = true;
-  navs: any;
+  navs: [{name:''}];
   menulist: any;
   menuOpenMap = {};
-
   typeofNav() {
     return typeof this.settings.nav === 'undefined';
   }
@@ -24,9 +23,6 @@ export class SiderComponent {
   }
 
   constructor(public settings: SettingsService, private menuService: MenuService, private router: Router) {
-  }
-
-  ngOnInit() {
     this.theme = this.settings.layout.isDark;
     this.menuService.getNavs().then((result: any) => {
       this.navs = result.data;
@@ -41,8 +37,8 @@ export class SiderComponent {
           if (item.route == this.router.url) {
             flag = false;
           }
-          if (item.submenu != null) {
-            for (let sub of item.submenu) {
+          if (item['submenu'] != null) {
+            for (let sub of item['submenu']) {
               sub.highlight = sub.route == this.router.url;
               if(sub.route == this.router.url){
                 flag = false;
@@ -61,6 +57,9 @@ export class SiderComponent {
         this.settings.setnav(this.navs[0].name);
       }
     });
+  }
+
+  ngOnInit() {
   }
 
   openHandler(value: string): void {

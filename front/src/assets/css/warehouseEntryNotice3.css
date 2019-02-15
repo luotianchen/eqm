@@ -1,4 +1,7 @@
 /* 焊材 */
+table{
+  margin: 0 auto;
+}
 @page
 {margin:.75in .54in .75in .7in;
   mso-header-margin:.3in;

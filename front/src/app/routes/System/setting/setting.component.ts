@@ -20,6 +20,13 @@ export class SettingComponent implements OnInit {
   constructor(public fb: FormBuilder, public settingService: SettingService,public _storage: SessionStorageService,public msg:NzMessageService,public modalService: NzModalService) {
   }
   ngOnInit(): void {
+    this.settingService.getLogo().subscribe((res) => {
+      if (res['result'] == "success") {
+        this.imgURL = res['url'];
+      } else {
+        this.imgURL = null;
+      }
+    })
     this.matlcodeValidateForm = this.fb.group({
       index:[null,[Validators.required,Validators.maxLength(1)]],
       plank:[null,[Validators.required,Validators.maxLength(1)]],

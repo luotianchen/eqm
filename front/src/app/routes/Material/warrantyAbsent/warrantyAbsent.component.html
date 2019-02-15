@@ -32,7 +32,7 @@
           <div class="custom-filter-dropdown">
             <input type="text" nz-input placeholder="搜索炉批号" [(ngModel)]="searchheatbatchno" class="searchInput">
             <button nz-button [nzType]="'primary'" (click)="searchHeatbatchno()">搜索</button>
-            <button style="margin-left: 5px" nz-button [nzType]="'default'" (click)="this.searchheatbatchno = '';searchHeatbatchno()">重置</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchheatbatchno = '';searchHeatbatchno()">重置</button>
           </div>
         </nz-dropdown>
       </th>
@@ -43,7 +43,7 @@
           <div class="custom-filter-dropdown">
             <input type="text" nz-input placeholder="搜索质保书号" [(ngModel)]="searchwarrantyno" class="searchInput">
             <button nz-button [nzType]="'primary'" (click)="searchWarrantyno()">搜索</button>
-            <button style="margin-left: 5px" nz-button [nzType]="'default'" (click)="this.searchwarrantyno = '';searchWarrantyno()">重置</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchwarrantyno = '';searchWarrantyno()">重置</button>
           </div>
         </nz-dropdown>
       </th>

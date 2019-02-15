@@ -226,12 +226,19 @@ export class  MaterialReinspectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.materialReinspectionService.getcodedmarking().then((res:any)=>{
-      if(res['result']=="success")
+      if(res['result']=="success"){
         this.codedmarkings = [];
-      for(let item of res.data){
-        if(this.codedmarkings.indexOf(item['codedmarking']) == -1){
-          this.codedmarkings.push(item['codedmarking']);
+        for(let item of res.data){
+          if(this.codedmarkings.indexOf(item['codedmarking']) == -1){
+            this.codedmarkings.push(item['codedmarking']);
+          }
         }
+        console.log(this.codedmarkings);
+      }else{
+        this.modalService.error({
+          nzTitle: '错误',
+          nzContent: "没有可供登记的入库编号！"
+        });
       }
 
     });

@@ -62,6 +62,12 @@ import {VacuumTestReportComponent} from './Report/vacuumTestReport/vacuumTestRep
 import {VacuumInspectionReportComponent} from './Report/vacuumInspectionReport/vacuumInspectionReport.component';
 import {QuaPressVesPlanReportComponent} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.component';
 import {CertificateReportComponent} from "./Material/certificateReport/certificateReport.component";
+import {PressCoverReportComponent} from "./Report/pressCoverReport/pressCoverReport.component";
+import {QuaPlanPressVesReportComponent} from "./Profile/quaPlanPressVesReport/quaPlanPressVesReport.component";
+import {WelderMatlTraceRecordComponent} from "./Report/welderMatlTraceRecord/welderMatlTraceRecord.component";
+import {PressVesShapeSizeInsReportComponent} from "./Report/pressVesShapeSizeInsReport/pressVesShapeSizeInsReport.component";
+import {CleaningInsReportComponent} from "./Report/cleaningInsReport/cleaningInsReport.component";
+import {ConQuaInfoFbSheetComponent} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSheet.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -359,7 +365,37 @@ export const routes: Routes = [
       },{
         path: 'report/quaPressVesPlanReport', component: QuaPressVesPlanReportComponent, canActivate: [CanAuthProvide],
         data: {
+          breadcrumb: '压力容器产品质量计划新'
+        }
+      },{
+        path:'report/coverReport', component: PressCoverReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '压力容器封面'
+        }
+      },{
+        path:'report/quaPlanPressVesReport', component: QuaPlanPressVesReportComponent, canActivate: [CanAuthProvide],
+        data: {
           breadcrumb: '压力容器产品质量计划'
+        }
+      },{
+        path:'report/welderMatlTraceRecord', component: WelderMatlTraceRecordComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '焊工/材料跟踪记录'
+        }
+      },{
+        path:'report/pressVesShapeSizeInsReport', component: PressVesShapeSizeInsReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '压力容器外观及几何尺寸检验报告'
+        }
+      },{
+        path:'report/cleaningInsReport', component: CleaningInsReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '清洁度检查报告'
+        }
+      },{
+        path:'report/conQuaInfoFbSheet', component: ConQuaInfoFbSheetComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '用户质量信息反馈单'
         }
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},

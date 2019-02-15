@@ -12,5 +12,8 @@ export class CertificateReportService {
   getmaterial(codedmarking){
     return this.http.post(this.api.BASEURL+"/getmaterial",{codedmarking:codedmarking});
   }
+  getlogo(){
+    return this.http.get(`${this.api.BASEURL}/getlogo`);
+  }
 }
 

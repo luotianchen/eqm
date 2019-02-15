@@ -13,7 +13,7 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
 export class MaterialReinspectionCommissionAuditComponent implements OnInit {
   constructor(public materialReinspectionCommissionAuditService: MaterialReinspectionCommissionAuditService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
-  dataSet = []
+  dataSet = [];
   ngOnInit(): void {
     this.searchData();
   }
@@ -31,8 +31,8 @@ export class MaterialReinspectionCommissionAuditComponent implements OnInit {
     this.materialReinspectionCommissionAuditService.Audit(prodno,status,this._storage.get("username")).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
+        this.searchData();
       }
     });
-    this.searchData();
   }
 }

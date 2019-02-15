@@ -18,7 +18,7 @@
               "route": "/material/warehousingRegistration"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "入库登记审核",
               "route": "/material/warehousingAudit"
             },
@@ -40,7 +40,7 @@
               "route": "/material/materialSubstitution"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "材料代用审核",
               "route": "/material/materialSubstitutionAudit"
             },
@@ -71,7 +71,7 @@
               "route": "/material/pressurePartsDistribute"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "受压元件登记审核",
               "route": "/material/pressurePartsAudit"
             }]
@@ -108,32 +108,32 @@
             }]
         },
         {
-          "icon": "code-o",
+          "icon": "printer",
           "name": "报表生成",
           "route": "/charts",
           "submenu": [
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "入库通知单",
               "route": "/material/warehouseEntryNotice"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "受压元件使用材料一览表",
               "route": "/material/pressurePartsReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "材料台帐",
               "route": "/material/distributionLedger"
             },
             {
-              "icon": "laptop",
+              "icon": "barcode",
               "name": "材料合格证",
-              "route": "/404"
+              "route": "/material/approvalCertificate"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "检验记录",
               "route": "/material/inspectionRecords"
             }]
@@ -274,102 +274,102 @@
           ]
         },
         {
-          "icon": "code-o",
+          "icon": "printer",
           "name": "报表生成",
           "route": "/report",
           "submenu": [
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "压力试验通知单",
               "route": "/report/pressTestReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "气压（气液组合）试验过程卡 ",
               "route": "/report/pneumaticTestProcedureReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "液（水）压试验过程卡",
               "route": "/report/liquidPressTestReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "压力容器封面",
               "route": "/report/coverReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "压力容器产品合格证",
               "route": "/report/pressVesProdQuaCerReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "真空考核报告",
               "route": "/report/vacuumTestReport"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "真空检测报告",
               "route": "/report/vacuumInspectionReport"
             },
             {
-              "icon": "laptop",
-              "name": "压力容器产品质量计划",
+              "icon": "profile",
+              "name": "压力容器产品质量计划新",
               "route": "/report/quaPressVesPlanReport"
             },
             {
-              "icon": "laptop",
-              "name": "报表9",
-              "route": "/404"
+              "icon": "profile",
+              "name": "压力容器产品质量计划",
+              "route": "/report/quaPlanPressVesReport"
             },
             {
-              "icon": "laptop",
-              "name": "报表10",
-              "route": "/404"
+              "icon": "profile",
+              "name": "焊工/材料跟踪记录",
+              "route": "/report/welderMatlTraceRecord"
             },
             {
-              "icon": "laptop",
-              "name": "报表11",
-              "route": "/404"
+              "icon": "profile",
+              "name": "压力容器外观及几何尺寸检验报告",
+              "route": "/report/pressVesShapeSizeInsReport"
             },
             {
-              "icon": "laptop",
-              "name": "报表12",
-              "route": "/404"
+              "icon": "profile",
+              "name": "清洁度检查报告",
+              "route": "/report/cleaningInsReport"
             },
             {
-              "icon": "laptop",
-              "name": "报表13",
-              "route": "/404"
+              "icon": "profile",
+              "name": "用户质量信息反馈单",
+              "route": "/report/conQuaInfoFbSheet"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "报表14",
               "route": "/404"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "报表15",
               "route": "/404"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "报表16",
               "route": "/404"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "报表17",
               "route": "/404"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "报表18",
               "route": "/404"
             },
             {
-              "icon": "laptop",
+              "icon": "profile",
               "name": "报表19",
               "route": "/404"
             }

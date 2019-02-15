@@ -1,3 +1,6 @@
+table{
+  margin: 0 auto;
+}
 .font0
 {color:black;
   font-size:11.0pt;
@@ -184,7 +187,6 @@ td
   mso-generic-font-family:auto;
   mso-font-charset:134;
   mso-number-format:General;
-  text-align:general;
   vertical-align:middle;
   border:none;
   mso-background-source:auto;
@@ -192,6 +194,12 @@ td
   mso-protection:locked visible;
   white-space:nowrap;
   mso-rotate:0;}
+td p{
+  white-space: nowrap;
+  writing-mode: vertical-lr;
+  text-orientation: sideways-right;
+  margin: 0 auto;
+}
 .xl65
 {mso-style-parent:style0;
   font-size:9.0pt;

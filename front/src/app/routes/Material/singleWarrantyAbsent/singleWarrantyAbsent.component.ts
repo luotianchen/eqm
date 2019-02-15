@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SingleWarrantyAbsentService} from './singleWarrantyAbsent.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-singleWarrantyAbsent',
@@ -15,6 +16,7 @@ export class SingleWarrantyAbsentComponent implements OnInit {
   public total = 0;
   public loading = true;
   public matlcode = null;
+  public index = null;
   validateForm: FormGroup;
   constructor(public singleWarrantyAbsentService: SingleWarrantyAbsentService,public fb: FormBuilder){
   }

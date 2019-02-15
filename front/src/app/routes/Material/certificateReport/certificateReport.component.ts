@@ -18,6 +18,7 @@ export class CertificateReportComponent implements OnInit {
   year = null;
   month = null;
   day = null;
+  logourl = null;
   constructor(public certificateReportService:CertificateReportService,public fb: FormBuilder){
   }
   searchData(): void {
@@ -41,6 +42,11 @@ export class CertificateReportComponent implements OnInit {
     this.year = this.now.getFullYear();
     this.month = this.now.getMonth()+1;
     this.day = this.now.getDate();
+    this.certificateReportService.getlogo().subscribe(res=>{
+      if(res['result'] == "success"){
+        this.logourl = res['url'];
+      }
+    });
     this.certificateReportService.getcodedmarking().subscribe((res) => {
       if (res["result"] == "success") {
         this.codedmarkings = res['data'];

@@ -22,7 +22,7 @@ export class ProductManufacturingParametersService {
   }
   getOrderunit(){
     return new Promise((resolve, reject) => {
-      this.http.get(this.api.BASEURL+"/searchorderunit").subscribe(result=>{
+      this.http.get(this.api.BASEURL+"/getorderunit").subscribe(result=>{
         resolve(result);
       })
     })

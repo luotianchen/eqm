@@ -60,17 +60,18 @@ export class WarehouseEntryNoticeComponent implements OnInit {
     if(this.validateForm2.valid) {
         this.warehouseEntryNoticeService.getReport(this.validateForm2.value.codedmarking,null,null,null).subscribe((res)=>{
           if(res["result"]=="success"){
+            this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
             this.dataSet = res["data"];
             for(let item of this.dataSet){
               this.warehouseEntryNoticeService.getSignImage(item.user).then((res)=>{
-                item.user = res["url"];
+                item.usersign = res["url"];
               }).catch(err=>{
-                item.user = null;
+                item.usersign = null;
               });
               this.warehouseEntryNoticeService.getSignImage(item.audit_user).then((res)=>{
-                item.audit_user = res["url"];
+                item.audit_usersign = res["url"];
               }).catch(err=>{
-                item.audit_user = null;
+                item.audit_usersign = null;
               })
             }
           }else{
@@ -91,32 +92,36 @@ export class WarehouseEntryNoticeComponent implements OnInit {
           return;
         }else{
           this.mode = this.matlType[res['data']];
+          if(this.validateForm.valid) {
+            this.warehouseEntryNoticeService.getReport(null,this.validateForm.value.year,this.validateForm.value.month,this.validateForm.value.matlcode).subscribe((res)=>{
+              if(res["result"]=="success"){
+                this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
+                this.dataSet = res["data"];
+                for(let item of this.dataSet){
+                  this.warehouseEntryNoticeService.getSignImage(item.user).then((res)=>{
+                    item.usersign = res["url"];
+                  }).catch(err=>{
+                    item.usersign = null;
+                  });
+                  this.warehouseEntryNoticeService.getSignImage(item.audit_user).then((res)=>{
+                    item.audit_usersign = res["url"];
+                  }).catch(err=>{
+                    item.audit_usersign = null;
+                  });
+                }
+              }else{
+                this.msg.error("查询通知单失败，请核对输入信息后重新查询！");
+              }
+            })
+          }
         }
       }
     })
-    if(this.validateForm.valid) {
-      this.warehouseEntryNoticeService.getReport(null,this.validateForm.value.year,this.validateForm.value.month,this.validateForm.value.matlcode).subscribe((res)=>{
-        if(res["result"]=="success"){
-          this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
-          this.dataSet = res["data"];
-          for(let item of this.dataSet){
-            this.warehouseEntryNoticeService.getSignImage(item.user).then((res)=>{
-              item.user = res["url"];
-            }).catch(err=>{
-              item.user = null;
-            });
-            this.warehouseEntryNoticeService.getSignImage(item.audit_user).then((res)=>{
-              item.audit_user = res["url"];
-            }).catch(err=>{
-              item.audit_user = null;
-            });
-          }
-        }else{
-          this.msg.error("查询通知单失败，请核对输入信息后重新查询！");
-        }
-      })
-    }
   }
+  showDate(indate){
+    return indate.split('-')[0]+"年"+indate.split('-')[1]+"月"+indate.split('-')[2]+"日";
+  }
+
   printCSS: string[];
   printStyle: string;
   printBtnBoolean = true;

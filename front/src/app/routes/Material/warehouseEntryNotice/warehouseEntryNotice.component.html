@@ -251,11 +251,11 @@
       </tr>
       <tr height=44 style='mso-height-source:userset;height:33.0pt'>
         <td colspan=2 height=44 class=xl74 width=82 style='height:33.0pt;border-left:
-  none;width:62pt'>检验员：<img width="70px" *ngIf="item.user!=null" src="{{item.user}}"></td>
-        <td class=xl69 width=84 style='width:63pt'>　</td>
+  none;width:62pt'>检验员：</td>
+        <td class=xl69 width=84 style='width:63pt'><img width="70px" *ngIf="item.usersign!=null" src="{{item.usersign}}"></td>
         <td colspan=3 class=xl97>材料责任人：</td>
-        <td colspan=3 class=xl97><img width="70px" *ngIf="item.audit_user!=null" src="{{item.audit_user}}"></td>
-        <td colspan=3 class=xl97>日期：{{indate.split('-')[0]}}年{{indate.split('-')[1]}}月{{indate.split('-')[2]}}</td>
+        <td colspan=3 class=xl97><img width="70px" *ngIf="item.audit_usersign!=null" src="{{item.audit_usersign}}"></td>
+        <td colspan=3 class=xl97>日期：{{showDate(item.indate)}}</td>
         <td class=xl70>　</td>
       </tr>
       <tr height=44 style='mso-height-source:userset;height:33.0pt'>
@@ -370,7 +370,7 @@
         <td colspan=2 rowspan=2 class=xl79 width=182 style='width:137pt'>{{item.supplier}}</td>
         <td class=xl78 width=64 style='border-top:none;border-left:none;width:48pt'>出厂</td>
         <td colspan=2 rowspan=2 class=xl90 width=211 style='border-right:.5pt solid black;
-  border-bottom:.5pt solid black;width:158pt'>{{item.indate.split("-")[0]}}年{{item.indate.split("-")[1]}}月{{item.indate.split("-")[2]}}日</td>
+  border-bottom:.5pt solid black;width:158pt'>{{showDate(item.indate)}}</td>
         <td rowspan=2 class=xl75 width=71 style='border-top:none;width:53pt'>标准</td>
         <td rowspan=2 class=xl98 width=152 style='border-top:none;width:114pt'>{{item.modelstand}}</td>
       </tr>
@@ -514,10 +514,10 @@
       <tr height=33 style='mso-height-source:userset;height:25.5pt'>
         <td height=33 class=xl82 width=85 style='height:25.5pt;border-left:none;
   width:64pt'>检验员：</td>
-        <td class=xl83 width=97 style='width:73pt'><img width="70px" *ngIf="item.user!=null" src="{{item.user}}"></td>
+        <td class=xl83 width=97 style='width:73pt'><img width="70px" *ngIf="item.usersign!=null" src="{{item.usersign}}"></td>
         <td colspan=2 class=xl84>材料责任人：</td>
-        <td class=xl84><img width="70px" ng-if="item.audit_user!=null" src="{{item.audit_user}}"></td>
-        <td class=xl85>日期：{{item.indate.split("-")[0]}}年{{item.indate.split("-")[1]}}月{{item.indate.split("-")[2]}}日</td>
+        <td class=xl84><img width="70px" ng-if="item.audit_usersign!=null" src="{{item.audit_usersign}}"></td>
+        <td class=xl85>日期：{{showDate(item.indate)}}</td>
         <td class=xl86>　</td>
       </tr>
     </table>
@@ -745,11 +745,11 @@
       <tr height=31 style='mso-height-source:userset;height:23.25pt'>
         <td colspan=2 height=31 class=xl112 width=68 style='height:23.25pt;
   border-left:none;width:51pt'>检验员：</td>
-        <td colspan=2 class=xl85><img width="70px" *ngIf="item.user!=null" src="{{item.user}}"></td>
+        <td colspan=2 class=xl85><img width="70px" *ngIf="item.usersign!=null" src="{{item.usersign}}"></td>
         <td colspan=3 class=xl85>材料责任人：</td>
-        <td colspan=2 class=xl85><img width="70px" *ngIf="item.audit_user!=null" src="{{item.audit_user}}"></td>
+        <td colspan=2 class=xl85><img width="70px" *ngIf="item.audit_usersign!=null" src="{{item.audit_usersign}}"></td>
         <td colspan=2 class=xl85>日期：</td>
-        <td colspan=2 class=xl70>{{item.indate.split("-")[0]}}年{{item.indate.split("-")[1]}}月{{item.indate.split("-")[2]}}日</td>
+        <td colspan=2 class=xl70>{{showDate(item.indate)}}</td>
       </tr>
     </table>
   </div>

@@ -86,6 +86,11 @@ export class VacuumParameterComponent implements OnInit {
   }
   submitForm(){
     // TODO 这里的公式记得要写上
+    console.log((new Date(this.validateForm.value.initdate).getTime() - new Date(this.validateForm.value.enddate).getTime())/1000);
+    let q = null;
+    if(this.validateForm.value.type == "压力"){
+      q = (this.validateForm.value.initpa - this.validateForm.value.statpa) / (this.validateForm.value.initdate - this.validateForm.value.enddate);
+    }
     this.validateForm.controls['leakoutrate'].setValue("123");
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();

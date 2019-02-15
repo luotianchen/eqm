@@ -25,11 +25,11 @@
           <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;margin-left:20px">
             {{ uploading ? '上传中' : '开始上传' }}
           </button>
+          <button nz-button nzType="default" (click)="editimg = false" *ngIf="editimg" style="margin-left: 30px">取消</button>
         </div>
 
-        <img src="{{imgURL}}" style="width:200px;" *ngIf="imgURL!=null && !editimg">
-        <button nz-button type="primary" (click)="editimg = true" *ngIf="!editimg">修改logo</button>
-        <button nz-button nzType="primary" style="margin-left: 30px" (click)="editimg = true" *ngIf="edit && !editimg">上传LOGO</button>
+        <img src="{{imgURL}}" style="width:100px;" *ngIf="imgURL!=null && !editimg">
+        <button nz-button nzType="primary" (click)="editimg = true" *ngIf="!editimg" style="margin-left: 30px">修改logo</button>
       </div>
     </div>
   </nz-tab>

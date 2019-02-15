@@ -28,7 +28,9 @@ export class PressurePartsAuditComponent implements OnInit {
     this.pressurePartsAuditService.getaudit().subscribe((res)=>{
       if(res['result']=="success"){
         this.dataSet = res['data'];
-        console.log(this.dataSet);
+        for(let data of this.dataSet){
+          this.search(data.audit);
+        }
       }
     })
   }
