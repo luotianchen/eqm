@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import start.jdbc.jdbc;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 @CrossOrigin
 @Controller
@@ -21,6 +22,35 @@ public class contraststand {                                                    
         ResultSet rs=null;
         contraststandresult result=new contraststandresult();
         contraststanddata data = new contraststanddata();
+        deviation deviation = new deviation();
+
+        type ct = null;
+        ArrayList<type> c1 = new ArrayList<type>();
+        ArrayList<type> si1 = new ArrayList<type>();
+        ArrayList<type> mn1 = new ArrayList<type>();
+        ArrayList<type> cu1 = new ArrayList<type>();
+        ArrayList<type> ni1 = new ArrayList<type>();
+        ArrayList<type> cr1 = new ArrayList<type>();
+        ArrayList<type> mo1 = new ArrayList<type>();
+        ArrayList<type> nb1 = new ArrayList<type>();
+        ArrayList<type> v1 = new ArrayList<type>();
+        ArrayList<type> ti1 = new ArrayList<type>();
+        ArrayList<type> alt1 = new ArrayList<type>();
+        ArrayList<type> n1 = new ArrayList<type>();
+        ArrayList<type> mg1 = new ArrayList<type>();
+        ArrayList<type> p1 = new ArrayList<type>();
+        ArrayList<type> s1 = new ArrayList<type>();
+        ArrayList<type> als1 = new ArrayList<type>();
+        ArrayList<type> fe1 = new ArrayList<type>();
+        ArrayList<type> zn1 = new ArrayList<type>();
+        ArrayList<type> b1 = new ArrayList<type>();
+        ArrayList<type> w1 = new ArrayList<type>();
+        ArrayList<type> sb1 = new ArrayList<type>();
+        ArrayList<type> al1 = new ArrayList<type>();
+        ArrayList<type> zr1 = new ArrayList<type>();
+        ArrayList<type> ca1 = new ArrayList<type>();
+        ArrayList<type> be1 = new ArrayList<type>();
+
         minmax c = new minmax();
         minmax si = new minmax();
         minmax mn = new minmax();
@@ -62,11 +92,12 @@ public class contraststand {                                                    
         minmax ca = new minmax();
         minmax be = new minmax();
         String bendaxdia=null;
+        String type = null;
         int utclass_id=0;
         int utclass=0;
         int a=0;                                                         //判断是否为空
 
-        try{
+//        try{
 
             if((cp.getSpec()!=null) && (!cp.getSpec().equals(""))){
                 ps=conn.prepareStatement("SELECT * FROM contraststand WHERE matlstand=? and designation=? and spec_small<? and spec_big>=?");
@@ -162,6 +193,7 @@ public class contraststand {                                                    
                         be.setMax(rs.getString("be_big"));
                         bendaxdia=rs.getString("bendaxdia");
                         utclass_id=rs.getInt("bending_id_utclass");
+                        type = rs.getString("type");
                     }
                     rs.close();
                     ps.close();
@@ -216,11 +248,124 @@ public class contraststand {                                                    
                     data.setBe(be);
                     data.setBendaxdia(bendaxdia);
                     data.setUtclass(utclass);
+                    rs.close();
+                    ps.close();
+
+                    ps = conn.prepareStatement("SELECT * FROM compositiondev WHERE type = ?");
+                    ps.setString(1,type);
+                    rs = ps.executeQuery();
+                    while (rs.next()){
+                        ct = new type();
+                        ct.setRange(rs.getString("maxrange"),rs.getString("maxrange2"),rs.getString("minrange"),rs.getString("minrange"));
+                        ct.setDeviation(rs.getString("updeviation"),rs.getString("downdeviation"));
+                        if(rs.getString("element").equals("C")){
+                            c1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Si")){
+                            si1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Mn")){
+                            mn1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Cu")){
+                            cu1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Ni")){
+                            ni1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Cr")){
+                            cr1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Mo")){
+                            mo1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Nb")){
+                            nb1.add(ct);
+                        }
+                        if(rs.getString("element").equals("V")){
+                            v1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Ti")){
+                            ti1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Als")){
+                            als1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Alt")){
+                            alt1.add(ct);
+                        }
+                        if(rs.getString("element").equals("N")){
+                            n1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Fe")){
+                            fe1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Mg")){
+                            mg1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Zn")){
+                            zn1.add(ct);
+                        }
+                        if(rs.getString("element").equals("B")){
+                            b1.add(ct);
+                        }
+                        if(rs.getString("element").equals("W")){
+                            w1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Sb")){
+                            sb1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Al")){
+                            al1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Zr")){
+                            zr1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Ca")){
+                            ca1.add(ct);
+                        }
+                        if(rs.getString("element").equals("Be")){
+                            be1.add(ct);
+                        }
+                        if(rs.getString("element").equals("P")){
+                            p1.add(ct);
+                        }
+                        if(rs.getString("element").equals("S")){
+                            s1.add(ct);
+                        }
+                    }
+                    rs.close();
+                    ps.close();
+                    deviation.setC(c1);
+                    deviation.setSi(si1);
+                    deviation.setMn(mn1);
+                    deviation.setCu(cu1);
+                    deviation.setNi(ni1);
+                    deviation.setCr(cr1);
+                    deviation.setMo(mo1);
+                    deviation.setNb(nb1);
+                    deviation.setV(v1);
+                    deviation.setTi(ti1);
+                    deviation.setAls(als1);
+                    deviation.setAlt(alt1);
+                    deviation.setN(n1);
+                    deviation.setFe(fe1);
+                    deviation.setMg(mg1);
+                    deviation.setZn(zn1);
+                    deviation.setB(b1);
+                    deviation.setW(w1);
+                    deviation.setSb(sb1);
+                    deviation.setAl(al1);
+                    deviation.setZr(zr1);
+                    deviation.setCa(ca1);
+                    deviation.setBe(be1);
+                    deviation.setP(p1);
+                    deviation.setS(s1);
+                    data.setDeviation(deviation);
 
                     result.setResult("success");
                     result.setData(data);
-                    rs.close();
-                    ps.close();
+
                 }
 
 
@@ -327,6 +472,7 @@ public class contraststand {                                                    
                             be.setMax(rs.getString("be_big"));
                             bendaxdia=rs.getString("bendaxdia");
                             utclass_id=rs.getInt("bending_id_utclass");
+                            type = rs.getString("type");
 
                         }
                         rs.close();
@@ -383,11 +529,125 @@ public class contraststand {                                                    
                         data.setBe(be);
                         data.setBendaxdia(bendaxdia);
                         data.setUtclass(utclass);
+                        rs.close();
+                        ps.close();
+
+                        ps = conn.prepareStatement("SELECT * FROM compositiondev WHERE type = ?");
+                        ps.setString(1,type);
+                        rs = ps.executeQuery();
+                        while (rs.next()){
+                            ct = new type();
+                            ct.setRange(rs.getString("maxrange"),rs.getString("maxrange2"),rs.getString("minrange"),rs.getString("minrange"));
+                            ct.setDeviation(rs.getString("updeviation"),rs.getString("downdeviation"));
+                            if(rs.getString("element").equals("C")){
+                                c1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Si")){
+                                si1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Mn")){
+                                mn1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Cu")){
+                                cu1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Ni")){
+                                ni1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Cr")){
+                                cr1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Mo")){
+                                mo1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Nb")){
+                                nb1.add(ct);
+                            }
+                            if(rs.getString("element").equals("V")){
+                                v1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Ti")){
+                                ti1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Als")){
+                                als1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Alt")){
+                                alt1.add(ct);
+                            }
+                            if(rs.getString("element").equals("N")){
+                                n1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Fe")){
+                                fe1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Mg")){
+                                mg1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Zn")){
+                                zn1.add(ct);
+                            }
+                            if(rs.getString("element").equals("B")){
+                                b1.add(ct);
+                            }
+                            if(rs.getString("element").equals("W")){
+                                w1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Sb")){
+                                sb1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Al")){
+                                al1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Zr")){
+                                zr1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Ca")){
+                                ca1.add(ct);
+                            }
+                            if(rs.getString("element").equals("Be")){
+                                be1.add(ct);
+                            }
+                            if(rs.getString("element").equals("P")){
+                                p1.add(ct);
+                            }
+                            if(rs.getString("element").equals("S")){
+                                s1.add(ct);
+                            }
+                        }
+                        rs.close();
+                        ps.close();
+                        deviation.setC(c1);
+                        deviation.setSi(si1);
+                        deviation.setMn(mn1);
+                        deviation.setCu(cu1);
+                        deviation.setNi(ni1);
+                        deviation.setCr(cr1);
+                        deviation.setMo(mo1);
+                        deviation.setNb(nb1);
+                        deviation.setV(v1);
+                        deviation.setTi(ti1);
+                        deviation.setAls(als1);
+                        deviation.setAlt(alt1);
+                        deviation.setN(n1);
+                        deviation.setFe(fe1);
+                        deviation.setMg(mg1);
+                        deviation.setZn(zn1);
+                        deviation.setB(b1);
+                        deviation.setW(w1);
+                        deviation.setSb(sb1);
+                        deviation.setAl(al1);
+                        deviation.setZr(zr1);
+                        deviation.setCa(ca1);
+                        deviation.setBe(be1);
+                        deviation.setP(p1);
+                        deviation.setS(s1);
+                        data.setDeviation(deviation);
+
 
                         result.setResult("success");
                         result.setData(data);
-                        rs.close();
-                        ps.close();
+
                     }else{
                         result.setResult("fail");
                     }
@@ -397,11 +657,11 @@ public class contraststand {                                                    
 
 
 
-        }catch (Exception e ){
-            rs.close();
-            ps.close();
-            result.setResult("fail");
-        }
+//        }catch (Exception e ){
+//            rs.close();
+//            ps.close();
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }

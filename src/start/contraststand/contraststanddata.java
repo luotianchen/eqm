@@ -43,6 +43,7 @@ public class contraststanddata {
     private String note;
     private String bendaxdia;                           //弯轴直径
     private int utclass;                                //UT级别
+    private deviation deviation;
     public contraststanddata(){
         super();
     }
@@ -381,5 +382,13 @@ public class contraststanddata {
 
     public void setUtclass(int utclass) {
         this.utclass = utclass;
+    }
+
+    public start.contraststand.deviation getDeviation() {
+        return deviation;
+    }
+
+    public void setDeviation(start.contraststand.deviation deviation) {
+        this.deviation = deviation;
     }
 }

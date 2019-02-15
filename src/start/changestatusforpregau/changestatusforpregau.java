@@ -23,10 +23,10 @@ public class changestatusforpregau {                                //提交审�
         changestatusforpregauresult result = new changestatusforpregauresult();
 
         try {
-            ps = conn.prepareStatement("UPDATE pregaumeatable SET status = ? WHERE id = ? AND audit_user = ?");
+            ps = conn.prepareStatement("UPDATE pregaumeatable SET status = ?, audit_user = ? WHERE id = ?");
             ps.setInt(1,cp.getStatus());
-            ps.setInt(2,cp.getId());
-            ps.setString(3,cp.getAudit_user());
+            ps.setString(2,cp.getAudit_user());
+            ps.setInt(3,cp.getId());
             ps.executeUpdate();
             ps.close();
             result.setResult("success");
