@@ -48,6 +48,7 @@ public class searchprotestboardcom {                                    //产品
             rs = ps.executeQuery();
             while (rs.next()){
                 data = new searchprotestboardcomdata();
+                data.setId(rs.getInt("id"));
                 data.setProdno(rs.getString("prodno"));
                 data.setEvaluastand(rs.getString("evaluastand"));
                 data.setSpecimenno(rs.getString("specimenno"));

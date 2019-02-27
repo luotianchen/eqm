@@ -1,7 +1,9 @@
 package start.changestatusforprotest;
 
 public class changestatusforprotestpost {
+    private int id;
     private String prodno;
+    private String specimenno;
     private int status;
     private String audit_user;
     public changestatusforprotestpost(){
@@ -30,5 +32,21 @@ public class changestatusforprotestpost {
 
     public void setAudit_user(String audit_user) {
         this.audit_user = audit_user;
+    }
+
+    public String getSpecimenno() {
+        return specimenno;
+    }
+
+    public void setSpecimenno(String specimenno) {
+        this.specimenno = specimenno;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

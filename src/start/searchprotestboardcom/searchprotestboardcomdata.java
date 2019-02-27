@@ -1,6 +1,7 @@
 package start.searchprotestboardcom;
 
 public class searchprotestboardcomdata {
+    private int id;
     private String prodno;
     private String evaluastand;
     private String specimenno;
@@ -219,5 +220,13 @@ public class searchprotestboardcomdata {
 
     public void setAudit_user(String audit_user) {
         this.audit_user = audit_user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
