@@ -23,12 +23,27 @@ public class changestatusforpredata {                                   //提交
         changestatusforpredataresult result = new changestatusforpredataresult();
 
         try {
-            ps = conn.prepareStatement("UPDATE productplatedata SET status = ? WHERE prodno = ?");
+            ps = conn.prepareStatement("UPDATE productplatedata SET status = ?,audit_user = ? WHERE id = ?");
             ps.setInt(1,cp.getStatus());
-            ps.setString(2,cp.getProdno());
+            ps.setString(2,cp.getAudit_user());
+            ps.setInt(3,cp.getId());
             ps.executeUpdate();
             ps.close();
-            result.setResult("success");
+            if(cp.getStatus()==1){
+                ps = conn.prepareStatement("UPDATE productplatedata SET status = ? WHERE id != ? AND prodno=? AND specimenno=? AND status=?");
+                ps.setInt(1,3);
+                ps.setInt(2,cp.getId());
+                ps.setString(3,cp.getProdno());
+                ps.setString(4,cp.getSpecimenno());
+                ps.setInt(5,cp.getStatus());
+                ps.executeUpdate();
+                ps.close();
+                result.setResult("success");
+            }else if(cp.getStatus()==2){
+                result.setResult("success");
+            }else {
+                result.setResult("fail");
+            }
         }catch (Exception e){
             result.setResult("fail");
         }
