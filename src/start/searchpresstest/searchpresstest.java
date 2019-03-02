@@ -29,6 +29,7 @@ public class searchpresstest {                                      //压力试�
         ArrayList<String> detemp=new ArrayList<String>();
         ArrayList<String> wmedia=new ArrayList<String>();
         ArrayList<String> testpress=new ArrayList<String>();
+        ArrayList<String> leaktestp=new ArrayList<String>();
 
         int dwgno_id=0;
         int prodname_id=0;
@@ -75,6 +76,23 @@ public class searchpresstest {                                      //压力试�
             }
             rs.close();
             ps.close();
+
+            ps=conn.prepareStatement("SELECT * FROM leakagetest WHERE prodno=?");
+            ps.setString(1,sp.getProdno());
+            rs=ps.executeQuery();
+            while (rs.next()){
+                leaktestp.add(rs.getString("leaktestp"));
+            }
+            rs.close();
+            ps.close();
+            for (int i = 0; i < leaktestp.size() - 1; i++) {
+                for (int q = leaktestp.size() - 1; q > i; q--) {
+                    if (leaktestp.get(q).equals(leaktestp.get(i))) {
+                        leaktestp.remove(q);
+                    }
+                }
+            }
+
             for (int i = 0; i < pttype.size() - 1; i++) {
                 for (int q = pttype.size() - 1; q > i; q--) {
                     if (pttype.get(q).equals(pttype.get(i))) {

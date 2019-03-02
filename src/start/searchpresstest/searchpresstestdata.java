@@ -11,6 +11,7 @@ public class searchpresstestdata {
     private ArrayList<String> detemp;
     private ArrayList<String> wmedia;
     private ArrayList<String> testpress;
+    private ArrayList<String> leaktestp;
     private String user;
     private String audit_user;
     private String date;
@@ -104,5 +105,13 @@ public class searchpresstestdata {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public ArrayList<String> getLeaktestp() {
+        return leaktestp;
+    }
+
+    public void setLeaktestp(ArrayList<String> leaktestp) {
+        this.leaktestp = leaktestp;
     }
 }
