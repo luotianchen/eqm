@@ -24,17 +24,21 @@ public class getspecimenno {                                        //获取试�
         ResultSet rs1 = null;
 
         getspecimennoresult result = new getspecimennoresult();
-        ArrayList<String> as = new ArrayList<String>();
+        getspecimennodata data = null;
+        ArrayList<getspecimennodata> as = new ArrayList<getspecimennodata>();
 
         try {
             ps = conn.prepareStatement("SELECT * FROM protestboardcom WHERE status = 1");
             rs = ps.executeQuery();
             while (rs.next()){
+                data = new getspecimennodata();
                 ps1 = conn.prepareStatement("SELECT * FROM productplate WHERE status !=1");
                 rs1 = ps1.executeQuery();
                 while (rs1.next()){
                     if(rs.getString("prodno").equals(rs1.getString("prodno")) && rs.getString("specimenno").equals(rs1.getString("specimenno"))){
-                        as.add(rs.getString("specimenno"));
+                        data.setProdno(rs.getString("prodno"));
+                        data.setSpecimennno(rs.getString("specimenno"));
+                        as.add(data);
                         break;
                     }
                 }

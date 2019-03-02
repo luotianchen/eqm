@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class getspecimennoresult {
     private String result;
-    private ArrayList<String> data;
+    private ArrayList<getspecimennodata> data;
     public getspecimennoresult(){
         super();
     }
@@ -17,11 +17,11 @@ public class getspecimennoresult {
         this.result = result;
     }
 
-    public ArrayList<String> getData() {
+    public ArrayList<getspecimennodata> getData() {
         return data;
     }
 
-    public void setData(ArrayList<String> data) {
+    public void setData(ArrayList<getspecimennodata> data) {
         this.data = data;
     }
 }
