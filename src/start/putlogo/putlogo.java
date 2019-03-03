@@ -40,10 +40,22 @@ public class putlogo {
             FileUtils.copyInputStreamToFile(inputStream, file);
             String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/eqm/upload/" + filename;
 
-            ps = conn.prepareStatement("UPDATE email SET logo = ? WHERE id = 1");
-            ps.setString(1,url);
-            ps.executeUpdate();
-            ps.close();
+            ps = conn.prepareStatement("SELECT * FROM email WHERE id = 1");
+            rs = ps.executeQuery();
+            if(!rs.next()){
+                ps = conn.prepareStatement("INSERT INTO email(logo,id) VALUES (?,?)");
+                ps.setString(1,url);
+                ps.setInt(2,1);
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                ps = conn.prepareStatement("UPDATE email SET logo = ? WHERE id = 1");
+                ps.setString(1,url);
+                ps.executeUpdate();
+                ps.close();
+            }
+
+
 
             result.setResult("success");
 

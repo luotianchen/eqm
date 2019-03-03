@@ -26,6 +26,7 @@ public class checkproanddwg {                                           //确定
             ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno=? AND dwgno=?");
             ps.setString(1,cp.getProdno());
             ps.setString(2,cp.getDwgno());
+            rs = ps.executeQuery();
             if(rs.next()){
                 result.setResult("success");
             }else {
@@ -34,7 +35,7 @@ public class checkproanddwg {                                           //确定
             ps.close();
             rs.close();
         }catch (Exception e){
-            result.setResult("fail");
+            result.setResult(e.toString());
         }
         conn.close();
         return result;
