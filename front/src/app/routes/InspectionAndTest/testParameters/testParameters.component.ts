@@ -150,6 +150,19 @@ export class TestParametersComponent implements OnInit {
     })
   }
 
+  checklink(){
+    for(const i in this.validateForm.controls){
+      this.validateForm.controls[ i ].markAsDirty();
+      this.validateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.validateForm.valid) {
+      this.testParametersService.check(this.validateForm.value.prodno,this.validateForm.value.dwgno).subscribe(res=>{
+        if(res['result'] != "success"){
+            this.link = true;
+        }
+      })
+    }
+  }
   getChannel():void{
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
@@ -181,8 +194,6 @@ export class TestParametersComponent implements OnInit {
                 }
               }
               fbb.controls['testmedia'].setValue(item);
-            }else if(res['result'] == "donot"){
-              this.link = true;
             }
           })
 

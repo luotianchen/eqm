@@ -28,4 +28,10 @@ export class TestParametersService {
   putpreandleak(data){
     return this.http.post(this.api.BASEURL+"/putpreandleak",data);
   }
+  check(prodno,dwgno){//检查产品编号与图号连接状态
+    return this.http.post(this.api.BASEURL+"/checkproanddwg",{
+      prodno:prodno,
+      dwgno:dwgno
+    })
+  }
 }
