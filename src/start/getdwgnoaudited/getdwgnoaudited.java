@@ -24,7 +24,7 @@ public class getdwgnoaudited {                                      //获取所�
         ArrayList<String> as = new ArrayList<String>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE status = 1");
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 1");
             rs = ps.executeQuery();
             while (rs.next()){
                 as.add(rs.getString("dwgno"));

@@ -27,7 +27,31 @@ public class putprenotiform {                                                   
         int ppart_id = 0;
         try {
             if(pp.getTestmedia()==null || pp.getTestmedia().equals("")){
-                result.setResult("fail");
+                ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+                ps.setString(1,pp.getProdno());
+                rs = ps.executeQuery();
+                if(!rs.next()){
+                    rs.close();
+                    ps.close();
+                    ps = conn.prepareStatement("INSERT INTO prenotiform(prodno,dwgno,user) VALUES (?,?,?)");
+                    ps.setString(1,pp.getProdno());
+                    ps.setString(2,pp.getDwgno());
+                    ps.setString(3,pp.getUser());
+                    ps.executeUpdate();
+                    ps.close();
+
+                }else {
+                    rs.close();
+                    ps.close();
+                    ps = conn.prepareStatement("UPDATE prenotiform SET dwgno=?,user=? WHERE prodno=?");
+                    ps.setString(1,pp.getDwgno());
+                    ps.setString(2,pp.getUser());
+                    ps.setString(3,pp.getProdno());
+                    ps.executeUpdate();
+                    ps.close();
+                }
+
+                result.setResult("success");
             }else {
                 ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
                 ps.setString(1,pp.getProdno());
@@ -122,7 +146,7 @@ public class putprenotiform {                                                   
                     }else {
                         rs.close();
                         ps.close();
-                        result.setResult("fail");
+                        result.setResult("success");
                     }
                 }
 
