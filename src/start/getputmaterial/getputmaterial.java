@@ -106,6 +106,13 @@ public class getputmaterial {                                                   
             designation.add(rs.getString("designation"));                             ////返回牌号
             res.setResult("success");                                                       //添加成功
         }
+        for (int i = 0; i < designation.size() - 1; i++) {
+            for (int q = designation.size() - 1; q > i; q--) {
+                if (designation.get(q).equals(designation.get(i))) {
+                    designation.remove(q);
+                }
+            }
+        }
         data.setDesignation(designation);                                                         //添加到data
         rs.close();
         ps.close();

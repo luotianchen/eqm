@@ -23,17 +23,6 @@ public class Getmaterialcache {                                                 
         ResultSet rs=null;
         getmaterialcacheresult result = new getmaterialcacheresult();
         getmaterialcachedata data = new getmaterialcachedata();
-        int warrantystatus_id=0;
-        int matlname_id=0;
-        int matlstand_id=0;
-        int designation_id=0;
-        int millunit_id=0;
-        int impacttemp_id=0;
-        int bendangle_id=0;
-        int utclass_id=0;
-        int supplier_id=0;
-        int heatcondi_id=0;
-        int modelstand_id=0;
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         data.setCodedmarking(gp.getCodedmarking());
 
@@ -54,7 +43,7 @@ public class Getmaterialcache {                                                 
                     data.setNote(rs.getString("note"));
                     data.setIndate(sdf.format(rs.getDate("indate")));
                     data.setWarrantyno(rs.getString("warrantyno"));
-                    modelstand_id=rs.getInt("modelstand_id_modelstand");
+                    data.setModelstand(rs.getString("modelstand_id_modelstand"));
                     data.setSpec(rs.getString("spec"));
                     data.setQty(rs.getString("qty"));
                     data.setUnit(rs.getString("unit"));
@@ -88,16 +77,16 @@ public class Getmaterialcache {                                                 
                     data.setImpactp2(rs.getString("impactp2"));
                     data.setImpactp3(rs.getString("impactp3"));
                     data.setBendaxdia(rs.getString("bendaxdia"));
-                    warrantystatus_id=rs.getInt("warrantystatus_id_certsitu");
-                    matlname_id=rs.getInt("matlname_id_matlname");
-                    matlstand_id=rs.getInt("contraststand_id_matlstand");
-                    designation_id=rs.getInt("contraststand_id_designation");
-                    millunit_id=rs.getInt("millunit_id_millunit");
-                    impacttemp_id=rs.getInt("bending_id_impacttemp");
-                    bendangle_id=rs.getInt("bending_id_bendangle");
-                    utclass_id=rs.getInt("bending_id_utclass");
-                    supplier_id=rs.getInt("supplier_id_supplier");
-                    heatcondi_id=rs.getInt("heattreatcondition_id_heatcondi");
+                    data.setWarrantysitu(rs.getString("warrantystatus_id_certsitu"));
+                    data.setMatlname(rs.getString("matlname_id_matlname"));
+                    data.setMatlstand(rs.getString("contraststand_id_matlstand"));
+                    data.setDesignation(rs.getString("contraststand_id_designation"));
+                    data.setMillunit(rs.getString("millunit_id_millunit"));
+                    data.setImpacttemp(rs.getString("bending_id_impacttemp"));
+                    data.setBendangle(rs.getString("bending_id_bendangle"));
+                    data.setUtclass(rs.getInt("bending_id_utclass"));
+                    data.setSupplier(rs.getString("supplier_id_supplier"));
+                    data.setHeatcondi(rs.getString("heattreatcondition_id_heatcondi"));
                     data.setAls(rs.getString("als"));
                     data.setFe(rs.getString("fe"));
                     data.setZn(rs.getString("zn"));
@@ -112,105 +101,6 @@ public class Getmaterialcache {                                                 
                 rs.close();
                 ps.close();
 
-
-                ps=conn.prepareStatement("SELECT * FROM modelstand WHERE id=?");
-                ps.setInt(1,modelstand_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setModelstand(rs.getString("modelstand"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE id=?");
-                ps.setInt(1,warrantystatus_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setWarrantysitu(rs.getString("certsitu"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM matlname WHERE id=?");
-                ps.setInt(1,matlname_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setMatlname(rs.getString("matlname"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                ps.setInt(1,matlstand_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setMatlstand(rs.getString("matlstand"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                ps.setInt(1,designation_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setDesignation(rs.getString("designation"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM millunit WHERE id=?");
-                ps.setInt(1,millunit_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setMillunit(rs.getString("millunit"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
-                ps.setInt(1,bendangle_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setBendangle(rs.getString("bendangle"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
-                ps.setInt(1,utclass_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setUtclass(rs.getInt("utclass"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM supplier WHERE id=?");
-                ps.setInt(1,supplier_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setSupplier(rs.getString("supplier"));
-                }
-                rs.close();
-                ps.close();
-
-
-                ps=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-                ps.setInt(1,heatcondi_id);
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    data.setHeatcondi(rs.getString("heatcondi"));
-                }
-                rs.close();
-                ps.close();
 
                 result.setResult("success");
             }

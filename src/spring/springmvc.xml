@@ -11,9 +11,10 @@
 
 >
     <!-- 静态资源映射 -->
+    <!--
     <mvc:resources mapping="/eqm/**" location="/WEB-INF/eqm/"></mvc:resources>
     <mvc:resources mapping="/report/**" location="/WEB-INF/eqm/assets/report"></mvc:resources>
-
+    -->
     <!-- 组件扫描 -->
     <context:component-scan base-package="start"></context:component-scan>
     <mvc:default-servlet-handler/>
