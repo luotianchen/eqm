@@ -16,6 +16,7 @@ export class TestParametersComponent implements OnInit {
   public exitnos = [];
   public dataModel = [
   ]
+  public link = false;
   public pparts = [
     {
       label: "整体",value:{name:"整体",ename: "Integer"}
@@ -180,6 +181,8 @@ export class TestParametersComponent implements OnInit {
                 }
               }
               fbb.controls['testmedia'].setValue(item);
+            }else if(res['result'] == "donot"){
+              this.link = true;
             }
           })
 
@@ -302,11 +305,11 @@ export class TestParametersComponent implements OnInit {
               model.dated3.press['ppart'] = data.name;
                       fbb.controls['dated3'].setValue(res['data']['press']['dated']);
                       fbb.setControl('dated3',new FormControl({value: res['data']['press']['dated'], disabled: true}));
-          if(model.leaktest){
-            model.dated3.leak = res['data']['leak'];
-            model.dated3.leak['leaktestp'] = data.leaktestp;
-                model.dated3.leak['ppart'] = data.name;
-          }
+                      if(model.leaktest){
+                        model.dated3.leak = res['data']['leak'];
+                        model.dated3.leak['leaktestp'] = data.leaktestp;
+                            model.dated3.leak['ppart'] = data.name;
+                      }
                     }
                     this.dataModel.push(model);
                   })
@@ -398,5 +401,16 @@ export class TestParametersComponent implements OnInit {
         nzContent: '您的信息未填写完整！'
       });
     }
+  }
+  linkProdnoandDwgno(){
+    this.testParametersService.putPressureTest({prodno:this.validateForm.value.prodno,dwgno:this.validateForm.value.dwgno,user:this._storage.get("username")}).subscribe(res=>{
+      if(res['result'] == 'success'){
+        this.modalService.success({
+          nzTitle: '成功',
+          nzContent: '连接成功！'
+        });
+        this.link = false;
+      }
+    })
   }
 }

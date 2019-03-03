@@ -198,8 +198,8 @@ export class DesignInputComponent implements OnInit {
     });
     this.validateForm = this.fb.group({
       dwgno: [null, [Validators.required]],//总图号
-      dwgno1: [null, [Validators.required]],//图号1
-      dwgno2: [null, [Validators.required]],//图号2
+      dwgno1: [null],//图号1
+      dwgno2: [null],//图号2
       prodname: [null, [Validators.required]],//产品名称
       type: [null, [Validators.required]],//容器类别
       mainstand: [null, [Validators.required]],//产品标准1（主要）
@@ -393,7 +393,6 @@ export class DesignInputComponent implements OnInit {
     }
   }
   submitForm(){
-    console.log(this.validateForm.value.channelnum);
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
@@ -418,7 +417,7 @@ export class DesignInputComponent implements OnInit {
           "shthick3":this.validateForm1.value.shthick3,
           "liningmatl":this.validateForm1.value.liningmatl,
           "liningthick":this.validateForm1.value.liningthick,
-          "wmedia":this.validateForm1.value.wmedia,
+          "wmedia":this.validateForm1.value.wmedia.name,
           "hdthick1":this.validateForm1.value.hdthick1,
           "hdthick2":this.validateForm1.value.hdthick2,
           "maxwpress":this.validateForm1.value.maxwpress,
@@ -427,7 +426,8 @@ export class DesignInputComponent implements OnInit {
           "wpress":this.validateForm1.value.wpress,
           "wtemp":this.validateForm1.value.wtemp,
           "testpress":this.validateForm1.value.testpress,
-          "leaktest":this.validateForm1.value.leaktest,
+          "leaktest":this.validateForm1.value.leaktest.name,
+          "eleaktest":this.validateForm1.value.leaktest.value.ename,
           "leaktestp":this.validateForm1.value.leaktestp,
           "pttype":this.validateForm1.value.pttype.name,
           "epttype":this.validateForm1.value.pttype.ename
@@ -450,7 +450,7 @@ export class DesignInputComponent implements OnInit {
           "shthick3":this.validateForm2.value.shthick3,
           "liningmatl":this.validateForm2.value.liningmatl,
           "liningthick":this.validateForm2.value.liningthick,
-          "wmedia":this.validateForm2.value.wmedia,
+          "wmedia":this.validateForm2.value.wmedia.name,
           "hdthick1":this.validateForm2.value.hdthick1,
           "hdthick2":this.validateForm2.value.hdthick2,
           "maxwpress":this.validateForm2.value.maxwpress,
@@ -459,7 +459,8 @@ export class DesignInputComponent implements OnInit {
           "wpress":this.validateForm2.value.wpress,
           "wtemp":this.validateForm2.value.wtemp,
           "testpress":this.validateForm2.value.testpress,
-          "leaktest":this.validateForm2.value.leaktest,
+          "leaktest":this.validateForm2.value.leaktest.name,
+          "eleaktest":this.validateForm2.value.leaktest.value.ename,
           "leaktestp":this.validateForm2.value.leaktestp,
           "pttype":this.validateForm2.value.pttype.name,
           "epttype":this.validateForm2.value.pttype.ename
@@ -468,8 +469,6 @@ export class DesignInputComponent implements OnInit {
       for(let data of this.dataSet){
         data.ename = data.name.ename;
         data.name = data.name.name;
-        data.eleaktest = data.leaktest.ename;
-        data.leaktest = data.leaktest.name;
         data.epttype = data.pttype.ename;
         data.pttype = data.pttype.name;
         channelData.push(data);
@@ -513,7 +512,7 @@ export class DesignInputComponent implements OnInit {
               "shthick3":this.validateForm2.value.shthick3,
               "liningmatl":this.validateForm2.value.liningmatl,
               "liningthick":this.validateForm2.value.liningthick,
-              "wmedia":this.validateForm2.value.wmedia,
+              "wmedia":this.validateForm2.value.wmedia.name,
               "hdthick1":this.validateForm2.value.hdthick1,
               "hdthick2":this.validateForm2.value.hdthick2,
               "maxwpress":this.validateForm2.value.maxwpress,
@@ -522,7 +521,8 @@ export class DesignInputComponent implements OnInit {
               "wpress":this.validateForm2.value.wpress,
               "wtemp":this.validateForm2.value.wtemp,
               "testpress":this.validateForm2.value.testpress,
-              "leaktest":this.validateForm2.value.leaktest,
+              "leaktest":this.validateForm2.value.leaktest.name,
+              "eleaktest":this.validateForm2.value.leaktest.value.ename,
               "leaktestp":this.validateForm2.value.leaktestp,
               "pttype":this.validateForm2.value.pttype.name,
               "epttype":this.validateForm2.value.pttype.ename
