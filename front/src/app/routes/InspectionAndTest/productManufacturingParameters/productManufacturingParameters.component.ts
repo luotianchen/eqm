@@ -89,7 +89,7 @@ export class ProductManufacturingParametersComponent implements OnInit {
     this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "dwgno":[null, [Validators.required]],
-      "orderunit":[null, [Validators.required]],
+      "orderunit":[null],
       "ecode":[null, [Validators.required]],
       "dealter":["无", [Validators.required]],
       "submatl":["无", [Validators.required]],

@@ -26,18 +26,9 @@ public class putrole {                                  //增加角色
         int department_id=0;
 
         try {
-            ps= conn.prepareStatement("SELECT * FROM department WHERE departmentname = ?");
-            ps.setString(1,pp.getDepartment());
-            rs = ps.executeQuery();
-            if(rs.next()){
-                department_id = rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
             ps = conn.prepareStatement("INSERT INTO role(rolename,department_id) values (?,?)");
             ps.setString(1,pp.getRolename());
-            ps.setInt(2,department_id);
+            ps.setInt(2,pp.getDepartment());
             ps.executeUpdate();
             ps.close();
 

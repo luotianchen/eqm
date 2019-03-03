@@ -69,6 +69,8 @@ import {WelderMatlTraceRecordModule} from "./Report/welderMatlTraceRecord/welder
 import {PressVesShapeSizeInsReportModule} from "./Report/pressVesShapeSizeInsReport/pressVesShapeSizeInsReport.module";
 import {CleaningInsReportModule} from "./Report/cleaningInsReport/cleaningInsReport.module";
 import {ConQuaInfoFbSheetModule} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSheet.module";
+import {WeldingRecordModule} from "./InspectionAndTest/weldingRecord/weldingRecord.module";
+import {WaterQualityDetectionInputModule} from "./PhysicalAndChemical/waterQualityDetectionInput/waterQualityDetectionInput.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -139,7 +141,9 @@ import {ConQuaInfoFbSheetModule} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSh
     WelderMatlTraceRecordModule,
     PressVesShapeSizeInsReportModule,
     CleaningInsReportModule,
-    ConQuaInfoFbSheetModule
+    ConQuaInfoFbSheetModule,
+    WeldingRecordModule,
+    WaterQualityDetectionInputModule,
   ]
 })
 

@@ -68,6 +68,8 @@ import {WelderMatlTraceRecordComponent} from "./Report/welderMatlTraceRecord/wel
 import {PressVesShapeSizeInsReportComponent} from "./Report/pressVesShapeSizeInsReport/pressVesShapeSizeInsReport.component";
 import {CleaningInsReportComponent} from "./Report/cleaningInsReport/cleaningInsReport.component";
 import {ConQuaInfoFbSheetComponent} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSheet.component";
+import {WeldingRecordComponent} from "./InspectionAndTest/weldingRecord/weldingRecord.component";
+import {WaterQualityDetectionInputComponent} from "./PhysicalAndChemical/waterQualityDetectionInput/waterQualityDetectionInput.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -238,6 +240,11 @@ export const routes: Routes = [
           breadcrumb: '真空参数审核'
         }
       },{
+        path: 'inspectionAndTest/weldingRecord', component: WeldingRecordComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '焊接记录输入'
+        }
+      },{
         path: 'material/inspectionRecords', component: InspectionRecordsComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '检验记录报表'
@@ -321,6 +328,11 @@ export const routes: Routes = [
         path: 'physicalAndChemical/materialReinspectionQuery', component: MaterialReinspectionQueryComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '材料复验登记查询'
+        }
+      },{
+        path: 'physicalAndChemical/waterQualityDetectionInput', component: WaterQualityDetectionInputComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '水质检验输入'
         }
       },{
         path: 'inspectionAndTest/productManufacturingParameters', component: ProductManufacturingParametersComponent, canActivate: [CanAuthProvide],

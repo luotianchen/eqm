@@ -707,7 +707,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="maxwpress">
-            最高工作压力
+            最高工作压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="maxwpress" [nzMin]="0" name="maxwpress" id="maxwpress" [nzStep]="1" [nzPlaceHolder]="'最高工作压力'" style="width:100%;"></nz-input-number>
@@ -720,7 +720,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="depress">
-            设计压力
+            设计压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="depress" [nzMin]="0" name="depress" id="depress" [nzStep]="1" [nzPlaceHolder]="'设计压力'" style="width:100%;"></nz-input-number>
@@ -746,7 +746,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="detemp">
-            工作压力
+            工作压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="wpress" [nzMin]="0" name="wpress" id="wpress" [nzStep]="1" [nzPlaceHolder]="'工作压力'" style="width:100%;"></nz-input-number>
@@ -772,7 +772,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="testpress">
-            试验压力
+            试验压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="testpress" [nzMin]="0" name="testpress" id="testpress" [nzStep]="1" [nzPlaceHolder]="'试验压力'" style="width:100%;"></nz-input-number>
@@ -800,7 +800,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="leaktestp">
-            气密性试验压力
+            气密性试验压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="leaktestp" [nzMin]="0" name="leaktestp" id="leaktestp" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
@@ -1002,7 +1002,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="maxwpress">
-            最高工作压力
+            最高工作压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="maxwpress" [nzMin]="0" name="maxwpress" id="maxwpress" [nzStep]="1" [nzPlaceHolder]="'最高工作压力'" style="width:100%;"></nz-input-number>
@@ -1015,7 +1015,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="depress">
-            设计压力
+            设计压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="depress" [nzMin]="0" name="depress" id="depress" [nzStep]="1" [nzPlaceHolder]="'设计压力'" style="width:100%;"></nz-input-number>
@@ -1041,7 +1041,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="wpress">
-            工作压力
+            工作压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="wpress" [nzMin]="0" name="wpress" id="wpress" [nzStep]="1" [nzPlaceHolder]="'工作压力'" style="width:100%;"></nz-input-number>
@@ -1067,7 +1067,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="testpress">
-            试验压力
+            试验压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="testpress" [nzMin]="0" name="testpress" id="testpress" [nzStep]="1" [nzPlaceHolder]="'试验压力'" style="width:100%;"></nz-input-number>
@@ -1095,7 +1095,7 @@
       <div nz-col nzSpan="4">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="leaktestp">
-            气密性试验压力
+            气密性试验压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="leaktestp" [nzMin]="0" name="leaktestp" id="leaktestp" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
@@ -1191,11 +1191,11 @@
   </div>
   <div nz-row [nzGutter]="16"  style="margin: 20px -8px;">
       <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">最高工作压力</p>
+        <p style="margin-top: 10px;margin-bottom: 10px">最高工作压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.maxwpress" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'最高工作压力'" style="width:100%;"></nz-input-number>
       </div>
       <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">设计压力</p>
+        <p style="margin-top: 10px;margin-bottom: 10px">设计压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.depress" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'设计压力'" style="width:100%;"></nz-input-number>
       </div>
       <div nz-col nzSpan="4">
@@ -1203,7 +1203,7 @@
             <nz-input-number [(ngModel)]="data.detemp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'设计温度'" style="width:100%;"></nz-input-number>
       </div>
       <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">工作压力</p>
+        <p style="margin-top: 10px;margin-bottom: 10px">工作压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.wpress" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'工作压力'" style="width:100%;"></nz-input-number>
       </div>
       <div nz-col nzSpan="4">
@@ -1211,7 +1211,7 @@
             <nz-input-number [(ngModel)]="data.wtemp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'工作温度'" style="width:100%;"></nz-input-number>
       </div>
       <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">试验压力</p>
+        <p style="margin-top: 10px;margin-bottom: 10px">试验压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.testpress" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'试验压力'" style="width:100%;"></nz-input-number>
       </div>
   </div>
@@ -1223,7 +1223,7 @@
             </nz-select>
       </div>
       <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">气密性试验压力</p>
+        <p style="margin-top: 10px;margin-bottom: 10px">气密性试验压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.leaktestp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
       </div>
       <div nz-col nzSpan="4">

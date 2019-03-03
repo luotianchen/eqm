@@ -23,6 +23,9 @@ export class SiderComponent {
   }
 
   constructor(public settings: SettingsService, private menuService: MenuService, private router: Router) {
+  }
+
+  ngOnInit() {
     this.theme = this.settings.layout.isDark;
     this.menuService.getNavs().then((result: any) => {
       this.navs = result.data;
@@ -57,9 +60,6 @@ export class SiderComponent {
         this.settings.setnav(this.navs[0].name);
       }
     });
-  }
-
-  ngOnInit() {
   }
 
   openHandler(value: string): void {

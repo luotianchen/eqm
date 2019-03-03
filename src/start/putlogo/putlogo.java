@@ -38,7 +38,7 @@ public class putlogo {
             String filename = getUploadFileName(multipartFile);                                 //将文件上传的服务器根目录下的upload文件夹
             File file = new File(uploadPath, filename);
             FileUtils.copyInputStreamToFile(inputStream, file);
-            String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/upload/" + filename;
+            String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/eqm/upload/" + filename;
 
             ps = conn.prepareStatement("UPDATE email SET logo = ? WHERE id = 1");
             ps.setString(1,url);

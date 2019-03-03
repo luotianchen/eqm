@@ -224,7 +224,7 @@
         },{
           "icon": "laptop",
           "name": "水质检验输入",
-          "route": "/physicalAndChemical/productTestBoardDataRegistrationQuery"
+          "route": "/physicalAndChemical/waterQualityDetectionInput"
         }
       ]
     },
@@ -269,7 +269,7 @@
             {
               "icon": "laptop",
               "name": "焊接记录输入",
-              "route": "/inspectionAndTest/productManufacturingParametersAudit"
+              "route": "/inspectionAndTest/weldingRecord"
             }
           ]
         },

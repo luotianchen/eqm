@@ -21,6 +21,9 @@ export class VacuumParameterService {
     return this.http.post(this.api.BASEURL+"/putmatlname",{matlname:matlname});
   }
   putVacuumParameter(data){
-    return this.http.post(this.api.BASEURL+"/putVacuumParameter",data)
+    return this.http.post(this.api.BASEURL+"/putvacuum",data)
+  }
+  searchChannelData(dwgno){
+    return this.http.post(this.api.BASEURL+"/searchchanneldata",{dwgno:dwgno})
   }
 }

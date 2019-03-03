@@ -82,7 +82,6 @@ export class ProductTestBoardCommissionComponent implements OnInit {
       this.productTestBoardCommissionService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
-          this.validateForm.controls['dwgno'].setValue(res['dwgno']);
         }
       })
     }
@@ -100,6 +99,8 @@ export class ProductTestBoardCommissionComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
+    console.log(this.validateForm.valid);
+    console.log(this.validateForm.controls);
     if(this.validateForm.valid){
       this.productTestBoardCommissionService.putproducttestboardcommission(
         {

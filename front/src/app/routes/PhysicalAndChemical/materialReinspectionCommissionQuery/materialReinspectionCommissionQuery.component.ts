@@ -13,16 +13,24 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
 export class MaterialReinspectionCommissionQueryComponent implements OnInit {
   constructor(public materialReinspectionCommissionQueryService: MaterialReinspectionCommissionQueryService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
-  dataSet = []
+  dataSet = [];
+  audited = {};
   ngOnInit(): void {
     this.searchData();
   }
   searchData(){
+    this.materialReinspectionCommissionQueryService.searchrematerial().subscribe(res=>{
+      if(res['result']=='success'){
+        for(let item of res['data']){
+          this.audited['a'+item['codedmarking']] = true;
+        }
+      }
+    });
     this.materialReinspectionCommissionQueryService.getAudit().subscribe((res)=>{
       if(res['result']=='success'){
         this.dataSet = res['data'];
-        for(let data of this.dataSet){
-          data.expand = true;
+        for(let data2 of this.dataSet){
+          data2.expand = true;
         }
       }
     })

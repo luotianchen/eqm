@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ConQuaInfoFbSheetService} from './ConQuaInfoFbSheet.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ConQuaInfoFbSheetService} from "./conQuaInfoFbSheet.service";
 
 @Component({
   selector: 'app-conQuaInfoFbSheet',

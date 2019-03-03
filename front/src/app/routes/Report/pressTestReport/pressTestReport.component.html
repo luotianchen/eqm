@@ -1,5 +1,5 @@
 <div>
-  <h3 class="title">ya</h3>
+  <h3 class="title">压力试验通知单</h3>
 </div>
 <nz-divider></nz-divider>
 <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
@@ -20,7 +20,7 @@
   </div>
 </form>
 
-<div #print>
+<div #print *ngIf="status">
   <p style="margin-bottom: 20px;margin-top: 20px">
     <essence-ng2-print
       [mode]="'popup'"
@@ -83,22 +83,18 @@
       <td colspan=4 height=33 class=xl89 width=141 style='border-right:.5pt solid black;
   height:25.0pt;width:106pt'>产品编号</td>
       <td colspan=2 class=xl80 width=114 style='border-right:.5pt solid black;
-  border-left:none;width:85pt'>17R051</td>
+  border-left:none;width:85pt'>{{prodno}}</td>
       <td colspan=4 class=xl80 width=229 style='border-left:none;width:172pt'>产品图号</td>
       <td colspan=3 class=xl122 width=193 style='border-right:1.0pt solid black;
-  width:145pt'>HTD10F3.000</td>
+  width:145pt'>{{dataDetail['dwgno']}}</td>
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=4 height=33 class=xl89 width=141 style='height:25.0pt;width:106pt'>试压类别</td>
-      <td colspan=5 class=xl115 width=295 style='width:221pt'>气压试验</td>
-      <td colspan=4 class=xl113 width=241 style='border-right:1.0pt solid black;
-  width:181pt'>/</td>
+      <td colspan=9 class=xl115 width=295 style='width:402pt;border-right:1.0pt solid black;'><span *ngFor="let item of dataDetail['pttype']">{{item}}&nbsp;</span></td>
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=4 height=33 class=xl89 width=141 style='height:25.0pt;width:106pt'>产品名称：</td>
-      <td colspan=6 class=xl90 width=343 style='width:257pt'>　</td>
-      <td colspan=3 class=xl117 width=193 style='border-right:1.0pt solid black;
-  width:145pt'>Ⅰ通道</td>
+      <td colspan=9 class=xl90 width=343 style='width:402pt;border-right:1.0pt solid black;'>{{dataDetail['prodname']}}&nbsp;<span *ngFor="let item of dataDetail.name">{{item}}&nbsp;</span></td>
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=13 height=33 class=xl92 style='border-right:1.0pt solid black;
@@ -109,23 +105,23 @@
   .5pt solid black;border-bottom:.5pt solid black;height:32.25pt;width:60pt'>设计压力(Mpa)：<ruby><font
         class="font6"><rt class=font6></rt></font></ruby></td>
       <td rowspan=2 class=xl101 width=61 style='border-bottom:.5pt solid black;
-  border-top:none;width:46pt'>1</td>
+  border-top:none;width:46pt'><span *ngFor="let item of dataDetail['depress']">{{item}}&nbsp;</span></td>
       <td rowspan=2 class=xl101 width=71 style='border-bottom:.5pt solid black;
   border-top:none;width:53pt'>设计温度(℃)：<ruby><font class="font6"><rt
         class=font6></rt></font></ruby></td>
-      <td colspan=2 rowspan=2 class=xl103 style='border-bottom:.5pt solid black'>　</td>
+      <td colspan=2 rowspan=2 class=xl103 style='border-bottom:.5pt solid black'><span *ngFor="let item of dataDetail['detemp']">{{item}}&nbsp;</span></td>
       <td rowspan=2 class=xl97 width=89 style='border-bottom:.5pt solid black;
   border-top:none;width:67pt'>工作介质：<ruby><font class="font6"><rt class=font6></rt></font></ruby></td>
       <td colspan=3 rowspan=2 class=xl107 width=142 style='border-right:.5pt solid black;
-  border-bottom:.5pt solid black;width:107pt'>水</td>
+  border-bottom:.5pt solid black;width:107pt'><span *ngFor="let item of dataDetail['wmedia']">{{item}}&nbsp;</span></td>
       <td rowspan=2 class=xl101 width=83 style='border-bottom:.5pt solid black;
   border-top:none;width:62pt'>试验压力(Mpa)：<ruby><font class="font6"><rt
         class=font6></rt></font></ruby></td>
-      <td class=xl75 width=69 style='border-top:none;border-left:none;width:52pt'>1</td>
+      <td class=xl75 width=69 style='border-top:none;border-left:none;width:52pt'><span *ngFor="let item of dataDetail['testpress']">{{item}}&nbsp;</span></td>
     </tr>
     <tr height=21 style='mso-height-source:userset;height:16.5pt'>
       <td height=21 class=xl76 width=69 style='height:16.5pt;border-left:none;
-  width:52pt'>　</td>
+  width:52pt'><span *ngFor="let item of dataDetail['leaktestp']">{{item}}&nbsp;</span></td>
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=13 height=33 class=xl92 style='border-right:1.0pt solid black;
@@ -231,16 +227,11 @@
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=4 height=33 class=xl132 width=141 style='height:25.0pt;
-  width:106pt'>工艺责任人：<span
-        style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><ruby><font
-        class="font6"><rt class=font6></rt></font></ruby></td>
-      <td class=xl68 width=71 style='width:53pt'></td>
-      <td class=xl68 width=43 style='width:32pt'></td>
-      <td class=xl68 width=39 style='width:29pt'></td>
-      <td class=xl68 width=89 style='width:67pt'></td>
+  width:106pt'>工艺责任人：</td>
+      <td class=xl68 width=71 colspan="4" style='width:53pt'><img width="70px" *ngIf="usersign!=null" src="{{usersign}}"></td>
       <td class=xl68 width=53 style='width:40pt'>日期：</td>
       <td colspan=4 class=xl130 width=241 style='border-right:1.0pt solid black;
-  width:181pt'>2018年9月20日 星期四</td>
+  width:181pt'>{{dates.year}}年{{dates.month}}月{{dates.day}}日 星期{{dates.week}}</td>
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=13 height=33 class=xl83 width=677 style='border-right:1.0pt solid black;
@@ -248,16 +239,11 @@
     </tr>
     <tr height=33 style='mso-height-source:userset;height:25.0pt'>
       <td colspan=4 height=33 class=xl132 width=141 style='height:25.0pt;
-  width:106pt'>检验责任人：<span
-        style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><ruby><font
-        class="font6"><rt class=font6></rt></font></ruby></td>
-      <td class=xl68 width=71 style='width:53pt'></td>
-      <td class=xl68 width=43 style='width:32pt'></td>
-      <td class=xl68 width=39 style='width:29pt'></td>
-      <td class=xl68 width=89 style='width:67pt'></td>
+  width:106pt'>检验责任人：</td>
+      <td class=xl68 width=71 colspan="4" style='width:53pt'><img width="70px" *ngIf="audit_usersign!=null" src="{{audit_usersign}}"></td>
       <td class=xl68 width=53 style='width:40pt'>日期：</td>
       <td colspan=4 class=xl130 width=241 style='border-right:1.0pt solid black;
-  width:181pt'>2018年9月20日 星期四</td>
+  width:181pt'>{{dates.year}}年{{dates.month}}月{{dates.day}}日 星期{{dates.week}}</td>
     </tr>
     <tr height=40 style='mso-height-source:userset;height:30.75pt'>
       <td height=40 class=xl72 width=47 style='height:30.75pt;width:35pt'>　</td>

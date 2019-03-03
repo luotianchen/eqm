@@ -14,55 +14,42 @@ export class WeldingRecordComponent implements OnInit {
   public prodnos:any;
   validateForm: FormGroup;
   dataSet = [];
-
+  names = [];
   ngOnInit(): void {
     this.weldingRecordService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
         this.prodnos = res['data'];
       }
     });
+    this.weldingRecordService.getUserNames().subscribe(res=>{
+      if(res['result'] == "success"){
+        this.names = res['data'];
+      }
+    })
     this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null, [Validators.required]],
       "dwgno":[null, [Validators.required]],
-      "type":["格数", [Validators.required]],
-      "initnum":[null, [Validators.required]],
-      "statnum":[null, [Validators.required]],
-      "initpa":[null],
-      "statpa":[null],
-      "htcurrent":[null, [Validators.required]],
-      "initdate":[null, [Validators.required]],
-      "enddate":[null, [Validators.required]],
-      "sealvacu":[null, [Validators.required]],
-      "sealdate":[null, [Validators.required]],
-      "testtemp":[null, [Validators.required]],
-      "sealtemp":[null, [Validators.required]],
-      "vacuop":[null, [Validators.required]],
-      "leakoutrate":[null, [Validators.required]],
+      "weldno":[null, [Validators.required]],
+      "weldevano":[null, [Validators.required]],
+      "weldmethod":[null, [Validators.required]],
+      "usernote":[null],
+      "welddate":[null],
+      "inspector":[null, [Validators.required]],
+      "entrustdate":[null, [Validators.required]],
+      "ndtdate":[null, [Validators.required]],
+      "user":[this._storage.get("username")]
     });
   }
 
   searchData(): void {
     if(this.validateForm.value.prodno!=null && this.validateForm.value.prodno!=""){
-      this.vacuumParameterService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
+      this.weldingRecordService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
         }
       })
-    }
-  }
-  choose(){
-    if(this.validateForm.value.type=="格数"){
-      this.validateForm.controls['initnum'].setValidators(Validators.required);
-      this.validateForm.controls['statnum'].setValidators(Validators.required);
-      this.validateForm.controls['initpa'].setValidators(null);
-      this.validateForm.controls['statpa'].setValidators(null);
-    }else{
-      this.validateForm.controls['initnum'].setValidators(null);
-      this.validateForm.controls['statnum'].setValidators(null);
-      this.validateForm.controls['initpa'].setValidators(Validators.required);
-      this.validateForm.controls['statpa'].setValidators(Validators.required);
     }
   }
   constructor(public weldingRecordService: WeldingRecordService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
@@ -78,43 +65,38 @@ export class WeldingRecordComponent implements OnInit {
     }
   }
   check(){
-    if(this.validateForm.value.initdate!=null){
-      if(new Date(this.validateForm.value.initdate) > new Date(this.validateForm.value.enddate)){
-        this.validateForm.controls['enddate'].setValue(null);
+    if(this.validateForm.value.ndtdate && this.validateForm.value.entrustdate){
+      let ndtdate = this.validateForm.value.ndtdate.split('-'),entrustdate = this.validateForm.value.entrustdate.split('-');
+      if(ndtdate[0] < entrustdate[0]){
+        this.validateForm.controls['ndtdate'].reset();
+      }else if(ndtdate[1] < entrustdate[1]){
+        this.validateForm.controls['ndtdate'].reset();
+      }else if(ndtdate[2] < entrustdate[2]){
+        this.validateForm.controls['ndtdate'].reset();
+      }
+    }
+    if(this.validateForm.value.welddate && this.validateForm.value.entrustdate){
+      let welddate = this.validateForm.value.welddate.split('-'),entrustdate = this.validateForm.value.entrustdate.split('-');
+      if(welddate[0] > entrustdate[0]){
+        this.validateForm.controls['entrustdate'].reset();
+      }else if(welddate[1] > entrustdate[1]){
+        this.validateForm.controls['entrustdate'].reset();
+      }else if(welddate[2] > entrustdate[2]){
+        this.validateForm.controls['entrustdate'].reset();
       }
     }
   }
   submitForm(){
-    // TODO 这里的公式记得要写上
-    this.validateForm.controls['leakoutrate'].setValue("123");
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-      this.weldingRecordService.putVacuumParameter({
-        "prodno":this.validateForm.value.prodno,
-        "prodname":this.validateForm.value.prodno,
-        "dwgno":this.validateForm.value.dwgno,
-        "initnum":this.validateForm.value.initnum,
-        "statnum":this.validateForm.value.statnum,
-        "initpa":this.validateForm.value.initpa,
-        "statpa":this.validateForm.value.statpa,
-        "htcurrent":this.validateForm.value.htcurrent,
-        "initdate":this.validateForm.value.initdate,
-        "enddate":this.validateForm.value.enddate,
-        "sealvacu":this.validateForm.value.sealvacu,
-        "sealdate":this.validateForm.value.sealdate,
-        "testtemp":this.validateForm.value.testtemp,
-        "sealtemp":this.validateForm.value.sealtemp,
-        "vacuop":this.validateForm.value.vacuop,
-        "leakoutrate":this.validateForm.value.leakoutrate,
-        "user":this._storage.get("username")
-      }).subscribe((res)=>{
+      this.weldingRecordService.putWeldingRecord(this.validateForm.value).subscribe((res)=>{
         if(res['result']=="success"){
           this.modalService.success({
             nzTitle: '提交成功',
-            nzContent: '真空参数提交成功！'
+            nzContent: '焊接记录提交成功！'
           });
           this.validateForm.reset();
         }

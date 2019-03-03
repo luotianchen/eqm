@@ -13,9 +13,11 @@ export class ProductTestBoardCommissionAuditService {
       status:0
     })
   }
-  Audit(prodno,status,audit_user){
+  Audit(id,prodno,specimenno,status,audit_user){
     return this.http.post(this.api.BASEURL+'/changestatusforprotest',{
+      id:id,
       prodno:prodno,
+      specimenno:specimenno,
       audit_user:audit_user,
       status:status,
     })

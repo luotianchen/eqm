@@ -579,7 +579,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       else
         this.warehousingregistrationService.putmaterialcache(data).subscribe(res => {
           if (res['result'] == "success") {
-            this.message.error("保存成功！");
+            this.message.success("保存成功！");
           }else{
             this.message.error("提交失败，请稍后重试！");
 
@@ -821,6 +821,7 @@ export class WarehousingRegistrationComponent implements OnInit {
         }
       })
     }
+    this.getMatlstand();
   }
   resetForm(): void {
     for (const i in this.validateForm.controls) {

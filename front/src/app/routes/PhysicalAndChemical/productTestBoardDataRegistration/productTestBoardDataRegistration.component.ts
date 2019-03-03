@@ -3,6 +3,7 @@ import {ProductTestBoardDataRegistrationService} from "./productTestBoardDataReg
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NzMessageService,NzModalRef, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
+import {isNumber} from "util";
 
 @Component({
   selector: 'app-productTestBoardDataRegistration',
@@ -11,118 +12,174 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
   providers: [ProductTestBoardDataRegistrationService]
 })
 export class ProductTestBoardDataRegistrationComponent implements OnInit {
-  public prodnos:any;
   validateForm: FormGroup;
   testboardstandValidateForm: FormGroup;
   dataSet = [];
   testboardstands = [];
   matlstands = [];
-  spec : any;
-  public designation:any;
-  bendparas = [
-    {
-      name:"面弯",ename:'surfacebending'
-    },
-    {
-      name:"背弯",ename:'backbending'
-    },
-  ]
-  datarange = {
-    "rm":{//抗拉强度
-      "max":9999,
-      "min":0
-    },
-    "elong":{//延长率
-      "max":9999,
-      "min":0
-    },
-    "impacttemp":9999,//温度（冲击温度），最大值
-    "impactpa1":{//热影响区冲击功1
-      "max":9999,
-      "min":0
-    },
-    "impactpa2":{//热影响区冲击功2
-      "max":9999,
-      "min":0
-    },
-    "impactpa3":{//热影响区冲击功3
-      "max":9999,
-      "min":0
-    },
-    "impactpb1":{//焊缝区冲击功1
-      "max":9999,
-      "min":0
-    },
-    "impactpb2":{//焊缝区冲击功2
-      "max":9999,
-      "min":0
-    },
-    "impactpb3":{//焊缝区冲击功3
-      "max":9999,
-      "min":0
-    },
-    "bendaxdia":"1.5a",//弯曲直径
-  };
-  fractposits = [
-    {name:"焊缝",ename:"hanfeng"},
-    {name:"母材",ename:"mucai"},
-  ]
-
+  specimennos = [];
+  recomtestno:string;
+  date = new Date();
+  getYearMonth(){
+    return (this.date.getFullYear().toString().slice(2)) + ("0" + (this.date.getMonth() + 1)).slice(-2);
+  }
   ngOnInit(): void {
-    this.productTestBoardDataRegistrationService.getprodno().subscribe((res) => {
-      if (res["result"] == "success") {
-        this.prodnos = res['data'];
+    this.productTestBoardDataRegistrationService.getspecimenno().subscribe((res)=>{
+      if(res['result'] == "success"){
+        this.specimennos = res['data'];
       }
-    });
-    this.validateForm = this.fb.group({
-      "prodno":[null, [Validators.required]],
-      "prodname":[null, [Validators.required]],
-      "dwgno":[null, [Validators.required]],
-      "testboardstand":[null, [Validators.required]],
-      "matlstand":[null, [Validators.required]],
-      "designation":[null, [Validators.required]],
-      "rm":[null, [Validators.required]],
-      "elong":[null, [Validators.required]],
-      "impacttemp":[null, [Validators.required]],
-      "impactpa1":[null, [Validators.required]],
-      "impactpa2":[null, [Validators.required]],
-      "impactpa3":[null, [Validators.required]],
-      "impactpb1":[null, [Validators.required]],
-      "impactpb2":[null, [Validators.required]],
-      "impactpb3":[null, [Validators.required]],
-      "bendpara":[null, [Validators.required]],
-      "benddia":[null, [Validators.required]],
-      "fractposit":[this.fractposits[0], [Validators.required]],
-      "entrustdate":[null, [Validators.required]],
-    });
-    this.testboardstandValidateForm = this.fb.group({
-      "testboardstand":[null, [Validators.required]]
     })
-    this.productTestBoardDataRegistrationService.gettestboardstand().subscribe((res)=>{
-      if(res['result']=="success"){
+    this.productTestBoardDataRegistrationService.getputmaterial().subscribe(res=>{
+      if(res['result'] == 'success'){
+        this.matlstands = res['data']['matlstand'];
+      }
+    })
+    this.productTestBoardDataRegistrationService.gettestboardstand().subscribe(res=>{
+      if(res['result'] == "success"){
         this.testboardstands = res['data'];
       }
     })
-    this.productTestBoardDataRegistrationService.getputmaterial().subscribe((res)=>{
-      if(res['result']=="success"){
-        this.matlstands = res['data']['matlstand'];
-        this.designation = res['data']['designation'];
+    this.validateForm = this.fb.group({
+      prodno:[null, [Validators.required]],
+      testno:[null, [Validators.required,Validators.pattern(/^\d{3}$/)]],
+      specimenno:[null, [Validators.required]],
+      specimentype:[null, [Validators.required]],
+      specimenmatl:[null, [Validators.required]],
+      specimenspec:[null, [Validators.required]],
+      parentmatltand:[null, [Validators.required]],
+      judgestand:[null, [Validators.required]],
+      testdate:[null, [Validators.required]],
+      a:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      b:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      so:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      f02:[null, [Validators.required]],
+      f1:[null, [Validators.required]],
+      f02mpa:[null, [Validators.required,Validators.pattern("^\\d+$")]],
+      f1mpa:[null, [Validators.required,Validators.pattern("^\\d+$")]],
+      fm:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      rm:[null, [Validators.required,Validators.pattern("^\\d+$")]],
+      lo:[null, [Validators.required,Validators.pattern("^\\d+$")]],
+      lu:[null, [Validators.required,Validators.pattern("^\\d+$")]],
+      apercent:[null, [Validators.required]],
+      fractposit:["焊缝", [Validators.required]],
+      hardness1:[null, [Validators.required]],
+      hardness2:[null, [Validators.required]],
+      hardness3:[null, [Validators.required]],
+      bendangle:[180, [Validators.required]],
+      bendaxdia:[null, [Validators.required]],
+      bendatype:[null, [Validators.required]],
+      surfacebending1:["合格", [Validators.required]],
+      backbending1:["合格", [Validators.required]],
+      surfacebending2:[null, [Validators.required]],
+      backbending2:[null, [Validators.required]],
+      w1:[null, [Validators.required]],
+      lew1:[null, [Validators.required]],
+      w2:[null, [Validators.required]],
+      lew2:[null, [Validators.required]],
+      w3:[null, [Validators.required]],
+      lew3:[null, [Validators.required]],
+      h1:[null, [Validators.required]],
+      leh1:[null, [Validators.required]],
+      h2:[null, [Validators.required]],
+      leh2:[null, [Validators.required]],
+      h3:[null, [Validators.required]],
+      leh3:[null, [Validators.required]],
+      gapType:[null, [Validators.required]],
+      shocktemp:[null, [Validators.required]],
+      user:[this._storage.get('username'), [Validators.required]],
+    });
+    this.productTestBoardDataRegistrationService.gettestno(null).subscribe(res=>{
+      if(res['result'] == 'success'){
+        this.validateForm.controls['testno'].setValue(res['testno'].substring(4, 7));
+        this.recomtestno = res['testno'].substring(4, 7);
+      }
+    })
+    this.testboardstandValidateForm = this.fb.group({
+      "testboardstand":[null, [Validators.required]]
+    })
+  }
+  formatInDate(){ //日期格式化
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(monthDay.test(this.validateForm.value.testdate)){
+      this.validateForm.controls["testdate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.testdate);
+    }else if(!yearMonthDay.test(this.validateForm.value.testdate)){
+      this.validateForm.controls["testdate"].setValue(null);
+    }
+  }
+  calcSo(){
+    let a = parseFloat(this.validateForm.value.a);
+    let b = parseFloat(this.validateForm.value.b);
+    if(!isNaN(a*b))
+      this.validateForm.controls['so'].setValue((a*b).toFixed(2));
+    else
+      this.validateForm.controls['so'].setValue("请检查输入是否有误!");
+  }
+  setProdno(){
+    this.validateForm.controls['prodno'].setValue(this.validateForm.value.specimenno['prodno']);
+  }
+  checktestno(e?: MouseEvent){
+    if (e) {
+      e.preventDefault();
+    }
+    this.productTestBoardDataRegistrationService.gettestno(this.getYearMonth() + this.validateForm.value.testno).subscribe(res=>{
+      if(res['result'] == 'success'){
+        if(res['status'] == 2){ //不可用
+          this.recomtestno = res['testno'].substring(4, 7);
+          this.validateForm.controls['testno'].reset();
+          this.validateForm.controls['testno'].markAsDirty();
+        }
       }
     })
   }
-
+  calcAPercent(){
+    let lo = this.validateForm.value.lo;
+    let lu = this.validateForm.value.lu;
+    let res = (lu - lo) / lo * 100;
+    if(isNumber(res))
+      this.validateForm.controls['apercent'].setValue(res.toFixed(2));
+    else{
+      this.validateForm.controls['apercent'].setValue(null);
+    }
+  }
   constructor(public productTestBoardDataRegistrationService: ProductTestBoardDataRegistrationService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
-
-  searchData(): void {
-    if(this.validateForm.value.prodno!=null && this.validateForm.value.prodno!=""){
-      this.productTestBoardDataRegistrationService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
-        if(res['result']=="success"){
-          this.validateForm.controls['prodname'].setValue(res['prodname']);
-          this.validateForm.controls['dwgno'].setValue(res['dwgno']);
-        }
-      })
+  calc1(controlname){//整数2舍3入，7上8下
+    let num = this.validateForm.value[controlname];
+    if(isNaN(num)){
+      this.validateForm.controls[controlname].setValue(null);
+      return;
     }
+    let numc = num%10;
+    if(numc>=8){
+      num+=(10 - numc);
+    }else if(numc>5){
+      num-=(numc-5);
+    }else if(numc>3){
+      num+=(5 - numc);
+    }else{
+      num-=(numc)
+    }
+    this.validateForm.controls[controlname].setValue(num);
+  }
+  calc2(controlname){//整数2舍3入，7上8下
+    let num = this.validateForm.value[controlname];
+    if(isNaN(num)){
+      this.validateForm.controls[controlname].setValue(null);
+      return;
+    }
+    num*=10;
+    let numc = num%10;
+    if(numc>=8){
+      num+=(10 - numc);
+    }else if(numc>5){
+      num-=(numc-5);
+    }else if(numc>3){
+      num+=(5 - numc);
+    }else{
+      num-=(numc)
+    }
+    this.validateForm.controls[controlname].setValue(num);
   }
 
   public tplModal: NzModalRef;
@@ -145,6 +202,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       this.tplModal.destroy();
     }, 1000);
   }
+
   addtestboardstand(){
     this.testboardstandValidateForm.controls['testboardstand'].markAsDirty();
     this.testboardstandValidateForm.controls['testboardstand'].updateValueAndValidity();
@@ -165,76 +223,39 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       })
     }
   }
-  getdatarange(){
-    if(this.validateForm.value.prodno!==null&&this.validateForm.value.prodno!==""&&this.validateForm.value.matlstand!=null&&this.validateForm.value.matlstand!=""&&this.validateForm.value.designation!=null&&this.validateForm.value.designation!="")
-    this.productTestBoardDataRegistrationService.getdatarange(this.validateForm.value.prodno,this.validateForm.value.matlstand,this.validateForm.value.designation).subscribe((res)=>{
-      if(res['result']=="success"){
-        this.datarange = res['data'];
-      }
-    })
-  }
-  judgeBenddia(){
-    let value = this.validateForm.value.benddia;
-    let exp = /^([1-9]\d*|0)(\.\d{1,2})*(a)$/;
-    if(!exp.test(value)){
-      this.validateForm.controls["benddia"].setValue(null);
-      return;
-    }
-    if(this.datarange.bendaxdia){
-      let index = this.datarange.bendaxdia.indexOf("a");
-      let yaoqiu = parseFloat(this.datarange.bendaxdia.substring(0,index));
-      let index2 = value.indexOf("a");
-      let newValue = parseFloat(value.substring(0,index2));
-      if(newValue > yaoqiu){
-        this.validateForm.controls["benddia"].setValue(null);
+
+  formatEntrustdate(controlname){//日期格式化
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+      if(monthDay.test(this.validateForm.value[controlname])){
+        this.validateForm.controls[controlname].setValue(new Date().getFullYear()+"-"+this.validateForm.value[controlname]);
+      }else if(!yearMonthDay.test(this.validateForm.value.entrustdate)){
+        this.validateForm.controls[controlname].setValue(null);
       }
     }
 
-  }
-  formatEntrustdate(){//日期格式化
-    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
-    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
-      if(monthDay.test(this.validateForm.value.entrustdate)){
-        this.validateForm.controls["entrustdate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.entrustdate);
-      }else if(!yearMonthDay.test(this.validateForm.value.entrustdate)){
-        this.validateForm.controls["entrustdate"].setValue(null);
-      }
-    }
   submitForm(){
+    console.log(this.validateForm.value);
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-      this.productTestBoardDataRegistrationService.puttestboardparam({
-        "prodno":this.validateForm.value.prodno,
-        "testboardstand":this.validateForm.value.testboardstand,
-        "matlstand":this.validateForm.value.matlstand,
-        "designation":this.validateForm.value.designation,
-        "rm":this.validateForm.value.rm,
-        "elong":this.validateForm.value.elong,
-        "impacttemp":this.validateForm.value.impacttemp,
-        "impactpa1":this.validateForm.value.impactpa1,
-        "impactpa2":this.validateForm.value.impactpa2,
-        "impactpa3":this.validateForm.value.impactpa3,
-        "impactpb1":this.validateForm.value.impactpb1,
-        "impactpb2":this.validateForm.value.impactpb2,
-        "impactpb3":this.validateForm.value.impactpb3,
-        "bendpara":this.validateForm.value.bendpara.name,
-        "ebendpara":this.validateForm.value.bendpara.ename,
-        "benddia":this.validateForm.value.benddia,
-        "fractposit":this.validateForm.value.fractposit.name,
-        "efractposit":this.validateForm.value.fractposit.ename,
-        "entrustdate":this.validateForm.value.entrustdate,
-        "user":this._storage.get("username")
-      }).subscribe((res)=>{
+      this.validateForm.controls['specimenno'].setValue(this.validateForm.value.specimenno['specimennno']);
+      this.productTestBoardDataRegistrationService.puttestboardparam(this.validateForm.value).subscribe((res)=>{
         if(res['result']=="success"){
           this.modalService.success({
             nzTitle: '成功',
             nzContent: '您已提交成功！'
           });
+        }else{
+          this.modalService.error({
+            nzTitle: '失败',
+            nzContent: '请稍后重试！'
+          })
         }
       })
+      this.validateForm.controls['specimenno'].setValue({specimennno:this.validateForm.value.specimenno,prodno:this.validateForm.value.prodno});
     }
   }
 }

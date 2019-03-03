@@ -20,9 +20,9 @@ export class ProductTestBoardCommissionService {
     return this.http.get(this.api.BASEURL+"/searchspecanddeinpre");
   }
   getheatcondi(){
-    return this.http.get(this.api.BASEURL+"/getheatcondi");
+    return this.http.get(this.api.BASEURL+"/searchheatinpropar");
   }
   putproducttestboardcommission(data){
-    return this.http.post(this.api.BASEURL+"/putproducttestboardcommission",data);
+    return this.http.post(this.api.BASEURL+"/putprotestboardcom",data);
   }
 }

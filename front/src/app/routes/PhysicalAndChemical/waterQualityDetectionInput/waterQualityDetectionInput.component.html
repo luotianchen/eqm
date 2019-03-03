@@ -1,0 +1,95 @@
+<div>
+  <h3 class="title">水质检测录入</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm">
+  <div nz-row [nzGutter]="16" nzType="flex">
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="unit">委托单位</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="委托单位"  formControlName="unit" name="unit" id="unit">
+            <nz-option *ngFor="let option of units" [nzLabel]="option.departmentname" [nzValue]="option.department"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="indate">接收样品日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="indate" name="indate" id="indate"  (blur)="formatInDate(this.validateForm.controls['indate'])"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="qty">数量</nz-form-label>
+        <nz-form-control>
+          <nz-input-number style="width: 100%" nzMin="0" placeHolder="数量" formControlName="qty" name="qty" id="qty" nzStep="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="name">样品名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="样品名称"  formControlName="name" name="name" id="name"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="testno">试样编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="试样编号"  formControlName="testno" name="testno" id="testno"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="roomno">本室编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="本室编号"  formControlName="roomno" name="roomno" id="roomno"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="testcont">测试内容</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="测试内容"  formControlName="testcont" name="testcont" id="testcont"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="testrst">测试结果</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="测试结果"  formControlName="testrst" name="testrst" id="testrst"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="stand">评定标准</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="评定标准"  formControlName="stand" name="stand" id="stand">
+            <nz-option *ngFor="let option of prostands" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="testdate">检测日期</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="testdate" name="testdate" id="testdate"  (blur)="formatInDate(this.validateForm.controls['testdate'])"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top: 20px">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</form>

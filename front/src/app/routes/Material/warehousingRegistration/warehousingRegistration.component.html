@@ -220,6 +220,7 @@
     </div>
   </div>
   <div *ngIf="dataDetail.status">
+    <p style="margin-top: 5px;margin-bottom: 0"><strong>元素含量</strong></p>
     <div nz-row [nzGutter]="4" nzType="flex">
       <div nz-col nzSpan="3" *ngIf="dataDetail['c'].max!==null||dataDetail['c'].min!==null">
         <nz-form-item>
@@ -431,7 +432,7 @@
       </div>
       <div nz-col nzSpan="3" *ngIf="dataDetail['fe'].max!==null||dataDetail['fe'].min!==null">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="fe">N%</nz-form-label>
+          <nz-form-label nzRequired nzFor="fe">Fe%</nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number style="width: 100%" formControlName="fe" name="fe" id="fe" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['fe'].max == 99999 ? '≥' + dataDetail['fe'].min : dataDetail['fe'].min + '≤' + 'Fe%' + '≤' +dataDetail['fe'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('fe').dirty&&validateForm.get('fe').errors">
@@ -622,6 +623,7 @@
         </nz-form-item>
       </div>
     </div>
+    <p style="margin-top: 5px;margin-bottom: 0"><strong>力学成分</strong></p>
     <div nz-row [nzGutter]="4" nzType="flex">
       <div nz-col nzSpan="3" *ngIf="dataDetail['rel1'].max!==null||dataDetail['rel1'].min!==null">
         <nz-form-item>

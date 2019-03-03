@@ -45,7 +45,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="initnum">初始格数</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="初始格数"  formControlName="initnum" name="initnum" id="initnum"/>
+          <input nz-input placeHolder="初始格数"  formControlName="initnum" name="initnum" id="initnum" (blur)="setLeakoutrate()"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -53,7 +53,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="initpa">初始压力(Pa)</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="初始压力(Pa)"  formControlName="initpa" name="initpa" id="initpa"/>
+          <input nz-input placeHolder="初始压力(Pa)"  formControlName="initpa" name="initpa" id="initpa" (blur)="setLeakoutrate()"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -61,7 +61,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="statnum">静置后格数</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="静置后格数"  formControlName="statnum" name="statnum" id="statnum"/>
+          <input nz-input placeHolder="静置后格数"  formControlName="statnum" name="statnum" id="statnum" (blur)="setLeakoutrate()"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -69,13 +69,13 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="statpa">静置后压力(Pa)</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="静置后压力(Pa)"  formControlName="statpa" name="statpa" id="statpa"/>
+          <input nz-input placeHolder="静置后压力(Pa)"  formControlName="statpa" name="statpa" id="statpa" (blur)="setLeakoutrate()"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="htcurrent">规管加热电流</nz-form-label>
+        <nz-form-label nzRequired nzFor="htcurrent">规管加热电流（mA）</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="规管加热电流"  formControlName="htcurrent" name="htcurrent" id="htcurrent"/>
         </nz-form-control>
@@ -85,7 +85,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="initdate">检测开始日期</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="检测开始日期"  formControlName="initdate" name="initdate" id="initdate" (blur)="formatInDate(this.validateForm.controls['initdate']);check();"/>
+          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="initdate" name="initdate" id="initdate" (blur)="formatInDate(this.validateForm.controls['initdate']);check();"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -93,7 +93,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="enddate">检测结束日期</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="检测结束日期"  formControlName="enddate" name="enddate" id="enddate" (blur)="formatInDate(this.validateForm.controls['enddate']);check();"/>
+          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="enddate" name="enddate" id="enddate" (blur)="formatInDate(this.validateForm.controls['enddate']);check();"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -109,13 +109,13 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="sealdate">封口日期</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="封口日期"  formControlName="sealdate" name="sealdate" id="sealdate" (blur)="formatInDate(this.validateForm.controls['sealdate']);"/>
+          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="sealdate" name="sealdate" id="sealdate" (blur)="formatInDate(this.validateForm.controls['sealdate']);"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="testtemp">测漏放气率温度</nz-form-label>
+        <nz-form-label nzRequired nzFor="testtemp">测漏放气率温度（℃）</nz-form-label>
         <nz-form-control>
           <nz-input-number style="width:100%;" placeHolder="测漏放气率温度" formControlName="testtemp" name="testtemp" id="testtemp"></nz-input-number>
         </nz-form-control>
@@ -123,7 +123,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="sealtemp">封口温度</nz-form-label>
+        <nz-form-label nzRequired nzFor="sealtemp">封口温度（℃）</nz-form-label>
         <nz-form-control>
           <nz-input-number style="width:100%;" placeHolder="封口温度" formControlName="sealtemp" name="sealtemp" id="sealtemp"></nz-input-number>
         </nz-form-control>
@@ -139,7 +139,19 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="leakoutrate">漏放气速率</nz-form-label>
+        <nz-form-label nzRequired nzFor="k">绝热容器</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select style="width: 100%" nzPlaceHolder="请选择"  formControlName="k" name="k" id="k" (ngModelChange)="setLeakoutrate()">
+            <nz-option nzLabel="真空绝热容器" [nzValue]="0.6"></nz-option>
+            <nz-option nzLabel="真空多层绝热容器" [nzValue]="0.9"></nz-option>
+            <nz-option nzLabel="真空粉末绝热容器" [nzValue]="1"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="leakoutrate">漏放气速率（Pa.m³/s）</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="漏放气速率" disabled formControlName="leakoutrate" name="leakoutrate" id="leakoutrate" />
         </nz-form-control>

@@ -27,8 +27,8 @@ export class ProductTestBoardCommissionAuditComponent implements OnInit {
       }
     })
   }
-  audit(prodno,status){
-    this.productTestBoardCommissionAuditService.Audit(prodno,status,this._storage.get("username")).subscribe((res)=>{
+  audit(id,prodno,specimenno,status){
+    this.productTestBoardCommissionAuditService.Audit(id,prodno,specimenno,status,this._storage.get("username")).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
       }

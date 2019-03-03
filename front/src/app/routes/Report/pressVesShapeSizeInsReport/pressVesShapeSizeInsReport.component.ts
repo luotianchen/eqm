@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PressVesShapeSizeInsReportService} from './PressVesShapeSizeInsReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {PressVesShapeSizeInsReportService} from "./pressVesShapeSizeInsReport.service";
 
 @Component({
   selector: 'app-pressVesShapeSizeInsReport',

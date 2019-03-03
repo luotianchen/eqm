@@ -8,13 +8,19 @@
     </ng-container>
   </ul>
   <div class="rightWarpper">
-    <div class="buttonR">
-      <i nz-icon type="search" theme="outline"></i>
+    <div class="buttonR" [ngStyle]="{'width':searchstatus ? '150px' : '44px' }" onblur="searchstatus = false">
+      <i nz-icon type="search" theme="outline" *ngIf="!searchstatus" (click)="searchstatus = true"></i>
+      <nz-input-group [nzSuffix]="suffixIconSearch" *ngIf="searchstatus">
+        <input type="text" nz-input placeholder="请输入搜索内容" (blur)="searchstatus = false">
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
     </div>
-    <div class="buttonR">
-      <i nz-icon type="mail" theme="outline"></i>
+    <div class="buttonR" nz-popover nzTitle="通知" [nzContent]="notices" nzTrigger="click" nzPlacement="bottom">
+      <i nz-icon type="bell" theme="outline"></i>
     </div>
-    <nz-dropdown class="drop" style="margin-right: 20px" [nzPlacement]="'bottom'">
+    <nz-dropdown class="drop" style="margin-right: 20px" nzPlacement="bottom">
       <a class="menu" nz-dropdown>
         <span title><i nz-icon type="user" style="margin-right: 10px;"></i>{{ _storage.get("username") }}</span>
       </a>
@@ -30,3 +36,8 @@
     </nz-dropdown>
   </div>
 </div>
+<ng-template #notices>
+  <div>
+    <p>暂无通知</p>
+  </div>
+</ng-template>

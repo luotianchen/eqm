@@ -13,4 +13,7 @@ export class ProductTestBoardCommissionQueryService {
       status:1
     })
   }
+  searchproductplatedata(){ //获取已审核通过的数据登记，与上面取剪辑
+    return this.http.post(this.api.BASEURL+'/searchproductplatedata',{status:1})
+  }
 }

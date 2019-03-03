@@ -17,7 +17,7 @@ export class TestParametersService {
     return this.http.post(this.api.BASEURL+'/putprenotiform',data)
   }
   getPressandLeak(prodno,ppart,datetype){
-    return this.http.post(this.api.BASEURL+"/getpressandleak",{prodno:prodno,ppart:ppart,datetype:datetype});
+    return this.http.post(this.api.BASEURL+"/searchpreandleak",{prodno:prodno,ppart:ppart,datetype:datetype});
   }
   getexitno(){
     return this.http.get(this.api.BASEURL+"/getexitno")

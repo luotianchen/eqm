@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {MaterialReinspectionService} from "./materialReinspection.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NzMessageService,NzModalRef, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
 
@@ -18,7 +18,33 @@ export class  MaterialReinspectionComponent implements OnInit {
     "impacttemp",
     "bendaxdia",
   ];
-
+  public deviation = {
+    "c":[],
+    "si":[],
+    "mn":[],
+    "cu":[],
+    "ni":[],
+    "cr":[],
+    "mo":[],
+    "nb":[],
+    "v":[],
+    "ti":[],
+    "als":[],
+    "alt":[],
+    "n":[],
+    "fe":[],
+    "mg":[],
+    "zn":[],
+    "b":[],
+    "w":[],
+    "sb":[],
+    "al":[],
+    "zr":[],
+    "ca":[],
+    "be":[],
+    "p":[],
+    "s":[]
+  }
   public maxmin = [ //判断是否上下限都为null开控制是否显示的
     "c",
     "si",
@@ -212,6 +238,33 @@ export class  MaterialReinspectionComponent implements OnInit {
     },
     "impacttemp":null,//温度
     "bendaxdia": null,//弯曲直径
+    deviation:{
+      "c":[],
+      "si":[],
+      "mn":[],
+      "cu":[],
+      "ni":[],
+      "cr":[],
+      "mo":[],
+      "nb":[],
+      "v":[],
+      "ti":[],
+      "als":[],
+      "alt":[],
+      "n":[],
+      "fe":[],
+      "mg":[],
+      "zn":[],
+      "b":[],
+      "w":[],
+      "sb":[],
+      "al":[],
+      "zr":[],
+      "ca":[],
+      "be":[],
+      "p":[],
+      "s":[]
+    }//误差
   };
 
   formatInDate(){ //日期格式化
@@ -221,6 +274,50 @@ export class  MaterialReinspectionComponent implements OnInit {
       this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.indate);
     }else if(!yearMonthDay.test(this.validateForm.value.indate)){
       this.validateForm.controls["indate"].setValue(null);
+    }
+  }
+
+
+  checkForDeveiation(controlname){
+    if(!this.deviation[controlname]){
+      return [0,0];
+    }
+    if(this.deviation[controlname].length == 0)//若不存在误差范围，返回0
+      return [0,0];
+    else{
+      for(let dev of this.deviation[controlname]){
+        if(this.belongto(this.validateForm.value[controlname],dev.range)){
+          return dev.deviation.split('~');
+        }
+      }
+    }
+    return [0,0];
+  }
+
+  updateMaxMin(item){
+    this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+  }
+
+  Number(num){
+    return Number(num);
+  }
+  belongto(value:number,range:string){ //判断一个元素值属否处于<= | >= | > | <之类的范围中
+    console.log(value,range);
+    let dayudengyu = range.indexOf(">=");
+    let xiaoyudengyu = range.indexOf("<=");
+    let dayu = range.indexOf(">");
+    let xiaoyu = range.indexOf("<");
+    if(dayudengyu!=-1 && value >= parseFloat(range.slice(dayudengyu + 2,range.length))){
+      return parseFloat(range.slice(dayudengyu + 2,range.length));
+    }
+    if(xiaoyudengyu!=-1 && value <= parseFloat(range.slice(xiaoyudengyu + 2,range.length))){
+      return parseFloat(range.slice(xiaoyudengyu + 2,range.length));
+    }
+    if(dayu!=-1 && value > parseFloat(range.slice(dayu + 1,range.length))){
+      return parseFloat(range.slice(dayu + 1,range.length));
+    }
+    if(xiaoyu!=-1 && value < parseFloat(range.slice(xiaoyu + 1,range.length))){
+      return parseFloat(range.slice(xiaoyu + 1,range.length));
     }
   }
 
@@ -240,7 +337,6 @@ export class  MaterialReinspectionComponent implements OnInit {
           nzContent: "没有可供登记的入库编号！"
         });
       }
-
     });
 
     this.validateForm = this.fb.group({
@@ -307,6 +403,22 @@ export class  MaterialReinspectionComponent implements OnInit {
   constructor(public materialReinspectionService: MaterialReinspectionService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
+  //最大最小值检验
+  MaxMinAsyncValidator = (control: FormControl): { [ s: string ]: boolean } => {
+    let name:string;
+    for(let controlname in this.validateForm.controls){
+      if(this.validateForm.controls[controlname] == control)
+        name = controlname;
+    }
+    if(this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
+    if(this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
+    console.log(( Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0])),(Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])))
+    if (!control.value && control.value!==0) {
+      return { required: true };
+    } else if(control.value > (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || control.value <( Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))){
+      return { overflow: true, error: true };
+    }
+  };
   submitForm(){
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
@@ -375,30 +487,59 @@ export class  MaterialReinspectionComponent implements OnInit {
   /**
    * 当输入材料标准、牌号都输入完后，会先通过这两项去查询相应标准，若查不到，则检测规格是否输入，已输入则用材料标准、牌号、规格三项查询相应标准内容。
    */
-  checkForContraststand() {
-    if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!="") {
-      let specData = this.validateForm.value.spec;
-      if (this.validateForm.value.spec.indexOf("δ=") != -1) {
-        specData = parseFloat(this.validateForm.value.spec.substring(2, specData.length));
-      }
-      this.materialReinspectionService.contraststand(this.validateForm.value.stand, this.validateForm.value.designation, specData).subscribe(res => {
-        if (res['result'] == "success") {
+  checkForContraststand(){
+    if(this.validateForm.value.stand!=null && this.validateForm.value.designation!=null &&this.validateForm.value.stand!="" && this.validateForm.value.designation!=""){
+      this.materialReinspectionService.contraststand(this.validateForm.value.stand,this.validateForm.value.designation ,null).subscribe(res => {
+        if(res['result'] == "success") {
           this.dataDetail = res['data'];
           this.dataDetail.status = true;
-          for (let i = 0; i < this.maxmin.length; i++) {
+          this.deviation = this.dataDetail.deviation;
+          console.log(this.deviation);
+          for (let i =0;i<this.maxmin.length;i++){
             let item = this.maxmin[i];
             if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-              this.validateForm.controls[item].setValidators([Validators.required]);
+              this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+            }else{
+              this.validateForm.controls[item].setValidators([]);
             }
           }
-          for (let i = 0; i < this.direct.length; i++) {
+          for(let i =0;i<this.direct.length;i++){
             let item = this.direct[i];
             if (this.dataDetail[item] != null) {
               this.validateForm.controls[item].setValidators([Validators.required]);
             }
           }
+        }else if(this.validateForm.value.stand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.stand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
+          let specData = this.validateForm.value.spec;
+          if(this.validateForm.value.spec.indexOf("δ=")!=-1){
+            specData = parseFloat(this.validateForm.value.spec.substring(2,specData.length));
+          }
+          this.materialReinspectionService.contraststand(this.validateForm.value.stand,this.validateForm.value.designation ,specData).subscribe(res => {
+            if(res['result'] == "success"){
+              this.dataDetail = res['data'];
+              this.dataDetail.status = true;
+              this.deviation = this.dataDetail.deviation;
+              console.log(this.deviation);
+              for (let i =0;i<this.maxmin.length;i++){
+                let item = this.maxmin[i];
+                if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
+                  this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                }else{
+                  this.validateForm.controls[item].setValidators([]);
+                }
+              }
+              for(let i =0;i<this.direct.length;i++){
+                let item = this.direct[i];
+                if (this.dataDetail[item] != null) {
+                  this.validateForm.controls[item].setValidators([Validators.required]);
+                }
+              }
+            }
+          });
         }
-      })
+      });
+    }else{
+      this.dataDetail.status = false;
     }
   }
 

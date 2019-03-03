@@ -18,7 +18,7 @@
   </thead>
   <tbody>
   <ng-template ngFor let-data [ngForOf]="nzTable.data">
-    <tr>
+    <tr *ngIf="!audited['a'+data.codedmarking]">
       <td>{{data.user}}</td>
       <td>{{data.date}}</td>
       <td>{{data.codedmarking}}</td>

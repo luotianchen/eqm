@@ -47,7 +47,7 @@
       <td>{{data.heatcondi}}</td>
       <td>{{data.representno}}</td>
       <td>{{data.representpart}}</td>
-      <td><a (click)="audit(data.prodno,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.prodno,2)">拒绝</a></td>
+      <td><a (click)="audit(data.id,data.prodno,data.specimenno,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.id,data.prodno,data.specimenno,2)">拒绝</a></td>
     </tr>
     <tr [nzExpand]="data.expand">
       <td colspan="17" style="text-align: center">

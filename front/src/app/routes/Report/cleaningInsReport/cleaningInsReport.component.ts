@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CleaningInsReportService} from './CleaningInsReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CleaningInsReportService} from "./cleaningInsReport.service";
 
 @Component({
   selector: 'app-cleaningInsReport',

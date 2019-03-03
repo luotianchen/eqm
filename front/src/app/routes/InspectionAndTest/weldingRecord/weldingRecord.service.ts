@@ -10,17 +10,13 @@ export class WeldingRecordService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
+  getUserNames(){
+    return this.http.get(this.api.BASEURL+'/getuserform');
+  }
   getdistribute(prodno){
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
   }
-  putdistribute(data){
-    console.log(JSON.stringify(data))
-    return this.http.post(this.api.BASEURL+"/putpressureparts",data);
-  }
-  addMatlname(matlname){
-    return this.http.post(this.api.BASEURL+"/putmatlname",{matlname:matlname});
-  }
-  putVacuumParameter(data){
-    return this.http.post(this.api.BASEURL+"/putVacuumParameter",data)
+  putWeldingRecord(data){
+    return this.http.post(this.api.BASEURL+"/putweldingrecord",data)
   }
 }

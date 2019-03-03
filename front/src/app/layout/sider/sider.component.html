@@ -8,7 +8,7 @@
   <ng-container *ngFor="let menus of menulist">
     <ul nz-menu [nzMode]="'inline'" [nzTheme]="theme?'dark':'light'" [nzInlineCollapsed]="settings.layout.isCollapsed"
         [nzMode]="settings.layout.isCollapsed?'vertical':'inline'"
-        *ngIf="navs.length && navs.length > 0 && menus.name == (typeofNav()? navs[0].name:getSettingNav())"
+        *ngIf="navs && navs.length && navs.length > 0 && menus.name == (typeofNav()? navs[0].name:getSettingNav())"
         style="height: calc(100% - 80px);overflow: auto;">
       <ng-container *ngFor="let item of menus.data;">
             <span>

@@ -51,8 +51,11 @@
         <nz-form-label nzRequired nzFor="weldingsteelseal">焊工钢印</nz-form-label>
         <nz-form-control>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊工钢印"  formControlName="weldingsteelseal" name="weldingsteelseal" id="weldingsteelseal">
-            <nz-option *ngFor="let option of userinfo" [nzLabel]="option.note" [nzValue]="option.note"></nz-option>
+            <nz-option *ngFor="let option of userinfo" [nzLabel]="option.name" [nzValue]="option.note"></nz-option>
           </nz-select>
+          <nz-form-explain *ngIf="validateForm.get('weldingsteelseal').dirty && validateForm.get('weldingsteelseal').errors">
+            请检查系统管理员是否为用户设置钢印！
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -96,7 +99,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="weldingposition">焊接位置</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="焊接位置"  formControlName="weldingmethod" name="weldingposition" id="weldingposition"/>
+          <input nz-input placeHolder="焊接位置"  formControlName="weldingposition" name="weldingposition" id="weldingposition"/>
         </nz-form-control>
       </nz-form-item>
     </div>

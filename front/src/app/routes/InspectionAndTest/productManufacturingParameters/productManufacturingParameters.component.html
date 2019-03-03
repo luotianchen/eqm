@@ -19,7 +19,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="orderunit">订货单位</nz-form-label>
+        <nz-form-label nzFor="orderunit">订货单位</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="订货单位"  formControlName="orderunit" name="orderunit" id="orderunit">
             <nz-option *ngFor="let option of orderunits" [nzLabel]="option.name" [nzValue]="option"></nz-option>

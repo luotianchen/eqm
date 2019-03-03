@@ -12,6 +12,7 @@ import {SessionStorageService} from 'src/app/core/storage/storage.module';
 
 export class HeaderComponent {
   navs = null;
+  searchstatus = false;
   constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService) {
   }
   ngOnInit(){
@@ -33,5 +34,6 @@ export class HeaderComponent {
     this._storage.clear();
     this.router.navigate(['login']);
   }
+
 
 }
