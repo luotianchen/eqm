@@ -211,9 +211,9 @@ public class searchallmaterial {                                                
                 supplier_rid=rs.getInt("supplier_id_supplier");
                 designation_rid=rs.getInt("contraststand_id_designation");
                 millunit_rid=rs.getInt("millunit_id_millunit");
-                heatcondi_rid=rs.getInt("heattreatcondition_id_heatcondi");
+                samd.setHeatcondi(rs.getString("heattreatcondition_id_heatcondi"));
                 samd.setImpacttemp(rs.getString("bending_id_impacttemp"));
-                bendangle_rid=rs.getInt("bending_id_bendangle");
+                samd.setBendangle(rs.getString("bending_id_bendangle"));
                 utclass_rid=rs.getInt("bending_id_utclass");
 
                 ps1=conn.prepareStatement("SELECT * FROM userform WHERE id=?");
@@ -291,27 +291,6 @@ public class searchallmaterial {                                                
                 rs1=ps1.executeQuery();
                 while(rs1.next()){
                     samd.setMillunit(rs1.getString("millunit"));
-                }
-                rs1.close();
-                ps1.close();
-
-
-                ps1=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-                ps1.setInt(1,heatcondi_rid);
-                rs1=ps1.executeQuery();
-                while(rs1.next()){
-                    samd.setHeatcondi(rs1.getString("heatcondi"));
-                }
-                rs1.close();
-                ps1.close();
-
-
-
-                ps1=conn.prepareStatement("SELECT * FROM bending WHERE id=?");
-                ps1.setInt(1,bendangle_rid);
-                rs1=ps1.executeQuery();
-                while(rs1.next()){
-                    samd.setBendangle(rs1.getString("bendangle"));
                 }
                 rs1.close();
                 ps1.close();

@@ -202,6 +202,7 @@ public class Putmaterialcache {                                                 
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
+            result.setResult(e.toString());
         }
         conn.close();
         return result;

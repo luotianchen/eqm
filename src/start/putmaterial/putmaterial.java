@@ -103,15 +103,6 @@ public class putmaterial {                                                      
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * from bending WHERE bendangle=?");
-            ps.setString(1,pp.getBendangle());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                bendangle_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
             ps=conn.prepareStatement("SELECT * from bending WHERE utclass=?");
             ps.setInt(1,pp.getUtclass());
             rs=ps.executeQuery();
@@ -130,22 +121,15 @@ public class putmaterial {                                                      
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * from heattreatcondition WHERE heatcondi=?");
-            ps.setString(1,pp.getHeatcondi());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                heatcondi_id=rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date d1 = sdf.parse(pp.getIndate());
             java.sql.Date d = new java.sql.Date(d1.getTime());
 
 
-            ps=conn.prepareStatement("SELECT * from putmaterial WHERE codedmarking = ?");
+            ps=conn.prepareStatement("SELECT * from putmaterial WHERE codedmarking = ? AND status=?");
             ps.setString(1,pp.getCodedmarking());
+            ps.setInt(2,0);
             rs=ps.executeQuery();
             if(!rs.next()){
                 rs.close();
@@ -174,7 +158,7 @@ public class putmaterial {                                                      
                 ps.setString(7,pp.getQty());
                 ps.setString(8,pp.getUnit());
                 ps.setString(9,pp.getDimension());
-                ps.setInt(10,heatcondi_id);
+                ps.setString(10,pp.getHeatcondi());
                 ps.setString(11,pp.getHeatbatchno());
                 ps.setString(12,pp.getC());
                 ps.setString(13,pp.getSi());
@@ -211,7 +195,7 @@ public class putmaterial {                                                      
                 ps.setInt(44,designation_id);
                 ps.setInt(45,millunit_id);
                 ps.setString(46,pp.getImpacttemp());
-                ps.setInt(47,bendangle_id);
+                ps.setString(47,pp.getBendangle());
                 ps.setInt(48,utclass_id);
                 ps.setString(49,pp.getAls());
                 ps.setString(50,pp.getFe());
@@ -238,7 +222,7 @@ public class putmaterial {                                                      
                         "supplier_id_supplier=?,warrantystatus_id_certsitu=?,matlname_id_matlname=?,contraststand_id_matlstand=?,contraststand_id_designation=?,millunit_id_millunit=?," +
                         "bending_id_impacttemp=?,bending_id_bendangle=?,bending_id_utclass=?," +
                         "als=?,fe=?,zn=?,b=?,w=?,sb=?,al=?,zr=?,ca=?,be=?," +
-                        "user_id=? WHERE codedmarking=?");
+                        "user_id=? WHERE codedmarking=? AND status=?");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(1,pp.getNote());
                 ps.setDate(2,d);
@@ -248,7 +232,7 @@ public class putmaterial {                                                      
                 ps.setString(6,pp.getQty());
                 ps.setString(7,pp.getUnit());
                 ps.setString(8,pp.getDimension());
-                ps.setInt(9,heatcondi_id);
+                ps.setString(9,pp.getHeatcondi());
                 ps.setString(10,pp.getHeatbatchno());
                 ps.setString(11,pp.getC());
                 ps.setString(12,pp.getSi());
@@ -299,13 +283,16 @@ public class putmaterial {                                                      
                 ps.setString(57,pp.getBe());
                 ps.setInt(58,user_id);
                 ps.setString(59,pp.getCodedmarking());
+                ps.setInt(60,0);
                 ps.executeUpdate();
                 ps.close();
+
             }
 
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
+            result.setResult(e.toString());
         }
         conn.close();
         return result;

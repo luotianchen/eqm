@@ -44,29 +44,30 @@ public class putaudit {                                             //提交审�
                         ps.setInt(4,1);
                         ps.executeUpdate();
                         ps.close();
-                        ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=? AND status != ? AND status != ?");
+                        ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=? AND status = ?");
                         ps.setInt(1,1);
                         ps.setString(2,pp.getAudit_user());
                         ps.setString(3,pp.getCodedmarking());
-                        ps.setInt(4,1);
-                        ps.setInt(5,3);
+                        ps.setInt(4,0);
                         ps.executeUpdate();
                         ps.close();
                     }else {
                         ps.close();
                         rs.close();
-                        ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=?");
+                        ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=? AND status = ?");
                         ps.setInt(1,pp.getStatus());
                         ps.setString(2,pp.getAudit_user());
                         ps.setString(3,pp.getCodedmarking());
+                        ps.setInt(4,0);
                         ps.executeUpdate();
                         ps.close();
                     }
                 }else {
-                    ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=?");
+                    ps=conn.prepareStatement("UPDATE putmaterial SET status=?,audit_user = ? WHERE codedmarking=? AND status = ?");
                     ps.setInt(1,pp.getStatus());
                     ps.setString(2,pp.getAudit_user());
                     ps.setString(3,pp.getCodedmarking());
+                    ps.setInt(4,0);
                     ps.executeUpdate();
                     ps.close();
                 }
