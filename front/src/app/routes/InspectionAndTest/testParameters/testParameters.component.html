@@ -22,7 +22,6 @@
   </div>
 </form>
 <div *ngIf="!link">
-
   <nz-divider></nz-divider>
   <div *ngFor="let c of channel;let i = index">
     <nz-collapse [nzBordered]="false">
@@ -33,7 +32,7 @@
               <nz-form-item>
                 <nz-form-label nzFor="ppart">试压部件</nz-form-label>
                 <nz-form-control nzHasFeedback>
-                  <input nz-input placeHolder="试压部件"  formControlName="ppart" name="ppart" id="ppart" disabled/>
+                  <input nz-input placeHolder="试压部件" formControlName="ppart" name="ppart" id="ppart" disabled/>
                 </nz-form-control>
               </nz-form-item>
             </div>

@@ -46,16 +46,16 @@ export class SettingComponent implements OnInit {
       }
     })
     this.validateForm = this.fb.group({
-      "deconame":[null,[Validators.required]],
-      "edeconame":[null,[Validators.required]],
-      "delicense":[null,[Validators.required]],
-      "manulevel":[null,[Validators.required]],
-      "time":[null,[Validators.required]],
-      "orgcode":[null,[Validators.required]],
-      "name":[null,[Validators.required]],
-      "ename":[null,[Validators.required]],
-      "uniformcode":[null,[Validators.required]],
-      "manuno":[null,[Validators.required]]
+      "deconame":[null],
+      "edeconame":[null],
+      "delicense":[null],
+      "manulevel":[null],
+      "time":[null],
+      "orgcode":[null],
+      "name":[null],
+      "ename":[null],
+      "uniformcode":[null],
+      "manuno":[null]
     });
     this.settingService.getSettingInfo().subscribe((res)=>{
       if(res['result']=="success"){

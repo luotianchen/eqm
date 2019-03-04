@@ -424,7 +424,7 @@ export class WarehousingRegistrationComponent implements OnInit {
           let specData = this.validateForm.value.spec;
           if(this.validateForm.value.spec.indexOf("δ=")!=-1){
             specData = parseFloat(this.validateForm.value.spec.substring(2,specData.length));
-          };
+          }
           this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,specData).subscribe(res => {
             if(res['result'] == "success"){
               this.dataDetail = res['data'];
@@ -691,7 +691,18 @@ export class WarehousingRegistrationComponent implements OnInit {
     }else{
       this.warehousingregistrationService.getmaterialByCodedmarking(this.validateForm.controls['codedmarking'].value).subscribe(res => {
         if (res['result'] == "success") {
-          this.warehousingregistrationService.contraststand(res['data']['matlstand'],res['data']['designation'],null).subscribe(res1 => {
+          for (const i in res['data']) {
+            if(res['data'][ i ]!=null){
+              if("utclass" == i){
+                this.validateForm.controls[i].setValue(this.utclass2[res['data'][i]]);
+              } else{
+                this.validateForm.controls[i].setValue(res['data'][i]);
+              }
+            }
+          }
+          this.getMatlstand();
+          console.log(this.validateForm.value);
+          this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation,null).subscribe(res1 => {
             if(res1['result'] == "success") {
               this.dataDetail = res1['data'];
               this.dataDetail.status = true;
@@ -749,7 +760,7 @@ export class WarehousingRegistrationComponent implements OnInit {
               if(res['data']['spec'].indexOf("δ=")!=-1){
                 specData = parseFloat(res['data']['spec'].substring(2,specData.length));
               }
-              this.warehousingregistrationService.contraststand(res['data']['matlstand'],res['data']['designation'],specData).subscribe(res2 => {
+              this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation,specData).subscribe(res2 => {
                 if(res2['result'] == "success"){
                   this.dataDetail = res2['data'];
                   this.dataDetail.status = true;
@@ -806,22 +817,12 @@ export class WarehousingRegistrationComponent implements OnInit {
               });
             }
           });
-          for (const i in res['data']) {
-            if(res['data'][ i ]!=null){
-              if("utclass" == i){
-                console.log(i,res['data'][i]);
-                this.validateForm.controls[i].setValue(this.utclass2[res['data'][i]]);
-              } else{
-                this.validateForm.controls[i].setValue(res['data'][i]);
-              }
-            }
-          }
+          this.validateForm.controls['matlstand'].setValue(res['data']['matlstand']);
         }else{
           this.message.error("请核对入库编号是否填写正确！");
         }
       })
     }
-    this.getMatlstand();
   }
   resetForm(): void {
     for (const i in this.validateForm.controls) {

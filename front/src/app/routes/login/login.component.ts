@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   loadStatus: boolean;
   loginBtn = '登录';
-
+  passwordVisible = false;
   submitForm() {
     for (const element of Object(this.validateForm.controls)) {
       element.markAsDirty();

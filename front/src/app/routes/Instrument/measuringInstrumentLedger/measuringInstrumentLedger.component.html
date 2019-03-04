@@ -160,12 +160,7 @@
           备注
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="请输入备注"  formControlName="note" name="note" id="note" (input)="onNoteInput($event.target?.value)" (click)="onNoteInput($event.target?.value)" [nzAutocomplete]="noteauto">
-          <nz-autocomplete nzBackfill #noteauto>
-            <nz-auto-option *ngFor="let option of notes" [nzValue]="option">
-              {{option}}
-            </nz-auto-option>
-          </nz-autocomplete>
+          <input nz-input placeholder="请输入备注"  formControlName="note" name="note" id="note" />
         </nz-form-control>
       </nz-form-item>
     </div>

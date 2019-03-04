@@ -57,95 +57,95 @@ export class DesignInputComponent implements OnInit {
   ];
   channelnames = [
     {
-      label: "整体",value:{name:"整体",ename: "Integer"}
+      label: "整体",value:{name:"整体",ename: "Integer"},selected:false
     },{
-      label: "补强圈",value:{name:"补强圈",ename: "Reinforcing Ring"}
+      label: "补强圈",value:{name:"补强圈",ename: "Reinforcing Ring"},selected:false
     },{
-      label: "夹套",value:{name:"夹套",ename: "Jacket"}
+      label: "夹套",value:{name:"夹套",ename: "Jacket"},selected:false
     },{
-      label: "夹层",value:{name:"夹层",ename: "Interlayer"}
+      label: "夹层",value:{name:"夹层",ename: "Interlayer"},selected:false
     },{
-      label: "内筒",value:{name:"内筒",ename: "Inner Cylinder"}
+      label: "内筒",value:{name:"内筒",ename: "Inner Cylinder"},selected:false
     },{
-      label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"}
+      label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"},selected:false
     },{
-      label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"}
+      label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"},selected:false
     },{
-      label: "管程",value:{name:"管程",ename: "TubeSide"}
+      label: "管程",value:{name:"管程",ename: "TubeSide"},selected:false
     },{
-      label: "管程I",value:{name:"管程I",ename: "TubeSide I"}
+      label: "管程I",value:{name:"管程I",ename: "TubeSide I"},selected:false
     },{
-      label: "管程II",value:{name:"管程II",ename: "TubeSide II"}
+      label: "管程II",value:{name:"管程II",ename: "TubeSide II"},selected:false
     },{
-      label: "管程III",value:{name:"管程III",ename: "TubeSide III"}
+      label: "管程III",value:{name:"管程III",ename: "TubeSide III"},selected:false
     },{
-      label: "管程IV",value:{name:"管程IV",ename: "TubeSide IV"}
+      label: "管程IV",value:{name:"管程IV",ename: "TubeSide IV"},selected:false
     },{
-      label: "管程V",value:{name:"管程V",ename: "TubeSide V"}
+      label: "管程V",value:{name:"管程V",ename: "TubeSide V"},selected:false
     },{
-      label: "管程VI",value:{name:"管程VI",ename: "TubeSide VI"}
+      label: "管程VI",value:{name:"管程VI",ename: "TubeSide VI"},selected:false
     },{
-      label: "管程VII",value:{name:"管程VII",ename: "TubeSide VII"}
+      label: "管程VII",value:{name:"管程VII",ename: "TubeSide VII"},selected:false
     },{
-      label: "管程VIII",value:{name:"管程VIII",ename: "TubeSide VIII"}
+      label: "管程VIII",value:{name:"管程VIII",ename: "TubeSide VIII"},selected:false
     },{
-      label: "管程IX",value:{name:"管程VIII",ename: "TubeSide IX"}
+      label: "管程IX",value:{name:"管程VIII",ename: "TubeSide IX"},selected:false
     },{
-      label: "管程X",value:{name:"管程VIII",ename: "TubeSide X"}
+      label: "管程X",value:{name:"管程VIII",ename: "TubeSide X"},selected:false
     },{
-      label: "管程XI",value:{name:"管程VIII",ename: "TubeSide XI"}
+      label: "管程XI",value:{name:"管程VIII",ename: "TubeSide XI"},selected:false
     },{
-      label: "管程XII",value:{name:"管程VIII",ename: "TubeSide XII"}
+      label: "管程XII",value:{name:"管程VIII",ename: "TubeSide XII"},selected:false
     },{
-      label: "壳程",value:{name:"壳程",ename: "Shell Side"}
+      label: "壳程",value:{name:"壳程",ename: "Shell Side"},selected:false
     },{
-      label: "壳程I",value:{name:"壳程I",ename: "Shell Side I"}
+      label: "壳程I",value:{name:"壳程I",ename: "Shell Side I"},selected:false
     },{
-      label: "壳程II",value:{name:"壳程II",ename: "Shell Side II"}
+      label: "壳程II",value:{name:"壳程II",ename: "Shell Side II"},selected:false
     },{
-      label: "壳程III",value:{name:"壳程III",ename: "Shell Side III"}
+      label: "壳程III",value:{name:"壳程III",ename: "Shell Side III"},selected:false
     },{
-      label: "壳程IV",value:{name:"壳程IV",ename: "Shell Side IV"}
+      label: "壳程IV",value:{name:"壳程IV",ename: "Shell Side IV"},selected:false
     },{
-      label: "壳程V",value:{name:"壳程V",ename: "Shell Side V"}
+      label: "壳程V",value:{name:"壳程V",ename: "Shell Side V"},selected:false
     },{
-      label: "壳程VI",value:{name:"壳程VI",ename: "Shell Side VI"}
+      label: "壳程VI",value:{name:"壳程VI",ename: "Shell Side VI"},selected:false
     },{
-      label: "壳程VII",value:{name:"壳程VII",ename: "Shell Side VII"}
+      label: "壳程VII",value:{name:"壳程VII",ename: "Shell Side VII"},selected:false
     },{
-      label: "壳程VIII",value:{name:"壳程VIII",ename: "Shell Side VIII"}
+      label: "壳程VIII",value:{name:"壳程VIII",ename: "Shell Side VIII"},selected:false
     },{
-      label: "壳程IX",value:{name:"壳程IX",ename: "Shell Side IX"}
+      label: "壳程IX",value:{name:"壳程IX",ename: "Shell Side IX"},selected:false
     },{
-      label: "壳程X",value:{name:"壳程X",ename: "Shell Side X"}
+      label: "壳程X",value:{name:"壳程X",ename: "Shell Side X"},selected:false
     },{
-      label: "壳程XI",value:{name:"壳程XI",ename: "Shell Side XI"}
+      label: "壳程XI",value:{name:"壳程XI",ename: "Shell Side XI"},selected:false
     },{
-      label: "壳程XII",value:{name:"壳程XII",ename: "Shell Side XII"}
+      label: "壳程XII",value:{name:"壳程XII",ename: "Shell Side XII"},selected:false
     },    {
-      label: "I通道",value:{name:"I通道",ename: "I gallery"}
+      label: "I通道",value:{name:"I通道",ename: "I gallery"},selected:false
     },{
-      label: "II通道",value:{name:"II通道",ename: "II gallery"}
+      label: "II通道",value:{name:"II通道",ename: "II gallery"},selected:false
     },{
-      label: "III通道",value:{name:"III通道",ename: "III gallery"}
+      label: "III通道",value:{name:"III通道",ename: "III gallery"},selected:false
     },{
-      label: "IV通道",value:{name:"IV通道",ename: "IVgallery"}
+      label: "IV通道",value:{name:"IV通道",ename: "IVgallery"},selected:false
     },{
-      label: "V通道",value:{name:"V通道",ename: "V gallery"}
+      label: "V通道",value:{name:"V通道",ename: "V gallery"},selected:false
     },{
-      label: "VI通道",value:{name:"VI通道",ename: "VI gallery"}
+      label: "VI通道",value:{name:"VI通道",ename: "VI gallery"},selected:false
     },{
-      label: "VII通道",value:{name:"VII通道",ename: "VII gallery"}
+      label: "VII通道",value:{name:"VII通道",ename: "VII gallery"},selected:false
     },{
-      label: "VIII通道",value:{name:"VIII通道",ename: "VIII gallery"}
+      label: "VIII通道",value:{name:"VIII通道",ename: "VIII gallery"},selected:false
     },{
-      label: "IX通道",value:{name:"IX通道",ename: "IX gallery"}
+      label: "IX通道",value:{name:"IX通道",ename: "IX gallery"},selected:false
     },{
-      label: "X通道",value:{name:"X通道",ename: "X gallery"}
+      label: "X通道",value:{name:"X通道",ename: "X gallery"},selected:false
     },{
-      label: "XI通道",value:{name:"XI通道",ename: "XI gallery"}
+      label: "XI通道",value:{name:"XI通道",ename: "XI gallery"},selected:false
     },{
-      label: "XII通道",value:{name:"XII通道",ename: "XII gallery"}
+      label: "XII通道",value:{name:"XII通道",ename: "XII gallery"},selected:false
     }
   ];
   pttypes = [
@@ -221,7 +221,7 @@ export class DesignInputComponent implements OnInit {
       analyde: ["无", [Validators.required]],//按疲劳分析设置
       pvclass: [null, [Validators.required]],//换热面积
       unit: ['/', [Validators.required]],//换热面积单位
-      channelnum: [0, [Validators.required]],//通道数
+      channelnum: [1, [Validators.required]],//通道数
       proheight:[0, [Validators.required]],//产品总高
       length:[0, [Validators.required]],//筒体长度
       designdate: [null, [Validators.required]],//设计日期
@@ -309,6 +309,7 @@ export class DesignInputComponent implements OnInit {
     this.designInputService.getstand().subscribe((res)=>{
       this.stands = res["data"];
     })
+    this.setChannelNum();
   }
 
 
@@ -321,10 +322,10 @@ export class DesignInputComponent implements OnInit {
     this.i++;
     this.saferelDataSet = [...this.saferelDataSet, {
       "key": `${this.i}`,
-      "name": "",
-      "model": "",
-      "spec": "",
-      "qty": "",
+      "name": null,
+      "model": null,
+      "spec": null,
+      "qty": null,
     }];
     this.updateSaferelsaferelEditCache();
     this.saferelEditCache[`${this.i}`].edit = true;
@@ -368,27 +369,27 @@ export class DesignInputComponent implements OnInit {
     for (let i = 3; i <= this.validateForm.value.channelnum; i++) {
       this.dataSet.push({
         key    : i,
-        name   : "",
-        volume : "",
-        innerdia : "",
-        shmatl1 : "",
-        shmatl2 : "",
-        shmatl3 : "",
-        shthick1 : "",
-        shthick2 : "",
-        shthick3 : "",
-        wmedia:"",
-        hdthick1:"",
-        hdthick2:"",
-        maxwpress:"",
-        depress:"",
-        detemp:"",
-        wpress:"",
-        wtemp:"",
-        testpress:"",
-        leaktest:"",
-        leaktestp:"",
-        pttype:""
+        name   : null,
+        volume : null,
+        innerdia : null,
+        shmatl1 : null,
+        shmatl2 : null,
+        shmatl3 : null,
+        shthick1 : null,
+        shthick2 : null,
+        shthick3 : null,
+        wmedia:null,
+        hdthick1:null,
+        hdthick2:null,
+        maxwpress:null,
+        depress:null,
+        detemp:null,
+        wpress:null,
+        wtemp:null,
+        testpress:null,
+        leaktest:null,
+        leaktestp:null,
+        pttype:null
       });
     }
   }
@@ -435,7 +436,10 @@ export class DesignInputComponent implements OnInit {
       ];
     }
     if(this.validateForm.value.channelnum>1){
-
+      for (const i in this.validateForm2.controls) {
+        this.validateForm2.controls[ i ].markAsDirty();
+        this.validateForm2.controls[ i ].updateValueAndValidity();
+      }
       channelData.push(
         {
           "name":this.validateForm2.value.name.name,
@@ -465,17 +469,20 @@ export class DesignInputComponent implements OnInit {
           "pttype":this.validateForm2.value.pttype.name,
           "epttype":this.validateForm2.value.pttype.ename
         });
-
+    }
+    if(this.validateForm.value.channelnum>2){
       for(let data of this.dataSet){
         data.ename = data.name.ename;
         data.name = data.name.name;
         data.epttype = data.pttype.ename;
         data.pttype = data.pttype.name;
         channelData.push(data);
-      }
-      for (const i in this.validateForm2.controls) {
-        this.validateForm2.controls[ i ].markAsDirty();
-        this.validateForm2.controls[ i ].updateValueAndValidity();
+        for(let i in data){
+          if(!data[i]){
+            this.msg.error("请完整填写通道数据后重新提交！")
+            return;
+          }
+        }
       }
     }
     //检查数据是否填写完整
@@ -497,44 +504,6 @@ export class DesignInputComponent implements OnInit {
           }
         })
       }else{
-        if(this.validateForm.value.channelnum>1){
-          channelData.push(
-            {
-              "name":this.validateForm2.value.name.name,
-              "ename":this.validateForm2.value.name.ename,
-              "volume":this.validateForm2.value.volume,
-              "innerdia":this.validateForm2.value.innerdia,
-              "shmatl1":this.validateForm2.value.shmatl1,
-              "shmatl2":this.validateForm2.value.shmatl2,
-              "shmatl3":this.validateForm2.value.shmatl3,
-              "shthick1":this.validateForm2.value.shthick1,
-              "shthick2":this.validateForm2.value.shthick2,
-              "shthick3":this.validateForm2.value.shthick3,
-              "liningmatl":this.validateForm2.value.liningmatl,
-              "liningthick":this.validateForm2.value.liningthick,
-              "wmedia":this.validateForm2.value.wmedia.name,
-              "hdthick1":this.validateForm2.value.hdthick1,
-              "hdthick2":this.validateForm2.value.hdthick2,
-              "maxwpress":this.validateForm2.value.maxwpress,
-              "depress":this.validateForm2.value.depress,
-              "detemp":this.validateForm2.value.detemp,
-              "wpress":this.validateForm2.value.wpress,
-              "wtemp":this.validateForm2.value.wtemp,
-              "testpress":this.validateForm2.value.testpress,
-              "leaktest":this.validateForm2.value.leaktest.name,
-              "eleaktest":this.validateForm2.value.leaktest.value.ename,
-              "leaktestp":this.validateForm2.value.leaktestp,
-              "pttype":this.validateForm2.value.pttype.name,
-              "epttype":this.validateForm2.value.pttype.ename
-            });
-        }
-        for(let data of this.dataSet){
-          data.ename = data.name.ename;
-          data.name = data.name.name;
-          data.epttype = data.pttype.ename;
-          data.pttype = data.pttype.name;
-          channelData.push(data);
-        }
         this.designInputService.putChannel({dwgno:this.validateForm.value.dwgno,data:channelData}).subscribe((res)=>{
           if(res["result"]=="success"){
             this.putProduce()
@@ -547,6 +516,25 @@ export class DesignInputComponent implements OnInit {
     this.validateForm.reset();
     this.validateForm1.reset();
     this.validateForm2.reset();
+    this.validateForm.controls['channelnum'].setValue(1);
+    this.setChannelNum();
+  }
+  changeSelectedStatus(){ //隐藏已选择选项
+    for(let i of this.channelnames)
+      i.selected = false;
+    for(let i of this.channelnames){
+      if(this.validateForm1.value.name)
+        if(i.label == this.validateForm1.value.name.name)
+          i.selected = true;
+      if(this.validateForm2.value.name)
+        if(i.label == this.validateForm2.value.name.name)
+          i.selected = true;
+      for(let data of this.dataSet){
+        if(data.name)
+          if(data.name.name == i.label)
+            i.selected = true;
+      }
+    }
   }
   putProduce(){
     this.designInputService.putProduce({
@@ -585,6 +573,7 @@ export class DesignInputComponent implements OnInit {
     }).subscribe((res)=>{
       if(res['result']=="success"){
         this.msg.success("提交成功！");
+        this.resetForm();
       }
     })
   }
@@ -621,6 +610,11 @@ export class DesignInputComponent implements OnInit {
           if(res["result"]=="success"){
             this.msg.success("提交成功！");
             this.prodnameValidateForm.reset();
+            this.designInputService.getprodname().subscribe((res) => {
+              if (res["result"] == "success") {
+                this.prodnames = res["data"];
+              }
+            });
           }
         })
       }
@@ -635,6 +629,11 @@ export class DesignInputComponent implements OnInit {
           if(res["result"]=="success"){
             this.msg.success("提交成功！");
             this.wmediaValidateForm.reset();
+            this.designInputService.getgetwmedias().subscribe((res)=>{
+              if(res['result']=="success"){
+                this.wmedias = res['data'];
+              }
+            });
           }
         })
       }

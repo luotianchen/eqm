@@ -158,7 +158,7 @@ public class putprenotiform {                                                   
 
             }
         }catch (Exception e){
-            result.setResult("fail");
+            result.setResult(e.toString());
         }
         conn.close();
 

@@ -36,7 +36,7 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
       recalibdate:[null,[Validators.required]],
       specialist:[null,[Validators.required]],
       calibinterval:[null,[Validators.required]],
-      note:[null],
+      note:["报废"],
     });
     this.measuringInstrumentLedgerService.getGaugename().subscribe((res)=>{
       if(res["result"]=="success"){
@@ -169,14 +169,6 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
         }
       })
     }
-  }
-  onNoteInput(value:string):void{ //当备注输入时展开选项
-    this.notes = value ? [
-      value,
-      "报废",
-    ]: [
-      "报废",
-    ];
   }
   getInfoByGaugeno(){
     if(this.validateForm.value.gaugeno!=null&&this.validateForm.value.gaugeno!="")

@@ -194,6 +194,7 @@ export class TestParametersComponent implements OnInit {
                 }
               }
               fbb.controls['testmedia'].setValue(item);
+              fbb.controls['testmedia'].disable();
             }
           })
 
@@ -289,7 +290,8 @@ export class TestParametersComponent implements OnInit {
               model.dated1.press = res['data']['press'];
               model.dated1.press['testpress'] = data.testpress;
               model.dated1.press['ppart'] = data.name;
-              fbb.setControl('dated1',new FormControl({value: res['data']['press']['dated'], disabled: true}));
+              fbb.controls['dated1'].setValue(fbb.value.dated1);
+              fbb.controls['dated1'].disable();
               if(model.leaktest){
                 model.dated1.leak = res['data']['leak'];
                 model.dated1.leak['leaktestp'] = data.leaktestp;
@@ -302,7 +304,8 @@ export class TestParametersComponent implements OnInit {
                   model.dated2.press = res['data']['press'];
                   model.dated2.press['testpress'] = data.testpress;
               model.dated2.press['ppart'] = data.name;
-                  fbb.setControl('dated2',new FormControl({value: res['data']['press']['dated'], disabled: true}));
+                  fbb.controls['dated2'].setValue(fbb.value.dated2);
+                  fbb.controls['dated2'].disable();
           if(model.leaktest){
             model.dated2.leak = res['data']['leak'];
             model.dated2.leak['leaktestp'] = data.leaktestp;
@@ -314,8 +317,8 @@ export class TestParametersComponent implements OnInit {
                       model.dated3.press = res['data']['press'];
                       model.dated3.press['testpress'] = data.testpress;
               model.dated3.press['ppart'] = data.name;
-                      fbb.controls['dated3'].setValue(res['data']['press']['dated']);
-                      fbb.setControl('dated3',new FormControl({value: res['data']['press']['dated'], disabled: true}));
+                      fbb.controls['dated3'].setValue(fbb.value.dated3);
+                      fbb.controls['dated3'].disable();
                       if(model.leaktest){
                         model.dated3.leak = res['data']['leak'];
                         model.dated3.leak['leaktestp'] = data.leaktestp;
@@ -366,12 +369,19 @@ export class TestParametersComponent implements OnInit {
     if(!form.valid){
       valid = false;
     }
+    console.log(form.value);
     if(valid){
+      let ename = "";
+      for(let i of this.pparts){
+        if(i.label == form.value.ppart){
+          ename = i.value.ename;
+        }
+      }
       this.testParametersService.putPressureTest({
         prodno:form.value.prodno,
         dwgno:form.value.dwgno,
-        ppart:form.value.ppart.name,
-        eppart:form.value.ppart.ename,
+        ppart:form.value.ppart,
+        eppart:ename,
         dated1:form.controls['dated1'].value,
         dated2:form.value.dated2,
         dated3:form.value.dated3,
@@ -382,9 +392,15 @@ export class TestParametersComponent implements OnInit {
       }).subscribe((res)=>{
         if(res["result"]=="success"){
           for(let i in this.dataModel[index]){
-            if(this.dataModel[index][i].status == 0){
-              this.dataModel[index][i] = null;
-            }
+            if(this.dataModel[index][i])
+              if(this.dataModel[index][i].status == 0){
+                this.dataModel[index][i] = null;
+              }else{
+                if(this.dataModel[index][i]['press'])
+                  this.dataModel[index][i].press.ppart = form.value.ppart;
+                if(this.dataModel[index][i]['leak'])
+                  this.dataModel[index][i].leak.ppart = form.value.ppart;
+              }
           }
           this.testParametersService.putpreandleak(
             {
