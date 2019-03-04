@@ -23,6 +23,10 @@ public class putsafedisdevice {                                         //提交
         putsafedisdeviceresult result = new putsafedisdeviceresult();
 
         try {
+            ps = conn.prepareStatement("DELETE FROM safedisdevice WHERE status = 0");
+            ps.executeUpdate();
+            ps.close();
+
             for(int i = 0;i<pp.getData().size();i++){
                 ps = conn.prepareStatement("INSERT INTO safedisdevice(dwgno,name,model,qty,spec) VALUES (?,?,?,?,?) ");
                 ps.setString(1,pp.getDwgno());

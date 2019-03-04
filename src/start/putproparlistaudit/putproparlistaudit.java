@@ -23,12 +23,51 @@ public class putproparlistaudit {                                   //提交产�
         putproparlistauditresult result = new putproparlistauditresult();
 
         try {
-            ps = conn.prepareStatement("UPDATE proparlist SET audit = ?,audit_user = ? WHERE dwgno = ?");
+            ps = conn.prepareStatement("UPDATE proparlist SET audit = ?,audit_user = ? WHERE dwgno = ? AND audit = ?");
+            ps.setInt(1,3);
+            ps.setString(2,pp.getAudit_user());
+            ps.setString(3,pp.getDwgno());
+            ps.setInt(4,1);
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("UPDATE proparlist SET audit = ?,audit_user = ? WHERE dwgno = ? AND audit = ?");
             ps.setString(1,pp.getAudit());
             ps.setString(2,pp.getAudit_user());
             ps.setString(3,pp.getDwgno());
+            ps.setInt(4,0);
             ps.executeUpdate();
             ps.close();
+
+            ps = conn.prepareStatement("UPDATE channeldata SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps.setInt(1,3);
+            ps.setString(2,pp.getDwgno());
+            ps.setInt(3,1);
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("UPDATE channeldata SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps.setString(1,pp.getAudit());
+            ps.setString(2,pp.getDwgno());
+            ps.setInt(3,0);
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("UPDATE safedisdevice SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps.setInt(1,3);
+            ps.setString(2,pp.getDwgno());
+            ps.setInt(3,1);
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("UPDATE safedisdevice SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps.setString(1,pp.getAudit());
+            ps.setString(2,pp.getDwgno());
+            ps.setInt(3,0);
+            ps.executeUpdate();
+            ps.close();
+
+
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");

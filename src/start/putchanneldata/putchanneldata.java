@@ -24,7 +24,11 @@ public class putchanneldata {                                           //提交
 
         putchanneldataresult result = new putchanneldataresult();
 
-//        try {
+        try {
+            ps = conn.prepareStatement("DELETE FROM channeldata WHERE status = 0");
+            ps.executeUpdate();
+            ps.close();
+
             for (int i = 0;i<pp.getData().size();i++){
                 System.out.println(pp.getData().size());
                 String sql = null;
@@ -557,9 +561,9 @@ public class putchanneldata {                                           //提交
 
             }
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult(e.toString());
-//        }
+        }catch (Exception e){
+            result.setResult(e.toString());
+        }
         conn.close();
         return result;
     }
