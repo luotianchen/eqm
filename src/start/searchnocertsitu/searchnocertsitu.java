@@ -52,6 +52,7 @@ public class searchnocertsitu {
         int matlstand_id=0;
         int supplier_id=0;
         int millunit_id=0;
+        int pdesignation_id=0;
         String sql=null;
 
         try{
@@ -63,14 +64,23 @@ public class searchnocertsitu {
             rs.close();
             ps.close();
 
+            ps=conn.prepareStatement("SELECT * FROM contraststand WHERE designation= ?");
+            ps.setString(1,sp.getDesignation());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                pdesignation_id = rs.getInt("id");
+            }
+            rs.close();
+            ps.close();
+
             sql="SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? ";
-            if(!(sp.getDimension()==null || sp.getDimension().equals(""))){
-                sql=sql+"AND dimension=?";
+            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+                sql=sql+"AND contraststand_id_designation=?";
             }
             ps=conn.prepareStatement(sql);
             ps.setInt(1,nocertsitu_id);
-            if(!(sp.getDimension()==null || sp.getDimension().equals(""))){
-                ps.setString(2,sp.getDimension());
+            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+                ps.setInt(2,pdesignation_id);
             }
             rs=ps.executeQuery();
             while (rs.next()){
@@ -258,6 +268,8 @@ public class searchnocertsitu {
         int matlstand_id=0;
         int supplier_id=0;
         int millunit_id=0;
+        int pdesignation_id=0;
+        String sql=null;
 
         try {
             ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE certsitu= '质保书未到'");
@@ -267,8 +279,25 @@ public class searchnocertsitu {
             }
             rs.close();
             ps.close();
-            ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=?");
+
+            ps=conn.prepareStatement("SELECT * FROM contraststand WHERE designation= ?");
+            ps.setString(1,sp.getDesignation());
+            rs=ps.executeQuery();
+            while(rs.next()){
+                pdesignation_id = rs.getInt("id");
+            }
+            rs.close();
+            ps.close();
+
+            sql="SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? ";
+            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+                sql=sql+"AND contraststand_id_designation=?";
+            }
+            ps=conn.prepareStatement(sql);
             ps.setInt(1,nocertsitu_id);
+            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+                ps.setInt(2,pdesignation_id);
+            }
             rs=ps.executeQuery();
             while (rs.next()){
                 sncd = new searchnocertsitudata();

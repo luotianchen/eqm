@@ -25,7 +25,7 @@ public class getprodno {                                                        
         getprodnoresult result = new getprodnoresult();
 
         try {
-            ps=conn.prepareStatement("SELECT * FROM promanparlist");
+            ps=conn.prepareStatement("SELECT * FROM prenotiform");
             rs=ps.executeQuery();
             while (rs.next()){
                 data.add(rs.getString("prodno"));

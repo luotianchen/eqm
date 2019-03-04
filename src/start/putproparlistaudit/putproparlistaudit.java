@@ -39,28 +39,28 @@ public class putproparlistaudit {                                   //提交产�
             ps.executeUpdate();
             ps.close();
 
-            ps = conn.prepareStatement("UPDATE channeldata SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps = conn.prepareStatement("UPDATE channeldata SET status = ? WHERE dwgno = ? AND status = ?");
             ps.setInt(1,3);
             ps.setString(2,pp.getDwgno());
             ps.setInt(3,1);
             ps.executeUpdate();
             ps.close();
 
-            ps = conn.prepareStatement("UPDATE channeldata SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps = conn.prepareStatement("UPDATE channeldata SET status = ? WHERE dwgno = ? AND status = ?");
             ps.setString(1,pp.getAudit());
             ps.setString(2,pp.getDwgno());
             ps.setInt(3,0);
             ps.executeUpdate();
             ps.close();
 
-            ps = conn.prepareStatement("UPDATE safedisdevice SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps = conn.prepareStatement("UPDATE safedisdevice SET status = ? WHERE dwgno = ? AND status = ?");
             ps.setInt(1,3);
             ps.setString(2,pp.getDwgno());
             ps.setInt(3,1);
             ps.executeUpdate();
             ps.close();
 
-            ps = conn.prepareStatement("UPDATE safedisdevice SET audit = ? WHERE dwgno = ? AND audit = ?");
+            ps = conn.prepareStatement("UPDATE safedisdevice SET status = ? WHERE dwgno = ? AND status = ?");
             ps.setString(1,pp.getAudit());
             ps.setString(2,pp.getDwgno());
             ps.setInt(3,0);
