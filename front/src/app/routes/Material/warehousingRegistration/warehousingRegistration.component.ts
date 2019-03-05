@@ -240,12 +240,14 @@ export class WarehousingRegistrationComponent implements OnInit {
   public notes = []; //备注选项
   public warrantynos = []; //质保书号选项
   public utclass = {//ut等级罗马字母转阿拉伯
+    "/":0,
     "I":1,
     "II":2,
     "III":3,
     "IV":4
   };
   public utclass2 = {//ut等级阿拉伯转罗马字母
+    "0":"/",
     "1":"I",
     "2":"II",
     "3":"III",
@@ -379,6 +381,11 @@ export class WarehousingRegistrationComponent implements OnInit {
             }
           });
           switch (this.dataDetail.utclass) {
+            case 0:
+              this.utclasses = ['/']
+              this.validateForm.controls['utclass'].setValue('/');
+              this.validateForm.controls['utclass'].disable();
+              break;
             case 1 :
               this.utclasses = [
                 "I"
@@ -437,6 +444,11 @@ export class WarehousingRegistrationComponent implements OnInit {
                 }
               });
               switch(this.dataDetail.utclass){
+                case 0:
+                  this.utclasses = ['/']
+                  this.validateForm.controls['utclass'].setValue('/');
+                  this.validateForm.controls['utclass'].disable();
+                  break;
                 case 1 :
                   this.utclasses = [
                     "I"
@@ -714,6 +726,11 @@ export class WarehousingRegistrationComponent implements OnInit {
                 }
               });
               switch (this.dataDetail.utclass) {
+                case 0:
+                  this.utclasses = ['/']
+                  this.validateForm.controls['utclass'].setValue('/');
+                  this.validateForm.controls['utclass'].disable();
+                  break;
                 case 1 :
                   this.utclasses = [
                     "I"
@@ -772,6 +789,11 @@ export class WarehousingRegistrationComponent implements OnInit {
                     }
                   });
                   switch(this.dataDetail.utclass){
+                    case 0:
+                      this.utclasses = ['/']
+                      this.validateForm.controls['utclass'].setValue('/');
+                      this.validateForm.controls['utclass'].disable();
+                      break;
                     case 1 :
                       this.utclasses = [
                         "I"

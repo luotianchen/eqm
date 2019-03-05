@@ -31,7 +31,7 @@ export class SingleWarrantyAbsentComponent implements OnInit {
         this.pageindex = 1;
       }
       this.loading = true;
-      this.singleWarrantyAbsentService.getAbsentData(this.pageindex, this.pagesize, this.validateForm['controls']["matlcode"].value).subscribe((res) => {
+      this.singleWarrantyAbsentService.getAbsentData(this.pageindex, this.pagesize, this.validateForm['controls']["matlcode"].value,this.validateForm.value.designation).subscribe((res) => {
         if (res["result"] == "success") {
           this.total = res["total"];
           this.dataset = res["data"];
@@ -49,11 +49,11 @@ export class SingleWarrantyAbsentComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.validateForm = this.fb.group({
       "matlcode":['', [Validators.required]],
-      "dimension":['']
+      "designation":['']
     });
   }
   download(){
-    if(this.matlcode!=null) {this.singleWarrantyAbsentService.download(this.matlcode).subscribe((res:any)=>{
+    if(this.matlcode!=null) {this.singleWarrantyAbsentService.download(this.matlcode,this.validateForm.value.designation).subscribe((res:any)=>{
       let blob = new Blob([res])
       let objectUrl = URL.createObjectURL(blob);
       let a = document.createElement('a');

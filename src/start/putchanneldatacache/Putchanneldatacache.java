@@ -26,7 +26,8 @@ public class Putchanneldatacache {                                           //æ
         putchanneldatacacheresult result = new putchanneldatacacheresult();
 
         try {
-            ps = conn.prepareStatement("DELETE FROM channeldatacache WHERE status = 1");
+            ps = conn.prepareStatement("DELETE FROM channeldatacache WHERE dwgno = ?");
+            ps.setString(1,pp.getDwgno());
             ps.executeUpdate();
             ps.close();
 

@@ -36,7 +36,7 @@ export class ProductManufacturingParametersComponent implements OnInit {
     "innerdia":[],//容器内径
     "roundness":[],//筒体圆度
     "length":0,//筒体长度
-    "straightness":0,//筒体直线
+    "straightness":[],//筒体直线
     "outward":[],//封头外凸
     "concave":[]//封头内凸
   };
@@ -218,7 +218,7 @@ export class ProductManufacturingParametersComponent implements OnInit {
             "innerdia":[],//容器内径
             "roundness":[],//筒体圆度
             "length":0,//筒体长度
-            "straightness":0,//筒体直线
+            "straightness":[],//筒体直线
             "outward":[],//封头外凸
             "concave":[]//封头内凸
           }
@@ -313,16 +313,20 @@ export class ProductManufacturingParametersComponent implements OnInit {
     if(this.validateForm2.value.prodno!=null && this.validateForm2.value.prodno!=""){
       this.productManufacturingParametersService.getdwgno1and2(this.validateForm2.value.prodno).subscribe(res=>{
         if(res['result']=="success"){
-          this.dwgnos = res['data'];
-        }
-      })
-      this.productManufacturingParametersService.getDataStand2(this.validateForm2.value.dwgno).then((res) => {
-        if(res['result']=="success") {
-          this.dataStand2 = res['data'];
+          if(res['data']['dwgno1'])
+            this.dwgnos.push(res['data']['dwgno1']);
+          if(res['data']['dwgno2'])
+            this.dwgnos.push(res['data']['dwgno2']);
         }
       })
     }
+    this.productManufacturingParametersService.getDataStand2(this.validateForm2.value.dwgno).then((res) => {
+      if(res['result']=="success") {
+        this.dataStand2 = res['data'];
+      }
+    })
   }
+
 
   submitForm2(){
     for(const i in this.validateForm2.controls){

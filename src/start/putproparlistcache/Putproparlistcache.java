@@ -28,7 +28,8 @@ public class Putproparlistcache {                                               
         int prodname_id = 0;
 
         try {
-            ps = conn.prepareStatement("DELETE  FROM proparlistcache WHERE audit = 1");
+            ps = conn.prepareStatement("DELETE  FROM proparlistcache WHERE dwgno = ?");
+            ps.setString(1,pp.getDwgno());
             ps.executeUpdate();
             ps.close();
 
@@ -82,7 +83,7 @@ public class Putproparlistcache {                                               
 
 
         }catch (Exception e){
-            result.setResult("fail");
+            result.setResult(e.toString());
         }
         conn.close();
         return result;

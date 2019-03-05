@@ -7,4 +7,3 @@ import {Injectable} from "@angular/core";
 export class ApiService{
   public BASEURL = "http://localhost:8080";
 }
-

@@ -13,6 +13,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="dwgno">
           总图号
+          <button nz-button nzType="primary" nzShape="circle" (click)="getInfoByDwgno($event)"><i nz-icon type="search"></i></button>
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="dwgno" name="dwgno" placeholder="总图号" type="text" id="dwgno">
@@ -256,7 +257,7 @@
           热处理种类
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="httype" name="httype" id="httype" nzPlaceHolder="热处理种类"  nzShowSearch nzAllowClear>
+          <nz-select formControlName="httype" name="httype" id="httype" nzPlaceHolder="热处理种类"  nzShowSearch nzAllowClear (ngModelChange)="hideHttemp()">
             <nz-option [nzValue]="'退火'" [nzLabel]="'退火'"></nz-option>
             <nz-option [nzValue]="'正火'" [nzLabel]="'正火'"></nz-option>
             <nz-option [nzValue]="'固溶'" [nzLabel]="'固溶'"></nz-option>
@@ -284,7 +285,7 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col nzSpan="4">
+    <div nz-col nzSpan="4" *ngIf="this.validateForm.value.httype != '--'">
       <nz-form-item>
         <nz-form-label nzRequired nzFor="httemp">
           热处理温度
@@ -389,11 +390,16 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="designdate">设计日期</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeHolder="YYYY-MM-DD或MM-DD" formControlName="designdate" name="designdate" id="designdate" (blur)="formatDate(validateForm.controls['designdate'])"/>
+          <input nz-input placeHolder="YYYY-MM-DD或MM-DD" formControlName="designdate" name="designdate" id="designdate" (blur)="formatDate(validateForm.controls['designdate']);"/>
+          <nz-form-explain *ngIf="validateForm.get('designdate').dirty&&validateForm.get('designdate').errors">
+            <ng-container *ngIf="validateForm.get('designdate').hasError('required')">
+              设计日期为必填项!
+            </ng-container>
+            <ng-container *ngIf="validateForm.get('designdate').hasError('confirm')">
+              设计日期必须在设计单位有效期内！
+            </ng-container>
+          </nz-form-explain>
         </nz-form-control>
-        <nz-form-explain *ngIf="this.validateForm.get('designdate').dirty && this.validateForm.get('designdate').errors">
-          设计日期为必选项！
-        </nz-form-explain>
       </nz-form-item>
     </div>
     <div nz-col nzSpan="8">
@@ -402,7 +408,7 @@
           设计单位
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch (ngModelChange)="setDeDate()">
             <nz-option *ngFor="let o of this.deconames" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('deconame').dirty && this.validateForm.get('deconame').errors">
@@ -570,7 +576,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shmatl2">
+          <nz-form-label nzFor="shmatl2">
             壳体材料2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -585,7 +591,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shmatl3">
+          <nz-form-label nzFor="shmatl3">
             壳体材料3
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -613,7 +619,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shthick2">
+          <nz-form-label nzFor="shthick2">
             壳体厚度2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -626,7 +632,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shthick3">
+          <nz-form-label nzFor="shthick3">
             壳体厚度3
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -773,6 +779,21 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
+          <nz-form-label nzRequired nzFor="pttype">
+            试压类别
+          </nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear>
+              <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="validateForm1.get('pttype').dirty && validateForm1.get('pttype').errors">
+              试压类别不能为空！
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="4">
+        <nz-form-item>
           <nz-form-label nzRequired nzFor="testpress">
             试验压力(Mpa)
           </nz-form-label>
@@ -790,7 +811,7 @@
             泄漏试验方式
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="泄漏试验方式"  nzShowSearch nzAllowClear>
+            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="泄漏试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(1)">
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('leaktest').dirty && validateForm1.get('leaktest').errors">
@@ -799,30 +820,15 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzSpan="4">
+      <div nz-col nzSpan="4" *ngIf="validateForm1.value.leaktest!=null && (validateForm1.value.leaktest.name == '气密性试验和氦检漏试验' || validateForm1.value.leaktest.name == '气密性试验')">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="leaktestp">
             气密性试验压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-input-number formControlName="leaktestp" [nzMin]="0" name="leaktestp" id="leaktestp" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
-            <nz-form-explain *ngIf="validateForm1.get('testpress').dirty && validateForm1.get('testpress').errors">
+            <nz-form-explain *ngIf="validateForm1.value.leaktest!=null && validateForm1.get('testpress').dirty && validateForm1.get('testpress').errors">
               气密性试验压力不能为空！
-            </nz-form-explain>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzSpan="4">
-        <nz-form-item>
-          <nz-form-label nzRequired nzFor="pttype">
-            试压类别
-          </nz-form-label>
-          <nz-form-control nzHasFeedback>
-            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear>
-              <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
-            </nz-select>
-            <nz-form-explain *ngIf="validateForm1.get('pttype').dirty && validateForm1.get('pttype').errors">
-              试压类别不能为空！
             </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
@@ -895,7 +901,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shmatl2">
+          <nz-form-label nzFor="shmatl2">
             夹套材料2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -910,7 +916,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shmatl3">
+          <nz-form-label nzFor="shmatl3">
             夹套材料3
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -938,7 +944,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shthick2">
+          <nz-form-label nzFor="shthick2">
             夹套厚度2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -951,7 +957,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="shthick3">
+          <nz-form-label nzFor="shthick3">
             夹套厚度3
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -1070,6 +1076,21 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
+          <nz-form-label nzRequired nzFor="pttype">
+            试压类别
+          </nz-form-label>
+          <nz-form-control nzHasFeedback>
+            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear>
+              <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+            </nz-select>
+            <nz-form-explain *ngIf="validateForm2.get('pttype').dirty && validateForm2.get('pttype').errors">
+              试压类别不能为空！
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="4">
+        <nz-form-item>
           <nz-form-label nzRequired nzFor="testpress">
             试验压力(Mpa)
           </nz-form-label>
@@ -1087,7 +1108,7 @@
             气密性试验方式
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear>
+            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(2)">
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('leaktest').dirty && validateForm2.get('leaktest').errors">
@@ -1096,7 +1117,7 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzSpan="4">
+      <div nz-col nzSpan="4" *ngIf="validateForm2.value.leaktest!=null && (validateForm2.value.leaktest.name == '气密性试验和氦检漏试验' || validateForm2.value.leaktest.name == '气密性试验')">
         <nz-form-item>
           <nz-form-label nzRequired nzFor="leaktestp">
             气密性试验压力(Mpa)
@@ -1105,21 +1126,6 @@
             <nz-input-number formControlName="leaktestp" [nzMin]="0" name="leaktestp" id="leaktestp" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
             <nz-form-explain *ngIf="validateForm2.get('testpress').dirty && validateForm2.get('testpress').errors">
               气密性试验压力不能为空！
-            </nz-form-explain>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col nzSpan="4">
-        <nz-form-item>
-          <nz-form-label nzRequired nzFor="pttype">
-            试压类别
-          </nz-form-label>
-          <nz-form-control nzHasFeedback>
-            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear>
-              <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
-            </nz-select>
-            <nz-form-explain *ngIf="validateForm2.get('pttype').dirty && validateForm2.get('pttype').errors">
-              试压类别不能为空！
             </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
@@ -1216,6 +1222,12 @@
         <p style="margin-top: 10px;margin-bottom: 10px">工作温度</p>
             <nz-input-number [(ngModel)]="data.wtemp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'工作温度'" style="width:100%;"></nz-input-number>
       </div>
+    <div nz-col nzSpan="4">
+      <p style="margin-top: 10px;margin-bottom: 10px">试压类别</p>
+      <nz-select [(ngModel)]="data.pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear style="width: 100%">
+        <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+      </nz-select>
+    </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">试验压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.testpress" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'试验压力'" style="width:100%;"></nz-input-number>
@@ -1228,20 +1240,15 @@
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
       </div>
-      <div nz-col nzSpan="4">
+      <div nz-col nzSpan="4" *ngIf="data.leaktest!=null && (data.leaktest.name == '气密性试验和氦检漏试验' || data.leaktest.name == '气密性试验')">
         <p style="margin-top: 10px;margin-bottom: 10px">气密性试验压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.leaktestp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
-      </div>
-      <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">试压类别</p>
-            <nz-select [(ngModel)]="data.pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear style="width: 100%">
-              <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
-            </nz-select>
       </div>
     </div>
 </div>
 <div style="text-align:center;margin-top: 20px">
-  <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  <button nz-button nzType="primary" (click)="saveForm()">保存</button>
+  <button nz-button nzType="primary" style="margin-left: 30px" (click)="submitForm()">提交</button>
   <button nz-button nzType="default" style="margin-left: 30px" (click)="resetForm()">重置</button>
 </div>
 

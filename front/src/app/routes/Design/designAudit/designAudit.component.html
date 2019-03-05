@@ -33,6 +33,52 @@
     </tbody>
   </nz-table>
 </div>
+<nz-divider></nz-divider>
+<div>
+  <h3 class="title">已审核数据</h3>
+</div>
+<div style="margin-top: 30px;">
+  <nz-table
+    #ajaxTable2
+    nzBordered
+    [nzLoading]="loading"
+    [nzData]="dataSet2Display">
+    <thead>
+    <tr>
+      <th>图号</th>
+      <th>产品名称</th>
+      <th nzShowFilter [nzFilters]="types" (nzFilterChange)="filter(searchtype)">容器类别
+      </th>
+      <th>产品标准</th>
+      <th>设计日期</th>
+      <th nzCustomFilter>
+        <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" [nzClickHide]="false" nzTableFilter #dropdown>
+          <i nz-icon nzType="search" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+          <div class="search-box">
+            <input type="text" nz-input placeholder="请输入" [(ngModel)]="searchname">
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">搜索</button>
+            <button nz-button nzSize="small" (click)="reset()">重置</button>
+          </div>
+        </nz-dropdown>
+        设计单位
+      </th>
+      <!--设计单位、容器类别筛选-->
+    </tr>
+    </thead>
+    <tbody>
+    <ng-template ngFor let-data [ngForOf]="ajaxTable2.data">
+      <tr>
+        <td>{{data.dwgno}}</td>
+        <td>{{data.prodname}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.mainstand}}</td>
+        <td>{{data.designdate}}</td>
+        <td>{{data.deconame}}</td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </nz-table>
+</div>
 <nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"[nzMaskClosable]="false" [nzPlacement]="placement" [nzWidth]="720" [nzVisible]="visible" nzTitle="详细内容" (nzOnClose)="close()">
   <nz-radio-group [(ngModel)]="placement">
     <label nz-radio nzValue="left">左</label>

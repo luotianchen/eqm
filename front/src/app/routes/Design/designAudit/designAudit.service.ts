@@ -9,6 +9,9 @@ export class DesignAuditService {
   getaudit(){
     return this.http.get(this.api.BASEURL+"/getdwgnobynoaudit");
   }
+  getaudited(){
+    return this.http.get(this.api.BASEURL+"/getdwgnoaudited");
+  }
   getbydwgno(dwgno){
     return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno})
   }

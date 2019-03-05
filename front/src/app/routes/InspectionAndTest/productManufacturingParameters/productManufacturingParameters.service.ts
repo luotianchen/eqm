@@ -8,7 +8,7 @@ export class ProductManufacturingParametersService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getprodno(){
-    return this.http.get(this.api.BASEURL+"/getprodnoforpreno");
+    return this.http.get(this.api.BASEURL+"/getprodno");
   }
   getdistribute(prodno){
     return new Promise((resolve, reject) => {

@@ -24,7 +24,8 @@ public class Putsafedisdevicecache {                                         //æ
         putsafedisdevicecacheresult result = new putsafedisdevicecacheresult();
 
         try {
-            ps = conn.prepareStatement("DELETE FROM safedisdevicecache WHERE status = 1");
+            ps = conn.prepareStatement("DELETE FROM safedisdevicecache WHERE dwgno = ?");
+            ps.setString(1,pp.getDwgno());
             ps.executeUpdate();
             ps.close();
 

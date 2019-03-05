@@ -11,12 +11,15 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
 })
 export class DesignAuditComponent implements OnInit {
   public dataSet:any;
+  public dataSet2:any;
+  public dataSet2Display:any;
   placement = 'left';
   public modelData = {
     data:{},
     channel:[],
     saferel:[]
   };
+  types = [ { text: 'I', value: 'I'}, { text: 'II', value: 'II' }, { text: 'III', value: 'III' } ];
   loading = true;
   constructor(public designAuditService:DesignAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
@@ -28,6 +31,27 @@ export class DesignAuditComponent implements OnInit {
     this.designAuditService.getaudit().subscribe((res)=>{
       if(res['result']=="success"){
         this.dataSet = res['data'];
+      }
+    })
+    this.designAuditService.getaudited().subscribe((res)=>{
+      if(res['result']=="success"){
+        let dwgnos = res['data'];
+        this.dataSet2 = [];
+        let index = 0;
+        for(let item of dwgnos){
+          let data = {dwgno:item};
+          this.dataSet2.push(data);
+          let that = this;
+          this.designAuditService.getbydwgno(item).subscribe((res)=>{
+            if(res['result'] == "success"){
+              for(let i in res['data']){
+                that.dataSet2[index][i] = res['data'][i];
+              }
+              index++;
+            }
+          });
+        }
+        this.dataSet2Display = this.dataSet2;
       }
     })
   }
@@ -58,5 +82,26 @@ export class DesignAuditComponent implements OnInit {
 
   close(): void {
     this.visible = false;
+  }
+  searchtype = [];
+  searchname = '';
+  filter(searchtype: string[]): void {
+    this.searchtype = searchtype;
+    this.search();
+  }
+
+  search(): void {
+    /** filter data **/
+    const filterFunc = item => {
+      return (this.searchtype.length ? this.searchtype.some (type => item.type.indexOf(type) !== -1) : true) &&
+      (item.deconame.indexOf(this.searchname) !== -1);
+    }
+    const data = this.dataSet2.filter(item => filterFunc(item));
+    /** sort data **/
+    this.dataSet2Display = data;
+  }
+  reset(): void {
+    this.searchname = '';
+    this.search();
   }
 }

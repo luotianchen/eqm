@@ -43,4 +43,29 @@ export class DesignInputService {
   putDeco(data){
     return this.http.post(this.api.BASEURL+"/putdeco",data);
   }
+  searchdesbydec(deconame){
+    return this.http.post(this.api.BASEURL+"/searchdesbydec",{deconame:deconame});
+  }
+
+  //以下为缓存相关接口
+
+  saveSaferel(data){
+    return this.http.post(this.api.BASEURL+"/putsafedisdevicecache",data);
+  }
+  saveProduce(data){
+    return this.http.post(this.api.BASEURL+"/putproparlistcache",data);
+  }
+  saveChannel(data){
+    return this.http.post(this.api.BASEURL+"/putchanneldatacache",data)
+  }
+
+  getbydwgno(dwgno){
+    return this.http.post(this.api.BASEURL+'/searchproparlistcache',{dwgno:dwgno})
+  }
+  getsaferel(dwgno){
+    return this.http.post(this.api.BASEURL+'/searchsafedisdevicecache',{dwgno:dwgno})
+  }
+  getchannel(dwgno){
+    return this.http.post(this.api.BASEURL+'/searchchanneldatacache',{dwgno:dwgno})
+  }
 }

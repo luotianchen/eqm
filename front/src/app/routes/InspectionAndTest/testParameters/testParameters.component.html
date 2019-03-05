@@ -25,7 +25,7 @@
   <nz-divider></nz-divider>
   <div *ngFor="let c of channel;let i = index">
     <nz-collapse [nzBordered]="false">
-      <nz-collapse-panel [nzHeader]="'通道'+(i+1)" [nzActive]="true">
+      <nz-collapse-panel [nzHeader]="'通道'+(i+1)" [nzActive]="i==0?true:false">
         <form nz-form [formGroup]="this.channelForms[i]">
           <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="6">
