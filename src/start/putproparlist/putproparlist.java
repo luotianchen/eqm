@@ -27,10 +27,12 @@ public class putproparlist {                                                //Êè
         int prodname_id = 0;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 0");
             ps.setString(1,pp.getDwgno());
             rs = ps.executeQuery();
             if(rs.next()){
+                rs.close();
+                ps.close();
                 ps = conn.prepareStatement("SELECT * FROM productname where prodname = ?");
                 ps.setString(1,pp.getProdname());
                 rs = ps.executeQuery();
@@ -88,6 +90,8 @@ public class putproparlist {                                                //Êè
                     result.setResult("fail");
                 }
             }else {
+                rs.close();
+                ps.close();
                 ps = conn.prepareStatement("SELECT * FROM productname where prodname = ?");
                 ps.setString(1,pp.getProdname());
                 rs = ps.executeQuery();
