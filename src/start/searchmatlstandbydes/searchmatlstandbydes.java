@@ -33,6 +33,15 @@ public class searchmatlstandbydes {                                             
             }
             rs.close();
             ps.close();
+
+            for (int i = 0; i < as.size() - 1; i++) {
+                for (int q = as.size() - 1; q > i; q--) {
+                    if (as.get(q).equals(as.get(i))) {
+                        as.remove(q);
+                    }
+                }
+            }
+
             result.setResult("success");
             result.setMatlstand(as);
         }catch (Exception e){

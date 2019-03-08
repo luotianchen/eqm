@@ -106,20 +106,19 @@ public class Searchbyprodnocache {                                              
 
             Collections.reverse(as);                                          //将list1倒序
 
-            ps=conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno=?");
-            ps.setString(1,prodno);
+            ps=conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno=?");
+            ps.setString(1,sp.getProdno());
             rs=ps.executeQuery();
             while (rs.next()){
-                dwgno_id=rs.getInt("proparlist_id_dwgno");
+                result.setDwgno(rs.getString("dwgno"));
             }
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * FROM proparlist WHERE id=?");
-            ps.setInt(1,dwgno_id);
+            ps=conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno=?");
+            ps.setString(1,result.getDwgno());
             rs=ps.executeQuery();
             while (rs.next()){
-                result.setDwgno(rs.getString("dwgno"));
                 prodname_id=rs.getInt("productname_id_prodname");
             }
             rs.close();

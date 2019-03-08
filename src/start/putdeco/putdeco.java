@@ -23,17 +23,33 @@ public class putdeco {                                      //添加设计单位
         putdecoresult result = new putdecoresult();
 
         try {
-            ps = conn.prepareStatement("INSERT INTO designunit(deconame,edeconame," +
-                    "delicense,time,orgcode,code) VALUES (?,?," +
-                    "?,?,?,?)");
+            ps = conn.prepareStatement("SELECT * FROM designunit WHERE deconame = ?");
             ps.setString(1,pp.getDeconame());
-            ps.setString(2,pp.getEdeconame());
-            ps.setString(3,pp.getDelicense());
-            ps.setString(4,pp.getTime());
-            ps.setString(5,pp.getOrgcode());
-            ps.setString(6,pp.getCode());
-            ps.executeUpdate();
-            ps.close();
+            rs = ps.executeQuery();
+            if(rs.next()){
+                ps = conn.prepareStatement("UPDATE designunit SET edeconame = ?,delicense = ?,time = ?," +
+                        "orgcode = ?,code = ? WHERE  deconame = ?");
+                ps.setString(1,pp.getEdeconame());
+                ps.setString(2,pp.getDelicense());
+                ps.setString(3,pp.getTime());
+                ps.setString(4,pp.getOrgcode());
+                ps.setString(5,pp.getCode());
+                ps.setString(6,pp.getDeconame());
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                ps = conn.prepareStatement("INSERT INTO designunit(deconame,edeconame," +
+                        "delicense,time,orgcode,code) VALUES (?,?," +
+                        "?,?,?,?)");
+                ps.setString(1,pp.getDeconame());
+                ps.setString(2,pp.getEdeconame());
+                ps.setString(3,pp.getDelicense());
+                ps.setString(4,pp.getTime());
+                ps.setString(5,pp.getOrgcode());
+                ps.setString(6,pp.getCode());
+                ps.executeUpdate();
+                ps.close();
+            }
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");

@@ -97,7 +97,7 @@ public class contraststand {                                                    
         int utclass=0;
         int a=0;                                                         //判断是否为空
 
-        try{
+//        try{
 
             if((cp.getSpec()!=null) && (!cp.getSpec().equals(""))){
                 ps=conn.prepareStatement("SELECT * FROM contraststand WHERE matlstand=? and designation=? and spec_small<? and spec_big>=?");
@@ -657,11 +657,9 @@ public class contraststand {                                                    
 
 
 
-        }catch (Exception e ){
-            rs.close();
-            ps.close();
-            result.setResult("fail");
-        }
+//        }catch (Exception e ){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
