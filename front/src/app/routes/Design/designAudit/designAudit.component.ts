@@ -30,7 +30,7 @@ export class DesignAuditComponent implements OnInit {
   searchData(){
     this.designAuditService.getaudit().subscribe((res)=>{
       if(res['result']=="success"){
-        this.dataSet = res['data'];
+        this.dataSet = res['data'].reverse();
       }
     })
     this.designAuditService.getaudited().subscribe((res)=>{
@@ -51,7 +51,7 @@ export class DesignAuditComponent implements OnInit {
             }
           });
         }
-        this.dataSet2Display = this.dataSet2;
+        this.dataSet2Display = this.dataSet2.reverse();
       }
     })
   }
@@ -73,10 +73,10 @@ export class DesignAuditComponent implements OnInit {
     });
     this.visible = true;
     this.designAuditService.getsaferel(dwgno).subscribe((res)=>{
-      this.modelData.saferel = res["data"];
+      this.modelData.saferel = res["data"].reverse();
     });
     this.designAuditService.getchannel(dwgno).subscribe((res)=>{
-      this.modelData.channel = res["data"];
+      this.modelData.channel = res["data"].reverse();
     });
   }
 
@@ -98,7 +98,7 @@ export class DesignAuditComponent implements OnInit {
     }
     const data = this.dataSet2.filter(item => filterFunc(item));
     /** sort data **/
-    this.dataSet2Display = data;
+    this.dataSet2Display = data.reverse();
   }
   reset(): void {
     this.searchname = '';

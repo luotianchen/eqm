@@ -15,6 +15,8 @@ export class WeldingRecordComponent implements OnInit {
   validateForm: FormGroup;
   dataSet = [];
   names = [];
+  status = false;
+  i = 1;
   ngOnInit(): void {
     this.weldingRecordService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
@@ -30,14 +32,6 @@ export class WeldingRecordComponent implements OnInit {
       "prodno":[null, [Validators.required]],
       "prodname":[null, [Validators.required]],
       "dwgno":[null, [Validators.required]],
-      "weldno":[null, [Validators.required]],
-      "weldevano":[null, [Validators.required]],
-      "weldmethod":[null, [Validators.required]],
-      "usernote":[null],
-      "welddate":[null],
-      "inspector":[null, [Validators.required]],
-      "entrustdate":[null, [Validators.required]],
-      "ndtdate":[null, [Validators.required]],
       "user":[this._storage.get("username")]
     });
   }
@@ -48,6 +42,9 @@ export class WeldingRecordComponent implements OnInit {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
+          this.status = true;
+        }else{
+          this.status = false;
         }
       })
     }
@@ -55,34 +52,35 @@ export class WeldingRecordComponent implements OnInit {
   constructor(public weldingRecordService: WeldingRecordService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
-  formatInDate(control){
+  formatInDate(key,datetype){
     let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
-    if(monthDay.test(control.value)){
-      control.setValue(new Date().getFullYear()+"-"+control.value);
-    }else if(!yearMonthDay.test(control.value)){
-      control.setValue(null);
+    if(monthDay.test(this.editCache[key].data[datetype])){
+      this.editCache[key].data[datetype] = new Date().getFullYear()+"-"+this.editCache[key].data[datetype];
+    }else if(!yearMonthDay.test(this.editCache[key].data[datetype])){
+      this.editCache[key].data[datetype] = null;
     }
+    this.check(key);
   }
-  check(){
-    if(this.validateForm.value.ndtdate && this.validateForm.value.entrustdate){
-      let ndtdate = this.validateForm.value.ndtdate.split('-'),entrustdate = this.validateForm.value.entrustdate.split('-');
+  check(key){
+    if(this.editCache[key].data.ndtdate && this.editCache[key].data.entrustdate){
+      let ndtdate = this.editCache[key].data.ndtdate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
       if(ndtdate[0] < entrustdate[0]){
-        this.validateForm.controls['ndtdate'].reset();
+        this.editCache[key].data['ndtdate'] = null;
       }else if(ndtdate[1] < entrustdate[1]){
-        this.validateForm.controls['ndtdate'].reset();
+        this.editCache[key].data['ndtdate'] = null;
       }else if(ndtdate[2] < entrustdate[2]){
-        this.validateForm.controls['ndtdate'].reset();
+        this.editCache[key].data['ndtdate'] = null;
       }
     }
-    if(this.validateForm.value.welddate && this.validateForm.value.entrustdate){
-      let welddate = this.validateForm.value.welddate.split('-'),entrustdate = this.validateForm.value.entrustdate.split('-');
+    if(this.editCache[key].data.welddate && this.editCache[key].data.entrustdate){
+      let welddate = this.editCache[key].data.welddate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
       if(welddate[0] > entrustdate[0]){
-        this.validateForm.controls['entrustdate'].reset();
+        this.editCache[key].data['entrustdate'] = null;
       }else if(welddate[1] > entrustdate[1]){
-        this.validateForm.controls['entrustdate'].reset();
+        this.editCache[key].data['entrustdate'] = null;
       }else if(welddate[2] > entrustdate[2]){
-        this.validateForm.controls['entrustdate'].reset();
+        this.editCache[key].data['entrustdate'] = null;
       }
     }
   }
@@ -103,4 +101,55 @@ export class WeldingRecordComponent implements OnInit {
       })
     }
   }
+
+  addRow(): void {
+    this.i++;
+    this.dataSet = [ ...this.dataSet, {
+      "key"    : `${this.i}`,
+      "weldno":null,
+      "weldevano":null,
+      "weldmethod":null,
+      "usernote":null,
+      "welddate":null,
+      "inspector":null,
+      "entrustdate":null,
+      "ndtdate":null
+    } ];
+    this.updateEditCache();
+    this.editCache[ `${this.i}` ].edit = true;
+  }
+
+  deleteRow(i: string): void {
+    const dataSet = this.dataSet.filter(d => d.key !== i);
+    this.dataSet = dataSet;
+  }
+
+  editCache = {};
+
+  startEdit(key: string): void {
+    this.editCache[ key ].edit = true;
+  }
+
+  cancelEdit(key: string): void {
+    this.editCache[ key ].edit = false;
+  }
+
+  saveEdit(key: string): void {
+    const index = this.dataSet.findIndex(item => item.key === key);
+    Object.assign(this.dataSet[ index ], this.editCache[ key ].data);
+    // this.dataSet[ index ] = this.editCache[ key ].data;
+    this.editCache[ key ].edit = false;
+  }
+
+  updateEditCache(): void {
+    this.dataSet.forEach(item => {
+      if (!this.editCache[ item.key ]) {
+        this.editCache[ item.key ] = {
+          edit: false,
+          data: { ...item }
+        };
+      }
+    });
+  }
+
 }

@@ -17,7 +17,7 @@ table{
   mso-font-charset:134;}
 .style0
 {mso-number-format:General;
-  text-align:general;
+  text-align:center;
   vertical-align:middle;
   white-space:nowrap;
   mso-rotate:0;
@@ -62,7 +62,7 @@ td
   font-family:宋体;
   mso-generic-font-family:auto;
   mso-font-charset:134;
-  text-align:justify;}
+  text-align:center;}
 .xl66
 {mso-style-parent:style0;
   font-size:10.5pt;
@@ -238,7 +238,7 @@ td
   font-family:宋体;
   mso-generic-font-family:auto;
   mso-font-charset:134;
-  text-align:justify;
+  text-align:center;
   white-space:normal;}
 .xl83
 {mso-style-parent:style0;

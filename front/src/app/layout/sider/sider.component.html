@@ -14,8 +14,8 @@
             <span>
                <li nz-submenu *ngIf="item.submenu && item.submenu.length>0;else elseBlock" [(nzOpen)]="menuOpenMap[item.name]" (nzOpenChange)="openHandler(item.name)">
               <span title nzPlacement="right" [nzTitle]="item.name" nz-tooltip [nzMouseEnterDelay]="1">
-                  <i nz-icon type="{{item.icon}}"></i>
-                  <span class="nav-text" >{{item.name}}</span>
+                  <i nz-icon type="{{item.icon}}" [ngStyle]="{'font-size': settings.layout.isCollapsed?'17px':'14px','margin-left':'5px'}"></i>
+                  <span class="nav-text" *ngIf="!settings.layout.isCollapsed">{{item.name}}</span>
               </span>
               <ul>
                 <li nz-menu-item routerLink="{{subItem.route}}" *ngFor="let subItem of item.submenu" [nzSelected]="subItem.highlight">
@@ -30,8 +30,8 @@
         <ng-template #elseBlock>
           <li nz-menu-item routerLink="{{item.route}}" [nzSelected]="item.highlight">
                 <span title nzPlacement="right" [nzTitle]="item.name" nz-tooltip [nzMouseEnterDelay]="1">
-                  <i nz-icon type="{{item.icon}}"></i>
-                  <span class="nav-text">{{item.name}}</span>
+                  <i nz-icon type="{{item.icon}}" [ngStyle]="{'font-size': settings.layout.isCollapsed?'17px':'14px','margin-left':'5px'}"></i>
+                  <span class="nav-text" *ngIf="!settings.layout.isCollapsed">{{item.name}}</span>
                 </span>
           </li>
         </ng-template>

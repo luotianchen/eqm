@@ -23,4 +23,7 @@ export class WaterQualityDetectionInputService {
   putWaterQuality(data){
     return this.http.post(`${this.api.BASEURL}/putwatertest`,data);
   }
+  getWaterQuality(){
+    return this.http.get(`${this.api.BASEURL}/getwatertest`);
+  }
 }

@@ -11,7 +11,7 @@ export class MaterialDistributeService {
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
   getdistribute(prodno){
-    return this.http.post(this.api.BASEURL+'/searchbyprodnocache',{prodno:prodno,status:1})
+    return this.http.post(this.api.BASEURL+'/searchbyprodnocache',{prodno:prodno,status:-1})
   }
   putdistribute(data){
     return this.http.post(this.api.BASEURL+"/putpressureparts",data);
@@ -33,5 +33,11 @@ export class MaterialDistributeService {
   }
   getuserform() {
     return this.http.get(`${this.api.BASEURL}/getuserform`);
+  }
+  getCodedmarkingByDesignation(designation){
+    return this.http.post(`${this.api.BASEURL}/searchcodbydes`,{designation:designation});
+  }
+  getindexbymatlcoderules(){ //获取材料代码信息
+    return this.http.get(`${this.api.BASEURL}/getindexbymatlcoderules`)
   }
 }

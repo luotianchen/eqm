@@ -35,7 +35,6 @@
   </div>
 </form>
 <div *ngIf="prodno">
-  <button nz-button (click)="addRow()" class="editable-add-btn" style="margin-top: 30px">添加一行</button>
   <nz-table
     #editRowTable
     nzBordered
@@ -140,6 +139,7 @@
     </tr>
     </tbody>
   </nz-table>
+  <button nz-button nzType="primary" (click)="addRow()" class="editable-add-btn" style="margin-top: 30px">添加一行</button>
 
   <div nz-row style="margin-top: 30px">
     <div nz-col nzSpan="2" style="text-align: right">代用原因：</div>

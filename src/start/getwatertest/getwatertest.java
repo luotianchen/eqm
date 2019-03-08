@@ -33,6 +33,7 @@ public class getwatertest {                                         //水质检�
                 result.setTestno(rs.getString("testno"));
                 result.setRoomno(rs.getString("roomno"));
                 result.setTestcont(rs.getString("testcont"));
+                result.setTestrst(rs.getString("testrst"));
                 result.setStand(rs.getString("stand"));
                 result.setTestdate(rs.getString("testdate"));
                 result.setDate(rs.getString("date"));

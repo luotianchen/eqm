@@ -93,3 +93,34 @@
     <button nz-button nzType="primary" (click)="submitForm()">提交</button>
   </div>
 </form>
+<nz-divider></nz-divider>
+<nz-table nzTemplateMode>
+  <thead>
+  <tr>
+    <th>委托单位</th>
+    <th>接收样品日期</th>
+    <th>数量</th>
+    <th>样品名称</th>
+    <th>试样编号</th>
+    <th>本室编号</th>
+    <th>测试内容</th>
+    <th>测试结果</th>
+    <th>评定标准</th>
+    <th>检测日期</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{latestData.unit}}</td>
+    <td>{{latestData.indate}}</td>
+    <td>{{latestData.qty}}</td>
+    <td>{{latestData.name}}</td>
+    <td>{{latestData.testno}}</td>
+    <td>{{latestData.roomno}}</td>
+    <td>{{latestData.testcont}}</td>
+    <td>{{latestData.testrst}}</td>
+    <td>{{latestData.stand}}</td>
+    <td>{{latestData.testdate}}</td>
+  </tr>
+  </tbody>
+</nz-table>

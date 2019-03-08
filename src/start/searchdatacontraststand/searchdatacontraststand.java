@@ -230,7 +230,7 @@ public class searchdatacontraststand {                                      //é€
             result.setData(data);
             result.setResult("success");
         }catch (Exception e){
-            result.setResult("fail");
+            result.setResult(e.toString());
         }
         conn.close();
         return result;

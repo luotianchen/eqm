@@ -177,7 +177,11 @@ export class VacuumParameterComponent implements OnInit {
       k = this.validateForm.value.k;
       this.vacuumParameterService.searchChannelData(this.validateForm.value.dwgno).subscribe(res=>{
         if(res['result'] == "success"){
-          v = res['data']['2'].volume;
+          if(res['data'].length<2){
+            this.message.error("请确认该产品拥有两个以上通道！");
+            return;
+          }
+          v = res['data'][1].volume;
           q = ((p1 - p2) * v * k/(t1 - t2));
           this.validateForm.controls['leakoutrate'].setValue(q.toExponential(2));
         }else{

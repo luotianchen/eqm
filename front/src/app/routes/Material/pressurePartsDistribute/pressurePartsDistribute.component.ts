@@ -14,7 +14,7 @@ export class PressurePartsDistributeComponent implements OnInit {
   public prodno:any;
   validateForm: FormGroup;
   partsnameValidateForm: FormGroup;
-  status = true;
+  status = false;
   i=1;
   partsnames = [];
   designations = [];
@@ -35,6 +35,7 @@ export class PressurePartsDistributeComponent implements OnInit {
     this.pressurePartsDistributeService.getcodedmarking().subscribe(res=>{
       if(res['result']=="success"){
         this.codedmarkings = res['data'];
+        this.codedmarkingDisplay = res['data'];
       }
     });
     this.pressurePartsDistributeService.getputmaterial().subscribe(res=>{
@@ -92,18 +93,18 @@ export class PressurePartsDistributeComponent implements OnInit {
     this.i++;
     this.dataSet = [ ...this.dataSet, {
       "key"    : `${this.i}`,
-      "spartname":"",//零件名称
-      "spec":"",//规格
-      "dimension":"",//尺寸
-      "partno":"",//件号
-      "designation":"",//牌号
-      "qty":"",//数量
-      "codedmarking":"",//入库编号
-      "issuedate":"",//发料日期
-      "picker":"",//领料人
-      "ispresspart":"否",//是否为主要受压元件
-      "weldno":"",//焊缝号
-      "returnqty":"",//退回数量
+      "spartname":null,//零件名称
+      "spec":null,//规格
+      "dimension":null,//尺寸
+      "partno":null,//件号
+      "designation":null,//牌号
+      "qty":null,//数量
+      "codedmarking":null,//入库编号
+      "issuedate":null,//发料日期
+      "picker":null,//领料人
+      "ispresspart":2,//是否为主要受压元件
+      "weldno":null,//焊缝号
+      "returnqty":null,//退回数量
     } ];
     this.updateEditCache();
     this.editCache[ `${this.i}` ].edit = true;
@@ -150,11 +151,19 @@ export class PressurePartsDistributeComponent implements OnInit {
         return;
       }
     }
-
-    for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('name');
+    if(this.dataSet.length == 0){
+      this.message.error("您尚未填写任何数据，本次提交无效！");
+      return;
     }
-
+    for(let j = 0;j<this.dataSet.length;j++){
+      this.dataSet[j]['issuematl'] = this._storage.get('username');
+      for(let i in this.dataSet[j]){
+        if(this.dataSet[j][i]==null){
+          this.message.error("您有尚未填写的数据，请填写完整后再提交！");
+          return;
+        }
+      }
+    }
     this.pressurePartsDistributeService.putdistribute({
       prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
@@ -250,5 +259,16 @@ export class PressurePartsDistributeComponent implements OnInit {
         });
       }
     }
+  }
+  codedmarkingDisplay = [];
+  screeningCodedmarking(des){//根据牌号筛选codedmarking
+    if(des!=null && des!=null)
+      this.pressurePartsDistributeService.getCodedmarkingByDesignation(des).subscribe(res=>{
+        if(res['result'] == "success"){
+          this.codedmarkingDisplay = res['data'];
+        }
+      });
+    else
+      this.codedmarkingDisplay = this.codedmarkings;
   }
 }

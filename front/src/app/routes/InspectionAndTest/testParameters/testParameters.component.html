@@ -58,6 +58,9 @@
                   <input nz-input formControlName="dated1" name="dated1" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated1" [disabled]="dataModel[i]['dated1'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated1'])">
                 </nz-form-control>
               </nz-form-item>
+              <div nz-col [nzSpan]="6">
+                <button nz-button nzType="primary">提交</button>
+              </div>
             </form>
           </div>
         </div>
@@ -70,7 +73,7 @@
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input [(ngModel)]="dataModel[i].dated1.press.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated1','press')" [(ngModel)]="dataModel[i].dated1.press.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
@@ -112,7 +115,7 @@
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input [(ngModel)]="dataModel[i].dated1.leak.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated1','leak')" [(ngModel)]="dataModel[i].dated1.leak.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
@@ -159,6 +162,7 @@
                   <input nz-input formControlName="dated2" name="dated2" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated2" [disabled]="dataModel[i]['dated2'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated2'])">
                 </nz-form-control>
               </nz-form-item>
+              <button nz-button nzType="primary">提交</button>
             </form>
           </div>
         </div>
@@ -171,7 +175,7 @@
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input [(ngModel)]="dataModel[i].dated2.press.date" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated2','press')" [(ngModel)]="dataModel[i].dated2.press.date" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
@@ -213,7 +217,7 @@
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input [(ngModel)]="dataModel[i].dated2.leak.date" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
+                <input nz-input [(ngModel)]="dataModel[i].dated2.leak.date" (change)="formateDate2(i,'dated2','leak')" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
@@ -259,6 +263,7 @@
                   <input nz-input formControlName="dated3" name="dated3" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated3" [disabled]="dataModel[i]['dated3'].status==3" (blur)="formatInDate(this.channelForms[i].controls['dated3'])">
                 </nz-form-control>
               </nz-form-item>
+              <button nz-button nzType="primary">提交</button>
             </form>
           </div>
         </div>
@@ -271,7 +276,7 @@
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input [(ngModel)]="dataModel[i].dated3.press.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated3','press')" [(ngModel)]="dataModel[i].dated3.press.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
@@ -313,7 +318,7 @@
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input [(ngModel)]="dataModel[i].dated3.leak.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
+                <input nz-inpu (change)="formateDate2(i,'dated3','leak')"t [(ngModel)]="dataModel[i].dated3.leak.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>

@@ -15,15 +15,35 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
   validateForm: FormGroup;
   units = [];
   prostands = [];
+  latestData = {
+    unit:"",
+    indate: "",
+    qty: "",
+    name: "",
+    testno: "",
+    roomno: "",
+    testcont: "",
+    testrst: "",
+    stand: "",
+    testdate: "",
+    date: "",
+    user: ""
+  };
   ngOnInit(): void {
     this.waterQualityDetectionInputService.getDepartments().then((res)=>{
       if(res['result'] == "success"){
-        this.units = res['data'];
+        console.log(res)
+        this.units = res['data'].filter(item=>item.department!=0);
       }
     })
     this.waterQualityDetectionInputService.getprostand().subscribe(res=>{
       if(res['result'] == "success"){
         this.prostands = res['data'];
+      }
+    })
+    this.waterQualityDetectionInputService.getWaterQuality().subscribe((res:any)=>{
+      if(res['result'] == "success"){
+        this.latestData = res;
       }
     })
     this.validateForm = this.fb.group({

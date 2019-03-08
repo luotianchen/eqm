@@ -351,7 +351,15 @@ export class TestParametersComponent implements OnInit {
       control.setValue(null);
     }
   }
-
+  formateDate2(index,dateindex,type){
+    let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
+    if(monthDay.test(this.dataModel[index][dateindex][type].date)){
+      this.dataModel[index][dateindex][type].date = new Date().getFullYear()+"-"+this.dataModel[index][dateindex][type].date;
+    }else if(!yearMonthDay.test(this.dataModel[index][dateindex][type].date)){
+      this.dataModel[index][dateindex][type].date = null;
+    }
+  }
   submitForm(index):void{
     let valid = true;
     for(const i in this.validateForm.controls){

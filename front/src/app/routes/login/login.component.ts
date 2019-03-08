@@ -75,4 +75,7 @@ export class LoginComponent implements OnInit {
       remember: [ true ]
     });
   }
+  forgetPWD(){
+    this.message.error("请联系超级管理员重置密码！");
+  }
 }

@@ -273,7 +273,8 @@
 <div *ngIf="dataSet.length > 0 && mode == 2" #print2>
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
-    [mode]="'iframe'"
+    [mode]="'popup'"
+    [printCSS]="printCSS"
     [popTitle]="'入库通知单'"
     [btnText]="'打印通知单'"
     [printHTML]="print2"
@@ -528,7 +529,8 @@
 <div  *ngIf="dataSet.length > 0 && mode == 3" #print3>
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
-    [mode]="'iframe'"
+    [mode]="'popup'"
+    [printCSS]="printCSS"
     [popTitle]="'入库通知单'"
     [btnText]="'打印通知单'"
     [printHTML]="print3"
@@ -593,50 +595,50 @@
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=2 height=48 class=xl72 width=106 style='height:36.0pt;width:79pt'>焊材名称</td>
         <td colspan=3 class=xl74 width=147 style='border-right:.5pt solid black;
-  border-left:none;width:111pt'>{{item.matlname}}</td>
+  border-left:none;width:111pt;text-align: center'>{{item.matlname}}</td>
         <td colspan=3 class=xl79 width=115 style='border-left:none;width:86pt'>牌号</td>
-        <td colspan=2 class=xl84 width=124 style='border-left:none;width:93pt'>{{item.designation}}</td>
+        <td colspan=2 class=xl84 width=124 style='border-left:none;width:93pt;text-align: center'>{{item.designation}}</td>
         <td colspan=2 class=xl79 width=87 style='border-left:none;width:65pt'>入库编号</td>
         <td colspan=2 class=xl84 width=142 style='border-right:1.0pt solid black;
-  border-left:none;width:106pt'>{{item.codedmarking}}</td>
+  border-left:none;width:106pt;text-align: center'>{{item.codedmarking}}</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=2 height=48 class=xl73 width=106 style='height:36.0pt;width:79pt'>规格</td>
         <td colspan=2 class=xl109 width=90 style='border-right:.5pt solid black;
-  border-left:none;width:68pt'>{{item.spec}}</td>
+  border-left:none;width:68pt;text-align: center'>{{item.spec}}</td>
         <td class=xl68 width=57 style='border-top:none;border-left:none;width:43pt'>生产<br>厂家</td>
         <td colspan=5 class=xl109 width=239 style='border-right:.5pt solid black;
-  border-left:none;width:179pt'>{{item.millunit}}</td>
+  border-left:none;width:179pt;text-align: center'>{{item.millunit}}</td>
         <td colspan=2 class=xl68 width=87 style='border-left:none;width:65pt'>进厂日期</td>
         <td colspan=2 class=xl82 width=142 style='border-right:1.0pt solid black;
-  border-left:none;width:106pt'>{{item.indate}}</td>
+  border-left:none;width:106pt;text-align: center'>{{item.indate}}</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=2 height=48 class=xl73 width=106 style='height:36.0pt;width:79pt'>供货单位</td>
         <td colspan=6 class=xl109 width=262 style='border-right:.5pt solid black;
-  border-left:none;width:197pt'>{{item.supplier}}</td>
+  border-left:none;width:197pt;text-align: center'>{{item.supplier}}</td>
         <td class=xl68 width=51 style='border-top:none;border-left:none;width:38pt'>数量</td>
-        <td class=xl67 width=73 style='border-top:none;border-left:none;width:55pt'>{{item.qty}}</td>
+        <td class=xl67 width=73 style='border-top:none;border-left:none;width:55pt;text-align: center'>{{item.qty}}</td>
         <td colspan=2 class=xl77 width=87 style='border-right:.5pt solid black;
   border-left:none;width:65pt'>出厂日期</td>
         <td colspan=2 class=xl82 width=142 style='border-right:1.0pt solid black;
-  border-left:none;width:106pt'>　</td>
+  border-left:none;width:106pt;text-align: center'>　</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=2 height=48 class=xl73 width=106 style='height:36.0pt;width:79pt'>质证书号</td>
-        <td colspan=3 class=xl82 width=147 style='border-left:none;width:111pt'>{{item.warrantyno}}</td>
+        <td colspan=3 class=xl82 width=147 style='border-left:none;width:111pt;text-align: center'>{{item.warrantyno}}</td>
         <td colspan=3 class=xl68 width=115 style='border-left:none;width:86pt'>批号</td>
-        <td colspan=2 class=xl82 width=124 style='border-left:none;width:93pt'>{{item.heatbatchno}}</td>
+        <td colspan=2 class=xl82 width=124 style='border-left:none;width:93pt;text-align: center'>{{item.heatbatchno}}</td>
         <td colspan=2 class=xl68 width=87 style='border-left:none;width:65pt'>焊材标准</td>
         <td colspan=2 class=xl82 width=142 style='border-right:1.0pt solid black;
-  border-left:none;width:106pt'>{{item.modelstand}}</td>
+  border-left:none;width:106pt;text-align: center'>{{item.modelstand}}</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td rowspan=14 height=588 class=xl102 width=71 style='height:441.0pt;
   border-top:none;width:53pt'>检<br>验<br>结<br>果</td>
-        <td colspan=4 class=xl68 width=182 style='border-left:none;width:137pt'>质证书审查</td>
+        <td colspan=4 class=xl68 width=182 style='border-left:none;width:137pt;text-align: center'>质证书审查</td>
         <td colspan=9 class=xl82 width=468 style='border-right:1.0pt solid black;
-  border-left:none;width:350pt'>内容清晰齐全，化学成份、力学符合要求</td>
+  border-left:none;width:350pt;text-align: center'>内容清晰齐全，化学成份、力学符合要求</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=4 height=48 class=xl68 width=182 style='height:36.0pt;border-left:
@@ -656,16 +658,16 @@
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=3 height=48 class=xl68 width=101 style='height:36.0pt;border-left:
-  none;width:76pt'>　</td>
-        <td colspan=2 class=xl68 width=122 style='border-left:none;width:91pt'>　</td>
-        <td colspan=2 class=xl68 width=125 style='border-left:none;width:94pt'>　</td>
-        <td colspan=2 class=xl68 width=106 style='border-left:none;width:79pt'>　</td>
-        <td class=xl69 width=71 style='border-top:none;border-left:none;width:53pt'>　</td>
+  none;width:76pt'>{{hancaiData[item.matlname][0]}}</td>
+        <td colspan=2 class=xl68 width=122 style='border-left:none;width:91pt'>{{hancaiData[item.matlname][1]}}</td>
+        <td colspan=2 class=xl68 width=125 style='border-left:none;width:94pt'>{{hancaiData[item.matlname][2]}}</td>
+        <td colspan=2 class=xl68 width=106 style='border-left:none;width:79pt'>{{hancaiData[item.matlname][3]}}</td>
+        <td class=xl69 width=71 style='border-top:none;border-left:none;width:53pt'>{{hancaiData[item.matlname][4]}}</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td rowspan=2 height=96 class=xl68 width=57 style='height:72.0pt;border-top:
   none;width:43pt'>工艺<br>性能</td>
-        <td colspan=7 class=xl68 width=348 style='border-left:none;width:261pt'>　</td>
+        <td colspan=7 class=xl68 width=348 style='border-left:none;width:261pt'></td>
         <td colspan=3 class=xl68 width=177 style='border-right:1.0pt solid black;
   border-left:none;width:132pt'>工艺性能试验报告单号</td>
       </tr>
@@ -685,10 +687,10 @@
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=3 height=48 class=xl68 width=114 style='height:36.0pt;border-left:
-  none;width:86pt'>{{item.packcheck}}</td>
-        <td colspan=5 class=xl68 width=291 style='border-left:none;width:218pt'>{{item.rustsitu}}</td>
+  none;width:86pt'>{{hancaiData[item.matlname][5]}}</td>
+        <td colspan=5 class=xl68 width=291 style='border-left:none;width:218pt'>{{hancaiData[item.matlname][6]}}</td>
         <td colspan=3 class=xl68 width=177 style='border-right:1.0pt solid black;
-  border-left:none;width:132pt'>{{item.diamtest}}</td>
+  border-left:none;width:132pt'>{{hancaiData[item.matlname][7]}}</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=2 rowspan=2 height=96 class=xl101 width=68 style='height:72.0pt;
@@ -700,10 +702,10 @@
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td colspan=3 height=48 class=xl68 width=114 style='height:36.0pt;border-left:
-  none;width:86pt'>{{item.packcheck1}}</td>
-        <td colspan=5 class=xl68 width=291 style='border-left:none;width:218pt'>{{item.humisitu1}}</td>
+  none;width:86pt'>{{hancaiData[item.matlname][8]}}</td>
+        <td colspan=5 class=xl68 width=291 style='border-left:none;width:218pt'>{{hancaiData[item.matlname][9]}}</td>
         <td colspan=3 class=xl68 width=177 style='border-right:1.0pt solid black;
-  border-left:none;width:132pt'>{{item.graincheck}}</td>
+  border-left:none;width:132pt'>{{hancaiData[item.matlname][10]}}</td>
       </tr>
       <tr height=20 style='height:15.0pt'>
         <td colspan=13 rowspan=4 height=108 class=xl86 width=650 style='border-right:

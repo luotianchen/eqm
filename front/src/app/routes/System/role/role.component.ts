@@ -67,7 +67,7 @@ export class RoleComponent implements OnInit {
         }
         this.roleService.getDepartments().subscribe((res)=>{
           if(res['result']=="success"){
-            this.data = res["data"];
+            this.data = res["data"].filter(item => item.department!=0);
             this.roleService.getUsers().subscribe((res)=>{
               if(res['result']=="success"){
                 this.users = res['data'];
@@ -81,20 +81,61 @@ export class RoleComponent implements OnInit {
                       item.children.push(roleitem);
                     }
                     for(let useritem of this.users){
-                      useritem.key = this.i*100+this.j*10+this.k++;
-                      if(useritem.role==roleitem.role ||useritem.role2==roleitem.role ||useritem.role3==roleitem.role ||useritem.role4==roleitem.role ||useritem.role5==roleitem.role ){
-                        if(!roleitem.children)
-                          roleitem.children = [];
-                        roleitem.children.push(useritem);
+                      let flag = false;
+                      if(!roleitem.children)
+                        roleitem.children = [];
+                      for(let item of roleitem.children){
+                        if(item.username == useritem.username){
+                          flag = true;
+                          break;
+                        }
+                      }
+                      if(flag)
+                        continue;
+                      if(useritem.role==roleitem.role){
+                        let userq  = {};
+                        for(let i in useritem)
+                          userq[i] = useritem[i];
+                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        roleitem.children.push(userq);
+                      }
+                      if(useritem.role2==roleitem.role){
+                        let userq  = {};
+                        for(let i in useritem)
+                          userq[i] = useritem[i];
+                        roleitem.children.push(userq);
+                      }
+                      if(useritem.role3==roleitem.role){
+                        let userq  = {};
+                        for(let i in useritem)
+                          userq[i] = useritem[i];
+                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        roleitem.children.push(userq);
+                      }
+                      if(useritem.role4==roleitem.role){
+                        let userq  = {};
+                        for(let i in useritem)
+                          userq[i] = useritem[i];
+                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        roleitem.children.push(userq);
+                      }
+                      if(useritem.role5==roleitem.role){
+                        let userq  = {};
+                        for(let i in useritem)
+                          userq[i] = useritem[i];
+                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        roleitem.children.push(userq);
                       }
                     }
                     this.k = 1;
                   }
                   this.j = 1;
                 }
+                console.log(this.data);
                 this.data.forEach(item => {
                   this.expandDataCache[ item.key ] = this.convertTreeToList(item);
                 });
+                console.log(this.expandDataCache);
               }
             })
           }

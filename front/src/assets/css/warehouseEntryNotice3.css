@@ -26,7 +26,7 @@ table{
   mso-font-charset:134;}
 .style0
 {mso-number-format:General;
-  text-align:general;
+  text-align:center;
   vertical-align:middle;
   white-space:nowrap;
   mso-rotate:0;
@@ -111,7 +111,7 @@ td
 .xl70
 {mso-style-parent:style0;
   border-top:none;
-  border-right:none;
+  border-right:1.0pt solid windowtext;
   border-bottom:1.0pt solid windowtext;
   border-left:none;}
 .xl71

@@ -375,7 +375,7 @@ export class WarehousingRegistrationComponent implements OnInit {
           this.dataDetail.status = true;
           this.notification.remove();
           this.notification.blank('注意', this.dataDetail.note, {
-            nzDuration: 5,
+            nzDuration: 5000,
             nzStyle: {
               color: "red"
             }
@@ -427,6 +427,8 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.validateForm.controls[item].setValidators([Validators.required]);
             }
           }
+          if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
+            this.validateForm.controls['heatcondi'].setValue(null);
         }else if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
           let specData = this.validateForm.value.spec;
           if(this.validateForm.value.spec.indexOf("δ=")!=-1){
@@ -438,7 +440,7 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.dataDetail.status = true;
               this.notification.remove();
               this.notification.blank('注意', this.dataDetail.note, {
-                nzDuration: 5,
+                nzDuration: 5000,
                 nzStyle: {
                   color:"red"
                 }
@@ -490,12 +492,12 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.validateForm.controls[item].setValidators([Validators.required]);
                 }
               }
+              if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
+                this.validateForm.controls['heatcondi'].setValue(null);
             }
           });
         }
       });
-    }else{
-      this.dataDetail.status = false;
     }
   }
 
@@ -668,7 +670,6 @@ export class WarehousingRegistrationComponent implements OnInit {
       "utclass":this.utclass[this.validateForm.value.utclass]
     };
     if (this.validateForm.valid) {
-      console.log(JSON.stringify(data));
       this.warehousingregistrationService.submitForm(data).subscribe(res => {
         if (res['result'] == "success") {
           const modal = this.modalService.success({
@@ -713,14 +714,13 @@ export class WarehousingRegistrationComponent implements OnInit {
             }
           }
           this.getMatlstand();
-          console.log(this.validateForm.value);
           this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation,null).subscribe(res1 => {
             if(res1['result'] == "success") {
               this.dataDetail = res1['data'];
               this.dataDetail.status = true;
               this.notification.remove();
               this.notification.blank('注意', this.dataDetail.note, {
-                nzDuration: 5,
+                nzDuration: 0,
                 nzStyle: {
                   color: "red"
                 }
@@ -772,6 +772,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.validateForm.controls[item].setValidators([Validators.required]);
                 }
               }
+              if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
+                this.validateForm.controls['heatcondi'].setValue(null);
             }else{
               let specData = res['data']['spec'];
               if(res['data']['spec'].indexOf("δ=")!=-1){
@@ -783,7 +785,7 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.dataDetail.status = true;
                   this.notification.remove();
                   this.notification.blank('注意', this.dataDetail.note, {
-                    nzDuration: 5,
+                    nzDuration: 5000,
                     nzStyle: {
                       color:"red"
                     }
@@ -835,6 +837,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                       this.validateForm.controls[item].setValidators([Validators.required]);
                     }
                   }
+                  if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)//若热处理选项不包含已选项
+                    this.validateForm.controls['heatcondi'].setValue(null);
                 }
               });
             }

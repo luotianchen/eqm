@@ -307,6 +307,17 @@ export class ProductManufacturingParametersComponent implements OnInit {
         this.validateForm.controls['blankdate'].setValue(null);
       }
     }
+    if(this.validateForm.value.exworkdate!=null && this.validateForm.value.blankdate!=null){
+      let exworkdate = this.validateForm.value.exworkdate.split("-");
+      let blanktime = this.validateForm.value.blankdate.split("-");
+      if(parseInt(blanktime[0])>parseInt(exworkdate[0])){
+        this.validateForm.controls['exworkdate'].setValue(null);
+      } else if(parseInt(blanktime[0]) == parseInt(exworkdate[0]) && parseInt(blanktime[1])>parseInt(exworkdate[1])){
+        this.validateForm.controls['exworkdate'].setValue(null);
+      } else if(parseInt(blanktime[1]) == parseInt(exworkdate[1]) && parseInt(blanktime[2])>parseInt(exworkdate[2])){
+        this.validateForm.controls['exworkdate'].setValue(null);
+      }
+    }
   }
   dwgnos = [];
   searchData2(): void {

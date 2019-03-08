@@ -30,76 +30,126 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="weldno">焊缝编号</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="焊缝编号"  formControlName="weldno" name="weldno" id="weldno"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzSpan]="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="weldevano">焊接工艺评定编号</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="焊接工艺评定编号"  formControlName="weldevano" name="weldevano" id="weldevano"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzSpan]="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="weldmethod">焊接方法</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="焊接方法"  formControlName="weldmethod" name="weldmethod" id="weldmethod"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="usernote">焊工姓名（钢印）</nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊工姓名（钢印）"  formControlName="usernote" name="usernote" id="usernote">
-            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.note"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="welddate">施焊日期</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="welddate" name="welddate" id="welddate" (blur)="formatInDate(this.validateForm.controls['welddate']);check();"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="inspector">检验员</nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="检验员"  formControlName="inspector" name="inspector" id="inspector">
-            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="entrustdate">委托日期</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="entrustdate" name="entrustdate" id="entrustdate" (blur)="formatInDate(this.validateForm.controls['entrustdate']);check();"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="ndtdate">无损检验日期</nz-form-label>
-        <nz-form-control>
-          <input nz-input placeHolder="YYYY-MM-DD"  formControlName="ndtdate" name="ndtdate" id="ndtdate" (blur)="formatInDate(this.validateForm.controls['ndtdate']);check();"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top: 20px">
-    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
   </div>
 </form>
+
+<div *ngIf="status" style="margin-top: 20px">
+  <nz-table
+    #editRowTable
+    nzBordered
+    nzSize="small"
+    [nzPageSize]="50"
+    [nzData]="dataSet">
+    <thead>
+    <tr>
+      <th nzWidth="120px">焊缝编号</th>
+      <th nzWidth="120px">焊接工艺评定编号</th>
+      <th nzWidth="100px">焊接方法</th>
+      <th nzWidth="120px">焊工姓名（钢印）</th>
+      <th nzWidth="150px">施焊日期</th>
+      <th nzWidth="120px">检验员</th>
+      <th nzWidth="150px">委托日期</th>
+      <th nzWidth="150px">无损检验日期</th>
+      <th style="min-width: 100px;">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of editRowTable.data">
+      <td>
+        <div class="editable-cell">
+          <div class="editable-cell-text-wrapper">
+            <ng-container *ngIf="!editCache[data.key].edit">
+              {{data.weldno}}
+            </ng-container>
+            <ng-container *ngIf="editCache[data.key].edit">
+              <input nz-input placeHolder="焊缝编号" [(ngModel)]="editCache[data.key].data.weldno"/>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.weldevano}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.weldevano">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.weldmethod}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input type="text" placeholder="焊接方法" nz-input [(ngModel)]="editCache[data.key].data.weldmethod">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.usernote}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊工姓名（钢印）" [(ngModel)]="editCache[data.key].data.usernote" name="usernote" id="usernote">
+            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.note"></nz-option>
+          </nz-select>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.welddate}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input nz-input placeHolder="YYYY-MM-DD"   [(ngModel)]="editCache[data.key].data.welddate" name="welddate" id="welddate" (blur)="formatInDate(data.key,'welddate');"/>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.inspector}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="检验员" [(ngModel)]="editCache[data.key].data.inspector" name="inspector" id="inspector">
+            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
+          </nz-select>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.entrustdate}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input nz-input placeHolder="YYYY-MM-DD" name="entrustdate" id="entrustdate" (blur)="formatInDate(data.key,'entrustdate');" [(ngModel)]="editCache[data.key].data.entrustdate"/>
+        </ng-container>
+      </td>
+      <td style="min-width: 100px">
+        <ng-container *ngIf="!editCache[data.key].edit">
+          {{data.ndtdate}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.key].edit">
+          <input nz-input placeHolder="YYYY-MM-DD" [(ngModel)]="editCache[data.key].data.ndtdate" id="ndtdate" (blur)="formatInDate(data.key,'ndtdate');"/>
+        </ng-container>
+      </td>
+      <td>
+        <div class="editable-row-operations">
+          <ng-container *ngIf="!editCache[data.key].edit">
+            <a (click)="startEdit(data.key)">修改</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确认删除本行数据吗?'" (nzOnConfirm)="deleteRow(data.key)" style="margin-left: 10px;">
+              <a nz-popconfirm>删除</a>
+            </nz-popconfirm>
+          </ng-container>
+          <ng-container *ngIf="editCache[data.key].edit">
+            <a (click)="saveEdit(data.key)">保存</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm [nzTitle]="'确定要取消修改吗？'" (nzOnConfirm)="cancelEdit(data.key)" style="margin-left: 10px;">
+              <a nz-popconfirm>取消</a>
+            </nz-popconfirm>
+          </ng-container>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <button nz-button (click)="addRow()" class="editable-add-btn" style="margin-top: 30px">添加一行</button>
+  <div style="text-align: center">
+    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  </div>
+</div>

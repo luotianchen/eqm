@@ -629,7 +629,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="rel1">屈服强度1</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="rel1" name="rel1" id="rel1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel1'].max == 99999 ? '≥' + dataDetail['rel1'].min : dataDetail['rel1'].min + '≤' + '屈服强度1' + '≤' +dataDetail['rel1'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="rel1" name="rel1" id="rel1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel1'].max == 99999 ? '≥' + dataDetail['rel1'].min : dataDetail['rel1'].min + '≤' + 'rel1' + '≤' +dataDetail['rel1'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('rel1').dirty&&validateForm.get('rel1').errors">
               <ng-container *ngIf="validateForm.get('rel1').hasError('required')">
                 屈服强度1不能为空
@@ -645,7 +645,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="rel2"> </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="rel2" name="rel2" id="rel2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel2'].max == 99999 ? '≥' + dataDetail['rel2'].min : dataDetail['rel2'].min + '≤' + '屈服强度2' + '≤' +dataDetail['rel2'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="rel2" name="rel2" id="rel2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel2'].max == 99999 ? '≥' + dataDetail['rel2'].min : dataDetail['rel2'].min + '≤' + 'rel2' + '≤' +dataDetail['rel2'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('rel2').dirty&&validateForm.get('rel2').errors">
               <ng-container *ngIf="validateForm.get('rel2').hasError('required')">
                 屈服强度2不能为空
@@ -661,7 +661,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="rm1">抗拉强度1</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="rm1" name="rm1" id="rm1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm1'].max == 99999 ? '≥' + dataDetail['rm1'].min : dataDetail['rm1'].min + '≤' + '抗拉强度1' + '≤' +dataDetail['rm1'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="rm1" name="rm1" id="rm1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm1'].max == 99999 ? '≥' + dataDetail['rm1'].min : dataDetail['rm1'].min + '≤' + 'rm1' + '≤' +dataDetail['rm1'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('rm1').dirty&&validateForm.get('rm1').errors">
               <ng-container *ngIf="validateForm.get('rm1').hasError('required')">
                 抗拉强度1不能为空
@@ -677,7 +677,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="rm2"> </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="rm2" name="rm2" id="rm2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm2'].max == 99999 ? '≥' + dataDetail['rm2'].min : dataDetail['rm2'].min + '≤' + '抗拉强度2' + '≤' +dataDetail['rm2'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="rm2" name="rm2" id="rm2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm2'].max == 99999 ? '≥' + dataDetail['rm2'].min : dataDetail['rm2'].min + '≤' + 'rm2' + '≤' +dataDetail['rm2'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('rm2').dirty&&validateForm.get('rm2').errors">
               <ng-container *ngIf="validateForm.get('rm2').hasError('required')">
                 抗拉强度2不能为空
@@ -725,7 +725,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="hardness1">硬度1</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [nzStep]="0.1" [nzPlaceHolder]="'硬度1'"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness1'].max == 99999 ? '≥' + dataDetail['hardness1'].min : dataDetail['hardness1'].min + '≤' + '硬度1' + '≤' +dataDetail['hardness1'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('hardness1').dirty&&validateForm.get('hardness1').errors">
               <ng-container *ngIf="validateForm.get('hardness1').hasError('required')">
                 硬度1不能为空
@@ -741,7 +741,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="hardness2">硬度2</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [nzStep]="0.1" [nzPlaceHolder]="'硬度2'"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness2'].max == 99999 ? '≥' + dataDetail['hardness2'].min : dataDetail['hardness2'].min + '≤' + '硬度2' + '≤' +dataDetail['hardness2'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('hardness2').dirty&&validateForm.get('hardness2').errors">
               <ng-container *ngIf="validateForm.get('hardness2').hasError('required')">
                 硬度2不能为空
@@ -757,7 +757,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="hardness3">硬度3</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number formControlName="hardness3" name="hardness3" id="hardness3" [nzStep]="0.1" [nzPlaceHolder]="'硬度3'"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="hardness3" name="hardness3" id="hardness3" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness3'].max == 99999 ? '≥' + dataDetail['hardness3'].min : dataDetail['hardness3'].min + '≤' + '硬度3' + '≤' +dataDetail['hardness3'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('hardness3').dirty&&validateForm.get('hardness3').errors">
               <ng-container *ngIf="validateForm.get('hardness3').hasError('required')">
                 硬度3不能为空
@@ -773,7 +773,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="impactp1">冲击功1</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="impactp1" name="impactp1" id="impactp1" [nzStep]="1" [nzPlaceHolder]="'冲击功1'"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="impactp1" name="impactp1" id="impactp1" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp1'].max == 99999 ? '≥' + dataDetail['impactp1'].min : dataDetail['impactp1'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp1'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('impactp1').dirty&&validateForm.get('impactp1').errors">
               <ng-container *ngIf="validateForm.get('impactp1').hasError('required')">
                 冲击功1不能为空
@@ -789,7 +789,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="impactp2">冲击功2</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number formControlName="impactp2" name="impactp2" id="impactp2" [nzStep]="1" [nzPlaceHolder]="'冲击功2'"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="impactp2" name="impactp2" id="impactp2" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp2'].max == 99999 ? '≥' + dataDetail['impactp2'].min : dataDetail['impactp2'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp2'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('impactp2').dirty&&validateForm.get('impactp2').errors">
               <ng-container *ngIf="validateForm.get('impactp2').hasError('required')">
                 冲击功2不能为空
@@ -805,7 +805,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="impactp3">冲击功3</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="impactp3" name="impactp3" id="impactp3" [nzStep]="1" [nzPlaceHolder]="'冲击功3'"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="impactp3" name="impactp3" id="impactp3" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp3'].max == 99999 ? '≥' + dataDetail['impactp3'].min : dataDetail['impactp3'].min + '≤' + '冲击功3' + '≤' +dataDetail['impactp3'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('impactp3').dirty&&validateForm.get('impactp3').errors">
               <ng-container *ngIf="validateForm.get('impactp3').hasError('required')">
                 冲击功3不能为空
@@ -823,6 +823,7 @@
           <nz-form-control nzHasFeedback>
             <nz-select nzMode="default" formControlName="heatcondi" name="heatcondi" nzPlaceHolder="热处理状态" id="heatcondi" nzShowSearch nzAllowClear>
               <nz-option *ngFor="let option of dataDetail['heatcondi'].split('、')" [nzLabel]="option" [nzValue]="option"></nz-option>
+              <nz-option nzLabel="/" nzValue="option"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm.get('heatcondi').dirty && validateForm.get('heatcondi').errors">
               热处理状态不能为空！

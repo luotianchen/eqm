@@ -1,5 +1,5 @@
 <div class="header">
-  <div class="button" (click)="toggleCollapsed()">
+  <div class="button" (click)="toggleCollapsed()" [nzMouseEnterDelay]="1" nzPlacement="bottom" nz-tooltip [nzTitle]="settings.layout.isCollapsed?'展开左侧菜单':'收起左侧菜单'">
     <i nz-icon type="menu-{{settings.layout.isCollapsed?'unfold':'fold'}}"></i>
   </div>
   <ul nz-menu [nzMode]="'horizontal'" style="line-height: 64px;">
@@ -17,9 +17,9 @@
         <i nz-icon type="search"></i>
       </ng-template>
     </div>
-    <div class="buttonR" nz-popover nzTitle="通知" [nzContent]="notices" nzTrigger="click" nzPlacement="bottom">
-      <i nz-icon type="bell" theme="outline"></i>
-    </div>
+      <div class="buttonR" nz-popover nzTitle="通知" [nzContent]="notices" nzTrigger="click" nzPlacement="bottom">
+          <i nz-icon type="bell" theme="outline"></i>
+      </div>
     <nz-dropdown class="drop" style="margin-right: 20px" nzPlacement="bottom">
       <a class="menu" nz-dropdown>
         <span title><i nz-icon type="user" style="margin-right: 10px;"></i>{{ _storage.get("username") }}</span>
@@ -37,7 +37,5 @@
   </div>
 </div>
 <ng-template #notices>
-  <div>
-    <p>暂无通知</p>
-  </div>
+  <nz-empty nzNotFoundContent="暂无通知"></nz-empty>
 </ng-template>

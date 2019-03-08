@@ -3,7 +3,6 @@
   <span style="float: right">
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(decoTitle, decoContent, decoFooter)">添加设计单位</button>
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(prodnameTitle, prodnameContent, prodnameFooter)">添加产品名称</button>
-  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(wmediaTitle, wmediaContent, wmediaFooter)">添加工作介质</button>
   </span>
 </div>
 <nz-divider></nz-divider>
@@ -55,7 +54,7 @@
           产品名称
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="prodname" name="prodname" id="prodname" nzPlaceHolder="产品名称"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select formControlName="prodname" name="prodname" id="prodname" nzPlaceHolder="产品名称"  nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.prodnames" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('prodname').dirty && this.validateForm.get('prodname').errors">
@@ -332,7 +331,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="pvclass">
+        <nz-form-label nzFor="pvclass">
           换热面积
         </nz-form-label>
         <nz-form-control nzHasFeedback>
@@ -386,6 +385,21 @@
         </nz-form-control>
       </nz-form-item>
     </div>
+    <div nz-col nzSpan="8">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="deconame">
+          设计单位
+        </nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch (ngModelChange)="setDeDate()">
+            <nz-option *ngFor="let o of this.deconames" [nzValue]="o" [nzLabel]="o"></nz-option>
+          </nz-select>
+          <nz-form-explain *ngIf="this.validateForm.get('deconame').dirty && this.validateForm.get('deconame').errors">
+            设计单位为必选项！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
     <div nz-col [nzSpan]="4">
       <nz-form-item>
         <nz-form-label nzRequired nzFor="designdate">设计日期</nz-form-label>
@@ -398,21 +412,6 @@
             <ng-container *ngIf="validateForm.get('designdate').hasError('confirm')">
               设计日期必须在设计单位有效期内！
             </ng-container>
-          </nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="8">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="deconame">
-          设计单位
-        </nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch (ngModelChange)="setDeDate()">
-            <nz-option *ngFor="let o of this.deconames" [nzValue]="o" [nzLabel]="o"></nz-option>
-          </nz-select>
-          <nz-form-explain *ngIf="this.validateForm.get('deconame').dirty && this.validateForm.get('deconame').errors">
-            设计单位为必选项！
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -513,7 +512,8 @@
 
 <div *ngIf="validateForm.value.channelnum>0">
   <nz-divider></nz-divider>
-  <h4>通道1数据输入</h4>
+  <h4>通道1数据输入
+    <button class="tool-button" nz-button nzType="default" (click)="createTplModal(wmediaTitle, wmediaContent, wmediaFooter)">添加工作介质</button></h4>
   <form nzLayout='horizontal' nz-form [formGroup]="validateForm1" (ngSubmit)="submitForm()">
     <div nz-row [nzGutter]="16" nzType="flex">
       <div nz-col nzSpan="4">
@@ -678,7 +678,7 @@
           </nz-form-label>
           <nz-form-control nzHasFeedback>
             <nz-select formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="工作介质"  nzShowSearch nzAllowClear>
-              <nz-option *ngFor="let o of this.wmedias" [nzValue]="o" [nzLabel]="o.name"></nz-option>
+              <nz-option *ngFor="let o of this.wmedias" [nzValue]="o.name" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('wmedia').dirty && validateForm1.get('wmedia').errors">
               工作介质不能为空！
@@ -811,7 +811,7 @@
             泄漏试验方式
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="泄漏试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(1)">
+            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="泄漏试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(this.validateForm1)">
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('leaktest').dirty && validateForm1.get('leaktest').errors">
@@ -838,7 +838,8 @@
 </div>
 <div *ngIf="validateForm.value.channelnum>1">
   <nz-divider></nz-divider>
-  <h4>通道2数据输入</h4>
+  <h4>通道2数据输入
+    <button class="tool-button" nz-button nzType="default" (click)="createTplModal(wmediaTitle, wmediaContent, wmediaFooter)">添加工作介质</button></h4>
   <form nzLayout='horizontal' nz-form [formGroup]="validateForm2" (ngSubmit)="submitForm()">
     <div nz-row [nzGutter]="16" nzType="flex">
       <div nz-col nzSpan="4">
@@ -1108,7 +1109,7 @@
             气密性试验方式
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(2)">
+            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(this.validateForm2)">
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('leaktest').dirty && validateForm2.get('leaktest').errors">
@@ -1136,7 +1137,8 @@
 <!--通道3-n-->
 <div *ngFor="let data of this.dataSet">
   <nz-divider></nz-divider>
-  <h4>通道{{data.key}}数据输入</h4>
+  <h4>通道{{data.key}}数据输入
+    <button class="tool-button" nz-button nzType="default" (click)="createTplModal(wmediaTitle, wmediaContent, wmediaFooter)">添加工作介质</button></h4>
     <div nz-row [nzGutter]="16" style="margin: 20px -8px;">
       <div nz-col nzSpan="4">
             <p style="margin-top: 10px;margin-bottom: 10px">通道名称：</p>
@@ -1232,19 +1234,17 @@
         <p style="margin-top: 10px;margin-bottom: 10px">试验压力(Mpa)</p>
             <nz-input-number [(ngModel)]="data.testpress" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'试验压力'" style="width:100%;"></nz-input-number>
       </div>
-  </div>
-  <div nz-row [nzGutter]="16"  style="margin: 20px -8px;">
-      <div nz-col nzSpan="4">
-        <p style="margin-top: 10px;margin-bottom: 10px">气密性试验方式</p>
-            <nz-select [(ngModel)]="data.leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear style="width: 100%">
-              <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
-            </nz-select>
-      </div>
-      <div nz-col nzSpan="4" *ngIf="data.leaktest!=null && (data.leaktest.name == '气密性试验和氦检漏试验' || data.leaktest.name == '气密性试验')">
-        <p style="margin-top: 10px;margin-bottom: 10px">气密性试验压力(Mpa)</p>
-            <nz-input-number [(ngModel)]="data.leaktestp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
-      </div>
+    <div nz-col nzSpan="4">
+      <p style="margin-top: 10px;margin-bottom: 10px">气密性试验方式</p>
+      <nz-select [(ngModel)]="data.leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear style="width: 100%">
+        <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
+      </nz-select>
     </div>
+    <div nz-col nzSpan="4" *ngIf="data.leaktest!=null && (data.leaktest.name == '气密性试验和氦检漏试验' || data.leaktest.name == '气密性试验')">
+      <p style="margin-top: 10px;margin-bottom: 10px">气密性试验压力(Mpa)</p>
+      <nz-input-number [(ngModel)]="data.leaktestp" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'气密性试验压力'" style="width:100%;"></nz-input-number>
+    </div>
+  </div>
 </div>
 <div style="text-align:center;margin-top: 20px">
   <button nz-button nzType="primary" (click)="saveForm()">保存</button>

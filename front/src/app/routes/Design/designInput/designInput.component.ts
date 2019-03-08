@@ -70,8 +70,6 @@ export class DesignInputComponent implements OnInit {
     },{
       label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"},selected:false
     },{
-      label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"},selected:false
-    },{
       label: "管程",value:{name:"管程",ename: "TubeSide"},selected:false
     },{
       label: "管程I",value:{name:"管程I",ename: "TubeSide I"},selected:false
@@ -273,7 +271,7 @@ export class DesignInputComponent implements OnInit {
       wtemp:[null, [Validators.required]],
       testpress:[null, [Validators.required]],
       leaktest:[null, [Validators.required]],
-      leaktestp:[null, [Validators.required]],
+      leaktestp:[null],
       pttype:["/", [Validators.required]],
     });
     this.validateForm2 = this.fb.group({
@@ -296,7 +294,7 @@ export class DesignInputComponent implements OnInit {
       wtemp:[null, [Validators.required]],
       testpress:[null, [Validators.required]],
       leaktest:[null, [Validators.required]],
-      leaktestp:[null, [Validators.required]],
+      leaktestp:[null],
       pttype:["/", [Validators.required]],
     });
     this.prodnameValidateForm = this.fb.group({
@@ -393,11 +391,16 @@ export class DesignInputComponent implements OnInit {
       }
     });
   }
-  changeleaktestpstats(num:number){
-    if(this['validateForm'+num].value.leaktest != null && this['validateForm'+num].value.leaktest.name == '气密性试验和氦检漏试验' || this['validateForm'+num].value.leaktest.name == '气密性试验')
-      this['validateForm'+num].controls['leaktestp'].setValidators(Validators.required);
-    else
-      this['validateForm'+num].controls['leaktestp'].setValidators(null);
+  changeleaktestpstats(form:FormGroup){
+    if(form.value.leaktest != null){
+      console.log(form.value.leaktest.name)
+      if(form.value.leaktest.name == '气密性试验和氦检漏试验' || form.value.leaktest.name == '气密性试验')
+        form.controls['leaktestp'].setValidators(Validators.required);
+      else{
+        form.controls['leaktestp'].setValidators(null);
+        console.log(form.controls['leaktestp'])
+      }
+    }
   }
   dataSet = [];
   setChannelNum(){
@@ -479,9 +482,11 @@ export class DesignInputComponent implements OnInit {
             designdate: [res['data']['designdate'], [this.DedateValidator]],//设计日期
             deconame: [res['data']['deconame'], [Validators.required]]//设计单位名称
           });
+          this.setDeDate();
           this.designInputService.getchannel(this.validateForm.value.dwgno).subscribe(res=>{
             if(res['result'] == "success" && res['data'].length!=0){
               if(res['data'].length>0){
+                res['data'] = res['data'].reverse();
                 let leaktest :any,pttype :any,channelname:any,wmedia:any;
                 for(let i of this.leaktests)
                   if(i.name == res['data'][0]['leaktest'])
@@ -492,9 +497,6 @@ export class DesignInputComponent implements OnInit {
                 for(let i of this.channelnames)
                   if(i.label == res['data'][0]['name'])
                     channelname = i.value;
-                for(let i of this.wmedias)
-                  if(i.name == res['data'][0]['wmedia'])
-                    wmedia = i;
                 this.validateForm.controls['channelnum'].setValue(res['data'].length);
                 this.validateForm1 = this.fb.group({
                   name:[channelname, [Validators.required]],
@@ -508,7 +510,7 @@ export class DesignInputComponent implements OnInit {
                   shthick3:[res['data'][0]['shthick3']],
                   liningmatl:[res['data'][0]['liningmatl'], [Validators.required]],
                   liningthick:[res['data'][0]['liningthick'], [Validators.required]],
-                  wmedia:[wmedia, [Validators.required]],
+                  wmedia:[res['data'][0]['wmedia'], [Validators.required]],
                   hdthick1:[res['data'][0]['hdthick1'], [Validators.required]],
                   hdthick2:[res['data'][0]['hdthick2'], [Validators.required]],
                   maxwpress:[res['data'][0]['maxwpress'], [Validators.required]],
@@ -521,6 +523,7 @@ export class DesignInputComponent implements OnInit {
                   leaktestp:[res['data'][0]['leaktestp'], [Validators.required]],
                   pttype:[pttype, [Validators.required]],
                 });
+                this.changeleaktestpstats(this.validateForm1);
               }
               if(res['data'].length>1){
                 let leaktest :any,pttype :any,channelname:any,wmedia:any;
@@ -533,9 +536,6 @@ export class DesignInputComponent implements OnInit {
                 for(let i of this.channelnames)
                   if(i.label == res['data'][1]['name'])
                     channelname = i.value;
-                for(let i of this.wmedias)
-                  if(i.name == res['data'][1]['wmedia'])
-                    wmedia = i;
                 this.validateForm2 = this.fb.group({
                   name:[channelname, [Validators.required]],
                   volume:[res['data'][1]['volume'], [Validators.required]],
@@ -548,7 +548,7 @@ export class DesignInputComponent implements OnInit {
                   shthick3:[res['data'][1]['shthick3']],
                   liningmatl:[res['data'][1]['liningmatl'], [Validators.required]],
                   liningthick:[res['data'][1]['liningthick'], [Validators.required]],
-                  wmedia:[wmedia, [Validators.required]],
+                  wmedia:[res['data'][1]['wmedia'], [Validators.required]],
                   hdthick1:[res['data'][1]['hdthick1'], [Validators.required]],
                   hdthick2:[res['data'][1]['hdthick2'], [Validators.required]],
                   maxwpress:[res['data'][1]['maxwpress'], [Validators.required]],
@@ -561,8 +561,9 @@ export class DesignInputComponent implements OnInit {
                   leaktestp:[res['data'][1]['leaktestp'], [Validators.required]],
                   pttype:[pttype, [Validators.required]],
                 });
+                this.changeleaktestpstats(this.validateForm2);
               }
-              if(res['data'].length>3){
+              if(res['data'].length>2){
                 for (let j = 2; j < this.validateForm.value.channelnum; j++) {
                   let leaktest :any,pttype :any,channelname:any,wmedia:any;
                   for(let i of this.leaktests)
@@ -574,21 +575,18 @@ export class DesignInputComponent implements OnInit {
                   for(let i of this.channelnames)
                     if(i.label == res['data'][j]['name'])
                       channelname = i.value;
-                  for(let i of this.wmedias)
-                    if(i.name == res['data'][j]['wmedia'])
-                      wmedia = i;
                   this.dataSet.push({
                     key    : j+1,
                     name   : channelname,
                     volume : res['data'][j]['volume'],
                     innerdia : res['data'][j]['innerdia'],
-                    shmatl1 : res['data']['j']['shmatl1'],
+                    shmatl1 : res['data'][j]['shmatl1'],
                     shmatl2 : res['data'][j]['shmatl2'],
                     shmatl3 : res['data'][j]['shmatl3'],
                     shthick1 : res['data'][j]['shthick1'],
                     shthick2 : res['data'][j]['shthick2'],
                     shthick3 : res['data'][j]['shthick3'],
-                    wmedia:wmedia,
+                    wmedia:res['data'][j]['wmedia'],
                     hdthick1:res['data'][j]['hdthick1'],
                     hdthick2:res['data'][j]['hdthick2'],
                     maxwpress:res['data'][j]['maxwpress'],
@@ -607,7 +605,7 @@ export class DesignInputComponent implements OnInit {
           });
           this.designInputService.getsaferel(this.validateForm.value.dwgno).subscribe(res=>{
             if(res['result'] == "success" && res['data']!=null && res['data'].length>0){
-              this.saferelDataSet = res['data'];
+              this.saferelDataSet = res['data'].reverse();
               this.updateSaferelsaferelEditCache();
               this.validateForm.markAsDirty();
               this.validateForm1.markAsDirty();
@@ -622,7 +620,7 @@ export class DesignInputComponent implements OnInit {
       this.msg.error("图号不能为空！");
   }
   saveForm(){
-    let name:any = {name:null,ename:null},leaktest:any = {name:null,ename:null},wmedia:any = {name:null},pttype:any = {name:null,ename:null};
+    let name:any = {name:null,ename:null},leaktest:any = {name:null,ename:null},pttype:any = {name:null,ename:null};
     if(this.validateForm1.value.name){
       name.name = this.validateForm1.value.name.name;
       name.ename = this.validateForm1.value.name.ename;
@@ -630,9 +628,6 @@ export class DesignInputComponent implements OnInit {
     if(this.validateForm1.value.leaktest){
       leaktest.name = this.validateForm1.value.leaktest.name;
       leaktest.ename = this.validateForm1.value.leaktest.value.ename;
-    }
-    if(this.validateForm1.value.wmedia){
-      wmedia.name = this.validateForm1.value.wmedia.name;
     }
     if(this.validateForm1.value.pttype){
       pttype.name = this.validateForm1.value.pttype.name;
@@ -654,7 +649,7 @@ export class DesignInputComponent implements OnInit {
           "shthick3":this.validateForm1.value.shthick3,
           "liningmatl":this.validateForm1.value.liningmatl,
           "liningthick":this.validateForm1.value.liningthick,
-          "wmedia":wmedia.name,
+          "wmedia":this.validateForm1.value.wmedia,
           "hdthick1":this.validateForm1.value.hdthick1,
           "hdthick2":this.validateForm1.value.hdthick2,
           "maxwpress":this.validateForm1.value.maxwpress,
@@ -680,17 +675,14 @@ export class DesignInputComponent implements OnInit {
         leaktest.name = this.validateForm2.value.leaktest.name;
         leaktest.ename = this.validateForm2.value.leaktest.value.ename;
       }
-      if(this.validateForm2.value.wmedia){
-        wmedia.name = this.validateForm2.value.wmedia.name;
-      }
       if(this.validateForm2.value.pttype){
         pttype.name = this.validateForm2.value.pttype.name;
         pttype.ename = this.validateForm2.value.pttype.ename;
       }
       channelData.push(
         {
-          "name":this.validateForm2.value.name.name,
-          "ename":this.validateForm2.value.name.ename,
+          "name":name.name,
+          "ename":name.ename,
           "volume":this.validateForm2.value.volume,
           "innerdia":this.validateForm2.value.innerdia,
           "shmatl1":this.validateForm2.value.shmatl1,
@@ -701,7 +693,7 @@ export class DesignInputComponent implements OnInit {
           "shthick3":this.validateForm2.value.shthick3,
           "liningmatl":this.validateForm2.value.liningmatl,
           "liningthick":this.validateForm2.value.liningthick,
-          "wmedia":this.validateForm2.value.wmedia.name,
+          "wmedia":this.validateForm2.value.wmedia,
           "hdthick1":this.validateForm2.value.hdthick1,
           "hdthick2":this.validateForm2.value.hdthick2,
           "maxwpress":this.validateForm2.value.maxwpress,
@@ -710,8 +702,8 @@ export class DesignInputComponent implements OnInit {
           "wpress":this.validateForm2.value.wpress,
           "wtemp":this.validateForm2.value.wtemp,
           "testpress":this.validateForm2.value.testpress,
-          "leaktest":this.validateForm2.value.leaktest.name,
-          "eleaktest":this.validateForm2.value.leaktest.value.ename,
+          "leaktest":leaktest.name,
+          "eleaktest":leaktest.ename,
           "leaktestp":this.validateForm2.value.leaktestp,
           "pttype":pttype.name,
           "epttype":pttype.ename
@@ -719,13 +711,41 @@ export class DesignInputComponent implements OnInit {
     }
     if(this.validateForm.value.channelnum>2){
       for(let data of this.dataSet){
-        data.ename = data.name.ename;
-        data.name = data.name.name;
-        data.epttype = data.pttype.ename;
-        data.pttype = data.pttype.name;
-        channelData.push(data);
+        if(data.name==null){
+          this.msg.error("通道名称不能为空！")
+          return;
+        }
+        channelData.push({
+          "name":data.name.name,
+          "ename":data.name.ename,
+          "volume":data.volume,
+          "innerdia":data.innerdia,
+          "shmatl1":data.shmatl1,
+          "shmatl2":data.shmatl2,
+          "shmatl3":data.shmatl3,
+          "shthick1":data.shthick1,
+          "shthick2":data.shthick2,
+          "shthick3":data.shthick3,
+          "liningmatl":data.liningmatl,
+          "liningthick":data.liningthick,
+          "wmedia":data.wmedia,
+          "hdthick1":data.hdthick1,
+          "hdthick2":data.hdthick2,
+          "maxwpress":data.maxwpress,
+          "depress":data.depress,
+          "detemp":data.detemp,
+          "wpress":data.wpress,
+          "wtemp":data.wtemp,
+          "testpress":data.testpress,
+          "leaktest":data.leaktest?data.leaktest.name:null,
+          "eleaktest":data.leaktest?data.leaktest.value.ename:null,
+          "leaktestp":data.leaktestp,
+          "pttype":data.pttype?data.pttype.name:null,
+          "epttype":data.pttype?data.pttype.ename:null
+        });
       }
     }
+    console.log(channelData);
     if(this.validateForm.value.saferel=="有"){//如果有安全泄放装置
       this.designInputService.saveSaferel({dwgno:this.validateForm.value.dwgno,data:this.saferelDataSet}).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -824,11 +844,38 @@ export class DesignInputComponent implements OnInit {
     }
     if(this.validateForm.value.channelnum>2){
       for(let data of this.dataSet){
-        data.ename = data.name.ename;
-        data.name = data.name.name;
-        data.epttype = data.pttype.ename;
-        data.pttype = data.pttype.name;
-        channelData.push(data);
+        if(data.name==null){
+          this.msg.error("通道名称不能为空！")
+          return;
+        }
+        channelData.push({
+          "name":data.name.name,
+          "ename":data.name.ename,
+          "volume":data.volume,
+          "innerdia":data.innerdia,
+          "shmatl1":data.shmatl1,
+          "shmatl2":data.shmatl2,
+          "shmatl3":data.shmatl3,
+          "shthick1":data.shthick1,
+          "shthick2":data.shthick2,
+          "shthick3":data.shthick3,
+          "liningmatl":data.liningmatl,
+          "liningthick":data.liningthick,
+          "wmedia":data.wmedia,
+          "hdthick1":data.hdthick1,
+          "hdthick2":data.hdthick2,
+          "maxwpress":data.maxwpress,
+          "depress":data.depress,
+          "detemp":data.detemp,
+          "wpress":data.wpress,
+          "wtemp":data.wtemp,
+          "testpress":data.testpress,
+          "leaktest":data.leaktest?data.leaktest.name:null,
+          "eleaktest":data.leaktest?data.leaktest.value.ename:null,
+          "leaktestp":data.leaktestp,
+          "pttype":data.pttype?data.pttype.name:null,
+          "epttype":data.pttype?data.pttype.ename:null
+        });
       }
     }
     //检查数据是否填写完整

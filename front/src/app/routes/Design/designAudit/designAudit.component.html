@@ -62,6 +62,7 @@
         </nz-dropdown>
         设计单位
       </th>
+      <th style="min-width: 100px;">操作</th>
       <!--设计单位、容器类别筛选-->
     </tr>
     </thead>
@@ -74,6 +75,9 @@
         <td>{{data.mainstand}}</td>
         <td>{{data.designdate}}</td>
         <td>{{data.deconame}}</td>
+        <td>
+          <a (click)="open(data.dwgno)">查看详细内容</a>
+        </td>
       </tr>
     </ng-template>
     </tbody>

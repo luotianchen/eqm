@@ -228,270 +228,139 @@
     </div>
   </div>
 </form>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxangul.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="A类焊缝最大棱角度">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.aweldmaxangul">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.aweldmaxangul">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.aweldmaxangul">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxangul.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="B类焊缝最大棱角度">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.bweldmaxangul">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.bweldmaxangul">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.bweldmaxangul">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxalign.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="A类焊缝最大错边量">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.aweldmaxalign">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.aweldmaxalign">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.aweldmaxalign">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.innerdia.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="筒体内径">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.innerdia">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.innerdia">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.innerdia">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.roundness.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="筒体圆度">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.roundness">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.roundness">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.roundness">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.straightness.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="筒体直线度">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.straightness">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.straightness">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.straightness">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.outward.length>0"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="封头形状偏差外凸">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.outward">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.outward">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.outward">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.concave.length"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="封头形状偏差内凹">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.concave">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.concave">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.concave">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxalign.length"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="B类焊缝最大错边量">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.bweldmaxalign">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.bweldmaxalign">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.bweldmaxalign">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfs.length"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="焊缝余高（单面坡口）">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.weldreinfs">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.weldreinfs">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.weldreinfs">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
-<nz-table
-  *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfd.length"
-  [nzNoResult]="' '"
-  nzSize="small"
-  nzTitle="焊缝余高（双面坡口）">
-  <thead>
-  <tr>
-    <th>类型</th>
-    <th *ngFor="let item of dataStand.weldreinfd">标准值</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>标准值</td>
-    <td *ngFor="let item of dataStand.weldreinfd">0~{{item}}</td>
-  </tr>
-  <tr>
-    <td>实测值</td>
-    <td *ngFor="let item of dataDetail.weldreinfd">
-      <input nz-input placeholder="请输入实测值" [(ngModel)]="item"/>
-    </td>
-  </tr>
-  </tbody>
-</nz-table>
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxangul.length>0">A类焊缝最大棱角度</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxangul.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.aweldmaxangul">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxangul.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.aweldmaxangul">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxangul.length>0">B类焊缝最大棱角度</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxangul.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.bweldmaxangul">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxangul.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.bweldmaxangul">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxalign.length>0">A类焊缝最大错边量</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxalign.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.aweldmaxalign">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.aweldmaxalign.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.aweldmaxalign">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.innerdia.length>0">筒体内径</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.innerdia.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.innerdia">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.innerdia.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.innerdia">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.roundness.length>0">筒体圆度</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.roundness.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.roundness">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.roundness.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.roundness">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.straightness.length>0">筒体直线度</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.straightness.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.straightness">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.straightness.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.straightness">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.outward.length>0">封头形状偏差外凸</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.straightness.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.outward">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.outward.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.outward">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.concave.length>0">封头形状偏差内凹</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.concave.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.concave">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.concave.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.concave">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxalign.length>0">B类焊缝最大错边量</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxalign.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.bweldmaxalign">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.bweldmaxalign.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.bweldmaxalign">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfs.length>0">焊缝余高（单面坡口）</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfs.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.weldreinfs">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfs.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.weldreinfs">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+<h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfd.length>0">焊缝余高（双面坡口）</h4>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfd.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataStand.weldreinfs">
+    <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
+  </div>
+</div>
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfd.length>0">
+  <div nz-col nzSpan="4" *ngFor="let item of dataDetail.weldreinfd">
+    <nz-input-number [(ngModel)]="item" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'请输入实测值'" style="width:100%;"></nz-input-number>
+  </div>
+</div>
+
+
 <div style="text-align:center;margin-top: 20px">
   <button nz-button nzType="primary" (click)="submitForm()">提交</button>
 </div>

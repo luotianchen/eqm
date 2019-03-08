@@ -22,6 +22,13 @@ export class WarehouseEntryNoticeComponent implements OnInit {
     5:3
   }; // 1/2/3/4/5分别对应板材、管件、法兰、封头、焊材5种材料，后面的1、2、3为对应的模式，每一种模式对应种报表央视
   mode = 0;
+  hancaiData = {
+    "焊条" : ['完好','无','完好','无','符合要求','/','/','/',	'/','/','/'],
+    "焊丝":['/','/','/','/','/','完好','无','符合要求','/','/','/'],
+    "焊剂":['/','/','/','/','/','/','/','/','完好','无','符合要求'],
+    "银焊丝":['/','/','/','/','/','完好','无','符合要求','/','/','/'],
+    "铝焊丝"	:['/','/','/','/','/','完好','无','符合要求','/','/','/']
+  }
   constructor(public sanitizer: DomSanitizer,public warehouseEntryNoticeService: WarehouseEntryNoticeService,public fb: FormBuilder,public msg:NzMessageService) {
     this.printStyle =
       `
@@ -95,6 +102,7 @@ export class WarehouseEntryNoticeComponent implements OnInit {
           if(this.validateForm.valid) {
             this.warehouseEntryNoticeService.getReport(null,this.validateForm.value.year,this.validateForm.value.month,this.validateForm.value.matlcode).subscribe((res)=>{
               if(res["result"]=="success"){
+                console.log('assets/css/warehouseEntryNotice'+this.mode+'.css')
                 this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
                 this.dataSet = res["data"];
                 for(let item of this.dataSet){
