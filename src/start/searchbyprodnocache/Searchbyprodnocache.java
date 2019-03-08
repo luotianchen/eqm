@@ -110,7 +110,6 @@ public class Searchbyprodnocache {                                              
             ps.setString(1,sp.getProdno());
             rs=ps.executeQuery();
             while (rs.next()){
-                System.out.println(rs.getString("dwgno"));
                 result.setDwgno(rs.getString("dwgno"));
             }
             rs.close();
