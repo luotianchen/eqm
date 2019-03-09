@@ -23,9 +23,8 @@ public class checkproanddwg {                                           //确定
         checkproanddwgresult result = new checkproanddwgresult();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno=? AND dwgno=?");
+            ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno=?");
             ps.setString(1,cp.getProdno());
-            ps.setString(2,cp.getDwgno());
             rs = ps.executeQuery();
             if(rs.next()){
                 result.setResult("success");
