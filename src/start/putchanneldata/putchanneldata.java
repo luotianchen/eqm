@@ -30,7 +30,6 @@ public class putchanneldata {                                           //提交
             ps.close();
 
             for (int i = 0;i<pp.getData().size();i++){
-                System.out.println(pp.getData().size());
                 String sql = null;
                 String sql1 = "";
                 String sql2 = "";
@@ -198,7 +197,6 @@ public class putchanneldata {                                           //提交
                         epttype_p=1;
                     }
                     sql = "UPDATE channeldata SET name = ?"+sql1+" WHERE dwgno = ? AND name = ?";
-                    System.out.println(sql);
                     ps = conn.prepareStatement(sql);
                     if(name_p==1){
                         ps.setString(num,pp.getData().get(i).getName());
