@@ -24,7 +24,16 @@ public class changestatusforprom2 {                                  //产品制
         changestatusforprom2result result = new changestatusforprom2result();
 
         try {
-            ps = conn.prepareStatement("UPDATE promanparlist2 SET status = ?,audit_user = ? WHERE prodno = ?");
+            if(cp.getStatus()==1){
+                ps = conn.prepareStatement("UPDATE promanparlist2 SET status = ?,audit_user = ? WHERE prodno = ? AND status = 1");
+                ps.setInt(1,3);
+                ps.setString(2,cp.getAudit_user());
+                ps.setString(3,cp.getProdno());
+                ps.executeUpdate();
+                ps.close();
+            }
+
+            ps = conn.prepareStatement("UPDATE promanparlist2 SET status = ?,audit_user = ? WHERE prodno = ? AND status = 0");
             ps.setInt(1,cp.getStatus());
             ps.setString(2,cp.getAudit_user());
             ps.setString(3,cp.getProdno());
