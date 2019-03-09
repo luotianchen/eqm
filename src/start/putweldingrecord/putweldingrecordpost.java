@@ -1,18 +1,14 @@
 package start.putweldingrecord;
 
+import java.util.ArrayList;
+
 public class putweldingrecordpost {
     private String prodno;
     private String dwgno;
     private String prodname;
-    private String weldno;
-    private String weldevano;
-    private String weldmethod;
-    private String usernote;
-    private String welddate;
-    private String inspector;
-    private String entrustdate;
-    private String ndtdate;
     private String user;
+    private ArrayList<putweldingrecordpostdata> data;
+
     public putweldingrecordpost(){
         super();
     }
@@ -41,62 +37,6 @@ public class putweldingrecordpost {
         this.prodname = prodname;
     }
 
-    public String getWeldno() {
-        return weldno;
-    }
-
-    public void setWeldno(String weldno) {
-        this.weldno = weldno;
-    }
-
-    public String getWeldevano() {
-        return weldevano;
-    }
-
-    public void setWeldevano(String weldevano) {
-        this.weldevano = weldevano;
-    }
-
-    public String getUsernote() {
-        return usernote;
-    }
-
-    public void setUsernote(String usernote) {
-        this.usernote = usernote;
-    }
-
-    public String getWelddate() {
-        return welddate;
-    }
-
-    public void setWelddate(String welddate) {
-        this.welddate = welddate;
-    }
-
-    public String getInspector() {
-        return inspector;
-    }
-
-    public void setInspector(String inspector) {
-        this.inspector = inspector;
-    }
-
-    public String getEntrustdate() {
-        return entrustdate;
-    }
-
-    public void setEntrustdate(String entrustdate) {
-        this.entrustdate = entrustdate;
-    }
-
-    public String getNdtdate() {
-        return ndtdate;
-    }
-
-    public void setNdtdate(String ndtdate) {
-        this.ndtdate = ndtdate;
-    }
-
     public String getUser() {
         return user;
     }
@@ -105,11 +45,11 @@ public class putweldingrecordpost {
         this.user = user;
     }
 
-    public String getWeldmethod() {
-        return weldmethod;
+    public ArrayList<putweldingrecordpostdata> getData() {
+        return data;
     }
 
-    public void setWeldmethod(String weldmethod) {
-        this.weldmethod = weldmethod;
+    public void setData(ArrayList<putweldingrecordpostdata> data) {
+        this.data = data;
     }
 }
