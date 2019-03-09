@@ -63,7 +63,7 @@ public class putchanneldata {                                           //提交
                 int pttype_p=0;
                 int epttype_p=0;
 
-                ps1 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ?");
+                ps1 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? status = 0");
                 ps1.setString(1,pp.getDwgno());
                 ps1.setString(2,pp.getData().get(i).getName());
                 rs1 = ps1.executeQuery();
