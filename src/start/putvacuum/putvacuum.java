@@ -25,31 +25,66 @@ public class putvacuum {                                    //提交真空参数
         java.sql.Date time = new java.sql.Date(d.getTime());
 
         try {
-            ps = conn.prepareStatement("INSERT INTO vacuumparameters (prodno,initnum,statnum," +
-                    "initpa,statpa,htcurrent,initdate,enddate," +
-                    "sealvacu,sealdate,testtemp,sealtemp," +
-                    "vacuop,leakoutrate,user,date) VALUES (?,?,?," +
-                    "?,?,?,?,?," +
-                    "?,?,?,?," +
-                    "?,?,?,?)");
+            ps = conn.prepareStatement("SELECT * FROM vacuumparameters WHERE prodno = ? AND status = 0");
             ps.setString(1,pp.getProdno());
-            ps.setInt(2,pp.getInitnum());
-            ps.setInt(3,pp.getStatnum());
-            ps.setInt(4,pp.getInitpa());
-            ps.setInt(5,pp.getStatpa());
-            ps.setInt(6,pp.getHtcurrent());
-            ps.setString(7,pp.getInitdate());
-            ps.setString(8,pp.getEnddate());
-            ps.setInt(9,pp.getSealvacu());
-            ps.setString(10,pp.getSealdate());
-            ps.setInt(11,pp.getTesttemp());
-            ps.setInt(12,pp.getSealtemp());
-            ps.setString(13,pp.getVacuop());
-            ps.setString(14,pp.getLeakoutrate());
-            ps.setString(15,pp.getUser());
-            ps.setDate(16,new java.sql.Date(new java.util.Date().getTime()));
-            ps.executeUpdate();
-            ps.close();
+            rs = ps.executeQuery();
+            if(rs.next()){
+                rs.close();
+                ps.close();
+
+                ps = conn.prepareStatement("UPDATE vacuumparameters SET prodno=?,initnum=?,statnum=?," +
+                        "initpa=?,statpa=?,htcurrent=?,initdate=?,enddate=?," +
+                        "sealvacu=?,sealdate=?,testtemp=?,sealtemp=?," +
+                        "vacuop=?,leakoutrate=?,user=?,date=? WHERE prodno = ? AND status = 0");
+                ps.setString(1,pp.getProdno());
+                ps.setInt(2,pp.getInitnum());
+                ps.setInt(3,pp.getStatnum());
+                ps.setInt(4,pp.getInitpa());
+                ps.setInt(5,pp.getStatpa());
+                ps.setInt(6,pp.getHtcurrent());
+                ps.setString(7,pp.getInitdate());
+                ps.setString(8,pp.getEnddate());
+                ps.setInt(9,pp.getSealvacu());
+                ps.setString(10,pp.getSealdate());
+                ps.setInt(11,pp.getTesttemp());
+                ps.setInt(12,pp.getSealtemp());
+                ps.setString(13,pp.getVacuop());
+                ps.setString(14,pp.getLeakoutrate());
+                ps.setString(15,pp.getUser());
+                ps.setDate(16,new java.sql.Date(new java.util.Date().getTime()));
+                ps.setString(17,pp.getProdno());
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+
+                ps = conn.prepareStatement("INSERT INTO vacuumparameters (prodno,initnum,statnum," +
+                        "initpa,statpa,htcurrent,initdate,enddate," +
+                        "sealvacu,sealdate,testtemp,sealtemp," +
+                        "vacuop,leakoutrate,user,date) VALUES (?,?,?," +
+                        "?,?,?,?,?," +
+                        "?,?,?,?," +
+                        "?,?,?,?)");
+                ps.setString(1,pp.getProdno());
+                ps.setInt(2,pp.getInitnum());
+                ps.setInt(3,pp.getStatnum());
+                ps.setInt(4,pp.getInitpa());
+                ps.setInt(5,pp.getStatpa());
+                ps.setInt(6,pp.getHtcurrent());
+                ps.setString(7,pp.getInitdate());
+                ps.setString(8,pp.getEnddate());
+                ps.setInt(9,pp.getSealvacu());
+                ps.setString(10,pp.getSealdate());
+                ps.setInt(11,pp.getTesttemp());
+                ps.setInt(12,pp.getSealtemp());
+                ps.setString(13,pp.getVacuop());
+                ps.setString(14,pp.getLeakoutrate());
+                ps.setString(15,pp.getUser());
+                ps.setDate(16,new java.sql.Date(new java.util.Date().getTime()));
+                ps.executeUpdate();
+                ps.close();
+            }
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
