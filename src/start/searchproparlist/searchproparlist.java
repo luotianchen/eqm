@@ -26,8 +26,9 @@ public class searchproparlist {                                         //根据
         int prodname_id=0;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = ?");
             ps.setString(1,sp.getDwgno());
+            ps.setInt(2,sp.getStatus());
             rs=ps.executeQuery();
             if(rs.next()){
                 data = new searchproparlistdata();

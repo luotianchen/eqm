@@ -25,7 +25,7 @@ public class getprostand {                                          //获取所�
         ArrayList<String> as = new ArrayList<String>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM prostand");
+            ps = conn.prepareStatement("SELECT * FROM datacontraststandstand");
             rs = ps.executeQuery();
             while (rs.next()){
                 as.add(rs.getString("stand"));

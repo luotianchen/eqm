@@ -27,8 +27,9 @@ public class searchchanneldata {                                                
         searchchanneldatadata data = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = ?");
             ps.setString(1,sp.getDwgno());
+            ps.setInt(2,sp.getStatus());
             rs = ps.executeQuery();
             while (rs.next()){
                 data = new searchchanneldatadata();

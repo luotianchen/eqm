@@ -27,8 +27,9 @@ public class searchsafedisdevice {                                          //ца
         searchsafedisdevicedata data = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM safedisdevice WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM safedisdevice WHERE dwgno = ? AND status = ?");
             ps.setString(1,sp.getDwgno());
+            ps.setInt(2,sp.getStatus());
             rs= ps.executeQuery();
             while (rs.next()){
                 data = new searchsafedisdevicedata();

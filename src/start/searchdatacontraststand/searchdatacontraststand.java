@@ -42,7 +42,7 @@ public class searchdatacontraststand {                                      //é€
         int stand_id = 0;
         double length = 0;
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
@@ -229,9 +229,9 @@ public class searchdatacontraststand {                                      //é€
             data.setConcave(concave);
             result.setData(data);
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult(e.toString());
-        }
+//        }catch (Exception e){
+//            result.setResult(e.toString());
+//        }
         conn.close();
         return result;
     }
