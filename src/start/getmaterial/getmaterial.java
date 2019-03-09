@@ -201,6 +201,7 @@ public class getmaterial {                                                      
                 rs=ps.executeQuery();
                 while (rs.next()){
                     data.setUser(rs.getString("username"));
+                    data.setName(rs.getString("name"));
                 }
                 rs.close();
                 ps.close();

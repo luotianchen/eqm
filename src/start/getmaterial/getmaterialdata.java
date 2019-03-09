@@ -62,6 +62,7 @@ public class getmaterialdata {
     private String user;
     private String audit_user;
     private String date;
+    private String name;
 
     public getmaterialdata(){
         super();
@@ -556,5 +557,13 @@ public class getmaterialdata {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
