@@ -388,7 +388,7 @@
     <div nz-col nzSpan="8">
       <nz-form-item>
         <nz-form-label nzRequired nzFor="deconame">
-          设计单位
+          设计单位{{dedate==null?'':'(有效期：'+dedate+'）'}}
         </nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch (ngModelChange)="setDeDate()">
@@ -645,13 +645,11 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="liningmatl">
+          <nz-form-label nzFor="liningmatl">
             衬里材料
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="liningmatl" name="liningmatl" id="liningmatl" nzPlaceHolder="衬里材料"  nzShowSearch nzAllowClear>
-              <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
-            </nz-select>
+            <input nz-input="" formControlName="liningmatl" name="liningmatl" id="liningmatl" placeholder="衬里材料"/>
             <nz-form-explain *ngIf="validateForm1.get('liningmatl').dirty && validateForm1.get('liningmatl').errors">
               衬里材料不能为空！
             </nz-form-explain>
@@ -660,7 +658,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="liningthick">
+          <nz-form-label nzFor="liningthick">
             衬里厚度
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -999,7 +997,7 @@
       </div>
       <div nz-col nzSpan="4">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="hdthick2">
+          <nz-form-label nzFor="hdthick2">
             夹套封头厚度2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
@@ -1317,7 +1315,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="8" nzFor="deconame" nzRequired>公司名称</nz-form-label>
         <nz-form-control [nzSm]="14">
-          <input formControlName="deconame" nz-input placeholder="公司名称">
+          <input formControlName="deconame" nz-input placeholder="设计单位在名称后加数字(换证次数)">
           <nz-form-explain *ngIf="decoValidateForm.get('deconame').dirty && decoValidateForm.get('deconame').errors">公司名称不能为空</nz-form-explain>
         </nz-form-control>
       </nz-form-item>

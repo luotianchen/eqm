@@ -89,7 +89,7 @@
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊工姓名（钢印）" [(ngModel)]="editCache[data.key].data.usernote" name="usernote" id="usernote">
-            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.note"></nz-option>
+            <nz-option *ngFor="let option of users" [nzLabel]="option.name" [nzValue]="option.note"></nz-option>
           </nz-select>
         </ng-container>
       </td>
@@ -107,7 +107,7 @@
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="检验员" [(ngModel)]="editCache[data.key].data.inspector" name="inspector" id="inspector">
-            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
+            <nz-option *ngFor="let option of users" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
           </nz-select>
         </ng-container>
       </td>

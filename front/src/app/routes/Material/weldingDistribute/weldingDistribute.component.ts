@@ -73,7 +73,12 @@ export class WeldingDistributeComponent implements OnInit {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
-          this.dataSet = res['data'];
+          let data = res['data'];
+          this.weldingDistributeService.getindexbymatlcoderules().subscribe(res => {
+            if (res['result'] == "success") {
+              this.dataSet = data.filter(item=>item[res['index']-1] == res['welding'])//若为焊材，显示
+            }
+          })
           this.status = true;
           for(;this.i < this.dataSet.length;this.i++){
             this.dataSet[this.i]['key'] = `${this.i}`;
@@ -102,7 +107,7 @@ export class WeldingDistributeComponent implements OnInit {
       "codedmarking":null,//入库编号
       "issuedate":null,//发料日期
       "picker":null,//领料人
-      "ispresspart":"是",//是否为主要受压元件
+      "ispresspart":1,//是否为主要受压元件
       "weldno":null,//焊缝号
       "returnqty":null,//退回数量
       "note":null//备注
@@ -250,7 +255,11 @@ export class WeldingDistributeComponent implements OnInit {
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
-            this.partsnames.push(this.partsnameValidateForm.controls['partsname'].value);
+            this.weldingDistributeService.getPartsname().subscribe(res=>{
+              if(res['result']=='success'){
+                this.partsnames = res['data'];
+              }
+            });
             this.destroyTplModal();
             this.partsnameValidateForm.reset();
             this.partsnameValidateForm.clearValidators();
@@ -269,11 +278,7 @@ export class WeldingDistributeComponent implements OnInit {
           let data = res['data'];
           this.weldingDistributeService.getindexbymatlcoderules().subscribe(res => {
             if (res['result'] == "success") {
-              this.codedmarkingDisplay = [];
-              for (let item of data) {
-                if (item[res['index']-1] == res['welding']) //若为焊材，显示
-                  this.codedmarkingDisplay.push(item);
-              }
+              this.codedmarkingDisplay = data.filter(item=>item[res['index']-1] == res['welding'])//若为焊材，显示
             }
           })
         }

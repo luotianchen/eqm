@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 
 export class SiderComponent {
   theme = true;
-  navs: [{name:''}];
+  navs: any;
   menulist: any;
   menuOpenMap = {};
   typeofNav() {
@@ -57,7 +57,7 @@ export class SiderComponent {
         for (let sider of this.menulist) {
           sider.data[0].highlight = true;
         }
-        this.settings.setnav(this.navs[0].name);
+        if(this.navs.length>0) this.settings.setnav(this.navs[0]['name']);
       }
     });
   }

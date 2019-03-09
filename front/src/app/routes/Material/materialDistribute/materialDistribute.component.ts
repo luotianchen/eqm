@@ -73,7 +73,12 @@ export class MaterialDistributeComponent implements OnInit {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
-          this.dataSet = res['data'];
+          let data = res['data'];
+          this.materialDistributeService.getindexbymatlcoderules().subscribe(res => {
+            if (res['result'] == "success") {
+              this.dataSet = data.filter(item=> item[res['index']-1] != res['welding'])
+            }
+          })
           this.status = true;
           for(;this.i < this.dataSet.length;this.i++){
             this.dataSet[this.i]['key'] = `${this.i}`;
@@ -157,7 +162,8 @@ export class MaterialDistributeComponent implements OnInit {
     for(let j = 0;j<this.dataSet.length;j++){
       this.dataSet[j]['issuematl'] = this._storage.get('username');
       for(let i in this.dataSet[j]){
-        if(this.dataSet[j][i]==null){
+        if(this.dataSet[j][i]==null && i != 'returnqty' && i!='weldno'){
+          console.log(i)
           this.message.error("您有尚未填写的数据，请填写完整后再提交！");
           return;
         }
@@ -247,7 +253,11 @@ export class MaterialDistributeComponent implements OnInit {
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
-            this.partsnames.push(this.partsnameValidateForm.controls['partsname'].value);
+            this.materialDistributeService.getPartsname().subscribe(res=>{
+              if(res['result']=='success'){
+                this.partsnames = res['data'];
+              }
+            });
             this.destroyTplModal();
             this.partsnameValidateForm.reset();
             this.partsnameValidateForm.clearValidators();
@@ -266,11 +276,7 @@ export class MaterialDistributeComponent implements OnInit {
           let data = res['data'];
           this.materialDistributeService.getindexbymatlcoderules().subscribe(res => {
             if (res['result'] == "success") {
-              this.codedmarkingDisplay = [];
-              for (let item of data) {
-                if (item[res['index']-1] != res['welding']) //若不是焊材，显示
-                  this.codedmarkingDisplay.push(item);
-              }
+              this.codedmarkingDisplay = data.filter(item=>item[res['index']-1] != res['welding'])//若不是焊材，显示
             }
           })
         }

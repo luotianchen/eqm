@@ -35,12 +35,12 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
         console.log(res)
         this.units = res['data'].filter(item=>item.department!=0);
       }
-    })
+    });
     this.waterQualityDetectionInputService.getprostand().subscribe(res=>{
       if(res['result'] == "success"){
         this.prostands = res['data'];
       }
-    })
+    });
     this.waterQualityDetectionInputService.getWaterQuality().subscribe((res:any)=>{
       if(res['result'] == "success"){
         this.latestData = res;
@@ -54,7 +54,7 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
       testno:[null,[Validators.required]],//试样编号
       roomno:['/',[Validators.required]],//本室编号
       testcont:['氯离子含量',[Validators.required]],//测试内容
-      testrst:[null,[Validators.required]],//测试结果
+      testrst:[null,[Validators.required,Validators.max(25)]],//测试结果
       stand:[null,[Validators.required]],//评定标准
       testdate:[null,[Validators.required]],//检测日期
       user:[this._storage.get('username'),[Validators.required]],//提交人

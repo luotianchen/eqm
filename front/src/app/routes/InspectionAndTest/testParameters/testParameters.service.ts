@@ -34,4 +34,10 @@ export class TestParametersService {
       dwgno:dwgno
     })
   }
+  unlinkProdnoandDwgno(prodno,dwgno){//解除图号、产品编号连接
+    return this.http.post(this.api.BASEURL+'/deleteproparlist',{
+      prodno:prodno,
+      dwgno:dwgno
+    })
+  }
 }

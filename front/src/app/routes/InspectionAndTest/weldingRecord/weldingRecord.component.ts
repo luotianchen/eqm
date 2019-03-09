@@ -14,7 +14,7 @@ export class WeldingRecordComponent implements OnInit {
   public prodnos:any;
   validateForm: FormGroup;
   dataSet = [];
-  names = [];
+  users = [];
   status = false;
   i = 1;
   ngOnInit(): void {
@@ -25,14 +25,13 @@ export class WeldingRecordComponent implements OnInit {
     });
     this.weldingRecordService.getUserNames().subscribe(res=>{
       if(res['result'] == "success"){
-        this.names = res['data'];
+        this.users = res['data'];
       }
     })
     this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null, [Validators.required]],
       "dwgno":[null, [Validators.required]],
-      "user":[this._storage.get("username")]
     });
   }
 
@@ -45,6 +44,13 @@ export class WeldingRecordComponent implements OnInit {
           this.status = true;
         }else{
           this.status = false;
+        }
+      })
+      this.weldingRecordService.getWeldingRecord(this.validateForm.value.prodno).subscribe(res=>{
+        if(res['result'] == "success"){
+          if(res['data'].length>0){
+            this.dataSet = res['data'];
+          }
         }
       })
     }
@@ -90,7 +96,13 @@ export class WeldingRecordComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-      this.weldingRecordService.putWeldingRecord(this.validateForm.value).subscribe((res)=>{
+      this.weldingRecordService.putWeldingRecord({
+        user:this._storage.get('username'),
+        prodno:this.validateForm.value.prodno,
+        prodname:this.validateForm.value.prodname,
+        dwgno:this.validateForm.value.dwgno,
+        data:this.dataSet
+      }).subscribe((res)=>{
         if(res['result']=="success"){
           this.modalService.success({
             nzTitle: '提交成功',

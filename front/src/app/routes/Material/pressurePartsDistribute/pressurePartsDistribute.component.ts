@@ -249,7 +249,11 @@ export class PressurePartsDistributeComponent implements OnInit {
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
-            this.partsnames.push(this.partsnameValidateForm.controls['partsname'].value);
+            this.pressurePartsDistributeService.getPartsname().subscribe(res=>{
+              if(res['result']=='success'){
+                this.partsnames = res['data'];
+              }
+            });
             this.destroyTplModal();
             this.partsnameValidateForm.reset();
             this.partsnameValidateForm.clearValidators();

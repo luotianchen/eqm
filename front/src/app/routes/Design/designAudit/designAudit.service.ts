@@ -12,14 +12,14 @@ export class DesignAuditService {
   getaudited(){
     return this.http.get(this.api.BASEURL+"/getdwgnoaudited");
   }
-  getbydwgno(dwgno){
-    return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno})
+  getbydwgno(dwgno,status){
+    return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno,status:status})
   }
-  getsaferel(dwgno){
-    return this.http.post(this.api.BASEURL+'/searchsafedisdevice',{dwgno:dwgno})
+  getsaferel(dwgno,status){
+    return this.http.post(this.api.BASEURL+'/searchsafedisdevice',{dwgno:dwgno,status:status})
   }
-  getchannel(dwgno){
-    return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno})
+  getchannel(dwgno,status){
+    return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno,status:status})
   }
   audit(dwgno,status,audit_user){
     return this.http.post(this.api.BASEURL+"/putproparlistaudit",{dwgno:dwgno,audit:status,audit_user:audit_user});

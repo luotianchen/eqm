@@ -259,11 +259,11 @@ export class DesignInputComponent implements OnInit {
       shthick1:[null, [Validators.required]],
       shthick2:[null],
       shthick3:[null],
-      liningmatl:[null, [Validators.required]],
-      liningthick:[null, [Validators.required]],
+      liningmatl:[null],
+      liningthick:[null],
       wmedia:[null, [Validators.required]],
       hdthick1:[null, [Validators.required]],
-      hdthick2:[null, [Validators.required]],
+      hdthick2:[null],
       maxwpress:[null, [Validators.required]],
       depress:[null, [Validators.required]],
       detemp:[null, [Validators.required]],
@@ -285,8 +285,8 @@ export class DesignInputComponent implements OnInit {
       shthick2:[null],
       shthick3:[null],
       wmedia:[null, [Validators.required]],
-      hdthick1:[null, [Validators.required]],
-      hdthick2:[null, [Validators.required]],
+      hdthick1:[null],
+      hdthick2:[null],
       maxwpress:[null, [Validators.required]],
       depress:[null, [Validators.required]],
       detemp:[null, [Validators.required]],
@@ -978,9 +978,9 @@ export class DesignInputComponent implements OnInit {
       "deconame": this.validateForm.value.deconame//设计单位名称
     }).subscribe((res)=>{
       if(res['result']=="success"){
-        this.msg.success("提交成功！");
+        this.msg.success("保存成功！");
       }else{
-        this.msg.error("提交失败，请稍后重试！");
+        this.msg.error("保存失败，请稍后重试！");
       }
     })
   }

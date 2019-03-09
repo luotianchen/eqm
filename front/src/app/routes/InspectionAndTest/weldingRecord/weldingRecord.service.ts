@@ -10,6 +10,9 @@ export class WeldingRecordService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
+  getWeldingRecord(prodno){
+    return this.http.post(`${this.api.BASEURL}/searchweldingrecord`,{prodno:prodno})
+  }
   getUserNames(){
     return this.http.get(this.api.BASEURL+'/getuserform');
   }

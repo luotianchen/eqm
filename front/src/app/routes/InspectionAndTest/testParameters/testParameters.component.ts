@@ -448,5 +448,29 @@ export class TestParametersComponent implements OnInit {
       }
     })
   }
+  unlinkProdnoandDwgno(){
+    this.modalService.confirm({
+      nzTitle  : '<i>请确认本次操作</i>',
+      nzOkText    : 'Yes',
+      nzOkType    : 'danger',
+      nzContent: '<b>你确认要取消产品编号'+this.validateForm.value.prodno+'与图号'+this.validateForm.value.dwgno+'的连接吗?此次数据将会删除之前所有与该产品编号有关的数据！</b>',
+      nzOnOk   : () =>{
+        this.testParametersService.unlinkProdnoandDwgno(this.validateForm.value.prodno,this.validateForm.value.dwgno).subscribe(res=>{
+          if(res['result'] == "success"){
+            this.link = false;
+            this.modalService.success({
+              nzTitle: '成功',
+              nzContent: '取消连接成功！'
+            });
+          }else{
+            this.modalService.error({
+              nzTitle: '失败',
+              nzContent: '取消连接失败，您可以稍后尝试重新取消连接'
+            });
+          }
+        })
+      }
+    });
+  }
 }
 

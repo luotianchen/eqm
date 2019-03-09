@@ -168,12 +168,20 @@ export class VacuumParameterComponent implements OnInit {
       if(this.validateForm.value.type == "格数"){
         p1 = this.num2pa[Math.round(this.validateForm.value.initnum)];
         p2 = this.num2pa[Math.round(this.validateForm.value.statnum)];
+        if(!p1 || !p2){
+          this.message.error("请检查格数信息是否输入正确！");
+          return;
+        }
       }else{
         p1 = this.validateForm.value.initpa;
         p2 = this.validateForm.value.statpa;
       }
       t1 = new Date(this.validateForm.value.initdate).getTime()/1000;
       t2 = new Date(this.validateForm.value.enddate).getTime()/1000;
+      if(t1 == t2){
+        this.message.error("请检查开始、结束时间是否输入正确！(除数不能为0)")
+        return;
+      }
       k = this.validateForm.value.k;
       this.vacuumParameterService.searchChannelData(this.validateForm.value.dwgno).subscribe(res=>{
         if(res['result'] == "success"){

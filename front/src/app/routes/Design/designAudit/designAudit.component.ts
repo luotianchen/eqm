@@ -42,7 +42,7 @@ export class DesignAuditComponent implements OnInit {
           let data = {dwgno:item};
           this.dataSet2.push(data);
           let that = this;
-          this.designAuditService.getbydwgno(item).subscribe((res)=>{
+          this.designAuditService.getbydwgno(item,1).subscribe((res)=>{
             if(res['result'] == "success"){
               for(let i in res['data']){
                 that.dataSet2[index][i] = res['data'][i];
@@ -68,14 +68,27 @@ export class DesignAuditComponent implements OnInit {
   visible = false;
 
   open(dwgno): void {
-    this.designAuditService.getbydwgno(dwgno).subscribe((res)=>{
+    this.designAuditService.getbydwgno(dwgno,0).subscribe((res)=>{
       this.modelData.data = res["data"];
     });
     this.visible = true;
-    this.designAuditService.getsaferel(dwgno).subscribe((res)=>{
+    this.designAuditService.getsaferel(dwgno,0).subscribe((res)=>{
       this.modelData.saferel = res["data"].reverse();
     });
-    this.designAuditService.getchannel(dwgno).subscribe((res)=>{
+    this.designAuditService.getchannel(dwgno,0).subscribe((res)=>{
+      this.modelData.channel = res["data"].reverse();
+    });
+  }
+
+  open2(dwgno): void {
+    this.designAuditService.getbydwgno(dwgno,1).subscribe((res)=>{
+      this.modelData.data = res["data"];
+    });
+    this.visible = true;
+    this.designAuditService.getsaferel(dwgno,1).subscribe((res)=>{
+      this.modelData.saferel = res["data"].reverse();
+    });
+    this.designAuditService.getchannel(dwgno,1).subscribe((res)=>{
       this.modelData.channel = res["data"].reverse();
     });
   }
