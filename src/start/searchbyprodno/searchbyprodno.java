@@ -116,7 +116,7 @@ public class searchbyprodno {                                               //é€
                 rs1.close();
                 ps1.close();
 
-                ps1=conn.prepareStatement("SELECT * FROM workshopperson WHERE id=?");
+                ps1=conn.prepareStatement("SELECT * FROM userform WHERE id=?");
                 ps1.setInt(1,picker_id);
                 rs1=ps1.executeQuery();
                 while (rs1.next()){
@@ -125,7 +125,7 @@ public class searchbyprodno {                                               //é€
                 rs1.close();
                 ps1.close();
 
-                ps1=conn.prepareStatement("SELECT * FROM warehouseperson WHERE id=?");
+                ps1=conn.prepareStatement("SELECT * FROM userform WHERE id=?");
                 ps1.setInt(1,issuematl_id);
                 rs1=ps1.executeQuery();
                 while (rs1.next()){

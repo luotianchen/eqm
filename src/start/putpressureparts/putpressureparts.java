@@ -36,15 +36,17 @@ public class putpressureparts {                                         //发放
 
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ?");
+            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 0");
             ps.setString(1,pp.getProdno());
             rs = ps.executeQuery();
             if(rs.next()){
                 rs.close();
                 ps.close();
-                ps = conn.prepareStatement("UPDATE pressureparts SET status = 3 WHERE prodno = ?");
+                ps = conn.prepareStatement("UPDATE pressureparts SET status = 3 WHERE prodno = ? AND status = 0");
                 ps.setString(1,pp.getProdno());
+                ps.executeUpdate();
                 ps.close();
+
             }else {
                 rs.close();
                 ps.close();
