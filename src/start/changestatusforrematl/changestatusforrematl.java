@@ -23,12 +23,19 @@ public class changestatusforrematl {                                    //材料
         changestatusforrematlresult result = new changestatusforrematlresult();
 
         try {
-            ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ?");
+            if(cp.getStatus()==1){
+                ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 1");
+                ps.setInt(1,3);
+                ps.setString(2,cp.getAudit_user());
+                ps.setString(3,cp.getCodedmarking());
+                ps.executeUpdate();
+            }
+
+            ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 0");
             ps.setInt(1,cp.getStatus());
             ps.setString(2,cp.getAudit_user());
             ps.setString(3,cp.getCodedmarking());
             ps.executeUpdate();
-            ps.close();
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");

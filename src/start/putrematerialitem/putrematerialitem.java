@@ -23,16 +23,34 @@ public class putrematerialitem {                                //产品复验�
         putrematerialitemresult result = new putrematerialitemresult();
 
         try {
-            ps = conn.prepareStatement("INSERT INTO rematerialitem(codedmarking,why," +
-                    "forceperformance,chemicalcomposition,user,date) VALUES (?,?,?,?,?,?)");
+            ps = conn.prepareStatement("SELECT * FROM rematerialitem WHERE codedmarking = ? AND status = 0");
             ps.setString(1,pp.getCodedmarking());
-            ps.setString(2,pp.getExplain());
-            ps.setString(3,pp.getForceperformance());
-            ps.setString(4,pp.getChemicalcomposition());
-            ps.setString(5,pp.getUser());
-            ps.setDate(6,new java.sql.Date(new java.util.Date().getTime()));
-            ps.executeUpdate();
-            ps.close();
+            rs = ps.executeQuery();
+            if(rs.next()){
+                ps = conn.prepareStatement("UPDATE rematerialitem SET codedmarking=?,why=?," +
+                        "forceperformance=?,chemicalcomposition=?,user=?,date=? WHERE codedmarking=? AND status = 0");
+                ps.setString(1,pp.getCodedmarking());
+                ps.setString(2,pp.getExplain());
+                ps.setString(3,pp.getForceperformance());
+                ps.setString(4,pp.getChemicalcomposition());
+                ps.setString(5,pp.getUser());
+                ps.setDate(6,new java.sql.Date(new java.util.Date().getTime()));
+                ps.setString(7,pp.getCodedmarking());
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                ps = conn.prepareStatement("INSERT INTO rematerialitem(codedmarking,why," +
+                        "forceperformance,chemicalcomposition,user,date) VALUES (?,?,?,?,?,?)");
+                ps.setString(1,pp.getCodedmarking());
+                ps.setString(2,pp.getExplain());
+                ps.setString(3,pp.getForceperformance());
+                ps.setString(4,pp.getChemicalcomposition());
+                ps.setString(5,pp.getUser());
+                ps.setDate(6,new java.sql.Date(new java.util.Date().getTime()));
+                ps.executeUpdate();
+                ps.close();
+            }
+
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");

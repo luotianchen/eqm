@@ -32,7 +32,7 @@ public class Putchanneldatacache {                                           //æ
             ps.close();
 
             for (int i = 0;i<pp.getData().size();i++){
-                System.out.println(pp.getData().size());
+
                 String sql = null;
                 String sql1 = "";
                 String sql2 = "";
@@ -200,7 +200,6 @@ public class Putchanneldatacache {                                           //æ
                         epttype_p=1;
                     }
                     sql = "UPDATE channeldatacache SET name = ?"+sql1+" WHERE dwgno = ? AND name = ?";
-                    System.out.println(sql);
                     ps = conn.prepareStatement(sql);
                     if(name_p==1){
                         ps.setString(num,pp.getData().get(i).getName());
