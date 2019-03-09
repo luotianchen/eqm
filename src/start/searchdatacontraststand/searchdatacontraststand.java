@@ -43,7 +43,7 @@ public class searchdatacontraststand {                                      //é€
         double length = 0;
 
 //        try {
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
             if(rs.next()){
@@ -61,7 +61,7 @@ public class searchdatacontraststand {                                      //é€
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
             if(rs.next()){
@@ -162,7 +162,7 @@ public class searchdatacontraststand {                                      //é€
             ResultSet rs3=null;
 
 
-            ps2 = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
+            ps2 = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
             ps2.setString(1,sp.getDwgno());
             rs2 = ps2.executeQuery();
             while (rs2.next()){
@@ -185,7 +185,7 @@ public class searchdatacontraststand {                                      //é€
             ps2.close();
 
 
-            ps2 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ?");
+            ps2 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
             ps2.setString(1,sp.getDwgno());
             rs2 = ps2.executeQuery();
             while (rs2.next()){
