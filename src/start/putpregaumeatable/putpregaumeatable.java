@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import start.jdbc.jdbc;
 import start.liststring.liststring;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 @CrossOrigin
@@ -24,6 +22,7 @@ public class putpregaumeatable {                                        //提交
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
+        ResultSet rs = null;
 
         putpregaumeatableresult result = new putpregaumeatableresult();
 
@@ -32,39 +31,80 @@ public class putpregaumeatable {                                        //提交
         liststring ls = new liststring();
         String specialist = ls.listtostring(pp.getSpecialist(),"#");
 
+        int f =0;
+
+
         try {
-            ps = conn.prepareStatement("INSERT INTO pregaumeatable(gaugename,gaugeno,exitno,type," +
-                    "measrangemin,measrangemax," +
-                    "accuclass,millunit,exitdate,managlevel," +
-                    "calibdate,recalibdate,specialist,calibinterval," +
-                    "note,date) VALUES (?,?,?,?," +
-                    "?,?," +
-                    "?,?,?,?," +
-                    "?,?,?,?," +
-                    "?,?)");
-            ps.setString(1,pp.getGaugename());
-            ps.setString(2,pp.getGaugeno());
-            ps.setString(3,pp.getExitno());
-            ps.setString(4,pp.getType());
-            ps.setDouble(5,pp.getMeasrangemin());
-            ps.setDouble(6,pp.getMeasrangemax());
-            ps.setString(7,pp.getAccuclass());
-            ps.setString(8,pp.getMillunit());
-            ps.setString(9,pp.getExitdate());
-            ps.setString(10,pp.getManaglevel());
-            ps.setString(11,pp.getCalibdate());
-            ps.setString(12,pp.getRecalibdate());
-            ps.setString(13,specialist);
-            ps.setString(14,pp.getCalibinterval());
-            ps.setString(15,pp.getNote());
-            ps.setDate(16,date);
-            ps.executeUpdate();
+            ps = conn.prepareStatement("SELECT * FROM pregaumeatable exitno = ?");
+            ps.setString(1,pp.getExitno());
+            rs = ps.executeQuery();
+            while (rs.next()){
+                if(getDaySub(pp.getCalibdate(),rs.getString("recalibdate"))>=31){
+                    f=1;
+                    break;
+                };
+            }
+            rs.close();
             ps.close();
-            result.setResult("success");
+
+            if(f!=1){
+                ps = conn.prepareStatement("INSERT INTO pregaumeatable(gaugename,gaugeno,exitno,type," +
+                        "measrangemin,measrangemax," +
+                        "accuclass,millunit,exitdate,managlevel," +
+                        "calibdate,recalibdate,specialist,calibinterval," +
+                        "note,date) VALUES (?,?,?,?," +
+                        "?,?," +
+                        "?,?,?,?," +
+                        "?,?,?,?," +
+                        "?,?)");
+                ps.setString(1,pp.getGaugename());
+                ps.setString(2,pp.getGaugeno());
+                ps.setString(3,pp.getExitno());
+                ps.setString(4,pp.getType());
+                ps.setDouble(5,pp.getMeasrangemin());
+                ps.setDouble(6,pp.getMeasrangemax());
+                ps.setString(7,pp.getAccuclass());
+                ps.setString(8,pp.getMillunit());
+                ps.setString(9,pp.getExitdate());
+                ps.setString(10,pp.getManaglevel());
+                ps.setString(11,pp.getCalibdate());
+                ps.setString(12,pp.getRecalibdate());
+                ps.setString(13,specialist);
+                ps.setString(14,pp.getCalibinterval());
+                ps.setString(15,pp.getNote());
+                ps.setDate(16,date);
+                ps.executeUpdate();
+                ps.close();
+                result.setResult("success");
+            }else {
+                result.setResult("fail");
+            }
+
+
         }catch (Exception e){
             result.setResult("fail");
         }
         conn.close();
         return result;
+    }
+
+    public static long getDaySub(String beginDateStr,String endDateStr)
+    {
+        long day=0;
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date beginDate;
+        java.util.Date endDate;
+        try
+        {
+            beginDate = format.parse(beginDateStr);
+            endDate= format.parse(endDateStr);
+            day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+            //System.out.println("相隔的天数="+day);
+        } catch (ParseException e)
+        {
+            // TODO 自动生成 catch 块
+            e.printStackTrace();
+        }
+        return day;
     }
 }
