@@ -311,7 +311,7 @@ public class searchmonthmatl {
         conn.close();
 
         Workbook wb = new HSSFWorkbook();
-        Sheet sh=wb.createSheet();;
+        Sheet sh=wb.createSheet();
         Row row0 = sh.createRow(0);
 
         Cell cell00 =row0.createCell(0);

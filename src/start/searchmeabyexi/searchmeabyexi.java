@@ -27,7 +27,7 @@ public class searchmeabyexi {                                   //根据出厂�
         java.util.Date d1 = sdf.parse(sp.getDate());
         java.sql.Date d = new java.sql.Date(d1.getTime());
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND ? BETWEEN calibdate AND recalibdate");
             ps.setString(1,sp.getExitno());
             ps.setDate(2,d);
@@ -39,10 +39,7 @@ public class searchmeabyexi {                                   //根据出厂�
                 rs.close();
                 rs = ps.executeQuery();
                 while (rs.next()){
-
-                    System.out.println(getDaySub(dx,rs.getString("calibdate")));
                     if(getDaySub(dx,rs.getString("calibdate"))>0){
-                        System.out.println(getDaySub(dx,rs.getString("calibdate")));
                         result.setMax(rs.getString("measrangemax"));
                         result.setMin(rs.getString("measrangemin"));
                         dx = rs.getString("calibdate");
@@ -56,9 +53,9 @@ public class searchmeabyexi {                                   //根据出厂�
             rs.close();
             ps.close();
 
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
