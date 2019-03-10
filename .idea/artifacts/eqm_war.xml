@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/out/artifacts/eqm_war</output-path>
     <root id="archive" name="eqm_war.war">
       <element id="artifact" artifact-name="eqm:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="jacob" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

@@ -53,8 +53,18 @@ public class putprenotiform {                                                   
 
                 result.setResult("success");
             }else {
-                ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+                ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ?");
+                ps.setString(1,pp.getPpart());
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    ppart_id = rs.getInt("id");
+                }
+                rs.close();
+                ps.close();
+
+                ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1 = ?");
                 ps.setString(1,pp.getProdno());
+                ps.setInt(2,ppart_id);
                 rs = ps.executeQuery();
                 if(rs.next()){
                     rs.close();

@@ -8,6 +8,7 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="commons-logging-1.1.1" />
+          <element id="library" level="project" name="jacob" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="eqm/web/Web" />
