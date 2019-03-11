@@ -32,6 +32,13 @@ public class getprodno {                                                        
             }
             rs.close();
             ps.close();
+            for (int i = 0; i < data.size() - 1; i++) {
+                for (int q = data.size() - 1; q > i; q--) {
+                    if (data.get(q).equals(data.get(i))) {
+                        data.remove(q);
+                    }
+                }
+            }
             result.setData(data);
             result.setResult("success");
         }catch (Exception e){
