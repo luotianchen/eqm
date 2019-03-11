@@ -104,7 +104,6 @@ export class ProductManufacturingParametersComponent implements OnInit {
       "copsitu":["无", [Validators.required]],
       "exworkdate":[null, [Validators.required]],
       "type":[null, [Validators.required]],
-      "etype":[null, [Validators.required]],
       "proheight":[null, [Validators.required]],
       "length":[null, [Validators.required]],
       "thick":[null, [Validators.required]],
@@ -144,14 +143,19 @@ export class ProductManufacturingParametersComponent implements OnInit {
       this.productManufacturingParametersService.getdistribute(this.validateForm.controls['prodno'].value).then((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
+          this.productManufacturingParametersService.getDataStand(this.validateForm.value.dwgno).then((res) => {
+            if(res['result']=="success") {
+              this.dataDetail = res['data'];
+              this.dataStand = res['data'];
+            }
+          })
+          this.productManufacturingParametersService.getbydwgno(this.validateForm.value.dwgno).subscribe(res=>{
+            if(res['result'] == "success"){
+              this.validateForm.controls['dedate'].setValue(res['data']['designdate']);
+            }
+          })
         }
       });
-      this.productManufacturingParametersService.getDataStand(this.validateForm.value.dwgno).then((res) => {
-        if(res['result']=="success") {
-          this.dataDetail = res['data'];
-          this.dataStand = res['data'];
-        }
-      })
     }
   }
   constructor(public productManufacturingParametersService: ProductManufacturingParametersService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
@@ -161,6 +165,10 @@ export class ProductManufacturingParametersComponent implements OnInit {
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
+    }
+    for(let i in this.validateForm.controls){
+      if(this.validateForm.controls[i].valid == false)
+        console.log(i)
     }
     if(this.validateForm.valid){
       this.productManufacturingParametersService.putManufacturing({

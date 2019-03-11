@@ -19,7 +19,7 @@ export class MenuService {
   }
   getNavs(){
     return new Promise((resolve, reject) => {
-      this.http.get('api/navs.json')
+      this.http.get('api/menu.json')
         .subscribe(result => {
           this.setting.setMenuStatus(true);
           resolve(result);

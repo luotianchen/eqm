@@ -79,7 +79,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="dedate">设计日期</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="设计日期" formControlName="dedate" name="dedate" id="dedate" (blur)="formatDate(validateForm.controls['dedate'])"/>
+          <input nz-input placeHolder="设计日期" formControlName="dedate" name="dedate" id="dedate" (blur)="formatDate(validateForm.controls['dedate'])" disabled/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -301,7 +301,7 @@
 </div>
 
 <h4 *ngIf="this.validateForm.value.dwgno!=null && dataStand.outward.length>0">封头形状偏差外凸</h4>
-<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.straightness.length>0">
+<div nz-row nzType="flex" [nzGutter]="16" nzJustify="start" *ngIf="this.validateForm.value.dwgno!=null && dataStand.outward.length>0">
   <div nz-col nzSpan="4" *ngFor="let item of dataStand.outward">
     <p style="margin-top: 10px;margin-bottom: 10px">标准值：0~{{item}}</p>
   </div>

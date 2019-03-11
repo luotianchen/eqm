@@ -41,6 +41,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     })
     this.validateForm = this.fb.group({
       prodno:[null, [Validators.required]],
+      yearmonth:[this.getYearMonth(), [Validators.required,Validators.pattern(/^(0\d|1[0-2])([0-2]\d|3[01])$/)]],
       testno:[null, [Validators.required,Validators.pattern(/^\d{3}$/)]],
       specimenno:[null, [Validators.required]],
       specimentype:[null, [Validators.required]],

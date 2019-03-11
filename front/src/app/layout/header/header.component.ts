@@ -16,7 +16,7 @@ export class HeaderComponent {
   constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService) {
   }
   ngOnInit(){
-    this.menu.getNavs().then((result: any) => {
+    this.menu.getMenu().then((result: any) => {
       this.navs = result.data;
     });
   }

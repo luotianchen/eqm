@@ -223,20 +223,23 @@ export class WarehousingRegistrationComponent implements OnInit {
   };
 
   //最大最小值检验
-  MaxMinAsyncValidator = (control: FormControl): { [ s: string ]: boolean } => {
-    let name:string;
-    for(let controlname in this.validateForm.controls){
-      if(this.validateForm.controls[controlname] == control)
-        name = controlname;
-    }
-    if(this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
-    if(this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
-    if (!control.value && control.value!==0) {
-      return { required: true };
-    } else if(control.value > this.dataDetail[name].max || control.value < this.dataDetail[name].min){
-      return { overflow: true, error: true };
-    }
-  };
+  MaxMinAsyncValidator = (control: FormControl) => Observable.create((observer: Observer<ValidationErrors>) => {
+    setTimeout(() => {
+      let name: string;
+      for (let controlname in this.validateForm.controls) {
+        if (this.validateForm.controls[controlname] == control)
+          name = controlname;
+      }
+      if (this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
+      if (this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
+      if (!control.value && control.value !== 0) {
+        return {required: true};
+      } else if (control.value > this.dataDetail[name].max || control.value < this.dataDetail[name].min) {
+        return {overflow: true, error: true};
+      }
+    },1000)
+  })
+
   public notes = []; //备注选项
   public warrantynos = []; //质保书号选项
   public utclass = {//ut等级罗马字母转阿拉伯

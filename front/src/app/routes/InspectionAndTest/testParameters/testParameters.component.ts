@@ -14,9 +14,7 @@ export class TestParametersComponent implements OnInit {
   public dwgnos = [];
   public channel = [];
   public exitnos = [];
-  public dataModel = [
-  ]
-  public link = false;
+  public dataModel = [];
   public pparts = [
     {
       label: "整体",value:{name:"整体",ename: "Integer"}
@@ -149,16 +147,20 @@ export class TestParametersComponent implements OnInit {
         this.exitnos = res['data']
     })
   }
-
+  link = 0;
   checklink(){
-    for(const i in this.validateForm.controls){
-      this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
-    }
-    if(this.validateForm.valid) {
-      this.testParametersService.check(this.validateForm.value.prodno,this.validateForm.value.dwgno).subscribe(res=>{
-        if(res['result'] != "success"){
-            this.link = true;
+    if(this.validateForm.value.prodno!=null) {
+      this.testParametersService.check(this.validateForm.value.prodno).subscribe(res=>{
+        if(res['result'] == "success"){
+          this.validateForm.controls['dwgno'].setValue(res['dwgno']);
+          this.validateForm.controls['dwgno'].disable();
+          this.link = 2;
+        }else if(res['result'] == "error"){
+          this.link = 1;
+          this.validateForm.controls['dwgno'].enable();
+        }else{
+          this.link = 0;
+          this.validateForm.controls['dwgno'].enable();
         }
       })
     }
@@ -170,175 +172,185 @@ export class TestParametersComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.testParametersService.getchannel(this.validateForm.controls['dwgno'].value).subscribe((res)=>{
-        this.channel = res["data"];
+        this.channel = res["data"].reverse();
         this.channelForms = [];
-        for(let data of this.channel){
-          let fbb = this.fb.group({
-            prodno:[this.validateForm.value.prodno, [Validators.required]],
-            dwgno:[this.validateForm.value.dwgno, [Validators.required]],
-            ppart:[data.name, [Validators.required]],
-            eppart:[data.ename, [Validators.required]],
-            dated1:[null],
-            dated2:[null],
-            dated3:[null],
-            testmedia:[null],
-            etestmedia:[null],
-            clcontent:[null]
-          });
-          this.testParametersService.gettestpressurebyprodnoanddwgno(this.validateForm.value.prodno,this.validateForm.value.dwgno,data.name).subscribe((res)=>{
-            if(res['result']=="success"){
-              let item :any;
-              for(let testmedia of this.testmedias){
-                if(testmedia.name == res['data']['testmedia']){
-                  item = testmedia;
-                }
-              }
-              fbb.controls['testmedia'].setValue(item);
-              fbb.controls['testmedia'].disable();
-            }
-          })
-
-          let model ={
+        for(let data of this.channel){ //对于每个通道设置一个表单
+          let fbb :FormGroup;
+          let model = {
             leaktest:false,
             dated1:{
               status:1,//0隐藏，1显示，2禁用
-              "press": {
-                "date": null,
-                "pgaugeno1": null,
-                "pgaugeno2": null,
-                "dewelltime": null,
-                "circutemp": null,
-                "mediatemp": null,
-                "testpress":null,
-                "ppart":null,
-                "testmedia":null
+              press: {
+                date: null,
+                pgaugeno1: null,
+                pgaugeno2: null,
+                dewelltime: null,
+                circutemp: null,
+                mediatemp: null,
+                testpress:null,
+                ppart:null,
+                testmedia:null,
+                range:null
               },
               //泄漏参数
-              "leak": {
-                "date": null,
-                "pgaugeno1": null,
-                "pgaugeno2": null,
-                "dewelltime": null,
-                "circutemp": null,
-                "mediatemp": null,
-                "leaktestp": null,
-                "ppart":null,
-                "testmedia":null,
+              leak: {
+                date: null,
+                pgaugeno1: null,
+                pgaugeno2: null,
+                dewelltime: null,
+                circutemp: null,
+                mediatemp: null,
+                leaktestp: null,
+                ppart:null,
+                testmedia:null,
               }
             },
             dated2:{
               status:0,
-              "press": {
-                "date": null,
-                "pgaugeno1": null,
-                "pgaugeno2": null,
-                "dewelltime": null,
-                "circutemp": null,
-                "mediatemp": null,
-                "testpress":null,
-                "ppart":null,
-                "testmedia":null
+              press: {
+                date: null,
+                pgaugeno1: null,
+                pgaugeno2: null,
+                dewelltime: null,
+                circutemp: null,
+                mediatemp: null,
+                testpress:null,
+                ppart:null,
+                testmedia:null,
+                range:null
               },
               //泄漏参数
-              "leak": {
-                "date": null,
-                "pgaugeno1": null,
-                "pgaugeno2": null,
-                "dewelltime": null,
-                "circutemp": null,
-                "mediatemp": null,
-                "leaktestp": null,
-                "ppart":null,
-                "testmedia":null,
+              leak: {
+                date: null,
+                pgaugeno1: null,
+                pgaugeno2: null,
+                dewelltime: null,
+                circutemp: null,
+                mediatemp: null,
+                leaktestp: null,
+                ppart:null,
+                testmedia:null,
               }
             },
             dated3:{
               status:0,
-              "press": {
-                "date": null,
-                "pgaugeno1": null,
-                "pgaugeno2": null,
-                "dewelltime": null,
-                "circutemp": null,
-                "mediatemp": null,
-                "testpress":null,
-                "ppart":null,
-                "testmedia":null
+              press: {
+                date: null,
+                pgaugeno1: null,
+                pgaugeno2: null,
+                dewelltime: null,
+                circutemp: null,
+                mediatemp: null,
+                testpress:null,
+                ppart:null,
+                testmedia:null,
+                range:null
               },
               //泄漏参数
-              "leak": {
-                "date": null,
-                "pgaugeno1": null,
-                "pgaugeno2": null,
-                "dewelltime": null,
-                "circutemp": null,
-                "mediatemp": null,
-                "leaktestp": null,
-                "ppart":null,
-                "testmedia":null,
+              leak: {
+                date: null,
+                pgaugeno1: null,
+                pgaugeno2: null,
+                dewelltime: null,
+                circutemp: null,
+                mediatemp: null,
+                leaktestp: null,
+                ppart:null,
+                testmedia:null,
               }
             }
           };
-          if (data.leaktest!="/")
-            model.leaktest = true;
-          else
-            model.leaktest = false;
-          this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated1').subscribe((res)=>{
+          this.testParametersService.gettestpressurebyprodnoanddwgno(this.validateForm.value.prodno,this.validateForm.controls['dwgno'].value,data.name).subscribe((res)=>{ //获取基础数据
             if(res['result']=="success"){
-              model.dated1.status = 2;
-              model.dated2.status = 1;
-              model.dated1.press = res['data']['press'];
-              model.dated1.press['testpress'] = data.testpress;
-              model.dated1.press['ppart'] = data.name;
-              fbb.controls['dated1'].setValue(fbb.value.dated1);
-              fbb.controls['dated1'].disable();
-              if(model.leaktest){
-                model.dated1.leak = res['data']['leak'];
-                model.dated1.leak['leaktestp'] = data.leaktestp;
-                model.dated1.leak['ppart'] = data.name;
-              }
-              this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated2').subscribe((res)=>{
-                if(res['result']=="success"){
-                  model.dated2.status = 2;
-                  model.dated3.status = 1;
-                  model.dated2.press = res['data']['press'];
-                  model.dated2.press['testpress'] = data.testpress;
-              model.dated2.press['ppart'] = data.name;
-                  fbb.controls['dated2'].setValue(fbb.value.dated2);
-                  fbb.controls['dated2'].disable();
-          if(model.leaktest){
-            model.dated2.leak = res['data']['leak'];
-            model.dated2.leak['leaktestp'] = data.leaktestp;
-                model.dated2.leak['ppart'] = data.name;
-          }
+              fbb = this.fb.group({//初始化数据
+                prodno:[this.validateForm.value.prodno, [Validators.required]],
+                dwgno:[this.validateForm.controls['dwgno'].value, [Validators.required]],
+                ppart:[data.name, [Validators.required]],
+                eppart:[data.ename, [Validators.required]],
+                dated1:[res['data']['dated1']],
+                dated2:[res['data']['dated2']],
+                dated3:[res['data']['dated3']],
+                testmedia:[this.testmedias.filter(item=>item.name == res['data']['testmedia'])[0]],
+                etestmedia:[null],
+                clcontent:[res['data']['clcontent']]
+              });
+              console.log(fbb.value)
+              fbb.controls['testmedia'].disable();
+              if(fbb.value.dated1) fbb.controls['dated1'].disable(); //若日期已提交，则日期不可修改
+              if(fbb.value.dated2) fbb.controls['dated2'].disable();
+              if(fbb.value.dated3) fbb.controls['dated3'].disable();
+              if (data.leaktest!="/")
+                model.leaktest = true;
+              else
+                model.leaktest = false;
+              this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated1').subscribe((res)=> {
+                if (res['result'] == "success") {
+                  model.dated1.status = 2;
+                  model.dated1.press = res['data']['press'];
+                  model.dated1.press['testpress'] = data.testpress;
+                  model.dated1.press['ppart'] = data.name;
+                  if (model.leaktest) {
+                    model.dated1.leak = res['data']['leak'];
+                    model.dated1.leak['leaktestp'] = data.leaktestp;
+                    model.dated1.leak['ppart'] = data.name;
+                  }
                   this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated2').subscribe((res)=>{
-                    if(res['result']=="success") {
-                      model.dated3.status = 2;
-                      model.dated3.press = res['data']['press'];
-                      model.dated3.press['testpress'] = data.testpress;
-              model.dated3.press['ppart'] = data.name;
-                      fbb.controls['dated3'].setValue(fbb.value.dated3);
-                      fbb.controls['dated3'].disable();
+                    if(res['result']=="success"){
+                      model.dated2.status = 2;
+                      model.dated2.press = res['data']['press'];
+                      model.dated2.press['testpress'] = data.testpress;
+                      model.dated2.press['ppart'] = data.name;
                       if(model.leaktest){
-                        model.dated3.leak = res['data']['leak'];
-                        model.dated3.leak['leaktestp'] = data.leaktestp;
-                            model.dated3.leak['ppart'] = data.name;
+                        model.dated2.leak = res['data']['leak'];
+                        model.dated2.leak['leaktestp'] = data.leaktestp;
+                        model.dated2.leak['ppart'] = data.name;
                       }
+                      this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated3').subscribe((res)=>{
+                        if(res['result']=="success") {
+                          model.dated3.status = 2;
+                          model.dated3.press = res['data']['press'];
+                          model.dated3.press['testpress'] = data.testpress;
+                          model.dated3.press['ppart'] = data.name;
+                          if(model.leaktest){
+                            model.dated3.leak = res['data']['leak'];
+                            model.dated3.leak['leaktestp'] = data.leaktestp;
+                            model.dated3.leak['ppart'] = data.name;
+                          }
+                          this.dataModel.push(model);
+                        }else{
+                          model.dated3.status = 1;
+                          this.dataModel.push(model);
+                        }
+                      })
+                    }else {
+                      model.dated2.status = 1;
+                      this.dataModel.push(model);
                     }
-                    this.dataModel.push(model);
                   })
-                }else{
+                } else {
+                  model.dated1.status = 1;
                   this.dataModel.push(model);
                 }
               })
             }else{
+              fbb = this.fb.group({//初始化数据
+                prodno:[this.validateForm.value.prodno, [Validators.required]],
+                dwgno:[this.validateForm.controls['dwgno'].value, [Validators.required]],
+                ppart:[data.name, [Validators.required]],
+                eppart:[data.ename, [Validators.required]],
+                dated1:[null],
+                dated2:[null],
+                dated3:[null],
+                testmedia:[null],
+                etestmedia:[null],
+                clcontent:[null],
+              });
               this.dataModel.push(model);
             }
-          })
-          this.dataModel.push(model);
-          this.channelForms.push(fbb)
+            this.channelForms.push(fbb)
+          });
         }
-      });
+      })
     }
   }
 
@@ -360,6 +372,41 @@ export class TestParametersComponent implements OnInit {
       this.dataModel[index][dateindex][type].date = null;
     }
   }
+
+  submitDatedInfo(index){
+    let form = this.channelForms[index];
+    for (const i in form.controls) {
+      form.controls[ i ].markAsDirty();
+      form.controls[ i ].updateValueAndValidity();
+    }
+    if(form.valid){
+      let ename = this.pparts.filter(item=>item.label == form.value.ppart)[0].value.ename;
+      this.testParametersService.putPressureTest({
+        prodno:form.value.prodno,
+        dwgno:form.value.dwgno,
+        ppart:form.value.ppart,
+        eppart:ename,
+        dated1:form.controls['dated1'].value,
+        dated2:form.controls['dated2'].value,
+        dated3:form.controls['dated3'].value,
+        testmedia:form.value.testmedia.name,
+        etestmedia:form.value.testmedia.ename,
+        clcontent:form.value.testmedia.cl,
+        user:this._storage.get("username")
+      }).subscribe((res)=>{
+        if(res["result"]=="success"){
+          this.modalService.success({
+            nzTitle:"成功！",
+            nzContent: '提交开具日期信息成功！'
+          })
+          let prodno = this.validateForm.controls['prodno'].value;
+          this.validateForm.controls['prodno'].setValue(null);
+          this.validateForm.controls['prodno'].setValue(prodno);
+        }
+      })
+    }
+  }
+
   submitForm(index):void{
     let valid = true;
     for(const i in this.validateForm.controls){
@@ -377,25 +424,19 @@ export class TestParametersComponent implements OnInit {
     if(!form.valid){
       valid = false;
     }
-    console.log(form.value);
     if(valid){
-      let ename = "";
-      for(let i of this.pparts){
-        if(i.label == form.value.ppart){
-          ename = i.value.ename;
-        }
-      }
+      let ename = this.pparts.filter(item=>item.label == form.value.ppart)[0].value.ename;
       this.testParametersService.putPressureTest({
         prodno:form.value.prodno,
         dwgno:form.value.dwgno,
         ppart:form.value.ppart,
         eppart:ename,
         dated1:form.controls['dated1'].value,
-        dated2:form.value.dated2,
-        dated3:form.value.dated3,
-        testmedia:form.value.testmedia.name,
-        etestmedia:form.value.testmedia.ename,
-        clcontent:form.value.testmedia.cl,
+        dated2:form.controls['dated2'].value,
+        dated3:form.controls['dated3'].value,
+        testmedia:form.controls['testmedia'].value.name,
+        etestmedia:form.controls['testmedia'].value.ename,
+        clcontent:form.value.testmedia,
         user:this._storage.get("username")
       }).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -438,26 +479,30 @@ export class TestParametersComponent implements OnInit {
     }
   }
   linkProdnoandDwgno(){
-    this.testParametersService.putPressureTest({prodno:this.validateForm.value.prodno,dwgno:this.validateForm.value.dwgno,user:this._storage.get("username")}).subscribe(res=>{
+    this.testParametersService.putPressureTest({prodno:this.validateForm.value.prodno,dwgno:this.validateForm.controls['dwgno'].value,user:this._storage.get("username")}).subscribe(res=>{
       if(res['result'] == 'success'){
         this.modalService.success({
           nzTitle: '成功',
           nzContent: '连接成功！'
         });
-        this.link = false;
+        this.link = 2;
+        this.validateForm.controls['dwgno'].disable();
       }
     })
   }
   unlinkProdnoandDwgno(){
     this.modalService.confirm({
       nzTitle  : '<i>请确认本次操作</i>',
-      nzOkText    : 'Yes',
+      nzOkText    : '我确认',
       nzOkType    : 'danger',
-      nzContent: '<b>你确认要取消产品编号'+this.validateForm.value.prodno+'与图号'+this.validateForm.value.dwgno+'的连接吗?此次数据将会删除之前所有与该产品编号有关的数据！</b>',
+      nzContent: '<b>你确认要取消产品编号'+this.validateForm.value.prodno+'与图号'+this.validateForm.controls['dwgno'].value+'的连接吗?此次数据将会删除之前所有与该产品编号有关的数据！</b>',
       nzOnOk   : () =>{
-        this.testParametersService.unlinkProdnoandDwgno(this.validateForm.value.prodno,this.validateForm.value.dwgno).subscribe(res=>{
+        this.testParametersService.unlinkProdnoandDwgno(this.validateForm.value.prodno,this.validateForm.controls['dwgno'].value).subscribe(res=>{
           if(res['result'] == "success"){
-            this.link = false;
+            this.link = 0;
+            this.validateForm.controls['prodno'].setValue(null);
+            this.validateForm.controls['dwgno'].setValue(null);
+            this.validateForm.controls['dwgno'].enable();
             this.modalService.success({
               nzTitle: '成功',
               nzContent: '取消连接成功！'
@@ -471,6 +516,14 @@ export class TestParametersComponent implements OnInit {
         })
       }
     });
+  }
+  displayPressRange(index,dated:string){
+    if(this.dataModel[index][dated].press.pgaugeno1 && this.dataModel[index][dated].press.date)
+      this.testParametersService.searchmeabyexi(this.dataModel[index][dated].press.pgaugeno1,this.dataModel[index][dated].press.date).subscribe(res=>{
+        if(res['result'] == "success"){
+          this.dataModel[index][dated].press.range = {max:res['max'],min:res['min']};
+        }
+      })
   }
 }
 

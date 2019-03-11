@@ -50,6 +50,7 @@ export class WeldingRecordComponent implements OnInit {
         if(res['result'] == "success"){
           if(res['data'].length>0){
             this.dataSet = res['data'];
+            this.updateEditCache();
           }
         }
       })
@@ -109,6 +110,7 @@ export class WeldingRecordComponent implements OnInit {
             nzContent: '焊接记录提交成功！'
           });
           this.validateForm.reset();
+          this.updateEditCache();
         }
       })
     }

@@ -11,7 +11,7 @@ export class TestParametersService {
     return this.http.get(this.api.BASEURL+"/getdwgnoaudited");
   }
   getchannel(dwgno){
-    return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno});
+    return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno,status:1});
   }
   putPressureTest(data){
     return this.http.post(this.api.BASEURL+'/putprenotiform',data)
@@ -28,10 +28,9 @@ export class TestParametersService {
   putpreandleak(data){
     return this.http.post(this.api.BASEURL+"/putpreandleak",data);
   }
-  check(prodno,dwgno){//检查产品编号与图号连接状态
+  check(prodno){//检查产品编号与图号连接状态
     return this.http.post(this.api.BASEURL+"/checkproanddwg",{
-      prodno:prodno,
-      dwgno:dwgno
+      prodno:prodno
     })
   }
   unlinkProdnoandDwgno(prodno,dwgno){//解除图号、产品编号连接
@@ -39,5 +38,8 @@ export class TestParametersService {
       prodno:prodno,
       dwgno:dwgno
     })
+  }
+  searchmeabyexi(exitno,date){
+    return this.http.post(`${this.api.BASEURL}/searchmeabyexi`,{exitno:exitno,date:date});
   }
 }

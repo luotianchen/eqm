@@ -4,29 +4,33 @@
       <nz-form-item style="margin-bottom: 0;">
         <nz-form-label [nzSm]="10" nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
-          <input nz-input placeHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="checklink();getChannel()"/>
+          <input nz-input placeHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (blur)="checklink();"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item style="margin-bottom: 0;">
-        <nz-form-label [nzSm]="10" nzFor="dwgno">图号</nz-form-label>
+        <nz-form-label [nzSm]="9" nzFor="dwgno">图号</nz-form-label>
         <nz-form-control [nzSm]="14">
-          <nz-select formControlName="dwgno" name="dwgno" id="dwgno" nzPlaceHolder="图号" nzShowSearch nzAllowClear (ngModelChange)="checklink();getChannel()">
+          <nz-select formControlName="dwgno" name="dwgno" id="dwgno" nzPlaceHolder="图号" nzShowSearch nzAllowClear (ngModelChange)="getChannel()">
             <nz-option *ngFor="let o of this.dwgnos" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <button nz-button nzType="primary" *ngIf="link" (click)="linkProdnoandDwgno()">连接</button>
-    <button nz-button nzType="dashed" *ngIf="!link && this.validateForm.value.dwgno && this.validateForm.value.prodno" (click)="unlinkProdnoandDwgno()">取消连接</button>
+    <div nz-col [nzSpan]="6" *ngIf="link==1 && this.validateForm.value.prodno && this.validateForm.controls['dwgno'].value">
+      <button nz-button nzType="primary" (click)="linkProdnoandDwgno()">连接</button>
+    </div>
+    <div nz-col [nzSpan]="6" *ngIf="link==2 && this.validateForm.value.prodno && this.validateForm.controls['dwgno'].value">
+      <button nz-button nzType="dashed" (click)="unlinkProdnoandDwgno()">取消连接</button>
+    </div>
   </div>
 </form>
-<div *ngIf="!link">
+<div *ngIf="link==2">
   <nz-divider></nz-divider>
   <div *ngFor="let c of channel;let i = index">
     <nz-collapse [nzBordered]="false">
-      <nz-collapse-panel [nzHeader]="'通道'+(i+1)" [nzActive]="i==0?true:false">
+      <nz-collapse-panel [nzHeader]="'通道'+(i+1)" [nzActive]="i==0">
         <form nz-form [formGroup]="this.channelForms[i]">
           <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="6">
@@ -50,7 +54,7 @@
           </div>
         </form>
         <!--日期1-->
-        <div nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated1'].status!=0">
+        <div nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated1'].status">
           <div nz-col [nzSpan]="6">
             <form nz-form [formGroup]="this.channelForms[i]">
               <nz-form-item>
@@ -59,10 +63,10 @@
                   <input nz-input formControlName="dated1" name="dated1" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated1" [disabled]="dataModel[i]['dated1'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated1'])">
                 </nz-form-control>
               </nz-form-item>
-              <div nz-col [nzSpan]="6">
-                <button nz-button nzType="primary">提交</button>
-              </div>
             </form>
+          </div>
+          <div nz-col [nzSpan]="6" style="margin-top: 44px;">
+            <button nz-button nzType="primary" (click)="submitDatedInfo(i)">提交开具日期</button>
           </div>
         </div>
         <nz-collapse *ngIf="dataModel[i]['dated1'].status!=0">
@@ -70,15 +74,15 @@
             <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated1'].status!=0">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">试验压力：</p>
-                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated1.press.testpress" nzPlaceHolder="试验压力" [disabled]="dataModel[i]['dated1'].status==2"></nz-input-number>
+                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated1.press.testpress" [nzPlaceHolder]="!dataModel[i].dated1.press.range?'试验压力':dataModel[i].dated1.press.range.min+'~'+dataModel[i].dated1.press.range.max" [disabled]="dataModel[i]['dated1'].status==2"></nz-input-number>
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input (change)="formateDate2(i,'dated1','press')" [(ngModel)]="dataModel[i].dated1.press.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated1','press');displayPressRange(i,'dated1')" [(ngModel)]="dataModel[i].dated1.press.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
-                <nz-select [(ngModel)]="dataModel[i].dated1.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated1'].status==2" style="width:100%;">
+                <nz-select [(ngModel)]="dataModel[i].dated1.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated1'].status==2" style="width:100%;" (nzOpenChange)="displayPressRange(i,'dated1','press')">
                   <nz-option *ngFor="let o of this.exitnos" [nzValue]="o" [nzLabel]="o"></nz-option>
                 </nz-select>
               </div>
@@ -108,8 +112,8 @@
               </div>
             </div>
           </nz-collapse-panel>
-          <nz-collapse-panel nzHeader="泄漏试验参数" [nzActive]="true">
-            <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated1'].status!=0 && dataModel[i].leaktest">
+          <nz-collapse-panel nzHeader="泄漏试验参数" [nzActive]="true" *ngIf="dataModel[i]['dated1'].status!=0 && dataModel[i].leaktest">
+            <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">气密性试验压力：</p>
                 <nz-input-number style="width:100%" nz-input [(ngModel)]="dataModel[i].dated1.leak.leaktestp" nzPlaceHolder="气密性试验压力" [disabled]="dataModel[i]['dated1'].status==2"></nz-input-number>
@@ -163,8 +167,10 @@
                   <input nz-input formControlName="dated2" name="dated2" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated2" [disabled]="dataModel[i]['dated2'].status==2" (blur)="formatInDate(this.channelForms[i].controls['dated2'])">
                 </nz-form-control>
               </nz-form-item>
-              <button nz-button nzType="primary">提交</button>
             </form>
+          </div>
+          <div nz-col [nzSpan]="6" style="margin-top: 44px;">
+            <button nz-button nzType="primary" (click)="submitDatedInfo(i)">提交开具日期</button>
           </div>
         </div>
         <nz-collapse *ngIf="dataModel[i]['dated2'].status!=0">
@@ -172,15 +178,15 @@
             <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated2'].status!=0">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">试验压力：</p>
-                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated2.press.testpress" nzPlaceHolder="试验压力" [disabled]="dataModel[i]['dated2'].status==2" ></nz-input-number>
+                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated2.press.testpress"  [nzPlaceHolder]="!dataModel[i].dated2.press.range?'试验压力':dataModel[i].dated2.press.range.min+'~'+dataModel[i].dated2.press.range.max" [disabled]="dataModel[i]['dated2'].status==2" ></nz-input-number>
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input (change)="formateDate2(i,'dated2','press')" [(ngModel)]="dataModel[i].dated2.press.date" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated2','press');displayPressRange(i,'dated2')" [(ngModel)]="dataModel[i].dated2.press.date" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
-                <nz-select [(ngModel)]="dataModel[i].dated2.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated2'].status==2" style="width:100%;">
+                <nz-select [(ngModel)]="dataModel[i].dated2.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated2'].status==2" style="width:100%;" (nzOpenChange)="displayPressRange(i,'dated2')">
                   <nz-option *ngFor="let o of this.exitnos" [nzValue]="o" [nzLabel]="o"></nz-option>
                 </nz-select>
               </div>
@@ -210,8 +216,8 @@
               </div>
             </div>
           </nz-collapse-panel>
-          <nz-collapse-panel nzHeader="泄漏试验参数" [nzActive]="true">
-            <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated2'].status!=0">
+          <nz-collapse-panel nzHeader="泄漏试验参数" [nzActive]="true" *ngIf="dataModel[i]['dated2'].status!=0 && dataModel[i].leaktest">
+            <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">气密性试验压力：</p>
                 <nz-input-number style="width:100%" nz-input [(ngModel)]="dataModel[i].dated2.leak.leaktestp" nzPlaceHolder="气密性试验压力" [disabled]="dataModel[i]['dated2'].status==2"></nz-input-number>
@@ -264,8 +270,10 @@
                   <input nz-input formControlName="dated3" name="dated3" placeholder="格式：YYYY-MM-DD或MM-DD" type="text" id="dated3" [disabled]="dataModel[i]['dated3'].status==3" (blur)="formatInDate(this.channelForms[i].controls['dated3'])">
                 </nz-form-control>
               </nz-form-item>
-              <button nz-button nzType="primary">提交</button>
             </form>
+          </div>
+          <div nz-col [nzSpan]="6" style="margin-top: 44px;">
+            <button nz-button nzType="primary" (click)="submitDatedInfo(i)">提交开具日期</button>
           </div>
         </div>
         <nz-collapse *ngIf="dataModel[i]['dated3'].status!=0">
@@ -273,15 +281,15 @@
             <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated3'].status!=0">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">试验压力：</p>
-                <nz-input-number style="width:100%" nz-input [(ngModel)]="dataModel[i].dated3.press.testpress" nzPlaceHolder="试验压力" [disabled]="dataModel[i]['dated3'].status==2" ></nz-input-number>
+                <nz-input-number style="width:100%" nz-input [(ngModel)]="dataModel[i].dated3.press.testpress"  [nzPlaceHolder]="!dataModel[i].dated3.press.range?'试验压力':dataModel[i].dated3.press.range.min+'~'+dataModel[i].dated3.press.range.max" [disabled]="dataModel[i]['dated3'].status==2" ></nz-input-number>
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
-                <input nz-input (change)="formateDate2(i,'dated3','press')" [(ngModel)]="dataModel[i].dated3.press.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
+                <input nz-input (change)="formateDate2(i,'dated3','press');displayPressRange(i,'dated3');" [(ngModel)]="dataModel[i].dated3.press.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
-                <nz-select [(ngModel)]="dataModel[i].dated3.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated3'].status==2" style="width:100%;">
+                <nz-select [(ngModel)]="dataModel[i].dated3.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated3'].status==2" style="width:100%;" (nzOpenChange)="displayPressRange(i,'dated3')">
                   <nz-option *ngFor="let o of this.exitnos" [nzValue]="o" [nzLabel]="o"></nz-option>
                 </nz-select>
               </div>
@@ -311,8 +319,8 @@
               </div>
             </div>
           </nz-collapse-panel>
-          <nz-collapse-panel nzHeader="泄漏试验参数" [nzActive]="true">
-            <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated3'].status!=0 && dataModel[i].leaktest">
+          <nz-collapse-panel nzHeader="泄漏试验参数" [nzActive]="true" *ngIf="dataModel[i]['dated3'].status!=0 && dataModel[i].leaktest">
+            <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">气密性试验压力：</p>
                 <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated3.leak.leaktestp" nzPlaceHolder="气密性试验压力" [disabled]="dataModel[i]['dated3'].status==2" ></nz-input-number>

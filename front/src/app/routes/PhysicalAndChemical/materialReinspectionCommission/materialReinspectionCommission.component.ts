@@ -65,7 +65,29 @@ export class  MaterialReinspectionCommissionComponent implements OnInit {
             nzTitle: '成功',
             nzContent: '您已提交成功！'
           });
-          this.validateForm.reset();
+          this.validateForm = this.fb.group({
+            "codedmarking":[null, [Validators.required]],
+            "explain":["按GB150-2011要求进行材料复验", [Validators.required]],
+            "tensile":[true, [Validators.required]],
+            "tensileTest":[1],
+            "tensileDetail":[[
+              { label: 'Rp0.2', value: 'Rp0.2' },
+              { label: 'Rp1.0', value: 'Rp1.0' },
+              { label: 'Rm', value: 'Rm', checked: true },
+              { label: 'A', value: 'A', checked: true }
+            ], [Validators.required]],
+            "impact":[false, [Validators.required]],
+            "impactTest":[""],
+            "impactDetail":[""],
+            "bending":['无',[Validators.required]],
+            "bendingTest":[""],
+            "bendingDetail":[""],
+            "flattening":['无', [Validators.required]],
+            "flatteningTest":[""],
+            "other":[false,[Validators.required]],
+            "otherDetail":[""],
+            "chemicalcomposition":["无",[Validators.required]]
+          });
         }
       })
     }

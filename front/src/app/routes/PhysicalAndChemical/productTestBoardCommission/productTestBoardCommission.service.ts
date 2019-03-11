@@ -19,8 +19,8 @@ export class ProductTestBoardCommissionService {
   getDesignationAndSpec(){
     return this.http.get(this.api.BASEURL+"/searchspecanddeinpre");
   }
-  getheatcondi(){
-    return this.http.get(this.api.BASEURL+"/searchheatinpropar");
+  getheatcondi(prodno){
+    return this.http.post(this.api.BASEURL+"/searchheatinpropar",{prodno:prodno});
   }
   putproducttestboardcommission(data){
     return this.http.post(this.api.BASEURL+"/putprotestboardcom",data);

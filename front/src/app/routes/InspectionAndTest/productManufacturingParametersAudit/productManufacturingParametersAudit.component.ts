@@ -40,16 +40,16 @@ export class ProductManufacturingParametersAuditComponent implements OnInit {
     this.productManufacturingParametersAuditService.Audit(prodno,status,this._storage.get('username')).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
+        this.searchData();
       }
     });
-    this.searchData();
   }
   audit2(prodno,dwgno,status){
     this.productManufacturingParametersAuditService.Audit2(prodno,dwgno,status,this._storage.get('username')).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
+        this.searchData2();
       }
     });
-    this.searchData2();
   }
 }

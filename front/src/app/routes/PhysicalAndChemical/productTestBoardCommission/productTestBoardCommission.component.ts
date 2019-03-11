@@ -40,11 +40,6 @@ export class ProductTestBoardCommissionComponent implements OnInit {
         this.specs = res['data']['spec'];
       }
     })
-    this.productTestBoardCommissionService.getheatcondi().subscribe((res)=>{
-      if(res['result']=="success"){
-        this.heatcondis = res['data'];
-      }
-    })
       this.validateForm = this.fb.group({
         "prodno":[null, [Validators.required]],
         "prodname":[null, [Validators.required]],
@@ -84,9 +79,14 @@ export class ProductTestBoardCommissionComponent implements OnInit {
           this.validateForm.controls['prodname'].setValue(res['prodname']);
         }
       })
+      this.productTestBoardCommissionService.getheatcondi(this.validateForm.controls['prodno'].value).subscribe((res)=>{
+        if(res['result']=="success"){
+          this.heatcondis = res['data'];
+        }
+      })
     }
-
   }
+
   changeLateralbending(){
     if (this.validateForm.value.surfacebending==1 || this.validateForm.value.surfacebending==2) {
       this.validateForm.controls['lateralbending'].setValue('/');

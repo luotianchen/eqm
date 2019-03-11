@@ -164,7 +164,8 @@ export class WeldingDistributeComponent implements OnInit {
     for(let j = 0;j<this.dataSet.length;j++){
       this.dataSet[j]['issuematl'] = this._storage.get('username');
       for(let i in this.dataSet[j]){
-        if(this.dataSet[j][i]==null){
+        if(this.dataSet[j][i]==null && i!='partno' && i!="note"){
+          console.log(i);
           this.message.error("您有尚未填写的数据，请填写完整后再提交！");
           return;
         }

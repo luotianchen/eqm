@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {SettingsService} from '../../core/services/settings.service';
 import {MenuService} from '../../core/services/menu.service';
 import {Router} from '@angular/router';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-sider',
@@ -10,8 +11,7 @@ import {Router} from '@angular/router';
 })
 
 export class SiderComponent {
-  theme = true;
-  navs: any;
+  theme = this.settings.layout.isDark;
   menulist: any;
   menuOpenMap = {};
   typeofNav() {
@@ -23,43 +23,36 @@ export class SiderComponent {
   }
 
   constructor(public settings: SettingsService, private menuService: MenuService, private router: Router) {
-  }
-
-  ngOnInit() {
-    this.theme = this.settings.layout.isDark;
-    this.menuService.getNavs().then((result: any) => {
-      this.navs = result.data;
-    });
     this.menuService.getMenu().then((result: any) => {
       this.menulist = result.data;
       let flag: boolean = true;
       for (let sider of this.menulist) {
-        let name = sider.name;
         for (let item of sider.data) {
-          item.highlight = item.route == this.router.url;
-          if (item.route == this.router.url) {
-            flag = false;
-          }
-          if (item['submenu'] != null) {
-            for (let sub of item['submenu']) {
-              sub.highlight = sub.route == this.router.url;
+          item.selected = item.route == this.router.url;
+          if (item.route == this.router.url) flag = false;
+          let submenu = item['submenu'];
+          if (!!submenu) {
+            for (let sub of submenu) {
+              sub.selected = sub.route == this.router.url;
               if(sub.route == this.router.url){
                 flag = false;
+                this.settings.setnav(sider.name);
                 this.menuOpenMap[item.name] = true;
-                this.settings.setnav(name.toString());
               }
             }
           }
         }
       }
-
       if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
         for (let sider of this.menulist) {
-          sider.data[0].highlight = true;
+          sider.data[0].selected = true;
         }
-        if(this.navs.length>0) this.settings.setnav(this.navs[0]['name']);
+        if(this.menulist.length>0) this.settings.setnav(this.menulist[0]['name']);
       }
     });
+  }
+
+  ngOnInit() {
   }
 
   openHandler(value: string): void {

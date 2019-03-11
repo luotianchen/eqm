@@ -21,14 +21,14 @@ export class ProductManufacturingParametersAuditService {
     })
   }
   Audit(prodno,status,audit_user){
-    return this.http.post(this.api.BASEURL+'/audit1',{
+    return this.http.post(this.api.BASEURL+'/changestatusforprom',{
       prodno:prodno,
       status:status,
       audit_user:audit_user
     })
   }
   Audit2(prodno,dwgno,status,audit_user){
-    return this.http.post(this.api.BASEURL+'/audit2',{
+    return this.http.post(this.api.BASEURL+'/changestatusforprom2',{
       prodno:prodno,
       dwgno:dwgno,
       status:status,

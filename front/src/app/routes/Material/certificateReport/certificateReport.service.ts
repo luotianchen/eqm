@@ -15,8 +15,5 @@ export class CertificateReportService {
   getlogo(){
     return this.http.get(`${this.api.BASEURL}/getlogo`);
   }
-  getNameByUserName(username){
-    return this.http.post(`${this.api.BASEURL}/getname`,{username:username});
-  }
 }
 

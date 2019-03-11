@@ -23,6 +23,6 @@ export class VacuumParameterService {
     return this.http.post(this.api.BASEURL+"/putvacuum",data)
   }
   searchChannelData(dwgno){
-    return this.http.post(this.api.BASEURL+"/searchchanneldata",{dwgno:dwgno})
+    return this.http.post(this.api.BASEURL+"/searchchanneldata",{dwgno:dwgno,status:1})
   }
 }

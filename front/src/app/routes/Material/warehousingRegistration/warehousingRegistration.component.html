@@ -148,33 +148,24 @@
       </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
-      <div nz-row [nzGutter]="8" nzType="flex">
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label nzRequired nzFor="qty">数量</nz-form-label>
-            <nz-form-control nzHasFeedback>
-              <input nz-input formControlName="qty" name="qty" type="text" id="qty">
-              <nz-form-explain *ngIf="validateForm.get('qty').dirty && validateForm.get('qty').errors">
-                数量为必填项！
-              </nz-form-explain>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label nzRequired nzFor="unit">单位</nz-form-label>
-            <nz-form-control nzHasFeedback>
-              <nz-select nzMode="default" formControlName="unit" name="unit" id="unit" nzShowSearch nzAllowClear>
-                <nz-option *ngFor="let option of units" [nzLabel]="option" [nzValue]="option">
-                </nz-option>
-              </nz-select>
-              <nz-form-explain *ngIf="validateForm.get('unit').dirty && validateForm.get('unit').errors">
-                单位不能为空！
-              </nz-form-explain>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-      </div>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="qty">数量、单位</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <nz-input-group nzCompact>
+            <input nz-input formControlName="qty" name="qty" type="text" id="qty" style="width: 60%">
+            <nz-select nzMode="default" formControlName="unit" name="unit" id="unit" nzShowSearch nzAllowClear style="width: 40%">
+              <nz-option *ngFor="let option of units" [nzLabel]="option" [nzValue]="option">
+              </nz-option>
+            </nz-select>
+          </nz-input-group>
+          <nz-form-explain *ngIf="validateForm.get('qty').dirty && validateForm.get('qty').errors">
+            数量为必填项！
+          </nz-form-explain>
+          <nz-form-explain *ngIf="validateForm.get('unit').dirty && validateForm.get('unit').errors">
+            单位不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
@@ -723,12 +714,12 @@
       </div>
       <div nz-col nzSpan="3" *ngIf="dataDetail['hardness1'].max!==null||dataDetail['hardness1'].min!==null">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="hardness1">硬度1</nz-form-label>
+          <nz-form-label nzRequired nzFor="hardness1">硬度(HRB)</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness1'].max == 99999 ? '≥' + dataDetail['hardness1'].min : dataDetail['hardness1'].min + '≤' + '硬度1' + '≤' +dataDetail['hardness1'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness1'].max == 99999 ? '≥' + dataDetail['hardness1'].min : dataDetail['hardness1'].min + '≤' + '硬度HRB' + '≤' +dataDetail['hardness1'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('hardness1').dirty&&validateForm.get('hardness1').errors">
               <ng-container *ngIf="validateForm.get('hardness1').hasError('required')">
-                硬度1不能为空
+                硬度HRB不能为空
               </ng-container>
               <ng-container *ngIf="validateForm.get('hardness1').hasError('overflow')">
                 输入值超出范围！
@@ -739,12 +730,12 @@
       </div>
       <div nz-col nzSpan="3" *ngIf="dataDetail['hardness2'].max!==null||dataDetail['hardness2'].min!==null">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="hardness2">硬度2</nz-form-label>
+          <nz-form-label nzRequired nzFor="hardness2">硬度(HRW)</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness2'].max == 99999 ? '≥' + dataDetail['hardness2'].min : dataDetail['hardness2'].min + '≤' + '硬度2' + '≤' +dataDetail['hardness2'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness2'].max == 99999 ? '≥' + dataDetail['hardness2'].min : dataDetail['hardness2'].min + '≤' + '硬度(HRW)' + '≤' +dataDetail['hardness2'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('hardness2').dirty&&validateForm.get('hardness2').errors">
               <ng-container *ngIf="validateForm.get('hardness2').hasError('required')">
-                硬度2不能为空
+                硬度(HRW)不能为空
               </ng-container>
               <ng-container *ngIf="validateForm.get('hardness2').hasError('overflow')">
                 输入值超出范围！
@@ -755,12 +746,12 @@
       </div>
       <div nz-col nzSpan="3" *ngIf="dataDetail['hardness3'].max!==null||dataDetail['hardness3'].min!==null">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="hardness3">硬度3</nz-form-label>
+          <nz-form-label nzRequired nzFor="hardness3">硬度(HV)</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="hardness3" name="hardness3" id="hardness3" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness3'].max == 99999 ? '≥' + dataDetail['hardness3'].min : dataDetail['hardness3'].min + '≤' + '硬度3' + '≤' +dataDetail['hardness3'].max"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="hardness3" name="hardness3" id="hardness3" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness3'].max == 99999 ? '≥' + dataDetail['hardness3'].min : dataDetail['hardness3'].min + '≤' + '硬度(HV)' + '≤' +dataDetail['hardness3'].max"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('hardness3').dirty&&validateForm.get('hardness3').errors">
               <ng-container *ngIf="validateForm.get('hardness3').hasError('required')">
-                硬度3不能为空
+                硬度(HV)不能为空
               </ng-container>
               <ng-container *ngIf="validateForm.get('hardness3').hasError('overflow')">
                 输入值超出范围！
@@ -835,7 +826,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="impacttemp">冲击温度(°C)</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="dataDetail['impacttemp']==null?99999:dataDetail['impacttemp']" [nzPlaceHolder]="'<='+dataDetail['impacttemp']"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="dataDetail['impacttemp']==null?99999:dataDetail['impacttemp']" [nzPlaceHolder]="'≤'+dataDetail['impacttemp']"></nz-input-number>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -843,7 +834,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input placeholder="弯曲直径" nz-input formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" (blur)="judgeBendaxdia()">
+            <input placeholder="≤{{this.dataDetail.bendaxdia}}" nz-input formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" (blur)="judgeBendaxdia()">
           </nz-form-control>
         </nz-form-item>
       </div>

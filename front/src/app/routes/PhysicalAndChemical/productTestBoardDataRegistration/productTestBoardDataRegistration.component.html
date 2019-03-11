@@ -11,11 +11,15 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="testno">试验编号</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-input-group  [nzAddOnBefore]="getYearMonth()">
-            <input nz-input placeholder="顺序号" formControlName="testno" name="testno" id="testno" (blur)="checktestno($event)"/>
+          <nz-input-group nzCompact>
+            <input nz-input placeholder="年月" formControlName="yearmonth" name="yearmonth" id="yearmonth"  style="width: 57%;"/>
+            <input nz-input placeholder="顺序号" formControlName="testno" name="testno" id="testno" (blur)="checktestno($event)"  style="width: 43%;"/>
           </nz-input-group>
           <nz-form-explain style="color:red" *ngIf="validateForm.get('testno').dirty && validateForm.get('testno').errors">
             您输入的顺序号不可用！推荐顺序号：{{recomtestno}}
+          </nz-form-explain>
+          <nz-form-explain style="color:red" *ngIf="validateForm.get('yearmonth').dirty && validateForm.get('yearmonth').errors">
+            您输入的年月格式不正确，格式为MM-DD：{{getYearMonth()}}
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>

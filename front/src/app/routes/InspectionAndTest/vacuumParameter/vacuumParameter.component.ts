@@ -179,7 +179,7 @@ export class VacuumParameterComponent implements OnInit {
       t1 = new Date(this.validateForm.value.initdate).getTime()/1000;
       t2 = new Date(this.validateForm.value.enddate).getTime()/1000;
       if(t1 == t2){
-        this.message.error("请检查开始、结束时间是否输入正确！(除数不能为0)")
+        this.message.error("请检查开始、结束时间是否输入正确！(除数不能为0)");
         return;
       }
       k = this.validateForm.value.k;

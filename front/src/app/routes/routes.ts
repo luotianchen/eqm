@@ -70,6 +70,7 @@ import {CleaningInsReportComponent} from "./Report/cleaningInsReport/cleaningIns
 import {ConQuaInfoFbSheetComponent} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSheet.component";
 import {WeldingRecordComponent} from "./InspectionAndTest/weldingRecord/weldingRecord.component";
 import {WaterQualityDetectionInputComponent} from "./PhysicalAndChemical/waterQualityDetectionInput/waterQualityDetectionInput.component";
+import {AccessPermissionComponent} from "./System/accessPermission/accessPermission.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
@@ -171,6 +172,11 @@ export const routes: Routes = [
         path: 'system/setting', component: SettingComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '系统设置'
+        }
+      },{
+        path: 'system/accessPermission', component: AccessPermissionComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '访问权限设置'
         }
       },{
         path: 'changePassword', component: ChangePasswordComponent, canActivate: [CanAuthProvide],

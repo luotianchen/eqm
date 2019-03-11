@@ -1,8 +1,9 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {MaterialReinspectionService} from "./materialReinspection.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {NzMessageService,NzModalRef, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
+import {Observable, Observer} from "rxjs/index";
 
 @Component({
   selector: 'app-materialReinspection',
@@ -302,7 +303,7 @@ export class  MaterialReinspectionComponent implements OnInit {
     return Number(num);
   }
   belongto(value:number,range:string){ //判断一个元素值属否处于<= | >= | > | <之类的范围中
-    console.log(value,range);
+    if(!range) return 0;
     let dayudengyu = range.indexOf(">=");
     let xiaoyudengyu = range.indexOf("<=");
     let dayu = range.indexOf(">");
@@ -387,6 +388,8 @@ export class  MaterialReinspectionComponent implements OnInit {
       bendaxdia:[null]
     });
   }
+  public chemicalcomposition = true;
+
   autoSelect(){
     if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
       this.materialReinspectionService.searchmatlnotice(this.validateForm.value.codedmarking).then((res:any)=>{
@@ -395,30 +398,78 @@ export class  MaterialReinspectionComponent implements OnInit {
           this.validateForm.controls['stand'].setValue(res['data']['matlstand']);
           this.validateForm.controls['spec'].setValue(res['data']['spec']);
           this.validateForm.controls['indate'].setValue(res['data']['indate']);
-          this.checkForContraststand();
+          this.materialReinspectionService.searchrematerialitem(this.validateForm.value.codedmarking).subscribe(res=>{
+            if(res['result'] == "success")
+              if(res['data'].length>0)
+                this.chemicalcomposition = res['data'][0]['chemicalcomposition'] == '有';
+              this.checkForContraststand();
+          })
         }
       })
     }
   }
+
+  changeChemicalcompositionDisplay(){//判断化学元素是否需要显示
+    let chemicalcomposition = [
+        "c",
+        "si",
+        "mn",
+        "cu",
+        "ni",
+        "cr",
+        "mo",
+        "nb",
+        "v",
+        "ti",
+        "als",
+        "alt",
+        "n",
+        "fe",
+        "mg",
+        "zn",
+        "b",
+        "w",
+        "sb",
+        "al",
+        "zr",
+        "ca",
+        "be",
+        "p",
+        "s"
+      ];
+    if(!this.chemicalcomposition){
+      for(let item of chemicalcomposition){
+        this.validateForm.controls[item].setValidators([]);
+        this.dataDetail[item].max = null;
+        this.dataDetail[item].min = null;
+      }
+    }
+  }
+
   constructor(public materialReinspectionService: MaterialReinspectionService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
 
   //最大最小值检验
-  MaxMinAsyncValidator = (control: FormControl): { [ s: string ]: boolean } => {
-    let name:string;
-    for(let controlname in this.validateForm.controls){
-      if(this.validateForm.controls[controlname] == control)
-        name = controlname;
-    }
-    if(this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
-    if(this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
-    console.log(( Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0])),(Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])))
-    if (!control.value && control.value!==0) {
-      return { required: true };
-    } else if(control.value > (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || control.value <( Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))){
-      return { overflow: true, error: true };
-    }
-  };
+  MaxMinAsyncValidator = (control: FormControl) => Observable.create((observer: Observer<ValidationErrors>) => {
+    setTimeout(() => {
+      let name:string;
+      for(let controlname in this.validateForm.controls){
+        if(this.validateForm.controls[controlname] == control)
+          name = controlname;
+      }
+      if(this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
+      if(this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
+      if (!control.value && control.value!==0) {
+        return { required: true };
+      } else if(control.value > (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || control.value <( Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))){
+        return { overflow: true, error: true };
+      }else {
+        observer.next(null);
+      }
+      observer.complete();
+    }, 1000);
+  })
+
   submitForm(){
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
@@ -509,6 +560,7 @@ export class  MaterialReinspectionComponent implements OnInit {
               this.validateForm.controls[item].setValidators([Validators.required]);
             }
           }
+          this.changeChemicalcompositionDisplay()
         }else if(this.validateForm.value.stand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.stand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
           let specData = this.validateForm.value.spec;
           if(this.validateForm.value.spec.indexOf("δ=")!=-1){
@@ -534,6 +586,7 @@ export class  MaterialReinspectionComponent implements OnInit {
                   this.validateForm.controls[item].setValidators([Validators.required]);
                 }
               }
+              this.changeChemicalcompositionDisplay()
             }
           });
         }

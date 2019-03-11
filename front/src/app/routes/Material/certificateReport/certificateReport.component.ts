@@ -12,7 +12,7 @@ export class CertificateReportComponent implements OnInit {
   validateForm: FormGroup;
   public codedmarking = null;
   public codedmarkings = [];
-  public value : any;
+  public value : any = null;
   public information = "";
   public now = new Date();
   year = null;
@@ -31,12 +31,7 @@ export class CertificateReportComponent implements OnInit {
       this.certificateReportService.getmaterial(this.validateForm.value.codedmarking).subscribe(res=>{
         if(res['result']=="success"){
           this.value = res['data'];
-          this.certificateReportService.getNameByUserName(this.value.user).subscribe(res=>{
-            if(res['result'] == "success"){
-              this.value.user = res['name'];
-              this.information = "材质书号："+this.value.codedmarking+"，标准："+this.value.modelstand+"，牌号："+this.value.designation+"，炉批号："+this.value.heatbatchno+"，规格："+this.value.spec+"，制造厂："+this.value.millunit+"，检验员："+this.value.user+"，检查日期："+this.value.indate;
-            }
-          })
+          this.information = this.value.codedmarking+","+this.value.modelstand+","+this.value.designation+","+this.value.heatbatchno+","+this.value.spec+","+this.value.millunit+","+this.value.name+","+this.value.indate;
           this.codedmarking = this.validateForm.value.codedmarking;
         }
       })

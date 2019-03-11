@@ -16,6 +16,9 @@ export class MaterialReinspectionService {
       )
     });
   }
+  searchrematerialitem(codedmarking){
+    return this.http.post(`${this.api.BASEURL}/searchrematerialitem`,{codedmarking:codedmarking,status:1})
+  }
   searchmatlnotice(codedmarking){
     return new Promise((resolve, reject) =>{
       this.http.post(this.api.BASEURL+"/getmaterial",{codedmarking:codedmarking}).subscribe(

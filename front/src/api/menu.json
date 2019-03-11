@@ -455,6 +455,11 @@
           "icon": "code-o",
           "name": "部门角色管理",
           "route": "/system/role"
+        },
+        {
+          "icon": "code-o",
+          "name": "访问权限管理",
+          "route": "/system/accessPermission"
         }
       ]
     }

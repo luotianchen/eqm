@@ -27,6 +27,9 @@ export class ProductManufacturingParametersService {
       })
     })
   }
+  getbydwgno(dwgno){//为了获取设计日期
+    return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno,status:1})
+  }
   getUsers(){
     return this.http.get(this.api.BASEURL+"/getuserform");
   }
@@ -48,7 +51,7 @@ export class ProductManufacturingParametersService {
     return this.http.post(this.api.BASEURL+"/putpromanparlist",data);
   }
   putManufacturing2(data){
-    return this.http.post(this.api.BASEURL+"/putmanufacturing2",data);
+    return this.http.post(this.api.BASEURL+"/putpromanparlist2",data);
   }
   getdwgno1and2(prodno){
     return this.http.post(this.api.BASEURL+"/searchdwgnoot",{prodno:prodno});
