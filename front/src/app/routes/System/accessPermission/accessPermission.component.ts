@@ -15,39 +15,44 @@ import {TreeNodeInterface} from "../role/role.component";
 })
 
 export class AccessPermissionComponent implements OnInit {
+  dataSet = [];
+  power = null;
+  rolemaps = {};
+  roles = []
+  mapOfExpandedData = {};
+
   constructor(public fb: FormBuilder, public message: NzMessageService,
               public accessPermissionService: AccessPermissionService, public router: Router, public _storage: SessionStorageService, public   menuService: MenuService) {
     this.accessPermissionService.getroutepower().subscribe(res => {
       if(res['result'] == "success"){
         this.power = JSON.parse(res['data']);
+        this.menuService.getMenu().then((res: any) => {
+          let key = 1;
+          let menus = res['data'];
+          let menuitem: { icon: string, name: string, route: string, submenu: any };
+          for (let module of menus) {
+            let it = [];
+            for (menuitem of module.data) {
+              if (!menuitem.submenu)
+                it = [...it,{name: menuitem.name,icon:menuitem.icon, key: key++}];
+              else {
+                let submenus = [];
+                for (let submenu of menuitem.submenu) {
+                  submenus = [...submenus,{name: submenu['name'],icon:submenu['icon'], key: key++}];
+                }
+                it = [...it,{name: menuitem.name,icon:menuitem.icon, children: submenus, key: key++}];
+              }
+            }
+            this.dataSet = [...this.dataSet, {name: module.name, children: it, key: key++}];
+          }
+          this.update();
+          this.dataSet.forEach(item => {
+            this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
+          });
+        })
       }
     })
-    setTimeout(()=>{
-      this.menuService.getMenu().then((res: any) => {
-        let key = 1;
-        let menus = res.data;
-        let menuitem: { icon: string, name: string, route: string, submenu: any };
-        for (let module of menus) {
-          let it = [];
-          for (menuitem of module.data) {
-            if (!menuitem.submenu)
-              it.push({name: menuitem.name,icon:menuitem.icon, key: key++});
-            else {
-              let submenus = [];
-              for (let submenu of menuitem.submenu) {
-                submenus.push({name: submenu['name'],icon:submenu['icon'], key: key++});
-              }
-              it.push({name: menuitem.name,icon:menuitem.icon, children: submenus, key: key++});
-            }
-          }
-          this.dataSet = [...this.dataSet, {name: module.name, children: it, key: key++}];
-        }
-        this.update();
-        this.dataSet.forEach(item => {
-          this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
-        });
-      })
-    },2000)
+
     this.accessPermissionService.getrole().subscribe((res)=>{
       if(res['result'] == "success"){
         this.rolemaps = []
@@ -58,12 +63,18 @@ export class AccessPermissionComponent implements OnInit {
           "department": 0
         });
         for(let item of res['data'])
-          this.rolemaps[item['role']] = this.rolemaps['rolename'];
+          this.rolemaps[item['role']] = item['rolename'];
         this.rolemaps[0] = "所有人";
+        console.log(this.rolemaps);
       }
     })
   }
+
+  ngOnInit(): void {
+  }
+
   update(){
+    console.log(this.dataSet)
     for(let module of this.dataSet){
       for(let menu of module.children){
         if(!menu.children)
@@ -76,16 +87,7 @@ export class AccessPermissionComponent implements OnInit {
       }
       module.power = this.getLevel0Power(module);
     }
-    console.log(this.dataSet)
   }
-  dataSet = [];
-  power = null;
-  rolemaps = [];
-  roles = [];
-  ngOnInit() {
-  }
-
-  mapOfExpandedData = {};
 
   collapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
     if ($event === false) {
@@ -154,11 +156,11 @@ export class AccessPermissionComponent implements OnInit {
     return res;
   }
   check(item){
+    this.update();
     if(item.power.length == 0){
       item.power = [0];
     }else if(item.power.indexOf(1)==-1 && item.power.indexOf(0)==-1){
       item.power.push(1);
     }
-    this.update();
   }
 }
