@@ -142,7 +142,7 @@ export class AccessPermissionComponent implements OnInit {
   }
   getLevel0Power(menu){
     let res = [];
-    if(!!menu.submenu)
+    if(!!menu.children)
       for(let item of menu.children){
         let cache =[];
         if(item.children) cache = this.getLevel1Power(item);
