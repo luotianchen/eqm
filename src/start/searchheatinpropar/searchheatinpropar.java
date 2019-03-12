@@ -45,10 +45,23 @@ public class searchheatinpropar {                                               
                     ps2.setInt(1,rs1.getInt("contraststand_id_matlstand"));
                     rs2 = ps2.executeQuery();
                     if(rs.next()){
-                        ;as.add(rs2.getString("heatcondi"));
+                        matlstand=rs2.getString("heatcondi");
                     }
                     rs2.close();
                     ps2.close();
+
+                    ps2 = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
+                    ps2.setInt(1,rs1.getInt("contraststand_id_designation"));
+                    rs2 = ps2.executeQuery();
+                    if(rs.next()){
+                        designation=rs2.getString("heatcondi");
+                    }
+                    rs2.close();
+                    ps2.close();
+
+                    if(designation.equals(matlstand)){
+
+                    }
                 }
                 rs1.close();
                 ps1.close();

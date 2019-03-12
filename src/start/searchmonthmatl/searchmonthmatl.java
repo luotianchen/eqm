@@ -81,7 +81,7 @@ public class searchmonthmatl {
                     matlname_id=rs.getInt("matlname_id_matlname");
                     matlstand_id=rs.getInt("contraststand_id_matlstand");
                     designation_id=rs.getInt("contraststand_id_designation");
-                    heatcondi_id=rs.getInt("heattreatcondition_id_heatcondi");
+                    data.setHeatcondi(rs.getString("heattreatcondition_id_heatcondi"));
 
 
                     ps1=conn.prepareStatement("SELECT * FROM warrantystatus WHERE id=?");
@@ -134,15 +134,6 @@ public class searchmonthmatl {
                     rs1=ps1.executeQuery();
                     while (rs1.next()){
                         data.setDesignation(rs1.getString("designation"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                    ps1=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-                    ps1.setInt(1,heatcondi_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        data.setHeatcondi(rs1.getString("heatcondi"));
                     }
                     rs1.close();
                     ps1.close();
