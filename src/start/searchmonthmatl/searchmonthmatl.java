@@ -51,6 +51,8 @@ public class searchmonthmatl {
         int designation_id=0;
         int heatcondi_id=0;
 
+        int index = 0;
+
         String year_month = sp.getInyear()+"-"+sp.getInmonth()+"%";
 
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -61,12 +63,20 @@ public class searchmonthmatl {
         ArrayList<searchmonthmatldata> as_q =null;
 
         try {
+            ps = conn.prepareStatement("SELECT * FROM matlcoderules");
+            rs = ps.executeQuery();
+            if(rs.next()){
+                index = rs.getInt("indexx");
+            }
+            rs.close();
+            ps.close();
+
             ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE indate LIKE ?");
             ps.setString(1,year_month);
             rs=ps.executeQuery();
             while (rs.next()){
                 data = new searchmonthmatldata();
-                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(4))){
+                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(index-1))){
                     data.setCodedmarking(rs.getString("codedmarking"));
                     data.setIndate(sdf.format(rs.getDate("indate")));
                     data.setHeatbatchno(rs.getString("heatbatchno"));
@@ -220,7 +230,7 @@ public class searchmonthmatl {
                     matlname_id=rs.getInt("matlname_id_matlname");
                     matlstand_id=rs.getInt("contraststand_id_matlstand");
                     designation_id=rs.getInt("contraststand_id_designation");
-                    heatcondi_id=rs.getInt("heattreatcondition_id_heatcondi");
+                    data.setHeatcondi(rs.getString("heattreatcondition_id_heatcondi"));
 
 
                     ps1=conn.prepareStatement("SELECT * FROM warrantystatus WHERE id=?");
@@ -273,15 +283,6 @@ public class searchmonthmatl {
                     rs1=ps1.executeQuery();
                     while (rs1.next()){
                         data.setDesignation(rs1.getString("designation"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                    ps1=conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id=?");
-                    ps1.setInt(1,heatcondi_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        data.setHeatcondi(rs1.getString("heatcondi"));
                     }
                     rs1.close();
                     ps1.close();

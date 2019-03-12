@@ -29,8 +29,10 @@ public class putweldingrecord {                                     //焊接记�
             if(rs.next()){
                 rs.close();
                 ps.close();
+                System.out.println(1);
                 ps = conn.prepareStatement("DELETE FROM weldingrecord WHERE prodno = ?");
                 ps.setString(1,pp.getProdno());
+                ps.executeUpdate();
                 ps.close();
             }else {
                 rs.close();
