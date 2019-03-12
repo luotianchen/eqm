@@ -7,6 +7,9 @@ export class AccessPermissionService {
   constructor( private http: HttpClient,private apiService:ApiService) {
   }
   getroutepower(){
-    return this.http.get("https://www.easy-mock.com/mock/5bd28b54c16e907322bb019e/eqm/getroutepower");
+    return this.http.get("https://www.easy-mock.com/mock/5bd28b54c16e907322bb019e/eqm/getroutepower")
+  }
+  getrole(){
+    return this.http.get(`${this.apiService.BASEURL}/getrole`);
   }
 }

@@ -50,6 +50,9 @@ export class WeldingRecordComponent implements OnInit {
         if(res['result'] == "success"){
           if(res['data'].length>0){
             this.dataSet = res['data'];
+            for(let data of this.dataSet)
+              data.key = this.i++;
+            console.log(this.dataSet)
             this.updateEditCache();
           }
         }
@@ -151,7 +154,7 @@ export class WeldingRecordComponent implements OnInit {
   saveEdit(key: string): void {
     const index = this.dataSet.findIndex(item => item.key === key);
     Object.assign(this.dataSet[ index ], this.editCache[ key ].data);
-    // this.dataSet[ index ] = this.editCache[ key ].data;
+    this.dataSet[ index ] = this.editCache[ key ].data;
     this.editCache[ key ].edit = false;
   }
 

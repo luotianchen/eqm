@@ -23,33 +23,35 @@ export class SiderComponent {
   }
 
   constructor(public settings: SettingsService, private menuService: MenuService, private router: Router) {
-    this.menuService.getMenu().then((result: any) => {
-      this.menulist = result.data;
-      let flag: boolean = true;
-      for (let sider of this.menulist) {
-        for (let item of sider.data) {
-          item.selected = item.route == this.router.url;
-          if (item.route == this.router.url) flag = false;
-          let submenu = item['submenu'];
-          if (!!submenu) {
-            for (let sub of submenu) {
-              sub.selected = sub.route == this.router.url;
-              if(sub.route == this.router.url){
-                flag = false;
-                this.settings.setnav(sider.name);
-                this.menuOpenMap[item.name] = true;
+    setTimeout(() => {
+      this.menuService.getMenu().then((result: any) => {
+        this.menulist = result.data;
+        let flag: boolean = true;
+        for (let sider of this.menulist) {
+          for (let item of sider.data) {
+            item.selected = item.route == this.router.url;
+            if (item.route == this.router.url) flag = false;
+            let submenu = item['submenu'];
+            if (!!submenu) {
+              for (let sub of submenu) {
+                sub.selected = sub.route == this.router.url;
+                if(sub.route == this.router.url){
+                  flag = false;
+                  this.settings.setnav(sider.name);
+                  this.menuOpenMap[item.name] = true;
+                }
               }
             }
           }
         }
-      }
-      if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
-        for (let sider of this.menulist) {
-          sider.data[0].selected = true;
+        if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
+          for (let sider of this.menulist) {
+            sider.data[0].selected = true;
+          }
+          if(this.menulist.length>0) this.settings.setnav(this.menulist[0]['name']);
         }
-        if(this.menulist.length>0) this.settings.setnav(this.menulist[0]['name']);
-      }
-    });
+      });
+    },500)
   }
 
   ngOnInit() {
