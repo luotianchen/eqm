@@ -36,15 +36,15 @@ public class deleteproparlist {                                     //解除试�
                 ps.executeUpdate();
                 ps.close();
 
-                ps = conn.prepareStatement("DELETE FROM pretest WHERE prodno = ?");
-                ps.setString(1,dp.getProdno());
-                ps.executeUpdate();
-                ps.close();
+//                ps = conn.prepareStatement("DELETE FROM pretest WHERE prodno = ?");
+//                ps.setString(1,dp.getProdno());
+//                ps.executeUpdate();
+//                ps.close();
 
-                ps = conn.prepareStatement("DELETE FROM leakagetest WHERE prodno = ?");
-                ps.setString(1,dp.getProdno());
-                ps.executeUpdate();
-                ps.close();
+//                ps = conn.prepareStatement("DELETE FROM leakagetest WHERE prodno = ?");
+//                ps.setString(1,dp.getProdno());
+//                ps.executeUpdate();
+//                ps.close();
                 result.setResult("success");
             }else {
                 rs.close();
