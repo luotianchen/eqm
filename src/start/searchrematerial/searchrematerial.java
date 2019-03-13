@@ -36,6 +36,9 @@ public class searchrematerial {                                         //材料
             if(sp.getStatus() != -1){
                 sql = sql + "AND status = ?";
             }
+            if(!(sp.getYear() == null || sp.getYear().equals(""))){
+                sql = sql + "AND indate Like ? ";
+            }
             ps = conn.prepareStatement(sql);
             if(!(sp.getCodedmarking() == null || sp.getCodedmarking().equals(""))){
                 num = num + 1;
@@ -44,6 +47,10 @@ public class searchrematerial {                                         //材料
             if(sp.getStatus() != -1){
                 num = num + 1;
                 ps.setInt(num,sp.getStatus());
+            }
+            if(!(sp.getYear() == null || sp.getYear().equals(""))){
+                num = num + 1;
+                ps.setString(num,sp.getYear()+"%");
             }
             rs = ps.executeQuery();
             while (rs.next()){

@@ -44,6 +44,7 @@ public class login {                                                            
                 role3_id=rs.getInt("role3_id");                       //取出角色id
                 role4_id=rs.getInt("role4_id");                       //取出角色id
                 role5_id=rs.getInt("role5_id");                       //取出角色id
+                result.setRoles(role_id + ";" + role2_id + ";" +role3_id + ";" +role4_id + ";" +role5_id );
                 pwd=rs.getString("password");						//查找与该用户对应的密码
                 break;												//跳出循环
             }else{

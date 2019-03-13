@@ -3,6 +3,7 @@ package start.searchrematerial;
 public class searchrematerialpost {
     private String codedmarking;
     private int status;
+    private String year;
     public searchrematerialpost(){
         super();
     }
@@ -21,5 +22,13 @@ public class searchrematerialpost {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

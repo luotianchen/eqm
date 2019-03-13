@@ -27,7 +27,7 @@ import static start.excel.excel.*;
 @CrossOrigin
 public class getquaplanport {                                               //压力容器产品质量计划报表
     @RequestMapping(value = "getquaplanport")
-    public @ResponseBody ResponseEntity<byte[]> getquaplanport(@RequestParam(value="excel") MultipartFile multipartFile, String prodno,HttpServletRequest request) throws Exception {
+    public @ResponseBody ResponseEntity<byte[]> getquaplanport(String prodno,HttpServletRequest request) throws Exception {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -39,10 +39,13 @@ public class getquaplanport {                                               //�
         ResultSet rs2=null;
 
         String realPath = request.getSession().getServletContext().getRealPath("");
-        InputStream inputStream = multipartFile.getInputStream();                           //服务器根目录的路径
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
         String uploadPath = path + "upload";                                                //获取文件名称
-        String filename = getUploadFileName(multipartFile);                                 //将文件上传的服务器根目录下的upload文件夹
+
+        File realfile = new File(uploadPath,"质量计划说明.xlsx");
+        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+
+        String filename = "质量计划说明_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 
@@ -238,7 +241,6 @@ public class getquaplanport {                                               //�
         rs.close();
         ps.close();
 
-        putsheet(sheet,11,11,"待定");         //4
 
         ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
         ps.setString(1,prodno);
