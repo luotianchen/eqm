@@ -9,6 +9,7 @@ public class searchpreandleakleak {
     private int mediatemp;
     private String dated;
     private String testmedia;
+    private String leaktestp;
     public searchpreandleakleak(){
         super();
     }
@@ -75,5 +76,13 @@ public class searchpreandleakleak {
 
     public void setMediatemp(int mediatemp) {
         this.mediatemp = mediatemp;
+    }
+
+    public String getLeaktestp() {
+        return leaktestp;
+    }
+
+    public void setLeaktestp(String leaktestp) {
+        this.leaktestp = leaktestp;
     }
 }
