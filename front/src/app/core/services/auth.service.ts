@@ -25,7 +25,7 @@ export class CanAuthProvide implements CanActivate {
 
   check(): boolean {
     const auth = this._storage.get('username');
-    const permited = this.powers[this.router.url.slice(1)].indexOf(0)!=-1 || this.powers[this.router.url.slice(1)].some((role)=>havepower.indexOf(role)!=-1);
+    const permited = this.powers[this.router.url.slice(1)].indexOf(0)!=-1 || this.powers[this.router.url.slice(1)].some((role)=>this.roles.indexOf(role)!=-1);
     if (auth && permited) {
         return true
     }else if(!auth){
