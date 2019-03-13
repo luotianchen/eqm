@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
             this._storage.set('roles', res['roles']);
           if(res['email']!=null)
             this._storage.set('email', res['email']);
-          this.router.navigate(['']);
+          this.router.navigate(['dashboard']);
         } else {
           this.loadStatus = false;
           this.loginBtn = '登录';
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       }
     })
     if(this._storage.get('username')!=null){
-      this.router.navigate(['']);
+      this.router.navigate(['dashboard']);
     }
     this.validateForm = this.fb.group({
       userName: [null, [Validators.required]],

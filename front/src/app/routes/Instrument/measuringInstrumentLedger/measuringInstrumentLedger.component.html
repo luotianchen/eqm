@@ -23,7 +23,8 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="gaugeno">厂内编号</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input style="width: 100%" placeholder="厂内编号"  formControlName="gaugeno" name="gaugeno" id="gaugeno" (blur)="getInfoByGaugeno()"/>
+          <input nz-input style="width: 100%" placeholder="厂内编号"  formControlName="gaugeno" name="gaugeno" id="gaugeno">
+          <!--(blur)="getInfoByGaugeno()"/-->
           <nz-form-explain *ngIf="validateForm.get('gaugeno').dirty && validateForm.get('gaugeno').errors">
             厂内编号不能为空！
           </nz-form-explain>

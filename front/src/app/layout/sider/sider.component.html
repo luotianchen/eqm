@@ -20,16 +20,18 @@
             </span>
             <ul>
               <ng-container *ngTemplateOutlet="menuTpl; context: {$implicit: menu.submenu}"></ng-container>
-              <li nz-menu-item [nzPaddingLeft]="48" routerLink="{{submenu.route}}" *ngFor="let submenu of menu.submenu" [nzSelected]="submenu.selected">
+              <ng-container *ngFor="let submenu of menu.submenu">
+                <li nz-menu-item [nzPaddingLeft]="48" routerLink="{{submenu.route}}" [nzSelected]="submenu.selected" *ngIf="showByRouter(submenu.route)">
                   <span title nzPlacement="right" [nzTitle]="submenu.name" nz-tooltip [nzMouseEnterDelay]="1" >
                     <i nz-icon [type]="submenu.icon" *ngIf="submenu.icon"></i>
                     <span>{{ submenu.name }}</span>
                   </span>
-              </li>
+                </li>
+              </ng-container>
             </ul>
           </li>
           <ng-template #elseBlock>
-            <li nz-menu-item [nzPaddingLeft]="24" *ngIf="!menu.submenu" routerLink="{{menu.route}}" [nzSelected]="menu.selected">
+            <li nz-menu-item [nzPaddingLeft]="24" *ngIf="!menu.submenu && showByRouter(menu.route)" routerLink="{{menu.route}}" [nzSelected]="menu.selected">
             <span title nzPlacement="right" [nzTitle]="menu.name" nz-tooltip [nzMouseEnterDelay]="1">
               <i nz-icon [type]="menu.icon" *ngIf="menu.icon"></i>
               <span>{{ menu.name }}</span>

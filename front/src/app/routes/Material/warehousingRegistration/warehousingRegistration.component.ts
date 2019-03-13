@@ -1,11 +1,10 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {WarehousingRegistrationService} from "./warehousingRegistration.service";
 import {NzNotificationService, NzMessageService, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
 import {NzModalRef} from "ng-zorro-antd/modal";
-import {Observable, Observer} from "rxjs/index";
 
 @Component({
   selector: 'app-warehousingRegistration',

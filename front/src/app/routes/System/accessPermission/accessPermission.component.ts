@@ -57,13 +57,13 @@ export class AccessPermissionComponent implements OnInit {
         this.rolemaps = []
         this.roles = res['data'];
         this.roles.push({
-          "role": 0,
+          "role": -1,
           "rolename": "所有人",
-          "department": 0
+          "department": -1
         });
         for(let item of res['data'])
           this.rolemaps[item['role']] = item['rolename'];
-        this.rolemaps[0] = "所有人";
+        this.rolemaps[-1] = "所有人";
         console.log(this.rolemaps);
       }
     })
@@ -127,14 +127,14 @@ export class AccessPermissionComponent implements OnInit {
     return res;
   }
   check(route){
-    if(this.power[route].length == 0 && this.power[route].indexOf(0)==-1){
-      this.power[route] = [0];
-    }else if(this.power[route].indexOf(1) == -1 && this.power[route].indexOf(0) == -1){
+    if(this.power[route].length == 0 && this.power[route].indexOf(-1)==-1){
+      this.power[route] = [-1];
+    }else if(this.power[route].indexOf(1) == -1 && this.power[route].indexOf(-1) == -1){
       this.power[route].push(1);
     }
   }
   submitForm(){
-    this.accessPermissionService.putroutepower(JSON.stringify(this.power).replace(/\"/g,"\\\"")).subscribe(res=>{
+    this.accessPermissionService.putroutepower(JSON.stringify(this.power)).subscribe(res=>{
       if(res['result'] == "success"){
         this.msg.success("保存成功!")
       }

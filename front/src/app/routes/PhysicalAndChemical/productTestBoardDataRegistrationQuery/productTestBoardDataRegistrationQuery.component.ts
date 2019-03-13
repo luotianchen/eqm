@@ -28,6 +28,11 @@ export class ProductTestBoardDataRegistrationQueryComponent implements OnInit {
     });
     this.searchData();
   }
+  resetForm(): void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].reset();
+    }
+  }
   searchData(){
     this.productTestBoardDataRegistrationQueryService.getAudit(this.validateForm.value.year,this.validateForm.value.year).subscribe((res)=>{
       if(res['result']=='success'){

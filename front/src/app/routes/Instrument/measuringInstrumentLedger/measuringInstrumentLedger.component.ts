@@ -21,7 +21,7 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      user:[null],
+      user:[this._storage.get("username")],
       gaugename:[null,[Validators.required]],
       gaugeno:[null,[Validators.required]],
       exitno:[null,[Validators.required]],
@@ -161,7 +161,6 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-      this.validateForm.controls['user'].setValue(this._storage.get("username"));
       console.log(this.validateForm.value);
       this.measuringInstrumentLedgerService.putMeasuringInstrumentLedger(this.validateForm.value).subscribe((res)=>{
         if(res['result']=="success"){
@@ -170,20 +169,37 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
       })
     }
   }
-  getInfoByGaugeno(){
-    if(this.validateForm.value.gaugeno!=null&&this.validateForm.value.gaugeno!="")
-      this.measuringInstrumentLedgerService.getInfo(this.validateForm.value.gaugeno).subscribe((res)=>{
-        if(res['result']=="success"){
-          this.validateForm.setValue(res['data'][0]);
-          this.validateForm.controls['calibdate'].setValue(null);
-          this.validateForm.setControl('exitno',new FormControl({value: res['data'][0].exitno, disabled: true}));
-          this.msg.success("已恢复数据");
-        }else{
-          this.msg.success("未查询到该条记录！");
-          this.validateForm.setControl('exitno',new FormControl({value: null, disabled: false}));
-        }
-      })
-    else
-      this.validateForm.setControl('exitno',new FormControl({value: null, disabled: false}));
-  }
+  // getInfoByGaugeno(){
+  //   if(this.validateForm.value.gaugeno!=null&&this.validateForm.value.gaugeno!="")
+  //     this.measuringInstrumentLedgerService.getInfo(this.validateForm.value.gaugeno).subscribe((res)=>{
+  //       if(res['result']=="success"){
+  //         this.validateForm = this.fb.group({
+  //           user:[this._storage.get("username")],
+  //           gaugename:[res['data'][0].gaugename,[Validators.required]],
+  //           gaugeno:[res['data'][0].gaugeno,[Validators.required]],
+  //           exitno:[res['data'][0].exitno,[Validators.required]],
+  //           type:[res['data'][0].type,[Validators.required]],
+  //           measrangemin:[res['data'][0].measrangemin,[Validators.required]],
+  //           measrangemax:[res['data'][0].measrangemax,[Validators.required]],
+  //           accuclass:[res['data'][0].accuclass,[Validators.required]],
+  //           millunit:[res['data'][0].millunit,[Validators.required]],
+  //           exitdate:[res['data'][0].exitdate,[Validators.required]],
+  //           managlevel:[res['data'][0].managlevel,[Validators.required]],
+  //           calibdate:[res['data'][0].calibdate,[Validators.required]],
+  //           recalibdate:[res['data'][0].recalibdate,[Validators.required]],
+  //           specialist:[res['data'][0].specialist,[Validators.required]],
+  //           calibinterval:[res['data'][0].calibinterval,[Validators.required]],
+  //           note:[res['data'][0].note],
+  //         });
+  //         this.validateForm.controls['calibdate'].setValue(null);
+  //         this.validateForm.setControl('exitno',new FormControl({value: res['data'][0].exitno, disabled: true}));
+  //         this.msg.success("已恢复数据");
+  //       }else{
+  //         this.msg.success("未查询到该条记录！");
+  //         this.validateForm.setControl('exitno',new FormControl({value: null, disabled: false}));
+  //       }
+  //     })
+  //   else
+  //     this.validateForm.setControl('exitno',new FormControl({value: null, disabled: false}));
+  // }
 }

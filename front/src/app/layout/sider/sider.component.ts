@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {SettingsService} from '../../core/services/settings.service';
 import {MenuService} from '../../core/services/menu.service';
 import {Router} from '@angular/router';
-import {isUndefined} from "util";
+import {SessionStorageService} from "../../core/storage/storage.service";
 
 @Component({
   selector: 'app-sider',
@@ -14,6 +14,8 @@ export class SiderComponent {
   theme = this.settings.layout.isDark;
   menulist: any;
   menuOpenMap = {};
+  powers = {};
+  roles = [];
   typeofNav() {
     return typeof this.settings.nav === 'undefined';
   }
@@ -22,7 +24,21 @@ export class SiderComponent {
     return this.settings.nav;
   }
 
-  constructor(public settings: SettingsService, private menuService: MenuService, private router: Router) {
+  constructor(public settings: SettingsService, private menuService: MenuService, private router: Router, private _storage:SessionStorageService) {
+    this.updateMenu();
+  }
+
+  showByRouter(routeurl){
+    let url = routeurl.slice(1);
+    let ifShow = false;
+    for(let i of this.powers[url])
+      for(let j of this.roles)
+        if(i==j)
+          ifShow = true;
+    return this.powers[url].indexOf(-1)!=-1 || ifShow
+  }
+
+  updateMenu(){
     setTimeout(() => {
       this.menuService.getMenu().then((result: any) => {
         this.menulist = result.data;
@@ -55,6 +71,8 @@ export class SiderComponent {
   }
 
   ngOnInit() {
+    this.powers = JSON.parse(this._storage.get('powermap'));
+    this.roles = this._storage.get('roles').split(';');
   }
 
   openHandler(value: string): void {

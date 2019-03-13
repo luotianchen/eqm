@@ -35,7 +35,7 @@ public class putpregaumeatable {                                        //提交
 
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM pregaumeatable exitno = ?");
+            ps = conn.prepareStatement("SELECT * FROM pregaumeatable where exitno = ?");
             ps.setString(1,pp.getExitno());
             rs = ps.executeQuery();
             while (rs.next()){
