@@ -234,7 +234,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
         this.validateForm.controls[controlname].setValue(null);
       }
     }
-
+  testno = null;
   submitForm(){
     console.log(this.validateForm.value);
     for (const i in this.validateForm.controls) {
@@ -243,7 +243,10 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.validateForm.controls['specimenno'].setValue(this.validateForm.value.specimenno['specimennno']);
+      this.testno = this.validateForm.value.testno;
+      this.validateForm.controls['testno'].setValue(this.validateForm.value.yearmonth+this.testno);
       this.productTestBoardDataRegistrationService.puttestboardparam(this.validateForm.value).subscribe((res)=>{
+        this.validateForm.controls['testno'].setValue(this.testno);
         if(res['result']=="success"){
           this.modalService.success({
             nzTitle: '成功',

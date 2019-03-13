@@ -87,7 +87,12 @@
           {{data.designspec}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.designspec">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.designspec" (input)="onSpecInput($event.target?.value)" (click)="onSpecInput($event.target?.value)" [nzAutocomplete]="specauto">
+          <nz-autocomplete nzBackfill #specauto>
+            <nz-auto-option *ngFor="let option of specs" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </ng-container>
       </td>
       <td>
@@ -105,7 +110,12 @@
           {{data.substitutespec}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.substitutespec">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.substitutespec" (input)="onSpecInput($event.target?.value)" (click)="onSpecInput($event.target?.value)" [nzAutocomplete]="specauto">
+          <nz-autocomplete nzBackfill #specauto>
+            <nz-auto-option *ngFor="let option of specs" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </ng-container>
       </td>
       <td>

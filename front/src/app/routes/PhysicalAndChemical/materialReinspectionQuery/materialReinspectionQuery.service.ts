@@ -7,9 +7,10 @@ import {ApiService} from "../../../core/api/api.service";
 export class MaterialReinspectionQueryService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
-  getAudit(){
+  getAudit(year,codedmarking){
     return this.http.post(this.api.BASEURL+'/searchrematerial',{
-      codedmarking:null,
+      codedmarking:codedmarking,
+      year:year,
       status:1
     })
   }

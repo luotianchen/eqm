@@ -21,9 +21,6 @@ export class ProductTestBoardDataRegistrationAuditComponent implements OnInit {
     this.productTestBoardDataRegistrationAuditService.getAudit().subscribe((res)=>{
       if(res['result']=='success'){
         this.dataSet = res['data'];
-        for(let data of this.dataSet){
-          data.expand = true;
-        }
       }
     })
   }

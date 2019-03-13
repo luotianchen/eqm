@@ -18,6 +18,29 @@ export class MaterialSubstitutionComponent implements OnInit {
   why = "";
   partsname = [];
   designation = [];
+  specs = [];
+  onSpecInput(value: string): void { //当规格输入时展开选项
+    this.specs = value ? [
+      value,
+      "φ"+value,
+      "δ="+value,
+      "EHA"+value,
+      "∠"+value,
+      "DHB"+value,
+      "T"+value,
+      "12~40目",
+      "10~60目"
+    ]:[
+      "φ"+value,
+      "δ="+value,
+      "EHA"+value,
+      "∠"+value,
+      "DHB"+value,
+      "T"+value,
+      "12~40目",
+      "10~60目"
+    ];
+  }
   ngOnInit(): void {
     this.materialSubstitutionService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {

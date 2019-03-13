@@ -6,7 +6,7 @@ import {ApiService} from "../../../core/api/api.service";
 export class MeasuringInstrumentLedgerQueryService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
-  getaudit(){
-    return this.http.post(this.api.BASEURL+"/searchpregaubystatus",{status:1});
+  getaudit(gaugeno,exitno,calibdate){
+    return this.http.post(this.api.BASEURL+"/searchpregaubystatus",{status:1,gaugeno:gaugeno,exitno:exitno,calibdate:calibdate});
   }
 }

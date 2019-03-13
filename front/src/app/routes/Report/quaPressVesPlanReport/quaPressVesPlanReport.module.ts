@@ -8,8 +8,7 @@ import {EssenceNg2PrintModule} from 'essence-ng2-print';
     QuaPressVesPlanReportComponent
   ],
   imports: [
-    SharedModule.forRoot(),
-    EssenceNg2PrintModule
+    SharedModule.forRoot()
   ],
   exports: [
     QuaPressVesPlanReportComponent

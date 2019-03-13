@@ -107,9 +107,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="heatcondi">热处理状态</nz-form-label>
         <nz-form-control>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选择产品编号"  formControlName="heatcondi" name="heatcondi" id="heatcondi">
-            <nz-option *ngFor="let option of heatcondis" [nzLabel]="option" [nzValue]="option"></nz-option>
-          </nz-select>
+          <input nz-input style="width: 100%" placeholder="请先选择产品编号"  formControlName="heatcondi" name="heatcondi" id="heatcondi"/>
         </nz-form-control>
       </nz-form-item>
     </div>

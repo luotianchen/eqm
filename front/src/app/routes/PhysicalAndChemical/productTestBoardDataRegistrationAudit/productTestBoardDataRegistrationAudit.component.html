@@ -10,50 +10,143 @@
   [nzPageSize]="20">
   <thead>
   <tr>
-    <th rowspan="2">提交人</th>
-    <th rowspan="2">提交时间</th>
-    <th rowspan="2">产品编号</th>
-    <th rowspan="2">试板标准</th>
-    <th rowspan="2">材料标准</th>
-    <th rowspan="2">牌号</th>
-    <th rowspan="2">抗拉强度</th>
-    <th rowspan="2">延长率</th>
-    <th rowspan="2">冲击温度</th>
-    <th colspan="6">冲击功</th>
-    <th rowspan="2">断裂位置</th>
-    <th rowspan="2">弯曲参数</th>
-    <th rowspan="2">弯曲直径</th>
-    <th rowspan="2">委托日期</th>
-    <th rowspan="2" nzWidth="100px" style="min-width: 100px;width: 100px;max-width: 100px">操作</th>
-  </tr>
-  <tr>
-    <th colspan="3" style="width: 50%">热处理区</th>
-    <th colspan="3" style="width: 50%">焊缝区</th>
+    <th nzShowExpand></th>
+    <th>提交人</th>
+    <th>提交时间</th>
+    <th>产品编号</th>
+    <th>试验编号</th>
+    <th>试样编号</th>
+    <th>试样类型</th>
+    <th>试样材质</th>
+    <th>试样规格</th>
+    <th>母材标准</th>
+    <th>评定标准</th>
+    <th>试验日期</th>
+    <th>缺口类型</th>
+    <th>冲击温度</th>
+    <th nzWidth="100px" style="min-width: 100px;width: 100px;max-width: 100px">操作</th>
   </tr>
   </thead>
   <tbody>
   <ng-template ngFor let-data [ngForOf]="nzTable.data">
     <tr>
+      <td nzShowExpand [(nzExpand)]="data.expand"></td>
       <td>{{data.user}}</td>
       <td>{{data.date}}</td>
       <td>{{data.prodno}}</td>
-      <td>{{data.testboardstand}}</td>
-      <td>{{data.matlstand}}</td>
-      <td>{{data.designation}}</td>
-      <td>{{data.rm}}</td>
-      <td>{{data.elong}}</td>
-      <td>{{data.impacttemp}}</td>
-      <td>{{data.impactpa1}}</td>
-      <td>{{data.impactpa2}}</td>
-      <td>{{data.impactpa3}}</td>
-      <td>{{data.impactpb1}}</td>
-      <td>{{data.impactpb2}}</td>
-      <td>{{data.impactpb3}}</td>
-      <td>{{data.fractposit}}({{data.efractposit}})</td>
-      <td>{{data.bendpara}}({{data.ebendpara}})</td>
-      <td>{{data.benddia}}</td>
-      <td>{{data.entrustdate}}</td>
+      <td>{{data.testno}}</td>
+      <td>{{data.specimenno}}</td>
+      <td>{{data.specimentype}}</td>
+      <td>{{data.specimenmatl}}</td>
+      <td>{{data.specimenspec}}</td>
+      <td>{{data.parentmatltand}}</td>
+      <td>{{data.judgestand}}</td>
+      <td>{{data.testdate}}</td>
+      <td>{{data.gapType}}</td>
+      <td>{{data.shocktemp}}</td>
       <td><a (click)="audit(data.prodno,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.prodno,2)">拒绝</a></td>
+    </tr>
+    <tr [nzExpand]="data.expand">
+      <td colspan="14">
+        <div nz-row nzGutter="16">
+          <div nz-col nzSpan="3">
+            A(mm):{{data.a}}
+          </div>
+          <div nz-col nzSpan="3">
+            B(mm):{{data.b}}
+          </div>
+          <div nz-col nzSpan="3">
+            So(mm²):{{data.so}}
+          </div>
+          <div nz-col nzSpan="3">
+            Fp0.2(KN):{{data.f02}}
+          </div>
+          <div nz-col nzSpan="3">
+            Fp1(KN):{{data.f1}}
+          </div>
+          <div nz-col nzSpan="3">
+            Rp0.2(Mpa):{{data.f02mpa}}
+          </div>
+          <div nz-col nzSpan="3">
+            Rp1(Mpa):{{data.f1mpa}}
+          </div>
+          <div nz-col nzSpan="3">
+            Fm(KN):{{data.fm}}
+          </div>
+          <div nz-col nzSpan="3">
+            Rm(KN):{{data.rm}}
+          </div>
+          <div nz-col nzSpan="3">
+            Lo(mm):{{data.lo}}
+          </div>
+          <div nz-col nzSpan="3">
+            lu(mm):{{data.lu}}
+          </div>
+          <div nz-col nzSpan="3">
+            A%:{{data.apercent}}
+          </div>
+          <div nz-col nzSpan="3">
+            断裂位置:{{data.fractposit}}
+          </div>
+          <div nz-col nzSpan="6">
+            硬度:{{data.hardness1}}{{data.hardness2}}{{data.hardness3}}
+          </div>
+          <div nz-col nzSpan="3">
+            弯曲角度°:{{data.bendangle}}
+          </div>
+          <div nz-col nzSpan="3">
+            弯曲直径°:{{data.bendaxdia}}
+          </div>
+          <div nz-col nzSpan="3">
+            面弯1（侧弯1）°:{{data.surfacebending1}}
+          </div>
+          <div nz-col nzSpan="3">
+            背弯1（侧弯2）:{{data.backbending1}}
+          </div>
+          <div nz-col nzSpan="3">
+            面弯2（侧弯3）:{{data.surfacebending2}}
+          </div>
+          <div nz-col nzSpan="3">
+            背弯2（侧弯4）:{{data.backbending2}}
+          </div>
+          <div nz-col nzSpan="3">
+            W1:{{data.w1}}
+          </div>
+          <div nz-col nzSpan="2">
+            LE（W1）:{{data.lew1}}
+          </div>
+          <div nz-col nzSpan="2">
+            W2:{{data.w2}}
+          </div>
+          <div nz-col nzSpan="2">
+            LE（W2）:{{data.lew2}}
+          </div>
+          <div nz-col nzSpan="2">
+            W3:{{data.w3}}
+          </div>
+          <div nz-col nzSpan="2">
+            LE（W3）:{{data.lew3}}
+          </div>
+          <div nz-col nzSpan="3">
+            H1:{{data.h1}}
+          </div>
+          <div nz-col nzSpan="2">
+            LE（H1）:{{data.leh1}}
+          </div>
+          <div nz-col nzSpan="2">
+            H2:{{data.h2}}
+          </div>
+          <div nz-col nzSpan="2">
+            LE（H2）:{{data.leh2}}
+          </div>
+          <div nz-col nzSpan="2">
+            H3:{{data.h3}}
+          </div>
+          <div nz-col nzSpan="2">
+            LE（H3）:{{data.leh3}}
+          </div>
+        </div>
+      </td>
     </tr>
   </ng-template>
   </tbody>

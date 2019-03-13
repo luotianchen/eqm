@@ -17,13 +17,7 @@ export class MenuService {
         });
     });
   }
-  getNavs(){
-    return new Promise((resolve, reject) => {
-      this.http.get('api/menu.json')
-        .subscribe(result => {
-          this.setting.setMenuStatus(true);
-          resolve(result);
-        });
-    });
+  getNavs = () =>{
+    return this.getMenu()
   }
 }

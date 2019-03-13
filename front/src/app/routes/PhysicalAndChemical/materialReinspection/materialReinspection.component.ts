@@ -296,7 +296,7 @@ export class  MaterialReinspectionComponent implements OnInit {
   }
 
   updateMaxMin(item){
-    this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+    this.validateForm.controls[item].setValidators([Validators.required]);
   }
 
   Number(num){
@@ -448,27 +448,46 @@ export class  MaterialReinspectionComponent implements OnInit {
 
   constructor(public materialReinspectionService: MaterialReinspectionService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
+  changeHardness(name){ //硬度校验
+    if(!this.validateForm.controls[name].value)
+      this.validateForm.controls[name].setErrors({required: true});
+    else if(!/^[0-9]+(.[0-9])?[/][0-9]+(.[0-9])?[/][0-9]+(.[0-9])?$/.test(this.validateForm.controls[name].value)){
+      this.validateForm.controls[name].setValue(null);
+      this.validateForm.controls[name].setErrors({partern: true, error: true});
+    }else{
+      let data = this.validateForm.controls[name].value.split('/');
+      for(let item of data){
+        if(parseFloat(item) > this.dataDetail[name].max || parseFloat(item) < this.dataDetail[name].min) {
+          this.validateForm.controls[name].setErrors({overflow: true, error: true});
+        }
+      }
+    }
+    let hardness = {
+      "hardness1":false,
+      "hardness2":false,
+      "hardness3":false
+    }
+    hardness[name] = true;
+    for(let item in hardness){
+      if(!hardness[item]){
+        this.validateForm.controls[item].setValidators([]);
+        this.validateForm.controls[item].setValue(null);
+      }
+      else
+        this.validateForm.controls[item].setValidators(Validators.required);
+    }
+  }
 
   //最大最小值检验
-  MaxMinAsyncValidator = (control: FormControl) => Observable.create((observer: Observer<ValidationErrors>) => {
-    setTimeout(() => {
-      let name:string;
-      for(let controlname in this.validateForm.controls){
-        if(this.validateForm.controls[controlname] == control)
-          name = controlname;
-      }
-      if(this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
-      if(this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
-      if (!control.value && control.value!==0) {
-        return { required: true };
-      } else if(control.value > (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || control.value <( Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))){
-        return { overflow: true, error: true };
-      }else {
-        observer.next(null);
-      }
-      observer.complete();
-    }, 1000);
-  })
+  MaxMinJudge(name){
+    if (this.dataDetail[name].max == null || this.dataDetail[name].max == 'null') this.dataDetail[name].max = 99999;
+    if (this.dataDetail[name].min == null || this.dataDetail[name].min == 'null') this.dataDetail[name].min = 0;
+    if (!this.validateForm.controls[name].value) {
+      this.validateForm.controls[name].setErrors({required: true})
+    } else if (this.validateForm.controls[name].value >  (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || this.validateForm.controls[name].value < (Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))) {
+      this.validateForm.controls[name].setErrors({overflow: true, error: true});
+    }
+  }
 
   submitForm(){
     for(const i in this.validateForm.controls){
@@ -549,7 +568,7 @@ export class  MaterialReinspectionComponent implements OnInit {
           for (let i =0;i<this.maxmin.length;i++){
             let item = this.maxmin[i];
             if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-              this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+              this.validateForm.controls[item].setValidators([Validators.required]);
             }else{
               this.validateForm.controls[item].setValidators([]);
             }
@@ -571,11 +590,10 @@ export class  MaterialReinspectionComponent implements OnInit {
               this.dataDetail = res['data'];
               this.dataDetail.status = true;
               this.deviation = this.dataDetail.deviation;
-              console.log(this.deviation);
               for (let i =0;i<this.maxmin.length;i++){
                 let item = this.maxmin[i];
                 if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                  this.validateForm.controls[item].setValidators([Validators.required]);
                 }else{
                   this.validateForm.controls[item].setValidators([]);
                 }

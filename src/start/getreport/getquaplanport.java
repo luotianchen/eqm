@@ -309,7 +309,7 @@ public class getquaplanport {                                               //åŽ
         ps1.setString(1,prodno);
         rs1 = ps1.executeQuery();
         if(rs1.next()){
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND status = 1");
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
             ps.setString(1,rs1.getString("dwgno"));
             rs = ps.executeQuery();
             if(rs.next()){

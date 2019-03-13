@@ -64,11 +64,11 @@ export class WarehousingRegistrationComponent implements OnInit {
     "rel2",
     "rm1",
     "rm2",
-    "elong1",
-    "elong2",
     "hardness1",
     "hardness2",
     "hardness3",
+    "elong1",
+    "elong2",
     "impactp1",
     "impactp2",
     "impactp3"
@@ -201,9 +201,6 @@ export class WarehousingRegistrationComponent implements OnInit {
       "max":null,
       "min":null
     },
-    "hardness1":null,//硬度
-    "hardness2":null,
-    "hardness3":null,
     "impactp1":{//冲击功
       "max":null,
       "min":null
@@ -216,29 +213,55 @@ export class WarehousingRegistrationComponent implements OnInit {
       "max":null,
       "min":null
     },
+    "hardness1":null,//硬度
+    "hardness2":null,
+    "hardness3":null,
     "impacttemp":null,//温度
     "note":null,
     "bendaxdia": null,//弯曲直径
     "utclass":null//UT级别
   };
 
+  changeHardness(name){ //硬度校验
+    if(!this.validateForm.controls[name].value)
+      this.validateForm.controls[name].setErrors({required: true});
+    else if(!/^[0-9]+(.[0-9])?[/][0-9]+(.[0-9])?[/][0-9]+(.[0-9])?$/.test(this.validateForm.controls[name].value)){
+      this.validateForm.controls[name].setValue(null);
+      this.validateForm.controls[name].setErrors({partern: true, error: true});
+    }else{
+      let data = this.validateForm.controls[name].value.split('/');
+      for(let item of data){
+        if(parseFloat(item) > this.dataDetail[name].max || parseFloat(item) < this.dataDetail[name].min) {
+          this.validateForm.controls[name].setErrors({overflow: true, error: true});
+        }
+      }
+    }
+    let hardness = {
+      "hardness1":false,
+      "hardness2":false,
+      "hardness3":false
+    }
+    hardness[name] = true;
+    for(let item in hardness){
+      if(!hardness[item]){
+        this.validateForm.controls[item].setValidators([]);
+        this.validateForm.controls[item].setValue(null);
+      }
+      else
+        this.validateForm.controls[item].setValidators(Validators.required);
+    }
+  }
+
   //最大最小值检验
-  MaxMinAsyncValidator = (control: FormControl) => Observable.create((observer: Observer<ValidationErrors>) => {
-    setTimeout(() => {
-      let name: string;
-      for (let controlname in this.validateForm.controls) {
-        if (this.validateForm.controls[controlname] == control)
-          name = controlname;
-      }
-      if (this.dataDetail[name].max == null) this.dataDetail[name].max = 99999;
-      if (this.dataDetail[name].min == null) this.dataDetail[name].min = 0;
-      if (!control.value && control.value !== 0) {
-        return {required: true};
-      } else if (control.value > this.dataDetail[name].max || control.value < this.dataDetail[name].min) {
-        return {overflow: true, error: true};
-      }
-    },1000)
-  })
+  MaxMinJudge(name){
+    if (this.dataDetail[name].max == null || this.dataDetail[name].max == 'null') this.dataDetail[name].max = 99999;
+    if (this.dataDetail[name].min == null || this.dataDetail[name].min == 'null') this.dataDetail[name].min = 0;
+    if (!this.validateForm.controls[name].value) {
+      this.validateForm.controls[name].setErrors({required: true})
+    } else if (this.validateForm.controls[name].value > this.dataDetail[name].max || this.validateForm.controls[name].value < this.dataDetail[name].min) {
+      this.validateForm.controls[name].setErrors({overflow: true, error: true});
+    }
+  }
 
   public notes = []; //备注选项
   public warrantynos = []; //质保书号选项
@@ -377,12 +400,13 @@ export class WarehousingRegistrationComponent implements OnInit {
           this.dataDetail = res['data'];
           this.dataDetail.status = true;
           this.notification.remove();
-          this.notification.blank('注意', this.dataDetail.note, {
-            nzDuration: 5000,
-            nzStyle: {
-              color: "red"
-            }
-          });
+          if(this.dataDetail.note)
+            this.notification.blank('注意', this.dataDetail.note, {
+              nzDuration: 5000,
+              nzStyle: {
+                color:"red"
+              }
+            });
           switch (this.dataDetail.utclass) {
             case 0:
               this.utclasses = ['/']
@@ -419,7 +443,9 @@ export class WarehousingRegistrationComponent implements OnInit {
           for (let i =0;i<this.maxmin.length;i++){
             let item = this.maxmin[i];
             if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-              this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+              if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+              if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
+              this.validateForm.controls[item].setValidators([Validators.required]);
             }else{
               this.validateForm.controls[item].setValidators([]);
             }
@@ -428,6 +454,8 @@ export class WarehousingRegistrationComponent implements OnInit {
             let item = this.direct[i];
             if (this.dataDetail[item] != null) {
               this.validateForm.controls[item].setValidators([Validators.required]);
+            }else{
+              this.validateForm.controls[item].setValidators([]);
             }
           }
           if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
@@ -442,12 +470,13 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.dataDetail = res['data'];
               this.dataDetail.status = true;
               this.notification.remove();
-              this.notification.blank('注意', this.dataDetail.note, {
-                nzDuration: 5000,
-                nzStyle: {
-                  color:"red"
-                }
-              });
+              if(this.dataDetail.note)
+                this.notification.blank('注意', this.dataDetail.note, {
+                  nzDuration: 5000,
+                  nzStyle: {
+                    color:"red"
+                  }
+                });
               switch(this.dataDetail.utclass){
                 case 0:
                   this.utclasses = ['/']
@@ -484,7 +513,9 @@ export class WarehousingRegistrationComponent implements OnInit {
               for (let i =0;i<this.maxmin.length;i++){
                 let item = this.maxmin[i];
                 if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                  this.validateForm.controls[item].setValidators([Validators.required]);
+                  if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                  if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
                 }else{
                   this.validateForm.controls[item].setValidators([]);
                 }
@@ -493,6 +524,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                 let item = this.direct[i];
                 if (this.dataDetail[item] != null) {
                   this.validateForm.controls[item].setValidators([Validators.required]);
+                }else{
+                  this.validateForm.controls[item].setValidators([]);
                 }
               }
               if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
@@ -722,12 +755,13 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.dataDetail = res1['data'];
               this.dataDetail.status = true;
               this.notification.remove();
-              this.notification.blank('注意', this.dataDetail.note, {
-                nzDuration: 0,
-                nzStyle: {
-                  color: "red"
-                }
-              });
+              if(this.dataDetail.note)
+                this.notification.blank('注意', this.dataDetail.note, {
+                  nzDuration: 5000,
+                  nzStyle: {
+                    color:"red"
+                  }
+                });
               switch (this.dataDetail.utclass) {
                 case 0:
                   this.utclasses = ['/']
@@ -764,7 +798,9 @@ export class WarehousingRegistrationComponent implements OnInit {
               for (let i =0;i<this.maxmin.length;i++){
                 let item = this.maxmin[i];
                 if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                  this.validateForm.controls[item].setValidators([Validators.required]);
+                  if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                  if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
                 }else{
                   this.validateForm.controls[item].setValidators([]);
                 }
@@ -773,6 +809,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                 let item = this.direct[i];
                 if (this.dataDetail[item] != null) {
                   this.validateForm.controls[item].setValidators([Validators.required]);
+                }else{
+                  this.validateForm.controls[item].setValidators([]);
                 }
               }
               if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
@@ -787,12 +825,13 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.dataDetail = res2['data'];
                   this.dataDetail.status = true;
                   this.notification.remove();
-                  this.notification.blank('注意', this.dataDetail.note, {
-                    nzDuration: 5000,
-                    nzStyle: {
-                      color:"red"
-                    }
-                  });
+                  if(this.dataDetail.note)
+                    this.notification.blank('注意', this.dataDetail.note, {
+                      nzDuration: 5000,
+                      nzStyle: {
+                        color:"red"
+                      }
+                    });
                   switch(this.dataDetail.utclass){
                     case 0:
                       this.utclasses = ['/']
@@ -829,7 +868,9 @@ export class WarehousingRegistrationComponent implements OnInit {
                   for (let i =0;i<this.maxmin.length;i++){
                     let item = this.maxmin[i];
                     if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                      this.validateForm.controls[item].setValidators([this.MaxMinAsyncValidator]);
+                      this.validateForm.controls[item].setValidators([Validators.required]);
+                      if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                      if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
                     }else{
                       this.validateForm.controls[item].setValidators([]);
                     }
@@ -838,6 +879,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                     let item = this.direct[i];
                     if (this.dataDetail[item] != null) {
                       this.validateForm.controls[item].setValidators([Validators.required]);
+                    }else{
+                      this.validateForm.controls[item].setValidators([]);
                     }
                   }
                   if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)//若热处理选项不包含已选项
@@ -868,7 +911,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       matlname:[null,[Validators.required]],
       warrantyno:[null],
       matlstand:[null,[Validators.required]],
-      modelstand:[null],
+      modelstand:['/'],
       supplier:[null],
       designation:[null,[Validators.required]],
       spec:[null],

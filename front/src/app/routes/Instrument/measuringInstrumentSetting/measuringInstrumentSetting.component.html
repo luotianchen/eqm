@@ -23,8 +23,16 @@
     <div nz-col nzSpan="8">
       <nz-form-item>
         <nz-form-label nzRequired nzFor="authorization_code">
-          授权码
+          授权码(<a nz-popover
+                nzTitle="如何获得授权码"
+                [nzContent]="contentTemplate">我如何获得邮箱授权码？</a>)
         </nz-form-label>
+        <ng-template #contentTemplate>
+          <p>第三方登陆访问邮箱需要授权码</p>
+          <a target="_blank" href="http://help.mail.163.com/faq.do?m=list&categoryID=197">网易邮箱（163、126、yeah）</a>|
+          <a target="_blank" href="https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=1001256">QQ邮箱/Foxmail</a>
+          <p>其它邮箱请以：邮箱地址/登陆密码的格式填写本项</p>
+        </ng-template>
         <nz-form-control nzHasFeedback>
           <textarea rows="4" nz-input formControlName="authorization_code" id="authorization_code" type="text" placeholder="授权码"></textarea>
           <nz-form-explain *ngIf="validateForm.get('authorization_code').dirty && validateForm.get('authorization_code').errors">

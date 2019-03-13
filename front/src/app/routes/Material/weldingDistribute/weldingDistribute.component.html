@@ -111,7 +111,12 @@
           {{data.spec}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.spec">
+          <input type="text" nz-input [(ngModel)]="editCache[data.key].data.spec" (input)="onSpecInput($event.target?.value)" (click)="onSpecInput($event.target?.value)" [nzAutocomplete]="specauto">
+          <nz-autocomplete nzBackfill #specauto>
+            <nz-auto-option *ngFor="let option of specs" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </ng-container>
       </td>
       <td>
@@ -131,7 +136,7 @@
           {{data.qty}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <nz-input-number style="width: 100%" [nzStep]="1" [(ngModel)]="editCache[data.key].data.qty"></nz-input-number>
+          <input nz-input [(ngModel)]="editCache[data.key].data.qty"/>
         </ng-container>
       </td>
       <td>
@@ -139,7 +144,7 @@
           {{data.returnqty}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <nz-input-number style="width: 100%" [nzStep]="1" [(ngModel)]="editCache[data.key].data.returnqty"></nz-input-number>
+          <input nz-input [(ngModel)]="editCache[data.key].data.returnqty"/>
         </ng-container>
       </td>
       <td>

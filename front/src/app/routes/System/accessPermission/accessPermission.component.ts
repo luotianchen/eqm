@@ -20,7 +20,7 @@ export class AccessPermissionComponent implements OnInit {
   rolemaps = {};
   roles = []
   mapOfExpandedData = {};
-
+  //0为任何人，1为超级管理员！！
   constructor(public fb: FormBuilder, public message: NzMessageService,
               public accessPermissionService: AccessPermissionService, public router: Router, public _storage: SessionStorageService, public   menuService: MenuService) {
     this.accessPermissionService.getroutepower().subscribe(res => {
@@ -45,7 +45,6 @@ export class AccessPermissionComponent implements OnInit {
             }
             this.dataSet = [...this.dataSet, {name: module.name, children: it, key: key++}];
           }
-          this.update();
           this.dataSet.forEach(item => {
             this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
           });
@@ -71,22 +70,6 @@ export class AccessPermissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  update(){
-    console.log(this.dataSet)
-    for(let module of this.dataSet){
-      for(let menu of module.children){
-        if(!menu.children)
-          menu.power = this.power[menu.name];
-        else {
-          for(let submenu of menu.children)
-            submenu.power = this.power[submenu.name]
-          menu.power = this.getLevel1Power(menu);
-        }
-      }
-      module.power = this.getLevel0Power(module);
-    }
   }
 
   collapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
@@ -128,24 +111,12 @@ export class AccessPermissionComponent implements OnInit {
       array.push(node);
     }
   }
-  getLevel1Power(menu){
-    let res = [];
-    if(!!menu.children)
-      for(let item of menu.children){
-        let powers = this.power[item.name];
-        if(!!powers)
-          for(let p of powers)
-            if(res.indexOf(p) == -1)
-              res.push(p)
-      }
-    return res;
-  }
-  getLevel0Power(menu){
+  getLevelPower(menu){
     let res = [];
     if(!!menu.children)
       for(let item of menu.children){
         let cache =[];
-        if(item.children) cache = this.getLevel1Power(item);
+        if(item.children) cache = this.getLevelPower(item);
         else cache = this.power[item.name];
         if(!!cache)
           for(let c of cache){
@@ -155,12 +126,14 @@ export class AccessPermissionComponent implements OnInit {
       }
     return res;
   }
-  check(item){
-    this.update();
-    if(item.power.length == 0){
-      item.power = [0];
-    }else if(item.power.indexOf(1)==-1 && item.power.indexOf(0)==-1){
-      item.power.push(1);
+  check(name){
+    if(this.power[name].length == 0 && this.power[name].indexOf(0)==-1){
+      this.power[name] = [0];
+    }else if(this.power[name].indexOf(1) == -1 && this.power[name].indexOf(0) == -1){
+      this.power[name].push(1);
     }
+  }
+  submitForm(){
+    console.log(JSON.stringify(this.power));
   }
 }

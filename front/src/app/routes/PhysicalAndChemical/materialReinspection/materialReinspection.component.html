@@ -54,7 +54,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="c">C%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="c" name="c" id="c" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['c'].max == 99999 ? '≥' + dataDetail['c'].min : dataDetail['c'].min + '≤' + 'C%' + '≤' +dataDetail['c'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="c" name="c" id="c" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['c'].max == 99999 ? '≥' + dataDetail['c'].min : dataDetail['c'].min + '≤' + 'C%' + '≤' +dataDetail['c'].max" (ngModelChange)="MaxMinJudge('c')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('c').dirty&&validateForm.get('c').errors">
                 <ng-container *ngIf="validateForm.get('c').hasError('required')">
                   C%不能为空
@@ -70,7 +70,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="si">Si%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="si" name="si" id="si" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['si'].max == 99999 ? '≥' + dataDetail['si'].min : dataDetail['si'].min + '≤' + 'Si%' + '≤' +dataDetail['si'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="si" name="si" id="si" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['si'].max == 99999 ? '≥' + dataDetail['si'].min : dataDetail['si'].min + '≤' + 'Si%' + '≤' +dataDetail['si'].max" (ngModelChange)="MaxMinJudge('si')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('si').dirty&&validateForm.get('si').errors">
                 <ng-container *ngIf="validateForm.get('si').hasError('required')">
                   Si%不能为空
@@ -86,7 +86,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="mn">Mn%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="mn" name="mn" id="mn" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['mn'].max == 99999 ? '≥' + dataDetail['mn'].min : dataDetail['mn'].min + '≤' + 'Mn%' + '≤' +dataDetail['mn'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="mn" name="mn" id="mn" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['mn'].max == 99999 ? '≥' + dataDetail['mn'].min : dataDetail['mn'].min + '≤' + 'Mn%' + '≤' +dataDetail['mn'].max" (ngModelChange)="MaxMinJudge('mn')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('mn').dirty&&validateForm.get('mn').errors">
                 <ng-container *ngIf="validateForm.get('mn').hasError('required')">
                   Mn%不能为空
@@ -102,7 +102,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="cu">Cu%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="cu" name="cu" id="cu" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['cu'].max == 99999 ? '≥' + dataDetail['cu'].min : dataDetail['cu'].min + '≤' + 'Cu%' + '≤' +dataDetail['cu'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="cu" name="cu" id="cu" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['cu'].max == 99999 ? '≥' + dataDetail['cu'].min : dataDetail['cu'].min + '≤' + 'Cu%' + '≤' +dataDetail['cu'].max" (ngModelChange)="MaxMinJudge('cu')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('cu').dirty&&validateForm.get('cu').errors">
                 <ng-container *ngIf="validateForm.get('cu').hasError('required')">
                   Cu%不能为空
@@ -118,7 +118,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="ni">Ni%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="ni" name="ni" id="ni" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['ni'].max == 99999 ? '≥' + dataDetail['ni'].min : dataDetail['ni'].min + '≤' + 'Ni%' + '≤' +dataDetail['ni'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="ni" name="ni" id="ni" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['ni'].max == 99999 ? '≥' + dataDetail['ni'].min : dataDetail['ni'].min + '≤' + 'Ni%' + '≤' +dataDetail['ni'].max" (ngModelChange)="MaxMinJudge('ni')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('ni').dirty&&validateForm.get('ni').errors">
                 <ng-container *ngIf="validateForm.get('ni').hasError('required')">
                   Ni%不能为空
@@ -134,7 +134,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="cr">Cr%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="cr" name="cr" id="cr" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['cr'].max == 99999 ? '≥' + dataDetail['cr'].min : dataDetail['cr'].min + '≤' + 'Cr%' + '≤' +dataDetail['cr'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="cr" name="cr" id="cr" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['cr'].max == 99999 ? '≥' + dataDetail['cr'].min : dataDetail['cr'].min + '≤' + 'Cr%' + '≤' +dataDetail['cr'].max" (ngModelChange)="MaxMinJudge('cr')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('cr').dirty&&validateForm.get('cr').errors">
                 <ng-container *ngIf="validateForm.get('cr').hasError('required')">
                   Cr%不能为空
@@ -150,7 +150,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="mo">Mo%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="mo" name="mo" id="mo" [nzStep]="0.001"[nzPlaceHolder]="dataDetail['mo'].max == 99999 ? '≥' + dataDetail['mo'].min : dataDetail['mo'].min + '≤' + 'Mo%' + '≤' +dataDetail['mo'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="mo" name="mo" id="mo" [nzStep]="0.001"[nzPlaceHolder]="dataDetail['mo'].max == 99999 ? '≥' + dataDetail['mo'].min : dataDetail['mo'].min + '≤' + 'Mo%' + '≤' +dataDetail['mo'].max" (ngModelChange)="MaxMinJudge('mo')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('mo').dirty&&validateForm.get('mo').errors">
                 <ng-container *ngIf="validateForm.get('mo').hasError('required')">
                   Mo%不能为空
@@ -166,7 +166,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="nb">Nb%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="nb" name="nb" id="nb" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['nb'].max == 99999 ? '≥' + dataDetail['nb'].min : dataDetail['nb'].min + '≤' + 'Nb%' + '≤' +dataDetail['nb'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="nb" name="nb" id="nb" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['nb'].max == 99999 ? '≥' + dataDetail['nb'].min : dataDetail['nb'].min + '≤' + 'Nb%' + '≤' +dataDetail['nb'].max" (ngModelChange)="MaxMinJudge('nb')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('nb').dirty&&validateForm.get('nb').errors">
                 <ng-container *ngIf="validateForm.get('nb').hasError('required')">
                   Nb%不能为空
@@ -182,7 +182,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="v">V%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="v" name="v" id="v" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['v'].max == 99999 ? '≥' + dataDetail['v'].min : dataDetail['v'].min + '≤' + 'V%' + '≤' +dataDetail['v'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="v" name="v" id="v" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['v'].max == 99999 ? '≥' + dataDetail['v'].min : dataDetail['v'].min + '≤' + 'V%' + '≤' +dataDetail['v'].max" (ngModelChange)="MaxMinJudge('v')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('v').dirty&&validateForm.get('v').errors">
                 <ng-container *ngIf="validateForm.get('v').hasError('required')">
                   V%不能为空
@@ -198,7 +198,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="ti">Ti%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="ti" name="ti" id="ti" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['ti'].max == 99999 ? '≥' + dataDetail['ti'].min : dataDetail['ti'].min + '≤' + 'Ti%' + '≤' +dataDetail['ti'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="ti" name="ti" id="ti" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['ti'].max == 99999 ? '≥' + dataDetail['ti'].min : dataDetail['ti'].min + '≤' + 'Ti%' + '≤' +dataDetail['ti'].max" (ngModelChange)="MaxMinJudge('ti')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('ti').dirty&&validateForm.get('ti').errors">
                 <ng-container *ngIf="validateForm.get('ti').hasError('required')">
                   Ti%不能为空
@@ -214,7 +214,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="als">ALs%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="als" name="als" id="als" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['als'].max == 99999 ? '≥' + dataDetail['als'].min : dataDetail['als'].min + '≤' + 'ALs%' + '≤' +dataDetail['als'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="als" name="als" id="als" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['als'].max == 99999 ? '≥' + dataDetail['als'].min : dataDetail['als'].min + '≤' + 'ALs%' + '≤' +dataDetail['als'].max" (ngModelChange)="MaxMinJudge('als')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('als').dirty&&validateForm.get('als').errors">
                 <ng-container *ngIf="validateForm.get('als').hasError('required')">
                   ALs%不能为空
@@ -230,7 +230,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="alt">ALt%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="alt" name="alt" id="alt" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['alt'].max == 99999 ? '≥' + dataDetail['alt'].min : dataDetail['alt'].min + '≤' + 'ALt%' + '≤' +dataDetail['alt'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="alt" name="alt" id="alt" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['alt'].max == 99999 ? '≥' + dataDetail['alt'].min : dataDetail['alt'].min + '≤' + 'ALt%' + '≤' +dataDetail['alt'].max" (ngModelChange)="MaxMinJudge('alt')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('alt').dirty&&validateForm.get('alt').errors">
                 <ng-container *ngIf="validateForm.get('alt').hasError('required')">
                   ALt%不能为空
@@ -246,7 +246,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="n">N%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="n" name="n" id="n" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['n'].max == 99999 ? '≥' + dataDetail['n'].min : dataDetail['n'].min + '≤' + 'N%' + '≤' +dataDetail['n'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="n" name="n" id="n" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['n'].max == 99999 ? '≥' + dataDetail['n'].min : dataDetail['n'].min + '≤' + 'N%' + '≤' +dataDetail['n'].max" (ngModelChange)="MaxMinJudge('n')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('n').dirty&&validateForm.get('n').errors">
                 <ng-container *ngIf="validateForm.get('n').hasError('required')">
                   N%不能为空
@@ -262,7 +262,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="fe">Fe%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="fe" name="fe" id="fe" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['fe'].max == 99999 ? '≥' + dataDetail['fe'].min : dataDetail['fe'].min + '≤' + 'Fe%' + '≤' +dataDetail['fe'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="fe" name="fe" id="fe" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['fe'].max == 99999 ? '≥' + dataDetail['fe'].min : dataDetail['fe'].min + '≤' + 'Fe%' + '≤' +dataDetail['fe'].max" (ngModelChange)="MaxMinJudge('fe')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('fe').dirty&&validateForm.get('fe').errors">
                 <ng-container *ngIf="validateForm.get('fe').hasError('required')">
                   Fe%不能为空
@@ -278,7 +278,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="mg">Mg%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="mg" name="mg" id="mg" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['mg'].max == 99999 ? '≥' + dataDetail['mg'].min : dataDetail['mg'].min + '≤' + 'Mg%' + '≤' +dataDetail['mg'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="mg" name="mg" id="mg" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['mg'].max == 99999 ? '≥' + dataDetail['mg'].min : dataDetail['mg'].min + '≤' + 'Mg%' + '≤' +dataDetail['mg'].max" (ngModelChange)="MaxMinJudge('mg')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('mg').dirty&&validateForm.get('mg').errors">
                 <ng-container *ngIf="validateForm.get('mg').hasError('required')">
                   Mg%不能为空
@@ -294,7 +294,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="zn">Zn%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="zn" name="zn" id="zn" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['zn'].max == 99999 ? '≥' + dataDetail['zn'].min : dataDetail['zn'].min + '≤' + 'Zn%' + '≤' +dataDetail['zn'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="zn" name="zn" id="zn" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['zn'].max == 99999 ? '≥' + dataDetail['zn'].min : dataDetail['zn'].min + '≤' + 'Zn%' + '≤' +dataDetail['zn'].max" (ngModelChange)="MaxMinJudge('zn')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('zn').dirty&&validateForm.get('zn').errors">
                 <ng-container *ngIf="validateForm.get('zn').hasError('required')">
                   Zn%不能为空
@@ -310,7 +310,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="b">B%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="b" name="b" id="b" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['b'].max == 99999 ? '≥' + dataDetail['b'].min : dataDetail['b'].min + '≤' + 'B%' + '≤' +dataDetail['b'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="b" name="b" id="b" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['b'].max == 99999 ? '≥' + dataDetail['b'].min : dataDetail['b'].min + '≤' + 'B%' + '≤' +dataDetail['b'].max" (ngModelChange)="MaxMinJudge('b')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('b').dirty&&validateForm.get('b').errors">
                 <ng-container *ngIf="validateForm.get('b').hasError('required')">
                   B%不能为空
@@ -326,7 +326,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="w">W%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="w" name="w" id="w" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['w'].max == 99999 ? '≥' + dataDetail['w'].min : dataDetail['w'].min + '≤' + 'W%' + '≤' +dataDetail['w'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="w" name="w" id="w" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['w'].max == 99999 ? '≥' + dataDetail['w'].min : dataDetail['w'].min + '≤' + 'W%' + '≤' +dataDetail['w'].max" (ngModelChange)="MaxMinJudge('w')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('w').dirty&&validateForm.get('w').errors">
                 <ng-container *ngIf="validateForm.get('w').hasError('required')">
                   W%不能为空
@@ -342,7 +342,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="sb">Sb%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="sb" name="sb" id="sb" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['sb'].max == 99999 ? '≥' + dataDetail['sb'].min : dataDetail['sb'].min + '≤' + 'Sb%' + '≤' +dataDetail['sb'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="sb" name="sb" id="sb" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['sb'].max == 99999 ? '≥' + dataDetail['sb'].min : dataDetail['sb'].min + '≤' + 'Sb%' + '≤' +dataDetail['sb'].max" (ngModelChange)="MaxMinJudge('sb')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('sb').dirty&&validateForm.get('sb').errors">
                 <ng-container *ngIf="validateForm.get('sb').hasError('required')">
                   Sb%不能为空
@@ -358,7 +358,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="al">Al%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="al" name="al" id="al" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['al'].max == 99999 ? '≥' + dataDetail['al'].min : dataDetail['al'].min + '≤' + 'Al%' + '≤' +dataDetail['al'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="al" name="al" id="al" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['al'].max == 99999 ? '≥' + dataDetail['al'].min : dataDetail['al'].min + '≤' + 'Al%' + '≤' +dataDetail['al'].max" (ngModelChange)="MaxMinJudge('al')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('al').dirty&&validateForm.get('al').errors">
                 <ng-container *ngIf="validateForm.get('al').hasError('required')">
                   Al%不能为空
@@ -374,7 +374,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="zr">Zr%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="zr" name="zr" id="zr" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['zr'].max == 99999 ? '≥' + dataDetail['zr'].min : dataDetail['zr'].min + '≤' + 'Zr%' + '≤' +dataDetail['zr'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="zr" name="zr" id="zr" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['zr'].max == 99999 ? '≥' + dataDetail['zr'].min : dataDetail['zr'].min + '≤' + 'Zr%' + '≤' +dataDetail['zr'].max" (ngModelChange)="MaxMinJudge('zr')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('zr').dirty&&validateForm.get('zr').errors">
                 <ng-container *ngIf="validateForm.get('zr').hasError('required')">
                   Zr%不能为空
@@ -390,7 +390,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="ca">Ca%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="ca" name="ca" id="ca" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['ca'].max == 99999 ? '≥' + dataDetail['ca'].min : dataDetail['ca'].min + '≤' + 'Ca%' + '≤' +dataDetail['ca'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="ca" name="ca" id="ca" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['ca'].max == 99999 ? '≥' + dataDetail['ca'].min : dataDetail['ca'].min + '≤' + 'Ca%' + '≤' +dataDetail['ca'].max" (ngModelChange)="MaxMinJudge('ca')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('ca').dirty&&validateForm.get('ca').errors">
                 <ng-container *ngIf="validateForm.get('ca').hasError('required')">
                   Ca%不能为空
@@ -406,7 +406,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="be">Be%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="be" name="be" id="be" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['be'].max == 99999 ? '≥' + dataDetail['be'].min : dataDetail['Be'].min + '≤' + 'be%' + '≤' +dataDetail['be'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="be" name="be" id="be" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['be'].max == 99999 ? '≥' + dataDetail['be'].min : dataDetail['Be'].min + '≤' + 'be%' + '≤' +dataDetail['be'].max" (ngModelChange)="MaxMinJudge('be')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('be').dirty&&validateForm.get('be').errors">
                 <ng-container *ngIf="validateForm.get('be').hasError('required')">
                   Be%不能为空
@@ -422,7 +422,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="p">P%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="p" name="p" id="p" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['p'].max == 99999 ? '≥' + dataDetail['p'].min : dataDetail['p'].min + '≤' + 'P%' + '≤' +dataDetail['p'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="p" name="p" id="p" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['p'].max == 99999 ? '≥' + dataDetail['p'].min : dataDetail['p'].min + '≤' + 'P%' + '≤' +dataDetail['p'].max" (ngModelChange)="MaxMinJudge('p')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('p').dirty&&validateForm.get('p').errors">
                 <ng-container *ngIf="validateForm.get('p').hasError('required')">
                   P%不能为空
@@ -438,7 +438,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="s">S%</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="s" name="s" id="s" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['s'].max == 99999 ? '≥' + dataDetail['s'].min : dataDetail['s'].min + '≤' + 'S%' + '≤' +dataDetail['s'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="s" name="s" id="s" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['s'].max == 99999 ? '≥' + dataDetail['s'].min : dataDetail['s'].min + '≤' + 'S%' + '≤' +dataDetail['s'].max" (ngModelChange)="MaxMinJudge('s')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('s').dirty&&validateForm.get('s').errors">
                 <ng-container *ngIf="validateForm.get('s').hasError('required')">
                   S%不能为空
@@ -457,7 +457,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="rel1">屈服强度1</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="rel1" name="rel1" id="rel1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel1'].max == 99999 ? '≥' + dataDetail['rel1'].min : dataDetail['rel1'].min + '≤' + 'rel1' + '≤' +dataDetail['rel1'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="rel1" name="rel1" id="rel1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel1'].max == 99999 ? '≥' + dataDetail['rel1'].min : dataDetail['rel1'].min + '≤' + 'rel1' + '≤' +dataDetail['rel1'].max" (ngModelChange)="MaxMinJudge('rel1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rel1').dirty&&validateForm.get('rel1').errors">
                 <ng-container *ngIf="validateForm.get('rel1').hasError('required')">
                   屈服强度1不能为空
@@ -473,7 +473,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="rel2"> </nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="rel2" name="rel2" id="rel2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel2'].max == 99999 ? '≥' + dataDetail['rel2'].min : dataDetail['rel2'].min + '≤' + 'rel2' + '≤' +dataDetail['rel2'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="rel2" name="rel2" id="rel2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel2'].max == 99999 ? '≥' + dataDetail['rel2'].min : dataDetail['rel2'].min + '≤' + 'rel2' + '≤' +dataDetail['rel2'].max" (ngModelChange)="MaxMinJudge('rel2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rel2').dirty&&validateForm.get('rel2').errors">
                 <ng-container *ngIf="validateForm.get('rel2').hasError('required')">
                   屈服强度2不能为空
@@ -489,7 +489,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="rm1">抗拉强度1</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="rm1" name="rm1" id="rm1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm1'].max == 99999 ? '≥' + dataDetail['rm1'].min : dataDetail['rm1'].min + '≤' + 'rm1' + '≤' +dataDetail['rm1'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="rm1" name="rm1" id="rm1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm1'].max == 99999 ? '≥' + dataDetail['rm1'].min : dataDetail['rm1'].min + '≤' + 'rm1' + '≤' +dataDetail['rm1'].max" (ngModelChange)="MaxMinJudge('rm1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rm1').dirty&&validateForm.get('rm1').errors">
                 <ng-container *ngIf="validateForm.get('rm1').hasError('required')">
                   抗拉强度1不能为空
@@ -505,7 +505,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="rm2"> </nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="rm2" name="rm2" id="rm2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm2'].max == 99999 ? '≥' + dataDetail['rm2'].min : dataDetail['rm2'].min + '≤' + 'rm2' + '≤' +dataDetail['rm2'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="rm2" name="rm2" id="rm2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm2'].max == 99999 ? '≥' + dataDetail['rm2'].min : dataDetail['rm2'].min + '≤' + 'rm2' + '≤' +dataDetail['rm2'].max" (ngModelChange)="MaxMinJudge('rm2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rm2').dirty&&validateForm.get('rm2').errors">
                 <ng-container *ngIf="validateForm.get('rm2').hasError('required')">
                   抗拉强度2不能为空
@@ -521,7 +521,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="elong1">延长率1</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="elong1" name="elong1" id="elong1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['elong1'].max == 99999 ? '≥' + dataDetail['elong1'].min : dataDetail['elong1'].min + '≤' + '延长率1' + '≤' +dataDetail['elong1'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="elong1" name="elong1" id="elong1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['elong1'].max == 99999 ? '≥' + dataDetail['elong1'].min : dataDetail['elong1'].min + '≤' + '延长率1' + '≤' +dataDetail['elong1'].max" (ngModelChange)="MaxMinJudge('elong1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('elong1').dirty&&validateForm.get('elong1').errors">
                 <ng-container *ngIf="validateForm.get('elong1').hasError('required')">
                   延长率1不能为空
@@ -537,7 +537,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="elong2">延长率2</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="elong2" name="elong2" id="elong2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['elong2'].max == 99999 ? '≥' + dataDetail['elong2'].min : dataDetail['elong2'].min + '≤' + '延长率2' + '≤' +dataDetail['elong2'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="elong2" name="elong2" id="elong2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['elong2'].max == 99999 ? '≥' + dataDetail['elong2'].min : dataDetail['elong2'].min + '≤' + '延长率2' + '≤' +dataDetail['elong2'].max" (ngModelChange)="MaxMinJudge('elong2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('elong2').dirty&&validateForm.get('elong2').errors">
                 <ng-container *ngIf="validateForm.get('elong2').hasError('required')">
                   延长率2不能为空
@@ -551,15 +551,18 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['hardness1'].max!==null||dataDetail['hardness1'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="hardness1">硬度1</nz-form-label>
+            <nz-form-label nzRequired nzFor="hardness1">硬度(HRB)(d/d/d)</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness1'].max == 99999 ? '≥' + dataDetail['hardness1'].min : dataDetail['hardness1'].min + '≤' + '硬度1' + '≤' +dataDetail['hardness1'].max"></nz-input-number>
+              <input nz-input style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [placeholder]="dataDetail['hardness1'].max == 99999 ? '≥' + dataDetail['hardness1'].min : dataDetail['hardness1'].min + '≤' + 'HRB' + '≤' +dataDetail['hardness1'].max" (change)="changeHardness('hardness1')"/>
               <nz-form-explain *ngIf="validateForm.get('hardness1').dirty&&validateForm.get('hardness1').errors">
                 <ng-container *ngIf="validateForm.get('hardness1').hasError('required')">
-                  硬度1不能为空
+                  硬度HRB不能为空
                 </ng-container>
                 <ng-container *ngIf="validateForm.get('hardness1').hasError('overflow')">
                   输入值超出范围！
+                </ng-container>
+                <ng-container *ngIf="validateForm.get('hardness1').hasError('partern')">
+                  输入格式不正确(d/d/d)
                 </ng-container>
               </nz-form-explain>
             </nz-form-control>
@@ -567,15 +570,18 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['hardness2'].max!==null||dataDetail['hardness2'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="hardness2">硬度2</nz-form-label>
+            <nz-form-label nzRequired nzFor="hardness2">硬度(HRW)(d/d/d)</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness2'].max == 99999 ? '≥' + dataDetail['hardness2'].min : dataDetail['hardness2'].min + '≤' + '硬度2' + '≤' +dataDetail['hardness2'].max"></nz-input-number>
+              <input nz-input style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [placeholder]="dataDetail['hardness2'].max == 99999 ? '≥' + dataDetail['hardness2'].min : dataDetail['hardness2'].min + '≤' + 'HRW' + '≤' +dataDetail['hardness2'].max" (change)="changeHardness('hardness2')"/>
               <nz-form-explain *ngIf="validateForm.get('hardness2').dirty&&validateForm.get('hardness2').errors">
                 <ng-container *ngIf="validateForm.get('hardness2').hasError('required')">
-                  硬度2不能为空
+                  硬度(HRW)不能为空
                 </ng-container>
                 <ng-container *ngIf="validateForm.get('hardness2').hasError('overflow')">
                   输入值超出范围！
+                </ng-container>
+                <ng-container *ngIf="validateForm.get('hardness2').hasError('partern')">
+                  输入格式不正确(d/d/d)
                 </ng-container>
               </nz-form-explain>
             </nz-form-control>
@@ -583,15 +589,18 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['hardness3'].max!==null||dataDetail['hardness3'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="hardness3">硬度3</nz-form-label>
+            <nz-form-label nzRequired nzFor="hardness3">硬度(HV)(d/d/d)</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="hardness3" name="hardness3" id="hardness3" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['hardness3'].max == 99999 ? '≥' + dataDetail['hardness3'].min : dataDetail['hardness3'].min + '≤' + '硬度3' + '≤' +dataDetail['hardness3'].max"></nz-input-number>
+              <input nz-input style="width: 100%" formControlName="hardness3" name="hardness3" id="hardness3" [placeholder]="dataDetail['hardness3'].max == 99999 ? '≥' + dataDetail['hardness3'].min : dataDetail['hardness3'].min + '≤' + 'HV' + '≤' +dataDetail['hardness3'].max" (change)="changeHardness('hardness3')"/>
               <nz-form-explain *ngIf="validateForm.get('hardness3').dirty&&validateForm.get('hardness3').errors">
                 <ng-container *ngIf="validateForm.get('hardness3').hasError('required')">
-                  硬度3不能为空
+                  硬度(HV)不能为空
                 </ng-container>
                 <ng-container *ngIf="validateForm.get('hardness3').hasError('overflow')">
                   输入值超出范围！
+                </ng-container>
+                <ng-container *ngIf="validateForm.get('hardness3').hasError('partern')">
+                  输入格式不正确(d/d/d)
                 </ng-container>
               </nz-form-explain>
             </nz-form-control>
@@ -601,7 +610,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="impactp1">冲击功1</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="impactp1" name="impactp1" id="impactp1" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp1'].max == 99999 ? '≥' + dataDetail['impactp1'].min : dataDetail['impactp1'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp1'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="impactp1" name="impactp1" id="impactp1" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp1'].max == 99999 ? '≥' + dataDetail['impactp1'].min : dataDetail['impactp1'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp1'].max" (ngModelChange)="MaxMinJudge('impactp1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('impactp1').dirty&&validateForm.get('impactp1').errors">
                 <ng-container *ngIf="validateForm.get('impactp1').hasError('required')">
                   冲击功1不能为空
@@ -617,7 +626,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="impactp2">冲击功2</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="impactp2" name="impactp2" id="impactp2" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp2'].max == 99999 ? '≥' + dataDetail['impactp2'].min : dataDetail['impactp2'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp2'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="impactp2" name="impactp2" id="impactp2" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp2'].max == 99999 ? '≥' + dataDetail['impactp2'].min : dataDetail['impactp2'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp2'].max" (ngModelChange)="MaxMinJudge('impactp2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('impactp2').dirty&&validateForm.get('impactp2').errors">
                 <ng-container *ngIf="validateForm.get('impactp2').hasError('required')">
                   冲击功2不能为空
@@ -633,7 +642,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="impactp3">冲击功3</nz-form-label>
             <nz-form-control nzHasFeedback>
-              <nz-input-number style="width: 100%" formControlName="impactp3" name="impactp3" id="impactp3" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp3'].max == 99999 ? '≥' + dataDetail['impactp3'].min : dataDetail['impactp3'].min + '≤' + '冲击功3' + '≤' +dataDetail['impactp3'].max"></nz-input-number>
+              <nz-input-number style="width: 100%" formControlName="impactp3" name="impactp3" id="impactp3" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp3'].max == 99999 ? '≥' + dataDetail['impactp3'].min : dataDetail['impactp3'].min + '≤' + '冲击功3' + '≤' +dataDetail['impactp3'].max" (ngModelChange)="MaxMinJudge('impactp3')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('impactp3').dirty&&validateForm.get('impactp3').errors">
                 <ng-container *ngIf="validateForm.get('impactp3').hasError('required')">
                   冲击功3不能为空
@@ -645,25 +654,25 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-    <div nz-col nzSpan="4"  *ngIf="dataDetail['impacttemp']!=null">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="impacttemp">冲击温度</nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <nz-input-number style="width: 100%" formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="dataDetail['impacttemp']==null?99999:dataDetail['impacttemp']" [nzPlaceHolder]="'≤'+dataDetail['impacttemp']"></nz-input-number>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4"  *ngIf="dataDetail['bendaxdia']!=null">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <input placeholder="≤{{this.dataDetail.bendaxdia}}" nz-input formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" (blur)="judgeBendaxdia()">
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-  </div>
-  <div style="text-align:center;margin-top: 20px">
-    <button nz-button nzType="primary" (click)="submitForm()">提交</button>
-  </div>
+        <div nz-col nzSpan="4"  *ngIf="dataDetail['impacttemp']!=null">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="impacttemp">冲击温度</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <nz-input-number style="width: 100%" formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="dataDetail['impacttemp']==null?99999:dataDetail['impacttemp']" [nzPlaceHolder]="'≤'+dataDetail['impacttemp']"></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="4"  *ngIf="dataDetail['bendaxdia']!=null">
+          <nz-form-item>
+            <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input placeholder="≤{{this.dataDetail.bendaxdia}}" nz-input formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" (blur)="judgeBendaxdia()">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top: 20px">
+        <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+      </div>
     </div>
 </form>

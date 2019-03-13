@@ -378,26 +378,6 @@
       ]
     },
     {
-      "name":"设计数据管理",
-      "data":[
-        {
-          "icon": "laptop",
-          "name": "首页",
-          "route": "/dashboard"
-        },
-        {
-          "icon" : "laptop",
-          "name" : "设计参数输入",
-          "route" : "/design/input"
-        },
-        {
-          "icon" : "laptop",
-          "name" : "设计参数审核",
-          "route" : "/design/audit"
-        }
-      ]
-    },
-    {
       "name": "设备管理",
       "data": [
         {
@@ -430,6 +410,26 @@
           "icon": "laptop",
           "name": "设备计量台帐邮箱设置",
           "route": "/instrument/measuringInstrumentSetting"
+        }
+      ]
+    },
+    {
+      "name":"设计数据管理",
+      "data":[
+        {
+          "icon": "laptop",
+          "name": "首页",
+          "route": "/dashboard"
+        },
+        {
+          "icon" : "laptop",
+          "name" : "设计参数输入",
+          "route" : "/design/input"
+        },
+        {
+          "icon" : "laptop",
+          "name" : "设计参数审核",
+          "route" : "/design/audit"
         }
       ]
     },

@@ -2,7 +2,7 @@
   <h3 class="title">访问权限管理</h3>
 </div>
 <nz-divider></nz-divider>
-<nz-table #expandTable [nzData]="dataSet" nzBordered [nzShowPagination]="false">
+<nz-table #expandTable [(nzData)]="dataSet" nzBordered [nzShowPagination]="false">
   <thead>
   <tr>
     <th nzWidth="40%">名称</th>
@@ -23,12 +23,12 @@
         </td>
         <td>
           <span *ngIf="item.children">
-            <span *ngFor="let menu of item.power">
+            <span *ngFor="let menu of getLevelPower(item)">
               {{rolemaps[menu]}}
             </span>
           </span>
           <span *ngIf="!item.children">
-            <nz-select style="width: 100%" nzMode="multiple" nzPlaceHolder="请选择" [ngModel]="item.power" (ngModelChange)="check(item)">
+            <nz-select style="width: 100%" nzMode="multiple" nzPlaceHolder="请选择" [(ngModel)]="power[item.name]" (ngModelChange)="check(item.name)">
               <nz-option *ngFor="let option of roles" [nzLabel]="option.rolename" [nzValue]="option.role"></nz-option>
             </nz-select>
           </span>
@@ -39,5 +39,5 @@
   </tbody>
 </nz-table>
 <div style="text-align: center;margin-top: 20px">
-  <button nz-button nzType="primary">保存</button>
+  <button nz-button nzType="primary" (click)="submitForm()">保存</button>
 </div>

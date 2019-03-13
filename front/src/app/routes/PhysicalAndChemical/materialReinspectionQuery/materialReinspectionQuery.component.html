@@ -1,6 +1,26 @@
 <div>
   <h3 class="title">材料复验申请查询</h3>
 </div>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="year">年份</nz-form-label>
+        <nz-form-control [nzSm]="14">
+          <input nz-input formControlName="year" name="year" placeholder="请输入年份" type="text" id="year">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <div nz-col nzSpan="8">
+        <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+      </div>
+      <div nz-col nzSpan="8">
+        <button nz-button (click)="resetForm()">重置</button>
+      </div>
+    </div>
+  </div>
+</form>
 <nz-divider></nz-divider>
 <nz-table
   #nzTable
