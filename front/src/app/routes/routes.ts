@@ -73,7 +73,7 @@ import {WaterQualityDetectionInputComponent} from "./PhysicalAndChemical/waterQu
 import {AccessPermissionComponent} from "./System/accessPermission/accessPermission.component";
 
 export const routes: Routes = [
-  {path: 'login', component: LoginComponent, canLoad: [CanAuthProvide]},
+  {path: 'login', component: LoginComponent},
   {
     path: '', component: HomeComponent, canActivate: [CanAuthProvide],
     children: [

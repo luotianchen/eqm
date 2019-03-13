@@ -68,6 +68,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginService.getroutepower().subscribe(res=>{
+      if(res['result'] == "success"){
+        this._storage.set('powermap',res['data'])
+      }
+    })
     if(this._storage.get('username')!=null){
       this.router.navigate(['']);
     }
