@@ -30,15 +30,32 @@ public class searchpregaubystatus {                                         //æŸ
         liststring ls = new liststring();
 
         String sql = "SELECT * FROM pregaumeatable WHERE status = ?";
+        int num = 1;
 
         try {
             if(!(sp.getGaugeno() == null || sp.getGaugeno().equals(""))){
                 sql = sql + " AND gaugeno = ?";
             }
+            if(!(sp.getExitno() == null || sp.getExitno().equals(""))){
+                sql = sql + " AND exitno = ?";
+            }
+            if(!(sp.getCalibdate() == null || sp.getCalibdate().equals(""))){
+                sql = sql + " AND calibdate < ?";
+            }
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,sp.getStatus());
+            ps.setInt(num,sp.getStatus());
+            num = num+1;
             if(!(sp.getGaugeno() == null || sp.getGaugeno().equals(""))){
-                ps.setString(2,sp.getGaugeno());
+                ps.setString(num,sp.getGaugeno());
+                num = num+1;
+            }
+            if(!(sp.getExitno() == null || sp.getExitno().equals(""))){
+                ps.setString(num,sp.getExitno());
+                num = num+1;
+            }
+            if(!(sp.getCalibdate() == null || sp.getCalibdate().equals(""))){
+                ps.setString(num,sp.getCalibdate());
+                num = num+1;
             }
             rs = ps.executeQuery();
             while (rs.next()){

@@ -8,6 +8,7 @@ public class loginresult {                                                   //�
     private String role3;                                   //角色(权限)的name
     private String role4;                                   //角色(权限)的name
     private String role5;                                   //角色(权限)的name
+    private String roles;
     private String name;                            //用户真实姓名
     public loginresult(){
         super();
@@ -75,5 +76,13 @@ public class loginresult {                                                   //�
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
