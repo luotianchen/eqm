@@ -27,6 +27,7 @@ public class getroutepower {                                    //获取页面�
             }
             rs.close();
             ps.close();
+            result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
         }
