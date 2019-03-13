@@ -414,17 +414,23 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.validateForm.controls['utclass'].disable();
               break;
             case 1 :
+              this.validateForm.controls['utclass'].setValue(null);
+              this.validateForm.controls['utclass'].enable();
               this.utclasses = [
                 "I"
               ];
               break;
             case 2 :
+              this.validateForm.controls['utclass'].setValue(null);
+              this.validateForm.controls['utclass'].enable();
               this.utclasses = [
                 "I",
                 "II"
               ];
               break;
             case 3 :
+              this.validateForm.controls['utclass'].setValue(null);
+              this.validateForm.controls['utclass'].enable();
               this.utclasses = [
                 "I",
                 "II",
@@ -432,6 +438,8 @@ export class WarehousingRegistrationComponent implements OnInit {
               ];
               break;
             case 4 :
+              this.validateForm.controls['utclass'].setValue(null);
+              this.validateForm.controls['utclass'].enable();
               this.utclasses = [
                 "I",
                 "II",
@@ -484,17 +492,23 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.validateForm.controls['utclass'].disable();
                   break;
                 case 1 :
+                  this.validateForm.controls['utclass'].setValue(null);
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I"
                   ];
                   break;
                 case 2 :
+                  this.validateForm.controls['utclass'].setValue(null);
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I",
                     "II"
                   ];
                   break;
                 case 3 :
+                  this.validateForm.controls['utclass'].setValue(null);
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I",
                     "II",
@@ -502,6 +516,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                   ];
                   break;
                 case 4 :
+                  this.validateForm.controls['utclass'].setValue(null);
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I",
                     "II",
@@ -839,17 +855,23 @@ export class WarehousingRegistrationComponent implements OnInit {
                       this.validateForm.controls['utclass'].disable();
                       break;
                     case 1 :
+                      this.validateForm.controls['utclass'].setValue(null);
+                      this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I"
                       ];
                       break;
                     case 2 :
+                      this.validateForm.controls['utclass'].setValue(null);
+                      this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I",
                         "II"
                       ];
                       break;
                     case 3 :
+                      this.validateForm.controls['utclass'].setValue(null);
+                      this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I",
                         "II",
@@ -857,6 +879,8 @@ export class WarehousingRegistrationComponent implements OnInit {
                       ];
                       break;
                     case 4 :
+                      this.validateForm.controls['utclass'].setValue(null);
+                      this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I",
                         "II",

@@ -7,10 +7,14 @@ import {ApiService} from "../../../core/api/api.service";
 export class ProductTestBoardDataRegistrationQueryService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
-  getAudit(){
+  getprodno(){
+    return this.http.get(this.api.BASEURL+"/getprodno");
+  }
+  getAudit(prodno,year){
     return this.http.post(this.api.BASEURL+'/searchproductplatedata',{
-      prodno:null,
-      status:1
+      status:1,
+      prodno:prodno,
+      year:year
     })
   }
 }

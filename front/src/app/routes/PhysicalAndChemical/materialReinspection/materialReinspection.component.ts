@@ -569,6 +569,8 @@ export class  MaterialReinspectionComponent implements OnInit {
             let item = this.maxmin[i];
             if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
               this.validateForm.controls[item].setValidators([Validators.required]);
+              if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+              if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
             }else{
               this.validateForm.controls[item].setValidators([]);
             }
@@ -594,6 +596,8 @@ export class  MaterialReinspectionComponent implements OnInit {
                 let item = this.maxmin[i];
                 if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
                   this.validateForm.controls[item].setValidators([Validators.required]);
+                  if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                  if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
                 }else{
                   this.validateForm.controls[item].setValidators([]);
                 }

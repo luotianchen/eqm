@@ -22,7 +22,7 @@ export class AccessPermissionComponent implements OnInit {
   mapOfExpandedData = {};
   //0为任何人，1为超级管理员！！
   constructor(public fb: FormBuilder, public message: NzMessageService,
-              public accessPermissionService: AccessPermissionService, public router: Router, public _storage: SessionStorageService, public   menuService: MenuService) {
+              public accessPermissionService: AccessPermissionService, public router: Router, public _storage: SessionStorageService, public   menuService: MenuService,public msg:NzMessageService) {
     this.accessPermissionService.getroutepower().subscribe(res => {
       if(res['result'] == "success"){
         this.power = JSON.parse(res['data']);
@@ -34,13 +34,13 @@ export class AccessPermissionComponent implements OnInit {
             let it = [];
             for (menuitem of module.data) {
               if (!menuitem.submenu)
-                it = [...it,{name: menuitem.name,icon:menuitem.icon, key: key++}];
+                it = [...it,{name: menuitem.name,route:menuitem.route.slice(1), key: key++}];
               else {
                 let submenus = [];
                 for (let submenu of menuitem.submenu) {
-                  submenus = [...submenus,{name: submenu['name'],icon:submenu['icon'], key: key++}];
+                  submenus = [...submenus,{name: submenu['name'],route:submenu['route'].slice(1), key: key++}];
                 }
-                it = [...it,{name: menuitem.name,icon:menuitem.icon, children: submenus, key: key++}];
+                it = [...it,{name: menuitem.name, children: submenus, key: key++}];
               }
             }
             this.dataSet = [...this.dataSet, {name: module.name, children: it, key: key++}];
@@ -117,7 +117,7 @@ export class AccessPermissionComponent implements OnInit {
       for(let item of menu.children){
         let cache =[];
         if(item.children) cache = this.getLevelPower(item);
-        else cache = this.power[item.name];
+        else cache = this.power[item.route];
         if(!!cache)
           for(let c of cache){
             if(res.indexOf(c)==-1)
@@ -126,14 +126,18 @@ export class AccessPermissionComponent implements OnInit {
       }
     return res;
   }
-  check(name){
-    if(this.power[name].length == 0 && this.power[name].indexOf(0)==-1){
-      this.power[name] = [0];
-    }else if(this.power[name].indexOf(1) == -1 && this.power[name].indexOf(0) == -1){
-      this.power[name].push(1);
+  check(route){
+    if(this.power[route].length == 0 && this.power[route].indexOf(0)==-1){
+      this.power[route] = [0];
+    }else if(this.power[route].indexOf(1) == -1 && this.power[route].indexOf(0) == -1){
+      this.power[route].push(1);
     }
   }
   submitForm(){
-    console.log(JSON.stringify(this.power));
+    this.accessPermissionService.putroutepower(JSON.stringify(this.power).replace(/\"/g,"\\\"")).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.msg.success("保存成功!")
+      }
+    })
   }
 }

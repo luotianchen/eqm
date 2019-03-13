@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
             this._storage.set('role4', res['role4']);
           if(res['role5']!=null)
             this._storage.set('role5', res['role5']);
+          if(res['roles']!=null)
+            this._storage.set('roles', res['roles']);
           if(res['email']!=null)
             this._storage.set('email', res['email']);
           this.router.navigate(['']);

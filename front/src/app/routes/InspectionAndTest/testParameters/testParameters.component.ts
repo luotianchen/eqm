@@ -149,8 +149,8 @@ export class TestParametersComponent implements OnInit {
   }
   link = 0;
   checklink(){
-    if(this.validateForm.value.prodno!=null) {
-      this.testParametersService.check(this.validateForm.value.prodno).subscribe(res=>{
+    if(this.validateForm.controls['prodno'].value!=null) {
+      this.testParametersService.check(this.validateForm.controls['prodno'].value).subscribe(res=>{
         if(res['result'] == "success"){
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
           this.validateForm.controls['dwgno'].disable();
@@ -172,7 +172,7 @@ export class TestParametersComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.testParametersService.getchannel(this.validateForm.controls['dwgno'].value).subscribe((res)=>{
-        this.channel = res["data"].reverse();
+        this.channel = res["data"];
         this.channelForms = [];
         for(let data of this.channel){ //对于每个通道设置一个表单
           let fbb :FormGroup;
@@ -260,10 +260,10 @@ export class TestParametersComponent implements OnInit {
               }
             }
           };
-          this.testParametersService.gettestpressurebyprodnoanddwgno(this.validateForm.value.prodno,this.validateForm.controls['dwgno'].value,data.name).subscribe((res)=>{ //获取基础数据
+          this.testParametersService.gettestpressurebyprodnoanddwgno(this.validateForm.controls['prodno'].value,this.validateForm.controls['dwgno'].value,data.name).subscribe((res)=>{ //获取基础数据
             if(res['result']=="success"){
               fbb = this.fb.group({//初始化数据
-                prodno:[this.validateForm.value.prodno, [Validators.required]],
+                prodno:[this.validateForm.controls['prodno'].value, [Validators.required]],
                 dwgno:[this.validateForm.controls['dwgno'].value, [Validators.required]],
                 ppart:[data.name, [Validators.required]],
                 eppart:[data.ename, [Validators.required]],
@@ -276,14 +276,14 @@ export class TestParametersComponent implements OnInit {
               });
               console.log(fbb.value)
               fbb.controls['testmedia'].disable();
-              if(fbb.value.dated1) fbb.controls['dated1'].disable(); //若日期已提交，则日期不可修改
-              if(fbb.value.dated2) fbb.controls['dated2'].disable();
-              if(fbb.value.dated3) fbb.controls['dated3'].disable();
+              if(fbb.controls['dated1'].value) fbb.controls['dated1'].disable(); //若日期已提交，则日期不可修改
+              if(fbb.controls['dated2'].value) fbb.controls['dated2'].disable();
+              if(fbb.controls['dated3']) fbb.controls['dated3'].disable();
               if (data.leaktest!="/")
                 model.leaktest = true;
               else
                 model.leaktest = false;
-              this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated1').subscribe((res)=> {
+              this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'],data.name,'dated1').subscribe((res)=> {
                 if (res['result'] == "success") {
                   model.dated1.status = 2;
                   model.dated1.press = res['data']['press'];
@@ -294,7 +294,7 @@ export class TestParametersComponent implements OnInit {
                     model.dated1.leak['leaktestp'] = data.leaktestp;
                     model.dated1.leak['ppart'] = data.name;
                   }
-                  this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated2').subscribe((res)=>{
+                  this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'],data.name,'dated2').subscribe((res)=>{
                     if(res['result']=="success"){
                       model.dated2.status = 2;
                       model.dated2.press = res['data']['press'];
@@ -305,7 +305,7 @@ export class TestParametersComponent implements OnInit {
                         model.dated2.leak['leaktestp'] = data.leaktestp;
                         model.dated2.leak['ppart'] = data.name;
                       }
-                      this.testParametersService.getPressandLeak(this.validateForm.value.prodno,data.name,'dated3').subscribe((res)=>{
+                      this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'],data.name,'dated3').subscribe((res)=>{
                         if(res['result']=="success") {
                           model.dated3.status = 2;
                           model.dated3.press = res['data']['press'];
@@ -334,7 +334,7 @@ export class TestParametersComponent implements OnInit {
               })
             }else{
               fbb = this.fb.group({//初始化数据
-                prodno:[this.validateForm.value.prodno, [Validators.required]],
+                prodno:[this.validateForm.controls['prodno'], [Validators.required]],
                 dwgno:[this.validateForm.controls['dwgno'].value, [Validators.required]],
                 ppart:[data.name, [Validators.required]],
                 eppart:[data.ename, [Validators.required]],
@@ -380,18 +380,18 @@ export class TestParametersComponent implements OnInit {
       form.controls[ i ].updateValueAndValidity();
     }
     if(form.valid){
-      let ename = this.pparts.filter(item=>item.label == form.value.ppart)[0].value.ename;
+      let ename = this.pparts.filter(item=>item.label == form.ppart)[0].value.ename;
       this.testParametersService.putPressureTest({
-        prodno:form.value.prodno,
-        dwgno:form.value.dwgno,
-        ppart:form.value.ppart,
+        prodno:form.controls['prodno'].value,
+        dwgno:form.controls['dwgno'].value,
+        ppart:form.controls['ppart'].value,
         eppart:ename,
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
         dated3:form.controls['dated3'].value,
-        testmedia:form.value.testmedia.name,
-        etestmedia:form.value.testmedia.ename,
-        clcontent:form.value.testmedia.cl,
+        testmedia:form.controls['testmedia'].name,
+        etestmedia:form.controls['testmedia'].ename,
+        clcontent:form.controls['testmedia'].cl,
         user:this._storage.get("username")
       }).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -425,18 +425,18 @@ export class TestParametersComponent implements OnInit {
       valid = false;
     }
     if(valid){
-      let ename = this.pparts.filter(item=>item.label == form.value.ppart)[0].value.ename;
+      let ename = this.pparts.filter(item=>item.label == form.controls['ppart'].value)[0].value.ename;
       this.testParametersService.putPressureTest({
-        prodno:form.value.prodno,
-        dwgno:form.value.dwgno,
-        ppart:form.value.ppart,
+        prodno:form.controls['prodno'],
+        dwgno:form.controls['dwgno'],
+        ppart:form.controls['ppart'],
         eppart:ename,
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
         dated3:form.controls['dated3'].value,
-        testmedia:form.controls['testmedia'].value.name,
-        etestmedia:form.controls['testmedia'].value.ename,
-        clcontent:form.value.testmedia,
+        testmedia:form.controls['testmedia'].name,
+        etestmedia:form.controls['testmedia'].ename,
+        clcontent:form.controls['clcontent'],
         user:this._storage.get("username")
       }).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -446,14 +446,14 @@ export class TestParametersComponent implements OnInit {
                 this.dataModel[index][i] = null;
               }else{
                 if(this.dataModel[index][i]['press'])
-                  this.dataModel[index][i].press.ppart = form.value.ppart;
+                  this.dataModel[index][i].press.ppart = form.controls['ppart'].value;
                 if(this.dataModel[index][i]['leak'])
-                  this.dataModel[index][i].leak.ppart = form.value.ppart;
+                  this.dataModel[index][i].leak.ppart = form.controls['ppart'].value;
               }
           }
           this.testParametersService.putpreandleak(
             {
-              "prodno":form.value.prodno,
+              "prodno":form.controls['prodno'].value,
               "data":this.dataModel[index]
             }).subscribe((res)=>{
             if(res['result']=="success"){
@@ -479,7 +479,7 @@ export class TestParametersComponent implements OnInit {
     }
   }
   linkProdnoandDwgno(){
-    this.testParametersService.putPressureTest({prodno:this.validateForm.value.prodno,dwgno:this.validateForm.controls['dwgno'].value,user:this._storage.get("username")}).subscribe(res=>{
+    this.testParametersService.putPressureTest({prodno:this.validateForm.controls['prodno'].value,dwgno:this.validateForm.controls['dwgno'].value,user:this._storage.get("username")}).subscribe(res=>{
       if(res['result'] == 'success'){
         this.modalService.success({
           nzTitle: '成功',
@@ -495,9 +495,9 @@ export class TestParametersComponent implements OnInit {
       nzTitle  : '<i>请确认本次操作</i>',
       nzOkText    : '我确认',
       nzOkType    : 'danger',
-      nzContent: '<b>你确认要取消产品编号'+this.validateForm.value.prodno+'与图号'+this.validateForm.controls['dwgno'].value+'的连接吗?此次数据将会删除之前所有与该产品编号有关的数据！</b>',
+      nzContent: '<b>你确认要取消产品编号'+this.validateForm.controls['prodno'].value+'与图号'+this.validateForm.controls['dwgno'].value+'的连接吗?此次数据将会删除之前所有与该产品编号有关的数据！</b>',
       nzOnOk   : () =>{
-        this.testParametersService.unlinkProdnoandDwgno(this.validateForm.value.prodno,this.validateForm.controls['dwgno'].value).subscribe(res=>{
+        this.testParametersService.unlinkProdnoandDwgno(this.validateForm.controls['prodno'].value,this.validateForm.controls['dwgno'].value).subscribe(res=>{
           if(res['result'] == "success"){
             this.link = 0;
             this.validateForm.controls['prodno'].setValue(null);

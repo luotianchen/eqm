@@ -32,7 +32,6 @@
         {
           "icon": "code-o",
           "name": "材料代用管理",
-          "route": "/charts",
           "submenu": [
             {
               "icon": "laptop",
@@ -53,7 +52,6 @@
         {
           "icon": "code-o",
           "name": "材料发放管理",
-          "route": "/charts",
           "submenu": [
             {
               "icon": "laptop",
@@ -79,7 +77,6 @@
         {
           "icon": "code-o",
           "name": "材料查询",
-          "route": "/charts",
           "submenu": [
             {
               "icon": "laptop",
@@ -110,7 +107,6 @@
         {
           "icon": "printer",
           "name": "报表生成",
-          "route": "/charts",
           "submenu": [
             {
               "icon": "profile",
@@ -151,7 +147,6 @@
         {
           "icon": "user",
           "name": "材料复验",
-          "route": "/user",
           "submenu": [
             {
               "icon": "laptop",
@@ -188,7 +183,6 @@
         {
           "icon": "code-o",
           "name": "产品试板",
-          "route": "/charts",
           "submenu": [
             {
               "icon": "laptop",
@@ -239,7 +233,6 @@
         {
           "icon": "user",
           "name": "参数输入",
-          "route": "/system/user",
           "submenu": [
             {
               "icon": "laptop",
@@ -276,7 +269,6 @@
         {
           "icon": "printer",
           "name": "报表生成",
-          "route": "/report",
           "submenu": [
             {
               "icon": "profile",
