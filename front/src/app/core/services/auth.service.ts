@@ -15,8 +15,6 @@ export class CanAuthProvide implements CanActivate {
   constructor(private router: Router, private _storage: SessionStorageService,private api:ApiService,private http:HttpClient) {
     this.powers = JSON.parse(this._storage.get('powermap'));
     this.roles = this._storage.get('roles').split(';');
-    console.log(this.powers);
-    console.log(this.roles);
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
@@ -28,14 +26,34 @@ export class CanAuthProvide implements CanActivate {
   }
 
   check(): boolean {
+    if(!this.powers)
+      this.http.get(this.api.BASEURL+"/getroutepower").subscribe(res=>{
+        if(res['result'] == "success"){
+          this.powers = JSON.parse(res['data']);
+          this._storage.set('powermap',res['data'])
+        }
+      })
     const auth = this._storage.get('username');
-    const permited = (this.except.indexOf(this.router.url)!=-1) || this.powers[this.router.url.slice(1)].indexOf(0)!=-1 || this.powers[this.router.url.slice(1)].some((role)=>this.roles.indexOf(role)!=-1);
-    if (auth && permited) {
-        return true
-    }else if(!auth){
+    if(!auth){
       this.router.navigate(['/login']);
+      return false;
     }else{
-      this.router.navigate(['/404']);
+      console.log(this.powers);
+      console.log(this.router.url.slice(1));
+      console.log(this.powers[this.router.url.slice(1)])
+      if(this.except.indexOf(this.router.url)!=-1 || this.powers[this.router.url.slice(1)].indexOf(0)!=-1)
+        return true;
+      else {
+        let permission = false;
+        for(let i of this.roles)
+          for(let j of this.powers[this.router.url.slice(1)])
+            if(i == j)
+              permission = true;
+        if(permission)
+          return true;
+        else
+          this.router.navigate(['/404']);
+      }
     }
     return false;
   }

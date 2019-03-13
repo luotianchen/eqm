@@ -17,6 +17,6 @@ export class LoginService {
     });
   }
   getroutepower(){
-    return this.http.get("https://www.easy-mock.com/mock/5bd28b54c16e907322bb019e/eqm/getroutepower")
+    return this.http.get(this.apiService.BASEURL+"/getroutepower")
   }
 }
