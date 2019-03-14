@@ -181,12 +181,6 @@ export class PressurePartsDistributeComponent implements OnInit {
     }
     for(let j = 0;j<this.dataSet.length;j++){
       this.dataSet[j]['issuematl'] = this._storage.get('username');
-      for(let i in this.dataSet[j]){
-        if(this.dataSet[j][i]==null){
-          this.message.error("您有尚未填写的数据，请填写完整后再提交！");
-          return;
-        }
-      }
     }
     this.pressurePartsDistributeService.putdistribute({
       prodno:this.validateForm.controls['prodno'].value,

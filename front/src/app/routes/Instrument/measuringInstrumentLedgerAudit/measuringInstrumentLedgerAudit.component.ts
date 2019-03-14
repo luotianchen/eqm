@@ -13,15 +13,15 @@ export class MeasuringInstrumentLedgerAuditComponent implements OnInit {
   public dataSet:any;
   loading = true;
   constructor(public measuringInstrumentLedgerAuditService:MeasuringInstrumentLedgerAuditService,public message : NzMessageService,public _storage:SessionStorageService){
+    this.searchData();
   }
   ngOnInit(): void {
-    this.searchData();
-    this.loading = false;
   }
   searchData(){
     this.measuringInstrumentLedgerAuditService.getaudit().subscribe((res)=>{
       if(res['result']=="success"){
         this.dataSet = res['data'];
+        this.loading = false;
         for(let data of this.dataSet){
           data['expand'] = true;
         }

@@ -74,14 +74,14 @@
             <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated1'].status!=0">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">试验压力：</p>
-                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated1.press.testpress" [nzPlaceHolder]="!dataModel[i].dated1.press.range?'试验压力':dataModel[i].dated1.press.range.min+'~'+dataModel[i].dated1.press.range.max" [disabled]="dataModel[i]['dated1'].status==2"></nz-input-number>
+                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated1.press.testpress" nzPlaceHolder="试验压力" [disabled]="true"></nz-input-number>
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
                 <input nz-input (change)="formateDate2(i,'dated1','press');displayPressRange(i,'dated1')" [(ngModel)]="dataModel[i].dated1.press.date" placeholder="日期" [disabled]="dataModel[i]['dated1'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
-                <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
+                <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：{{!dataModel[i].dated1.press.range?'':dataModel[i].dated1.press.range.max*1.5+'~'+dataModel[i].dated1.press.range.max*3}}</p>
                 <nz-select [(ngModel)]="dataModel[i].dated1.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated1'].status==2" style="width:100%;" (nzOpenChange)="displayPressRange(i,'dated1','press')">
                   <nz-option *ngFor="let o of this.exitnos" [nzValue]="o" [nzLabel]="o"></nz-option>
                 </nz-select>
@@ -178,14 +178,14 @@
             <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated2'].status!=0">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">试验压力：</p>
-                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated2.press.testpress"  [nzPlaceHolder]="!dataModel[i].dated2.press.range?'试验压力':dataModel[i].dated2.press.range.min+'~'+dataModel[i].dated2.press.range.max" [disabled]="dataModel[i]['dated2'].status==2" ></nz-input-number>
+                <nz-input-number style="width:100%" [(ngModel)]="dataModel[i].dated2.press.testpress" nzPlaceHolder="试验压力" [disabled]="true" ></nz-input-number>
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
                 <input nz-input (change)="formateDate2(i,'dated2','press');displayPressRange(i,'dated2')" [(ngModel)]="dataModel[i].dated2.press.date" placeholder="日期" [disabled]="dataModel[i]['dated2'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
-                <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
+                <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：{{!dataModel[i].dated2.press.range?'':dataModel[i].dated2.press.range.max*1.5+'~'+dataModel[i].dated2.press.range.max*3}}</p>
                 <nz-select [(ngModel)]="dataModel[i].dated2.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated2'].status==2" style="width:100%;" (nzOpenChange)="displayPressRange(i,'dated2')">
                   <nz-option *ngFor="let o of this.exitnos" [nzValue]="o" [nzLabel]="o"></nz-option>
                 </nz-select>
@@ -281,14 +281,14 @@
             <div style="width: 95%;margin-left: 2%;" nz-row [nzGutter]="16" *ngIf="dataModel[i]['dated3'].status!=0">
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">试验压力：</p>
-                <nz-input-number style="width:100%" nz-input [(ngModel)]="dataModel[i].dated3.press.testpress"  [nzPlaceHolder]="!dataModel[i].dated3.press.range?'试验压力':dataModel[i].dated3.press.range.min+'~'+dataModel[i].dated3.press.range.max" [disabled]="dataModel[i]['dated3'].status==2" ></nz-input-number>
+                <nz-input-number style="width:100%" nz-input [(ngModel)]="dataModel[i].dated3.press.testpress"  nzPlaceHolder="试验压力" [disabled]="true" ></nz-input-number>
               </div>
               <div nz-col nzSpan="4" class="padding16">
                 <p style="margin-top: 8px;margin-bottom: 14px">日期：</p>
                 <input nz-input (change)="formateDate2(i,'dated3','press');displayPressRange(i,'dated3');" [(ngModel)]="dataModel[i].dated3.press.date" placeholder="日期" [disabled]="dataModel[i]['dated3'].status==2" type="text">
               </div>
               <div nz-col nzSpan="4" class="padding16">
-                <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：</p>
+                <p style="margin-top: 8px;margin-bottom: 14px">压力表编号1：{{!dataModel[i].dated3.press.range?'':dataModel[i].dated3.press.range.max*1.5+'~'+dataModel[i].dated3.press.range.max*3}}</p>
                 <nz-select [(ngModel)]="dataModel[i].dated3.press.pgaugeno1" [nzPlaceHolder]="'压力表编号1'" [nzDisabled]="dataModel[i]['dated3'].status==2" style="width:100%;" (nzOpenChange)="displayPressRange(i,'dated3')">
                   <nz-option *ngFor="let o of this.exitnos" [nzValue]="o" [nzLabel]="o"></nz-option>
                 </nz-select>

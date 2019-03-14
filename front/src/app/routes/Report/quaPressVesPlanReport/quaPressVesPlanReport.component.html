@@ -14,16 +14,17 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <nz-upload
-      [(nzFileList)]="fileList"
-      [nzLimit] = "1"
-      [nzBeforeUpload]="beforeUpload">
-      <button nz-button>
-        <i nz-icon type="upload"></i><span>Select File</span>
-      </button>
-    </nz-upload>
-    <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px">
-      {{ uploading ? 'Uploading' : 'Start Upload' }}
+    <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="loading">
+      查询报表
     </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <a nz-button nzType="primary" download="压力容器产品质量计划.pdf" [href]="objectUrl" *ngIf="status">下载报表</a>
   </div>
 </form>
+<nz-divider></nz-divider>
+<pdf-viewer [src]="pdfSrc"
+            [render-text]="true"
+            style="display: block;"
+            *ngIf="status"
+></pdf-viewer>
+

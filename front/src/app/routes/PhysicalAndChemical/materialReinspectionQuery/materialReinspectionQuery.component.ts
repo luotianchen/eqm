@@ -17,7 +17,7 @@ export class MaterialReinspectionQueryComponent implements OnInit {
   dataSet = []
   ngOnInit(): void {
     this.validateForm = this.validateForm = this.fb.group({
-      "year":[new Date().getFullYear(),[Validators.pattern(/^([1-9]|1[0-2])$/)]]
+      "year":[new Date().getFullYear()]
     });
     this.searchData();
   }

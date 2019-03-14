@@ -54,7 +54,7 @@
         <td>{{data.indate}}</td>
         <td>{{data.qty}}</td>
       </tr>
-      <tr class="contrast">
+      <tr class="contrast" *ngIf="data.contrast">
         <td>{{data.contrast.codedmarking}}</td>
         <td>{{data.contrast.designation}}</td>
         <td>{{data.contrast.spec}}</td>

@@ -13,7 +13,7 @@
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="system_email" id="system_email" type="email" placeholder="发件邮箱">
           <nz-form-explain *ngIf="validateForm.get('system_email').dirty && validateForm.get('system_email').errors">
-            发件邮箱不能为空！
+            发件邮箱为空或格式不正确！
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -31,7 +31,6 @@
           <p>第三方登陆访问邮箱需要授权码</p>
           <a target="_blank" href="http://help.mail.163.com/faq.do?m=list&categoryID=197">网易邮箱（163、126、yeah）</a>|
           <a target="_blank" href="https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=1001256">QQ邮箱/Foxmail</a>
-          <p>其它邮箱请以：邮箱地址/登陆密码的格式填写本项</p>
         </ng-template>
         <nz-form-control nzHasFeedback>
           <textarea rows="4" nz-input formControlName="authorization_code" id="authorization_code" type="text" placeholder="授权码"></textarea>
@@ -45,10 +44,12 @@
     <div nz-col nzSpan="4"></div>
     <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="tosend_email">收件邮箱</nz-form-label>
+        <nz-form-label nzRequired nzFor="tosend_email">收件邮箱（灰色选项表示该用户未设置邮箱）</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="tosend_email" style="width: 100%" id="tosend_email" nzMode="multiple">
-            <nz-option *ngFor="let option of userform" [nzLabel]="option.name" [nzValue]="option.email"></nz-option>
+          <nz-select formControlName="tosend_email" style="width: 100%" id="tosend_email" nzMode="multiple" (ngModelChange)="check()">
+            <ng-container *ngFor="let option of userform">
+              <nz-option [nzDisabled]="!option.email || option.email==''" [nzLabel]="option.name" [nzValue]="option.email"></nz-option>
+            </ng-container>
           </nz-select>
           <nz-form-explain *ngIf="validateForm.get('tosend_email').dirty && validateForm.get('tosend_email').errors">
             收件邮箱不能为空！

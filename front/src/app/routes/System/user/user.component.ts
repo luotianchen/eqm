@@ -167,6 +167,10 @@ export class UserComponent {
         this.msg.error("用户名不能为空！");
         return;
       }
+      if(!/^[a-z][a-z0-9_]*$/.test(this.username)){
+        this.msg.error('用户名必须以小写英文字母开头，且只能包含英文字母、数字、下划线')
+        return;
+      }
       if(this.name==null||this.name==""){
         this.msg.error("姓名不能为空！");
         return;

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {QuaPressVesPlanReportService} from './quaPressVesPlanReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {UploadFile} from "ng-zorro-antd/upload";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-quaPressVesPlanReport',
@@ -13,40 +13,32 @@ export class QuaPressVesPlanReportComponent implements OnInit {
   validateForm: FormGroup;
   public prodno = null;
   public prodnos = [];
-  constructor(public quaPressVesPlanReportService:QuaPressVesPlanReportService,public fb: FormBuilder){
+  public pdfSrc = null;
+  public loading = false;
+  status = false;
+  objectUrl = null;
+  constructor(public quaPressVesPlanReportService:QuaPressVesPlanReportService,public fb: FormBuilder,private sanitizer: DomSanitizer){
   }
-  beforeUpload = (file: UploadFile): boolean => {
-    this.fileList = this.fileList.concat(file);
-    return false;
-  }
-  uploading = false;
-  fileList = [];
 
-  handleUpload(): void {
+  submitForm(): void {
     // tslint:disable-next-line:no-any
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.loading = true;
       const formData = new FormData();
       formData.append('prodno', this.validateForm.value.prodno);
-      formData.append('excel', this.fileList[0]);
-      this.quaPressVesPlanReportService.getReport(formData).subscribe((res:any)=>{
-        let blob = new Blob([res])
-        let objectUrl = URL.createObjectURL(blob);
-        let a = document.createElement('a');
-        document.body.appendChild(a);
-        let date = new Date();
-        a.setAttribute('style', 'display:none');
-        a.setAttribute('href', objectUrl);
-        a.setAttribute('download', "质量计划说明"+".xls");
-        a.click();
-        URL.revokeObjectURL(objectUrl);
+      this.quaPressVesPlanReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
+        this.pdfSrc = new Uint8Array(res);
+        let blob = new Blob([res], {type: 'application/pdf'});
+        this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+        this.loading = false;
+        this.status = true;
       })
     }
   }
-
   ngOnInit(): void {
     this.quaPressVesPlanReportService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {

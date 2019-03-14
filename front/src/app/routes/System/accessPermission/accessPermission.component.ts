@@ -126,10 +126,12 @@ export class AccessPermissionComponent implements OnInit {
     return res;
   }
   check(route){
-    if(this.power[route].length == 0 && this.power[route].indexOf(-1)==-1){
+    if(this.power[route].length == 0){//若不包含长度人员
       this.power[route] = [-1];
-    }else if(this.power[route].indexOf(1) == -1 && this.power[route].indexOf(-1) == -1){
+    }else if(this.power[route].indexOf(1) == -1 && this.power[route].indexOf(-1) == -1){ //若既不包含管理员，又不包含全部人
       this.power[route].push(1);
+    }else if(this.power[route].indexOf(-1)!=-1){//若包含全部人员
+      this.power[route] = [-1];
     }
   }
   submitForm(){

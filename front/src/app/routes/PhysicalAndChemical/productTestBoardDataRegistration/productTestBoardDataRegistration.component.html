@@ -29,7 +29,7 @@
         <nz-form-label nzRequired nzFor="specimenno">试样编号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样编号"  formControlName="specimenno" name="specimenno" id="specimenno" (ngModelChange)="setProdno()">
-            <nz-option *ngFor="let option of specimennos" [nzLabel]="option['specimennno']" [nzValue]="option"></nz-option>
+            <nz-option *ngFor="let option of specimennos" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -38,7 +38,9 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="产品编号"  formControlName="prodno" name="prodno" id="prodno" disabled/>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="setSpecimenno()">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>

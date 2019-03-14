@@ -15,13 +15,15 @@ export class MaterialDistributeComponent implements OnInit {
   validateForm: FormGroup;
   partsnameValidateForm: FormGroup;
   status = false;
-  i=1;
+  i=0;
   partsnames = [];
   designations = [];
   codedmarkings = [];
   users = [];
   username2name = {};
   specs = [];
+  ruleindex = null;
+  rule = null;
   onSpecInput(value: string): void { //当规格输入时展开选项
     this.specs = value ? [
       value,
@@ -51,6 +53,12 @@ export class MaterialDistributeComponent implements OnInit {
         this.prodno = res['data'];
       }
     });
+    this.materialDistributeService.getindexbymatlcoderules().subscribe(res => {
+      if (res['result'] == "success") {
+        this.ruleindex = res['index'];
+        this.rule = res['welding']
+      }
+    })
     this.materialDistributeService.getPartsname().subscribe(res=>{
       if(res['result']=='success'){
         this.partsnames = res['data'];
@@ -97,14 +105,9 @@ export class MaterialDistributeComponent implements OnInit {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
-          let data = res['data'];
-          this.materialDistributeService.getindexbymatlcoderules().subscribe(res => {
-            if (res['result'] == "success") {
-              this.dataSet = data.filter(item=> item[res['index']-1] != res['welding'])
-            }
-          })
+          this.dataSet = res['data'];
           this.status = true;
-          for(;this.i < this.dataSet.length;this.i++){
+          for(this.i = 0;this.i < this.dataSet.length;this.i++){
             this.dataSet[this.i]['key'] = `${this.i}`;
           }
           this.updateEditCache();

@@ -41,7 +41,7 @@ public class getquaplanport {                                               //�
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
         String uploadPath = path + "upload";                                                //获取文件名称
-
+        System.out.println(uploadPath);
         File realfile = new File(uploadPath,"质量计划说明.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 

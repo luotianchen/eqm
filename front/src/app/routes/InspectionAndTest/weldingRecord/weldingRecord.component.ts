@@ -139,8 +139,13 @@ export class WeldingRecordComponent implements OnInit {
   deleteRow(i: string): void {
     const dataSet = this.dataSet.filter(d => d.key !== i);
     this.dataSet = dataSet;
+    this.updateEditCache();
   }
-
+  copyRow(i: string): void {
+    let row:any = this.dataSet.filter(item=>item.key ==i)[0];
+    row.key = this.i++;
+    this.dataSet = [...this.dataSet,row];
+  }
   editCache = {};
 
   startEdit(key: string): void {

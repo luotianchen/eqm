@@ -50,7 +50,7 @@
       <th nzWidth="120px">检验员</th>
       <th nzWidth="150px">委托日期</th>
       <th nzWidth="150px">无损检验日期</th>
-      <th style="min-width: 100px;">操作</th>
+      <th style="min-width: 150px;">操作</th>
     </tr>
     </thead>
     <tbody>
@@ -135,6 +135,8 @@
             <nz-popconfirm [nzTitle]="'确认删除本行数据吗?'" (nzOnConfirm)="deleteRow(data.key)" style="margin-left: 10px;">
               <a nz-popconfirm>删除</a>
             </nz-popconfirm>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="copyRow(data.key)">复制</a>
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
             <a (click)="saveEdit(data.key)">保存</a>

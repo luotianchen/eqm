@@ -17,7 +17,7 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
   }
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      system_email:[null,[Validators.required]],
+      system_email:[null,[Validators.required,Validators.email]],
       authorization_code:[null,[Validators.required]],
       tosend_email:[null,[Validators.required]],
     });
@@ -30,9 +30,17 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
       if(res['result']=="success"){
         this.validateForm.controls['system_email'].setValue(res['data']['system_email']);
         this.validateForm.controls['authorization_code'].setValue(res['data']['authorization_code']);
-        this.validateForm.controls['tosend_email'].setValue(res['data']['tosend_email']);
+        this.validateForm.controls['tosend_email'].setValue(res['data']['tosend_email'].filter(item=>item));
       }
     })
+  }
+
+  check(){
+    for(let item of this.validateForm.value.tosend_email)
+      if(!item)
+        this.validateForm.controls['tosend_email'].setErrors({required:true})
+      else
+        this.validateForm.controls['tosend_email'].setErrors(null)
   }
 
   submitForm(){

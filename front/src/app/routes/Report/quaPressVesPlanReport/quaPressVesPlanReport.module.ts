@@ -1,14 +1,15 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared.module';
 import {QuaPressVesPlanReportComponent} from "./quaPressVesPlanReport.component";
-import {EssenceNg2PrintModule} from 'essence-ng2-print';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
     QuaPressVesPlanReportComponent
   ],
   imports: [
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    PdfViewerModule
   ],
   exports: [
     QuaPressVesPlanReportComponent

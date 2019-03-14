@@ -18,7 +18,6 @@ export class ProductTestBoardCommissionComponent implements OnInit {
   userinfo = [];
   designations = [];
   specs = [];
-  heatcondis = [];
   representparts = [
     "纵缝",
     "环缝"
@@ -77,11 +76,6 @@ export class ProductTestBoardCommissionComponent implements OnInit {
       this.productTestBoardCommissionService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
-        }
-      })
-      this.productTestBoardCommissionService.getheatcondi(this.validateForm.controls['prodno'].value).subscribe((res)=>{
-        if(res['result']=="success"){
-          this.heatcondis = res['data'];
         }
       })
     }

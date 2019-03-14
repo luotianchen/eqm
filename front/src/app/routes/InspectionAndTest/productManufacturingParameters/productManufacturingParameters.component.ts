@@ -93,7 +93,7 @@ export class ProductManufacturingParametersComponent implements OnInit {
       "ecode":[null, [Validators.required]],
       "dealter":["无", [Validators.required]],
       "submatl":["无", [Validators.required]],
-      "docum":[null, [Validators.required]],
+      "docum":[this._storage.get('name'), [Validators.required]],
       "dedate":[null, [Validators.required]],
       "blankdate":[null, [Validators.required]],
       "matlretest":["无", [Validators.required]],

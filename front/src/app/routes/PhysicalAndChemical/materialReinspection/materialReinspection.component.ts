@@ -446,6 +446,29 @@ export class  MaterialReinspectionComponent implements OnInit {
     }
   }
 
+  changeForceDisplay(){
+    let forces = [
+      'rel1',
+      'rel2',
+      'rm1',
+      'rm2',
+      'elong1',
+      'elong2',
+      'hardness1',
+      'hardness2',
+      'hardness3',
+      'impactp1',
+      'impactp2',
+      'impactp3',
+      'impacttemp',
+      'bendangle',
+      'bendaxdia'
+    ]
+    for(let item of forces)
+      this.validateForm.controls[item].setValidators([]);
+  }
+
+
   constructor(public materialReinspectionService: MaterialReinspectionService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
   changeHardness(name){ //硬度校验
@@ -461,20 +484,6 @@ export class  MaterialReinspectionComponent implements OnInit {
           this.validateForm.controls[name].setErrors({overflow: true, error: true});
         }
       }
-    }
-    let hardness = {
-      "hardness1":false,
-      "hardness2":false,
-      "hardness3":false
-    }
-    hardness[name] = true;
-    for(let item in hardness){
-      if(!hardness[item]){
-        this.validateForm.controls[item].setValidators([]);
-        this.validateForm.controls[item].setValue(null);
-      }
-      else
-        this.validateForm.controls[item].setValidators(Validators.required);
     }
   }
 
@@ -564,7 +573,6 @@ export class  MaterialReinspectionComponent implements OnInit {
           this.dataDetail = res['data'];
           this.dataDetail.status = true;
           this.deviation = this.dataDetail.deviation;
-          console.log(this.deviation);
           for (let i =0;i<this.maxmin.length;i++){
             let item = this.maxmin[i];
             if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
@@ -581,7 +589,8 @@ export class  MaterialReinspectionComponent implements OnInit {
               this.validateForm.controls[item].setValidators([Validators.required]);
             }
           }
-          this.changeChemicalcompositionDisplay()
+          this.changeChemicalcompositionDisplay();
+          this.changeForceDisplay();
         }else if(this.validateForm.value.stand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.stand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
           let specData = this.validateForm.value.spec;
           if(this.validateForm.value.spec.indexOf("δ=")!=-1){
@@ -608,7 +617,8 @@ export class  MaterialReinspectionComponent implements OnInit {
                   this.validateForm.controls[item].setValidators([Validators.required]);
                 }
               }
-              this.changeChemicalcompositionDisplay()
+              this.changeChemicalcompositionDisplay();
+              this.changeForceDisplay();
             }
           });
         }

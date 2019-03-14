@@ -18,20 +18,30 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
   testboardstands = [];
   matlstands = [];
   specimennos = [];
+  specimennoandprodnos = [];
   recomtestno:string;
   date = new Date();
+  prodnos = [];
   getYearMonth(){
     return (this.date.getFullYear().toString().slice(2)) + ("0" + (this.date.getMonth() + 1)).slice(-2);
   }
   ngOnInit(): void {
     this.productTestBoardDataRegistrationService.getspecimenno().subscribe((res)=>{
       if(res['result'] == "success"){
-        this.specimennos = res['data'];
+        this.specimennoandprodnos = res['data'];
+        for(let item of this.specimennoandprodnos){
+          if(this.prodnos.indexOf(item.prodno) == -1)
+            this.prodnos.push(item.prodno)
+          if(this.specimennos.indexOf(item.specimennno) == -1)
+            this.specimennos.push(item.specimennno)
+        }
       }
     })
     this.productTestBoardDataRegistrationService.getputmaterial().subscribe(res=>{
       if(res['result'] == 'success'){
-        this.matlstands = res['data']['matlstand'];
+        this.matlstands = res['data']['matlstand'].filter(function(element,index,self){
+          return self.indexOf(element) === index;
+        });
       }
     })
     this.productTestBoardDataRegistrationService.gettestboardstand().subscribe(res=>{
@@ -117,8 +127,21 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       this.validateForm.controls['so'].setValue("请检查输入是否有误!");
   }
   setProdno(){
-    this.validateForm.controls['prodno'].setValue(this.validateForm.value.specimenno['prodno']);
+    this.prodnos = [];
+    for(let item of this.specimennoandprodnos){
+      if(item.specimennno == this.validateForm.value.specimenno && this.prodnos.indexOf(item.prodno==-1))
+        this.prodnos.push(item.prodno);
+    }
   }
+
+  setSpecimenno(){
+    this.specimennos = [];
+    for(let item of this.specimennoandprodnos){
+      if(item.prodno == this.validateForm.value.prodno && this.specimennos.indexOf(item.specimennno==-1))
+        this.specimennos.push(item.specimennno);
+    }
+  }
+
   checktestno(e?: MouseEvent){
     if (e) {
       e.preventDefault();
@@ -242,7 +265,6 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-      this.validateForm.controls['specimenno'].setValue(this.validateForm.value.specimenno['specimennno']);
       this.testno = this.validateForm.value.testno;
       this.validateForm.controls['testno'].setValue(this.validateForm.value.yearmonth+this.testno);
       this.productTestBoardDataRegistrationService.puttestboardparam(this.validateForm.value).subscribe((res)=>{
@@ -259,7 +281,6 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
           })
         }
       })
-      this.validateForm.controls['specimenno'].setValue({specimennno:this.validateForm.value.specimenno,prodno:this.validateForm.value.prodno});
     }
   }
 }

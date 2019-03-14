@@ -14,6 +14,38 @@ import {Router} from "@angular/router";
 export class ChangePasswordComponent {
   ngOnInit(): void {
   }
+  passwordStrength = "简单";
+  passwordStatus = "exception";
+  passwordPecent = 0;
+  passwordVisible = false;
+  newPasswordVisible = false;
+  check(){
+    let level_weak =/^((\d+)|([A-Za-z]+)|(\W+)){6,16}$/;
+    let level_middle = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/;
+    let level_strong = /^(?:(?=.*[0-9].*)(?=.*[A-Za-z].*)(?=.*[,\.#%'\+\*\-:;^_`].*))[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/;
+    if(this.validateForm.value.newpassword.length>16){
+      this.passwordStrength = '长度最多为16位';
+      this.passwordStatus = "exception";
+      this.passwordPecent = 0;
+    }else if(this.validateForm.value.newpassword.length<6) {
+      this.passwordStrength = '长度至少为6位';
+      this.passwordStatus = "exception";
+      this.passwordPecent = 0;
+    }else if(level_strong.test(this.validateForm.value.newpassword)){
+      this.passwordStrength = "复杂";
+      this.passwordStatus = "success";
+      this.passwordPecent = 80+this.validateForm.value.newpassword.length>100?100:80+this.validateForm.value.newpassword.length;
+    }else if(level_middle.test(this.validateForm.value.newpassword)){
+      this.passwordStrength = "中等";
+      this.passwordStatus = "active";
+      this.passwordPecent = 40+this.validateForm.value.newpassword.length>70?70:40+this.validateForm.value.newpassword.length;
+    }else if(level_weak.test(this.validateForm.value.newpassword)){
+      this.passwordStrength = "简单";
+      this.passwordStatus = "exception";
+      this.passwordPecent = 10+this.validateForm.value.newpassword.length>30?30:10+this.validateForm.value.newpassword.length;
+    }
+  }
+
   validateForm: FormGroup;
   submitForm = ($event, value) => {
     $event.preventDefault();
@@ -44,6 +76,7 @@ export class ChangePasswordComponent {
   }
 
   validateConfirmPassword(): void {
+    this.check();
     setTimeout(() => this.validateForm.controls['newpasswordconfirm'].updateValueAndValidity());
   }
 
@@ -58,8 +91,8 @@ export class ChangePasswordComponent {
   constructor(public fb: FormBuilder,public changePasswordService: ChangePasswordService, public _storage: SessionStorageService, public msg: NzMessageService, public router: Router) {
     this.validateForm = this.fb.group({
       password: [ null, [ Validators.required ] ],
-      newpassword: [ null, [ Validators.required ] ],
-      newpasswordconfirm : [ null, [ this.confirmValidator ] ]
+      newpassword: [ null, [ Validators.required,Validators.pattern(/^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![,\.#%'\+\*\-:;^_`]+$)[,\.#%'\+\*\-:;^_`0-9A-Za-z]{6,16}$/)]],
+        newpasswordconfirm : [ null, [ this.confirmValidator ] ]
     });
   }
 }

@@ -455,7 +455,7 @@
       <div nz-row [nzGutter]="4" nzType="flex">
         <div nz-col nzSpan="3" *ngIf="dataDetail['rel1'].max!==null||dataDetail['rel1'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="rel1">屈服强度1</nz-form-label>
+            <nz-form-label nzFor="rel1">屈服强度1</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="rel1" name="rel1" id="rel1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel1'].max == 99999 ? '≥' + dataDetail['rel1'].min : dataDetail['rel1'].min + '≤' + 'rel1' + '≤' +dataDetail['rel1'].max" (ngModelChange)="MaxMinJudge('rel1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rel1').dirty&&validateForm.get('rel1').errors">
@@ -471,7 +471,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['rel2'].max!==null||dataDetail['rel2'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="rel2"> </nz-form-label>
+            <nz-form-label nzFor="rel2"> </nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="rel2" name="rel2" id="rel2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rel2'].max == 99999 ? '≥' + dataDetail['rel2'].min : dataDetail['rel2'].min + '≤' + 'rel2' + '≤' +dataDetail['rel2'].max" (ngModelChange)="MaxMinJudge('rel2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rel2').dirty&&validateForm.get('rel2').errors">
@@ -487,7 +487,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['rm1'].max!==null||dataDetail['rm1'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="rm1">抗拉强度1</nz-form-label>
+            <nz-form-label nzFor="rm1">抗拉强度1</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="rm1" name="rm1" id="rm1" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm1'].max == 99999 ? '≥' + dataDetail['rm1'].min : dataDetail['rm1'].min + '≤' + 'rm1' + '≤' +dataDetail['rm1'].max" (ngModelChange)="MaxMinJudge('rm1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rm1').dirty&&validateForm.get('rm1').errors">
@@ -503,7 +503,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['rm2'].max!==null||dataDetail['rm2'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="rm2"> </nz-form-label>
+            <nz-form-label nzFor="rm2"> </nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="rm2" name="rm2" id="rm2" [nzStep]="1" [nzPlaceHolder]="dataDetail['rm2'].max == 99999 ? '≥' + dataDetail['rm2'].min : dataDetail['rm2'].min + '≤' + 'rm2' + '≤' +dataDetail['rm2'].max" (ngModelChange)="MaxMinJudge('rm2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('rm2').dirty&&validateForm.get('rm2').errors">
@@ -519,7 +519,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['elong1'].max!==null||dataDetail['elong1'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="elong1">延长率1</nz-form-label>
+            <nz-form-label nzFor="elong1">延长率1</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="elong1" name="elong1" id="elong1" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['elong1'].max == 99999 ? '≥' + dataDetail['elong1'].min : dataDetail['elong1'].min + '≤' + '延长率1' + '≤' +dataDetail['elong1'].max" (ngModelChange)="MaxMinJudge('elong1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('elong1').dirty&&validateForm.get('elong1').errors">
@@ -535,7 +535,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['elong2'].max!==null||dataDetail['elong2'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="elong2">延长率2</nz-form-label>
+            <nz-form-label nzFor="elong2">延长率2</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="elong2" name="elong2" id="elong2" [nzStep]="0.1" [nzPlaceHolder]="dataDetail['elong2'].max == 99999 ? '≥' + dataDetail['elong2'].min : dataDetail['elong2'].min + '≤' + '延长率2' + '≤' +dataDetail['elong2'].max" (ngModelChange)="MaxMinJudge('elong2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('elong2').dirty&&validateForm.get('elong2').errors">
@@ -551,7 +551,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['hardness1'].max!==null||dataDetail['hardness1'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="hardness1">硬度(HRB)(d/d/d)</nz-form-label>
+            <nz-form-label nzFor="hardness1">硬度(HRB)(d/d/d)</nz-form-label>
             <nz-form-control nzHasFeedback>
               <input nz-input style="width: 100%" formControlName="hardness1" name="hardness1" id="hardness1" [placeholder]="dataDetail['hardness1'].max == 99999 ? '≥' + dataDetail['hardness1'].min : dataDetail['hardness1'].min + '≤' + 'HRB' + '≤' +dataDetail['hardness1'].max" (change)="changeHardness('hardness1')"/>
               <nz-form-explain *ngIf="validateForm.get('hardness1').dirty&&validateForm.get('hardness1').errors">
@@ -570,7 +570,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['hardness2'].max!==null||dataDetail['hardness2'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="hardness2">硬度(HRW)(d/d/d)</nz-form-label>
+            <nz-form-label nzFor="hardness2">硬度(HRW)(d/d/d)</nz-form-label>
             <nz-form-control nzHasFeedback>
               <input nz-input style="width: 100%" formControlName="hardness2" name="hardness2" id="hardness2" [placeholder]="dataDetail['hardness2'].max == 99999 ? '≥' + dataDetail['hardness2'].min : dataDetail['hardness2'].min + '≤' + 'HRW' + '≤' +dataDetail['hardness2'].max" (change)="changeHardness('hardness2')"/>
               <nz-form-explain *ngIf="validateForm.get('hardness2').dirty&&validateForm.get('hardness2').errors">
@@ -589,7 +589,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['hardness3'].max!==null||dataDetail['hardness3'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="hardness3">硬度(HV)(d/d/d)</nz-form-label>
+            <nz-form-label nzFor="hardness3">硬度(HV)(d/d/d)</nz-form-label>
             <nz-form-control nzHasFeedback>
               <input nz-input style="width: 100%" formControlName="hardness3" name="hardness3" id="hardness3" [placeholder]="dataDetail['hardness3'].max == 99999 ? '≥' + dataDetail['hardness3'].min : dataDetail['hardness3'].min + '≤' + 'HV' + '≤' +dataDetail['hardness3'].max" (change)="changeHardness('hardness3')"/>
               <nz-form-explain *ngIf="validateForm.get('hardness3').dirty&&validateForm.get('hardness3').errors">
@@ -608,7 +608,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['impactp1'].max!==null||dataDetail['impactp1'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="impactp1">冲击功1</nz-form-label>
+            <nz-form-label nzFor="impactp1">冲击功1</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="impactp1" name="impactp1" id="impactp1" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp1'].max == 99999 ? '≥' + dataDetail['impactp1'].min : dataDetail['impactp1'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp1'].max" (ngModelChange)="MaxMinJudge('impactp1')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('impactp1').dirty&&validateForm.get('impactp1').errors">
@@ -624,7 +624,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['impactp2'].max!==null||dataDetail['impactp2'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="impactp2">冲击功2</nz-form-label>
+            <nz-form-label nzFor="impactp2">冲击功2</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="impactp2" name="impactp2" id="impactp2" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp2'].max == 99999 ? '≥' + dataDetail['impactp2'].min : dataDetail['impactp2'].min + '≤' + '冲击功1' + '≤' +dataDetail['impactp2'].max" (ngModelChange)="MaxMinJudge('impactp2')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('impactp2').dirty&&validateForm.get('impactp2').errors">
@@ -640,7 +640,7 @@
         </div>
         <div nz-col nzSpan="3" *ngIf="dataDetail['impactp3'].max!==null||dataDetail['impactp3'].min!==null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="impactp3">冲击功3</nz-form-label>
+            <nz-form-label nzFor="impactp3">冲击功3</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="impactp3" name="impactp3" id="impactp3" [nzStep]="1" [nzPlaceHolder]="dataDetail['impactp3'].max == 99999 ? '≥' + dataDetail['impactp3'].min : dataDetail['impactp3'].min + '≤' + '冲击功3' + '≤' +dataDetail['impactp3'].max" (ngModelChange)="MaxMinJudge('impactp3')"></nz-input-number>
               <nz-form-explain *ngIf="validateForm.get('impactp3').dirty&&validateForm.get('impactp3').errors">
@@ -656,7 +656,7 @@
         </div>
         <div nz-col nzSpan="4"  *ngIf="dataDetail['impacttemp']!=null">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="impacttemp">冲击温度</nz-form-label>
+            <nz-form-label nzFor="impacttemp">冲击温度</nz-form-label>
             <nz-form-control nzHasFeedback>
               <nz-input-number style="width: 100%" formControlName="impacttemp" name="impacttemp" id="impacttemp" [nzMax]="dataDetail['impacttemp']==null?99999:dataDetail['impacttemp']" [nzPlaceHolder]="'≤'+dataDetail['impacttemp']"></nz-input-number>
             </nz-form-control>

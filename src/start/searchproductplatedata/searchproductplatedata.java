@@ -34,7 +34,7 @@ public class searchproductplatedata {                                           
                 sql = sql + "AND prodno = ? ";
             }
             if(sp.getStatus() != -1){
-                sql = sql + "AND status = ?";
+                sql = sql + "AND status = ? ";
             }
             if(!(sp.getYear() == null || sp.getYear().equals(""))){
                 sql = sql + "AND indate Like ? ";

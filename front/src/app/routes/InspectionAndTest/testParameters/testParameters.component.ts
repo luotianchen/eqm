@@ -187,7 +187,7 @@ export class TestParametersComponent implements OnInit {
                 dewelltime: null,
                 circutemp: null,
                 mediatemp: null,
-                testpress:null,
+                testpress:data.testpress,
                 ppart:null,
                 testmedia:null,
                 range:null
