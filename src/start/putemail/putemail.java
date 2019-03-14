@@ -23,6 +23,30 @@ public class putemail {                                         //设备计量�
         putemailresult result = new putemailresult();
 
         try {
+            ps = conn.prepareStatement("SELECT * FROM email WHERE id = 1");
+            rs = ps.executeQuery();
+            if(rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("UPDATE email SET system_email = ?,authorization_code = ?");
+                ps.setString(1,pp.getSystem_email());
+                ps.setString(2,pp.getAuthorization_code());
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("INSERT INTO email(system_email,authorization_code) VALUES (?,?)");
+                ps.setString(1,pp.getSystem_email());
+                ps.setString(2,pp.getAuthorization_code());
+                ps.executeUpdate();
+                ps.close();
+            }
+
+            ps = conn.prepareStatement("DELETE FROM email WHERE id != 1");
+            ps.executeUpdate();
+            ps.close();
+
             for(int i = 0;i<pp.getTosend_email().size();i++){
                 ps = conn.prepareStatement("INSERT INTO email(system_email,authorization_code,tosend_email) VALUES (?,?,?)");
                 ps.setString(1,pp.getSystem_email());

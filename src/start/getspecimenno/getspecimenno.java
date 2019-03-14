@@ -32,16 +32,30 @@ public class getspecimenno {                                        //获取试�
             rs = ps.executeQuery();
             while (rs.next()){
                 data = new getspecimennodata();
-                ps1 = conn.prepareStatement("SELECT * FROM productplate WHERE status !=1");
+                ps1 = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ?");
+                ps1.setString(1,rs.getString("prodno"));
                 rs1 = ps1.executeQuery();
-                while (rs1.next()){
-                    if(rs.getString("prodno").equals(rs1.getString("prodno")) && rs.getString("specimenno").equals(rs1.getString("specimenno"))){
-                        data.setProdno(rs.getString("prodno"));
-                        data.setSpecimennno(rs.getString("specimenno"));
-                        as.add(data);
-                        break;
+                if(rs1.next()){
+                    rs1.close();
+                    ps1.close();
+                    ps1 = conn.prepareStatement("SELECT * FROM productplate WHERE status !=1");
+                    rs1 = ps1.executeQuery();
+                    while (rs1.next()){
+                        if(rs.getString("prodno").equals(rs1.getString("prodno")) && rs.getString("specimenno").equals(rs1.getString("specimenno"))){
+                            data.setProdno(rs.getString("prodno"));
+                            data.setSpecimennno(rs.getString("specimenno"));
+                            as.add(data);
+                            break;
+                        }
                     }
+                }else {
+                    rs1.close();
+                    ps1.close();
+                    data.setProdno(rs.getString("prodno"));
+                    data.setSpecimennno(rs.getString("specimenno"));
+                    as.add(data);
                 }
+
             }
             result.setData(as);
             result.setResult("success");

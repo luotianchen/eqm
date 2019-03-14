@@ -23,10 +23,24 @@ public class putroutepower {
         putroutepowerresult result = new putroutepowerresult();
 
         try {
-            ps = conn.prepareStatement("UPDATE email SET power = ? WHERE id =1");
-            ps.setString(1,pp.getData());
-            ps.executeUpdate();
-            ps.close();
+            ps = conn.prepareStatement("SELECT * FROM email WHERE id = 1");
+            rs = ps.executeQuery();
+            if(rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("UPDATE email SET power = ? WHERE id =1");
+                ps.setString(1,pp.getData());
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("INSERT INTO email(power,id) VALUES (?,1)");
+                ps.setString(1,pp.getData());
+                ps.executeUpdate();
+                ps.close();
+            }
+
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
