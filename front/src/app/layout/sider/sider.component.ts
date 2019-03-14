@@ -31,11 +31,35 @@ export class SiderComponent {
   showByRouter(routeurl){
     let url = routeurl.slice(1);
     let ifShow = false;
-    for(let i of this.powers[url])
-      for(let j of this.roles)
-        if(i==j)
-          ifShow = true;
+    if(!!this.powers)
+      for(let i of this.powers[url])
+        for(let j of this.roles)
+          if(i==j)
+            ifShow = true;
     return this.powers[url].indexOf(-1)!=-1 || ifShow
+  }
+
+  menuShowIfSubmenu(menu){
+    let ifShow = false;
+    if(menu.data)
+      for(let item of menu.data){
+        if(item.submenu){
+          for(let submenu of item.submenu){
+            if(this.showByRouter(submenu.route) && submenu.route!="/dashboard")
+              return true;
+          }
+        }
+        else{
+          if(this.showByRouter(item.route) && item.route!="/dashboard")
+            return true;
+        }
+      }
+    if(menu.submenu){
+      for(let item of menu.submenu)
+        if(this.showByRouter(item.route))
+          ifShow = true;
+    }
+    return ifShow;
   }
 
   updateMenu(){

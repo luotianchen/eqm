@@ -4,7 +4,7 @@
   </div>
   <ul nz-menu [nzMode]="'horizontal'" style="line-height: 64px;">
     <ng-container *ngFor="let nav of navs;let i = index">
-      <li nz-menu-item [nzSelected]="nav.name == getSettingNav()" (click)="setNav(nav.name.toString())">{{nav.name.toString()}}</li>
+      <li nz-menu-item [nzSelected]="nav.name == getSettingNav()" *ngIf="menuShowIfSubmenu(nav)" (click)="setNav(nav.name.toString())">{{nav.name.toString()}}</li>
     </ng-container>
   </ul>
   <div class="rightWarpper">

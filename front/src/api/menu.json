@@ -140,7 +140,7 @@
       "name": "理化管理",
       "data": [
         {
-          "icon": "laptop",
+          "icon": "home",
           "name": "首页",
           "route": "/dashboard"
         },
@@ -226,7 +226,7 @@
       "name": "检验与试验管理",
       "data": [
         {
-          "icon": "laptop",
+          "icon": "home",
           "name": "首页",
           "route": "/dashboard"
         },
@@ -373,7 +373,7 @@
       "name": "设备管理",
       "data": [
         {
-          "icon": "laptop",
+          "icon": "home",
           "name": "首页",
           "route": "/dashboard"
         },
@@ -409,7 +409,7 @@
       "name":"设计数据管理",
       "data":[
         {
-          "icon": "laptop",
+          "icon": "home",
           "name": "首页",
           "route": "/dashboard"
         },
@@ -429,7 +429,7 @@
       "name": "系统管理",
       "data": [
         {
-          "icon": "laptop",
+          "icon": "home",
           "name": "首页",
           "route": "/dashboard"
         },

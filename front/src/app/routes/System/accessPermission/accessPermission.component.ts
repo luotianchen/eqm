@@ -50,7 +50,7 @@ export class AccessPermissionComponent implements OnInit {
           });
         })
       }
-    })
+    });
 
     this.accessPermissionService.getrole().subscribe((res)=>{
       if(res['result'] == "success"){
@@ -64,7 +64,6 @@ export class AccessPermissionComponent implements OnInit {
         for(let item of res['data'])
           this.rolemaps[item['role']] = item['rolename'];
         this.rolemaps[-1] = "所有人";
-        console.log(this.rolemaps);
       }
     })
   }
