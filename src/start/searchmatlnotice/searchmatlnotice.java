@@ -35,10 +35,8 @@ public class searchmatlnotice {                                                 
 
         try {
             psru = conn.prepareStatement("SELECT * FROM matlcoderules");
-            if(rs.next()){
-
-
-
+            rsru = psru.executeQuery();
+            if(rsru.next()){
                 if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
                     if(!(sp.getMatlcode().charAt(0)!=rsru.getString("plank").charAt(0) &&
                             sp.getMatlcode().charAt(0)!=rsru.getString("pipe").charAt(0) &&
@@ -57,7 +55,7 @@ public class searchmatlnotice {                                                 
                         ps.setString(1,year_month);
                         rs = ps.executeQuery();
                         while (rs.next()){
-                            if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rsru.getInt("indexx")))){
+                            if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rsru.getInt("indexx")-1))){
                                 data = new searchmatlnoticedata();
                                 user_id=rs.getInt("user_id");
                                 data.setAudit_user(rs.getString("audit_user"));
@@ -174,11 +172,11 @@ public class searchmatlnotice {                                                 
                         result.setResult("fail");
                     }
                 }else {
-                    if(sp.getCodedmarking().charAt(rsru.getInt("indexx"))==rsru.getString("plank").charAt(0) ||
-                            sp.getCodedmarking().charAt(rsru.getInt("indexx"))==rsru.getString("pipe").charAt(0) ||
-                            sp.getCodedmarking().charAt(rsru.getInt("indexx"))==rsru.getString("flange").charAt(0) ||
-                            sp.getCodedmarking().charAt(rsru.getInt("indexx"))==rsru.getString("head").charAt(0) ||
-                            sp.getCodedmarking().charAt(rsru.getInt("indexx"))==rsru.getString("welding").charAt(0) ){
+                    if(sp.getCodedmarking().charAt(rsru.getInt("indexx")-1)==rsru.getString("plank").charAt(0) ||
+                            sp.getCodedmarking().charAt(rsru.getInt("indexx")-1)==rsru.getString("pipe").charAt(0) ||
+                            sp.getCodedmarking().charAt(rsru.getInt("indexx")-1)==rsru.getString("flange").charAt(0) ||
+                            sp.getCodedmarking().charAt(rsru.getInt("indexx")-1)==rsru.getString("head").charAt(0) ||
+                            sp.getCodedmarking().charAt(rsru.getInt("indexx")-1)==rsru.getString("welding").charAt(0) ){
                         ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking=? ");
                         ps.setString(1,sp.getCodedmarking());
                         rs = ps.executeQuery();
@@ -193,7 +191,7 @@ public class searchmatlnotice {                                                 
                             data.setHeatbatchno(rs.getString("heatbatchno"));
                             data.setDimension(rs.getString("dimension"));
                             data.setIndate(rs.getString("indate"));
-                            if((rs.getString("codedmarking").charAt(rsru.getInt("indexx")))==rsru.getInt("welding")){
+                            if((rs.getString("codedmarking").charAt(rsru.getInt("indexx")-1))==rsru.getInt("welding")){
                                 ps1 = conn.prepareStatement("SELECT * FROM weldingcard WHERE matlname_id_matlname=?");
                                 ps1.setInt(1,rs.getInt("matlname_id_matlname"));
                                 rs1 = ps1.executeQuery();
