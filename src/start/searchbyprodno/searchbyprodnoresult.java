@@ -6,6 +6,7 @@ public class searchbyprodnoresult {
     private String result;
     private String prodname;                                //产品名称(用图号再产品参数表查询)
     private String dwgno;                                   //图号(在产品制造参数表查询)
+    private String user;
     private ArrayList<searchbyprodnodata> data = new ArrayList<searchbyprodnodata>();           //受压原件表查询
     public searchbyprodnoresult(){
         super();
@@ -41,5 +42,13 @@ public class searchbyprodnoresult {
 
     public void setData(ArrayList<searchbyprodnodata> data) {
         this.data = data;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

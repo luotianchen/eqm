@@ -90,6 +90,7 @@ public class searchbyprodno {                                               //é€
                 designation_id=rs.getInt("contraststand_id_designation");
                 picker_id=rs.getInt("workshopperson_id_name");
                 issuematl_id=rs.getInt("warehouseperson_id_name");
+                result.setUser(rs.getString("user"));
 
                 ps1=conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ?");
                 ps1.setString(1,rs.getString("codedmarking"));

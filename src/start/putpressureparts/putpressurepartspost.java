@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class putpressurepartspost {
     private String prodno;
+    private String user;
     private ArrayList<putpressurepartspostdata> data = new ArrayList<putpressurepartspostdata>();
     public putpressurepartspost(){
         super();
@@ -23,5 +24,13 @@ public class putpressurepartspost {
 
     public void setData(ArrayList<putpressurepartspostdata> data) {
         this.data = data;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

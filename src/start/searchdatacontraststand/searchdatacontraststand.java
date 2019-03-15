@@ -37,12 +37,14 @@ public class searchdatacontraststand {                                      //é€
         ArrayList<Double> outward = new ArrayList<Double>();
         ArrayList<Double> concave = new ArrayList<Double>();
 
+        ArrayList<String> shthick_data = new ArrayList<String>();
+
         String stand = null;
         int shthick = 0;
         int stand_id = 0;
         double length = 0;
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
@@ -66,6 +68,8 @@ public class searchdatacontraststand {                                      //é€
             rs = ps.executeQuery();
             if(rs.next()){
                 if(!(rs.getString("shthick1") == null || rs.getString("shthick1").equals(""))){
+                    shthick_data.add(rs.getString("shthick1"));
+
                     shthick = rs.getInt("shthick1");
                     ps1 = conn.prepareStatement("SELECT * FROM datacontraststand WHERE stand = ? ");
                     ps1.setInt(1,stand_id);
@@ -95,6 +99,8 @@ public class searchdatacontraststand {                                      //é€
                     ps1.close();
                 }
                 if(!(rs.getString("shthick2") == null || rs.getString("shthick2").equals(""))){
+                    shthick_data.add(rs.getString("shthick2"));
+
                     shthick = rs.getInt("shthick2");
                     ps1 = conn.prepareStatement("SELECT * FROM datacontraststand WHERE stand = ? ");
                     ps1.setInt(1,stand_id);
@@ -124,6 +130,8 @@ public class searchdatacontraststand {                                      //é€
                     ps1.close();
                 }
                 if(!(rs.getString("shthick3") == null || rs.getString("shthick3").equals(""))){
+                    shthick_data.add(rs.getString("shthick3"));
+
                     shthick = rs.getInt("shthick3");
                     ps1 = conn.prepareStatement("SELECT * FROM datacontraststand WHERE stand = ? ");
                     ps1.setInt(1,stand_id);
@@ -222,6 +230,7 @@ public class searchdatacontraststand {                                      //é€
             data.setWeldreinfd(weldreinfd);
             data.setWeldreinfs(weldreinfs);
             data.setInnerdia(innerdia);
+            data.setShthick(shthick_data);
             if(!(straightness.get(0)==null || straightness.get(0).equals(""))){
                 data.setStraightness(straightness.get(0));
             }
@@ -229,9 +238,9 @@ public class searchdatacontraststand {                                      //é€
             data.setConcave(concave);
             result.setData(data);
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult(e.toString());
-//        }
+        }catch (Exception e){
+            result.setResult(e.toString());
+        }
         conn.close();
         return result;
     }

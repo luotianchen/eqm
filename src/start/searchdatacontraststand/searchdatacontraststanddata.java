@@ -16,6 +16,7 @@ public class searchdatacontraststanddata {
     private double straightness;
     private ArrayList<Double> outward;
     private ArrayList<Double> concave;
+    private ArrayList<String> shthick;
     public searchdatacontraststanddata(){
         super();
     }
@@ -122,5 +123,13 @@ public class searchdatacontraststanddata {
 
     public void setStraightness(double straightness) {
         this.straightness = straightness;
+    }
+
+    public ArrayList<String> getShthick() {
+        return shthick;
+    }
+
+    public void setShthick(ArrayList<String> shthick) {
+        this.shthick = shthick;
     }
 }

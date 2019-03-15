@@ -1,5 +1,7 @@
 package start.searchdatacontraststand2;
 
+import java.util.ArrayList;
+
 public class searchdatacontraststand2data {
     private double aweldmaxangul;
     private double bweldmaxangul;
@@ -14,6 +16,7 @@ public class searchdatacontraststand2data {
     private double straightness;
     private double outward;
     private double concave;
+    private ArrayList<String> shthick;
     public searchdatacontraststand2data(){
         super();
     }
@@ -120,5 +123,13 @@ public class searchdatacontraststand2data {
 
     public void setConcave(double concave) {
         this.concave = concave;
+    }
+
+    public ArrayList<String> getShthick() {
+        return shthick;
+    }
+
+    public void setShthick(ArrayList<String> shthick) {
+        this.shthick = shthick;
     }
 }

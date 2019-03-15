@@ -96,9 +96,9 @@ public class putpressureparts {                                         //发放
                 ps = conn.prepareStatement("INSERT INTO pressureparts " +
                         "(prodno,parts_id_name,spec,dimension,partno," +
                         "contraststand_id_designation,qty,codedmarking,issuedate,workshopperson_id_name,note,audit," +
-                        "ispresspart,weldno,returnqty,warehouseperson_id_name)" +
+                        "ispresspart,weldno,returnqty,warehouseperson_id_name,user)" +
                         "values (?,?,?,?,?,?,?,?,?,?,?,?," +
-                        "?,?,?,?)");
+                        "?,?,?,?,?)");
                 ps.setString(1,pp.getProdno());
                 ps.setInt(2,spartname_id);
                 ps.setString(3,pp.getData().get(i).getSpec());
@@ -115,6 +115,7 @@ public class putpressureparts {                                         //发放
                 ps.setString(14,pp.getData().get(i).getWeldno());
                 ps.setInt(15,pp.getData().get(i).getReturnqty());
                 ps.setInt(16,issuematl_id);
+                ps.setString(17,pp.getUser());
                 ps.executeUpdate();
                 ps.close();
 

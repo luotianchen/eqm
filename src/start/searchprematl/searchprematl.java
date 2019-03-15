@@ -124,7 +124,7 @@ public class searchprematl {                                //受压元件使用
                 if(rs1.next()){
                     designation_id = rs1.getInt("contraststand_id_designation");
                     millunit_id = rs1.getInt("millunit_id_millunit");
-                    heatcondi_id = rs1.getInt("heattreatcondition_id_heatcondi");
+                    data.setHeatcondi(rs1.getString("heattreatcondition_id_heatcondi"));
                 }
                 rs1.close();
                 ps1.close();
@@ -148,14 +148,6 @@ public class searchprematl {                                //受压元件使用
                 rs1.close();
                 ps1.close();
 
-                ps1 = conn.prepareStatement("SELECT * FROM heattreatcondition WHERE id = ?");
-                ps1.setInt(1,heatcondi_id);
-                rs1 = ps1.executeQuery();
-                if(rs1.next()){
-                    data.setHeatcondi(rs1.getString("heatcondi"));
-                }
-                rs1.close();
-                ps1.close();
 
                 as.add(data);
             }

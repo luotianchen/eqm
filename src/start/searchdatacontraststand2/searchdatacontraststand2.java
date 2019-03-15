@@ -38,12 +38,14 @@ public class searchdatacontraststand2 {
         ArrayList<Double> outward = new ArrayList<Double>();
         ArrayList<Double> concave = new ArrayList<Double>();
 
+        ArrayList<String> shthick_data = new ArrayList<String>();
+
         String stand = null;
         int shthick = 0;
         int stand_id = 0;
         double length = 0;
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
@@ -67,6 +69,8 @@ public class searchdatacontraststand2 {
             rs = ps.executeQuery();
             if(rs.next()){
                 if(!(rs.getString("shthick1") == null || rs.getString("shthick1").equals(""))){
+                    shthick_data.add(rs.getString("shthick1"));
+
                     shthick = rs.getInt("shthick1");
                     ps1 = conn.prepareStatement("SELECT * FROM datacontraststand WHERE stand = ? ");
                     ps1.setInt(1,stand_id);
@@ -96,6 +100,8 @@ public class searchdatacontraststand2 {
                     ps1.close();
                 }
                 if(!(rs.getString("shthick2") == null || rs.getString("shthick2").equals(""))){
+                    shthick_data.add(rs.getString("shthick2"));
+
                     shthick = rs.getInt("shthick2");
                     ps1 = conn.prepareStatement("SELECT * FROM datacontraststand WHERE stand = ? ");
                     ps1.setInt(1,stand_id);
@@ -125,6 +131,8 @@ public class searchdatacontraststand2 {
                     ps1.close();
                 }
                 if(!(rs.getString("shthick3") == null || rs.getString("shthick3").equals(""))){
+                    shthick_data.add(rs.getString("shthick2"));
+
                     shthick = rs.getInt("shthick3");
                     ps1 = conn.prepareStatement("SELECT * FROM datacontraststand WHERE stand = ? ");
                     ps1.setInt(1,stand_id);
@@ -247,12 +255,13 @@ public class searchdatacontraststand2 {
             if(roundness.size() != 0){
                 data.setRoundness(roundness.get(0));
             }
+            data.setShthick(shthick_data);
 
             result.setData(data);
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
