@@ -75,19 +75,11 @@ public class searchprematl {                                //受压元件使用
             if(rs.next()){
                 result.setIssuedate(sdf.format(rs.getDate("issuedate")));
                 codedmarking = rs.getString("codedmarking");
-                issuematl_id = rs.getInt("warehouseperson_id_name");
+                result.setIssuematl(rs.getString("user"));
             }
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM warehouseperson WHERE id = ?");
-            ps.setInt(1,issuematl_id);
-            rs = ps.executeQuery();
-            if(rs.next()){
-                result.setIssuematl(rs.getString("username"));
-            }
-            rs.close();
-            ps.close();
 
             ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ?");
             ps.setString(1,codedmarking);
