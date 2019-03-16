@@ -44,7 +44,7 @@ public class getprenotiformreport {                                         //�
         String detemp = null;                       //设计温度
         String wmedia = null;                       //工作介质
         String testpress = null;                    //试验压力
-        String leaktest = null;                     //气密性试验方式
+        String leaktestp = null;                     //气密性试验压力
         String dated = null;                        //开具日期
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
@@ -132,7 +132,7 @@ public class getprenotiformreport {                                         //�
             detemp = rs.getString("detemp");                       //设计温度
             wmedia = rs.getString("wmedia");                       //工作介质
             testpress = rs.getString("testpress");                    //试验压力
-            leaktest = rs.getString("leaktest");                     //气密性试验方式
+            leaktestp = rs.getString("leaktestp");                     //气密性试验方式
         }
         rs.close();
         ps.close();
@@ -147,7 +147,7 @@ public class getprenotiformreport {                                         //�
         putsheet(sheet,6,5,detemp);
         putsheet(sheet,6,8,wmedia);
         putsheet(sheet,6,12,testpress);
-        putsheet(sheet,7,12,leaktest);
+        putsheet(sheet,7,12,leaktestp);
         putsheet(sheet,21,9,dated);
         putsheet(sheet,23,9,dated);
 
