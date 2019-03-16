@@ -49,10 +49,10 @@ public class gethpretestreport {                                        //液（
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
         String uploadPath = path + "upload";                                                //获取文件名称
         System.out.println(uploadPath);
-        File realfile = new File(uploadPath,"气压、气液混合.xlsx");
+        File realfile = new File(uploadPath,"液压过程卡.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = "气压、气液混合_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        String filename = "液压过程卡_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 
@@ -111,19 +111,18 @@ public class gethpretestreport {                                        //液（
         rs.close();
         ps.close();
 
+
         putsheet(sheet,2,1,prodno);
-        putsheet(sheet,2,3,type);
-        putsheet(sheet,2,8,pttype);
-        putsheet(sheet,3,8,leaktest);
-        putsheet(sheet,4,1,depress);
-        putsheet(sheet,4,3,wpress);
-        putsheet(sheet,4,8,wmedia);
-        putsheet(sheet,5,1,detemp);
-        putsheet(sheet,5,3,wtemp);
-        putsheet(sheet,6,1,testpress);
-        putsheet(sheet,7,1,leaktestp);
-        putsheet(sheet,6,3,testmedia);
-        putsheet(sheet,10,1,prenotiform_user);
+        putsheet(sheet,2,4,type);
+        putsheet(sheet,2,6,pttype);
+        putsheet(sheet,3,1,depress);
+        putsheet(sheet,3,4,wpress);
+        putsheet(sheet,3,6,wmedia);
+        putsheet(sheet,4,1,detemp);
+        putsheet(sheet,4,4,wtemp);
+        putsheet(sheet,5,1,testpress);
+        putsheet(sheet,5,4,testmedia);
+        putsheet(sheet,8,1,prenotiform_user);
 
 
 
@@ -133,7 +132,7 @@ public class gethpretestreport {                                        //液（
 
         File filepdf = new File(uploadPath, filename);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "气压、气液混合.xlsx");// 文件的属性，也就是文件叫什么吧
+        headers.setContentDispositionFormData("attachment", "液压过程卡.xlsx");// 文件的属性，也就是文件叫什么吧
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
         ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
         file.delete();

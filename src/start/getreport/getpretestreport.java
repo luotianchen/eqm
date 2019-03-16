@@ -118,14 +118,16 @@ public class getpretestreport {                             //气压（气液组
         putsheet(sheet,2,1,prodno);
         putsheet(sheet,2,3,type);
         putsheet(sheet,2,8,pttype);
-        putsheet(sheet,3,1,depress);
-        putsheet(sheet,3,3,wpress);
-        putsheet(sheet,3,8,wmedia);
-        putsheet(sheet,4,1,detemp);
-        putsheet(sheet,4,3,wtemp);
-        putsheet(sheet,5,1,testpress);
-        putsheet(sheet,5,3,testmedia);
-        putsheet(sheet,8,1,prenotiform_user);
+        putsheet(sheet,3,8,leaktest);
+        putsheet(sheet,4,1,depress);
+        putsheet(sheet,4,3,wpress);
+        putsheet(sheet,4,8,wmedia);
+        putsheet(sheet,5,1,detemp);
+        putsheet(sheet,5,3,wtemp);
+        putsheet(sheet,6,1,testpress);
+        putsheet(sheet,7,1,leaktestp);
+        putsheet(sheet,6,3,testmedia);
+        putsheet(sheet,10,1,prenotiform_user);
 
 
         OutputStream out = new FileOutputStream(url1);
