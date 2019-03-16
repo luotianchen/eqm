@@ -222,7 +222,7 @@ export class WarehousingRegistrationComponent implements OnInit {
   };
 
   changeHardness(name){ //硬度校验
-    if(!this.validateForm.controls[name].value)
+    if(this.validateForm.controls[name].value==null)
       this.validateForm.controls[name].setErrors({required: true});
     else if(!/^[0-9]+(.[0-9])?[/][0-9]+(.[0-9])?[/][0-9]+(.[0-9])?$/.test(this.validateForm.controls[name].value)){
       this.validateForm.controls[name].setValue(null);
@@ -255,7 +255,7 @@ export class WarehousingRegistrationComponent implements OnInit {
   MaxMinJudge(name){
     if (this.dataDetail[name].max == null || this.dataDetail[name].max == 'null') this.dataDetail[name].max = 99999;
     if (this.dataDetail[name].min == null || this.dataDetail[name].min == 'null') this.dataDetail[name].min = 0;
-    if (!this.validateForm.controls[name].value) {
+    if (this.validateForm.controls[name].value==null) {
       this.validateForm.controls[name].setErrors({required: true})
     } else if (this.validateForm.controls[name].value > this.dataDetail[name].max || this.validateForm.controls[name].value < this.dataDetail[name].min) {
       this.validateForm.controls[name].setErrors({overflow: true, error: true});
@@ -784,17 +784,20 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.validateForm.controls['utclass'].disable();
                   break;
                 case 1 :
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I"
                   ];
                   break;
                 case 2 :
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I",
                     "II"
                   ];
                   break;
                 case 3 :
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I",
                     "II",
@@ -802,6 +805,7 @@ export class WarehousingRegistrationComponent implements OnInit {
                   ];
                   break;
                 case 4 :
+                  this.validateForm.controls['utclass'].enable();
                   this.utclasses = [
                     "I",
                     "II",
@@ -854,14 +858,12 @@ export class WarehousingRegistrationComponent implements OnInit {
                       this.validateForm.controls['utclass'].disable();
                       break;
                     case 1 :
-                      this.validateForm.controls['utclass'].setValue(null);
                       this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I"
                       ];
                       break;
                     case 2 :
-                      this.validateForm.controls['utclass'].setValue(null);
                       this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I",
@@ -869,7 +871,6 @@ export class WarehousingRegistrationComponent implements OnInit {
                       ];
                       break;
                     case 3 :
-                      this.validateForm.controls['utclass'].setValue(null);
                       this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I",
@@ -878,7 +879,6 @@ export class WarehousingRegistrationComponent implements OnInit {
                       ];
                       break;
                     case 4 :
-                      this.validateForm.controls['utclass'].setValue(null);
                       this.validateForm.controls['utclass'].enable();
                       this.utclasses = [
                         "I",

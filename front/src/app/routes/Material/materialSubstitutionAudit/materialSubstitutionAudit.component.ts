@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MaterialSubstitutionAuditService} from "./materialSubstitutionAudit.service";
 import {NzMessageService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-materialSubstitutionAudit',
@@ -63,7 +64,7 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
     status_c:"c_username",
   };
 
-  constructor(public materialSubstitutionAuditService:MaterialSubstitutionAuditService,public message : NzMessageService,public _storage:SessionStorageService){
+  constructor(public materialSubstitutionAuditService:MaterialSubstitutionAuditService,public message : NzMessageService,public _storage:SessionStorageService,private router:Router){
   }
 
   search(audit){
@@ -79,13 +80,13 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
       this.isVisible = false;
       this.searchData();
     }
-    if(this._storage.get("role2")!="null")
+    if(this._storage.get("role2")!="null" && this._storage.get("role2")!='0')
       this.roles.push(this._storage.get("role2"));
-    if(this._storage.get("role3")!="null")
+    if(this._storage.get("role3")!="null"&& this._storage.get("role3")!='0')
       this.roles.push(this._storage.get("role3"));
-    if(this._storage.get("role4")!="null")
+    if(this._storage.get("role4")!="null"&& this._storage.get("role4")!='0')
       this.roles.push(this._storage.get("role4"));
-    if(this._storage.get("role5")!="null")
+    if(this._storage.get("role5")!="null"&& this._storage.get("role5")!='0')
       this.roles.push(this._storage.get("role5"))
   }
   searchData(){
@@ -159,7 +160,7 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
     }
   }
   handleCancle(): void {
-    this.message.error("请选择审核身份！");
+    this.router.navigate(['']);
   }
   changeRole(){
     this.isVisible = true;

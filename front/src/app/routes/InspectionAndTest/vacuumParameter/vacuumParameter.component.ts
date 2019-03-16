@@ -14,6 +14,7 @@ export class VacuumParameterComponent implements OnInit {
   public prodnos:any;
   validateForm: FormGroup;
   dataSet = [];
+  users = [];
   num2pa = {
     13:26.6,
     22:13.3,
@@ -89,6 +90,11 @@ export class VacuumParameterComponent implements OnInit {
         this.prodnos = res['data'];
       }
     });
+    this.vacuumParameterService.getuserform().subscribe(res=>{
+      if(res['result'] == "success"){
+        this.users = res['data'];
+      }
+    })
     this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null, [Validators.required]],

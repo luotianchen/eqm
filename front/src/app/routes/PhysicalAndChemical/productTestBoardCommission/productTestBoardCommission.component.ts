@@ -35,8 +35,8 @@ export class ProductTestBoardCommissionComponent implements OnInit {
     })
     this.productTestBoardCommissionService.getDesignationAndSpec().subscribe((res)=>{
       if(res['result']=="success"){
-        this.designations = res['data']['designation'];
-        this.specs = res['data']['spec'];
+        this.designations = res['data']['designation'].filter((value,index)=>res['data']['designation'].indexOf(value)==index);
+        this.specs = res['data']['spec'].filter((value,index)=>res['data']['spec'].indexOf(value)==index);
       }
     })
       this.validateForm = this.fb.group({

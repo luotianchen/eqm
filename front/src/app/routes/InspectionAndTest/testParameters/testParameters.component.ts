@@ -173,6 +173,8 @@ export class TestParametersComponent implements OnInit {
     if(this.validateForm.valid){
       this.testParametersService.getchannel(this.validateForm.controls['dwgno'].value).subscribe((res)=>{
         this.channel = res["data"];
+        this.showChannel = false;
+        let dealindex = 0;
         this.channelForms = [];
         for(let data of this.channel){ //对于每个通道设置一个表单
           let fbb :FormGroup;
@@ -283,7 +285,7 @@ export class TestParametersComponent implements OnInit {
                 model.leaktest = true;
               else
                 model.leaktest = false;
-              this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'],data.name,'dated1').subscribe((res)=> {
+              this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'].value,data.name,'dated1').subscribe((res)=> {
                 if (res['result'] == "success") {
                   model.dated1.status = 2;
                   model.dated1.press = res['data']['press'];
@@ -294,7 +296,7 @@ export class TestParametersComponent implements OnInit {
                     model.dated1.leak['leaktestp'] = data.leaktestp;
                     model.dated1.leak['ppart'] = data.name;
                   }
-                  this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'],data.name,'dated2').subscribe((res)=>{
+                  this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'].value,data.name,'dated2').subscribe((res)=>{
                     if(res['result']=="success"){
                       model.dated2.status = 2;
                       model.dated2.press = res['data']['press'];
@@ -305,7 +307,7 @@ export class TestParametersComponent implements OnInit {
                         model.dated2.leak['leaktestp'] = data.leaktestp;
                         model.dated2.leak['ppart'] = data.name;
                       }
-                      this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'],data.name,'dated3').subscribe((res)=>{
+                      this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'].value,data.name,'dated3').subscribe((res)=>{
                         if(res['result']=="success") {
                           model.dated3.status = 2;
                           model.dated3.press = res['data']['press'];
@@ -334,7 +336,7 @@ export class TestParametersComponent implements OnInit {
               })
             }else{
               fbb = this.fb.group({//初始化数据
-                prodno:[this.validateForm.controls['prodno'], [Validators.required]],
+                prodno:[this.validateForm.controls['prodno'].value, [Validators.required]],
                 dwgno:[this.validateForm.controls['dwgno'].value, [Validators.required]],
                 ppart:[data.name, [Validators.required]],
                 eppart:[data.ename, [Validators.required]],
@@ -343,17 +345,19 @@ export class TestParametersComponent implements OnInit {
                 dated3:[null],
                 testmedia:[null],
                 etestmedia:[null],
-                clcontent:[null],
+                clcontent:[null]
               });
               this.dataModel.push(model);
             }
             this.channelForms.push(fbb)
+            if(++dealindex == this.channel.length)
+              this.showChannel = true;
           });
         }
       })
     }
   }
-
+  showChannel = false;
   formatInDate(control){ //日期格式化
     let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
@@ -380,7 +384,7 @@ export class TestParametersComponent implements OnInit {
       form.controls[ i ].updateValueAndValidity();
     }
     if(form.valid){
-      let ename = this.pparts.filter(item=>item.label == form.ppart)[0].value.ename;
+      let ename = this.pparts.filter(item=>item.label == form.controls['ppart'].value)[0].value.ename;
       this.testParametersService.putPressureTest({
         prodno:form.controls['prodno'].value,
         dwgno:form.controls['dwgno'].value,
@@ -389,9 +393,9 @@ export class TestParametersComponent implements OnInit {
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
         dated3:form.controls['dated3'].value,
-        testmedia:form.controls['testmedia'].name,
-        etestmedia:form.controls['testmedia'].ename,
-        clcontent:form.controls['testmedia'].cl,
+        testmedia:form.controls['testmedia'].value.name,
+        etestmedia:form.controls['testmedia'].value.ename,
+        clcontent:form.controls['clcontent'].value,
         user:this._storage.get("username")
       }).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -400,8 +404,7 @@ export class TestParametersComponent implements OnInit {
             nzContent: '提交开具日期信息成功！'
           })
           let prodno = this.validateForm.controls['prodno'].value;
-          this.validateForm.controls['prodno'].setValue(null);
-          this.validateForm.controls['prodno'].setValue(prodno);
+          this.checklink()
         }
       })
     }
@@ -427,9 +430,9 @@ export class TestParametersComponent implements OnInit {
     if(valid){
       let ename = this.pparts.filter(item=>item.label == form.controls['ppart'].value)[0].value.ename;
       this.testParametersService.putPressureTest({
-        prodno:form.controls['prodno'],
-        dwgno:form.controls['dwgno'],
-        ppart:form.controls['ppart'],
+        prodno:form.controls['prodno'].value,
+        dwgno:form.controls['dwgno'].value,
+        ppart:form.controls['ppart'].value,
         eppart:ename,
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
@@ -522,6 +525,10 @@ export class TestParametersComponent implements OnInit {
       this.testParametersService.searchmeabyexi(this.dataModel[index][dated].press.pgaugeno1,this.dataModel[index][dated].press.date).subscribe(res=>{
         if(res['result'] == "success"){
           this.dataModel[index][dated].press.range = {max:res['max'],min:res['min']};
+          if(this.dataModel[index][dated].press.testpress*3>this.dataModel[index][dated].press.range.max || this.dataModel[index][dated].press.testpress*1.5<this.dataModel[index][dated].press.range.max){
+            this.dataModel[index][dated].press.pgaugeno1 = null;
+            this.message.error("量程表超出范围！")
+          }
         }
       })
   }

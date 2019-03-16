@@ -131,7 +131,8 @@ export class AccessPermissionComponent implements OnInit {
     }else if(this.power[route].indexOf(1) == -1 && this.power[route].indexOf(-1) == -1){ //若既不包含管理员，又不包含全部人
       this.power[route].push(1);
     }else if(this.power[route].indexOf(-1)!=-1){//若包含全部人员
-      this.power[route] = [-1];
+      this.power[route] = this.power[route].filter(item=>item!=-1);
+      this.check(route);
     }
   }
   submitForm(){

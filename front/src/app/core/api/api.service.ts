@@ -5,5 +5,5 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class ApiService{
-  public BASEURL = "/eqm";
+  public BASEURL = "http://localhost:8080";
 }

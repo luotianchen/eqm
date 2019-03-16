@@ -36,9 +36,10 @@ export class ProductManufacturingParametersComponent implements OnInit {
     "innerdia":[],//容器内径
     "roundness":[],//筒体圆度
     "length":0,//筒体长度
-    "straightness":[],//筒体直线
+    "straightness":0,//筒体直线
     "outward":[],//封头外凸
-    "concave":[]//封头内凸
+    "concave":[],//封头内凸
+    "shthick":[]//冷卷厚度
   };
   dataDetail = {
     "aweldmaxangul":[],
@@ -50,7 +51,8 @@ export class ProductManufacturingParametersComponent implements OnInit {
     "innerdia":[],//容器内径
     "roundness":[],//筒体圆度
     "outward":[],//封头外凸
-    "concave":[]//封头内凸
+    "concave":[],//封头内凸
+    "shthick":[]//冷卷厚度
   }
   //下面为产品制造参数2数据
   dataStand2 = {
@@ -66,7 +68,8 @@ export class ProductManufacturingParametersComponent implements OnInit {
     "length":null,
     "straightness":null,
     "outward":null,
-    "concave":null
+    "concave":null,
+    "shthick":[]//冷卷厚度
   }
 
   ngOnInit(): void {
@@ -145,8 +148,23 @@ export class ProductManufacturingParametersComponent implements OnInit {
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
           this.productManufacturingParametersService.getDataStand(this.validateForm.value.dwgno).then((res) => {
             if(res['result']=="success") {
-              this.dataDetail = res['data'];
-              this.dataStand = res['data'];
+              this.dataStand = Object.assign({}, res['data']);
+              let i:any;
+              for(i in this.dataStand){
+                if(!!this.dataStand[i].length){
+                  this.dataStand[i] = this.dataStand[i].filter(function(element,index,self){
+                    return self.indexOf(element) === index;
+                  });
+                }
+              }
+              this.dataDetail = Object.assign({}, res['data']);
+              for(let i in this.dataDetail){
+                if(!!this.dataDetail[i].length){
+                  for(let item of this.dataDetail[i]){
+                    this.dataDetail[i] = [];
+                  }
+                }
+              }
             }
           })
           this.productManufacturingParametersService.getbydwgno(this.validateForm.value.dwgno).subscribe(res=>{
@@ -174,8 +192,8 @@ export class ProductManufacturingParametersComponent implements OnInit {
       this.productManufacturingParametersService.putManufacturing({
         "prodno":this.validateForm.value.prodno,
         "dwgno":this.validateForm.value.dwgno,
-        "orderunit":this.validateForm.value.orderunit.name,
-        "eorderunit":this.validateForm.value.orderunit.ename,
+        "orderunit":this.validateForm.value.orderunit?this.validateForm.value.orderunit.name:null,
+        "eorderunit":this.validateForm.value.orderunit?this.validateForm.value.orderunit.ename:null,
         "ecode":this.validateForm.value.ecode,
         "dealter":this.validateForm.value.dealter,
         "submatl":this.validateForm.value.submatl,
@@ -226,9 +244,10 @@ export class ProductManufacturingParametersComponent implements OnInit {
             "innerdia":[],//容器内径
             "roundness":[],//筒体圆度
             "length":0,//筒体长度
-            "straightness":[],//筒体直线
+            "straightness":0,//筒体直线
             "outward":[],//封头外凸
-            "concave":[]//封头内凸
+            "concave":[],//封头内凸
+            "shthick":[]//冷卷厚度
           }
           this.dataDetail = {
             "aweldmaxangul":[],
@@ -240,7 +259,8 @@ export class ProductManufacturingParametersComponent implements OnInit {
             "innerdia":[],//容器内径
             "roundness":[],//筒体圆度
             "outward":[],//封头外凸
-            "concave":[]//封头内凸
+            "concave":[],//封头内凸
+            "shthick":[]//冷卷厚度
           }
         }
       })
@@ -342,15 +362,22 @@ export class ProductManufacturingParametersComponent implements OnInit {
     this.productManufacturingParametersService.getDataStand2(this.validateForm2.value.dwgno).then((res) => {
       if(res['result']=="success") {
         this.dataStand2 = res['data'];
+        this.dataStand2.shthick.filter((value,index)=>this.dataStand2.shthick.indexOf(value)==index);
       }
     })
   }
 
-
+  returnArray2String(array){
+    return array.join('/');
+  }
   submitForm2(){
     for(const i in this.validateForm2.controls){
       this.validateForm2.controls[ i ].markAsDirty();
       this.validateForm2.controls[ i ].updateValueAndValidity();
+    }
+    for(const i in this.validateForm2.controls){
+      if(!this.validateForm2.controls[ i ].valid)
+        console.log(i)
     }
     if(this.validateForm2.valid){
       this.productManufacturingParametersService.putManufacturing2({
@@ -394,7 +421,8 @@ export class ProductManufacturingParametersComponent implements OnInit {
             "length":null,
             "straightness":null,
             "outward":null,
-            "concave":null
+            "concave":null,
+            "shthick":[]//冷卷厚度
           }
         }
       })

@@ -12,8 +12,8 @@
         <nz-form-label nzRequired nzFor="testno">试验编号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-group nzCompact>
-            <input nz-input placeholder="年月" formControlName="yearmonth" name="yearmonth" id="yearmonth"  style="width: 57%;"/>
-            <input nz-input placeholder="顺序号" formControlName="testno" name="testno" id="testno" (blur)="checktestno($event)"  style="width: 43%;"/>
+            <input nz-input placeholder="年月" formControlName="yearmonth" name="yearmonth" id="yearmonth"  style="width: 50%;"/>
+            <input nz-input placeholder="顺序号" formControlName="testno" name="testno" id="testno" (blur)="checktestno($event)"  style="width: 50%;"/>
           </nz-input-group>
           <nz-form-explain style="color:red" *ngIf="validateForm.get('testno').dirty && validateForm.get('testno').errors">
             您输入的顺序号不可用！推荐顺序号：{{recomtestno}}
@@ -56,7 +56,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="specimenmatl">试样材质</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="试样类型" formControlName="specimenmatl" name="specimenmatl" id="specimenmatl"/>
+          <input nz-input placeholder="试样材质" formControlName="specimenmatl" name="specimenmatl" id="specimenmatl"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -64,7 +64,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="specimenspec">试样规格</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="试样类型" formControlName="specimenspec" name="specimenspec" id="specimenspec"/>
+          <input nz-input placeholder="试样规格" formControlName="specimenspec" name="specimenspec" id="specimenspec"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -240,7 +240,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-input-number style="width: 100%" nz-input placeholder="弯曲直径" formControlName="bendaxdia" name="bendaxdia" id="hardness3"></nz-input-number>
+          <nz-input-number style="width: 100%" nzPlaceHolder="请输入数值" formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" nzAddOnAfter="a" [nzFormatter]="formatterA" [nzParser]="parserA"></nz-input-number>
           <nz-form-explain style="color:red">母材标准延长率下限值大于等于20%的不得大于4a</nz-form-explain>
         </nz-form-control>
       </nz-form-item>

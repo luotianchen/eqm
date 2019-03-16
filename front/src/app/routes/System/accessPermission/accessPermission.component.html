@@ -28,7 +28,7 @@
             </span>
           </span>
           <span *ngIf="!item.children">
-            <nz-select style="width: 100%" nzMode="multiple" nzPlaceHolder="请选择" [(ngModel)]="power[item.route]" (ngModelChange)="check(item.route)">
+            <nz-select style="width: 100%" nzMode="multiple" nzPlaceHolder="请选择" [(ngModel)]="power[item.route]" (ngModelChange)="check(item.route)" nzAllowClear>
               <nz-option *ngFor="let option of roles" [nzLabel]="option.rolename" [nzValue]="option.role"></nz-option>
             </nz-select>
           </span>

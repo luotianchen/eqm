@@ -64,7 +64,6 @@ import {VacuumInspectionReportModule} from './Report/vacuumInspectionReport/vacu
 import {QuaPressVesPlanReportModule} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.module';
 import {CertificateReportModule} from "./Material/certificateReport/certificateReport.module";
 import {PressCoverReportModule} from "./Report/pressCoverReport/pressCoverReport.module";
-import {QuaPlanPressVesReportModule} from "./Profile/quaPlanPressVesReport/quaPlanPressVesReport.module";
 import {WelderMatlTraceRecordModule} from "./Report/welderMatlTraceRecord/welderMatlTraceRecord.module";
 import {PressVesShapeSizeInsReportModule} from "./Report/pressVesShapeSizeInsReport/pressVesShapeSizeInsReport.module";
 import {CleaningInsReportModule} from "./Report/cleaningInsReport/cleaningInsReport.module";
@@ -138,7 +137,6 @@ import {AccessPermissionModule} from "./System/accessPermission/accessPermission
     QuaPressVesPlanReportModule,
     CertificateReportModule,
     PressCoverReportModule,
-    QuaPlanPressVesReportModule,
     WelderMatlTraceRecordModule,
     PressVesShapeSizeInsReportModule,
     CleaningInsReportModule,

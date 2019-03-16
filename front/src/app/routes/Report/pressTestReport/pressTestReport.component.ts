@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {pressTestReportService} from './pressTestReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-pressTestReport',
@@ -12,54 +13,29 @@ export class PressTestReportComponent implements OnInit {
   validateForm: FormGroup;
   public prodno = null;
   public prodnos = [];
-  public dwgno = null;
-  public prodname = null;
-  public status = false;
-  public dataDetail = [];
-  public dates = {
-    year:null,
-    month:null,
-    day:null,
-    week:null
-  };
-  usersign :string = null;
-  audit_usersign:string = null;
-  num2week = ["一","二","三","四","五","六","日"];
-  constructor(public pressTestReportService:pressTestReportService,public fb: FormBuilder){
+  public pdfSrc = null;
+  public loading = false;
+  status = false;
+  objectUrl = null;
+  constructor(public pressTestReportService:pressTestReportService,public fb: FormBuilder,private sanitizer: DomSanitizer){
   }
-  searchData(): void {
+  submitForm(): void {
+    // tslint:disable-next-line:no-any
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
-        this.pressTestReportService.searchpresstest(this.validateForm.value.prodno).subscribe(res=>{
-          if(res['result'] == 'success'){
-            this.prodno = this.validateForm.value.prodno;
-            this.status = true;
-            this.dataDetail = res['data'];
-            this.dates.year = this.dataDetail['date'].split("-")[0];
-            this.dates.month = this.dataDetail['date'].split("-")[1];
-            this.dates.day = this.dataDetail['date'].split("-")[2];
-            this.dates.week = this.num2week[new Date(this.dataDetail['date']).getDay()];
-            this.pressTestReportService.getSignImage(this.dataDetail['user']).then(res=>{
-              if(res['result'] == 'success'){
-                this.usersign = res['url'];
-              }else{
-                this.usersign = null;
-              }
-            })
-            this.pressTestReportService.getSignImage(this.dataDetail['audit_user']).then(res=>{
-              if(res['result'] == 'success'){
-                this.audit_usersign = res['url'];
-              }else{
-                this.audit_usersign = null;
-              }
-            })
-          }else{
-            this.status = false;
-          }
-        })
+      this.loading = true;
+      const formData = new FormData();
+      formData.append('prodno', this.validateForm.value.prodno);
+      this.pressTestReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
+        this.pdfSrc = new Uint8Array(res);
+        let blob = new Blob([res], {type: 'application/pdf'});
+        this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+        this.loading = false;
+        this.status = true;
+      })
     }
   }
   ngOnInit(): void {
@@ -71,15 +47,5 @@ export class PressTestReportComponent implements OnInit {
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]]
     });
-    this.printCSS = ['assets/css/pressTestReport.css'];
-  }
-  printCSS: string[];
-  printStyle: string;
-  printBtnBoolean = true;
-  printComplete() {
-    this.printBtnBoolean = true;
-  }
-  beforePrint() {
-    this.printBtnBoolean = false;
   }
 }

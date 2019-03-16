@@ -52,7 +52,7 @@ export class MaterialUsingComponent implements OnInit {
       document.body.appendChild(a);
       a.setAttribute('style', 'display:none');
       a.setAttribute('href', objectUrl);
-      a.setAttribute('download', "content.xls");
+      a.setAttribute('download', "材料使用情况"+this.codedmarking+".xls");
       a.click();
       URL.revokeObjectURL(objectUrl);
     });}

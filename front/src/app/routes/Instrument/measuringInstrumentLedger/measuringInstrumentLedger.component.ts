@@ -36,7 +36,7 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
       recalibdate:[null,[Validators.required]],
       specialist:[null,[Validators.required]],
       calibinterval:[null,[Validators.required]],
-      note:["报废"],
+      note:[null],
     });
     this.measuringInstrumentLedgerService.getGaugename().subscribe((res)=>{
       if(res["result"]=="success"){

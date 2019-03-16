@@ -1336,7 +1336,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="8" nzFor="time" nzRequired>有效期</nz-form-label>
         <nz-form-control [nzSm]="14">
-          <input formControlName="time" nz-input placeholder="有效期">
+          <input formControlName="time" (blur)="formatDate(decoValidateForm.controls['time'])" nz-input placeholder="有效期">
           <nz-form-explain *ngIf="decoValidateForm.get('time').dirty && decoValidateForm.get('time').errors">有效期不能为空</nz-form-explain>
         </nz-form-control>
       </nz-form-item>

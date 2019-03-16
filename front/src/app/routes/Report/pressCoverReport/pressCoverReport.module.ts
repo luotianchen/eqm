@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared.module';
 import {PressCoverReportComponent} from "./pressCoverReport.component";
-import {EssenceNg2PrintModule} from 'essence-ng2-print';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -9,7 +9,7 @@ import {EssenceNg2PrintModule} from 'essence-ng2-print';
   ],
   imports: [
     SharedModule.forRoot(),
-    EssenceNg2PrintModule
+    PdfViewerModule
   ],
   exports: [
     PressCoverReportComponent

@@ -18,6 +18,7 @@ export class SingleWarrantyAbsentComponent implements OnInit {
   public matlcode = null;
   public index = null;
   validateForm: FormGroup;
+  designations = [];
   constructor(public singleWarrantyAbsentService: SingleWarrantyAbsentService,public fb: FormBuilder){
   }
 
@@ -47,9 +48,14 @@ export class SingleWarrantyAbsentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.singleWarrantyAbsentService.getputmaterial().subscribe(res=>{
+      if(res['result'] == "success"){
+          this.designations = res['data']['designation'];
+      }
+    })
     this.validateForm = this.validateForm = this.fb.group({
-      "matlcode":['', [Validators.required]],
-      "designation":['']
+      "matlcode":[null, [Validators.required]],
+      "designation":[null]
     });
   }
   download(){

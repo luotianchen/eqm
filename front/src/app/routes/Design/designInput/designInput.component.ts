@@ -1120,4 +1120,3 @@ export class DesignInputComponent implements OnInit {
     control.updateValueAndValidity();
   }
 }
-

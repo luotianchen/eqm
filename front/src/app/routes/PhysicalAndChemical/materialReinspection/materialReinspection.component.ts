@@ -463,7 +463,7 @@ export class  MaterialReinspectionComponent implements OnInit {
       'impacttemp',
       'bendangle',
       'bendaxdia'
-    ]
+    ];
     for(let item of forces)
       this.validateForm.controls[item].setValidators([]);
   }
@@ -491,7 +491,7 @@ export class  MaterialReinspectionComponent implements OnInit {
   MaxMinJudge(name){
     if (this.dataDetail[name].max == null || this.dataDetail[name].max == 'null') this.dataDetail[name].max = 99999;
     if (this.dataDetail[name].min == null || this.dataDetail[name].min == 'null') this.dataDetail[name].min = 0;
-    if (!this.validateForm.controls[name].value) {
+    if (this.validateForm.controls[name].value==null) {
       this.validateForm.controls[name].setErrors({required: true})
     } else if (this.validateForm.controls[name].value >  (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || this.validateForm.controls[name].value < (Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))) {
       this.validateForm.controls[name].setErrors({overflow: true, error: true});

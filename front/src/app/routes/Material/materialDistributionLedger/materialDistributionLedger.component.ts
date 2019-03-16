@@ -15,6 +15,7 @@ export class MaterialDistributionLedgerComponent implements OnInit {
   public prodname:any;
   public dwgno:any;
   public status = false;
+  userSign = null;
   public dataSet = [];
   public dataSet2 = [];
   public dataSets = [];
@@ -40,6 +41,13 @@ export class MaterialDistributionLedgerComponent implements OnInit {
     if(this.validateForm.valid) {
       this.materialDistributionLedgerService.getdistribute(this.validateForm.value.prodno).subscribe((res) => {
         if (res['result'] == "success") {
+          this.materialDistributionLedgerService.getSignImage(res['user']).subscribe(res=>{
+            if(res['result'] == "success"){
+              this.userSign = res['url']
+            }else{
+              alert("管理员未上传签名！")
+            }
+          })
           this.prodno = this.validateForm.value.prodno;
           this.prodname = res['prodname'];
           this.dwgno = res['dwgno'];

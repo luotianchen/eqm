@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder,  FormGroup, Validators} from "@angular/forms";
 import {PressurePartsReportService} from './pressurePartsReport.service';
-import {NzMessageService} from 'ng-zorro-antd';
+import {ɵkk} from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-pressurePartsReport',
@@ -23,7 +23,7 @@ export class PressurePartsReportComponent implements OnInit {
     data:[]
   };
   reportDatas = [];
-  constructor(public fb: FormBuilder, public pressurePartsReportService: PressurePartsReportService,public msg:NzMessageService) {
+  constructor(public fb: FormBuilder, public pressurePartsReportService: PressurePartsReportService,public msg:ɵkk) {
   }
   ngOnInit(): void {
     this.pressurePartsReportService.getprodno().subscribe((res) => {

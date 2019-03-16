@@ -25,4 +25,7 @@ export class VacuumParameterService {
   searchChannelData(dwgno){
     return this.http.post(this.api.BASEURL+"/searchchanneldata",{dwgno:dwgno,status:1})
   }
+  getuserform() {
+    return this.http.get(`${this.api.BASEURL}/getuserform`);
+  }
 }

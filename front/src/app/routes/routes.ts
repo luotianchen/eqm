@@ -63,7 +63,6 @@ import {VacuumInspectionReportComponent} from './Report/vacuumInspectionReport/v
 import {QuaPressVesPlanReportComponent} from './Report/quaPressVesPlanReport/quaPressVesPlanReport.component';
 import {CertificateReportComponent} from "./Material/certificateReport/certificateReport.component";
 import {PressCoverReportComponent} from "./Report/pressCoverReport/pressCoverReport.component";
-import {QuaPlanPressVesReportComponent} from "./Profile/quaPlanPressVesReport/quaPlanPressVesReport.component";
 import {WelderMatlTraceRecordComponent} from "./Report/welderMatlTraceRecord/welderMatlTraceRecord.component";
 import {PressVesShapeSizeInsReportComponent} from "./Report/pressVesShapeSizeInsReport/pressVesShapeSizeInsReport.component";
 import {CleaningInsReportComponent} from "./Report/cleaningInsReport/cleaningInsReport.component";
@@ -389,11 +388,6 @@ export const routes: Routes = [
         path:'report/coverReport', component: PressCoverReportComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '压力容器封面'
-        }
-      },{
-        path:'report/quaPlanPressVesReport', component: QuaPlanPressVesReportComponent, canActivate: [CanAuthProvide],
-        data: {
-          breadcrumb: '压力容器产品质量计划'
         }
       },{
         path:'report/welderMatlTraceRecord', component: WelderMatlTraceRecordComponent, canActivate: [CanAuthProvide],

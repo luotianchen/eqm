@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder,  FormGroup, Validators} from "@angular/forms";
 import {SessionStorageService} from '../../../core/storage/storage.service';
 import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
@@ -58,5 +58,16 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
         }
       })
     }
+  }
+  info(): void {
+    this.modalService.confirm({
+      nzTitle: '发送测试邮件确认',
+      nzContent: '<p>本次测试将会通过发件人给所有收件人发送一封测试邮件，请勿使用本功能频繁发送测试邮件，否则可能会被对方识别为垃圾邮件！</p>',
+      nzOkText    : '我确认',
+      nzOkType    : 'danger',
+      nzOnOk      : () => console.log('OK'),
+      nzCancelText: '取消发送',
+      nzOnCancel  : () => console.log('Cancel')
+    });
   }
 }

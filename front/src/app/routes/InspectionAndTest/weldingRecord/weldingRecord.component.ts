@@ -142,9 +142,14 @@ export class WeldingRecordComponent implements OnInit {
     this.updateEditCache();
   }
   copyRow(i: string): void {
-    let row:any = this.dataSet.filter(item=>item.key ==i)[0];
+    let row:any = {};
+    let dataSet = this.dataSet.filter(item=>item.key ==i)[0];
+    for(let key in dataSet)
+        row[key] = dataSet[key];
     row.key = this.i++;
     this.dataSet = [...this.dataSet,row];
+    console.log(this.dataSet)
+    this.updateEditCache();
   }
   editCache = {};
 

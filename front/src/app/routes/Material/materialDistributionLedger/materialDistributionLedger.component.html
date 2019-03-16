@@ -44,7 +44,7 @@
           <i nz-icon type="question-circle" theme="outline"></i>
         </button>
       </p>
-      <div *ngFor="let dataSet of dataSets" style="padding-top: 5px;padding-bottom: 30px;">
+      <div *ngFor="let dataSet of dataSets" style="padding-top: 5px;padding-bottom: 15px;">
         <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
          collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 12px'>
           <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
@@ -67,42 +67,42 @@
           <tr>
             <td colspan="27">表 C-11</td>
           </tr>
-          <tr>
-            <td colspan="27" style="text-align: center;border-bottom: solid 1px #000"><h2 style="margin: 0">材 料 发 放 台 帐</h2></td>
+          <tr [ngStyle]="{'text-align':'center'}">
+            <td colspan="27" [ngStyle]="{'border-bottom':'solid 1px #000'}"><h2>材 料 发 放 台 帐</h2></td>
           </tr>
-          <tr style="border: 1px solid #000;border-left-width:2px;border-top: solid 2px #000;height: 24px;">
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">产品编号</td>
-            <td colspan="4" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{prodno}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">产品图号</td>
-            <td colspan="6" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{dwgno}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">产品名称</td>
-            <td colspan="11" style="text-align: center;border: 1px solid #000;border-right-width: 2px;word-break:break-all;white-space:pre-wrapwhite-space:pre-wrap">{{prodname}}</td>
+          <tr [ngStyle]="{'border': '1px solid #000','border-left-width':'2px','border-top':'solid 2px #000','height': '24px','text-align':'center'}">
+            <td colspan="2" style="border: 1px solid #000;">产品编号</td>
+            <td colspan="4" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{prodno}}</td>
+            <td colspan="2" style="border: 1px solid #000;">产品图号</td>
+            <td colspan="6" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{dwgno}}</td>
+            <td colspan="2" style="border: 1px solid #000;">产品名称</td>
+            <td colspan="11" style="border: 1px solid #000;border-right-width: 2px;word-break:break-all;white-space:pre-wrap">{{prodname}}</td>
           </tr>
-          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 24px;">
-            <td style="text-align: center;border: 1px solid #000;">序号</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">发料日期</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">部件名称</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">牌号</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">规格</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">炉批号</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">材料入库编号</td>
-            <td style="text-align: center;border: 1px solid #000;">数量</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">领料人</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">发料人</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">备注</td>
+          <tr [ngStyle]="{'border': '1px solid #000','border-left-width':'2px','border-right-width':'2px','height': '24px','text-align':'center'}">
+            <td style="border: 1px solid #000;">序号</td>
+            <td colspan="3" style="border: 1px solid #000;">发料日期</td>
+            <td colspan="3" style="border: 1px solid #000;">部件名称</td>
+            <td colspan="3" style="border: 1px solid #000;">牌号</td>
+            <td colspan="3" style="border: 1px solid #000;">规格</td>
+            <td colspan="3" style="border: 1px solid #000;">炉批号</td>
+            <td colspan="3" style="border: 1px solid #000;">材料入库编号</td>
+            <td style="border: 1px solid #000;">数量</td>
+            <td colspan="2" style="border: 1px solid #000;">领料人</td>
+            <td colspan="2" style="border: 1px solid #000;">发料人</td>
+            <td colspan="3" style="border: 1px solid #000;">备注</td>
           </tr>
-          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 30px;" *ngFor="let data of dataSet">
-            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.index}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuedate}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spartname}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.designation}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spec}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.heatbatchno}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
-            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuematl}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
+          <tr [ngStyle]="{'border': '1px solid #000','border-left-width':'2px','border-right-width':'2px','height': '30px','text-align':'center'}" *ngFor="let data of dataSet">
+            <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.index}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuedate}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spartname}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.designation}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spec}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.heatbatchno}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
+            <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuematl}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
         </table>
       </div>
@@ -132,7 +132,7 @@
           <i nz-icon type="question-circle" theme="outline"></i>
         </button>
       </p>
-      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;padding-bottom: 25px;width: 900px">
+      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;padding-bottom: 35px;width: 900px">
         <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
          collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 14px'>
           <colgroup width=49 style='mso-width-source:userset;mso-width-alt:1578;width:37pt'></colgroup>
@@ -155,40 +155,40 @@
           <tr>
             <td colspan="16">表 C-11</td>
           </tr>
-          <tr style="height: 30px">
-            <td colspan="16" style="text-align: center;"><h1 style="margin: 0">焊材发放、回收登记表</h1></td>
+          <tr style="" [ngStyle]="{'text-align':'center','height': '30px'}">
+            <td colspan="16"><h1 style="margin: 0">焊材发放、回收登记表</h1></td>
           </tr>
-          <tr style="height: 24px;">
-            <td colspan="2" style="text-align: center;">产品编号</td>
-            <td colspan="3" style="text-align: center;word-break:break-all;white-space:pre-wrap">{{prodno}}</td>
-            <td colspan="2" style="text-align: center;">产品名称</td>
-            <td colspan="4" style="text-align: center;word-break:break-all;white-space:pre-wrap">{{prodname}}</td>
-            <td colspan="2" style="text-align: center;">产品图号</td>
-            <td colspan="3" style="text-align: center;word-break:break-all;white-space:pre-wrap">{{dwgno}}</td>
+          <tr [ngStyle]="{'height':'24px','text-align':'center','border': '2px solid #000','border-bottom': '1px'}">
+            <td colspan="2" style="border: 1px solid #000">产品编号</td>
+            <td colspan="3" style="word-break:break-all;border: 1px solid #000;white-space:pre-wrap">{{prodno}}</td>
+            <td colspan="2" style="border: 1px solid #000">产品名称</td>
+            <td colspan="4" style="word-break:break-all;border: 1px solid #000;white-space:pre-wrap">{{prodname}}</td>
+            <td colspan="2" style="border: 1px solid #000">产品图号</td>
+            <td colspan="3" style="word-break:break-all;border: 1px solid #000;white-space:pre-wrap">{{dwgno}}</td>
           </tr>
-          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height:55px">
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">发料日期</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;">焊缝号</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">焊材牌号</td>
-            <td colspan="1" style="text-align: center;border: 1px solid #000;">规格</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">入库编号</td>
-            <td style="text-align: center;border: 1px solid #000;"><small>发放数量</small><hr><small>(根/KG)</small></td>
-            <td style="text-align: center;border: 1px solid #000;"><small>退回数量</small><hr><small>(根/KG)</small></td>
-            <td style="text-align: center;border: 1px solid #000;"><small>回收焊条头</small><hr><small>(个)</small></td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;">领料人</td>
-            <td style="text-align: center;border: 1px solid #000;">备注</td>
+          <tr [ngStyle]="{'border':'1px solid #000','border-left-width':'2px','border-right-width':'2px','height':'55px','text-align':'center'}">
+            <td colspan="2" style="border: 1px solid #000;">发料日期</td>
+            <td colspan="3" style="border: 1px solid #000;">焊缝号</td>
+            <td colspan="2" style="border: 1px solid #000;">焊材牌号</td>
+            <td colspan="1" style="border: 1px solid #000;">规格</td>
+            <td colspan="2" style="border: 1px solid #000;">入库编号</td>
+            <td style="border: 1px solid #000;"><small>发放数量</small><hr><small>(根/KG)</small></td>
+            <td style="border: 1px solid #000;"><small>退回数量</small><hr><small>(根/KG)</small></td>
+            <td style="border: 1px solid #000;"><small>回收焊条头</small><hr><small>(个)</small></td>
+            <td colspan="2" style="border: 1px solid #000;">领料人</td>
+            <td style="border: 1px solid #000;">备注</td>
           </tr>
-          <tr style="border: 1px solid #000;border-left-width:2px;border-right-width: 2px;height: 41px;" *ngFor="let data of dataSet">
-            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuedate}}</td>
-            <td colspan="3" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.weldno}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.designation}}</td>
-            <td colspan="1" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spec}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
-            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
-            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.returnqty}}</td>
-            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.dimension}}</td>
-            <td colspan="2" style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
-            <td style="text-align: center;border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
+          <tr [ngStyle]="{'border': '1px solid #000','border-left-width':'2px','border-right-width': '2px','height': '41px','text-align':'center'}" *ngFor="let data of dataSet">
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuedate}}</td>
+            <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.weldno}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.designation}}</td>
+            <td colspan="1" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.spec}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
+            <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
+            <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.returnqty}}</td>
+            <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.dimension}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
+            <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
           <tr>
             <td colspan="16" style="height: 30px">
@@ -197,7 +197,7 @@
           </tr>
           <tr>
             <td colspan="16" style="height: 30px">
-              管理员：
+              管理员：<img *ngIf="userSign" [src]="userSign">
             </td>
           </tr>
         </table>

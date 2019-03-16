@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   providers: [MeasuringInstrumentLedgerQueryService]
 })
 export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
-  public dataSet:any;
+  public dataSet:any[];
   loading = true;
   constructor(public measuringInstrumentLedgerQueryService:MeasuringInstrumentLedgerQueryService,public message : NzMessageService,public _storage:SessionStorageService,public fb:FormBuilder){
   }

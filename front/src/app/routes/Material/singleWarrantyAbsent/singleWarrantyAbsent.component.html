@@ -1,7 +1,7 @@
 <div>
   <h3 class="title">单项质保书未到情况查询</h3>
   <span style="float: right">
-    <button class="tool-button" nz-button nzType="default" (click)="download()">下载Excel表格</button>
+    <button class="tool-button" nz-button nzType="default" (click)="download()"><i nz-icon type="download"></i>下载Excel表格</button>
   </span>
 </div>
 <nz-divider></nz-divider>
@@ -22,7 +22,9 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="designation">牌号</nz-form-label>
         <nz-form-control [nzSm]="14">
-          <input nz-input placeholder="牌号" formControlName="designation" name="designation" id="designation" >
+          <nz-select formControlName="designation" name="designation" id="designation" nzPlaceHolder="牌号" nzShowSearch nzAllowClear>
+            <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>

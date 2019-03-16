@@ -12,4 +12,7 @@ export class MaterialDistributionLedgerService {
   getdistribute(prodno){
     return this.http.post(this.api.BASEURL+'/searchbyprodno',{prodno:prodno,status:1})
   }
+  getSignImage(username){
+    return this.http.post(this.api.BASEURL+"/getsignatureurl",{username:username})
+  }
 }

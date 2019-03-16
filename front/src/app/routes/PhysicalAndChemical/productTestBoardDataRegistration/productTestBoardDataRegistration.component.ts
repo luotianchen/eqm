@@ -1,9 +1,9 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {ProductTestBoardDataRegistrationService} from "./productTestBoardDataRegistration.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NzMessageService,NzModalRef, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
 import {isNumber} from "util";
+import {NzModalRef, NzModalService, NzMessageService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-productTestBoardDataRegistration',
@@ -51,8 +51,8 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     })
     this.validateForm = this.fb.group({
       prodno:[null, [Validators.required]],
-      yearmonth:[this.getYearMonth(), [Validators.required,Validators.pattern(/^(0\d|1[0-2])([0-2]\d|3[01])$/)]],
-      testno:[null, [Validators.required,Validators.pattern(/^\d{3}$/)]],
+      yearmonth:[this.getYearMonth(), [Validators.required,Validators.pattern(/^\d\d(0[1-9]|1[0-2])$/)]],
+      testno:[null, [Validators.required,Validators.maxLength(3),Validators.minLength(3)]],
       specimenno:[null, [Validators.required]],
       specimentype:[null, [Validators.required]],
       specimenmatl:[null, [Validators.required]],
@@ -126,6 +126,8 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     else
       this.validateForm.controls['so'].setValue("请检查输入是否有误!");
   }
+  formatterA = (value: number) => value?`${value} a`:null;
+  parserA = (value: string) => value.replace(' a', '')
   setProdno(){
     this.prodnos = [];
     for(let item of this.specimennoandprodnos){
@@ -251,12 +253,12 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
   formatEntrustdate(controlname){//日期格式化
     let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
-      if(monthDay.test(this.validateForm.value[controlname])){
-        this.validateForm.controls[controlname].setValue(new Date().getFullYear()+"-"+this.validateForm.value[controlname]);
-      }else if(!yearMonthDay.test(this.validateForm.value.entrustdate)){
-        this.validateForm.controls[controlname].setValue(null);
-      }
+    if(monthDay.test(this.validateForm.value[controlname])){
+      this.validateForm.controls[controlname].setValue(new Date().getFullYear()+"-"+this.validateForm.value[controlname]);
+    }else if(!yearMonthDay.test(this.validateForm.value.entrustdate)){
+      this.validateForm.controls[controlname].setValue(null);
     }
+  }
   testno = null;
   submitForm(){
     console.log(this.validateForm.value);

@@ -10,7 +10,7 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [MeasuringInstrumentLedgerAuditService]
 })
 export class MeasuringInstrumentLedgerAuditComponent implements OnInit {
-  public dataSet:any;
+  public dataSet:any[];
   loading = true;
   constructor(public measuringInstrumentLedgerAuditService:MeasuringInstrumentLedgerAuditService,public message : NzMessageService,public _storage:SessionStorageService){
     this.searchData();

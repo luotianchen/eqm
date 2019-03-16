@@ -184,6 +184,7 @@ export class PressurePartsDistributeComponent implements OnInit {
     }
     this.pressurePartsDistributeService.putdistribute({
       prodno:this.validateForm.controls['prodno'].value,
+      user:this._storage.get("username"),
       data:this.dataSet
     }).subscribe((res)=>{
       if(res['result']=="success"){

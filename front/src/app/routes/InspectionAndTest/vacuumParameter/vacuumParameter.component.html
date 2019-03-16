@@ -133,7 +133,9 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="vacuop">真空考核操作工</nz-form-label>
         <nz-form-control>
-          <input nz-input placeHolder="真空考核操作工" formControlName="vacuop" name="vacuop" id="vacuop"/>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="真空考核操作工" formControlName="vacuop" name="vacuop" id="vacuop">
+            <nz-option *ngFor="let option of users" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
