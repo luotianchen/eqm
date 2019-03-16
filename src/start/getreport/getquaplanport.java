@@ -19,7 +19,11 @@ import start.jdbc.jdbc;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import static start.excel.excel.*;
 
@@ -38,6 +42,10 @@ public class getquaplanport {                                               //�
         PreparedStatement ps2 = null;
         ResultSet rs2=null;
 
+        Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MMM.dd.yyyy", Locale.US);
+
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
         String uploadPath = path + "upload";                                                //获取文件名称
@@ -51,8 +59,10 @@ public class getquaplanport {                                               //�
 
 
         FileUtils.copyInputStreamToFile(inputStream, file);
+        String pdfname = getUploadFileName("质量计划说明.pdf");
         String url1 = uploadPath +"/"+ filename;
-        String url2 = uploadPath +"/"+ "123.pdf";
+        String url2 = uploadPath +"/"+ pdfname;
+        System.out.println(pdfname);
         System.out.println(url1);
         System.out.println(url2);
 
@@ -369,6 +379,22 @@ public class getquaplanport {                                               //�
         rs1.close();
         ps1.close();
 
+
+        ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status=1");
+        ps.setString(1,prodno);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            calendar.setTime(rs.getDate("blankdate"));
+            calendar.add(calendar.DATE, -1);
+
+            putsheet(sheet,64,4,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,65,4,simpleDateFormat2.format(calendar.getTime()));
+            putsheet(sheet,64,8,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,65,8,simpleDateFormat2.format(calendar.getTime()));
+        }
+
+
+
         OutputStream out = new FileOutputStream(url1);
         workBook.write(out);
         out.close();
@@ -395,9 +421,9 @@ public class getquaplanport {                                               //�
 
 
         excel2Pdf(url1,url2);                                       //转PDF
-        File filepdf = new File(uploadPath, "123.pdf");
+        File filepdf = new File(uploadPath, pdfname);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "123.pdf");// 文件的属性，也就是文件叫什么吧
+        headers.setContentDispositionFormData("attachment", "质量计划说明.pdf");// 文件的属性，也就是文件叫什么吧
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
         ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
         file.delete();

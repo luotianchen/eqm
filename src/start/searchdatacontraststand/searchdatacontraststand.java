@@ -263,24 +263,24 @@ public class searchdatacontraststand {                                      //é€
                     if(shthick<=rs.getInt("spec_big")){
                         if(rs.getString("contrast").equals("L")){
                             if((rs.getString("formula1_operation")==null || rs.getString("formula1_operation").equals(""))){
-                                if((rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                if((rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                     ad.add(Double.valueOf(rs.getDouble("formula1") + rs.getDouble("formula2")));
                                 }else {
-                                    ad.add(rs.getDouble("formula1"));
+                                    ad.add(shthick);
                                 }
                             }else {
                                 if(rs.getString("formula1_operation").equals("/")){
-                                    if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                    if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                         ad.add(Double.valueOf(shthick/rs.getDouble("formula1") + rs.getDouble("formula2")));
                                     }else {
-                                        ad.add(rs.getDouble("formula1"));
+                                        ad.add(shthick);
                                     }
                                 }
                                 if(rs.getString("formula1_operation").equals("%")){
-                                    if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                    if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                         ad.add(Double.valueOf(shthick*rs.getDouble("formula1") + rs.getDouble("formula2")));
                                     }else {
-                                        ad.add(rs.getDouble("formula1"));
+                                        ad.add(shthick);
                                     }
                                 }
                             }
@@ -312,24 +312,24 @@ public class searchdatacontraststand {                                      //é€
                 }else {
                     if(rs.getString("contrast").equals("L")){
                         if((rs.getString("formula1_operation")==null || rs.getString("formula1_operation").equals(""))){
-                            if((rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                            if((rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                 ad.add(Double.valueOf(rs.getDouble("formula1") + rs.getDouble("formula2")));
                             }else {
-                                ad.add(rs.getDouble("formula1"));
+                                ad.add(shthick);
                             }
                         }else {
                             if(rs.getString("formula1_operation").equals("/")){
-                                if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                     ad.add(Double.valueOf(shthick/rs.getDouble("formula1") + rs.getDouble("formula2")));
                                 }else {
-                                    ad.add(rs.getDouble("formula1"));
+                                    ad.add(shthick);
                                 }
                             }
                             if(rs.getString("formula1_operation").equals("%")){
-                                if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                     ad.add(Double.valueOf(shthick*rs.getDouble("formula1") + rs.getDouble("formula2")));
                                 }else {
-                                    ad.add(rs.getDouble("formula1"));
+                                    ad.add(shthick);
                                 }
                             }
                         }
@@ -364,24 +364,24 @@ public class searchdatacontraststand {                                      //é€
                 if(shthick<=rs.getInt("spec_big")){
                     if(rs.getString("contrast").equals("L")){
                         if((rs.getString("formula1_operation")==null || rs.getString("formula1_operation").equals(""))){
-                            if((rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                            if((rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                 ad.add(Double.valueOf(rs.getDouble("formula1") + rs.getDouble("formula2")));
                             }else {
-                                ad.add(rs.getDouble("formula1"));
+                                ad.add(shthick);
                             }
                         }else {
                             if(rs.getString("formula1_operation").equals("/")){
-                                if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                     ad.add(Double.valueOf(shthick/rs.getDouble("formula1") + rs.getDouble("formula2")));
                                 }else {
-                                    ad.add(rs.getDouble("formula1"));
+                                    ad.add(shthick);
                                 }
                             }
                             if(rs.getString("formula1_operation").equals("%")){
-                                if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                                if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                     ad.add(Double.valueOf(shthick*rs.getDouble("formula1") + rs.getDouble("formula2")));
                                 }else {
-                                    ad.add(rs.getDouble("formula1"));
+                                    ad.add(shthick);
                                 }
                             }
                         }
@@ -413,24 +413,24 @@ public class searchdatacontraststand {                                      //é€
             }else {
                 if(rs.getString("contrast").equals("L")){
                     if((rs.getString("formula1_operation")==null || rs.getString("formula1_operation").equals(""))){
-                        if((rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                        if((rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                             ad.add(Double.valueOf(rs.getDouble("formula1") + rs.getDouble("formula2")));
                         }else {
-                            ad.add(rs.getDouble("formula1"));
+                            ad.add(shthick);
                         }
                     }else {
                         if(rs.getString("formula1_operation").equals("/")){
-                            if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                            if((shthick/rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                 ad.add(Double.valueOf(shthick/rs.getDouble("formula1") + rs.getDouble("formula2")));
                             }else {
-                                ad.add(rs.getDouble("formula1"));
+                                ad.add(shthick);
                             }
                         }
                         if(rs.getString("formula1_operation").equals("%")){
-                            if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<rs.getDouble("formula1")){
+                            if((shthick*rs.getDouble("formula1") + rs.getDouble("formula2"))<shthick){
                                 ad.add(Double.valueOf(shthick*rs.getDouble("formula1") + rs.getDouble("formula2")));
                             }else {
-                                ad.add(rs.getDouble("formula1"));
+                                ad.add(shthick);
                             }
                         }
                     }

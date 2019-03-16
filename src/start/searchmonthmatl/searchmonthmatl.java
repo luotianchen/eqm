@@ -194,6 +194,11 @@ public class searchmonthmatl {
         PreparedStatement ps1 = null;
         ResultSet rs1=null;
 
+        int inmonth =Integer.parseInt(sp.getInmonth());
+        if(inmonth<10){
+            sp.setInmonth("0"+sp.getInmonth());
+        }
+
         int warrantysitu_id=0;
         int supplier_id=0;
         int millunit_id=0;
@@ -201,6 +206,7 @@ public class searchmonthmatl {
         int matlstand_id=0;
         int designation_id=0;
         int heatcondi_id=0;
+        int index = 0;
 
         String year_month = sp.getInyear()+"-"+sp.getInmonth()+"%";
 
@@ -210,12 +216,20 @@ public class searchmonthmatl {
         ArrayList<searchmonthmatldata> as = new ArrayList<searchmonthmatldata>();
 
         try {
+            ps = conn.prepareStatement("SELECT * FROM matlcoderules");
+            rs = ps.executeQuery();
+            if(rs.next()){
+                index = rs.getInt("indexx");
+            }
+            rs.close();
+            ps.close();
+
             ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE indate LIKE ?");
             ps.setString(1,year_month);
             rs=ps.executeQuery();
             while (rs.next()){
                 data = new searchmonthmatldata();
-                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(4))){
+                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(index-1))){
                     data.setCodedmarking(rs.getString("codedmarking"));
                     data.setIndate(sdf.format(rs.getDate("indate")));
                     data.setHeatbatchno(rs.getString("heatbatchno"));
@@ -296,7 +310,6 @@ public class searchmonthmatl {
             ps.close();
 
             Collections.reverse(as);                                          //将list倒序
-
         }catch (Exception e){
             System.out.println("error");
         }

@@ -28,6 +28,12 @@ import java.util.List;
 public class excel {
     public static String getUploadFileName(MultipartFile multipartFile) {
         String uploadFileName = multipartFile.getOriginalFilename();
+        String name = getUploadFileName(uploadFileName);
+        return name;
+    }
+
+    public static String getUploadFileName(String multipartFile) {
+        String uploadFileName = multipartFile;
         String fileName = uploadFileName.substring(0,
                 uploadFileName.lastIndexOf("."));
         String type = uploadFileName.substring(uploadFileName.lastIndexOf("."));
@@ -54,9 +60,9 @@ public class excel {
             excel = Dispatch.invoke(excels, "Open", Dispatch.Method, obj, new int[9]).toDispatch();
             Dispatch sheets = Dispatch.call(excel, "Worksheets").toDispatch();
             Dispatch sheet = Dispatch.call(sheets, "Item", Integer.valueOf(1)).toDispatch();
-            Dispatch pageSetup = Dispatch.call(sheet, "PageSetup").toDispatch();
-            Dispatch.put(pageSetup, "Orientation", new Variant(2));
-            Dispatch.put(pageSetup, "PaperSize", Integer.valueOf(9));//A3是8，A4是9，A5是11等等
+//            Dispatch pageSetup = Dispatch.call(sheet, "PageSetup").toDispatch();                                  //设置打印为横向
+//            Dispatch.put(pageSetup, "Orientation", new Variant(2));
+//            Dispatch.put(pageSetup, "PaperSize", Integer.valueOf(9));//A3是8，A4是9，A5是11等等
             File tofile = new File(outFilePath);
             // System.err.println(getDocPageSize(new File(sfileName)));
             if (tofile.exists()) {
