@@ -63,13 +63,7 @@ public class getprenotiformreport {                                         //�
 
 
         FileUtils.copyInputStreamToFile(inputStream, file);
-        String pdfname = getUploadFileName("压力试验通知单.pdf");
         String url1 = uploadPath +"/"+ filename;
-        String url2 = uploadPath +"/"+ pdfname;
-        System.out.println(pdfname);
-        System.out.println(url1);
-        System.out.println(url2);
-
 
 
         FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
@@ -157,10 +151,9 @@ public class getprenotiformreport {                                         //�
         out.close();
 
 
-        excel2Pdf(url1,url2);                                       //转PDF
-        File filepdf = new File(uploadPath, pdfname);
+        File filepdf = new File(uploadPath, filename);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "压力试验通知单.pdf");// 文件的属性，也就是文件叫什么吧
+        headers.setContentDispositionFormData("attachment", "压力试验通知单.xlsx");// 文件的属性，也就是文件叫什么吧
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
         ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
         file.delete();

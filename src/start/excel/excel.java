@@ -91,6 +91,54 @@ public class excel {
         }
     }
 
+    public static void excel2Pdf_heng(String inFilePath, String outFilePath) throws Exception {
+        ActiveXComponent ax = null;
+        Dispatch excel = null;
+        try {
+            ComThread.InitSTA();
+            ax = new ActiveXComponent("Excel.Application");
+            ax.setProperty("Visible", new Variant(false));
+            ax.setProperty("AutomationSecurity", new Variant(3)); // 禁用宏
+            Dispatch excels = ax.getProperty("Workbooks").toDispatch();
+            Object[] obj = new Object[]{
+                    inFilePath,
+                    new Variant(false),
+                    new Variant(true)
+            };
+            excel = Dispatch.invoke(excels, "Open", Dispatch.Method, obj, new int[9]).toDispatch();
+            Dispatch sheets = Dispatch.call(excel, "Worksheets").toDispatch();
+            Dispatch sheet = Dispatch.call(sheets, "Item", Integer.valueOf(1)).toDispatch();
+            Dispatch pageSetup = Dispatch.call(sheet, "PageSetup").toDispatch();                                  //设置打印为横向
+            Dispatch.put(pageSetup, "Orientation", new Variant(2));
+            Dispatch.put(pageSetup, "PaperSize", Integer.valueOf(9));//A3是8，A4是9，A5是11等等
+            File tofile = new File(outFilePath);
+            // System.err.println(getDocPageSize(new File(sfileName)));
+            if (tofile.exists()) {
+                tofile.delete();
+            }
+            // 转换格式
+            Object[] obj2 = new Object[]{
+                    new Variant(0), // PDF格式=0
+                    outFilePath,
+                    new Variant(0)  //0=标准 (生成的PDF图片不会变模糊) ; 1=最小文件
+            };
+            Dispatch.invoke(excel, "ExportAsFixedFormat", Dispatch.Method,obj2, new int[1]);
+            System.out.println("转换完毕！");
+        } catch (Exception es) {
+            es.printStackTrace();
+            throw es;
+        } finally {
+            if (excel != null) {
+                Dispatch.call(excel, "Close", new Variant(false));
+            }
+            if (ax != null) {
+                ax.invoke("Quit", new Variant[] {});
+                ax = null;
+            }
+            ComThread.Release();
+        }
+    }
+
 
     public static List<List<String>> readXlsx(XSSFWorkbook xssfWorkbook) throws Exception {
         List<List<String>> result = new ArrayList<List<String>>();
