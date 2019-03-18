@@ -31,5 +31,6 @@
     <orderEntry type="library" name="jacob" level="project" />
     <orderEntry type="library" name="xmlbean-1.5.5" level="project" />
     <orderEntry type="library" name="xmlbeans-2.6.0" level="project" />
+    <orderEntry type="library" name="activation" level="project" />
   </component>
 </module>
