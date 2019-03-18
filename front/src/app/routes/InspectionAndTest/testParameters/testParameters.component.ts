@@ -274,7 +274,7 @@ export class TestParametersComponent implements OnInit {
                 dated3:[res['data']['dated3']],
                 testmedia:[this.testmedias.filter(item=>item.name == res['data']['testmedia'])[0]],
                 etestmedia:[null],
-                clcontent:[res['data']['clcontent']]
+                clcontent:[this.testmedias.filter(item=>item.name == res['data']['testmedia'])[0].cl]
               });
               console.log(fbb.value)
               fbb.controls['testmedia'].disable();
@@ -395,7 +395,7 @@ export class TestParametersComponent implements OnInit {
         dated3:form.controls['dated3'].value,
         testmedia:form.controls['testmedia'].value.name,
         etestmedia:form.controls['testmedia'].value.ename,
-        clcontent:form.controls['clcontent'].value,
+        clcontent:form.controls['testmedia'].value.cl,
         user:this._storage.get("username")
       }).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -437,9 +437,9 @@ export class TestParametersComponent implements OnInit {
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
         dated3:form.controls['dated3'].value,
-        testmedia:form.controls['testmedia'].name,
-        etestmedia:form.controls['testmedia'].ename,
-        clcontent:form.controls['clcontent'],
+        testmedia:form.controls['testmedia'].value.name,
+        etestmedia:form.controls['testmedia'].value.ename,
+        clcontent:form.controls['testmedia'].value.cl,
         user:this._storage.get("username")
       }).subscribe((res)=>{
         if(res["result"]=="success"){
@@ -527,7 +527,7 @@ export class TestParametersComponent implements OnInit {
           this.dataModel[index][dated].press.range = {max:res['max'],min:res['min']};
           if(this.dataModel[index][dated].press.testpress*3>this.dataModel[index][dated].press.range.max || this.dataModel[index][dated].press.testpress*1.5<this.dataModel[index][dated].press.range.max){
             this.dataModel[index][dated].press.pgaugeno1 = null;
-            this.message.error("量程表超出范围！")
+            this.message.error("压力超出量程表超出范围，请选择其它量程表！")
           }
         }
       })

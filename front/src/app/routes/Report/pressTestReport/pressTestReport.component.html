@@ -8,23 +8,24 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="getNames()">
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="name">通道名称</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选择产品编号"  formControlName="name" name="name" id="name">
+            <nz-option *ngFor="let option of names" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
     <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="loading">
-      查询报表
+      <i nz-icon type="download"></i>查询报表
     </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <a nz-button nzType="primary" download="压力试验通知单.pdf" [href]="objectUrl" *ngIf="status">下载报表</a>
   </div>
 </form>
-<nz-divider></nz-divider>
-<pdf-viewer [src]="pdfSrc"
-            [render-text]="true"
-            style="display: block;"
-            *ngIf="status"
-></pdf-viewer>
-

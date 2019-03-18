@@ -65,9 +65,6 @@ public class testemail {                                            //发送测�
                     // 获取系统属性
                     Properties properties = System.getProperties();
 
-                    // 设置邮件服务器
-                    properties.setProperty("mail.smtp.host", host);
-
                     properties.put("mail.smtp.auth", "true");
                     // 获取默认session对象
                     Session session = null;
@@ -79,6 +76,11 @@ public class testemail {                                            //发送测�
                         authorization_code = rs1.getString("authorization_code");
                         hostx = from.split("@");
                         host = "smtp."+hostx[1];
+
+                        // 设置邮件服务器
+                        properties.setProperty("mail.smtp.host", host);
+
+
                         String finalFrom = from;
                         String finalAuthorization_code = authorization_code;
                         session = Session.getDefaultInstance(properties,new Authenticator(){

@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       const username = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
       this.loginService.login(username, password).then((res: any) => {
+        this.getRoutePower();
         if (res['result'] === 'success') {
           this._storage.set('username', username);
           if(res['name']!=null)

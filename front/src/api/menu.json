@@ -132,6 +132,11 @@
               "icon": "profile",
               "name": "检验记录",
               "route": "/material/inspectionRecords"
+            },
+            {
+              "icon": "profile",
+              "name": "产品材料清单",
+              "route": "/material/productMaterialReport"
             }]
         }
       ]
@@ -292,8 +297,28 @@
             },
             {
               "icon": "profile",
+              "name": "压力容器产品质量计划",
+              "route": "/report/quaPressVesPlanReport"
+            },
+            {
+              "icon": "profile",
               "name": "压力容器产品合格证",
               "route": "/report/pressVesProdQuaCerReport"
+            },
+            {
+              "icon": "profile",
+              "name": "压力容器产品数据表",
+              "route": "/report/pressVesProdDataReport"
+            },
+            {
+              "icon": "profile",
+              "name": "焊工/材料跟踪记录",
+              "route": "/report/welderMatlTraceRecord"
+            },
+            {
+              "icon": "profile",
+              "name": "产品焊接记录报表",
+              "route": "/report/prodWeldingReport"
             },
             {
               "icon": "profile",
@@ -304,21 +329,6 @@
               "icon": "profile",
               "name": "真空检测报告",
               "route": "/report/vacuumInspectionReport"
-            },
-            {
-              "icon": "profile",
-              "name": "压力容器产品质量计划新",
-              "route": "/report/quaPressVesPlanReport"
-            },
-            {
-              "icon": "profile",
-              "name": "压力容器产品质量计划",
-              "route": "/report/quaPlanPressVesReport"
-            },
-            {
-              "icon": "profile",
-              "name": "焊工/材料跟踪记录",
-              "route": "/report/welderMatlTraceRecord"
             },
             {
               "icon": "profile",
@@ -334,36 +344,6 @@
               "icon": "profile",
               "name": "用户质量信息反馈单",
               "route": "/report/conQuaInfoFbSheet"
-            },
-            {
-              "icon": "profile",
-              "name": "报表14",
-              "route": "/404"
-            },
-            {
-              "icon": "profile",
-              "name": "报表15",
-              "route": "/404"
-            },
-            {
-              "icon": "profile",
-              "name": "报表16",
-              "route": "/404"
-            },
-            {
-              "icon": "profile",
-              "name": "报表17",
-              "route": "/404"
-            },
-            {
-              "icon": "profile",
-              "name": "报表18",
-              "route": "/404"
-            },
-            {
-              "icon": "profile",
-              "name": "报表19",
-              "route": "/404"
             }
           ]
         }

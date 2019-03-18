@@ -9,5 +9,14 @@ export class PneumaticTestProcedureReportService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
+  searchbyprodno(prodno){
+    return this.http.post(`${this.api.BASEURL}`+"/searchbyprodno",{prodno:prodno,status:-1})
+  }
+  getReport(formData){
+    return this.http.post(this.api.BASEURL+"/getpretestreport" , formData, { responseType: 'arraybuffer' });
+  }
+  searchchanneldata(dwgno){
+    return this.http.post(this.api.BASEURL+"/searchchanneldata",{dwgno:dwgno,status:1})
+  }
 }
 

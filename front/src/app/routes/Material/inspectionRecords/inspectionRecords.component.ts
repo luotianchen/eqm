@@ -48,14 +48,13 @@ export class InspectionRecordsComponent implements OnInit {
               this.dataSet.push(data);
             }
           }
-          console.log(this.dataSet);
           this.status = true;
         }
       })
     }
   }
   printCSS: string[];
-  printStyle: string;
+  printStyle: string = ".report td{text-align: center;}.text-left{text-align: left!important;}";
   printBtnBoolean = true;
   printComplete() {
     this.printBtnBoolean = true;

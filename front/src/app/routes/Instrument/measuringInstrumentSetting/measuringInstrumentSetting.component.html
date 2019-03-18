@@ -66,3 +66,39 @@
     </div>
   </div>
 </form>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>
+    请确认用户名和密码
+  </ng-template>
+
+  <ng-template #modalContent>
+    <form nz-form [nzLayout]="'inline'" [formGroup]="loginValidateForm">
+      <input type="text" style="display:none"/>
+      <input type="password" style="display:none"/>
+      <!--用于防止浏览器自动填充表单-->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixUser">
+            <input formControlName="userName" nz-input placeholder="请输入用户名">
+          </nz-input-group>
+          <nz-form-explain *ngIf="loginValidateForm.get('userName')?.dirty && loginValidateForm.get('userName')?.errors">请输入用户名</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixLock">
+            <input onfocus="this.type='text'" onblur="this.type='password'" autocompletes=”off” disableautocomplete="true" formControlName="password" nz-input type="text" placeholder="请输入密码">
+          </nz-input-group>
+          <nz-form-explain *ngIf="loginValidateForm.get('password')?.dirty && loginValidateForm.get('password')?.errors">请输入密码！</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+    <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+    <button nz-button nzType="danger" (click)="handleOk()" [nzLoading]="isConfirmLoading">确认发送</button>
+  </ng-template>
+</nz-modal>

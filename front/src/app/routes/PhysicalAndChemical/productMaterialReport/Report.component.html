@@ -1,0 +1,48 @@
+<div>
+  <h3 class="title">报表模版页</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+
+<div #print>
+  <p style="margin-bottom: 20px;margin-top: 20px">
+    <essence-ng2-print
+      [mode]="'popup'"
+      [printCSS]="printCSS"
+      [popTitle]="'报表'"
+      [btnText]="'打印报表'"
+      [printHTML]="print"
+      [showBtn]="printBtnBoolean"
+      [btnClass]="{'ant-btn':true}"
+      (click)="beforePrint()"
+      (printComplete)="printComplete()">
+    </essence-ng2-print>
+    <button
+      nz-button
+      nz-popover
+      *ngIf="printBtnBoolean"
+      nzType="primary"
+      nzTitle="注意事项"
+      nzContent="请在打印页面，点击更多设置-边距-最小值。"
+      nzShape="circle"
+      style="margin-left: 20px;margin-top: 4px">
+      <i nz-icon type="question-circle" theme="outline"></i>
+    </button>
+  </p>
+</div>

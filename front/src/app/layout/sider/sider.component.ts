@@ -3,6 +3,7 @@ import {SettingsService} from '../../core/services/settings.service';
 import {MenuService} from '../../core/services/menu.service';
 import {Router} from '@angular/router';
 import {SessionStorageService} from "../../core/storage/storage.service";
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-sider',
@@ -24,7 +25,7 @@ export class SiderComponent {
     return this.settings.nav;
   }
 
-  constructor(public settings: SettingsService, private menuService: MenuService, private router: Router, private _storage:SessionStorageService) {
+  constructor(public settings: SettingsService, private menuService: MenuService, private router: Router, private _storage:SessionStorageService,private msg:NzMessageService) {
     this.updateMenu();
   }
 
@@ -95,8 +96,13 @@ export class SiderComponent {
   }
 
   ngOnInit() {
-    this.powers = JSON.parse(this._storage.get('powermap'));
-    this.roles = this._storage.get('roles').split(';');
+    if(this._storage.get('powermap')){
+      this.powers = JSON.parse(this._storage.get('powermap'));
+      this.roles = this._storage.get('roles').split(';');
+    }else{
+      this._storage.clear();
+      this.msg.error("权限信息获取失败，请重新登录！")
+    }
   }
 
   openHandler(value: string): void {

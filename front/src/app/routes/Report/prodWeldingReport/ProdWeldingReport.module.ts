@@ -1,19 +1,19 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared.module';
-import {LiquidPressTestReportComponent} from "./liquidPressTestReport.component";
+import {ProdWeldingReportComponent} from "./ProdWeldingReport.component";
 
 @NgModule({
   declarations: [
-    LiquidPressTestReportComponent
+    ProdWeldingReportComponent
   ],
   imports: [
     SharedModule.forRoot()
   ],
   exports: [
-    LiquidPressTestReportComponent
+    ProdWeldingReportComponent
   ]
 })
 
-export class LiquidPressTestReportModule {
+export class ProdWeldingReportModule {
 
 }

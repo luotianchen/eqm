@@ -1,6 +1,7 @@
 <div>
   <h3 class="title">产品制造参数输入</h3>
   <span style="float: right">
+    <button class="tool-button" nz-button nzType="primary" (click)="showModal()" *ngIf="this.validateForm.value.dwgno">填写安全泄放装置制造单位信息</button>
     <button class="tool-button" nz-button nzType="default" (click)="createTplModal(orderunitTitle, orderunitContent, orderunitFooter)">添加订货单位</button>
   </span>
 </div>
@@ -177,9 +178,9 @@
     </div>
     <div nz-col [nzSpan]="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="thick">冷卷筒体投料厚度实测值</nz-form-label>
+        <nz-form-label nzRequired nzFor="thick">冷卷筒体投料厚度{{returnArray2String(this.dataStand.shthick)}}</nz-form-label>
         <nz-form-control>
-          <input nz-input placeholder="{{returnArray2String(this.dataStand.shthick)}}" formControlName="thick" name="thick" id="thick"/>
+          <input nz-input placeholder="冷卷筒体投料厚度实测值" formControlName="thick" name="thick" id="thick"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -402,9 +403,9 @@
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="thick2">冷卷筒体投料厚度实测值</nz-form-label>
+        <nz-form-label nzRequired nzFor="thick2">冷卷筒体投料厚度{{returnArray2String(this.dataStand.shthick)}}</nz-form-label>
         <nz-form-control>
-          <input nz-input placeholder="{{returnArray2String(this.dataStand2.shthick)}}" formControlName="thick" name="thick" id="thick2"/>
+          <input nz-input placeholder="冷卷筒体投料厚度实测值" formControlName="thick" name="thick" id="thick2"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -487,3 +488,45 @@
   <button nz-button nzType="primary" (click)="submitForm2()">提交</button>
 </div>
 
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+  <ng-template #modalTitle>
+    安全泄放装置信息输入（图号：{{this.validateForm.value.dwgno}}）
+  </ng-template>
+
+  <ng-template #modalContent>
+    <nz-table #editRowTable nzBordered [nzData]="listOfData" [nzShowPagination]="false">
+      <thead>
+      <tr>
+        <th>名称</th>
+        <th>型号</th>
+        <th>规格</th>
+        <th>数量</th>
+        <th>制造单位</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of editRowTable.data" class="editable-row">
+        <td>{{data.name}}</td>
+        <td>{{data.model}}</td>
+        <td>{{data.spec}}</td>
+        <td>{{data.qty}}</td>
+        <td>
+          <div class="editable-cell" *ngIf="editId !== data.id; else editTpl">
+            <div class="editable-cell-value-wrap" (click)="startEdit(data.id,$event)" style="height: 32px">
+              {{data.mfunit}}
+            </div>
+          </div>
+          <ng-template #editTpl>
+            <input type="text" nz-input [(ngModel)]="data.mfunit">
+          </ng-template>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">提交信息</button>
+  </ng-template>
+</nz-modal>

@@ -56,4 +56,10 @@ export class ProductManufacturingParametersService {
   getdwgno1and2(prodno){
     return this.http.post(this.api.BASEURL+"/searchdwgnoot",{prodno:prodno});
   }
+  getSaferel(dwgno){
+    return this.http.post(this.api.BASEURL+"/searchsafedisdevice",{dwgno:dwgno,status:1});
+  }
+  updateSaferelMFUnit(data){
+    return this.http.post(this.api.BASEURL+"/updatesafedisdevice",data);
+  }
 }

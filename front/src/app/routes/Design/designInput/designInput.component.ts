@@ -1,9 +1,8 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {DesignInputService} from './designInput.service';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup,  Validators} from "@angular/forms";
 import {SessionStorageService} from '../../../core/storage/storage.service';
 import {NzMessageService, NzModalRef, NzModalService} from 'ng-zorro-antd';
-import {Observable, Observer} from "rxjs/index";
 
 @Component({
   selector: 'app-designInput',

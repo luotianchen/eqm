@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {QuaPressVesPlanReportService} from './quaPressVesPlanReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { DomSanitizer } from '@angular/platform-browser';
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-quaPressVesPlanReport',
@@ -17,7 +18,7 @@ export class QuaPressVesPlanReportComponent implements OnInit {
   public loading = false;
   status = false;
   objectUrl = null;
-  constructor(public quaPressVesPlanReportService:QuaPressVesPlanReportService,public fb: FormBuilder,private sanitizer: DomSanitizer){
+  constructor(public quaPressVesPlanReportService:QuaPressVesPlanReportService,public fb: FormBuilder,private sanitizer: DomSanitizer,private msg:NzMessageService){
   }
 
   submitForm(): void {
@@ -36,6 +37,9 @@ export class QuaPressVesPlanReportComponent implements OnInit {
         this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
         this.loading = false;
         this.status = true;
+      },err=>{
+        this.loading = false;
+        this.msg.error("出现异常，请稍后重试！")
       })
     }
   }

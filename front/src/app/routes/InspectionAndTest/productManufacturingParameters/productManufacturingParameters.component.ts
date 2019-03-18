@@ -1,7 +1,7 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProductManufacturingParametersService} from "./productManufacturingParameters.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NzMessageService,NzModalRef, NzModalService} from "ng-zorro-antd";
+import {NzMessageService,NzModalRef, NzModalService, NzInputDirective} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
 
 @Component({
@@ -25,6 +25,47 @@ export class ProductManufacturingParametersComponent implements OnInit {
       name:"双层",ename:"Double-wall"
     }
   ];
+
+  i = 0;
+
+  startEdit(id: string, event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.editId = id;
+  }
+
+  isVisible = false;
+  isConfirmLoading = false;
+  editId: string | null;
+  listOfData: any[] = [];
+  @ViewChild(NzInputDirective, { read: ElementRef }) inputElement: ElementRef;
+
+  @HostListener('window:click', [ '$event' ])
+  handleClick(e: MouseEvent): void {
+    if (this.editId && this.inputElement && this.inputElement.nativeElement !== e.target) {
+      this.editId = null;
+    }
+  }
+  showModal(): void {
+    this.isVisible = true;
+  }
+  handleOk(): void {
+    this.isConfirmLoading = true;
+    this.productManufacturingParametersService.updateSaferelMFUnit({dwgno:this.validateForm.value.dwgno,data:this.listOfData}).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.isVisible = false;
+        this.isConfirmLoading = false;
+        this.message.success("提交成功！")
+      }else{
+        this.isConfirmLoading = false;
+        this.message.error("提交失败，请稍后重试！")
+      }
+    })
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
   dataStand = {
     "aweldmaxangul":[],
     "bweldmaxangul":[],
@@ -146,6 +187,15 @@ export class ProductManufacturingParametersComponent implements OnInit {
       this.productManufacturingParametersService.getdistribute(this.validateForm.controls['prodno'].value).then((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
+          this.productManufacturingParametersService.getSaferel(res['dwgno']).subscribe(res=>{
+            if(res['result'] == "success"){
+              this.listOfData = res['data'];
+              this.listOfData.forEach(item=>{
+                item.id = this.i++;
+              })
+              console.log(this.listOfData);
+            }
+          })
           this.productManufacturingParametersService.getDataStand(this.validateForm.value.dwgno).then((res) => {
             if(res['result']=="success") {
               this.dataStand = Object.assign({}, res['data']);

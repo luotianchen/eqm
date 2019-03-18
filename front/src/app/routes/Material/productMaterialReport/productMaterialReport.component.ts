@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {PressCoverReportService} from './pressCoverReport.service';
+import {ProductMaterialReportService} from './productMaterialReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
-  selector: 'app-pressCoverReport',
-  templateUrl: 'pressCoverReport.component.html',
-  styleUrls: ['./pressCoverReport.component.less'],
-  providers: [PressCoverReportService]
+  selector: 'app-productMaterialreport',
+  templateUrl: 'productMaterialReport.component.html',
+  styleUrls: ['./productMaterialReport.component.less'],
+  providers: [ProductMaterialReportService]
 })
-export class PressCoverReportComponent implements OnInit {
+export class ProductMaterialReportComponent implements OnInit {
   validateForm: FormGroup;
   public prodno = null;
   public prodnos = [];
@@ -18,7 +18,7 @@ export class PressCoverReportComponent implements OnInit {
   public loading = false;
   status = false;
   objectUrl = null;
-  constructor(public pressCoverReportService:PressCoverReportService,public fb: FormBuilder,private sanitizer: DomSanitizer,private msg:NzMessageService){
+  constructor(public productMaterialReportService:ProductMaterialReportService,public fb: FormBuilder,private sanitizer: DomSanitizer,private msg:NzMessageService){
   }
   submitForm(): void {
     // tslint:disable-next-line:no-any
@@ -30,7 +30,7 @@ export class PressCoverReportComponent implements OnInit {
       this.loading = true;
       const formData = new FormData();
       formData.append('prodno', this.validateForm.value.prodno);
-      this.pressCoverReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
+      this.productMaterialReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
         this.pdfSrc = new Uint8Array(res);
         let blob = new Blob([res], {type: 'application/pdf'});
         this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
@@ -43,7 +43,7 @@ export class PressCoverReportComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.pressCoverReportService.getprodno().subscribe((res) => {
+    this.productMaterialReportService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
         this.prodnos = res['data'];
       }

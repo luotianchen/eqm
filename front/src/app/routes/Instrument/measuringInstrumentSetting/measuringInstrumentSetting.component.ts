@@ -20,6 +20,9 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
       system_email:[null,[Validators.required,Validators.email]],
       authorization_code:[null,[Validators.required]],
       tosend_email:[null,[Validators.required]],
+    });this.loginValidateForm = this.fb.group({
+      userName: [ null, [ Validators.required ] ],
+      password: [ null, [ Validators.required ] ]
     });
     this.measuringInstrumentSettingService.getUsers().subscribe((res)=>{
       if(res['result']=="success"){
@@ -65,9 +68,42 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
       nzContent: '<p>本次测试将会通过发件人给所有收件人发送一封测试邮件，请勿使用本功能频繁发送测试邮件，否则可能会被对方识别为垃圾邮件！</p>',
       nzOkText    : '我确认',
       nzOkType    : 'danger',
-      nzOnOk      : () => console.log('OK'),
+      nzOnOk      : () => this.infoLogin(),
       nzCancelText: '取消发送',
-      nzOnCancel  : () => console.log('Cancel')
+      nzOnCancel  : () => console.log('取消发送')
     });
+  }
+  isVisible = false;
+  isConfirmLoading = false;
+  infoLogin(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  loginValidateForm: FormGroup;
+
+handleOk(): void {
+    for (const i in this.loginValidateForm.controls) {
+      this.loginValidateForm.controls[ i ].markAsDirty();
+      this.loginValidateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.loginValidateForm.valid){
+      this.isConfirmLoading = true;
+      this.measuringInstrumentSettingService.testEmail(this.loginValidateForm.value.userName,this.loginValidateForm.value.password).subscribe(res=>{
+        if(res['result'] == "success"){
+          this.msg.success("发送成功！请接受者检查邮箱")
+          this.isVisible = false;
+          this.isConfirmLoading = false;
+        }else{
+          this.msg.error("发送失败！请稍后重试")
+          this.isConfirmLoading = false;
+        }
+      },err=>{
+        this.msg.error("发送失败！请稍后重试")
+        this.isConfirmLoading = false;
+      })
+    }
   }
 }

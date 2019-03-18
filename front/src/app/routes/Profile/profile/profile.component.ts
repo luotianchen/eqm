@@ -68,12 +68,14 @@ export class ProfileComponent {
           this.edit = false;
         }
       })
+    }else{
+      this.msg.error("姓名不能为空！")
     }
   }
 
 
   editEmail(){
-    if(this.name!=null && this.name!=""){
+    if(/^(([^()[\]\\.,;:\s@\"]+(\.[^()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.email)){
       this.profileService.editEmail(this._storage.get("username"),this.email).subscribe((res)=>{
         if(res["result"]=="success"){
           this.msg.success("修改成功！");
@@ -81,6 +83,8 @@ export class ProfileComponent {
           this.edit = false;
         }
       })
+    }else{
+      this.msg.error("邮箱格式不正确！")
     }
   }
 

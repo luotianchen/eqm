@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {pressTestReportService} from './pressTestReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NzMessageService} from "ng-zorro-antd";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
@@ -13,11 +14,10 @@ export class PressTestReportComponent implements OnInit {
   validateForm: FormGroup;
   public prodno = null;
   public prodnos = [];
-  public pdfSrc = null;
   public loading = false;
   status = false;
-  objectUrl = null;
-  constructor(public pressTestReportService:pressTestReportService,public fb: FormBuilder,private sanitizer: DomSanitizer){
+  names = [];
+  constructor(public pressTestReportService:pressTestReportService,public fb: FormBuilder,private msg:NzMessageService){
   }
   submitForm(): void {
     // tslint:disable-next-line:no-any
@@ -29,12 +29,22 @@ export class PressTestReportComponent implements OnInit {
       this.loading = true;
       const formData = new FormData();
       formData.append('prodno', this.validateForm.value.prodno);
+      formData.append('name', this.validateForm.value.name);
       this.pressTestReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
-        this.pdfSrc = new Uint8Array(res);
-        let blob = new Blob([res], {type: 'application/pdf'});
-        this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+        let blob = new Blob([res]);
+        let objectUrl = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        let date = new Date();
+        a.setAttribute('style', 'display:none');
+        a.setAttribute('href', objectUrl);
+        a.setAttribute('download', "压力试验通知单"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
+        a.click();
+        URL.revokeObjectURL(objectUrl);
         this.loading = false;
-        this.status = true;
+      },err=>{
+        this.loading = false;
+        this.msg.error("出现异常，请稍后重试！")
       })
     }
   }
@@ -45,7 +55,18 @@ export class PressTestReportComponent implements OnInit {
       }
     });
     this.validateForm = this.validateForm = this.fb.group({
-      "prodno":[null, [Validators.required]]
+      "prodno":[null, [Validators.required]],
+      "name":[null, [Validators.required]]
     });
+  }
+  getNames(){
+    this.pressTestReportService.searchbyprodno(this.validateForm.value.prodno).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.pressTestReportService.searchchanneldata(res['dwgno']).subscribe(res=>{
+          if(res['result'] == "success")
+            this.names = res['data'];
+        })
+      }
+    })
   }
 }

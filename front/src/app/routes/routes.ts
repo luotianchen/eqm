@@ -70,6 +70,9 @@ import {ConQuaInfoFbSheetComponent} from "./Report/conQuaInfoFbSheet/conQuaInfoF
 import {WeldingRecordComponent} from "./InspectionAndTest/weldingRecord/weldingRecord.component";
 import {WaterQualityDetectionInputComponent} from "./PhysicalAndChemical/waterQualityDetectionInput/waterQualityDetectionInput.component";
 import {AccessPermissionComponent} from "./System/accessPermission/accessPermission.component";
+import {PressVesProdDataReportComponent} from "./Report/pressVesProdDataReport/PressVesProdDataReport.component";
+import {ProdWeldingReportComponent} from "./Report/prodWeldingReport/ProdWeldingReport.component";
+import {ProductMaterialReportComponent} from "./Material/productMaterialReport/productMaterialReport.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -151,6 +154,11 @@ export const routes: Routes = [
         path: 'material/pressurePartsAudit', component: PressurePartsAuditComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '受压元件登记审核'
+        }
+      },{
+        path:'material/productMaterialReport', component: ProductMaterialReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品材料清单报表'
         }
       },{
         path: 'profile', component: ProfileComponent, canActivate: [CanAuthProvide],
@@ -370,6 +378,21 @@ export const routes: Routes = [
           breadcrumb: '压力容器产品合格证'
         }
       },{
+        path: 'report/pressVesProdDataReport', component: PressVesProdDataReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '压力容器产品数据表'
+        }
+      },{
+        path:'report/welderMatlTraceRecord', component: WelderMatlTraceRecordComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '焊工/材料跟踪记录'
+        }
+      },{
+        path:'report/prodWeldingReport', component: ProdWeldingReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品焊接记录报表'
+        }
+      },{
         path: 'report/vacuumTestReport', component: VacuumTestReportComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '真空考核报告'
@@ -382,17 +405,12 @@ export const routes: Routes = [
       },{
         path: 'report/quaPressVesPlanReport', component: QuaPressVesPlanReportComponent, canActivate: [CanAuthProvide],
         data: {
-          breadcrumb: '压力容器产品质量计划新'
+          breadcrumb: '压力容器产品质量计划'
         }
       },{
         path:'report/coverReport', component: PressCoverReportComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '压力容器封面'
-        }
-      },{
-        path:'report/welderMatlTraceRecord', component: WelderMatlTraceRecordComponent, canActivate: [CanAuthProvide],
-        data: {
-          breadcrumb: '焊工/材料跟踪记录'
         }
       },{
         path:'report/pressVesShapeSizeInsReport', component: PressVesShapeSizeInsReportComponent, canActivate: [CanAuthProvide],

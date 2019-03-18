@@ -71,6 +71,9 @@ import {ConQuaInfoFbSheetModule} from "./Report/conQuaInfoFbSheet/conQuaInfoFbSh
 import {WeldingRecordModule} from "./InspectionAndTest/weldingRecord/weldingRecord.module";
 import {WaterQualityDetectionInputModule} from "./PhysicalAndChemical/waterQualityDetectionInput/waterQualityDetectionInput.module";
 import {AccessPermissionModule} from "./System/accessPermission/accessPermission.module";
+import {PressVesProdDataReportReportModule} from "./Report/pressVesProdDataReport/PressVesProdDataReport.module";
+import {ProdWeldingReportModule} from "./Report/prodWeldingReport/ProdWeldingReport.module";
+import {ProductMaterialReportModule} from "./Material/productMaterialReport/productMaterialReport.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -143,7 +146,10 @@ import {AccessPermissionModule} from "./System/accessPermission/accessPermission
     ConQuaInfoFbSheetModule,
     WeldingRecordModule,
     WaterQualityDetectionInputModule,
-    AccessPermissionModule
+    AccessPermissionModule,
+    PressVesProdDataReportReportModule,
+    ProdWeldingReportModule,
+    ProductMaterialReportModule
   ]
 })
 

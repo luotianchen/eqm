@@ -15,4 +15,7 @@ export class MeasuringInstrumentSettingService {
   getUsers(){
     return this.http.get(this.api.BASEURL+"/getuserform")
   }
+  testEmail(username,password){
+    return this.http.post(this.api.BASEURL+"/testemail",{username:username,password:password});
+  }
 }

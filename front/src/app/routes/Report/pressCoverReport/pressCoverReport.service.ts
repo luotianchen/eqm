@@ -10,7 +10,7 @@ export class PressCoverReportService {
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
   getReport(formData){
-    return this.http.post(this.api.BASEURL+"/getquaplanport" , formData, { responseType: 'arraybuffer' });
+    return this.http.post(this.api.BASEURL+"/getcover" , formData, { responseType: 'arraybuffer' });
   }
 }
 
