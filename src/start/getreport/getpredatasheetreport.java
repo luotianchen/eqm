@@ -174,14 +174,16 @@ public class getpredatasheetreport {                            //压力容器�
                 eleaktest = rs.getString("eleaktest");
                 leaktestp = rs.getString("leaktestp");
             }else {
-                volume = volume + "/" + rs.getString("volume");
-                innerdia = innerdia + "/" + rs.getString("innerdia");
-                pttype = pttype + "/" + rs.getString("pttype");
-                epttype = pttype + "/" + rs.getString("epttype");
-                testpress = testpress + "/" + rs.getString("testpress");
-                leaktest = leaktest + "/" + rs.getString("leaktest");
-                eleaktest = eleaktest + "/" + rs.getString("eleaktest");
-                leaktestp = leaktestp + "/" + rs.getString("leaktestp");
+
+                getme(volume,rs);
+                getme(innerdia,rs);
+                getme(pttype,rs);
+                getme(epttype,rs);
+                getme(testpress,rs);
+                getme(leaktest,rs);
+                getme(eleaktest,rs);
+                getme(leaktestp,rs);
+
             }
 
             t_mat = rs.getString("shmatl1");
@@ -355,5 +357,15 @@ public class getpredatasheetreport {                            //压力容器�
         file.delete();
         filepdf.delete();
         return download;
+    }
+
+    public void getme(String x , ResultSet rs) throws SQLException {
+        if(x == null){
+            x = rs.getString("volume");
+        }else {
+            if(rs.getString("volume") != null){
+                x = x + "/" + rs.getString("volume");
+            }
+        }
     }
 }

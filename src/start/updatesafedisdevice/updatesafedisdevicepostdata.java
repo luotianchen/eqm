@@ -1,12 +1,12 @@
-package start.searchsafedisdevice;
+package start.updatesafedisdevice;
 
-public class searchsafedisdevicedata {
-    private String name;
-    private String model;
-    private String qty;
-    private String spec;
+public class updatesafedisdevicepostdata {
+    private String name;                        //名称
+    private String model;                       //型号
+    private String qty;                         //数量
+    private String spec;                        //规格
     private String mfunit;
-    public searchsafedisdevicedata(){
+    public updatesafedisdevicepostdata(){
         super();
     }
 

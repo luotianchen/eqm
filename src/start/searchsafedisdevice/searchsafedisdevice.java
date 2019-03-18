@@ -37,6 +37,7 @@ public class searchsafedisdevice {                                          //ца
                 data.setModel(rs.getString("model"));
                 data.setQty(rs.getString("qty"));
                 data.setSpec(rs.getString("spec"));
+                data.setMfunit(rs.getString("mfunit"));
                 as.add(data);
             }
             rs.close();

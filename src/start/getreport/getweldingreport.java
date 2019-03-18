@@ -69,7 +69,7 @@ public class getweldingreport {                                         //产品
         Sheet sheet=workBook.getSheetAt(0);
 
 
-        putsheet(sheet,42,3,prodno);
+        putsheet(sheet,3,42,prodno);
         ps = conn.prepareStatement("SELECT * FROM weldingrecord WHERE prodno = ?");
         ps.setString(1,prodno);
         rs= ps.executeQuery();
