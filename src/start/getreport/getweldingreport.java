@@ -76,6 +76,9 @@ public class getweldingreport {                                         //产品
         while (rs.next()){
             putsheet(sheet,3,0,rs.getString("dwgno"));
             putsheet(sheet,9+i*2,3,rs.getString("weldno"));
+            if(rs.getString("weldno")!=null){
+                putsheet(sheet,9+i*2,0,rs.getString("weldno").substring(0,1));
+            }
             putsheet(sheet,9+i*2,13,rs.getString("weldevano"));
             putsheet(sheet,9+i*2,23,rs.getString("weldmethod"));
             putsheet(sheet,9+i*2,30,rs.getString("usernote"));

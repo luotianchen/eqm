@@ -22,7 +22,15 @@ public class updateprestatus {                                          //发放
         updateprestatusresult result = new updateprestatusresult();
 
         try {
-            ps = conn.prepareStatement("UPDATE pressureparts SET status = ? WHERE audit=?");
+            if(up.getStatus()==1){
+                ps = conn.prepareStatement("UPDATE pressureparts SET status = ? WHERE audit=? AND status = 1");
+                ps.setInt(1,3);
+                ps.setString(2,up.getAudit());
+                ps.executeUpdate();
+                ps.close();
+            }
+
+            ps = conn.prepareStatement("UPDATE pressureparts SET status = ? WHERE audit=? AND status = 0");
             ps.setInt(1,up.getStatus());
             ps.setString(2,up.getAudit());
             ps.executeUpdate();
