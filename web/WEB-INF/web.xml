@@ -17,4 +17,9 @@
         <servlet-name>springmvc</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!--NFDFlightDataTaskListener 监听器-->
+    <listener>
+        <listener-class>start.timer.NFDFlightDataTaskListener</listener-class>
+    </listener>
 </web-app>

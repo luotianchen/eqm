@@ -52,8 +52,8 @@ public class testemail {                                            //发送测�
 
                 String hostx[] = null;
 
-                // 指定发送邮件的主机为 smtp.qq.com
-                String host = null;  //QQ 邮件服务器
+                // 指定发送邮件的主机为 smtp.**.com
+                String host = null;
 
                 ps = conn.prepareStatement("SELECT * FROM email WHERE id != 1 ");
                 rs = ps.executeQuery();
