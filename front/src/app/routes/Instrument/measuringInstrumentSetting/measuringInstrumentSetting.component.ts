@@ -72,6 +72,7 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
   }
   isVisible = false;
   isConfirmLoading = false;
+  btntext = '确认发送';
   infoLogin(): void {
     this.isVisible = true;
   }
@@ -90,7 +91,9 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
   }
   handleOk(): void {
     this.isConfirmLoading = true;
+    this.btntext = '发送中……'
     this.measuringInstrumentSettingService.testEmail(this.loginValidateForm.value.userName,this.loginValidateForm.value.password).subscribe(res=>{
+      this.btntext = '确认发送';
       if(res['result'] == "success"){
         this.msg.success("发送成功！请接受者检查邮箱")
         this.isVisible = false;
@@ -100,6 +103,7 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
         this.isConfirmLoading = false;
       }
     },err=>{
+      this.btntext = '确认发送';
       this.msg.error("发送失败！请稍后重试")
       this.isConfirmLoading = false;
     })
