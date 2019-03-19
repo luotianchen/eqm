@@ -1,0 +1,23 @@
+<form nz-form [nzLayout]="'inline'" [formGroup]="validateForm">
+  <input type="text" style="display:none"/>
+  <input type="password" style="display:none"/>
+  <!--用于防止浏览器自动填充表单-->
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixUser">
+        <input formControlName="userName" nz-input placeholder="请输入用户名" (change)="onchange()">
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('userName')?.dirty && validateForm.get('userName')?.errors">请输入用户名</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <nz-input-group [nzPrefix]="prefixLock">
+        <input onfocus="this.type='text'" onblur="this.type='password'" autocompletes=”off” disableautocomplete="true" formControlName="password" nz-input type="text" placeholder="请输入密码" (change)="onchange()">
+      </nz-input-group>
+      <nz-form-explain *ngIf="validateForm.get('password')?.dirty && validateForm.get('password')?.errors">请输入密码！</nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+<ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>

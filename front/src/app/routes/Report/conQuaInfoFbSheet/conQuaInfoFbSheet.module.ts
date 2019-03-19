@@ -8,8 +8,7 @@ import {ConQuaInfoFbSheetComponent} from "./conQuaInfoFbSheet.component";
     ConQuaInfoFbSheetComponent
   ],
   imports: [
-    SharedModule.forRoot(),
-    EssenceNg2PrintModule
+    SharedModule.forRoot()
   ],
   exports: [
     ConQuaInfoFbSheetComponent

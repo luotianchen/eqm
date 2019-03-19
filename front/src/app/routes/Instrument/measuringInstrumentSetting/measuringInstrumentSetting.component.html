@@ -30,7 +30,7 @@
                 [nzContent]="contentTemplate">我如何获得邮箱授权码？</a>)
         </nz-form-label>
         <ng-template #contentTemplate>
-          <p>第三方登陆访问邮箱需要授权码</p>
+          <p>第三方登录访问邮箱需要授权码（IMAP/SMTP）</p>
           <a target="_blank" href="http://help.mail.163.com/faq.do?m=list&categoryID=197">网易邮箱（163、126、yeah）</a>|
           <a target="_blank" href="https://service.mail.qq.com/cgi-bin/help?subtype=1&id=28&no=1001256">QQ邮箱/Foxmail</a>
         </ng-template>
@@ -72,33 +72,11 @@
   </ng-template>
 
   <ng-template #modalContent>
-    <form nz-form [nzLayout]="'inline'" [formGroup]="loginValidateForm">
-      <input type="text" style="display:none"/>
-      <input type="password" style="display:none"/>
-      <!--用于防止浏览器自动填充表单-->
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group [nzPrefix]="prefixUser">
-            <input formControlName="userName" nz-input placeholder="请输入用户名">
-          </nz-input-group>
-          <nz-form-explain *ngIf="loginValidateForm.get('userName')?.dirty && loginValidateForm.get('userName')?.errors">请输入用户名</nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <nz-input-group [nzPrefix]="prefixLock">
-            <input onfocus="this.type='text'" onblur="this.type='password'" autocompletes=”off” disableautocomplete="true" formControlName="password" nz-input type="text" placeholder="请输入密码">
-          </nz-input-group>
-          <nz-form-explain *ngIf="loginValidateForm.get('password')?.dirty && loginValidateForm.get('password')?.errors">请输入密码！</nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-    <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
-    <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+    <app-auth (OnAuthChange)="onAuthSubmit($event)"></app-auth>
   </ng-template>
-
   <ng-template #modalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">取消</button>
-    <button nz-button nzType="danger" (click)="handleOk()" [nzLoading]="isConfirmLoading">确认发送</button>
+    <button nz-button nzType="danger" (click)="handleOk()" [nzLoading]="isConfirmLoading" disabled *ngIf="!loginValidateForm || !loginValidateForm.valid">确认发送</button>
+    <button nz-button nzType="danger" (click)="handleOk()" [nzLoading]="isConfirmLoading" *ngIf="loginValidateForm && loginValidateForm.valid">确认发送</button>
   </ng-template>
 </nz-modal>

@@ -8,8 +8,7 @@ import {EssenceNg2PrintModule} from 'essence-ng2-print';
     VacuumInspectionReportComponent
   ],
   imports: [
-    SharedModule.forRoot(),
-    EssenceNg2PrintModule
+    SharedModule.forRoot()
   ],
   exports: [
     VacuumInspectionReportComponent

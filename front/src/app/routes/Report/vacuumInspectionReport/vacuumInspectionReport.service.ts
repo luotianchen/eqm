@@ -9,5 +9,8 @@ export class VacuumInspectionReportService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
+  getReport(formData){
+    return this.http.post(this.api.BASEURL+"/getspacetestreport" , formData, { responseType: 'arraybuffer' });
+  }
 }
 

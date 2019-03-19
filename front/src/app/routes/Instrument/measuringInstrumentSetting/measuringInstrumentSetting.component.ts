@@ -20,10 +20,7 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
       system_email:[null,[Validators.required,Validators.email]],
       authorization_code:[null,[Validators.required]],
       tosend_email:[null,[Validators.required]],
-    });this.loginValidateForm = this.fb.group({
-      userName: [ null, [ Validators.required ] ],
-      password: [ null, [ Validators.required ] ]
-    });
+    })
     this.measuringInstrumentSettingService.getUsers().subscribe((res)=>{
       if(res['result']=="success"){
         this.userform = res['data'];
@@ -82,28 +79,29 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
   }
-  loginValidateForm: FormGroup;
 
-handleOk(): void {
+  loginValidateForm:FormGroup = null;
+  onAuthSubmit(form) {
+    this.loginValidateForm = form;
     for (const i in this.loginValidateForm.controls) {
       this.loginValidateForm.controls[ i ].markAsDirty();
       this.loginValidateForm.controls[ i ].updateValueAndValidity();
     }
-    if(this.loginValidateForm.valid){
-      this.isConfirmLoading = true;
-      this.measuringInstrumentSettingService.testEmail(this.loginValidateForm.value.userName,this.loginValidateForm.value.password).subscribe(res=>{
-        if(res['result'] == "success"){
-          this.msg.success("发送成功！请接受者检查邮箱")
-          this.isVisible = false;
-          this.isConfirmLoading = false;
-        }else{
-          this.msg.error("发送失败！请稍后重试")
-          this.isConfirmLoading = false;
-        }
-      },err=>{
-        this.msg.error("发送失败！请稍后重试")
+  }
+  handleOk(): void {
+    this.isConfirmLoading = true;
+    this.measuringInstrumentSettingService.testEmail(this.loginValidateForm.value.userName,this.loginValidateForm.value.password).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.msg.success("发送成功！请接受者检查邮箱")
+        this.isVisible = false;
         this.isConfirmLoading = false;
-      })
-    }
+      }else{
+        this.msg.error("登录失败，请检查用户名和密码！")
+        this.isConfirmLoading = false;
+      }
+    },err=>{
+      this.msg.error("发送失败！请稍后重试")
+      this.isConfirmLoading = false;
+    })
   }
 }

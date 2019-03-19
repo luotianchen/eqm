@@ -164,7 +164,7 @@ public class getspacecheckreport {                              //真空考核�
         putsheet(sheet,16,7,sealtemp);
         putsheet(sheet,14,20,volume_s);
         putsheet(sheet,18,3,sealvacu);
-        putsheet(sheet,18,21,sealdate);
+        putsheet(sheet,18,22,sealdate);
         putsheet(sheet,22,18,sealdate);
         putsheet(sheet,24,21,sealdate);
         putsheet(sheet,22,1,vacuop);

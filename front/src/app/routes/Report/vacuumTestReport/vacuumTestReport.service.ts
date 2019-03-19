@@ -9,5 +9,8 @@ export class VacuumTestReportService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
+  getReport(formData){
+    return this.http.post(this.api.BASEURL+"/getspacecheckreport" , formData, { responseType: 'arraybuffer' });
+  }
 }
 
