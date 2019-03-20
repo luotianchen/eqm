@@ -226,7 +226,13 @@ export class ProductManufacturingParametersComponent implements OnInit {
       });
     }
   }
+  millunits = [];
   constructor(public productManufacturingParametersService: ProductManufacturingParametersService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
+    this.productManufacturingParametersService.getputmaterial().subscribe(res => {
+      if (res['result'] === 'success') {
+        this.millunits = res['data']['millunit'];
+      }
+    });
   }
 
   submitForm(){

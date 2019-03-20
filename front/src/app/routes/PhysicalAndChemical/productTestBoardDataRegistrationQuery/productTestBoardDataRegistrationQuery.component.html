@@ -7,7 +7,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
-          <nz-select style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+          <nz-select style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" nzAllowClear>
             <nz-option *ngFor="let option of prodno" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -16,8 +16,11 @@
     <div nz-col [nzSpan]="8">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="year">年份</nz-form-label>
-        <nz-form-control [nzSm]="14">
-          <input nz-input formControlName="year" name="year" placeholder="请输入年份" type="text" id="year">
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-input-number style="width: 100%" formControlName="year" name="year" placeholder="请输入年份" type="text" id="year"></nz-input-number>
+          <nz-form-explain *ngIf="validateForm.get('year').dirty && validateForm.get('year').errors">
+            请输入正确的年份！
+          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -140,19 +143,19 @@
           <div nz-col nzSpan="3">
             W1:{{data.w1}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             LE（W1）:{{data.lew1}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             W2:{{data.w2}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             LE（W2）:{{data.lew2}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             W3:{{data.w3}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             LE（W3）:{{data.lew3}}
           </div>
           <div nz-col nzSpan="3">
@@ -161,16 +164,16 @@
           <div nz-col nzSpan="2">
             LE（H1）:{{data.leh1}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             H2:{{data.h2}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             LE（H2）:{{data.leh2}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             H3:{{data.h3}}
           </div>
-          <div nz-col nzSpan="2">
+          <div nz-col nzSpan="3">
             LE（H3）:{{data.leh3}}
           </div>
         </div>

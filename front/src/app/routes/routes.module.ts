@@ -74,6 +74,7 @@ import {AccessPermissionModule} from "./System/accessPermission/accessPermission
 import {PressVesProdDataReportReportModule} from "./Report/pressVesProdDataReport/PressVesProdDataReport.module";
 import {ProdWeldingReportModule} from "./Report/prodWeldingReport/ProdWeldingReport.module";
 import {ProductMaterialReportModule} from "./Material/productMaterialReport/productMaterialReport.module";
+import {DesignQueryModule} from "./Design/designQuery/designQuery.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -105,6 +106,7 @@ import {ProductMaterialReportModule} from "./Material/productMaterialReport/prod
     MaterialSubstitutionQueryModule,
     DesignInputModule,
     DesignAuditModule,
+    DesignQueryModule,
     PressurePartsReportModule,
     MaterialDistributionLedgerModule,
     InspectionRecordsModule,

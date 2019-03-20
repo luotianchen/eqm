@@ -3,11 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {ApiService} from "../../../core/api/api.service";
 
 @Injectable()
-export class DesignAuditService {
+export class DesignQueryService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getaudit(){
     return this.http.get(this.api.BASEURL+"/getdwgnobynoaudit");
+  }
+  getaudited(){
+    return this.http.get(this.api.BASEURL+"/getdwgnoaudited");
   }
   getbydwgno(dwgno,status){
     return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno,status:status})

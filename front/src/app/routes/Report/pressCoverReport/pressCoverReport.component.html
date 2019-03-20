@@ -18,7 +18,7 @@
       查询报表
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <a nz-button nzType="primary" download="压力容器封面.pdf" [href]="objectUrl" *ngIf="status">下载报表</a>
+    <a nz-button nzType="primary" download="{{this.validateForm.value.prodno}}+压力容器封面.pdf" [href]="objectUrl" *ngIf="status">下载报表</a>
   </div>
 </form>
 <nz-divider></nz-divider>

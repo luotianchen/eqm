@@ -72,9 +72,6 @@ export class VacuumParameterAuditComponent implements OnInit {
     this.vacuumParameterAuditService.getauditOk(this.validateForm.value.prodno).subscribe((res)=>{
       if(res['result']=="success"){
         this.excel.exportAsExcelFile(res['data'],'真空参数',this.headers)
-        this.status = true;
-      }else{
-        this.status = false;
       }
     })
   }

@@ -501,7 +501,7 @@
         <th>型号</th>
         <th>规格</th>
         <th>数量</th>
-        <th>制造单位</th>
+        <th nzWidth="200px">制造单位</th>
       </tr>
       </thead>
       <tbody>
@@ -517,7 +517,9 @@
             </div>
           </div>
           <ng-template #editTpl>
-            <input type="text" nz-input [(ngModel)]="data.mfunit" placeholder="请填写制造单位">
+            <nz-select nzShowSearch style="width: 100%" nzMode="default" [(ngModel)]="data.mfunit" nzPlaceHolder="请选择制造单位">
+              <nz-option *ngFor="let option of millunits" [nzLabel]="option" [nzValue]="option"></nz-option>
+            </nz-select>
           </ng-template>
         </td>
       </tr>

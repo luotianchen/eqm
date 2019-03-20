@@ -91,7 +91,7 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
   }
   handleOk(): void {
     this.isConfirmLoading = true;
-    this.btntext = '发送中……'
+    this.btntext = '发送中，请勿关闭窗口……'
     this.measuringInstrumentSettingService.testEmail(this.loginValidateForm.value.userName,this.loginValidateForm.value.password).subscribe(res=>{
       this.btntext = '确认发送';
       if(res['result'] == "success"){

@@ -37,7 +37,7 @@ export class LiquidPressTestReportComponent implements OnInit {
         let date = new Date();
         a.setAttribute('style', 'display:none');
         a.setAttribute('href', objectUrl);
-        a.setAttribute('download', "液（水）压试验过程卡"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
+        a.setAttribute('download', this.validateForm.value.prodno+'+'+this.validateForm.value.name+"+液（水）压试验过程卡"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
         a.click();
         this.loading = false;
         URL.revokeObjectURL(objectUrl);

@@ -28,4 +28,7 @@ export class VacuumParameterService {
   getuserform() {
     return this.http.get(`${this.api.BASEURL}/getuserform`);
   }
+  getauditOk(){
+    return this.http.post(this.api.BASEURL+"/searchvacuumbystatus",{status:1});
+  }
 }

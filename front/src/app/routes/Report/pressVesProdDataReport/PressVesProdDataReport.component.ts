@@ -36,7 +36,7 @@ export class PressVesProdDataReportComponent implements OnInit {
         let date = new Date();
         a.setAttribute('style', 'display:none');
         a.setAttribute('href', objectUrl);
-        a.setAttribute('download', "压力容器产品数据表"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
+        a.setAttribute('download', this.validateForm.value.prodno+"+压力容器产品数据表"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
         a.click();
         URL.revokeObjectURL(objectUrl);
         this.loading = false;

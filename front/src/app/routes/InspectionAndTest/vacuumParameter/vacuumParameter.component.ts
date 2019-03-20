@@ -1,8 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VacuumParameterService} from "./vacuumParameter.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NzMessageService,NzModalRef, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
+import { NgxXLSXService } from '@notadd/ngx-xlsx';
 
 @Component({
   selector: 'app-vacuumParameter',
@@ -14,6 +15,23 @@ export class VacuumParameterComponent implements OnInit {
   public prodnos:any;
   validateForm: FormGroup;
   dataSet = [];
+  headers = ['产品编号',
+    '初始格数',
+    '静置后格数',
+    '初始压力(Pa)',
+    '静置后压力(Pa)',
+    '规管加热电流',
+    '检测开始日期',
+    '检测结束日期',
+    '封口真空',
+    '封口日期',
+    '封口温度',
+    '侧漏放气率温度',
+    '真空考核操作工',
+    '漏放气速率',
+    '提交人',
+    '审核人',
+    '提交时间']
   users = [];
   num2pa = {
     13:26.6,
@@ -141,7 +159,7 @@ export class VacuumParameterComponent implements OnInit {
       this.validateForm.controls['statpa'].setValidators(Validators.required);
     }
   }
-  constructor(public vacuumParameterService: VacuumParameterService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
+  constructor(public vacuumParameterService: VacuumParameterService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService,private excel:NgxXLSXService) {
   }
 
   formatInDate(control){
@@ -243,5 +261,12 @@ export class VacuumParameterComponent implements OnInit {
         }
       })
     }
+  }
+  exportExcel(){
+    this.vacuumParameterService.getauditOk().subscribe((res)=>{
+      if(res['result']=="success"){
+        this.excel.exportAsExcelFile(res['data'],'真空参数',this.headers)
+      }
+    })
   }
 }

@@ -16,6 +16,7 @@ export class InspectionRecordsComponent implements OnInit {
   public dwgno:any;
   public status = false;
   public dataSet = [];
+  codedmarkings = []
   constructor(public fb: FormBuilder, public inspectionRecordsService: InspectionRecordsService) {
   }
   ngOnInit(): void {
@@ -28,6 +29,21 @@ export class InspectionRecordsComponent implements OnInit {
       "prodno":[null, [Validators.required]],
       "codedmarking":[null]
     });
+  }
+
+  getCodedmarkings(){
+    if(this.validateForm.value.prodno){
+      this.inspectionRecordsService.getdistribute(this.validateForm.value.prodno).subscribe((res) => {
+        if (res['result'] == "success") {
+          let temp = [];
+          for(let item of res['data']){
+            if(temp.indexOf(item.codedmarking)==-1)
+              temp.push(item.codedmarking)
+          }
+          this.codedmarkings = temp;
+        }
+      })
+    }
   }
 
   searchData(): void {

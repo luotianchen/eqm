@@ -62,4 +62,7 @@ export class ProductManufacturingParametersService {
   updateSaferelMFUnit(data){
     return this.http.post(this.api.BASEURL+"/updatesafedisdevice",data);
   }
+  getputmaterial() {
+    return this.http.get(`${this.api.BASEURL}/getputmaterial`);
+  }
 }

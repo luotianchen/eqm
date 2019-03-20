@@ -38,7 +38,7 @@ export class PressTestReportComponent implements OnInit {
         let date = new Date();
         a.setAttribute('style', 'display:none');
         a.setAttribute('href', objectUrl);
-        a.setAttribute('download', "压力试验通知单"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
+        a.setAttribute('download', this.validateForm.value.prodno+'+'+this.validateForm.value.name+"+压力试验通知单"+date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+".xlsx");
         a.click();
         URL.revokeObjectURL(objectUrl);
         this.loading = false;

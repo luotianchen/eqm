@@ -44,7 +44,7 @@
       <td>{{data.testdate}}</td>
       <td>{{data.gapType}}</td>
       <td>{{data.shocktemp}}</td>
-      <td><a (click)="audit(data.prodno,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.prodno,2)">拒绝</a></td>
+      <td><a (click)="audit(data.prodno,data.specimenno,data.id,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.prodno,data.specimenno,data.id,2)">拒绝</a></td>
     </tr>
     <tr [nzExpand]="data.expand">
       <td colspan="14">

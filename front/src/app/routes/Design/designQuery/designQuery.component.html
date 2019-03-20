@@ -1,32 +1,64 @@
 <div>
-  <h3 class="title">设计数据审核</h3>
+  <h3 class="title">设计数据查询</h3>
 </div>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="dwgno">图号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="图号"  formControlName="dwgno" name="dwgno" id="dwgno" nzAllowClear>
+            <nz-option *ngFor="let option of dataSet2" [nzLabel]="option.dwgno" [nzValue]="option.dwgno"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+    </div>
+  </div>
+</form>
+<nz-divider></nz-divider>
 <div style="margin-top: 30px;">
   <nz-table
-    #ajaxTable
+    #ajaxTable2
     nzBordered
     [nzLoading]="loading"
-    [nzData]="dataSet">
+    [nzData]="dataSet2Display">
     <thead>
     <tr>
-      <th>提交人</th>
-      <th>提交时间</th>
       <th>图号</th>
+      <th>产品名称</th>
+      <th nzShowFilter [nzFilters]="types" (nzFilterChange)="filter(searchtype)">容器类别
+      </th>
+      <th>产品标准</th>
+      <th>设计日期</th>
+      <th nzCustomFilter>
+        <nz-dropdown nzTrigger="click" nzPlacement="bottomRight" [nzClickHide]="false" nzTableFilter #dropdown>
+          <i nz-icon nzType="search" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown.nzVisible" nz-dropdown></i>
+          <div class="search-box">
+            <input type="text" nz-input placeholder="请输入" [(ngModel)]="searchname">
+            <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">搜索</button>
+            <button nz-button nzSize="small" (click)="reset()">重置</button>
+          </div>
+        </nz-dropdown>
+        设计单位
+      </th>
       <th style="min-width: 100px;">操作</th>
+      <!--设计单位、容器类别筛选-->
     </tr>
     </thead>
     <tbody>
-    <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
+    <ng-template ngFor let-data [ngForOf]="ajaxTable2.data">
       <tr>
-        <td>{{data.user}}</td>
-        <td>{{data.date}}</td>
         <td>{{data.dwgno}}</td>
+        <td>{{data.prodname}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.mainstand}}</td>
+        <td>{{data.designdate}}</td>
+        <td>{{data.deconame}}</td>
         <td>
-          <a (click)="open(data.dwgno)">查看详细内容</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="Audit(data.dwgno,1)">通过</a>
-          <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="Audit(data.dwgno,2)">拒绝</a>
+          <a (click)="open2(data.dwgno)">查看详细内容</a>
         </td>
       </tr>
     </ng-template>

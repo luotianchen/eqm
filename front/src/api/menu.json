@@ -402,6 +402,11 @@
           "icon" : "laptop",
           "name" : "设计参数审核",
           "route" : "/design/audit"
+        },
+        {
+          "icon" : "laptop",
+          "name" : "设计参数查询",
+          "route" : "/design/query"
         }
       ]
     },

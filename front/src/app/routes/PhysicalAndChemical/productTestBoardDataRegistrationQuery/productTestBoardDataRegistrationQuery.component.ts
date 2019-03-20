@@ -24,7 +24,7 @@ export class ProductTestBoardDataRegistrationQueryComponent implements OnInit {
     });
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null],
-      "year":[new Date().getFullYear(),[Validators.pattern(/^([1-9]|1[0-2])$/)]]
+      "year":[new Date().getFullYear(),[Validators.maxLength(4),Validators.minLength(4),Validators.max(new Date().getFullYear()),Validators.min(1900)]]
     });
     this.searchData();
   }
@@ -34,13 +34,16 @@ export class ProductTestBoardDataRegistrationQueryComponent implements OnInit {
     }
   }
   searchData(){
-    this.productTestBoardDataRegistrationQueryService.getAudit(this.validateForm.value.year,this.validateForm.value.year).subscribe((res)=>{
-      if(res['result']=='success'){
-        this.dataSet = res['data'];
-        for(let data of this.dataSet){
-          data.expand = true;
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[ i ].markAsDirty();
+      this.validateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.validateForm.valid){
+      this.productTestBoardDataRegistrationQueryService.getAudit(this.validateForm.value.prodno,this.validateForm.value.year).subscribe((res)=>{
+        if(res['result']=='success'){
+          this.dataSet = res['data'];
         }
-      }
-    })
+      })
+    }
   }
 }

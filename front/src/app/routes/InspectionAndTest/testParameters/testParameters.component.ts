@@ -172,7 +172,7 @@ export class TestParametersComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.testParametersService.getchannel(this.validateForm.controls['dwgno'].value).subscribe((res)=>{
-        this.channel = res["data"];
+        this.channel = res["data"].reverse();
         this.showChannel = false;
         let dealindex = 0;
         this.channelForms = [];
@@ -424,16 +424,17 @@ export class TestParametersComponent implements OnInit {
       form.controls[ i ].markAsDirty();
       form.controls[ i ].updateValueAndValidity();
     }
+    console.log(form);
+    console.log(form.valid);
     if(!form.valid){
       valid = false;
     }
     if(valid){
-      let ename = this.pparts.filter(item=>item.label == form.controls['ppart'].value)[0].value.ename;
       this.testParametersService.putPressureTest({
         prodno:form.controls['prodno'].value,
         dwgno:form.controls['dwgno'].value,
         ppart:form.controls['ppart'].value,
-        eppart:ename,
+        eppart:form.controls['eppart'].value,
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
         dated3:form.controls['dated3'].value,
@@ -457,6 +458,7 @@ export class TestParametersComponent implements OnInit {
           this.testParametersService.putpreandleak(
             {
               "prodno":form.controls['prodno'].value,
+              "ppart":form.controls['ppart'].value,
               "data":this.dataModel[index]
             }).subscribe((res)=>{
             if(res['result']=="success"){

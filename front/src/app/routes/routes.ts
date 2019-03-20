@@ -73,6 +73,7 @@ import {AccessPermissionComponent} from "./System/accessPermission/accessPermiss
 import {PressVesProdDataReportComponent} from "./Report/pressVesProdDataReport/PressVesProdDataReport.component";
 import {ProdWeldingReportComponent} from "./Report/prodWeldingReport/ProdWeldingReport.component";
 import {ProductMaterialReportComponent} from "./Material/productMaterialReport/productMaterialReport.component";
+import {DesignQueryComponent} from "./Design/designQuery/designQuery.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -219,6 +220,11 @@ export const routes: Routes = [
         path: 'design/audit', component: DesignAuditComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '设计参数审核'
+        }
+      },{
+        path: 'design/query', component: DesignQueryComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '设计参数查询'
         }
       },{
         path: 'material/pressurePartsReport', component: PressurePartsReportComponent, canActivate: [CanAuthProvide],
