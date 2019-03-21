@@ -45,6 +45,8 @@ public class getpromatlreport {                                 //产品材料�
         int f = 2;
         int i = 0;
         int t = 0;
+        String dwgno = null;
+        String exworkdate = null;
 
 
         ArrayList<String> material = null;
@@ -75,20 +77,18 @@ public class getpromatlreport {                                 //产品材料�
 
         FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
         XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
-        workBook.setPrintArea(
-                0,0,30,0,20
-        );
         fileXlsx.close();
-        Sheet sheet_new=workBook.getSheetAt(0);
-        Sheet sheet = null;
+        Sheet sheet=workBook.getSheetAt(0);
 
-        putsheet(sheet_new,1,26,prodno);
+
+        putsheet(sheet,1,26,prodno);
 
         ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
         ps.setString(1,prodno);
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet_new,1,2,rs.getString("dwgno"));
+            dwgno = rs.getString("dwgno");
+            putsheet(sheet,1,2,dwgno);
         }
         rs.close();
         ps.close();
@@ -98,7 +98,8 @@ public class getpromatlreport {                                 //产品材料�
         rs = ps.executeQuery();
         if(rs.next()){
             calendar.setTime(rs.getDate("exworkdate"));
-            putsheet(sheet_new,28,30,simpleDateFormat1.format(calendar.getTime()));
+            exworkdate = simpleDateFormat1.format(calendar.getTime());
+            putsheet(sheet,30,29,exworkdate);
         }
         rs.close();
 
@@ -109,39 +110,43 @@ public class getpromatlreport {                                 //产品材料�
             if(i==0){
                 material = new ArrayList<String>();
                 codedmarking_f = new ArrayList<String>();
-                sheet = workBook.getSheetAt(0);
             }
-            if(i>=9){
+            if(i>=10){
                 i=0;
+                t++;
+                putsheet(sheet,1+32*t,26,prodno);
+                putsheet(sheet,1+32*t,2,dwgno);
+                putsheet(sheet,30+32*t,29,exworkdate);
+                workBook.setPrintArea(
+                        0,0,36,0,31+t*32
+                );
                 material = new ArrayList<String>();
                 codedmarking_f = new ArrayList<String>();
-                sheet=workBook.createSheet("产品材料清单"+f++);
-                copySheet(workBook,(XSSFSheet) sheet_new,(XSSFSheet)sheet);
             }
             partsname_id = rs1.getInt("parts_id_name");
             ps = conn.prepareStatement("SELECT * FROM parts WHERE id = ?");
             ps.setInt(1,partsname_id);
             rs = ps.executeQuery();
             if(rs.next()){
-                putsheet(sheet,8+i*2,1,rs.getString("partsname"));
+                putsheet(sheet,8+i*2+t*32,1,rs.getString("partsname"));
             }
             rs.close();
             ps.close();
 
-            putsheet(sheet,8+i*2,2,rs1.getString("partno"));
+            putsheet(sheet,8+i*2+t*32,2,rs1.getString("partno"));
 
             designation_id = rs1.getInt("contraststand_id_designation");
             ps = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
             ps.setInt(1,designation_id);
             rs = ps.executeQuery();
             if(rs.next()){
-                putsheet(sheet,8+i*2,3,rs.getString("designation"));
+                putsheet(sheet,8+i*2+t*32,3,rs.getString("designation"));
             }
             rs.close();
             ps.close();
 
-            putsheet(sheet,9+i*2,3,rs1.getString("spec"));
-            putsheet(sheet,8+i*2,8,rs1.getString("codedmarking"));
+            putsheet(sheet,9+i*2+t*32,3,rs1.getString("spec"));
+            putsheet(sheet,8+i*2+t*32,8,rs1.getString("codedmarking"));
             codedmarking_f.add(rs1.getString("codedmarking"));
 
             ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
@@ -174,34 +179,34 @@ public class getpromatlreport {                                 //产品材料�
                 setma(material,"be",rs);
                 setma(material,"als",rs);
 
-                putsheet(sheet,8+i*2,4,rs.getString("heatbatchno"));
+                putsheet(sheet,8+i*2+t*32,4,rs.getString("heatbatchno"));
 
                 millunit_id = rs.getInt("millunit_id_millunit");
                 ps_x = conn.prepareStatement("SELECT * FROM millunit WHERE id = ?");
                 ps_x.setInt(1,millunit_id);
                 rs_x = ps_x.executeQuery();
                 if(rs_x.next()){
-                    putsheet(sheet,8+i*2,5,rs_x.getString("millunit"));
+                    putsheet(sheet,8+i*2+t*32,5,rs_x.getString("millunit"));
                 }
                 rs_x.close();
                 ps_x.close();
 
-                putsheet(sheet,8+i*2,6,rs.getString("heattreatcondition_id_heatcondi"));
-                putsheet(sheet,8+i*2,22,rs.getString("rel1"));
-                putsheet(sheet,8+i*2,24,rs.getString("rm1"));
-                putsheet(sheet,8+i*2,26,rs.getString("elong1"));
-                putsheet(sheet,8+i*2,28,rs.getString("hardness1"));
-                putsheet(sheet,8+i*2,29,rs.getString("bending_id_impacttemp"));
-                putsheet(sheet,8+i*2,30,rs.getString("impactp1"));
-                putsheet(sheet,8+i*2,33,rs.getString("bending_id_bendangle"));
-                putsheet(sheet,8+i*2,35,rs.getString("bendaxdia"));
+                putsheet(sheet,8+i*2+t*32,6,rs.getString("heattreatcondition_id_heatcondi"));
+                putsheet(sheet,8+i*2+t*32,22,rs.getString("rel1"));
+                putsheet(sheet,8+i*2+t*32,24,rs.getString("rm1"));
+                putsheet(sheet,8+i*2+t*32,26,rs.getString("elong1"));
+                putsheet(sheet,8+i*2+t*32,28,rs.getString("hardness1"));
+                putsheet(sheet,8+i*2+t*32,29,rs.getString("bending_id_impacttemp"));
+                putsheet(sheet,8+i*2+t*32,30,rs.getString("impactp1"));
+                putsheet(sheet,8+i*2+t*32,33,rs.getString("bending_id_bendangle"));
+                putsheet(sheet,8+i*2+t*32,35,rs.getString("bendaxdia"));
 
                 utclass_id = rs.getInt("bending_id_utclass");
                 ps_x = conn.prepareStatement("SELECT * FROM bending WHERE id = ?");
                 ps_x.setInt(1,utclass_id);
                 rs_x = ps_x.executeQuery();
                 if(rs_x.next()){
-                    putsheet(sheet,8+i*2,36,rs_x.getString("utclass"));
+                    putsheet(sheet,8+i*2+t*32,36,rs_x.getString("utclass"));
                 }
                 rs_x.close();
                 ps_x.close();
@@ -214,41 +219,39 @@ public class getpromatlreport {                                 //产品材料�
             rs = ps.executeQuery();
             while (rs.next()){
 
-                putsheet(sheet,9+i*2,22,rs.getString("rel1"));
-                putsheet(sheet,9+i*2,24,rs.getString("rm1"));
-                putsheet(sheet,9+i*2,26,rs.getString("elong1"));
-                putsheet(sheet,9+i*2,28,rs.getString("hardness1"));
-                putsheet(sheet,9+i*2,29,rs.getString("impacttemp"));
-                putsheet(sheet,9+i*2,30,rs.getString("impactp1"));
-                putsheet(sheet,9+i*2,33,rs.getString("bendangle"));
-                putsheet(sheet,9+i*2,35,rs.getString("bendaxdia"));
+                putsheet(sheet,9+i*2+t*32,22,rs.getString("rel1"));
+                putsheet(sheet,9+i*2+t*32,24,rs.getString("rm1"));
+                putsheet(sheet,9+i*2+t*32,26,rs.getString("elong1"));
+                putsheet(sheet,9+i*2+t*32,28,rs.getString("hardness1"));
+                putsheet(sheet,9+i*2+t*32,29,rs.getString("impacttemp"));
+                putsheet(sheet,9+i*2+t*32,30,rs.getString("impactp1"));
+                putsheet(sheet,9+i*2+t*32,33,rs.getString("bendangle"));
+                putsheet(sheet,9+i*2+t*32,35,rs.getString("bendaxdia"));
 
             }
             rs.close();
             ps.close();
 
 
-            if(i == 8 || rs1.isLast()){
+            if(i == 9 || rs1.isLast()){
                 for (int z = 0;z<material.size();z++){
                     if(z>=12){
                         break;
                     }
-                    putsheet(sheet,4,10+z,material.get(z));
+                    putsheet(sheet,4+t*32,10+z,material.get(z).substring(0, 1).toUpperCase()+material.get(z).substring(1));
                 }
 
 
                 for (int z=0;z<codedmarking_f.size();z++){
                     ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
                     ps.setString(1,codedmarking_f.get(z));
-                    System.out.println(codedmarking_f.get(z));
                     rs = ps.executeQuery();
                     while (rs.next()){
                         for (int c = 0;c<material.size();c++){
                             if(c>=12){
                                 break;
                             }
-                            putsheet(sheet,8+z*2,10+c,rs.getString(material.get(c)));
-                            System.out.println(rs.getString(material.get(c)));
+                            putsheet(sheet,8+z*2+t*32,10+c,rs.getString(material.get(c)));
                         }
                     }
                     rs.close();
@@ -262,7 +265,7 @@ public class getpromatlreport {                                 //产品材料�
                             if(c>=12){
                                 break;
                             }
-                            putsheet(sheet,9+z*2,10+c,rs.getString(material.get(c)));
+                            putsheet(sheet,9+z*2+t*32,10+c,rs.getString(material.get(c)));
                         }
                     }
                     rs.close();

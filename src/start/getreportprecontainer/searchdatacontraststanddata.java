@@ -1,4 +1,4 @@
-package start.searchdatacontraststand;
+package start.getreportprecontainer;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public class searchdatacontraststanddata {
     private double length;                                                  //筒体长度标准值实测值
     private double straightness;                                            //筒体直线度实测值
     private ArrayList<Double> outward;                                          //封头形状偏差外凸实测值
-    private ArrayList<Double> concave;
+    private ArrayList<Double> concave;                                      
     private ArrayList<String> shthick;
     public searchdatacontraststanddata(){
         super();
