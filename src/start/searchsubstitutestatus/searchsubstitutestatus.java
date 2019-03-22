@@ -22,8 +22,12 @@ public class searchsubstitutestatus {                                           
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
 
         String sql = null;
+        int b_f = 0;
+        int c_f = 0;
 
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -62,12 +66,60 @@ public class searchsubstitutestatus {                                           
             rs = ps.executeQuery();
             while (rs.next()){
                 data =new searchsubstitutestatusdata();
-                data.setAudit(rs.getString("audit"));
-                data.setDate(sdf.format(rs.getDate("date")));
-                data.setProdno(rs.getString("prodno"));
-                data.setUser(rs.getString("user"));
-                data.setWhy(rs.getString("why"));
-                as.add(data);
+                ps1= conn.prepareStatement("SELECT * FROM matlsubstitution WHERE audit = ?");
+                ps1.setString(1,rs.getString("audit"));
+                rs1 = ps1.executeQuery();
+                while (rs1.next()){
+                    if(rs1.getString("type").equals("B")){
+                        b_f=1;
+                    }
+                    if(rs1.getString("type").equals("C")){
+                        c_f=1;
+                    }
+                }
+                rs1.close();
+                ps1.close();
+
+                if(sp.getStatus_b()==0 && sp.getStatus_c()==0){
+                    data.setAudit(rs.getString("audit"));
+                    data.setDate(sdf.format(rs.getDate("date")));
+                    data.setProdno(rs.getString("prodno"));
+                    data.setUser(rs.getString("user"));
+                    data.setWhy(rs.getString("why"));
+                    as.add(data);
+                }else {
+                    if(sp.getStatus_b()==1 && sp.getStatus_c()==1){
+                        if(b_f==1 || c_f == 1){
+                            data.setAudit(rs.getString("audit"));
+                            data.setDate(sdf.format(rs.getDate("date")));
+                            data.setProdno(rs.getString("prodno"));
+                            data.setUser(rs.getString("user"));
+                            data.setWhy(rs.getString("why"));
+                            as.add(data);
+                        }
+                    }else {
+                        if(sp.getStatus_b()==1){
+                            if(b_f==1){
+                                data.setAudit(rs.getString("audit"));
+                                data.setDate(sdf.format(rs.getDate("date")));
+                                data.setProdno(rs.getString("prodno"));
+                                data.setUser(rs.getString("user"));
+                                data.setWhy(rs.getString("why"));
+                                as.add(data);
+                            }
+                        }
+                        if(sp.getStatus_c()==1){
+                            if(c_f==1){
+                                data.setAudit(rs.getString("audit"));
+                                data.setDate(sdf.format(rs.getDate("date")));
+                                data.setProdno(rs.getString("prodno"));
+                                data.setUser(rs.getString("user"));
+                                data.setWhy(rs.getString("why"));
+                                as.add(data);
+                            }
+                        }
+                    }
+                }
             }
             rs.close();
             ps.close();
