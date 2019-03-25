@@ -33,7 +33,7 @@ public class searchpreandleaknew {                                     //新试�
         searchpreandleaknewpre press = null;
         searchpreandleaknewleak leak = null;
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
@@ -86,10 +86,11 @@ public class searchpreandleaknew {                                     //新试�
                             press.setMediatemp(rs1.getInt("mediatemp"));
                             press.setTestpress(rs1.getString("testpress"));
                             press.setTestmedia(rs1.getString("testmedia"));
+                            dated1.setPress(press);
                         }
                         rs1.close();
                         ps1.close();
-                        dated1.setPress(press);
+
 
                         if(data.getLeakagestatus()==1){
                             leak = new searchpreandleaknewleak();
@@ -107,10 +108,11 @@ public class searchpreandleaknew {                                     //新试�
                                 leak.setMediatemp(rs1.getInt("mediatemp"));
                                 leak.setLeaktestp(rs1.getString("leaktestp"));
                                 leak.setTestmedia(rs1.getString("testmedia"));
+                                dated1.setLeak(leak);
                             }
                             rs1.close();
                             ps1.close();
-                            dated1.setLeak(leak);
+
                         }
                         data.setDated1(dated1);
                     }
@@ -134,10 +136,10 @@ public class searchpreandleaknew {                                     //新试�
                             press.setMediatemp(rs1.getInt("mediatemp"));
                             press.setTestpress(rs1.getString("testpress"));
                             press.setTestmedia(rs1.getString("testmedia"));
+                            dated2.setPress(press);
                         }
                         rs1.close();
                         ps1.close();
-                        dated2.setPress(press);
 
                         if(data.getLeakagestatus()==1){
                             leak = new searchpreandleaknewleak();
@@ -155,10 +157,10 @@ public class searchpreandleaknew {                                     //新试�
                                 leak.setMediatemp(rs1.getInt("mediatemp"));
                                 leak.setLeaktestp(rs1.getString("leaktestp"));
                                 leak.setTestmedia(rs1.getString("testmedia"));
+                                dated2.setLeak(leak);
                             }
                             rs1.close();
                             ps1.close();
-                            dated2.setLeak(leak);
                         }
                         data.setDated2(dated2);
                     }
@@ -182,10 +184,10 @@ public class searchpreandleaknew {                                     //新试�
                             press.setMediatemp(rs1.getInt("mediatemp"));
                             press.setTestpress(rs1.getString("testpress"));
                             press.setTestmedia(rs1.getString("testmedia"));
+                            dated3.setPress(press);
                         }
                         rs1.close();
                         ps1.close();
-                        dated3.setPress(press);
 
                         if(data.getLeakagestatus()==1){
                             leak = new searchpreandleaknewleak();
@@ -203,15 +205,15 @@ public class searchpreandleaknew {                                     //新试�
                                 leak.setMediatemp(rs1.getInt("mediatemp"));
                                 leak.setLeaktestp(rs1.getString("leaktestp"));
                                 leak.setTestmedia(rs1.getString("testmedia"));
+                                dated3.setLeak(leak);
                             }
                             rs1.close();
                             ps1.close();
-                            dated3.setLeak(leak);
                         }
-                        data.setDated2(dated2);
+                        data.setDated3(dated3);
                     }
+                    as.add(data);
                 }
-                as.add(data);
             }
             rs.close();
             ps.close();
@@ -220,9 +222,9 @@ public class searchpreandleaknew {                                     //新试�
 
 
 
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
