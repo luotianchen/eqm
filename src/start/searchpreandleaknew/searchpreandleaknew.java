@@ -33,7 +33,7 @@ public class searchpreandleaknew {                                     //新试�
         searchpreandleaknewpre press = null;
         searchpreandleaknewleak leak = null;
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
@@ -42,9 +42,9 @@ public class searchpreandleaknew {                                     //新试�
                     data = new searchpreandleaknewdata();
                     ps1 = conn.prepareStatement("SELECT * FROM presstestp WHERE id = ?");
                     ps1.setInt(1,rs.getInt("presstestp_id_ppart1"));
-                    rs1 = ps.executeQuery();
+                    rs1 = ps1.executeQuery();
                     if(rs1.next()){
-                        data.setName(rs1.getString("name"));
+                        data.setName(rs1.getString("presstestp"));
                     }
                     rs1.close();
                     ps1.close();
@@ -220,9 +220,9 @@ public class searchpreandleaknew {                                     //新试�
 
 
 
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
