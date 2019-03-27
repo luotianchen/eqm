@@ -57,8 +57,9 @@ public class searchpreandleaknew {                                     //新试�
                 ps3.setString(1,rs2.getString("name"));
                 rs3 = ps3.executeQuery();
                 if(rs3.next()){
-                    ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+                    ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1 = ?");
                     ps.setString(1,sp.getProdno());
+                    ps.setInt(2,rs3.getInt("id"));
                     rs = ps.executeQuery();
                     while (rs.next()){
                         data = new searchpreandleaknewdata();
