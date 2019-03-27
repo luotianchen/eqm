@@ -212,8 +212,8 @@ public class searchpreandleaknew {                                     //新试�
                         }
                         data.setDated3(dated3);
                     }
-                    as.add(data);
                 }
+                as.add(data);
             }
             rs.close();
             ps.close();
