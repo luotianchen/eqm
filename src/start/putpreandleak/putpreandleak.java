@@ -24,7 +24,7 @@ public class putpreandleak {                                    //提交压力�
 
         putpreandleakresult result = new putpreandleakresult();
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ?");
             ps.setString(1,pp.getProdno());
             rs = ps.executeQuery();
@@ -84,7 +84,7 @@ public class putpreandleak {                                    //提交压力�
                 ps.executeUpdate();
                 ps.close();
 
-                if(pp.getData().getDated2().getStatus() != 0){
+                if(pp.getData().getDated2() != null && pp.getData().getDated2().getStatus() != 0){
                     ps = conn.prepareStatement("INSERT INTO pretest(prodno,date,pgaugeno1,pgaugeno2," +
                             "dewelltime,circutemp,mediatemp," +
                             "testpress,ppart,testmedia,datetype) VALUES (?,?,?,?," +
@@ -125,7 +125,7 @@ public class putpreandleak {                                    //提交压力�
 
                 }
 
-                if(pp.getData().getDated3().getStatus() != 0){
+                if(pp.getData().getDated3() != null && pp.getData().getDated3().getStatus() != 0){
                     ps = conn.prepareStatement("INSERT INTO pretest(prodno,date,pgaugeno1,pgaugeno2," +
                             "dewelltime,circutemp,mediatemp," +
                             "testpress,ppart,testmedia,datetype) VALUES (?,?,?,?," +
@@ -167,9 +167,9 @@ public class putpreandleak {                                    //提交压力�
                 }
                 result.setResult("success");
             }
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
