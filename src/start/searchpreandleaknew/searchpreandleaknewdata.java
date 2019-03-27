@@ -6,6 +6,7 @@ public class searchpreandleaknewdata {
     private String etestmedia;
     private String clcontent;
     private int leakagestatus;
+    private String testpress;
     private searchpreandleaknewdated dated1;
     private searchpreandleaknewdated dated2;
     private searchpreandleaknewdated dated3;
@@ -75,5 +76,13 @@ public class searchpreandleaknewdata {
 
     public void setLeakagestatus(int leakagestatus) {
         this.leakagestatus = leakagestatus;
+    }
+
+    public String getTestpress() {
+        return testpress;
+    }
+
+    public void setTestpress(String testpress) {
+        this.testpress = testpress;
     }
 }

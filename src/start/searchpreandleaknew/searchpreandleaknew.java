@@ -37,7 +37,6 @@ public class searchpreandleaknew {                                     //新试�
         searchpreandleaknewpre press = null;
         searchpreandleaknewleak leak = null;
         String dwgno = null;
-        String testpress = null;
 
         try {
             ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
@@ -75,7 +74,7 @@ public class searchpreandleaknew {                                     //新试�
                             ps1.setString(2,data.getName());
                             rs1 = ps1.executeQuery();
                             if(rs1.next()){
-                                testpress = rs1.getString("testpress");
+                                data.setTestpress(rs1.getString("testpress"));
                                 if(rs1.getString("leaktest").equals("气密性试验") || rs1.getString("leaktest").equals("氦检漏试验")){
                                     data.setLeakagestatus(1);
                                 }else {
@@ -102,7 +101,6 @@ public class searchpreandleaknew {                                     //新试�
                                     press.setDewelltime(rs1.getInt("dewelltime"));
                                     press.setCircutemp(rs1.getInt("circutemp"));
                                     press.setMediatemp(rs1.getInt("mediatemp"));
-                                    press.setTestpress(testpress);
                                     press.setTestmedia(rs1.getString("testmedia"));
                                     dated1.setPress(press);
                                 }
@@ -152,7 +150,6 @@ public class searchpreandleaknew {                                     //新试�
                                     press.setDewelltime(rs1.getInt("dewelltime"));
                                     press.setCircutemp(rs1.getInt("circutemp"));
                                     press.setMediatemp(rs1.getInt("mediatemp"));
-                                    press.setTestpress(testpress);
                                     press.setTestmedia(rs1.getString("testmedia"));
                                     dated2.setPress(press);
                                 }
@@ -200,7 +197,6 @@ public class searchpreandleaknew {                                     //新试�
                                     press.setDewelltime(rs1.getInt("dewelltime"));
                                     press.setCircutemp(rs1.getInt("circutemp"));
                                     press.setMediatemp(rs1.getInt("mediatemp"));
-                                    press.setTestpress(testpress);
                                     press.setTestmedia(rs1.getString("testmedia"));
                                     dated3.setPress(press);
                                 }
