@@ -38,8 +38,8 @@ public class searchpreandleaknew {                                     //新试�
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             while (rs.next()){
+                data = new searchpreandleaknewdata();
                 if(!(rs.getString("presstestp_id_ppart1") == null || rs.getString("presstestp_id_ppart1").equals(""))){
-                    data = new searchpreandleaknewdata();
                     ps1 = conn.prepareStatement("SELECT * FROM presstestp WHERE id = ?");
                     ps1.setInt(1,rs.getInt("presstestp_id_ppart1"));
                     rs1 = ps1.executeQuery();
