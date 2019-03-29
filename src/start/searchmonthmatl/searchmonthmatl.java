@@ -156,6 +156,7 @@ public class searchmonthmatl {
             rs.close();
             ps.close();
 
+            result.setTotal(as.size());
             Collections.reverse(as);                                          //将list倒序
             int as_size;
             as_size=as.size();
@@ -165,12 +166,10 @@ public class searchmonthmatl {
                 as_q=new ArrayList<searchmonthmatldata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),as_size));
                 result.setResult("success");
                 result.setData(as_q);
-                result.setTotal(as_q.size());
             }else{
                 as_q=new ArrayList<searchmonthmatldata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),(sp.getPageindex()*sp.getPagesize())));
                 result.setResult("success");
                 result.setData(as_q);
-                result.setTotal(as_q.size());
             }
         }catch (Exception e){
             result.setResult("fail");

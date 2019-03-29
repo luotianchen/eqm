@@ -310,6 +310,7 @@ public class searchallmaterial {                                                
             rs.close();
             ps.close();
             result.setResult("success");
+            result.setTotal(as.size());
         }catch (Exception e){
             result.setResult("fail");
         }
@@ -323,12 +324,10 @@ public class searchallmaterial {                                                
                 ArrayList<searchallmaterialdata> as_q=new ArrayList<searchallmaterialdata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),as_size));
                 result.setResult("success");
                 result.setData(as_q);
-                result.setTotal(as_q.size());
             }else{
                 ArrayList<searchallmaterialdata> as_q=new ArrayList<searchallmaterialdata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),(sp.getPageindex()*sp.getPagesize())));
                 result.setResult("success");
                 result.setData(as_q);
-                result.setTotal(as_q.size());
             }
         }catch (Exception e){
             result.setResult("fail");

@@ -113,6 +113,11 @@ public class searchpressurepart {                                               
             ps.close();
             conn.close();
 
+            if(as1.size()>as2.size()){
+                result.setTotal(as1.size());
+            }else {
+                result.setTotal(as2.size());
+            }
 
             Collections.reverse(as1);                                          //将list1倒序
             int as1_size;
@@ -123,12 +128,12 @@ public class searchpressurepart {                                               
                 as1_q=new ArrayList<searchpressurepartdata1>(as1.subList(((sp.getPageindex()-1)*sp.getPagesize()),as1_size));
                 result.setResult("success");
                 result.setData1(as1_q);
-                result.setTotal(as1_q.size());
+
             }else {
                 as1_q=new ArrayList<searchpressurepartdata1>(as1.subList(((sp.getPageindex()-1)*sp.getPagesize()),(sp.getPageindex()*sp.getPagesize())));
                 result.setResult("success");
                 result.setData1(as1_q);
-                result.setTotal(as1_q.size());
+
             }
 
             Collections.reverse(as2);                                          //将list1倒序
@@ -140,12 +145,12 @@ public class searchpressurepart {                                               
                 as2_q=new ArrayList<searchpressurepartdata2>(as2.subList(((sp.getPageindex()-1)*sp.getPagesize()),as2_size));
                 result.setResult("success");
                 result.setData2(as2_q);
-                result.setTotal(as2_q.size());
+
             }else {
                 as2_q=new ArrayList<searchpressurepartdata2>(as2.subList(((sp.getPageindex()-1)*sp.getPagesize()),(sp.getPageindex()*sp.getPagesize())));
                 result.setResult("success");
                 result.setData2(as2_q);
-                result.setTotal(as2_q.size());
+
             }
 
 
