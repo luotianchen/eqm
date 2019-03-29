@@ -92,7 +92,7 @@ public class searchpreandleaknew {                                     //新试�
                                 ps1 = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart = ? AND datetype = ?");
                                 ps1.setString(1,sp.getProdno());
                                 ps1.setString(2,data.getName());
-                                ps1.setString(3,"1");
+                                ps1.setString(3,"dated1");
                                 rs1 = ps1.executeQuery();
                                 if(rs1.next()){
                                     press.setDate(rs1.getString("date"));
@@ -113,7 +113,7 @@ public class searchpreandleaknew {                                     //新试�
                                     ps1 = conn.prepareStatement("SELECT * FROM leakagetest WHERE prodno = ? AND ppart = ? AND datetype = ?");
                                     ps1.setString(1,sp.getProdno());
                                     ps1.setString(2,data.getName());
-                                    ps1.setString(3,"1");
+                                    ps1.setString(3,"dated1");
                                     rs1 = ps1.executeQuery();
                                     if(rs1.next()){
                                         leak.setDate(rs1.getString("date"));
@@ -141,7 +141,7 @@ public class searchpreandleaknew {                                     //新试�
                                 ps1 = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart = ? AND datetype = ?");
                                 ps1.setString(1,sp.getProdno());
                                 ps1.setString(2,data.getName());
-                                ps1.setString(3,"2");
+                                ps1.setString(3,"dated2");
                                 rs1 = ps1.executeQuery();
                                 if(rs1.next()){
                                     press.setDate(rs1.getString("date"));
@@ -161,7 +161,7 @@ public class searchpreandleaknew {                                     //新试�
                                     ps1 = conn.prepareStatement("SELECT * FROM leakagetest WHERE prodno = ? AND ppart = ? AND datetype = ?");
                                     ps1.setString(1,sp.getProdno());
                                     ps1.setString(2,data.getName());
-                                    ps1.setString(3,"2");
+                                    ps1.setString(3,"dated2");
                                     rs1 = ps1.executeQuery();
                                     if(rs1.next()){
                                         leak.setDate(rs1.getString("date"));
@@ -188,7 +188,7 @@ public class searchpreandleaknew {                                     //新试�
                                 ps1 = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart = ? AND datetype = ?");
                                 ps1.setString(1,sp.getProdno());
                                 ps1.setString(2,data.getName());
-                                ps1.setString(3,"3");
+                                ps1.setString(3,"dated3");
                                 rs1 = ps1.executeQuery();
                                 if(rs1.next()){
                                     press.setDate(rs1.getString("date"));
@@ -208,7 +208,7 @@ public class searchpreandleaknew {                                     //新试�
                                     ps1 = conn.prepareStatement("SELECT * FROM leakagetest WHERE prodno = ? AND ppart = ? AND datetype = ?");
                                     ps1.setString(1,sp.getProdno());
                                     ps1.setString(2,data.getName());
-                                    ps1.setString(3,"3");
+                                    ps1.setString(3,"dated3");
                                     rs1 = ps1.executeQuery();
                                     if(rs1.next()){
                                         leak.setDate(rs1.getString("date"));
