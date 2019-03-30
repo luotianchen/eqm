@@ -92,7 +92,9 @@ public class searchnocertsitu {
                     ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
                     rs1 = ps1.executeQuery();
                     if(rs1.next()){
-                        if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")))){
+                        System.out.println(rs.getString("codedmarking"));
+                        System.out.println(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1));
+                        if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
                             rs1.close();
                             ps1.close();
 
@@ -237,7 +239,7 @@ public class searchnocertsitu {
             rs.close();
             ps.close();
 
-            sql="SELECT * FROM pressurepartscache WHERE warrantystatus_id_certsitu='质保书未到' ";
+            sql="SELECT * FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
             sql_x = "ORDER BY codedmarking";
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                 sql=sql+"AND contraststand_id_designation=? ";
@@ -259,7 +261,7 @@ public class searchnocertsitu {
                         ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
                         rs1 = ps1.executeQuery();
                         if(rs1.next()){
-                            if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")))){
+                            if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
                                 rs1.close();
                                 ps1.close();
 
@@ -391,7 +393,7 @@ public class searchnocertsitu {
                     ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
                     rs1 = ps1.executeQuery();
                     if(rs1.next()){
-                        if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")))){
+                        if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
                             rs1.close();
                             ps1.close();
 
@@ -533,7 +535,7 @@ public class searchnocertsitu {
                 }
                 as.add(sncd);
 
-                sql="SELECT * FROM pressurepartscache WHERE warrantystatus_id_certsitu='质保书未到' ";
+                sql="SELECT * FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
                 sql_x = "ORDER BY codedmarking";
                 if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                     sql=sql+"AND contraststand_id_designation=? ";
@@ -555,7 +557,7 @@ public class searchnocertsitu {
                             ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
                             rs1 = ps1.executeQuery();
                             if(rs1.next()){
-                                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")))){
+                                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
                                     rs1.close();
                                     ps1.close();
 

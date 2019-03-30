@@ -160,7 +160,7 @@ public class putprenotiform {                                                   
                     }else {
                         rs.close();
                         ps.close();
-                        result.setResult("success");
+                        result.setResult("fail");
                     }
                 }
 
