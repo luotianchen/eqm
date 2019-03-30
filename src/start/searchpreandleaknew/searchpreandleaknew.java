@@ -58,6 +58,17 @@ public class searchpreandleaknew {                                     //新试�
                 if(rs3.next()){
                     data = new searchpreandleaknewdata();
                     data.setName(rs2.getString("name"));
+
+                    ps1 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+                    ps1.setString(1,dwgno);
+                    ps1.setString(2,data.getName());
+                    rs1 = ps1.executeQuery();
+                    if(rs1.next()){
+                        data.setTestpress(rs1.getString("testpress"));
+                    }
+                    rs1.close();
+                    ps1.close();
+
                     ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1 = ?");
                     ps.setString(1,sp.getProdno());
                     ps.setInt(2,rs3.getInt("id"));
@@ -74,8 +85,7 @@ public class searchpreandleaknew {                                     //新试�
                             ps1.setString(2,data.getName());
                             rs1 = ps1.executeQuery();
                             if(rs1.next()){
-                                data.setTestpress(rs1.getString("testpress"));
-                                if(rs1.getString("leaktest").equals("气密性试验") || rs1.getString("leaktest").equals("氦检漏试验")){
+                                if(rs1.getString("leaktest").equals("气密性试验") || rs1.getString("leaktest").equals("气密性试验和氦检漏试验")){
                                     data.setLeakagestatus(1);
                                 }else {
                                     data.setLeakagestatus(0);
