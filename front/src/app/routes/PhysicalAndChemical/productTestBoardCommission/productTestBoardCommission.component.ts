@@ -93,12 +93,11 @@ export class ProductTestBoardCommissionComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
-    console.log(this.validateForm.valid);
-    console.log(this.validateForm.controls);
     if(this.validateForm.valid){
       this.productTestBoardCommissionService.putproducttestboardcommission(
         {
           "prodno":this.validateForm.value.prodno,
+          "prodname":this.validateForm.value.prodname,
           "evaluastand":this.validateForm.value.evaluastand,
           "specimenno":this.validateForm.value.specimenno,
           "specimenname":this.validateForm.value.specimenname,

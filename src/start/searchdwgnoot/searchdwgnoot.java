@@ -35,7 +35,7 @@ public class searchdwgnoot {                                    //通过产品�
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? and audit = 1");
             ps.setString(1,dwgno);
             rs = ps.executeQuery();
             if(rs.next()){

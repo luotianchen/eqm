@@ -1,37 +1,37 @@
 <div nz-row>
   <div nz-col nzSpan="24">
     <nz-card style="border-radius: 10px;margin-bottom: 20px">
-      <h1>{{_storage.get("name")}}，欢迎使用本系统！</h1>
+      <h1>{{_storage.get("name")}}，{{this.getGrate()}}</h1>
     </nz-card>
   </div>
 </div>
 <div nz-row nzGutter="16">
   <div nz-col nzSpan="12">
     <div nz-row>
-        <div nz-col nzSpan="12">
-          <nz-card style="border-radius: 10px;background-color: #fa8c16!important">
-            <h1 style="color:#fff!important;">12</h1>
-            <h3 style="color:#fff!important;">待审核报表</h3>
+        <div nz-col nzSpan="12" nz-tooltip [nzTitle]="matlContent">
+          <nz-card style="border-radius: 10px;background-color: #fa8c16!important;height: 180px;">
+            <h1 style="color:#fff!important;">0</h1>
+            <h3 style="color:#fff!important;">材料待审核数据</h3>
           </nz-card>
         </div>
-        <div nz-col nzSpan="12">
-          <nz-card style="border-radius: 10px;background-color: #eb2f96!important">
-            <h1 style="color:#fff!important;">123,456</h1>
-            <h3 style="color:#fff!important;">Website Traffics</h3>
+        <div nz-col nzSpan="12" nz-tooltip [nzTitle]="pyAndCheContent">
+          <nz-card style="border-radius: 10px;background-color: #eb2f96!important;height: 180px;">
+            <h1 style="color:#fff!important;">0</h1>
+            <h3 style="color:#fff!important;">理化待审核数据</h3>
           </nz-card>
       </div>
     </div>
     <div nz-row>
-      <div nz-col nzSpan="12">
-        <nz-card style="border-radius: 10px;background-color: #52c41a!important">
-          <h1 style="color:#fff!important;">12</h1>
-          <h3 style="color:#fff!important;">待审核报表</h3>
+      <div nz-col nzSpan="12" nz-tooltip [nzTitle]="designContent">
+        <nz-card style="border-radius: 10px;background-color: #52c41a!important;height: 180px;">
+          <h1 style="color:#fff!important;">0</h1>
+          <h3 style="color:#fff!important;">设计待审核数据</h3>
         </nz-card>
       </div>
-      <div nz-col nzSpan="12">
-        <nz-card style="border-radius: 10px;background-color: #1890ff!important;">
-          <h1 style="color:#fff!important;">123,456</h1>
-          <h3 style="color:#fff!important;">Website Traffics</h3>
+      <div nz-col nzSpan="12" nz-tooltip [nzTitle]="inspectContent">
+        <nz-card style="border-radius: 10px;background-color: #1890ff!important;height: 180px;">
+          <h1 style="color:#fff!important;">0</h1>
+          <h3 style="color:#fff!important;">检验与试验待审核数据</h3>
         </nz-card>
       </div>
     </div>
@@ -42,3 +42,25 @@
     </nz-card>
   </div>
 </div>
+<ng-template #matlContent>
+  <p>材料入库审核：0</p>
+  <p>材料发放审核：0</p>
+  <p>材料代用审核：0</p>
+</ng-template>
+
+<ng-template #pyAndCheContent>
+  <p>复验申请审核：0</p>
+  <p>复验委托审核：0</p>
+  <p>产品试板申请审核：0</p>
+  <p>产品试板委托审核：0</p>
+</ng-template>
+
+<ng-template #designContent>
+  <p>设计参数审核审核：0</p>
+</ng-template>
+
+<ng-template #inspectContent>
+  <p>真空参数审核：0</p>
+  <p>产品制造参数审核：0</p>
+</ng-template>
+

@@ -102,6 +102,7 @@ export class SiderComponent {
     }else{
       this._storage.clear();
       this.msg.error("权限信息获取失败，请重新登录！")
+      this.router.navigate(['/login']);
     }
   }
 

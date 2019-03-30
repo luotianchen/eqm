@@ -74,6 +74,9 @@ import {PressVesProdDataReportComponent} from "./Report/pressVesProdDataReport/P
 import {ProdWeldingReportComponent} from "./Report/prodWeldingReport/ProdWeldingReport.component";
 import {ProductMaterialReportComponent} from "./Material/productMaterialReport/productMaterialReport.component";
 import {DesignQueryComponent} from "./Design/designQuery/designQuery.component";
+import {MaterialReinspectionCommissionReportComponent} from "./PhysicalAndChemical/materialReinspectionCommissionReport/materialReinspectionCommissionReport.component";
+import {ProductTestBoardCommissionReportComponent} from "./PhysicalAndChemical/productTestBoardCommissionReport/productTestBoardCommissionReport.component";
+import {ProductManufacturingParametersQueryComponent} from "./InspectionAndTest/productManufacturingParametersQuery/productManufacturingParametersQuery.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -319,6 +322,11 @@ export const routes: Routes = [
           breadcrumb: '产品试板数据查询'
         }
       },{
+        path: 'physicalAndChemical/ProductTestBoardCommissionReport', component: ProductTestBoardCommissionReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '理化试验委托单报表'
+        }
+      },{
         path: 'physicalAndChemical/materialReinspectionCommission', component: MaterialReinspectionCommissionComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '材料复验申请'
@@ -332,6 +340,11 @@ export const routes: Routes = [
         path: 'physicalAndChemical/materialReinspectionCommissionQuery', component:MaterialReinspectionCommissionQueryComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '材料复验申请查询'
+        }
+      },{
+        path: 'physicalAndChemical/materialReinspectionCommissionReport', component:MaterialReinspectionCommissionReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '材料复验申请单报表'
         }
       },{
         path: 'physicalAndChemical/materialReinspection', component: MaterialReinspectionComponent, canActivate: [CanAuthProvide],
@@ -362,6 +375,11 @@ export const routes: Routes = [
         path: 'inspectionAndTest/productManufacturingParametersAudit', component: ProductManufacturingParametersAuditComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '产品制造参数审核'
+        }
+      },{
+        path: 'inspectionAndTest/productManufacturingParametersQuery', component: ProductManufacturingParametersQueryComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品制造参数查询'
         }
       },{
         path: 'report/pressTestReport', component: PressTestReportComponent, canActivate: [CanAuthProvide],

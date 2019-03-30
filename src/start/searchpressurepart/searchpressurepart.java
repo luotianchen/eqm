@@ -123,7 +123,7 @@ public class searchpressurepart {                                               
             int as1_size;
             as1_size=as1.size();
             if(as1_size<=((sp.getPageindex()-1)*sp.getPagesize())){
-                result.setResult("fail");
+                result.setResult("success");
             }else if((as1_size-((sp.getPageindex()-1)*sp.getPagesize())<sp.getPagesize())){
                 as1_q=new ArrayList<searchpressurepartdata1>(as1.subList(((sp.getPageindex()-1)*sp.getPagesize()),as1_size));
                 result.setResult("success");
@@ -140,7 +140,7 @@ public class searchpressurepart {                                               
             int as2_size;
             as2_size=as2.size();
             if(as2_size<=((sp.getPageindex()-1)*sp.getPagesize())){
-                result.setResult("fail");
+                result.setResult("success");
             }else if((as2_size-((sp.getPageindex()-1)*sp.getPagesize())<sp.getPagesize())){
                 as2_q=new ArrayList<searchpressurepartdata2>(as2.subList(((sp.getPageindex()-1)*sp.getPagesize()),as2_size));
                 result.setResult("success");

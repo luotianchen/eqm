@@ -75,6 +75,9 @@ import {PressVesProdDataReportReportModule} from "./Report/pressVesProdDataRepor
 import {ProdWeldingReportModule} from "./Report/prodWeldingReport/ProdWeldingReport.module";
 import {ProductMaterialReportModule} from "./Material/productMaterialReport/productMaterialReport.module";
 import {DesignQueryModule} from "./Design/designQuery/designQuery.module";
+import {MaterialReinspectionCommissionReportModule} from "./PhysicalAndChemical/materialReinspectionCommissionReport/materialReinspectionCommissionReport.module";
+import {ProductTestBoardCommissionReportModule} from "./PhysicalAndChemical/productTestBoardCommissionReport/productTestBoardCommissionReport.module";
+import {ProductManufacturingParametersQueryModule} from "./InspectionAndTest/productManufacturingParametersQuery/productManufacturingParametersQuery.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -151,7 +154,10 @@ import {DesignQueryModule} from "./Design/designQuery/designQuery.module";
     AccessPermissionModule,
     PressVesProdDataReportReportModule,
     ProdWeldingReportModule,
-    ProductMaterialReportModule
+    ProductMaterialReportModule,
+    MaterialReinspectionCommissionReportModule,
+    ProductTestBoardCommissionReportModule,
+    ProductManufacturingParametersQueryModule
   ]
 })
 

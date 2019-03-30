@@ -337,11 +337,13 @@ export class WarehousingRegistrationComponent implements OnInit {
   }
 
   public units = [ //单位选项
-    " ",
+    "/",
     "KG",
     "m",
     "张",
-    "支"
+    "支",
+    "个",
+    "只"
   ];
   public utclasses = [];
   public bendangles = [ //角度选项
@@ -721,6 +723,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       "utclass":this.utclass[this.validateForm.value.utclass]
     };
     if (this.validateForm.valid) {
+      this.savetocache(null);
       this.warehousingregistrationService.submitForm(data).subscribe(res => {
         if (res['result'] == "success") {
           const modal = this.modalService.success({

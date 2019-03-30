@@ -11,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class PressurePartsComponent implements OnInit {
   validateForm: FormGroup;
   public pageindex = 1;
-  public pagesize = 25;
+  public pagesize = 10;
   public total = 0;
   public dataset = [];
   public loading = true;

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from '../../../core/api/api.service';
+import {NHttpClinet} from "../../../core/utils/http.client";
 
 
 @Injectable()
@@ -39,5 +40,8 @@ export class MaterialReinspectionService {
   }
   contraststand(matlstand,designation,spec){
     return this.http.post(`${this.api.BASEURL}/contraststand`,{matlstand:matlstand,designation:designation,spec:spec});
+  }
+  searchrematerial(codedmarking){
+    return this.http.post(this.api.BASEURL+"/searchrematerial",{codedmarking:codedmarking,status:1});
   }
 }

@@ -20,6 +20,8 @@ export class MaterialDistributionLedgerComponent implements OnInit {
   public dataSet2 = [];
   public dataSets = [];
   public dataSets2 = [];
+  public signs = {};
+  rule:any;
   constructor(public fb: FormBuilder, public materialDistributionLedgerService: MaterialDistributionLedgerService) {
   }
   ngOnInit(): void {
@@ -31,6 +33,19 @@ export class MaterialDistributionLedgerComponent implements OnInit {
     this.validateForm = this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
     });
+    this.materialDistributionLedgerService.getindexbymatlcoderules().subscribe(res => {
+      if (res['result'] == "success") {
+        this.rule = res;
+      }
+    })
+  }
+  getSign(username){
+    this.materialDistributionLedgerService.getSignImage(username).subscribe(res=>{
+      if(res['result'] == "success"){
+        if(!this.signs[username])
+          this.signs[username] = res['url'];
+      }
+    })
   }
 
   searchData(): void {
@@ -41,17 +56,23 @@ export class MaterialDistributionLedgerComponent implements OnInit {
     if(this.validateForm.valid) {
       this.materialDistributionLedgerService.getdistribute(this.validateForm.value.prodno).subscribe((res) => {
         if (res['result'] == "success") {
-          this.materialDistributionLedgerService.getSignImage(res['user']).subscribe(res=>{
-            if(res['result'] == "success"){
-              this.userSign = res['url']
-            }else{
-              alert("管理员未上传签名！")
-            }
-          })
+          if(res['data'].length==0){
+            alert('未查询到材料发放数据！');
+            return;
+          }
+          if(res['user'])
+            this.materialDistributionLedgerService.getSignImage(res['user']).subscribe(res=>{
+              if(res['result'] == "success"){
+                this.userSign = res['url']
+              }else{
+                alert("管理员未上传签名！")
+              }
+            })
           this.prodno = this.validateForm.value.prodno;
           this.prodname = res['prodname'];
           this.dwgno = res['dwgno'];
-          this.dataSet = [...res['data']];
+          for(let item of res['data']) this.getSign(item.issuematl);
+          this.dataSet = [...res['data']].filter(item=>item.codedmarking[this.rule['index']-1] != this.rule['welding']);
           //对于普通发放台帐
           let num = Math.ceil(this.dataSet.length/22)*22;
           for(let i=0;i<num;i++){
@@ -66,7 +87,7 @@ export class MaterialDistributionLedgerComponent implements OnInit {
             this.dataSet = this.dataSet.slice(22);
           }
           //对于焊材
-          this.dataSet2 = [...res['data']];
+          this.dataSet2 = [...res['data']].filter(item=>item.codedmarking[this.rule['index']-1] == this.rule['welding']);
           let num2 = Math.ceil(this.dataSet2.length/25)*25;
           for(let i=0;i<num2;i++){
             if(this.dataSet2[i])

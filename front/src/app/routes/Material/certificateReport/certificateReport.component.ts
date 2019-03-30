@@ -31,7 +31,7 @@ export class CertificateReportComponent implements OnInit {
       this.certificateReportService.getmaterial(this.validateForm.value.codedmarking).subscribe(res=>{
         if(res['result']=="success"){
           this.value = res['data'];
-          this.information = this.value.codedmarking+","+this.value.modelstand+","+this.value.designation+","+this.value.heatbatchno+","+this.value.spec+","+this.value.millunit+","+this.value.name+","+this.value.indate;
+          this.information = this.value.codedmarking+","+this.value.modelstand+","+this.value.designation+","+this.value.heatbatchno+","+this.value.spec+","+this.value.dimension+","+this.value.millunit+","+this.value.name+","+this.value.indate;
           this.codedmarking = this.validateForm.value.codedmarking;
         }
       })

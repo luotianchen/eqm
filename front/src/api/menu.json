@@ -170,6 +170,11 @@
             },
             {
               "icon": "laptop",
+              "name": "材料复验申请单报表",
+              "route": "/physicalAndChemical/materialReinspectionCommissionReport"
+            },
+            {
+              "icon": "laptop",
               "name": "材料复验登记",
               "route": "/physicalAndChemical/materialReinspection"
             },
@@ -218,6 +223,11 @@
               "icon": "laptop",
               "name": "产品试板登记查询",
               "route": "/physicalAndChemical/productTestBoardDataRegistrationQuery"
+            },
+            {
+              "icon": "laptop",
+              "name": "理化试验委托单报表",
+              "route": "/physicalAndChemical/ProductTestBoardCommissionReport"
             }
           ]
         },{
@@ -263,6 +273,11 @@
               "icon": "laptop",
               "name": "产品制造参数审核",
               "route": "/inspectionAndTest/productManufacturingParametersAudit"
+            },
+            {
+              "icon": "laptop",
+              "name": "产品制造参数查询",
+              "route": "/inspectionAndTest/productManufacturingParametersQuery"
             },
             {
               "icon": "laptop",

@@ -22,9 +22,49 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
   recomtestno:string;
   date = new Date();
   prodnos = [];
+  matls = [];
+  stands = [];
+  public specs = [];//规格选项
+
+  onSpecInput(value: string): void { //当规格输入时展开选项
+    this.specs = value ? [
+      value,
+      "φ"+value,
+      "δ="+value,
+      "EHA"+value,
+      "∠"+value,
+      "DHB"+value,
+      "T"+value,
+      "12~40目",
+      "10~60目"
+    ]:[
+      "φ"+value,
+      "δ="+value,
+      "EHA"+value,
+      "∠"+value,
+      "DHB"+value,
+      "T"+value,
+      "12~40目",
+      "10~60目"
+    ];
+  }
   getYearMonth(){
     return (this.date.getFullYear().toString().slice(2)) + ("0" + (this.date.getMonth() + 1)).slice(-2);
   }
+
+
+  getMatlstand(){
+    if(this.validateForm.value.specimenmatl!=null){
+      this.matlstands = [];
+      this.validateForm.controls['parentmatltand'].reset();
+      this.productTestBoardDataRegistrationService.getmatlstandbydesignation(this.validateForm.value.specimenmatl).subscribe(res=>{
+        if(res['result']=="success"){
+          this.matlstands = res['matlstand'];
+        }
+      })
+    }
+  }
+
   ngOnInit(): void {
     this.productTestBoardDataRegistrationService.getspecimenno().subscribe((res)=>{
       if(res['result'] == "success"){
@@ -39,9 +79,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     })
     this.productTestBoardDataRegistrationService.getputmaterial().subscribe(res=>{
       if(res['result'] == 'success'){
-        this.matlstands = res['data']['matlstand'].filter(function(element,index,self){
-          return self.indexOf(element) === index;
-        });
+        this.matls = res['data']['designation'];
       }
     })
     this.productTestBoardDataRegistrationService.gettestboardstand().subscribe(res=>{
@@ -81,22 +119,22 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       bendatype:[null, [Validators.required]],
       surfacebending1:["合格", [Validators.required]],
       backbending1:["合格", [Validators.required]],
-      surfacebending2:[null, [Validators.required]],
-      backbending2:[null, [Validators.required]],
-      w1:[null, [Validators.required]],
-      lew1:[null, [Validators.required]],
-      w2:[null, [Validators.required]],
-      lew2:[null, [Validators.required]],
-      w3:[null, [Validators.required]],
-      lew3:[null, [Validators.required]],
-      h1:[null, [Validators.required]],
-      leh1:[null, [Validators.required]],
-      h2:[null, [Validators.required]],
-      leh2:[null, [Validators.required]],
-      h3:[null, [Validators.required]],
-      leh3:[null, [Validators.required]],
-      gapType:[null, [Validators.required]],
-      shocktemp:[null, [Validators.required]],
+      surfacebending2:[null],
+      backbending2:[null],
+      w1:[null],
+      lew1:[null],
+      w2:[null],
+      lew2:[null],
+      w3:[null],
+      lew3:[null],
+      h1:[null],
+      leh1:[null],
+      h2:[null],
+      leh2:[null],
+      h3:[null],
+      leh3:[null],
+      gapType:[null],
+      shocktemp:[null],
       user:[this._storage.get('username'), [Validators.required]],
     });
     this.productTestBoardDataRegistrationService.gettestno(null).subscribe(res=>{

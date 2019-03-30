@@ -39,4 +39,7 @@ export class ProductTestBoardDataRegistrationService {
       })
     })
   }
+  getmatlstandbydesignation(designation){
+    return this.http.post(`${this.api.BASEURL}/searchmatlstandbydes`,{designation:designation});
+  }
 }

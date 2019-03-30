@@ -569,7 +569,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="be">Be%</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-input-number style="width: 100%" formControlName="be" name="be" id="be" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['be'].max == 99999 ? '≥' + dataDetail['be'].min : dataDetail['Be'].min + '≤' + 'be%' + '≤' +dataDetail['be'].max" (ngModelChange)="MaxMinJudge('be')"></nz-input-number>
+            <nz-input-number style="width: 100%" formControlName="be" name="be" id="be" [nzStep]="0.001" [nzPlaceHolder]="dataDetail['be'].max == 99999 ? '≥' + dataDetail['be'].min : dataDetail['be'].min + '≤' + 'Be%' + '≤' +dataDetail['be'].max" (ngModelChange)="MaxMinJudge('be')"></nz-input-number>
             <nz-form-explain *ngIf="validateForm.get('be').dirty&&validateForm.get('be').errors">
               <ng-container *ngIf="validateForm.get('be').hasError('required')">
                 Be%不能为空

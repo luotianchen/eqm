@@ -1,0 +1,126 @@
+<div>
+  <h3 class="title">产品制造参数查询</h3>
+  <span style="float: right">
+    <button nz-button nzType="default" (click)="exportExcel()"><i nz-icon type="download"></i>下载Excel数据</button>
+  </span>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+            <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <button nz-button nzType="primary" (click)="searchData()" [nzLoading]="loading">
+      <i nz-icon type="download"></i>查询报表
+    </button>
+  </div>
+</form>
+
+<nz-divider></nz-divider>
+<nz-table
+  nzSize="small"
+  #basicTable [nzData]="dataSet">
+  <thead>
+  <tr>
+    <th nzShowExpand></th>
+    <th>提交<br>时间</th>
+    <th>提交人</th>
+    <th>产品<br>编号</th>
+    <th>图号</th>
+    <th>订货<br>单位</th>
+    <th>设备<br>代码</th>
+    <th>设计<br>变更</th>
+    <th>材料<br>代用</th>
+    <th>资料<br>员</th>
+    <th>设计<br>日期</th>
+    <th>下料<br>日期</th>
+    <th>材料<br>复验</th>
+    <th>特殊<br>材料</th>
+    <th>境外<br>材料</th>
+    <th>新焊<br>接工<br>艺评<br>定</th>
+    <th>新工<br>艺</th>
+    <th>外协<br>情况</th>
+    <th>制造<br>完工<br>日期</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-template ngFor let-data [ngForOf]="basicTable.data">
+    <tr>
+      <td nzShowExpand [(nzExpand)]="data.expand"></td>
+      <td>{{data.date}}</td>
+      <td>{{data.user}}</td>
+      <td>{{data.prodno}}</td>
+      <td>{{data.dwgno}}</td>
+      <td>{{data.orderunit}}<br>({{data.eorderunit}})</td>
+      <td>{{data.ecode}}</td>
+      <td>{{data.dealter}}</td>
+      <td>{{data.submatl}}</td>
+      <td>{{data.docum}}</td>
+      <td>{{data.dedate}}</td>
+      <td>{{data.blankdate}}</td>
+      <td>{{data.matlretest}}</td>
+      <td>{{data.specmatl}}</td>
+      <td>{{data.overmatl}}</td>
+      <td>{{data.nwpq}}</td>
+      <td>{{data.nprocess}}</td>
+      <td>{{data.copsitu}}</td>
+      <td>{{data.exworkdate}}</td>
+    </tr>
+    <tr [nzExpand]="data.expand">
+      <td colspan="20">
+        <div nz-row [nzGutter]="16">
+          <div nz-col [nzSpan]="8">
+            A类焊缝最大棱角度:<span *ngFor="let item of parse(data.aweldmaxangul)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            B类焊缝最大棱角度:<span *ngFor="let item of parse(data.bweldmaxangul)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            A类焊缝最大错边量:<span *ngFor="let item of parse(data.aweldmaxalign)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            B类焊缝最大错边量:<span *ngFor="let item of parse(data.bweldmaxalign)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            产品总高: {{data.proheight}}
+          </div>
+          <div nz-col [nzSpan]="8">
+            筒体内径:<span *ngFor="let item of parse(data.innerdia)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            筒体圆度: <span *ngFor="let item of parse(data.roundness)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            筒体长度:{{data.length}}
+          </div>
+          <div nz-col [nzSpan]="8">
+            筒体直线度:{{data.straightness}}
+          </div>
+          <div nz-col [nzSpan]="8">
+            冷卷筒体投料厚度实测值:{{data.thick}}
+          </div>
+          <div nz-col [nzSpan]="8">
+            封头成形最小厚度标准值:{{data.minthickstand}}
+          </div>
+          <div nz-col [nzSpan]="8">
+            封头成形最小厚度实测值:{{data.minthick}}
+          </div>
+          <div nz-col [nzSpan]="8">
+            封头形状偏差外凸实测值: <span *ngFor="let item of parse(data.outward)">{{item}} </span>
+          </div>
+          <div nz-col [nzSpan]="8">
+            封头形状偏差内凹实测值: <span *ngFor="let item of parse(data.concave)">{{item}} </span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
+</nz-table>

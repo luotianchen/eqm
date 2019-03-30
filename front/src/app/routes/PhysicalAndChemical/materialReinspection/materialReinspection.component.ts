@@ -325,13 +325,7 @@ export class  MaterialReinspectionComponent implements OnInit {
   ngOnInit(): void {
     this.materialReinspectionService.getcodedmarking().then((res:any)=>{
       if(res['result']=="success"){
-        this.codedmarkings = [];
-        for(let item of res.data){
-          if(this.codedmarkings.indexOf(item['codedmarking']) == -1){
-            this.codedmarkings.push(item['codedmarking']);
-          }
-        }
-        console.log(this.codedmarkings);
+        this.codedmarkings = res.data.filter(item=>res.data.indexOf(item['codedmarking']) == -1)
       }else{
         this.modalService.error({
           nzTitle: '错误',
@@ -390,7 +384,7 @@ export class  MaterialReinspectionComponent implements OnInit {
   }
   public chemicalcomposition = true;
 
-  autoSelect(){
+  getInfoCompleted(){
     if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
       this.materialReinspectionService.searchmatlnotice(this.validateForm.value.codedmarking).then((res:any)=>{
         if(res['result']=="success"){
@@ -563,12 +557,29 @@ export class  MaterialReinspectionComponent implements OnInit {
     }
   }
 
+  searchMatl(){
+    this.materialReinspectionService.searchrematerial(this.validateForm.value.codedmarking).subscribe(res=>{
+      if(res['result'] == "success"){
+        if(res['data'] && res['data'].length>0){
+          for(let i in res['data'][0]){
+            if(res['data'][0][i]){
+              if(this.validateForm.controls[i] && i!='codedmarking'){
+                this.validateForm.controls[i].setValue(res['data'][0][i]);
+                this.validateForm.controls[i].disable();
+              }
+            }
+          }
+        }
+      }
+    })
+  }
+
   /**
    * 当输入材料标准、牌号都输入完后，会先通过这两项去查询相应标准，若查不到，则检测规格是否输入，已输入则用材料标准、牌号、规格三项查询相应标准内容。
    */
   checkForContraststand(){
-    if(this.validateForm.value.stand!=null && this.validateForm.value.designation!=null &&this.validateForm.value.stand!="" && this.validateForm.value.designation!=""){
-      this.materialReinspectionService.contraststand(this.validateForm.value.stand,this.validateForm.value.designation ,null).subscribe(res => {
+    if(this.validateForm.controls['stand'].value!=null && this.validateForm.controls['designation'].value!=null &&this.validateForm.controls['stand'].value!="" && this.validateForm.controls['designation'].value!=""){
+      this.materialReinspectionService.contraststand(this.validateForm.controls['stand'].value,this.validateForm.controls['designation'].value ,null).subscribe(res => {
         if(res['result'] == "success") {
           this.dataDetail = res['data'];
           this.dataDetail.status = true;
@@ -591,12 +602,13 @@ export class  MaterialReinspectionComponent implements OnInit {
           }
           this.changeChemicalcompositionDisplay();
           this.changeForceDisplay();
-        }else if(this.validateForm.value.stand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.stand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
-          let specData = this.validateForm.value.spec;
-          if(this.validateForm.value.spec.indexOf("δ=")!=-1){
-            specData = parseFloat(this.validateForm.value.spec.substring(2,specData.length));
+          this.searchMatl();
+        }else if(this.validateForm.controls['stand'].value!=null && this.validateForm.controls['designation'].value!=null && this.validateForm.controls['spec'].value!=null&&this.validateForm.controls['stand'].value!="" && this.validateForm.controls['designation'].value!="" && this.validateForm.controls['spec'].value!=""){
+          let specData = this.validateForm.controls['spec'].value;
+          if(this.validateForm.controls['spec'].value.indexOf("δ=")!=-1){
+            specData = parseFloat(this.validateForm.controls['spec'].value.substring(2,specData.length));
           }
-          this.materialReinspectionService.contraststand(this.validateForm.value.stand,this.validateForm.value.designation ,specData).subscribe(res => {
+          this.materialReinspectionService.contraststand(this.validateForm.controls['stand'].value,this.validateForm.controls['designation'].value ,specData).subscribe(res => {
             if(res['result'] == "success"){
               this.dataDetail = res['data'];
               this.dataDetail.status = true;
@@ -619,6 +631,7 @@ export class  MaterialReinspectionComponent implements OnInit {
               }
               this.changeChemicalcompositionDisplay();
               this.changeForceDisplay();
+              this.searchMatl();
             }
           });
         }
@@ -627,7 +640,6 @@ export class  MaterialReinspectionComponent implements OnInit {
       this.dataDetail.status = false;
     }
   }
-
   /**
    * 判断弯曲直径大小（格式：数组+'a'），输入弯曲直径应大于标准中的直径大小
    */

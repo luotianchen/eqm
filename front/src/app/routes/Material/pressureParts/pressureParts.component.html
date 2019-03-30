@@ -46,7 +46,7 @@
     <tbody>
     <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
       <tr>
-        <td rowspan="2" style="text-align: center;width: 60px;background: #FFF;border: 1px solid #DDD">{{data.index}}</td>
+        <td>{{data.index + (pageindex-1)*pagesize}}</td>
         <td>{{data.codedmarking}}</td>
         <td>{{data.designation}}</td>
         <td>{{data.spec}}</td>
@@ -55,6 +55,7 @@
         <td>{{data.qty}}</td>
       </tr>
       <tr class="contrast" *ngIf="data.contrast">
+        <td></td>
         <td>{{data.contrast.codedmarking}}</td>
         <td>{{data.contrast.designation}}</td>
         <td>{{data.contrast.spec}}</td>

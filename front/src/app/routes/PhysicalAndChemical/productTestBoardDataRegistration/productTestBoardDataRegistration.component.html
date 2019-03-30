@@ -56,7 +56,9 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="specimenmatl">试样材质</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="试样材质" formControlName="specimenmatl" name="specimenmatl" id="specimenmatl"/>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样材质"  formControlName="specimenmatl" name="specimenmatl" id="specimenmatl" (nzOpenChange)="getMatlstand()">
+            <nz-option *ngFor="let option of matls" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -64,7 +66,12 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="specimenspec">试样规格</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="试样规格" formControlName="specimenspec" name="specimenspec" id="specimenspec"/>
+          <input nz-input placeholder="试样规格" formControlName="specimenspec" name="specimenspec" id="specimenspec" [nzAutocomplete]="specauto" (input)="onSpecInput(validateForm.value.specimenspec)">
+          <nz-autocomplete nzBackfill #specauto>
+            <nz-auto-option *ngFor="let option of specs" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -162,7 +169,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="rm">Rm(KN)</nz-form-label>
+        <nz-form-label nzRequired nzFor="rm">Rm(MPa)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="请输入整数" formControlName="rm" name="rm" id="rm"/>
         </nz-form-control>
@@ -274,7 +281,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="surfacebending2">面弯2（侧弯3）</nz-form-label>
+        <nz-form-label nzFor="surfacebending2">面弯2（侧弯3）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input style="width: 100%" nz-input placeholder="面弯2（侧弯3）" formControlName="surfacebending2" name="surfacebending2" id="surfacebending2"/>
         </nz-form-control>
@@ -282,7 +289,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="backbending2">背弯2（侧弯4）</nz-form-label>
+        <nz-form-label nzFor="backbending2">背弯2（侧弯4）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="背弯2（侧弯4）" formControlName="backbending2" name="backbending2" id="backbending2"/>
         </nz-form-control>
@@ -290,7 +297,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="w1">W1</nz-form-label>
+        <nz-form-label nzFor="w1">W1</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="W1" formControlName="w1" name="w1" id="w1"/>
         </nz-form-control>
@@ -298,7 +305,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="lew1">LE（W1）</nz-form-label>
+        <nz-form-label nzFor="lew1">LE（W1）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="LE（W1）" formControlName="lew1" name="lew1" id="lew1"/>
         </nz-form-control>
@@ -306,7 +313,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="w2">W2</nz-form-label>
+        <nz-form-label nzFor="w2">W2</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="W2" formControlName="w2" name="w2" id="w2"/>
         </nz-form-control>
@@ -314,7 +321,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="w1">LE（W2）</nz-form-label>
+        <nz-form-label nzFor="w1">LE（W2）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="LE（W2）" formControlName="lew2" name="lew2" id="lew2"/>
         </nz-form-control>
@@ -322,7 +329,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="w3">W3</nz-form-label>
+        <nz-form-label nzFor="w3">W3</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="W3" formControlName="w3" name="w3" id="w3"/>
         </nz-form-control>
@@ -330,7 +337,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="lew3">LE（W3）</nz-form-label>
+        <nz-form-label nzFor="lew3">LE（W3）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="LE（W3）" formControlName="lew3" name="lew3" id="lew3"/>
         </nz-form-control>
@@ -338,7 +345,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="h1">H1</nz-form-label>
+        <nz-form-label nzFor="h1">H1</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="H1" formControlName="h1" name="h1" id="h1"/>
         </nz-form-control>
@@ -346,7 +353,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="leh1">LE（H1）</nz-form-label>
+        <nz-form-label nzFor="leh1">LE（H1）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="LE（H1）" formControlName="leh1" name="leh1" id="leh1"/>
         </nz-form-control>
@@ -354,7 +361,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="h2">H2</nz-form-label>
+        <nz-form-label nzFor="h2">H2</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="H2" formControlName="h2" name="h2" id="h2"/>
         </nz-form-control>
@@ -362,7 +369,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="h1">LE（H2）</nz-form-label>
+        <nz-form-label nzFor="h1">LE（H2）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="LE（H2）" formControlName="leh2" name="leh2" id="leh2"/>
         </nz-form-control>
@@ -370,7 +377,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="h3">H3</nz-form-label>
+        <nz-form-label nzFor="h3">H3</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="H3" formControlName="h3" name="h3" id="h3"/>
         </nz-form-control>
@@ -378,7 +385,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="leh3">LE（H3）</nz-form-label>
+        <nz-form-label nzFor="leh3">LE（H3）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="LE（H3）" formControlName="leh3" name="leh3" id="leh3"/>
         </nz-form-control>
@@ -386,7 +393,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="gapType">缺口类型</nz-form-label>
+        <nz-form-label nzFor="gapType">缺口类型</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="缺口类型" formControlName="gapType" name="gapType" id="gapType"/>
         </nz-form-control>
@@ -394,7 +401,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="shocktemp">冲击温度</nz-form-label>
+        <nz-form-label nzFor="shocktemp">冲击温度</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input nz-input placeholder="冲击温度" formControlName="shocktemp" name="shocktemp" id="shocktemp"/>
         </nz-form-control>

@@ -36,6 +36,9 @@ export class DesignInputComponent implements OnInit {
     },
     {
       label: "卧式", value: {name: "卧式", ename: "Horizontal"}
+    },
+    {
+      label: "/", value: {name: "/", ename: "/"}
     }
   ];
   supptypes = [
@@ -269,9 +272,9 @@ export class DesignInputComponent implements OnInit {
       wpress:[null, [Validators.required]],
       wtemp:[null, [Validators.required]],
       testpress:[null, [Validators.required]],
-      leaktest:[null, [Validators.required]],
+      leaktest:[this.leaktests[5], [Validators.required]],
       leaktestp:[null],
-      pttype:["/", [Validators.required]],
+      pttype:[this.pttypes[3].value, [Validators.required]],
     });
     this.validateForm2 = this.fb.group({
       name:[null, [Validators.required]],
@@ -292,9 +295,9 @@ export class DesignInputComponent implements OnInit {
       wpress:[null, [Validators.required]],
       wtemp:[null, [Validators.required]],
       testpress:[null, [Validators.required]],
-      leaktest:[null, [Validators.required]],
+      leaktest:[this.leaktests[5], [Validators.required]],
       leaktestp:[null],
-      pttype:["/", [Validators.required]],
+      pttype:[this.pttypes[3].value, [Validators.required]],
     });
     this.prodnameValidateForm = this.fb.group({
       prodname:[null, [Validators.required]],
@@ -390,9 +393,17 @@ export class DesignInputComponent implements OnInit {
       }
     });
   }
+  changepttypestats(form:FormGroup){
+    if(form.value.pttype != null){
+      if(form.value.pttype.name == '/'){
+        form.controls['testpress'].setValidators(null);
+      }else{
+        form.controls['testpress'].setValidators(Validators.required);
+      }
+    }
+  }
   changeleaktestpstats(form:FormGroup){
     if(form.value.leaktest != null){
-      console.log(form.value.leaktest.name)
       if(form.value.leaktest.name == '气密性试验和氦检漏试验' || form.value.leaktest.name == '气密性试验')
         form.controls['leaktestp'].setValidators(Validators.required);
       else{

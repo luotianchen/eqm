@@ -15,4 +15,7 @@ export class MaterialDistributionLedgerService {
   getSignImage(username){
     return this.http.post(this.api.BASEURL+"/getsignatureurl",{username:username})
   }
+  getindexbymatlcoderules(){ //获取材料代码信息
+    return this.http.get(`${this.api.BASEURL}/getindexbymatlcoderules`)
+  }
 }

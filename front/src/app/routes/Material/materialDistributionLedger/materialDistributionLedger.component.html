@@ -101,7 +101,7 @@
             <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
             <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
             <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
-            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.issuematl}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap"><img *ngIf="!!signs && data.issuematl" [src]="signs && signs[data.issuematl]" style="height: 20px"></td>
             <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
         </table>
@@ -197,7 +197,7 @@
           </tr>
           <tr>
             <td colspan="16" style="height: 30px">
-              管理员：<img *ngIf="userSign" [src]="userSign">
+              管理员：<img *ngIf="userSign" [src]="userSign" style="height: 40px">
             </td>
           </tr>
         </table>
