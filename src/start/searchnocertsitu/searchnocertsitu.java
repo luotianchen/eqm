@@ -310,7 +310,6 @@ public class searchnocertsitu {
             }
 
             result.setTotal(as.size());
-            Collections.reverse(as);                                          //将list倒序
             int as_size;
             as_size=as.size();
             if(as_size<=((sp.getPageindex()-1)*sp.getPagesize())){
@@ -606,7 +605,6 @@ public class searchnocertsitu {
                 }
             }
             conn.close();
-            Collections.reverse(as);                                          //将list倒序
 
 
         }catch (Exception e){
