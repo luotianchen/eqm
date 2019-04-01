@@ -16,6 +16,9 @@ import start.jdbc.jdbc;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static start.excel.excel.putsheet;
 
@@ -23,7 +26,7 @@ import static start.excel.excel.putsheet;
 @CrossOrigin
 public class getmepretestreport {                                                       //力学性能试验报告
     @RequestMapping(value = "getmepretestreport")
-    public @ResponseBody ResponseEntity<byte[]> getmepretestreport(String prodno,String department,String indate,HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {
+    public @ResponseBody ResponseEntity<byte[]> getmepretestreport(String prodno,String department,String indate,String specimenno,HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -31,6 +34,9 @@ public class getmepretestreport {                                               
         ResultSet rs=null;
 
         int i = 0;
+
+        Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
 
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
@@ -56,37 +62,92 @@ public class getmepretestreport {                                               
         putsheet(sheet,2,1,department);
         putsheet(sheet,2,7,indate);
 
-        ps = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ? AND status = 1");
+        ps = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ? AND status = 1 AND specimenno=?");
         ps.setString(1,prodno);
+        ps.setString(2,specimenno);
         rs = ps.executeQuery();
-        while (rs.next()){
-            putsheet(sheet,2,17,rs.getString("testno"));
+        if (rs.next()){
+            putsheet(sheet,2,17,rs.getString("testno").substring(0,4)+"-m"+rs.getString("testno").substring(4));//****-c**
 
-            putsheet(sheet,8+i,0,rs.getString("specimenno"));
-            putsheet(sheet,8+i,3,rs.getString("f02mpa"));             //屈服强度RP0.2(Mpa)
-            putsheet(sheet,8+i,4,rs.getString("f1mpa"));             //屈服强度RP1.0(Mpa)
-            putsheet(sheet,8+i,5,rs.getString("f1mpa"));             //屈服强度RP1.0(Mpa)
-            putsheet(sheet,8+i,7,rs.getString("fractposit"));             //抗拉断裂位置
-            putsheet(sheet,8+i,9,rs.getString("bendatype"));             //弯曲类型
-            putsheet(sheet,8+i,10,rs.getString("bendangle"));             //弯曲角度（°）
-            putsheet(sheet,8+i,11,rs.getString("bendaxdia"));             //弯曲直径
+            if(rs.getInt("hardness1")==0 && rs.getInt("hardness2")==0 && rs.getInt("hardness3")==0){
+                putsheet(sheet,4,20,"/");
+            }else {
+                putsheet(sheet,4,20,"1");
+            }
 
-            i++;
+            putsheet(sheet,8,0,specimenno);
+            putsheet(sheet,8,2,rs.getString("so"));             //截面积
+            putsheet(sheet,8,3,rs.getString("f02mpa"));             //屈服强度RP0.2(Mpa)
+            putsheet(sheet,8,4,rs.getString("f1mpa"));             //屈服强度RP1.0(Mpa)
+            putsheet(sheet,8,5,rs.getString("rm"));             //抗拉强度
+            putsheet(sheet,8,6,rs.getString("a"));             //延伸率%
+            putsheet(sheet,8,7,rs.getString("fractposit"));             //抗拉断裂位置
+            putsheet(sheet,8,9,rs.getString("bendatype"));             //弯曲类型
+            putsheet(sheet,8,10,rs.getString("bendangle"));             //弯曲角度（°）
+            putsheet(sheet,8,11,rs.getString("bendaxdia"));             //弯曲直径
+            putsheet(sheet,8,15,rs.getString("shocktemp"));             //试验温度
+            putsheet(sheet,8,16,rs.getString("gaptype"));             //缺口类型
+
+            if(rs.getString("w1")!=null && !rs.getString("w1").equals("")){
+                putsheet(sheet,8+i,17,"焊缝区");
+                putsheet(sheet,8+i,18,rs.getString("w1"));
+                putsheet(sheet,8+i,19,rs.getString("lew1"));
+                i++;
+            }
+            if(rs.getString("w2")!=null && !rs.getString("w2").equals("")){
+                putsheet(sheet,8+i,17,"焊缝区");
+                putsheet(sheet,8+i,18,rs.getString("w2"));
+                putsheet(sheet,8+i,19,rs.getString("lew2"));
+                i++;
+            }
+            if(rs.getString("w3")!=null && !rs.getString("w3").equals("")){
+                putsheet(sheet,8+i,17,"焊缝区");
+                putsheet(sheet,8+i,18,rs.getString("w3"));
+                putsheet(sheet,8+i,19,rs.getString("lew3"));
+                i++;
+            }
+            if(rs.getString("h1")!=null && !rs.getString("h1").equals("")){
+                putsheet(sheet,8+i,17,"热处理区");
+                putsheet(sheet,8+i,18,rs.getString("h1"));
+                putsheet(sheet,8+i,19,rs.getString("leh1"));
+                i++;
+            }
+            if(rs.getString("h2")!=null && !rs.getString("h2").equals("")){
+                putsheet(sheet,8+i,17,"热处理区");
+                putsheet(sheet,8+i,18,rs.getString("h2"));
+                putsheet(sheet,8+i,19,rs.getString("leh2"));
+                i++;
+            }
+            if(rs.getString("h3")!=null && !rs.getString("h3").equals("")){
+                putsheet(sheet,8+i,17,"热处理区");
+                putsheet(sheet,8+i,18,rs.getString("h3"));
+                putsheet(sheet,8+i,19,rs.getString("leh3"));
+                i++;
+            }
+
+            putsheet(sheet,8,20,rs.getString("hardness1"));
+            putsheet(sheet,9,20,rs.getString("hardness2"));
+            putsheet(sheet,10,20,rs.getString("hardness3"));
+
+            calendar.setTime(rs.getDate("testdate"));
+            putsheet(sheet,10,20,simpleDateFormat1.format(calendar.getTime()));
+
         }
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM protestboardcom WHERE prodno = ? AND status = 1");
+        ps = conn.prepareStatement("SELECT * FROM protestboardcom WHERE prodno = ? AND status = 1 AND specimenno=?");
         ps.setString(1,prodno);
+        ps.setString(2,specimenno);
         rs = ps.executeQuery();
         while (rs.next()){
             putsheet(sheet,4,1,rs.getString("specimenname"));
             putsheet(sheet,4,7,rs.getString("designation"));
             putsheet(sheet,4,10,rs.getString("spec"));
             putsheet(sheet,4,14,rs.getString("drawingnumber"));
+            putsheet(sheet,4,16,String.valueOf(rs.getInt("surfacebending")+rs.getInt("backbending")+rs.getInt("lateralbending")));
             putsheet(sheet,4,17,rs.getString("weldzoneshocknum"));
             putsheet(sheet,4,18,rs.getString("thermalimpactzonenum"));
-
 
             i++;
         }
@@ -120,7 +181,7 @@ public class getmepretestreport {                                               
 
 
     @RequestMapping(value = "getmepretestreportre")                             //力学性能试验报告复验
-    public @ResponseBody ResponseEntity<byte[]> getmepretestreportre(String department,String codedmarking,String name,String testno,HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {
+    public @ResponseBody ResponseEntity<byte[]> getmepretestreportre(String department,String codedmarking,String testno,HttpServletRequest request) throws ClassNotFoundException, SQLException, IOException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -154,9 +215,9 @@ public class getmepretestreport {                                               
         ps.setString(1,codedmarking);
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,2,7,rs.getString("indate"));
-            putsheet(sheet,2,17,testno);
-            putsheet(sheet,4,1,name);
+            putsheet(sheet,2,7,rs.getString("indate"));//+2
+            putsheet(sheet,2,17,testno);//****-y**
+//            putsheet(sheet,4,1,name);
             putsheet(sheet,4,7,rs.getString("designation"));
             putsheet(sheet,4,10,rs.getString("spec"));
             putsheet(sheet,4,14,rs.getString("drawingnumber"));
