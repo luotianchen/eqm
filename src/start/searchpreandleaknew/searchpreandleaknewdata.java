@@ -7,6 +7,7 @@ public class searchpreandleaknewdata {
     private String clcontent;
     private int leakagestatus;
     private String testpress;
+    private String leaktestp;
     private searchpreandleaknewdated dated1;
     private searchpreandleaknewdated dated2;
     private searchpreandleaknewdated dated3;
@@ -84,5 +85,13 @@ public class searchpreandleaknewdata {
 
     public void setTestpress(String testpress) {
         this.testpress = testpress;
+    }
+
+    public String getLeaktestp() {
+        return leaktestp;
+    }
+
+    public void setLeaktestp(String leaktestp) {
+        this.leaktestp = leaktestp;
     }
 }

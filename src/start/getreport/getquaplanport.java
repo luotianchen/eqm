@@ -42,6 +42,9 @@ public class getquaplanport {                                               //�
         PreparedStatement ps2 = null;
         ResultSet rs2=null;
 
+        int prodname_id = 0;
+        String dwgno = null;
+
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MMM.dd.yyyy", Locale.US);
@@ -62,9 +65,6 @@ public class getquaplanport {                                               //�
         String pdfname = getUploadFileName("质量计划说明.pdf");
         String url1 = uploadPath +"/"+ filename;
         String url2 = uploadPath +"/"+ pdfname;
-        System.out.println(pdfname);
-        System.out.println(url1);
-        System.out.println(url2);
 
 
 
@@ -76,6 +76,36 @@ public class getquaplanport {                                               //�
         Sheet sheet=workBook.getSheetAt(0);
         List<List<String>> result = readXlsx(workBook);
 
+        putsheet(sheet,2,2,prodno);
+        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+        ps.setString(1,prodno);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            dwgno = rs.getString("dwgno");
+            putsheet(sheet,2,10,rs.getString("dwgno"));
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit=1");
+        ps.setString(1,dwgno);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            prodname_id = rs.getInt("productname_id_prodname");
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM productname WHERE id = ? ");
+        ps.setInt(1,prodname_id);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            putsheet(sheet,2,5,rs.getString("prodname"));
+            putsheet(sheet,3,5,rs.getString("ename"));
+        }
+        rs.close();
+        ps.close();
+
         int num = 8;
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 9");
         rs = ps.executeQuery();
@@ -83,7 +113,6 @@ public class getquaplanport {                                               //�
             putsheet(sheet,8,7,rs.getString("stand"));
             for (int i = 0;i<5;i++){
                 putsheet(sheet,9+i,7,rs.getString("stand")+";"+searchstand(prodno));
-                System.out.println(rs.getString("stand")+";"+searchstand(prodno));
             }
         }
         rs.close();
@@ -407,9 +436,7 @@ public class getquaplanport {                                               //�
         Sheet sheet1=workBook1.getSheetAt(0);
         List<List<String>> result1 = readXlsx(workBook1);
         for (int i = 0;i<64;i++){
-            System.out.println(result1.get(i).get(11)+i);
             if(result1.get(i).get(11).equals("/")){
-                System.out.println(result1.get(i).get(11)+i);
                 Row row = sheet1.getRow(i+1);
                 row.setZeroHeight(true);
             }

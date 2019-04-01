@@ -65,6 +65,7 @@ public class searchpreandleaknew {                                     //新试�
                     rs1 = ps1.executeQuery();
                     if(rs1.next()){
                         data.setTestpress(rs1.getString("testpress"));
+                        data.setLeaktestp(rs1.getString("leaktestp"));
                     }
                     rs1.close();
                     ps1.close();
@@ -132,7 +133,6 @@ public class searchpreandleaknew {                                     //新试�
                                         leak.setDewelltime(rs1.getInt("dewelltime"));
                                         leak.setCircutemp(rs1.getInt("circutemp"));
                                         leak.setMediatemp(rs1.getInt("mediatemp"));
-                                        leak.setLeaktestp(rs1.getString("leaktestp"));
                                         leak.setTestmedia(rs1.getString("testmedia"));
                                         dated1.setLeak(leak);
                                     }
@@ -180,7 +180,6 @@ public class searchpreandleaknew {                                     //新试�
                                         leak.setDewelltime(rs1.getInt("dewelltime"));
                                         leak.setCircutemp(rs1.getInt("circutemp"));
                                         leak.setMediatemp(rs1.getInt("mediatemp"));
-                                        leak.setLeaktestp(rs1.getString("leaktestp"));
                                         leak.setTestmedia(rs1.getString("testmedia"));
                                         dated2.setLeak(leak);
                                     }
@@ -227,7 +226,6 @@ public class searchpreandleaknew {                                     //新试�
                                         leak.setDewelltime(rs1.getInt("dewelltime"));
                                         leak.setCircutemp(rs1.getInt("circutemp"));
                                         leak.setMediatemp(rs1.getInt("mediatemp"));
-                                        leak.setLeaktestp(rs1.getString("leaktestp"));
                                         leak.setTestmedia(rs1.getString("testmedia"));
                                         dated3.setLeak(leak);
                                     }
