@@ -269,7 +269,7 @@ public class searchnocertsitu {
                                 sncd.setSpec(rs.getString("spec"));
                                 sncd.setQty(rs.getString("qty"));
                                 sncd.setNote(rs.getString("note"));
-                                sncd.setIndate(sdf.format(rs.getDate("indate")));
+                                sncd.setIndate(rs.getString("indate"));
                                 sncd.setHeatbatchno(rs.getString("heatbatchno"));
                                 sncd.setWarrantyno(rs.getString("warrantyno"));
                                 sncd.setMatlname(rs.getString("matlname_id_matlname"));
@@ -292,7 +292,7 @@ public class searchnocertsitu {
                         sncd.setSpec(rs.getString("spec"));
                         sncd.setQty(rs.getString("qty"));
                         sncd.setNote(rs.getString("note"));
-                        sncd.setIndate(sdf.format(rs.getDate("indate")));
+                        sncd.setIndate(rs.getString("indate"));
                         sncd.setHeatbatchno(rs.getString("heatbatchno"));
                         sncd.setWarrantyno(rs.getString("warrantyno"));
                         sncd.setMatlname(rs.getString("matlname_id_matlname"));
@@ -565,7 +565,7 @@ public class searchnocertsitu {
                                     sncd.setSpec(rs.getString("spec"));
                                     sncd.setQty(rs.getString("qty"));
                                     sncd.setNote(rs.getString("note"));
-                                    sncd.setIndate(sdf.format(rs.getDate("indate")));
+                                    sncd.setIndate(rs.getString("indate"));
                                     sncd.setHeatbatchno(rs.getString("heatbatchno"));
                                     sncd.setWarrantyno(rs.getString("warrantyno"));
                                     sncd.setMatlname(rs.getString("matlname_id_matlname"));
@@ -588,7 +588,7 @@ public class searchnocertsitu {
                             sncd.setSpec(rs.getString("spec"));
                             sncd.setQty(rs.getString("qty"));
                             sncd.setNote(rs.getString("note"));
-                            sncd.setIndate(sdf.format(rs.getDate("indate")));
+                            sncd.setIndate(rs.getString("indate"));
                             sncd.setHeatbatchno(rs.getString("heatbatchno"));
                             sncd.setWarrantyno(rs.getString("warrantyno"));
                             sncd.setMatlname(rs.getString("matlname_id_matlname"));
