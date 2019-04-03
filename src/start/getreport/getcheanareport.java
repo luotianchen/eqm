@@ -39,6 +39,7 @@ public class getcheanareport {                                              //åŒ
 
         ArrayList<String> material = null;
         String num=null;
+        int num_p=0;
         int matlname_id=0;
 
         String realPath = request.getSession().getServletContext().getRealPath("");
@@ -82,6 +83,8 @@ public class getcheanareport {                                              //åŒ
             calendar.setTime(rs.getDate("indate"));
             putsheet(sheet,3,42,simpleDateFormat1.format(calendar.getTime())+"-c"+num);
             putsheet(sheet,7,7,simpleDateFormat1.format(calendar.getTime())+"-c"+num);
+            num_p=rs.getInt("times");
+
 
             setma(material,"c",rs);
             setma(material,"mn",rs);
@@ -152,6 +155,13 @@ public class getcheanareport {                                              //åŒ
         rs.close();
         ps.close();
 
+        if(num_p != 0){
+            ps = conn.prepareStatement("UPDATE rematerial SET times = ? WHERE codedmarking = ? AND status=1");
+            ps.setInt(1,num_p++);
+            ps.setString(2,codedmarking);
+            ps.executeUpdate();
+            ps.close();
+        }
 
 
 
