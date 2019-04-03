@@ -26,6 +26,8 @@ export class TestParametersComponent implements OnInit {
     },{
       label: "内筒",value:{name:"内筒",ename: "Inner Cylinder"}
     },{
+      label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"}
+    },{
       label: "管程",value:{name:"管程",ename: "TubeSide"}
     },{
       label: "管程I",value:{name:"管程I",ename: "TubeSide I"}
@@ -148,6 +150,8 @@ export class TestParametersComponent implements OnInit {
   }
   link = 0;
   checklink(){
+    this.dataModel = [];
+    this.channelForms = [];
     if(this.validateForm.controls['prodno'].value!=null) {
       this.testParametersService.check(this.validateForm.controls['prodno'].value).subscribe(res=>{
         if(res['result'] == "success"){
@@ -181,10 +185,10 @@ export class TestParametersComponent implements OnInit {
                 prodno: [this.validateForm.controls['prodno'].value, [Validators.required]],
                 dwgno: [this.validateForm.controls['dwgno'].value, [Validators.required]],
                 ppart: [channel.name, [Validators.required]],
-                eppart: [this.pparts.filter(item => item.label = channel.name)[0].value.ename, [Validators.required]],
+                eppart: [this.pparts.filter(item => item.label == channel.name)[0].value.ename, [Validators.required]],
                 dated1: [channel['dated1']?channel['dated1']['date']:null],
                 dated2: [channel['dated2']?channel['dated2']['date']:null],
-                dated3: [channel['dated2']?channel['dated2']['date']:null],
+                dated3: [channel['dated3']?channel['dated3']['date']:null],
                 testmedia: [this.testmedias.filter(item => item.name == channel['testmedia'])[0]],
                 etestmedia: [null],
                 clcontent: [channel.clcontent]
@@ -213,7 +217,7 @@ export class TestParametersComponent implements OnInit {
                       dewelltime: null,
                       circutemp: null,
                       mediatemp: null,
-                      leaktestp: null,
+                      leaktestp: channel['leaktestp'],
                       ppart: null,
                       testmedia: null,
                     }
@@ -240,7 +244,7 @@ export class TestParametersComponent implements OnInit {
                     dewelltime: null,
                     circutemp: null,
                     mediatemp: null,
-                    leaktestp: null,
+                    leaktestp: channel['leaktestp'],
                     ppart: null,
                     testmedia: null,
                   }
@@ -267,7 +271,7 @@ export class TestParametersComponent implements OnInit {
                     dewelltime: null,
                     circutemp: null,
                     mediatemp: null,
-                    leaktestp: null,
+                    leaktestp: channel['leaktestp'],
                     ppart: null,
                     testmedia: null,
                   }
@@ -297,7 +301,7 @@ export class TestParametersComponent implements OnInit {
                     dewelltime: channel['dated1']['leak']?channel['dated1']['leak']['dewelltime']:null,
                     circutemp: channel['dated1']['leak']?channel['dated1']['leak']['circutemp']:null,
                     mediatemp: channel['dated1']['leak']?channel['dated1']['leak']['mediatemp']:null,
-                    leaktestp: channel['dated1']['leak']?channel['dated1']['leak']['leaktestp']:null,
+                    leaktestp: channel['leaktestp'],
                     ppart: channel['dated1']['leak']?channel['dated1']['leak']['ppart']:null,
                     testmedia: channel['dated1']['leak']?channel['dated1']['leak']['testmedia']:null,
                   }
@@ -327,7 +331,7 @@ export class TestParametersComponent implements OnInit {
                     dewelltime: channel['dated2']['leak']?channel['dated2']['leak']['dewelltime']:null,
                     circutemp: channel['dated2']['leak']?channel['dated2']['leak']['circutemp']:null,
                     mediatemp: channel['dated2']['leak']?channel['dated2']['leak']['mediatemp']:null,
-                    leaktestp: channel['dated2']['leak']?channel['dated2']['leak']['leaktestp']:null,
+                    leaktestp: channel['leaktestp'],
                     ppart: channel['dated2']['leak']?channel['dated2']['leak']['ppart']:null,
                     testmedia: channel['dated2']['leak']?channel['dated2']['leak']['testmedia']:null,
                   }
@@ -336,7 +340,7 @@ export class TestParametersComponent implements OnInit {
               }
               if (channel['dated3'] && (channel['dated3']['press'] || channel['dated3']['leak'])){
                 model.dated3 = {
-                  status: 1,//0隐藏，1显示，2禁用
+                  status: 2,//0隐藏，1显示，2禁用
                   press: {
                     date: channel['dated3']['press']?channel['dated3']['press']['date']:null,
                     pgaugeno1: channel['dated3']['press']?channel['dated3']['press']['pgaugeno1']:null,
@@ -357,19 +361,29 @@ export class TestParametersComponent implements OnInit {
                     dewelltime: channel['dated3']['leak']?channel['dated3']['leak']['dewelltime']:null,
                     circutemp: channel['dated3']['leak']?channel['dated3']['leak']['circutemp']:null,
                     mediatemp: channel['dated3']['leak']?channel['dated3']['leak']['mediatemp']:null,
-                    leaktestp: channel['dated3']['leak']?channel['dated3']['leak']['leaktestp']:null,
+                    leaktestp: channel['leaktestp'],
                     ppart: channel['dated3']['leak']?channel['dated3']['leak']['ppart']:null,
                     testmedia: channel['dated3']['leak']?channel['dated3']['leak']['testmedia']:null,
                   }
                 }
               }
+              fbb.controls['dated1'].enable();
+              fbb.controls['dated2'].enable();
+              fbb.controls['dated3'].enable();
+              fbb.controls['testmedia'].enable();
+              if(model['dated1'].status==2){
+                fbb.controls['dated1'].disable();
+                fbb.controls['testmedia'].disable();
+              }
+              if(model['dated2'].status==2){
+                fbb.controls['dated2'].disable();
+              }
+              if(model['dated3'].status==2){
+                fbb.controls['dated3'].disable();
+              }
               this.dataModel.push(model)
               this.channelForms.push(fbb);
-              console.log(model);
-              console.log(fbb);
             }
-            console.log(this.dataModel);
-            console.log(this.channelForms);
           }else{
             this.message.error("查询通道信息失败！请稍后重试")
           }
@@ -403,16 +417,11 @@ export class TestParametersComponent implements OnInit {
       form.controls[ i ].updateValueAndValidity();
     }
     if(form.valid){
-      let ename :string;
-      for(let item of this.pparts){
-        if(item.label == form.controls['ppart'].value)
-          ename = item.value.ename;
-      }
       this.testParametersService.putPressureTest({
         prodno:form.controls['prodno'].value,
         dwgno:form.controls['dwgno'].value,
         ppart:form.controls['ppart'].value,
-        eppart:ename,
+        eppart:form.controls['eppart'].value,
         dated1:form.controls['dated1'].value,
         dated2:form.controls['dated2'].value,
         dated3:form.controls['dated3'].value,
@@ -489,7 +498,7 @@ export class TestParametersComponent implements OnInit {
               });
             }
           });
-          this.validateForm.reset();
+          this.checklink();
         }
       },(err)=>{
         this.modalService.error({
@@ -512,6 +521,7 @@ export class TestParametersComponent implements OnInit {
           nzContent: '连接成功！'
         });
         this.link = 2;
+        this.checklink();
         this.validateForm.controls['dwgno'].disable();
       }
     })

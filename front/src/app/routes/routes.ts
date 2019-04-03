@@ -77,6 +77,9 @@ import {DesignQueryComponent} from "./Design/designQuery/designQuery.component";
 import {MaterialReinspectionCommissionReportComponent} from "./PhysicalAndChemical/materialReinspectionCommissionReport/materialReinspectionCommissionReport.component";
 import {ProductTestBoardCommissionReportComponent} from "./PhysicalAndChemical/productTestBoardCommissionReport/productTestBoardCommissionReport.component";
 import {ProductManufacturingParametersQueryComponent} from "./InspectionAndTest/productManufacturingParametersQuery/productManufacturingParametersQuery.component";
+import {ChemicalAnalysisTestReportComponent} from "./PhysicalAndChemical/chemicalAnalysisTestReport/chemicalAnalysisTestReport.component";
+import {MechanicalReportForProTestBoardComponent} from "./PhysicalAndChemical/mechanicalReportForProTestBoard/mechanicalReportForProTestBoard.component";
+import {MechanicalReportForMatlReinspectionComponent} from "./PhysicalAndChemical/mechanicalReportForMatlReinspection/mechanicalReportForMatlReinspection.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -327,6 +330,11 @@ export const routes: Routes = [
           breadcrumb: '理化试验委托单报表'
         }
       },{
+        path: 'physicalAndChemical/mechanicalReportForProTestBoard', component: MechanicalReportForProTestBoardComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '力学性能试验报告'
+        }
+      },{
         path: 'physicalAndChemical/materialReinspectionCommission', component: MaterialReinspectionCommissionComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '材料复验申请'
@@ -345,6 +353,16 @@ export const routes: Routes = [
         path: 'physicalAndChemical/materialReinspectionCommissionReport', component:MaterialReinspectionCommissionReportComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '材料复验申请单报表'
+        }
+      },{
+        path: 'physicalAndChemical/mechanicalReportForMatlReinspection', component: MechanicalReportForMatlReinspectionComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '力学性能试验报告'
+        }
+      },{
+        path: 'physicalAndChemical/chemicalAnalysisTestReport', component:ChemicalAnalysisTestReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '化学分析报告'
         }
       },{
         path: 'physicalAndChemical/materialReinspection', component: MaterialReinspectionComponent, canActivate: [CanAuthProvide],

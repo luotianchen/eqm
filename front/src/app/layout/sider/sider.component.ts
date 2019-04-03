@@ -101,7 +101,7 @@ export class SiderComponent {
       this.roles = this._storage.get('roles').split(';');
     }else{
       this._storage.clear();
-      this.msg.error("权限信息获取失败，请重新登录！")
+      this.msg.error("权限信息初始化失败！请重新登录")
       this.router.navigate(['/login']);
     }
   }

@@ -78,6 +78,9 @@ import {DesignQueryModule} from "./Design/designQuery/designQuery.module";
 import {MaterialReinspectionCommissionReportModule} from "./PhysicalAndChemical/materialReinspectionCommissionReport/materialReinspectionCommissionReport.module";
 import {ProductTestBoardCommissionReportModule} from "./PhysicalAndChemical/productTestBoardCommissionReport/productTestBoardCommissionReport.module";
 import {ProductManufacturingParametersQueryModule} from "./InspectionAndTest/productManufacturingParametersQuery/productManufacturingParametersQuery.module";
+import {ChemicalAnalysisTestReportModule} from "./PhysicalAndChemical/chemicalAnalysisTestReport/chemicalAnalysisTestReport.module";
+import {MechanicalReportForProTestBoardModule} from "./PhysicalAndChemical/mechanicalReportForProTestBoard/mechanicalReportForProTestBoard.module";
+import {MechanicalReportForMatlReinspectionModule} from "./PhysicalAndChemical/mechanicalReportForMatlReinspection/mechanicalReportForMatlReinspection.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -157,7 +160,10 @@ import {ProductManufacturingParametersQueryModule} from "./InspectionAndTest/pro
     ProductMaterialReportModule,
     MaterialReinspectionCommissionReportModule,
     ProductTestBoardCommissionReportModule,
-    ProductManufacturingParametersQueryModule
+    ProductManufacturingParametersQueryModule,
+    ChemicalAnalysisTestReportModule,
+    MechanicalReportForProTestBoardModule,
+    MechanicalReportForMatlReinspectionModule
   ]
 })
 

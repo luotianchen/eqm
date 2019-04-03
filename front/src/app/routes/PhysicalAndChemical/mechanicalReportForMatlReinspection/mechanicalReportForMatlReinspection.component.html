@@ -1,0 +1,39 @@
+<div>
+  <h3 class="title">力学性能报告</h3>
+</div>
+<nz-divider></nz-divider>
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="codedmarking">入库编号</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="入库编号"  formControlName="codedmarking" name="codedmarking" id="codedmarking">
+            <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="department">委托单位</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="委托单位"  formControlName="department" name="department" id="department">
+            <nz-option *ngFor="let option of departments" [nzLabel]="option.departmentname" [nzValue]="option.departmentname"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="area">截面积mm2</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-input-number formControlName="area" name="area" nzPlaceHolder="截面积" type="text" id="area"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="loading">
+      <i nz-icon type="download"></i>查询报表
+    </button>
+  </div>
+</form>

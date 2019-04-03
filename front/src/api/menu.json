@@ -187,6 +187,16 @@
               "icon": "laptop",
               "name": "材料复验登记查询",
               "route": "/physicalAndChemical/materialReinspectionQuery"
+            },
+            {
+              "icon": "laptop",
+              "name": "化学分析报告报表",
+              "route":"/physicalAndChemical/chemicalAnalysisTestReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "力学性能试验报告",
+              "route":"/physicalAndChemical/mechanicalReportForMatlReinspection"
             }
           ]
         },
@@ -228,6 +238,11 @@
               "icon": "laptop",
               "name": "理化试验委托单报表",
               "route": "/physicalAndChemical/ProductTestBoardCommissionReport"
+            },
+            {
+              "icon": "laptop",
+              "name": "力学性能试验报告",
+              "route": "/physicalAndChemical/mechanicalReportForProTestBoard"
             }
           ]
         },{

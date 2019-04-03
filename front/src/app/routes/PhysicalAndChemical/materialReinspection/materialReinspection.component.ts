@@ -271,9 +271,9 @@ export class  MaterialReinspectionComponent implements OnInit {
   formatInDate(){ //日期格式化
     let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
-    if(monthDay.test(this.validateForm.value.indate)){
-      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.value.indate);
-    }else if(!yearMonthDay.test(this.validateForm.value.indate)){
+    if(monthDay.test(this.validateForm.controls['indate'].value)){
+      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.controls['indate'].value);
+    }else if(!yearMonthDay.test(this.validateForm.controls['indate'].value)){
       this.validateForm.controls["indate"].setValue(null);
     }
   }
@@ -385,14 +385,14 @@ export class  MaterialReinspectionComponent implements OnInit {
   public chemicalcomposition = true;
 
   getInfoCompleted(){
-    if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
-      this.materialReinspectionService.searchmatlnotice(this.validateForm.value.codedmarking).then((res:any)=>{
+    if(this.validateForm.controls['codedmarking'].value!=null && this.validateForm.controls['codedmarking'].value!=""){
+      this.materialReinspectionService.searchmatlnotice(this.validateForm.controls['codedmarking'].value).then((res:any)=>{
         if(res['result']=="success"){
           this.validateForm.controls['designation'].setValue(res['data']['designation']);
           this.validateForm.controls['stand'].setValue(res['data']['matlstand']);
           this.validateForm.controls['spec'].setValue(res['data']['spec']);
           this.validateForm.controls['indate'].setValue(res['data']['indate']);
-          this.materialReinspectionService.searchrematerialitem(this.validateForm.value.codedmarking).subscribe(res=>{
+          this.materialReinspectionService.searchrematerialitem(this.validateForm.controls['codedmarking'].value).subscribe(res=>{
             if(res['result'] == "success")
               if(res['data'].length>0)
                 this.chemicalcomposition = res['data'][0]['chemicalcomposition'] == '有';
@@ -499,51 +499,51 @@ export class  MaterialReinspectionComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.materialReinspectionService.putMatlReinspection({
-        "codedmarking":this.validateForm.value.codedmarking,
-        "designation":this.validateForm.value.designation,
-        "stand":this.validateForm.value.stand,
-        "spec":this.validateForm.value.spec,
-        "c":this.validateForm.value.c,
-        "mn":this.validateForm.value.mn,
-        "si":this.validateForm.value.si,
-        "p":this.validateForm.value.p,
-        "s":this.validateForm.value.s,
-        "cr":this.validateForm.value.cr,
-        "ni":this.validateForm.value.ni,
-        "ti":this.validateForm.value.ti,
-        "mo":this.validateForm.value.mo,
-        "nb":this.validateForm.value.nb,
-        "cu":this.validateForm.value.cu,
-        "fe":this.validateForm.value.fe,
-        "n":this.validateForm.value.n,
-        "alt":this.validateForm.value.alt,
-        "als":this.validateForm.value.als,
-        "mg":this.validateForm.value.mg,
-        "zn":this.validateForm.value.zn,
-        "v":this.validateForm.value.v,
-        "b":this.validateForm.value.b,
-        "w":this.validateForm.value.w,
-        "sb":this.validateForm.value.sb,
-        "al":this.validateForm.value.al,
-        "zr":this.validateForm.value.zr,
-        "ca":this.validateForm.value.ca,
-        "be":this.validateForm.value.be,
-        "rel1":this.validateForm.value.rel1,
-        "rel2":this.validateForm.value.rel2,
-        "rm1":this.validateForm.value.rm1,
-        "rm2":this.validateForm.value.rm2,
-        "elong1":this.validateForm.value.elong1,
-        "elong2":this.validateForm.value.elong2,
-        "hardness1":this.validateForm.value.hardness1,
-        "hardness2":this.validateForm.value.hardness2,
-        "hardness3":this.validateForm.value.hardness3,
-        "impactp1":this.validateForm.value.impactp1,
-        "impactp2":this.validateForm.value.impactp2,
-        "impactp3":this.validateForm.value.impactp3,
-        "impacttemp":this.validateForm.value.impacttemp,
-        "bendangle":this.validateForm.value.bendangle,
-        "bendaxdia":this.validateForm.value.bendaxdia,
-        "indate":this.validateForm.value.indate,
+        "codedmarking":this.validateForm.controls['codedmarking'].value,
+        "designation":this.validateForm.controls['designation'].value,
+        "stand":this.validateForm.controls['stand'].value,
+        "spec":this.validateForm.controls['spec'].value,
+        "c":this.validateForm.controls['c'].value,
+        "mn":this.validateForm.controls['mn'].value,
+        "si":this.validateForm.controls['si'].value,
+        "p":this.validateForm.controls['p'].value,
+        "s":this.validateForm.controls['s'].value,
+        "cr":this.validateForm.controls['cr'].value,
+        "ni":this.validateForm.controls['ni'].value,
+        "ti":this.validateForm.controls['ti'].value,
+        "mo":this.validateForm.controls['mo'].value,
+        "nb":this.validateForm.controls['nb'].value,
+        "cu":this.validateForm.controls['cu'].value,
+        "fe":this.validateForm.controls['fe'].value,
+        "n":this.validateForm.controls['n'].value,
+        "alt":this.validateForm.controls['alt'].value,
+        "als":this.validateForm.controls['als'].value,
+        "mg":this.validateForm.controls['mg'].value,
+        "zn":this.validateForm.controls['zn'].value,
+        "v":this.validateForm.controls['v'].value,
+        "b":this.validateForm.controls['b'].value,
+        "w":this.validateForm.controls['w'].value,
+        "sb":this.validateForm.controls['sb'].value,
+        "al":this.validateForm.controls['al'].value,
+        "zr":this.validateForm.controls['zr'].value,
+        "ca":this.validateForm.controls['ca'].value,
+        "be":this.validateForm.controls['be'].value,
+        "rel1":this.validateForm.controls['rel1'].value,
+        "rel2":this.validateForm.controls['rel2'].value,
+        "rm1":this.validateForm.controls['rm1'].value,
+        "rm2":this.validateForm.controls['rm2'].value,
+        "elong1":this.validateForm.controls['elong1'].value,
+        "elong2":this.validateForm.controls['elong2'].value,
+        "hardness1":this.validateForm.controls['hardness1'].value,
+        "hardness2":this.validateForm.controls['hardness2'].value,
+        "hardness3":this.validateForm.controls['hardness3'].value,
+        "impactp1":this.validateForm.controls['impactp1'].value,
+        "impactp2":this.validateForm.controls['impactp2'].value,
+        "impactp3":this.validateForm.controls['impactp3'].value,
+        "impacttemp":this.validateForm.controls['impacttemp'].value,
+        "bendangle":this.validateForm.controls['bendangle'].value,
+        "bendaxdia":this.validateForm.controls['bendaxdia'].value,
+        "indate":this.validateForm.controls['indate'].value,
         "user":this._storage.get("username")
       }).then((res:any)=>{
         if(res['result']=="success"){
@@ -558,12 +558,18 @@ export class  MaterialReinspectionComponent implements OnInit {
   }
 
   searchMatl(){
-    this.materialReinspectionService.searchrematerial(this.validateForm.value.codedmarking).subscribe(res=>{
+    this.materialReinspectionService.searchrematerial(this.validateForm.controls['codedmarking'].value).subscribe(res=>{
       if(res['result'] == "success"){
+        for(let i in this.validateForm.controls){
+          if(i!='codedmarking' && i!="designation" && i!="spec" && i!="stand"){
+            this.validateForm.controls[i].enable();
+            this.validateForm.controls[i].setValue(null);
+          }
+        }
         if(res['data'] && res['data'].length>0){
           for(let i in res['data'][0]){
             if(res['data'][0][i]){
-              if(this.validateForm.controls[i] && i!='codedmarking'){
+              if(this.validateForm.controls[i] && i!='codedmarking' && i!="designation" && i!="spec" && i!="stand"){
                 this.validateForm.controls[i].setValue(res['data'][0][i]);
                 this.validateForm.controls[i].disable();
               }
@@ -644,7 +650,7 @@ export class  MaterialReinspectionComponent implements OnInit {
    * 判断弯曲直径大小（格式：数组+'a'），输入弯曲直径应大于标准中的直径大小
    */
   judgeBendaxdia(){
-    let value = this.validateForm.value.bendaxdia;
+    let value = this.validateForm.controls['bendaxdia'].value;
     let exp = /^([1-9]\d*|0)(\.\d{1,2})*(a)$/;
     if(!exp.test(value)){
       this.validateForm.controls["bendaxdia"].setValue(null);

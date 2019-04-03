@@ -12,7 +12,7 @@ export class ProductManufacturingParametersQueryService {
   }
   getAudit(prodno){
     return this.http.post(this.api.BASEURL+'/searchpromanparlist',{
-      prodno:null,
+      prodno:prodno,
       status:1,
     })
   }

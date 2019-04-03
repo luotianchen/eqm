@@ -9,29 +9,29 @@
   <div nz-col nzSpan="12">
     <div nz-row>
         <div nz-col nzSpan="12" nz-tooltip [nzTitle]="matlContent">
-          <nz-card style="border-radius: 10px;background-color: #fa8c16!important;height: 180px;">
-            <h1 style="color:#fff!important;">0</h1>
+          <nz-card style="border-radius: 10px;background-color: #fa8c16!important;height: 180px;" [nzLoading]="loading">
+            <h1 style="color:#fff!important;">{{dataModel.matl}}</h1>
             <h3 style="color:#fff!important;">材料待审核数据</h3>
           </nz-card>
         </div>
         <div nz-col nzSpan="12" nz-tooltip [nzTitle]="pyAndCheContent">
-          <nz-card style="border-radius: 10px;background-color: #eb2f96!important;height: 180px;">
-            <h1 style="color:#fff!important;">0</h1>
+          <nz-card style="border-radius: 10px;background-color: #eb2f96!important;height: 180px;" [nzLoading]="loading">
+            <h1 style="color:#fff!important;">{{dataModel.pyhandche}}</h1>
             <h3 style="color:#fff!important;">理化待审核数据</h3>
           </nz-card>
       </div>
     </div>
     <div nz-row>
-      <div nz-col nzSpan="12" nz-tooltip [nzTitle]="designContent">
-        <nz-card style="border-radius: 10px;background-color: #52c41a!important;height: 180px;">
-          <h1 style="color:#fff!important;">0</h1>
-          <h3 style="color:#fff!important;">设计待审核数据</h3>
+      <div nz-col nzSpan="12" nz-tooltip [nzTitle]="inspectContent">
+        <nz-card style="border-radius: 10px;background-color: #1890ff!important;height: 180px;" [nzLoading]="loading">
+          <h1 style="color:#fff!important;">{{dataModel.inspecandtest}}</h1>
+          <h3 style="color:#fff!important;">检验与试验待审核数据</h3>
         </nz-card>
       </div>
-      <div nz-col nzSpan="12" nz-tooltip [nzTitle]="inspectContent">
-        <nz-card style="border-radius: 10px;background-color: #1890ff!important;height: 180px;">
-          <h1 style="color:#fff!important;">0</h1>
-          <h3 style="color:#fff!important;">检验与试验待审核数据</h3>
+      <div nz-col nzSpan="12" nz-tooltip [nzTitle]="designContent">
+        <nz-card style="border-radius: 10px;background-color: #52c41a!important;height: 180px;" [nzLoading]="loading">
+          <h1 style="color:#fff!important;">{{dataModel.design}}/{{dataModel.measinstru}}</h1>
+          <h3 style="color:#fff!important;">设计/计量台账待审核数据</h3>
         </nz-card>
       </div>
     </div>
@@ -43,24 +43,25 @@
   </div>
 </div>
 <ng-template #matlContent>
-  <p>材料入库审核：0</p>
-  <p>材料发放审核：0</p>
-  <p>材料代用审核：0</p>
+  <p>材料入库审核：{{dataModel.matlin}}</p>
+  <p>材料发放审核：{{dataModel.matldist}}</p>
+  <p>材料代用审核：{{dataModel.matlsubs}}</p>
 </ng-template>
 
 <ng-template #pyAndCheContent>
-  <p>复验申请审核：0</p>
-  <p>复验委托审核：0</p>
-  <p>产品试板申请审核：0</p>
-  <p>产品试板委托审核：0</p>
-</ng-template>
-
-<ng-template #designContent>
-  <p>设计参数审核审核：0</p>
+  <p>复验申请审核：{{dataModel.matlreincom}}</p>
+  <p>复验委托审核：{{dataModel.matlrein}}</p>
+  <p>产品试板申请审核：{{dataModel.testbordcom}}</p>
+  <p>产品试板委托审核：{{dataModel.testboard}}</p>
 </ng-template>
 
 <ng-template #inspectContent>
-  <p>真空参数审核：0</p>
-  <p>产品制造参数审核：0</p>
+  <p>真空参数审核：{{dataModel.vacuum}}</p>
+  <p>产品制造参数审核：{{dataModel.productmanu}}</p>
+</ng-template>
+
+<ng-template #designContent>
+  <p>设计参数审核：{{dataModel.design}}</p>
+  <p>设备计量台账审核：{{dataModel.measinstru}}</p>
 </ng-template>
 

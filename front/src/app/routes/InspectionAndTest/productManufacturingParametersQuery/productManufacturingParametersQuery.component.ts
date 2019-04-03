@@ -71,7 +71,7 @@ export class ProductManufacturingParametersQueryComponent implements OnInit {
       if(res['result']=='success'){
         this.dataSet = res['data'];
         for(let data of this.dataSet){
-          data.expand = true;
+          data.expand = false;
         }
         this.loading = false;
       }else{

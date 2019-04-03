@@ -70,6 +70,20 @@ public class searchpreandleaknew {                                     //新试�
                     rs1.close();
                     ps1.close();
 
+                    ps1 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+                    ps1.setString(1,dwgno);
+                    ps1.setString(2,data.getName());
+                    rs1 = ps1.executeQuery();
+                    if(rs1.next()){
+                        if(rs1.getString("leaktest").equals("气密性试验") || rs1.getString("leaktest").equals("气密性试验和氦检漏试验")){
+                            data.setLeakagestatus(1);
+                        }else {
+                            data.setLeakagestatus(0);
+                        }
+                    }
+                    rs1.close();
+                    ps1.close();
+
                     ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1 = ?");
                     ps.setString(1,sp.getProdno());
                     ps.setInt(2,rs3.getInt("id"));
@@ -81,19 +95,7 @@ public class searchpreandleaknew {                                     //新试�
                             data.setEtestmedia(rs.getString("etestmedia"));
                             data.setClcontent(rs.getString("clcontent"));
 
-                            ps1 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
-                            ps1.setString(1,rs.getString("dwgno"));
-                            ps1.setString(2,data.getName());
-                            rs1 = ps1.executeQuery();
-                            if(rs1.next()){
-                                if(rs1.getString("leaktest").equals("气密性试验") || rs1.getString("leaktest").equals("气密性试验和氦检漏试验")){
-                                    data.setLeakagestatus(1);
-                                }else {
-                                    data.setLeakagestatus(0);
-                                }
-                            }
-                            rs1.close();
-                            ps1.close();
+
 
                             if(rs.getString("dated1") != null && !rs.getString("dated1").equals("")){
                                 dated1 = new searchpreandleaknewdated();
