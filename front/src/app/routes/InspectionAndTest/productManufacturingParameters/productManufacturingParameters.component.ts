@@ -408,6 +408,7 @@ export class ProductManufacturingParametersComponent implements OnInit {
     if(this.validateForm2.value.prodno!=null && this.validateForm2.value.prodno!=""){
       this.productManufacturingParametersService.getdwgno1and2(this.validateForm2.value.prodno).subscribe(res=>{
         if(res['result']=="success"){
+          this.dwgnos = [];
           if(res['data']['dwgno1'])
             this.dwgnos.push(res['data']['dwgno1']);
           if(res['data']['dwgno2'])

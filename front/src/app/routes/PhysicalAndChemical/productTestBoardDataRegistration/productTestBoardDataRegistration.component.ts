@@ -53,18 +53,6 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
   }
 
 
-  getMatlstand(){
-    if(this.validateForm.value.specimenmatl!=null){
-      this.matlstands = [];
-      this.validateForm.controls['parentmatltand'].reset();
-      this.productTestBoardDataRegistrationService.getmatlstandbydesignation(this.validateForm.value.specimenmatl).subscribe(res=>{
-        if(res['result']=="success"){
-          this.matlstands = res['matlstand'];
-        }
-      })
-    }
-  }
-
   ngOnInit(): void {
     this.productTestBoardDataRegistrationService.getspecimenno().subscribe((res)=>{
       if(res['result'] == "success"){
@@ -98,27 +86,27 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       parentmatltand:[null, [Validators.required]],
       judgestand:[null, [Validators.required]],
       testdate:[null, [Validators.required]],
-      a:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
-      b:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
-      so:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
-      f02:[null, [Validators.required]],
-      f1:[null, [Validators.required]],
-      f02mpa:[null, [Validators.required,Validators.pattern("^\\d+$")]],
-      f1mpa:[null, [Validators.required,Validators.pattern("^\\d+$")]],
-      fm:[null, [Validators.required,Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
-      rm:[null, [Validators.required,Validators.pattern("^\\d+$")]],
-      lo:[null, [Validators.required,Validators.pattern("^\\d+$")]],
-      lu:[null, [Validators.required,Validators.pattern("^\\d+$")]],
-      apercent:[null, [Validators.required]],
-      fractposit:["焊缝", [Validators.required]],
-      hardness1:[null, [Validators.required]],
-      hardness2:[null, [Validators.required]],
-      hardness3:[null, [Validators.required]],
-      bendangle:[180, [Validators.required]],
-      bendaxdia:[null, [Validators.required]],
-      bendatype:[null, [Validators.required]],
-      surfacebending1:["合格", [Validators.required]],
-      backbending1:["合格", [Validators.required]],
+      a:[null, [Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      b:[null, [Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      so:[null, [Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      f02:[null],
+      f1:[null],
+      f02mpa:[null, [Validators.pattern("^\\d+$")]],
+      f1mpa:[null, [Validators.pattern("^\\d+$")]],
+      fm:[null, [Validators.pattern(/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/)]],
+      rm:[null, [Validators.pattern("^\\d+$")]],
+      lo:[null, [Validators.pattern("^\\d+$")]],
+      lu:[null, [Validators.pattern("^\\d+$")]],
+      apercent:[null],
+      fractposit:["焊缝"],
+      hardness1:[null],
+      hardness2:[null],
+      hardness3:[null],
+      bendangle:[180],
+      bendaxdia:[null],
+      bendatype:[null],
+      surfacebending1:["合格"],
+      backbending1:["合格"],
       surfacebending2:[null],
       backbending2:[null],
       w1:[null],
@@ -165,13 +153,22 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       this.validateForm.controls['so'].setValue("请检查输入是否有误!");
   }
   formatterA = (value: number) => value?`${value} a`:null;
-  parserA = (value: string) => value.replace(' a', '')
+  parserA = (value: string) => value.replace(' a', '');
+
   setProdno(){
     this.prodnos = [];
     for(let item of this.specimennoandprodnos){
       if(item.specimennno == this.validateForm.value.specimenno && this.prodnos.indexOf(item.prodno==-1))
         this.prodnos.push(item.prodno);
     }
+    if(this.validateForm.value.specimenno && this.validateForm.value.prodno)
+      this.productTestBoardDataRegistrationService.searchprotestboardcom(this.validateForm.value.prodno).subscribe(res=>{
+        if(res['result'] == "success"){
+          let data = res['data'].filter(item=>item.specimenno == this.validateForm.value.specimenno)[0];
+          this.validateForm.controls['specimenmatl'].setValue(data.designation);
+          this.validateForm.controls['specimenspec'].setValue(data.spec);
+        }
+      })
   }
 
   setSpecimenno(){
@@ -180,6 +177,14 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       if(item.prodno == this.validateForm.value.prodno && this.specimennos.indexOf(item.specimennno==-1))
         this.specimennos.push(item.specimennno);
     }
+    if(this.validateForm.value.specimenno && this.validateForm.value.prodno)
+      this.productTestBoardDataRegistrationService.searchprotestboardcom(this.validateForm.value.prodno).subscribe(res=>{
+        if(res['result'] == "success"){
+          let data = res['data'].filter(item=>item.specimenno == this.validateForm.value.specimenno)[0];
+          this.validateForm.controls['specimenmatl'].setValue(data.designation);
+          this.validateForm.controls['specimenspec'].setValue(data.spec);
+        }
+      })
   }
 
   checktestno(e?: MouseEvent){

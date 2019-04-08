@@ -9,7 +9,7 @@
   <div nz-row [nzGutter]="16" nzType="flex">
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="testno">试验编号</nz-form-label>
+        <nz-form-label  nzRequired nzFor="testno">试验编号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-group nzCompact>
             <input nz-input placeholder="年月" formControlName="yearmonth" name="yearmonth" id="yearmonth"  style="width: 50%;"/>
@@ -26,7 +26,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="specimenno">试样编号</nz-form-label>
+        <nz-form-label  nzRequired nzFor="specimenno">试样编号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样编号"  formControlName="specimenno" name="specimenno" id="specimenno" (ngModelChange)="setProdno()">
             <nz-option *ngFor="let option of specimennos" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -36,7 +36,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-label  nzRequired nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="setSpecimenno()">
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -46,7 +46,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="specimentype">试样类型</nz-form-label>
+        <nz-form-label  nzRequired nzFor="specimentype">试样类型</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="试样类型" formControlName="specimentype" name="specimentype" id="specimentype"/>
         </nz-form-control>
@@ -54,9 +54,9 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="specimenmatl">试样材质</nz-form-label>
+        <nz-form-label  nzRequired nzFor="specimenmatl">试样材质</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样材质"  formControlName="specimenmatl" name="specimenmatl" id="specimenmatl" (nzOpenChange)="getMatlstand()">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样材质"  formControlName="specimenmatl" name="specimenmatl" id="specimenmatl" nzDisabled="true">
             <nz-option *ngFor="let option of matls" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -64,14 +64,9 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="specimenspec">试样规格</nz-form-label>
+        <nz-form-label  nzRequired nzFor="specimenspec">试样规格</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="试样规格" formControlName="specimenspec" name="specimenspec" id="specimenspec" [nzAutocomplete]="specauto" (input)="onSpecInput(validateForm.value.specimenspec)">
-          <nz-autocomplete nzBackfill #specauto>
-            <nz-auto-option *ngFor="let option of specs" [nzValue]="option">
-              {{option}}
-            </nz-auto-option>
-          </nz-autocomplete>
+          <input nz-input placeholder="试样规格" formControlName="specimenspec" name="specimenspec" id="specimenspec" disabled>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -105,7 +100,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="a">A(mm)</nz-form-label>
+        <nz-form-label nzFor="a">A(mm)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="输入值保留两位小数" formControlName="a" name="a" id="a" (blur)="calcSo()"/>
         </nz-form-control>
@@ -113,7 +108,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="b">B(mm)</nz-form-label>
+        <nz-form-label nzFor="b">B(mm)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="输入值保留两位小数" formControlName="b" name="b" id="b" (blur)="calcSo()"/>
         </nz-form-control>
@@ -121,7 +116,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="so">So(mm2)</nz-form-label>
+        <nz-form-label nzFor="so">So(mm2)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="So(mm2)" formControlName="so" name="so" id="so" disabled/>
         </nz-form-control>
@@ -129,7 +124,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="f02">FP0.2(KN)</nz-form-label>
+        <nz-form-label nzFor="f02">FP0.2(KN)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="输入值保留两位小数" formControlName="f02" name="f02" id="f02"/>
         </nz-form-control>
@@ -137,7 +132,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="f1">FP1.0(KN)</nz-form-label>
+        <nz-form-label nzFor="f1">FP1.0(KN)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="输入值保留两位小数" formControlName="f1" name="f1" id="f1"/>
         </nz-form-control>
@@ -145,7 +140,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="f02mpa">Rp0.2(Mpa)</nz-form-label>
+        <nz-form-label nzFor="f02mpa">Rp0.2(Mpa)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="请输入整数" formControlName="f02mpa" name="f02mpa" id="f02mpa" (blur)="calc1('f02mpa')"/>
         </nz-form-control>
@@ -153,7 +148,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="f1mpa">Rp1.0(Mpa)</nz-form-label>
+        <nz-form-label nzFor="f1mpa">Rp1.0(Mpa)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="请输入整数" formControlName="f1mpa" name="f1mpa" id="f1mpa" (blur)="calc1('f1mpa')"/>
         </nz-form-control>
@@ -161,7 +156,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="fm">Fm(KN)</nz-form-label>
+        <nz-form-label nzFor="fm">Fm(KN)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="输入值保留两位小数" formControlName="fm" name="fm" id="fm"/>
         </nz-form-control>
@@ -169,7 +164,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="rm">Rm(MPa)</nz-form-label>
+        <nz-form-label nzFor="rm">Rm(MPa)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="请输入整数" formControlName="rm" name="rm" id="rm"/>
         </nz-form-control>
@@ -177,7 +172,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="lo">Lo(mm)</nz-form-label>
+        <nz-form-label nzFor="lo">Lo(mm)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="请输入整数" formControlName="lo" name="lo" id="lo" (blur)="calcAPercent()"/>
         </nz-form-control>
@@ -185,7 +180,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="lu">Lu(mm)</nz-form-label>
+        <nz-form-label nzFor="lu">Lu(mm)</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="请输入整数" formControlName="lu" name="lu" id="lu" (blur)="calcAPercent()"/>
         </nz-form-control>
@@ -193,7 +188,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="apercent">A%</nz-form-label>
+        <nz-form-label nzFor="apercent">A%</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input placeholder="输入值保留一位小数" formControlName="apercent" name="apercent" id="apercent" (blur)="calc2('apercent')" disabled/>
         </nz-form-control>
@@ -201,7 +196,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="fractposit">断裂位置</nz-form-label>
+        <nz-form-label nzFor="fractposit">断裂位置</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="断裂位置"  formControlName="fractposit" name="fractposit" id="fractposit">
             <nz-option nzLabel="焊缝" nzValue="焊缝"></nz-option>
@@ -213,7 +208,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="hardness1">硬度1</nz-form-label>
+        <nz-form-label nzFor="hardness1">硬度1</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number style="width: 100%" nz-input placeholder="硬度1" formControlName="hardness1" name="hardness1" id="hardness1"></nz-input-number>
         </nz-form-control>
@@ -221,7 +216,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="hardness2">硬度2</nz-form-label>
+        <nz-form-label nzFor="hardness2">硬度2</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number style="width: 100%" nz-input placeholder="硬度2" formControlName="hardness2" name="hardness2" id="hardness2"></nz-input-number>
         </nz-form-control>
@@ -229,7 +224,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="hardness3">硬度3</nz-form-label>
+        <nz-form-label nzFor="hardness3">硬度3</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number style="width: 100%" nz-input placeholder="硬度3" formControlName="hardness3" name="hardness3" id="hardness3"></nz-input-number>
         </nz-form-control>
@@ -237,7 +232,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="bendangle">弯曲角度°</nz-form-label>
+        <nz-form-label nzFor="bendangle">弯曲角度°</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number style="width: 100%" nz-input placeholder="弯曲角度" formControlName="bendangle" name="bendangle" id="bendangle"></nz-input-number>
         </nz-form-control>
@@ -245,7 +240,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
+        <nz-form-label nzFor="bendaxdia">弯曲直径</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-input-number style="width: 100%" nzPlaceHolder="请输入数值" formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" nzAddOnAfter="a" [nzFormatter]="formatterA" [nzParser]="parserA"></nz-input-number>
           <nz-form-explain style="color:red">母材标准延长率下限值大于等于20%的不得大于4a</nz-form-explain>
@@ -254,7 +249,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="bendatype">弯曲类型</nz-form-label>
+        <nz-form-label nzFor="bendatype">弯曲类型</nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="弯曲类型"  formControlName="bendatype" name="bendatype" id="bendatype">
             <nz-option nzLabel="面背弯" nzValue="面背弯"></nz-option>
@@ -265,7 +260,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="surfacebending1">面弯1（侧弯1）</nz-form-label>
+        <nz-form-label nzFor="surfacebending1">面弯1（侧弯1）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input style="width: 100%" nz-input placeholder="面弯1（侧弯1）" formControlName="surfacebending1" name="surfacebending1" id="surfacebending1"/>
         </nz-form-control>
@@ -273,7 +268,7 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="backbending1">背弯1（侧弯2）</nz-form-label>
+        <nz-form-label nzFor="backbending1">背弯1（侧弯2）</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input  style="width: 100%" nz-input placeholder="背弯1（侧弯2）" formControlName="backbending1" name="backbending1" id="backbending1"/>
         </nz-form-control>
@@ -420,7 +415,7 @@
     </ng-template>
     <ng-template #testboardstandContent>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" nzFor="testboardstand" nzRequired>试板标准</nz-form-label>
+        <nz-form-label [nzSm]="6" nzFor="testboardstand">试板标准</nz-form-label>
         <nz-form-control [nzSm]="14">
           <input formControlName="testboardstand" nz-input placeholder="试板标准">
           <nz-form-explain *ngIf="testboardstandValidateForm.get('testboardstand').dirty && testboardstandValidateForm.get('testboardstand').errors">试板标准不能为空</nz-form-explain>

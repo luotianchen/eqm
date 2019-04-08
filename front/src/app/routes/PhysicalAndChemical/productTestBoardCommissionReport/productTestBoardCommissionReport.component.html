@@ -26,16 +26,6 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" nzFor="spec">材料牌号</nz-form-label>
-        <nz-form-control [nzSm]="14" nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="材料牌号"  formControlName="matl" name="designation" id="designation">
-            <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzSpan]="8">
-      <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="department">委托单位</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="委托单位"  formControlName="department" name="department" id="department">
@@ -46,7 +36,7 @@
     </div>
     <div nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" nzFor="dated">日期</nz-form-label>
+        <nz-form-label [nzSm]="6" nzFor="dated">委托日期</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
           <input nz-input formControlName="date" name="dated" placeholder="YYYY-MM-DD或MM-DD" type="text" id="dated" (blur)="formatInDate(this.validateForm.controls['date'])">
         </nz-form-control>

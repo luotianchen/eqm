@@ -80,6 +80,9 @@ import {ProductManufacturingParametersQueryComponent} from "./InspectionAndTest/
 import {ChemicalAnalysisTestReportComponent} from "./PhysicalAndChemical/chemicalAnalysisTestReport/chemicalAnalysisTestReport.component";
 import {MechanicalReportForProTestBoardComponent} from "./PhysicalAndChemical/mechanicalReportForProTestBoard/mechanicalReportForProTestBoard.component";
 import {MechanicalReportForMatlReinspectionComponent} from "./PhysicalAndChemical/mechanicalReportForMatlReinspection/mechanicalReportForMatlReinspection.component";
+import {HydraulicTestReportComponent} from "./Report/hydraulicTestReport/hydraulicTestReport.component";
+import {BarometricReportComponent} from "./Report/barometricReport/barometricReport.component";
+import {LeaktestReportComponent} from "./Report/leaktestReport/leaktestReport.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -468,6 +471,21 @@ export const routes: Routes = [
         path:'report/conQuaInfoFbSheet', component: ConQuaInfoFbSheetComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '用户质量信息反馈单'
+        }
+      },{
+        path:'report/hydraulicTestReport', component: HydraulicTestReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '液压试验报告'
+        }
+      },{
+        path:'report/barometricReport', component: BarometricReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '气压试验报告'
+        }
+      },{
+        path:'report/leaktestReport', component: LeaktestReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '泄漏性试验检验报告'
         }
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},

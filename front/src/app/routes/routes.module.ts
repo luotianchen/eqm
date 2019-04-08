@@ -81,6 +81,9 @@ import {ProductManufacturingParametersQueryModule} from "./InspectionAndTest/pro
 import {ChemicalAnalysisTestReportModule} from "./PhysicalAndChemical/chemicalAnalysisTestReport/chemicalAnalysisTestReport.module";
 import {MechanicalReportForProTestBoardModule} from "./PhysicalAndChemical/mechanicalReportForProTestBoard/mechanicalReportForProTestBoard.module";
 import {MechanicalReportForMatlReinspectionModule} from "./PhysicalAndChemical/mechanicalReportForMatlReinspection/mechanicalReportForMatlReinspection.module";
+import {HydraulicTestReportModule} from "./Report/hydraulicTestReport/hydraulicTestReport.module";
+import {BarometricReportModule} from "./Report/barometricReport/barometricReport.module";
+import {LeaktestReportModule} from "./Report/leaktestReport/leaktestReport.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -163,7 +166,10 @@ import {MechanicalReportForMatlReinspectionModule} from "./PhysicalAndChemical/m
     ProductManufacturingParametersQueryModule,
     ChemicalAnalysisTestReportModule,
     MechanicalReportForProTestBoardModule,
-    MechanicalReportForMatlReinspectionModule
+    MechanicalReportForMatlReinspectionModule,
+    HydraulicTestReportModule,
+    BarometricReportModule,
+    LeaktestReportModule
   ]
 })
 

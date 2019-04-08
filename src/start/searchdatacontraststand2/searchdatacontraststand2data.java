@@ -1,5 +1,6 @@
 package start.searchdatacontraststand2;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class searchdatacontraststand2data {
@@ -26,7 +27,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setAweldmaxangul(double aweldmaxangul) {
-        this.aweldmaxangul = aweldmaxangul;
+        BigDecimal b = new BigDecimal(aweldmaxangul);
+        this.aweldmaxangul = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getBweldmaxangul() {
@@ -34,7 +36,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setBweldmaxangul(double bweldmaxangul) {
-        this.bweldmaxangul = bweldmaxangul;
+        BigDecimal b = new BigDecimal(bweldmaxangul);
+        this.bweldmaxangul = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getAweldmaxalign() {
@@ -42,7 +45,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setAweldmaxalign(double aweldmaxalign) {
-        this.aweldmaxalign = aweldmaxalign;
+        BigDecimal b = new BigDecimal(aweldmaxalign);
+        this.aweldmaxalign = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getBweldmaxalign() {
@@ -50,7 +54,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setBweldmaxalign(double bweldmaxalign) {
-        this.bweldmaxalign = bweldmaxalign;
+        BigDecimal b = new BigDecimal(bweldmaxalign);
+        this.bweldmaxalign = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getWeldreinfs() {
@@ -58,7 +63,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setWeldreinfs(double weldreinfs) {
-        this.weldreinfs = weldreinfs;
+        BigDecimal b = new BigDecimal(weldreinfs);
+        this.weldreinfs = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getWeldreinfd() {
@@ -66,7 +72,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setWeldreinfd(double weldreinfd) {
-        this.weldreinfd = weldreinfd;
+        BigDecimal b = new BigDecimal(weldreinfd);
+        this.weldreinfd = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getProheight() {
@@ -74,7 +81,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setProheight(double proheight) {
-        this.proheight = proheight;
+        BigDecimal b = new BigDecimal(proheight);
+        this.proheight = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getInnerdia() {
@@ -82,7 +90,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setInnerdia(double innerdia) {
-        this.innerdia = innerdia;
+        BigDecimal b = new BigDecimal(innerdia);
+        this.innerdia = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getRoundness() {
@@ -90,7 +99,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setRoundness(double roundness) {
-        this.roundness = roundness;
+        BigDecimal b = new BigDecimal(roundness);
+        this.roundness = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getLength() {
@@ -98,7 +108,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setLength(double length) {
-        this.length = length;
+        BigDecimal b = new BigDecimal(length);
+        this.length = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getStraightness() {
@@ -106,7 +117,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setStraightness(double straightness) {
-        this.straightness = straightness;
+        BigDecimal b = new BigDecimal(straightness);
+        this.straightness = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getOutward() {
@@ -114,7 +126,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setOutward(double outward) {
-        this.outward = outward;
+        BigDecimal b = new BigDecimal(outward);
+        this.outward = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public double getConcave() {
@@ -122,7 +135,8 @@ public class searchdatacontraststand2data {
     }
 
     public void setConcave(double concave) {
-        this.concave = concave;
+        BigDecimal b = new BigDecimal(concave);
+        this.concave = b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public ArrayList<String> getShthick() {

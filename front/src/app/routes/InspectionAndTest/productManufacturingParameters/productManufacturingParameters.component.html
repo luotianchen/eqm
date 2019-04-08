@@ -267,13 +267,13 @@
   <ng-container *ngFor="let item of dataStand.outward;let i = index">
     <div nz-col [nzSpan]="4" *ngIf="this.validateForm.value.dwgno!=null && dataStand.outward.length>0">
       <p>封头形状偏差外凸{{i+1}}</p>
-      <nz-input-number [(ngModel)]="dataDetail.outward[i]" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'0~'+item" style="width:100%;"></nz-input-number>
+      <input nz-input [(ngModel)]="dataDetail.outward[i]" placeholder="{{'0~'+item}}"/>
     </div>
   </ng-container>
   <ng-container *ngFor="let item of dataStand.concave;let i = index">
     <div nz-col [nzSpan]="4" *ngIf="this.validateForm.value.dwgno!=null && dataStand.concave.length>0">
       <p>封头形状偏差内凹{{i+1}}</p>
-      <nz-input-number [(ngModel)]="dataDetail.concave[i]" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'0~'+item" style="width:100%;"></nz-input-number>
+      <input nz-input [(ngModel)]="dataDetail.concave[i]" placeholder="{{'0~'+item}}"/>
     </div>
   </ng-container>
   <ng-container *ngFor="let item of dataStand.weldreinfs;let i = index">

@@ -13,15 +13,15 @@ export class DesignQueryService {
     return this.http.get(this.api.BASEURL+"/getdwgnoaudited");
   }
   getbydwgno(dwgno,status){
-    return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno,status:status})
+    return this.http.post(this.api.BASEURL+'/searchproparlist',{dwgno:dwgno,status:1})
   }
   getsaferel(dwgno,status){
-    return this.http.post(this.api.BASEURL+'/searchsafedisdevice',{dwgno:dwgno,status:status})
+    return this.http.post(this.api.BASEURL+'/searchsafedisdevice',{dwgno:dwgno,status:1})
   }
   getchannel(dwgno,status){
-    return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno,status:status})
+    return this.http.post(this.api.BASEURL+'/searchchanneldata',{dwgno:dwgno,status:1})
   }
   audit(dwgno,status,audit_user){
-    return this.http.post(this.api.BASEURL+"/putproparlistaudit",{dwgno:dwgno,audit:status,audit_user:audit_user});
+    return this.http.post(this.api.BASEURL+"/putproparlistaudit",{dwgno:dwgno,audit:1,audit_user:audit_user});
   }
 }

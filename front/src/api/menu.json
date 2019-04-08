@@ -374,6 +374,21 @@
               "icon": "profile",
               "name": "用户质量信息反馈单",
               "route": "/report/conQuaInfoFbSheet"
+            },
+            {
+              "icon": "profile",
+              "name": "液压试验报告",
+              "route": "/report/hydraulicTestReport"
+            },
+            {
+              "icon": "profile",
+              "name": "气压试验报告",
+              "route": "/report/barometricReport"
+            },
+            {
+              "icon": "profile",
+              "name": "泄漏性试验检验报告",
+              "route": "/report/leaktestReport"
             }
           ]
         }

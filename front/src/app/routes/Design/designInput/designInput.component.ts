@@ -43,6 +43,9 @@ export class DesignInputComponent implements OnInit {
   ];
   supptypes = [
     {
+      label: "/", value: {name: "/", ename: "/"}
+    },
+    {
       label: "裙座", value: {name: "裙座", ename: "Shirt Shell"}
     },
     {
@@ -230,9 +233,9 @@ export class DesignInputComponent implements OnInit {
       minorstand: [null, [Validators.required]],//产品标准2（次要）
       deservicelife: [null, [Validators.required]],//设计使用年限
       weight: [null, [Validators.required]],//设备重量
-      chweight: [null, [Validators.required]],//充装重量
+      chweight: [null],//充装重量
       installtype: [null, [Validators.required]],//安装型式
-      supptype: [null, [Validators.required]],//支座型式
+      supptype: [this.supptypes[0].value, [Validators.required]],//支座型式
       insultype: [{name:"/",ename:"/"}, [Validators.required]],//保温绝热方式
       ndetype: [null, [Validators.required]],//无损检验方法
       nderatio: [null, [Validators.required]],//无损检测比例
@@ -436,9 +439,9 @@ export class DesignInputComponent implements OnInit {
         wpress:null,
         wtemp:null,
         testpress:null,
-        leaktest:null,
+        leaktest:this.leaktests[5],
         leaktestp:null,
-        pttype:null
+        pttype:this.pttypes[3].value
       });
     }
   }

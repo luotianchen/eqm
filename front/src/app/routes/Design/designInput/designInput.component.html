@@ -136,11 +136,11 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="chweight">
+        <nz-form-label nzFor="chweight">
           充装重量
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-input-number formControlName="chweight" [nzMin]="0" name="chweight" id="chweight" [nzStep]="1" [nzPlaceHolder]="'充装重量'" style="width:100%;"></nz-input-number>
+          <input nz-input formControlName="chweight" name="chweight" id="chweight" placeholder="充装重量" />
           <nz-form-explain *ngIf="this.validateForm.get('chweight').dirty && this.validateForm.get('chweight').errors">
             充装重量不能为空！
           </nz-form-explain>

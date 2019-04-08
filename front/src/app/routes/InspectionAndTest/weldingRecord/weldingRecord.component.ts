@@ -36,6 +36,9 @@ export class WeldingRecordComponent implements OnInit {
   }
 
   searchData(): void {
+    this.editCache = {};
+    this.dataSet = [];
+    this.updateEditCache();
     if(this.validateForm.value.prodno!=null && this.validateForm.value.prodno!=""){
       this.weldingRecordService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
@@ -52,7 +55,6 @@ export class WeldingRecordComponent implements OnInit {
             this.dataSet = res['data'];
             for(let data of this.dataSet)
               data.key = this.i++;
-            console.log(this.dataSet)
             this.updateEditCache();
           }
         }
@@ -85,11 +87,11 @@ export class WeldingRecordComponent implements OnInit {
     }
     if(this.editCache[key].data.welddate && this.editCache[key].data.entrustdate){
       let welddate = this.editCache[key].data.welddate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
-      if(welddate[0] > entrustdate[0]){
+      if(entrustdate[0] < welddate[0]){
         this.editCache[key].data['entrustdate'] = null;
-      }else if(welddate[1] > entrustdate[1]){
+      }else if(entrustdate[1] < welddate[1]){
         this.editCache[key].data['entrustdate'] = null;
-      }else if(welddate[2] > entrustdate[2]){
+      }else if(entrustdate[2] < welddate[2]){
         this.editCache[key].data['entrustdate'] = null;
       }
     }
@@ -112,8 +114,7 @@ export class WeldingRecordComponent implements OnInit {
             nzTitle: '提交成功',
             nzContent: '焊接记录提交成功！'
           });
-          this.validateForm.reset();
-          this.updateEditCache();
+          this.searchData();
         }
       })
     }
@@ -160,6 +161,7 @@ export class WeldingRecordComponent implements OnInit {
 
   cancelEdit(key: string): void {
     this.editCache[ key ].edit = false;
+    this.updateEditCache();
   }
 
   saveEdit(key: string): void {
@@ -167,6 +169,7 @@ export class WeldingRecordComponent implements OnInit {
     Object.assign(this.dataSet[ index ], this.editCache[ key ].data);
     this.dataSet[ index ] = this.editCache[ key ].data;
     this.editCache[ key ].edit = false;
+    this.updateEditCache();
   }
 
   updateEditCache(): void {

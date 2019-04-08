@@ -59,7 +59,7 @@ export class ProductTestBoardCommissionComponent implements OnInit {
         "backbending":[1,[Validators.required]],
         "lateralbending":[null,[Validators.required]],
         "flattening":["/",[Validators.required]],
-        "shocktemperature":[null,[Validators.required]],
+        "shocktemperature":['/',[Validators.required]],
         "weldzoneshocknum":["/",[Validators.required]],
         "thermalimpactzonenum":["/",[Validators.required]],
     });

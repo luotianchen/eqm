@@ -34,6 +34,9 @@ public class getmepretestreport {                                               
         ResultSet rs=null;
 
         int i = 0;
+        int surfacebending=0;
+        int backbending=0;
+        int lateralbending=0;
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
@@ -145,7 +148,19 @@ public class getmepretestreport {                                               
             putsheet(sheet,4,7,rs.getString("designation"));
             putsheet(sheet,4,10,rs.getString("spec"));
             putsheet(sheet,4,14,rs.getString("drawingnumber"));
-            putsheet(sheet,4,16,String.valueOf(rs.getInt("surfacebending")+rs.getInt("backbending")+rs.getInt("lateralbending")));
+
+            if(!rs.getString("surfacebending").equals("/")){
+                surfacebending=rs.getInt("surfacebending");
+            }
+            if(!rs.getString("backbending").equals("/")){
+                backbending=rs.getInt("backbending");
+            }
+            if(!rs.getString("lateralbending").equals("/")){
+                lateralbending=rs.getInt("lateralbending");
+            }
+
+
+            putsheet(sheet,4,16,String.valueOf(surfacebending+backbending+lateralbending));
             putsheet(sheet,4,17,rs.getString("weldzoneshocknum"));
             putsheet(sheet,4,18,rs.getString("thermalimpactzonenum"));
 

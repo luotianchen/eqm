@@ -32,8 +32,9 @@ public class getspecimenno {                                        //获取试�
             rs = ps.executeQuery();
             while (rs.next()){
                 data = new getspecimennodata();
-                ps1 = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ?");
+                ps1 = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ? AND specimenno = ?");
                 ps1.setString(1,rs.getString("prodno"));
+                ps1.setString(2,rs.getString("specimenno"));
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
                     rs1.close();

@@ -36,17 +36,15 @@ export class DesignQueryComponent implements OnInit {
         this.loading = false;
         let dwgnos = res['data'];
         this.dataSet2 = [];
-        let index = 0;
-        for(let item of dwgnos){
-          let data = {dwgno:item};
+        for(let dwgno of dwgnos){
+          let data = {dwgno:dwgno};
           this.dataSet2.push(data);
           let that = this;
-          this.designQueryService.getbydwgno(item,1).subscribe((res)=>{
+          this.designQueryService.getbydwgno(dwgno,1).subscribe((res)=>{
             if(res['result'] == "success"){
               for(let i in res['data']){
-                that.dataSet2[index][i] = res['data'][i];
+                that.dataSet2.filter(item=>item.dwgno == dwgno)[0][i] = res['data'][i];
               }
-              index++;
             }
           });
         }
@@ -74,20 +72,17 @@ export class DesignQueryComponent implements OnInit {
   }
   searchtype = [];
   searchname = '';
-  filter(searchtype: string[]): void {
+  filter2(searchtype: string[]): void {
     this.searchtype = searchtype;
     this.search();
   }
 
   search(): void {
-    /** filter data **/
-    const filterFunc = item => {
-      return (this.searchtype.length ? this.searchtype.some (type => item.type.indexOf(type) !== -1) : true) &&
-      (item.deconame.indexOf(this.searchname) !== -1);
-    }
-    const data = this.dataSet2.filter(item => filterFunc(item));
+    let typemap = {};
+    for(let i of this.searchtype) typemap[i] = true;
+    const data = this.dataSet2.filter((item)=>(item.deconame.indexOf(this.searchname) !== -1) && (this.searchtype.length ? typemap[item.type]:true));
     /** sort data **/
-    this.dataSet2Display = data.reverse();
+    this.dataSet2Display = data.filter(item=>!this.validateForm.value.dwgno || item.dwgno == this.validateForm.value.dwgno);
   }
   reset(): void {
     this.searchname = '';

@@ -19,9 +19,6 @@ export class ProductTestBoardCommissionReportService {
   getDepartments(){
     return this.http.get(this.api.BASEURL+"/getdepartment");
   }
-  searchbyprodno(prodno){
-    return this.http.post(this.api.BASEURL+"/searchbyprodno",{prodno:prodno});
-  }
   getReport(formData){
     return this.http.post(this.api.BASEURL+"/getphychereport" , formData, { responseType: 'arraybuffer' });
   }

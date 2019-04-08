@@ -145,11 +145,12 @@ public class getquaplanport {                                               //�
             putsheet(sheet,22,7,rs.getString("stand"));
             putsheet(sheet,23,7,rs.getString("stand")+";"+searchstand(prodno));
             putsheet(sheet,24,7,rs.getString("stand")+";"+searchstand(prodno));
+            putsheet(sheet,25,7,rs.getString("stand")+";"+searchstand(prodno));
 
             ps1 = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 12");
             rs1 = ps1.executeQuery();
             if(rs1.next()){
-                putsheet(sheet,25,7,rs.getString("stand") + "" + rs1.getString("stand"));
+                putsheet(sheet,26,7,rs.getString("stand") + "" + rs1.getString("stand"));
             }
             rs1.close();
             ps1.close();
@@ -161,14 +162,7 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 11");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,26,7,rs.getString("stand"));
-            ps1 = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 12");
-            rs1 = ps1.executeQuery();
-            if(rs1.next()){
-                putsheet(sheet,27,7,rs.getString("stand") + "" + rs1.getString("stand"));
-            }
-            rs1.close();
-            ps1.close();
+            putsheet(sheet,27,7,rs.getString("stand"));
             ps1 = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 12");
             rs1 = ps1.executeQuery();
             if(rs1.next()){
@@ -176,6 +170,13 @@ public class getquaplanport {                                               //�
             }
             rs1.close();
             ps1.close();
+            ps1 = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 12");
+            rs1 = ps1.executeQuery();
+            if(rs1.next()){
+                putsheet(sheet,29,7,rs.getString("stand") + "" + rs1.getString("stand"));
+            }
+            rs1.close();
+            ps1.close();
         }
         rs.close();
         ps.close();
@@ -183,10 +184,10 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 9");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,29,7,rs.getString("stand")+";"+searchstand(prodno));
             putsheet(sheet,30,7,rs.getString("stand")+";"+searchstand(prodno));
             putsheet(sheet,31,7,rs.getString("stand")+";"+searchstand(prodno));
             putsheet(sheet,32,7,rs.getString("stand")+";"+searchstand(prodno));
+            putsheet(sheet,33,7,rs.getString("stand")+";"+searchstand(prodno));
         }
         rs.close();
         ps.close();
@@ -194,10 +195,10 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 11");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,33,7,rs.getString("stand")+";设计文件");
             putsheet(sheet,34,7,rs.getString("stand")+";设计文件");
             putsheet(sheet,35,7,rs.getString("stand")+";设计文件");
             putsheet(sheet,36,7,rs.getString("stand")+";设计文件");
+            putsheet(sheet,37,7,rs.getString("stand")+";设计文件");
         }
         rs.close();
         ps.close();
@@ -205,11 +206,11 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 13");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,37,7,rs.getString("stand"));
             putsheet(sheet,38,7,rs.getString("stand"));
             putsheet(sheet,39,7,rs.getString("stand"));
             putsheet(sheet,40,7,rs.getString("stand"));
             putsheet(sheet,41,7,rs.getString("stand"));
+            putsheet(sheet,42,7,rs.getString("stand"));
         }
         rs.close();
         ps.close();
@@ -217,8 +218,8 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 9");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,42,7,rs.getString("stand")+";"+searchstand(prodno));
             putsheet(sheet,43,7,rs.getString("stand")+";"+searchstand(prodno));
+            putsheet(sheet,44,7,rs.getString("stand")+";"+searchstand(prodno));
         }
         rs.close();
         ps.close();
@@ -226,7 +227,7 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 11");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,44,7,rs.getString("stand")+";设计文件");
+            putsheet(sheet,45,7,rs.getString("stand")+";设计文件");
         }
         rs.close();
         ps.close();
@@ -234,37 +235,38 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 9");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,45,7,rs.getString("stand")+";"+searchstand(prodno));
             putsheet(sheet,46,7,rs.getString("stand")+";"+searchstand(prodno));
+            putsheet(sheet,47,7,rs.getString("stand")+";"+searchstand(prodno));
         }
         rs.close();
         ps.close();
 
-        if((searchmainstand(prodno)+";")==null || (searchmainstand(prodno)+";").equals("")){
-            putsheet(sheet,47,7,searchmainstand(prodno)+";设计图样");
+        if(!((searchmainstand(prodno))==null || (searchmainstand(prodno)).equals(""))){
             putsheet(sheet,48,7,searchmainstand(prodno)+";设计图样");
             putsheet(sheet,49,7,searchmainstand(prodno)+";设计图样");
             putsheet(sheet,50,7,searchmainstand(prodno)+";设计图样");
+            putsheet(sheet,51,7,searchmainstand(prodno)+";设计图样");
         }
 
 
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 9");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,51,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,52,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,53,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,54,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,55,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,56,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
+            putsheet(sheet,57,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
         }
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 5");
+        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
+        ps.setString(1,dwgno);
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,57,7,rs.getString("stand") + ";设计图样");
+            putsheet(sheet,58,7,rs.getString("minorstand") + ";设计图样");
         }
         rs.close();
         ps.close();
@@ -272,10 +274,10 @@ public class getquaplanport {                                               //�
         ps = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 9");
         rs = ps.executeQuery();
         if(rs.next()){
-            putsheet(sheet,58,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,59,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,60,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
             putsheet(sheet,61,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
+            putsheet(sheet,62,7,rs.getString("stand")+";"+searchstand(prodno) + ";设计图样");
         }
         rs.close();
         ps.close();
@@ -310,8 +312,10 @@ public class getquaplanport {                                               //�
             }
 
             if(rs.getString("specmatl").equals("有")){
+                putsheet(sheet,22,11,"R/E");        //15
                 putsheet(sheet,24,11,"R/E");        //17
             }else {
+                putsheet(sheet,24,11,"/");        //17
                 putsheet(sheet,24,11,"/");        //17
             }
 
@@ -354,6 +358,20 @@ public class getquaplanport {                                               //�
             ps.setString(1,rs1.getString("dwgno"));
             rs = ps.executeQuery();
             if(rs.next()){
+                ps2 = conn.prepareStatement("SELECT * FROM email WHERE id = 1");
+                rs2 = ps2.executeQuery();
+                if(rs2.next()){
+                    if(rs.getString("deconame").replaceAll("\\d","").equals(rs2.getString("deconame"))){
+                        putsheet(sheet,9,11,"/");        //2
+                    }else {
+                        putsheet(sheet,9,11,"R");        //2
+                    }
+                }
+                rs2.close();
+                ps2.close();
+
+
+
                 if(rs.getString("testplatesitu").equals("有")){
                     putsheet(sheet,34,11,"E");        //27
                     putsheet(sheet,35,11,"H");        //28
@@ -377,9 +395,13 @@ public class getquaplanport {                                               //�
                 }
 
                 if(rs.getString("httype").equals("--")){
+                    putsheet(sheet,15,11,"/");        //8
+                    putsheet(sheet,16,11,"/");        //9
                     putsheet(sheet,46,11,"/");        //39
                     putsheet(sheet,47,11,"/");        //40
                 }else {
+                    putsheet(sheet,15,11,"/");        //8
+                    putsheet(sheet,16,11,"/");        //9
                     putsheet(sheet,46,11,"R");        //39
                     putsheet(sheet,47,11,"R");        //40
                 }
@@ -407,6 +429,23 @@ public class getquaplanport {                                               //�
         }
         rs1.close();
         ps1.close();
+
+        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status=1");
+        rs = ps.executeQuery();
+        while (rs.next()){
+            if(!rs.getString("leaktest").equals("/")){
+                putsheet(sheet,55,11,"E");
+                putsheet(sheet,56,11,"E");
+                putsheet(sheet,57,11,"R");
+                break;
+            }else {
+                putsheet(sheet,55,11,"/");
+                putsheet(sheet,56,11,"/");
+                putsheet(sheet,56,11,"/");
+            }
+        }
+        rs.close();
+        ps.close();
 
 
         ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status=1");

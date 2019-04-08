@@ -34,7 +34,6 @@ export class ProductTestBoardCommissionReportComponent implements OnInit {
       "prodno":[null, [Validators.required]],
       "specimenno":[null, [Validators.required]],
       "date":[null, [Validators.required]],
-      "matl":[null, [Validators.required]],
       "department":[null, [Validators.required]]
     });
   }
@@ -58,14 +57,6 @@ export class ProductTestBoardCommissionReportComponent implements OnInit {
         }
       }
     })
-    this.productTestBoardCommissionReportService.searchbyprodno(this.validateForm.value.prodno).subscribe(res=>{
-      if(res['result'] == "success"){
-        for(let item of res['data'])
-          if(this.designations.indexOf(item.designation)==-1){
-            this.designations.push(item.designation)
-          }
-      }
-    })
   }
   public loading = false;
   status = false;
@@ -81,7 +72,6 @@ export class ProductTestBoardCommissionReportComponent implements OnInit {
       formData.append('prodno', this.validateForm.value.prodno);
       formData.append('specimenno', this.validateForm.value.specimenno);
       formData.append('date', this.validateForm.value.date);
-      formData.append('matl', this.validateForm.value.matl);
       formData.append('department', this.validateForm.value.department);
       this.productTestBoardCommissionReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
         let blob = new Blob([res]);

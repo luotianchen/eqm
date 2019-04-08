@@ -1,19 +1,19 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared.module';
-import {PressTestReportComponent} from "./pressTestReport.component";
+import {BarometricReportComponent} from "./barometricReport.component";
 
 @NgModule({
   declarations: [
-    PressTestReportComponent
+    BarometricReportComponent
   ],
   imports: [
     SharedModule.forRoot()
   ],
   exports: [
-    PressTestReportComponent
+    BarometricReportComponent
   ]
 })
 
-export class pressTestReportModule {
+export class BarometricReportModule {
 
 }
