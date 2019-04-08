@@ -80,7 +80,7 @@ public class searchsubstitutestatus {                                           
                 rs1.close();
                 ps1.close();
 
-                if(sp.getStatus_b()==0 && sp.getStatus_c()==0){
+                if(b_f==0 && c_f==0){
                     data.setAudit(rs.getString("audit"));
                     data.setDate(sdf.format(rs.getDate("date")));
                     data.setProdno(rs.getString("prodno"));
@@ -88,8 +88,8 @@ public class searchsubstitutestatus {                                           
                     data.setWhy(rs.getString("why"));
                     as.add(data);
                 }else {
-                    if(sp.getStatus_b()==1 && sp.getStatus_c()==1){
-                        if(b_f==1 || c_f == 1){
+                    if(b_f==1 && c_f==1){
+                        if(sp.getStatus_b()==1 || sp.getStatus_c() == 1){
                             data.setAudit(rs.getString("audit"));
                             data.setDate(sdf.format(rs.getDate("date")));
                             data.setProdno(rs.getString("prodno"));
@@ -98,8 +98,8 @@ public class searchsubstitutestatus {                                           
                             as.add(data);
                         }
                     }else {
-                        if(sp.getStatus_b()==1){
-                            if(b_f==1){
+                        if(b_f==1){
+                            if(sp.getStatus_b()==1){
                                 data.setAudit(rs.getString("audit"));
                                 data.setDate(sdf.format(rs.getDate("date")));
                                 data.setProdno(rs.getString("prodno"));
@@ -108,8 +108,8 @@ public class searchsubstitutestatus {                                           
                                 as.add(data);
                             }
                         }
-                        if(sp.getStatus_c()==1){
-                            if(c_f==1){
+                        if(c_f==1){
+                            if(sp.getStatus_c()==1){
                                 data.setAudit(rs.getString("audit"));
                                 data.setDate(sdf.format(rs.getDate("date")));
                                 data.setProdno(rs.getString("prodno"));
