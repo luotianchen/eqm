@@ -470,20 +470,20 @@ public class getquaplanport {                                               //�
 
 
 
-        FileInputStream fileXlsx1 = new FileInputStream(url1);                              //隐藏行
-        XSSFWorkbook workBook1 = new XSSFWorkbook(fileXlsx1);
-        fileXlsx1.close();
-        Sheet sheet1=workBook1.getSheetAt(0);
-        List<List<String>> result1 = readXlsx(workBook1);
-        for (int i = 0;i<64;i++){
-            if(result1.get(i).get(11).equals("/")){
-                Row row = sheet1.getRow(i+1);
-                row.setZeroHeight(true);
-            }
-        }
-        OutputStream out1 = new FileOutputStream(url1);
-        workBook1.write(out1);
-        out1.close();
+//        FileInputStream fileXlsx1 = new FileInputStream(url1);                              //隐藏行
+//        XSSFWorkbook workBook1 = new XSSFWorkbook(fileXlsx1);
+//        fileXlsx1.close();
+//        Sheet sheet1=workBook1.getSheetAt(0);
+//        List<List<String>> result1 = readXlsx(workBook1);
+//        for (int i = 0;i<64;i++){
+//            if(result1.get(i).get(11).equals("/")){
+//                Row row = sheet1.getRow(i+1);
+//                row.setZeroHeight(true);
+//            }
+//        }
+//        OutputStream out1 = new FileOutputStream(url1);
+//        workBook1.write(out1);
+//        out1.close();
 
 
 

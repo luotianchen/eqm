@@ -216,8 +216,7 @@ public class getpredatasheetreport {                            //压力容器�
                 if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
                     mat.add(rs.getString("shmatl3"));
                 }
-                t_mat = getmat(mat);
-                f_mat = t_mat;
+
 
                 if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
                     thi.add(rs.getString("shthick1"));
@@ -228,8 +227,6 @@ public class getpredatasheetreport {                            //压力容器�
                 if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
                     thi.add(rs.getString("shthick3"));
                 }
-                k_thi = getmat(thi);
-                f_thi = k_thi;
 
             }else {
                 if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
@@ -241,7 +238,6 @@ public class getpredatasheetreport {                            //压力容器�
                 if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
                     jiatao.add(rs.getString("shmatl3"));
                 }
-                j_mat = getmat(jiatao);
 
 
                 if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
@@ -329,14 +325,22 @@ public class getpredatasheetreport {                            //压力容器�
             i++;
         }
         i=0;
+        t_mat = getmat(mat);
+        f_mat = t_mat;
+        k_thi = getmat(thi);
+        f_thi = k_thi;
+        j_mat = getmat(jiatao);
+        j_thi = getmat(jiatao_thi);
+
         g_depress = getmat(guanc_depress);
         g_detemp = getmat(guanc_detemp);
         g_maxwpress = getmat(guanc_maxwpress);
         g_wmedia = getmat(guanc_wmedia);
-        k_depress = getmat(guanc_depress);
-        k_detemp = getmat(guanc_detemp);
-        k_maxwpress = getmat(guanc_maxwpress);
-        k_wmedia = getmat(guanc_wmedia);
+        k_depress = getmat(kc_depress);
+        System.out.println(kc_depress.size());
+        k_detemp = getmat(kc_detemp);
+        k_maxwpress = getmat(kc_maxwpress);
+        k_wmedia = getmat(kc_wmedia);
         rs.close();
         ps.close();
 
@@ -470,10 +474,14 @@ public class getpredatasheetreport {                            //压力容器�
                 }
             }
         }
-        String a = as.get(0);
-        for(int i=1;i<as.size();i++){
-            a = a+"/"+as.get(i);
+        String a = null;
+        if(!as.isEmpty()){
+            a = as.get(0);
+            for(int i=1;i<as.size();i++){
+                a = a+"/"+as.get(i);
+            }
         }
+
         return a;
     }
 
