@@ -26,7 +26,7 @@ import static start.excel.excel.putsheet;
 @CrossOrigin
 public class getphychereport {                                          //理化试验委托单报表
     @RequestMapping(value = "getphychereport")
-    public @ResponseBody ResponseEntity<byte[]> getphychereport(String prodno , String specimenno, String date, String matl, String department, HttpServletRequest request) throws Exception {
+    public @ResponseBody ResponseEntity<byte[]> getphychereport(String prodno , String specimenno, String date, String department, HttpServletRequest request) throws Exception {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -60,6 +60,7 @@ public class getphychereport {                                          //理化
         String weldzoneshocknum = null;                         //焊缝区冲击数量
         String thermalimpactzonenum = null;                     //热影响区冲击数量
         String gaptype = null;                                  //缺口型式*
+        String matl=null;
 
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
@@ -89,6 +90,7 @@ public class getphychereport {                                          //理化
         if(rs.next()){
             judgestand = rs.getString("judgestand");
             gaptype = rs.getString("gaptype");
+            matl = rs.getString("specimenmatl");
         }
         rs.close();
         ps.close();

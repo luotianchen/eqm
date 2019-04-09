@@ -39,19 +39,20 @@ public class searchprematl {                                //受压元件使用
         int millunit_id = 0;
         int heatcondi_id = 0;
         String codedmarking = null;
+        String dwgno = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM promanparlist where prodno = ?");
+            ps = conn.prepareStatement("SELECT * FROM prenotiform where prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             if(rs.next()){
-                dwgno_id = rs.getInt("proparlist_id_dwgno");
+                dwgno = rs.getString("dwgno");
             }
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE id = ?");
-            ps.setInt(1,dwgno_id);
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit=1");
+            ps.setString(1,dwgno);
             rs = ps.executeQuery();
             if(rs.next()){
                 prodname_id = rs.getInt("productname_id_prodname");
@@ -69,7 +70,7 @@ public class searchprematl {                                //受压元件使用
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ?");
+            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             if(rs.next()){
@@ -81,7 +82,7 @@ public class searchprematl {                                //受压元件使用
             ps.close();
 
 
-            ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ?");
+            ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status=1");
             ps.setString(1,codedmarking);
             rs = ps.executeQuery();
             if(rs.next()){
@@ -90,7 +91,7 @@ public class searchprematl {                                //受压元件使用
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ?");
+            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status=1");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             while (rs.next()){

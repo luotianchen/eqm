@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import start.jdbc.jdbc;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 @Controller
 @CrossOrigin
@@ -21,25 +22,38 @@ public class getwatertest {                                         //水质检�
         ResultSet rs = null;
 
         getwatertestresult result = new getwatertestresult();
+        ArrayList<getwatertestdata> as = new ArrayList<getwatertestdata>();
+        getwatertestdata data = null;
+
+        int i=0;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM watertest WHERE testdate = (SELECT max(testdate) FROM watertest)");
+            ps = conn.prepareStatement("SELECT * FROM watertest ORDER BY testdate DESC ;");
             rs = ps.executeQuery();
-            if(rs.next()){
-                result.setUnit(rs.getString("unit"));
-                result.setIndate(rs.getString("indate"));
-                result.setQty(rs.getInt("qty"));
-                result.setName(rs.getString("name"));
-                result.setTestno(rs.getString("testno"));
-                result.setRoomno(rs.getString("roomno"));
-                result.setTestcont(rs.getString("testcont"));
-                result.setTestrst(rs.getString("testrst"));
-                result.setStand(rs.getString("stand"));
-                result.setTestdate(rs.getString("testdate"));
-                result.setDate(rs.getString("date"));
-                result.setUser(rs.getString("user"));
-                result.setResult("success");
+            while (rs.next()){
+                data = new getwatertestdata();
+                data.setUnit(rs.getString("unit"));
+                data.setIndate(rs.getString("indate"));
+                data.setQty(rs.getInt("qty"));
+                data.setName(rs.getString("name"));
+                data.setTestno(rs.getString("testno"));
+                data.setRoomno(rs.getString("roomno"));
+                data.setTestcont(rs.getString("testcont"));
+                data.setTestrst(rs.getString("testrst"));
+                data.setStand(rs.getString("stand"));
+                data.setTestdate(rs.getString("testdate"));
+                data.setDate(rs.getString("date"));
+                data.setUser(rs.getString("user"));
+                as.add(data);
+                i++;
+                if(i==4){
+                    break;
+                }
             }
+            rs.close();
+            ps.close();
+            result.setResult("success");
+            result.setData(as);
         }catch (Exception e){
             result.setResult("fail");
         }
