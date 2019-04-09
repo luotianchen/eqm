@@ -37,11 +37,16 @@ public class searchpre {
         rs.close();
         ps.close();
 
+        System.out.println(prodno);
+        System.out.println(ppart_id);
+
         ps1 = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1 = ?");
         ps1.setString(1,prodno);
         ps1.setInt(2,ppart_id);
         rs1 = ps1.executeQuery();
+        System.out.println(2);
         if(rs1.next()){
+            System.out.println(1);
             if(rs1.getString("dated1") != null && !rs1.getString("dated1").equals("")){
                 data = new searchpredata();
                 data.setProdno(prodno);
@@ -51,7 +56,7 @@ public class searchpre {
                 data.setDated(rs1.getString("dated1"));
                 data.setTestmedia(rs1.getString("testmedia"));
                 data.setEtestmedia(rs1.getString("etestmedia"));
-                data.setClcontent(rs.getString("clcontent"));
+                data.setClcontent(rs1.getString("clcontent"));
 
                 ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart =? AND datetype = ?");
                 ps.setString(1,prodno);
@@ -111,7 +116,7 @@ public class searchpre {
                     data.setDated(rs1.getString("dated2"));
                     data.setTestmedia(rs1.getString("testmedia"));
                     data.setEtestmedia(rs1.getString("etestmedia"));
-                    data.setClcontent(rs.getString("clcontent"));
+                    data.setClcontent(rs1.getString("clcontent"));
 
                     ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart =? AND datetype = ?");
                     ps.setString(1,prodno);
@@ -170,7 +175,7 @@ public class searchpre {
                         data.setDated(rs1.getString("dated3"));
                         data.setTestmedia(rs1.getString("testmedia"));
                         data.setEtestmedia(rs1.getString("etestmedia"));
-                        data.setClcontent(rs.getString("clcontent"));
+                        data.setClcontent(rs1.getString("clcontent"));
 
                         ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart =? AND datetype = ?");
                         ps.setString(1,prodno);
