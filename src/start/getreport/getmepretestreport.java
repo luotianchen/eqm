@@ -73,9 +73,9 @@ public class getmepretestreport {                                               
             putsheet(sheet,2,17,rs.getString("testno").substring(0,4)+"-m"+rs.getString("testno").substring(4));//****-c**
 
             if(rs.getInt("hardness1")==0 && rs.getInt("hardness2")==0 && rs.getInt("hardness3")==0){
-                putsheet(sheet,4,20,"/");
+                putsheet(sheet,5,20,"/");
             }else {
-                putsheet(sheet,4,20,"1");
+                putsheet(sheet,5,20,"1");
             }
 
             putsheet(sheet,8,0,specimenno);
@@ -133,7 +133,7 @@ public class getmepretestreport {                                               
             putsheet(sheet,10,20,rs.getString("hardness3"));
 
             calendar.setTime(rs.getDate("testdate"));
-            putsheet(sheet,10,20,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,21,17,simpleDateFormat1.format(calendar.getTime()));
 
         }
         rs.close();
@@ -147,7 +147,7 @@ public class getmepretestreport {                                               
             putsheet(sheet,4,1,rs.getString("specimenname"));
             putsheet(sheet,4,7,rs.getString("designation"));
             putsheet(sheet,4,10,rs.getString("spec"));
-            putsheet(sheet,4,14,rs.getString("drawingnumber"));
+            putsheet(sheet,5,14,rs.getString("drawingnumber"));
 
             if(!rs.getString("surfacebending").equals("/")){
                 surfacebending=rs.getInt("surfacebending");
@@ -160,9 +160,9 @@ public class getmepretestreport {                                               
             }
 
 
-            putsheet(sheet,4,16,String.valueOf(surfacebending+backbending+lateralbending));
-            putsheet(sheet,4,17,rs.getString("weldzoneshocknum"));
-            putsheet(sheet,4,18,rs.getString("thermalimpactzonenum"));
+            putsheet(sheet,5,16,String.valueOf(surfacebending+backbending+lateralbending));
+            putsheet(sheet,5,17,rs.getString("weldzoneshocknum"));
+            putsheet(sheet,5,18,rs.getString("thermalimpactzonenum"));
 
             i++;
         }

@@ -15,20 +15,7 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
   validateForm: FormGroup;
   units = [];
   prostands = [];
-  latestData = {
-    unit:"",
-    indate: "",
-    qty: "",
-    name: "",
-    testno: "",
-    roomno: "",
-    testcont: "",
-    testrst: "",
-    stand: "",
-    testdate: "",
-    date: "",
-    user: ""
-  };
+  latestData = [];
   ngOnInit(): void {
     this.waterQualityDetectionInputService.getDepartments().then((res)=>{
       if(res['result'] == "success"){
@@ -43,7 +30,11 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
     });
     this.waterQualityDetectionInputService.getWaterQuality().subscribe((res:any)=>{
       if(res['result'] == "success"){
-        this.latestData = res;
+        this.latestData = res['data'];
+        for(let item of this.latestData){
+          let dated = new Date(item.testdate)
+          item.testdate = dated.getFullYear()+'年'+(dated.getMonth()+1)+"月"+dated.getDate()+"日";
+        }
       }
     })
     this.validateForm = this.fb.group({
@@ -87,6 +78,15 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
             nzContent: '您已提交成功！'
           });
           this.validateForm.reset();
+          this.waterQualityDetectionInputService.getWaterQuality().subscribe((res:any)=>{
+            if(res['result'] == "success"){
+              this.latestData = res['data'];
+              for(let item of this.latestData){
+                let dated = new Date(item.testdate)
+                item.testdate = dated.getFullYear()+'年'+(dated.getMonth()+1)+"月"+dated.getDate()+"日";
+              }
+            }
+          })
         }
       })
     }

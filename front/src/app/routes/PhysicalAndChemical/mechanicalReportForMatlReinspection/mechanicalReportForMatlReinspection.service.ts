@@ -17,6 +17,6 @@ export class MechanicalReportForMatlReinspectionService {
     return this.http.get(this.api.BASEURL+"/getdepartment");
   }
   getReport(formData){
-    return this.http.post(this.api.BASEURL+"/getmepretestreport" , formData, { responseType: 'arraybuffer' });
+    return this.http.post(this.api.BASEURL+"/getmepretestreportre" , formData, { responseType: 'arraybuffer' });
   }
 }

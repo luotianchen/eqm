@@ -431,6 +431,7 @@ public class getquaplanport {                                               //åŽ
         ps1.close();
 
         ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status=1");
+        ps.setString(1,dwgno);
         rs = ps.executeQuery();
         while (rs.next()){
             if(!rs.getString("leaktest").equals("/")){

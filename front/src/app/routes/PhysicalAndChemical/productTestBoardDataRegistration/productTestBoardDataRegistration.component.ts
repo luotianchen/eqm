@@ -327,4 +327,15 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       })
     }
   }
+  getMatlstand(){
+    if(this.validateForm.value.specimenmatl!=null){
+      this.matlstands = [];
+      this.validateForm.controls['parentmatltand'].reset();
+      this.productTestBoardDataRegistrationService.getmatlstandbydesignation(this.validateForm.value.specimenmatl).subscribe(res=>{
+        if(res['result']=="success"){
+          this.matlstands = res['matlstand'];
+        }
+      })
+    }
+  }
 }

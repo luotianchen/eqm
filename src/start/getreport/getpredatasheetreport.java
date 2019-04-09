@@ -16,6 +16,7 @@ import start.jdbc.jdbc;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 
 import static start.excel.excel.putsheet;
 
@@ -29,6 +30,22 @@ public class getpredatasheetreport {                            //压力容器�
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+
+        ArrayList<String> mat = new ArrayList<String>();                        //不为夹套的材料
+        ArrayList<String> jiatao = new ArrayList<String>();                     //夹套材料
+        ArrayList<String> thi = new ArrayList<String>();                        //不为夹套的厚度
+        ArrayList<String> jiatao_thi = new ArrayList<String>();                     //夹套厚度
+
+        ArrayList<String> guanc_depress = new ArrayList<String>();
+        ArrayList<String> guanc_detemp = new ArrayList<String>();
+        ArrayList<String> guanc_maxwpress = new ArrayList<String>();
+        ArrayList<String> guanc_wmedia = new ArrayList<String>();
+
+        ArrayList<String> kc_depress = new ArrayList<String>();
+        ArrayList<String> kc_detemp = new ArrayList<String>();
+        ArrayList<String> kc_maxwpress = new ArrayList<String>();
+        ArrayList<String> kc_wmedia = new ArrayList<String>();
+
 
         String prodname = null;
         int prodname_id = 0;
@@ -127,7 +144,7 @@ public class getpredatasheetreport {                            //压力容器�
             if(!(rs.getString("mainstand") == null || rs.getString("mainstand").equals(""))){
                 stand = stand + "、" + rs.getString("mainstand");
             }
-            if(!(rs.getString("minorstand") == null || rs.getString("minorstand").equals(""))){
+            if(!(rs.getString("minorstand") == null || rs.getString("minorstand").equals("")) && !rs.getString("mainstand").equals(rs.getString("minorstand"))){
                 stand = stand + "、" + rs.getString("minorstand");
             }
             deservicelife = rs.getString("deservicelife");
@@ -164,6 +181,9 @@ public class getpredatasheetreport {                            //压力容器�
         rs= ps.executeQuery();
         while (rs.next()){
 
+
+
+
             if(i==0){
                 volume = rs.getString("volume");
                 innerdia = rs.getString("innerdia");
@@ -186,53 +206,120 @@ public class getpredatasheetreport {                            //压力容器�
 
             }
 
-            t_mat = rs.getString("shmatl1");
-            if(rs.getString("shmatl2")!= null && rs.getString("shmatl2").equals("")){
-                t_mat = t_mat + "/" + rs.getString("shmatl2");
-            }
-            if(rs.getString("shmatl3")!= null && rs.getString("shmatl3").equals("")){
-                t_mat = t_mat + "/" + rs.getString("shmatl3");
-            }
-            if(i==0){
-                c_mat = rs.getString("liningmatl");
-            }
-            if(i==1){
-                j_mat = rs.getString("liningmatl");
-            }
-            if(i==2){
-                f_mat = rs.getString("liningmatl");
+            if(!rs.getString("name").equals("夹套")){
+                if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
+                    mat.add(rs.getString("shmatl1"));
+                }
+                if(rs.getString("shmatl2")!=null && !rs.getString("shmatl2").equals("")){
+                    mat.add(rs.getString("shmatl2"));
+                }
+                if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
+                    mat.add(rs.getString("shmatl3"));
+                }
+                t_mat = getmat(mat);
+                f_mat = t_mat;
+
+                if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
+                    thi.add(rs.getString("shthick1"));
+                }
+                if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("")){
+                    thi.add(rs.getString("shthick2"));
+                }
+                if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
+                    thi.add(rs.getString("shthick3"));
+                }
+                k_thi = getmat(thi);
+                f_thi = k_thi;
+
+            }else {
+                if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
+                    jiatao.add(rs.getString("shmatl1"));
+                }
+                if(rs.getString("shmatl2")!=null && !rs.getString("shmatl2").equals("")){
+                    jiatao.add(rs.getString("shmatl2"));
+                }
+                if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
+                    jiatao.add(rs.getString("shmatl3"));
+                }
+                j_mat = getmat(jiatao);
+
+
+                if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
+                    jiatao_thi.add(rs.getString("shthick1"));
+                }
+                if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("")){
+                    jiatao_thi.add(rs.getString("shthick2"));
+                }
+                if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
+                    jiatao_thi.add(rs.getString("shthick3"));
+                }
+                j_thi = getmat(jiatao_thi);
             }
 
-            k_thi = rs.getString("shthick1");
-            if(rs.getString("shthick2")!= null && rs.getString("shthick2").equals("")){
-                k_thi = k_thi + "/" + rs.getString("shthick2");
-            }
-            if(rs.getString("shthick3")!= null && rs.getString("shthick3").equals("")){
-                k_thi = k_thi + "/" + rs.getString("shthick3");
-            }
-            if(i==0){
+            if(rs.getInt("index")==1){
+                c_mat = rs.getString("liningmatl");
                 c_thi = rs.getString("liningthick");
             }
-            if(i==1){
-                j_thi = rs.getString("liningthick");
-            }
-            if(i==2){
-                f_thi = rs.getString("liningthick");
+
+//            t_mat = rs.getString("shmatl1");
+//            if(rs.getString("shmatl2")!= null && !rs.getString("shmatl2").equals("")){
+//                t_mat = t_mat + "/" + rs.getString("shmatl2");
+//            }
+//            if(rs.getString("shmatl3")!= null && !rs.getString("shmatl3").equals("")){
+//                t_mat = t_mat + "/" + rs.getString("shmatl3");
+//            }
+//            if(i==0){
+//                c_mat = rs.getString("liningmatl");
+//            }
+//            if(i==1){
+//                j_mat = rs.getString("liningmatl");
+//            }
+//            if(i==2){
+//                f_mat = rs.getString("liningmatl");
+//            }
+//
+//            k_thi = rs.getString("shthick1");
+//            if(rs.getString("shthick2")!= null && !rs.getString("shthick2").equals("")){
+//                k_thi = k_thi + "/" + rs.getString("shthick2");
+//            }
+//            if(rs.getString("shthick3")!= null && !rs.getString("shthick3").equals("")){
+//                k_thi = k_thi + "/" + rs.getString("shthick3");
+//            }
+//            if(i==0){
+//                c_thi = rs.getString("liningthick");
+//            }
+//            if(i==1){
+//                j_thi = rs.getString("liningthick");
+//            }
+//            if(i==2){
+//                f_thi = rs.getString("liningthick");
+//            }
+//
+//            if(rs.getString("name").equals("壳程")){
+//                k_depress = rs.getString("depress");
+//                k_detemp = rs.getString("detemp");
+//                k_maxwpress = rs.getString("maxwpress");
+//                k_wmedia = rs.getString("wmedia");
+//            }
+
+
+            if(rs.getString("name").contains("管程")){
+                guanc_depress.add(rs.getString("depress"));
+                guanc_detemp.add(rs.getString("detemp"));
+                guanc_maxwpress.add(rs.getString("maxwpress"));
+                guanc_wmedia.add(rs.getString("wmedia"));
             }
 
-            if(rs.getString("name").equals("壳程")){
-                k_depress = rs.getString("depress");
-                k_detemp = rs.getString("detemp");
-                k_maxwpress = rs.getString("maxwpress");
-                k_wmedia = rs.getString("wmedia");
+            if(!rs.getString("name").contains("管程") && !rs.getString("name").equals("夹套")){
+                kc_depress.add(rs.getString("depress"));
+                kc_detemp.add(rs.getString("detemp"));
+                kc_maxwpress.add(rs.getString("maxwpress"));
+                kc_wmedia.add(rs.getString("wmedia"));
             }
-            if(rs.getString("name").equals("管程")){
-                g_depress = rs.getString("depress");
-                g_detemp = rs.getString("detemp");
-                g_maxwpress = rs.getString("maxwpress");
-                g_wmedia = rs.getString("wmedia");
-            }
+
+
             if(rs.getString("name").equals("夹套")){
+
                 j_depress = rs.getString("depress");
                 j_detemp = rs.getString("detemp");
                 j_maxwpress = rs.getString("maxwpress");
@@ -242,11 +329,27 @@ public class getpredatasheetreport {                            //压力容器�
             i++;
         }
         i=0;
+        g_depress = getmat(guanc_depress);
+        g_detemp = getmat(guanc_detemp);
+        g_maxwpress = getmat(guanc_maxwpress);
+        g_wmedia = getmat(guanc_wmedia);
+        k_depress = getmat(guanc_depress);
+        k_detemp = getmat(guanc_detemp);
+        k_maxwpress = getmat(guanc_maxwpress);
+        k_wmedia = getmat(guanc_wmedia);
         rs.close();
         ps.close();
 
         ps = conn.prepareStatement("SELECT * FROM supervisionunit WHERE id = 1");
         rs = ps.executeQuery();
+        if(rs.next()){
+            zj_name = rs.getString("name");                  //监督检验机构
+            zj_ename = rs.getString("ename");                 //ename
+            zj_uniformcode = rs.getString("uniformcode");           //统一社会信用代码
+            zj_manuno = rs.getString("manuno");                //机构核准证编号
+        }
+        rs.close();
+        ps.close();
 
 
         ps = conn.prepareStatement("SELECT * FROM productname WHERE id = ?");
@@ -357,6 +460,21 @@ public class getpredatasheetreport {                            //压力容器�
         file.delete();
         filepdf.delete();
         return download;
+    }
+
+    public String getmat(ArrayList<String> as){
+        for(int i=0;i<as.size();i++){
+            for (int j=0;j<as.size();j++){
+                if(i!=j && as.get(i)==as.get(j)){
+                    as.remove(as.get(j));
+                }
+            }
+        }
+        String a = as.get(0);
+        for(int i=1;i<as.size();i++){
+            a = a+"/"+as.get(i);
+        }
+        return a;
     }
 
     public void getme(String x , ResultSet rs) throws SQLException {

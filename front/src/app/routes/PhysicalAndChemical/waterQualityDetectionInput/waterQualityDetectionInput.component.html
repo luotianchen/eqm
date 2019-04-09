@@ -94,7 +94,7 @@
   </div>
 </form>
 <nz-divider></nz-divider>
-<nz-table nzTemplateMode>
+<nz-table #basicTable [nzData]="latestData">
   <thead>
   <tr>
     <th>委托单位</th>
@@ -110,17 +110,17 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>{{latestData.unit}}</td>
-    <td>{{latestData.indate}}</td>
-    <td>{{latestData.qty}}</td>
-    <td>{{latestData.name}}</td>
-    <td>{{latestData.testno}}</td>
-    <td>{{latestData.roomno}}</td>
-    <td>{{latestData.testcont}}</td>
-    <td>{{latestData.testrst}}</td>
-    <td>{{latestData.stand}}</td>
-    <td>{{latestData.testdate}}</td>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.unit}}</td>
+    <td>{{data.indate}}</td>
+    <td>{{data.qty}}</td>
+    <td>{{data.name}}</td>
+    <td>{{data.testno}}</td>
+    <td>{{data.roomno}}</td>
+    <td>{{data.testcont}}</td>
+    <td>{{data.testrst}}</td>
+    <td>{{data.stand}}</td>
+    <td>{{data.testdate}}</td>
   </tr>
   </tbody>
 </nz-table>

@@ -36,6 +36,7 @@ public class getcheanareport {                                              //�
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
         SimpleDateFormat simpleDateFormat1 = null;
+        SimpleDateFormat simpleDateFormat2 = null;
 
         ArrayList<String> material = null;
         String num=null;
@@ -80,10 +81,11 @@ public class getcheanareport {                                              //�
                 num=rs.getString("times");
             }
             simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+            simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
             calendar.setTime(rs.getDate("indate"));
             putsheet(sheet,3,42,simpleDateFormat1.format(calendar.getTime())+"-c"+num);
             putsheet(sheet,7,7,simpleDateFormat1.format(calendar.getTime())+"-c"+num);
-            putsheet(sheet,7,7,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,38,44,simpleDateFormat2.format(calendar.getTime()));
             num_p=rs.getInt("times");
 
 

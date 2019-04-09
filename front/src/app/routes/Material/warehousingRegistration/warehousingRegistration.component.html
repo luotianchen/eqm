@@ -823,7 +823,7 @@
           <nz-form-control nzHasFeedback>
             <nz-select nzMode="default" formControlName="heatcondi" name="heatcondi" nzPlaceHolder="热处理状态" id="heatcondi" nzShowSearch nzAllowClear>
               <nz-option *ngFor="let option of dataDetail['heatcondi'].split('、')" [nzLabel]="option" [nzValue]="option"></nz-option>
-              <nz-option nzLabel="/" nzValue="option"></nz-option>
+              <nz-option nzLabel="/" nzValue="/"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm.get('heatcondi').dirty && validateForm.get('heatcondi').errors">
               热处理状态不能为空！

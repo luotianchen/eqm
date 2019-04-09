@@ -1014,7 +1014,7 @@
             最高工作压力(Mpa)
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input formControlName="maxwpress"name="maxwpress" id="maxwpress" placeholder="最高工作压力"/>
+            <input nz-input formControlName="maxwpress"name="maxwpress" id="maxwpress" placeholder="最高工作压力"/>
             <nz-form-explain *ngIf="validateForm2.get('maxwpress').dirty && validateForm2.get('maxwpress').errors">
               最高工作压力不能为空！
             </nz-form-explain>
@@ -1079,7 +1079,7 @@
             试压类别
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear (ngModelChange)="changelpttypestats(this.validateForm2)">
+            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear (ngModelChange)="changepttypestats(this.validateForm2)">
               <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('pttype').dirty && validateForm2.get('pttype').errors">

@@ -758,7 +758,6 @@ export class DesignInputComponent implements OnInit {
         });
       }
     }
-    console.log(channelData);
     if(this.validateForm.value.saferel=="有"){//如果有安全泄放装置
       this.designInputService.saveSaferel({dwgno:this.validateForm.value.dwgno,data:this.saferelDataSet}).subscribe((res)=>{
         if(res["result"]=="success"){

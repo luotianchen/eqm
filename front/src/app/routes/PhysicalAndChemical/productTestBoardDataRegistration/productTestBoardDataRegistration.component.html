@@ -56,7 +56,7 @@
       <nz-form-item>
         <nz-form-label  nzRequired nzFor="specimenmatl">试样材质</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样材质"  formControlName="specimenmatl" name="specimenmatl" id="specimenmatl" nzDisabled="true">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="试样材质"  formControlName="specimenmatl" name="specimenmatl" id="specimenmatl" nzDisabled="true" (ngModelChange)="getMatlstand()">
             <nz-option *ngFor="let option of matls" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>

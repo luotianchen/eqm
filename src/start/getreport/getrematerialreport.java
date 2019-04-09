@@ -36,6 +36,7 @@ public class getrematerialreport {                                      //材料
         int matlname_id=0;                              //产品名称
         int supplier_id=0;                              //供货单位
         int designation_id=0;                              //牌号
+        int stand_id=0;                                 //标准
 
 
         String realPath = request.getSession().getServletContext().getRealPath("");
@@ -66,6 +67,7 @@ public class getrematerialreport {                                      //材料
             matlname_id = rs.getInt("matlname_id_matlname");
             supplier_id = rs.getInt("supplier_id_supplier");
             designation_id = rs.getInt("contraststand_id_designation");
+            stand_id = rs.getInt("contraststand_id_matlstand");
             putsheet(sheet,4,12,rs.getString("heattreatcondition_id_heatcondi"));
             putsheet(sheet,5,2,rs.getString("spec"));
             putsheet(sheet,7,0,rs.getString("heatbatchno"));
@@ -98,6 +100,15 @@ public class getrematerialreport {                                      //材料
         rs = ps.executeQuery();
         if(rs.next()){
             putsheet(sheet,4,2,rs.getString("designation"));
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
+        ps.setInt(1,stand_id);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            putsheet(sheet,5,10,rs.getString("matlstand"));
         }
         rs.close();
         ps.close();
