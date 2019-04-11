@@ -26,7 +26,7 @@ import static start.excel.excel.putsheet;
 
 @CrossOrigin
 @Controller
-public class getleaktestreport {
+public class getleaktestreport {                                                //泄漏性试验检验报告报表
     @RequestMapping(value = "getleaktestreport")
     public @ResponseBody
     ResponseEntity<byte[]> getleaktestreport(String prodno, String name, HttpServletRequest request) throws IOException, ParseException, SQLException, ClassNotFoundException {
@@ -96,10 +96,8 @@ public class getleaktestreport {
             putsheet(sheet,12+i*46,1,data.get(i).getClcontent());
             putsheet(sheet,12+i*46,5,data.get(i).getCircutemp());
             putsheet(sheet,12+i*46,11,data.get(i).getMediatemp());
-//            putsheet(sheet,16+i*46,5,data.get(i).getTestpress());
-//            putsheet(sheet,17+i*46,5,data.get(i).getTestpress());
-//            putsheet(sheet,28+i*46,5,data.get(i).getTestpress());
-//            putsheet(sheet,29+i*46,5,data.get(i).getTestpress());
+            putsheet(sheet,15+i*46,4,data.get(i).getTestpress());
+            putsheet(sheet,28+i*46,4,data.get(i).getTestpress());
             putsheet(sheet,38+i*46,6,data.get(i).getDewelltime());
         }
 
