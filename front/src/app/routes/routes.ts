@@ -83,6 +83,7 @@ import {MechanicalReportForMatlReinspectionComponent} from "./PhysicalAndChemica
 import {HydraulicTestReportComponent} from "./Report/hydraulicTestReport/hydraulicTestReport.component";
 import {BarometricReportComponent} from "./Report/barometricReport/barometricReport.component";
 import {LeaktestReportComponent} from "./Report/leaktestReport/leaktestReport.component";
+import {ProdManuChangeReportComponent} from "./Report/prodManuChangeReport/prodManuChangeReport.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -486,6 +487,11 @@ export const routes: Routes = [
         path:'report/leaktestReport', component: LeaktestReportComponent, canActivate: [CanAuthProvide],
         data: {
           breadcrumb: '泄漏性试验检验报告'
+        }
+      },{
+        path:'report/prodManuChangeReport', component: ProdManuChangeReportComponent, canActivate: [CanAuthProvide],
+        data: {
+          breadcrumb: '产品制造变更报告'
         }
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},

@@ -25,6 +25,6 @@ export class MeasuringInstrumentLedgerService {
     return this.http.post(this.api.BASEURL+"/putpregaumeatable",data);
   }
   getInfo(gaugeno){
-    return this.http.post(this.api.BASEURL+"/searchpregaubystatus",{gaugeno:gaugeno,audit:-1});
+    return this.http.post(this.api.BASEURL+"/searchpregaubystatus",{gaugeno:gaugeno,status:1});
   }
 }

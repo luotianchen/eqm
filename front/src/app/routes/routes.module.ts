@@ -84,6 +84,7 @@ import {MechanicalReportForMatlReinspectionModule} from "./PhysicalAndChemical/m
 import {HydraulicTestReportModule} from "./Report/hydraulicTestReport/hydraulicTestReport.module";
 import {BarometricReportModule} from "./Report/barometricReport/barometricReport.module";
 import {LeaktestReportModule} from "./Report/leaktestReport/leaktestReport.module";
+import {ProdManuChangeReportModule} from "./Report/prodManuChangeReport/prodManuChangeReport.module";
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
@@ -169,7 +170,8 @@ import {LeaktestReportModule} from "./Report/leaktestReport/leaktestReport.modul
     MechanicalReportForMatlReinspectionModule,
     HydraulicTestReportModule,
     BarometricReportModule,
-    LeaktestReportModule
+    LeaktestReportModule,
+    ProdManuChangeReportModule
   ]
 })
 

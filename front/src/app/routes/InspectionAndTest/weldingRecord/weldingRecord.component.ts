@@ -140,23 +140,30 @@ export class WeldingRecordComponent implements OnInit {
   deleteRow(i: string): void {
     const dataSet = this.dataSet.filter(d => d.key !== i);
     this.dataSet = dataSet;
-    this.updateEditCache();
+    this.updateEditCache();3
   }
   copyRow(i: string): void {
-    let row:any = {};
+    this.i++;
     let dataSet = this.dataSet.filter(item=>item.key ==i)[0];
-    for(let key in dataSet){
-      if(key == "key") row[key] = this.i++;
-      else row[key] = dataSet[key];
-    }
-    this.dataSet = [...this.dataSet,row];
-    console.log(this.dataSet);
+    this.dataSet = [ ...this.dataSet, {
+      "key"    : `${this.i}`,
+      "weldno":`${dataSet.weldno}`,
+      "weldevano":`${dataSet.weldevano}`,
+      "weldmethod":`${dataSet.weldmethod}`,
+      "usernote":`${dataSet.usernote}`,
+      "welddate":`${dataSet.welddate}`,
+      "inspector":`${dataSet.inspector}`,
+      "entrustdate":`${dataSet.entrustdate}`,
+      "ndtdate":`${dataSet.ndtdate}`,
+    } ];
     this.updateEditCache();
+    this.editCache[ `${this.i}` ].edit = true;
   }
   editCache = {};
 
   startEdit(key: string): void {
     this.editCache[ key ].edit = true;
+    this.updateEditCache();
   }
 
   cancelEdit(key: string): void {
@@ -167,7 +174,7 @@ export class WeldingRecordComponent implements OnInit {
   saveEdit(key: string): void {
     const index = this.dataSet.findIndex(item => item.key === key);
     Object.assign(this.dataSet[ index ], this.editCache[ key ].data);
-    this.dataSet[ index ] = this.editCache[ key ].data;
+    // this.dataSet[ index ] = this.editCache[ key ].data;
     this.editCache[ key ].edit = false;
     this.updateEditCache();
   }

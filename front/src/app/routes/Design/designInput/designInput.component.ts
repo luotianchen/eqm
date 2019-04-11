@@ -274,7 +274,7 @@ export class DesignInputComponent implements OnInit {
       detemp:[null, [Validators.required]],
       wpress:[null, [Validators.required]],
       wtemp:[null, [Validators.required]],
-      testpress:[null, [Validators.required]],
+      testpress:[null],
       leaktest:[this.leaktests[5], [Validators.required]],
       leaktestp:[null],
       pttype:[this.pttypes[3].value, [Validators.required]],
@@ -297,7 +297,7 @@ export class DesignInputComponent implements OnInit {
       detemp:[null, [Validators.required]],
       wpress:[null, [Validators.required]],
       wtemp:[null, [Validators.required]],
-      testpress:[null, [Validators.required]],
+      testpress:[null],
       leaktest:[this.leaktests[5], [Validators.required]],
       leaktestp:[null],
       pttype:[this.pttypes[3].value, [Validators.required]],
@@ -1014,7 +1014,7 @@ export class DesignInputComponent implements OnInit {
       "supptype": this.validateForm.value.supptype.name,//支座型式
       "esupptype": this.validateForm.value.supptype.ename,//支座型式英文
       "insultype": this.validateForm.value.insultype.name,//保温绝热方式
-      "einsultype": this.validateForm.value.ename,//保温绝热方式英文
+      "einsultype": this.validateForm.value.insultype.ename,//保温绝热方式英文
       "ndetype": this.validateForm.value.ndetype,//无损检验方法
       "nderatio": this.validateForm.value.nderatio,//无损检测比例
       "crytank": this.validateForm.value.crytank,//低温贮槽

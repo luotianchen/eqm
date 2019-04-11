@@ -389,6 +389,11 @@
               "icon": "profile",
               "name": "泄漏性试验检验报告",
               "route": "/report/leaktestReport"
+            },
+            {
+              "icon": "profile",
+              "name": "产品制造变更报告",
+              "route": "/report/prodManuChangeReport"
             }
           ]
         }

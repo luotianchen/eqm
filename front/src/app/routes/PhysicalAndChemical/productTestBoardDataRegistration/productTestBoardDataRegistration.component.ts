@@ -167,6 +167,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
           let data = res['data'].filter(item=>item.specimenno == this.validateForm.value.specimenno)[0];
           this.validateForm.controls['specimenmatl'].setValue(data.designation);
           this.validateForm.controls['specimenspec'].setValue(data.spec);
+          this.getMatlstand();
         }
       })
   }
@@ -183,6 +184,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
           let data = res['data'].filter(item=>item.specimenno == this.validateForm.value.specimenno)[0];
           this.validateForm.controls['specimenmatl'].setValue(data.designation);
           this.validateForm.controls['specimenspec'].setValue(data.spec);
+          this.getMatlstand();
         }
       })
   }

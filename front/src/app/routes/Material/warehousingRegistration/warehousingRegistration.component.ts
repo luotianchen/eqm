@@ -222,6 +222,11 @@ export class WarehousingRegistrationComponent implements OnInit {
   };
 
   changeHardness(name){ //硬度校验
+    if(name==null){
+      this.validateForm.controls['hardness1'].setValidators([]);
+      this.validateForm.controls['hardness2'].setValidators([]);
+      this.validateForm.controls['hardness3'].setValidators([]);
+    }
     if(this.validateForm.controls[name].value==null)
       this.validateForm.controls[name].setErrors({required: true});
     else if(!/^[0-9]+(.[0-9])?[/][0-9]+(.[0-9])?[/][0-9]+(.[0-9])?$/.test(this.validateForm.controls[name].value)){
@@ -467,6 +472,7 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.validateForm.controls[item].setValidators([]);
             }
           }
+          this.changeHardness(null);
           if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
             this.validateForm.controls['heatcondi'].setValue(null);
         }else if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
@@ -545,6 +551,7 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.validateForm.controls[item].setValidators([]);
                 }
               }
+              this.changeHardness(null);
               if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
                 this.validateForm.controls['heatcondi'].setValue(null);
             }
