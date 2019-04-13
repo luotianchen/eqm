@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static start.excel.excel.putsheet;
+
 @CrossOrigin
 @Controller
 public class searchprematl {                                //受压元件使用材料一览表
@@ -70,11 +72,18 @@ public class searchprematl {                                //受压元件使用
             rs.close();
             ps.close();
 
+            ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+            ps.setString(1,sp.getProdno());
+            rs = ps.executeQuery();
+            if(rs.next()){
+                result.setIssuedate(sdf.format(rs.getDate("exworkdate")));
+            }
+            rs.close();
+
             ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             if(rs.next()){
-                result.setIssuedate(sdf.format(rs.getDate("issuedate")));
                 codedmarking = rs.getString("codedmarking");
                 result.setIssuematl(rs.getString("user"));
             }

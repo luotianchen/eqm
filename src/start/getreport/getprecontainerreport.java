@@ -39,6 +39,8 @@ public class getprecontainerreport {                                            
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
 
 
         String dwgno = null;
@@ -55,6 +57,7 @@ public class getprecontainerreport {                                            
         searchdatacontraststandresult sr = g.searchdatacontraststand(dwgno);
 
         String codedmarking = null;
+        int matlname_id = 0;
 
         String aweldmaxangul = null;                                //A类焊缝最大棱角度
         String bweldmaxangul = null;                                //B类焊缝最大棱角度
@@ -74,6 +77,9 @@ public class getprecontainerreport {                                            
         String minthick = null;                                     //封头成形最小厚度实测值
         String exworkdate1 = null;                                   //完工日期
         String exworkdate2 = null;                                   //完工日期
+
+        String outward = null;                                      //封头形状偏差外凸实测值
+        String concave = null;                                      //封头形状偏差内凹实测值
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
@@ -138,6 +144,15 @@ public class getprecontainerreport {                                            
             roundness = roundness.substring(1,roundness.length()-1);
             roundness=roundness.replaceAll(",","/");
 
+            outward = rs.getString("outward");                                    //筒体圆度实测值
+            outward = outward.substring(1,outward.length()-1);
+            outward=outward.replaceAll(",","/");
+
+            concave = rs.getString("concave");                                    //筒体圆度实测值
+            concave = concave.substring(1,concave.length()-1);
+            concave=concave.replaceAll(",","/");
+
+
             length = rs.getString("length");                                                  //筒体长度标准值实测值
             straightness = rs.getString("straightness");                                            //筒体直线度实测值
 
@@ -171,26 +186,37 @@ public class getprecontainerreport {                                            
         ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1");
         ps.setString(1,prodno);
         rs = ps.executeQuery();
-        if(rs.next()){
-            codedmarking = rs.getString("codedmarking");
+        while (rs.next()){
+            ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+            ps1.setString(1,rs.getString("codedmarking"));
+            rs1 = ps1.executeQuery();
+            if(rs1.next()){
+                matlname_id = rs1.getInt("matlname_id_matlname");
+            }
+            rs1.close();
+            ps1.close();
+
+            ps1 = conn.prepareStatement("SELECT * FROM matlname WHERE id = ?");
+            ps1.setInt(1,matlname_id);
+            rs1 = ps1.executeQuery();
+            if(rs1.next()){
+                if(rs1.getString("matlname").contains("法兰")){
+                    putsheet(sheet,45,5,"符  合\nConforming");
+                    putsheet(sheet,45,7,"合  格\nAcceptable");
+                    putsheet(sheet,47,5,"符  合\nConforming");
+                    putsheet(sheet,47,7,"合  格\nAcceptable");
+                    putsheet(sheet,49,5,"符  合\nConforming");
+                    putsheet(sheet,49,7,"合  格\nAcceptable");
+                    break;
+                }
+            }
+            rs1.close();
+            ps1.close();
+
         }
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM matlcoderules");
-        rs = ps.executeQuery();
-        if(rs.next()){
-            if(codedmarking.charAt(rs.getInt("indexx")-1) == rs.getString("flange").charAt(0)){
-                putsheet(sheet,45,5,"符  合\nConforming");
-                putsheet(sheet,45,7,"合  格\nAcceptable");
-                putsheet(sheet,47,5,"符  合\nConforming");
-                putsheet(sheet,47,7,"合  格\nAcceptable");
-                putsheet(sheet,49,5,"符  合\nConforming");
-                putsheet(sheet,49,7,"合  格\nAcceptable");
-            }
-        }
-        rs.close();
-        ps.close();
 
         ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
         ps.setString(1,dwgno);
@@ -201,6 +227,16 @@ public class getprecontainerreport {                                            
                 putsheet(sheet,55,7,"合  格\nAcceptable");
                 break;
             }
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND status = 1");
+        ps.setString(1,dwgno);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            putsheet(sheet,65,0,"结论：  本台产品外观及几何尺寸经检验符合"+rs.getString("minorstand")+"之要求，结论合格。");
+            putsheet(sheet,66,0,"Conlusion: The profile and geometric size of product has been inspected and is conforming to the requirements in "+rs.getString("minorstand")+", the result is Acceptable. ");
         }
         rs.close();
         ps.close();
@@ -226,6 +262,9 @@ public class getprecontainerreport {                                            
         putsheet(sheet,19,4,minthickstand);
         putsheet(sheet,19,5,minthick);
 
+        putsheet(sheet,21,5,outward);
+        putsheet(sheet,22,5,concave);
+
         putsheet(sheet,25,4,listtost(sr.getData().getAweldmaxangul()));
         putsheet(sheet,25,5,aweldmaxangul);
         putsheet(sheet,27,4,listtost(sr.getData().getBweldmaxangul()));
@@ -239,6 +278,7 @@ public class getprecontainerreport {                                            
         putsheet(sheet,35,5,weldreinfs);
         putsheet(sheet,37,4,listtost(sr.getData().getWeldreinfd()));
         putsheet(sheet,37,5,weldreinfd);
+
 
         putsheet(sheet,67,5,exworkdate1);
         putsheet(sheet,68,5,exworkdate2);

@@ -51,10 +51,10 @@ public class getprecertificatereport {                              //压力容�
         String s_delicense = null;              //设计许可证编号
         String designdate = null;               //设计日期*
         String designdate_x = null;               //设计日期*
-        String x_designdate = null;               //设计日期*
-        String x_designdate_x = null;               //设计日期*
         String exworkdate = null;               //制造日期*
         String exworkdate_x = null;               //制造日期*
+        String x_exworkdate = null;               //设计日期*
+        String x_exworkdate_x = null;               //设计日期*
 
 
 
@@ -115,10 +115,8 @@ public class getprecertificatereport {                              //压力容�
             prodname_id = rs.getInt("productname_id_prodname");
             type = rs.getString("type");
             calendar.setTime(rs.getDate("designdate"));
-            designdate = simpleDateFormat1.format(calendar.getTime());
-            designdate_x = simpleDateFormat2.format(calendar.getTime());
-            x_designdate = simpleDateFormat3.format(calendar.getTime());
-            x_designdate_x = simpleDateFormat4.format(calendar.getTime());
+            designdate = simpleDateFormat3.format(calendar.getTime());
+            designdate_x = simpleDateFormat4.format(calendar.getTime());
             s_deconame = rs.getString("deconame");
         }
         rs.close();
@@ -142,6 +140,8 @@ public class getprecertificatereport {                              //压力容�
             calendar.setTime(rs.getDate("exworkdate"));
             exworkdate = simpleDateFormat1.format(calendar.getTime());
             exworkdate_x = simpleDateFormat2.format(calendar.getTime());
+            x_exworkdate = simpleDateFormat1.format(calendar.getTime());
+            x_exworkdate_x = simpleDateFormat2.format(calendar.getTime());
 
         }
         rs.close();
@@ -169,7 +169,7 @@ public class getprecertificatereport {                              //压力容�
         putsheet(sheet,11,3,ecode);
         putsheet(sheet,13,1,dwgno);
         putsheet(sheet,13,3,type);
-        putsheet(sheet,15,1,s_deconame);
+        putsheet(sheet,15,1, s_deconame != null ? s_deconame.replaceAll("\\d", "") : null);
         putsheet(sheet,16,1,s_edeconame);
         putsheet(sheet,17,1,s_orgcode);
         putsheet(sheet,17,3,s_delicense);
@@ -177,12 +177,12 @@ public class getprecertificatereport {                              //压力容�
         putsheet(sheet,20,1,designdate_x);
         putsheet(sheet,19,3,exworkdate);
         putsheet(sheet,20,3,exworkdate_x);
-        putsheet(sheet,29,3,x_designdate);
-        putsheet(sheet,30,3,x_designdate_x);
-        putsheet(sheet,36,3,x_designdate);
-        putsheet(sheet,37,3,x_designdate_x);
-        putsheet(sheet,41,3,x_designdate);
-        putsheet(sheet,42,3,x_designdate_x);
+        putsheet(sheet,29,3,x_exworkdate);
+        putsheet(sheet,30,3,x_exworkdate_x);
+        putsheet(sheet,36,3,x_exworkdate);
+        putsheet(sheet,37,3,x_exworkdate_x);
+        putsheet(sheet,41,3,x_exworkdate);
+        putsheet(sheet,42,3,x_exworkdate_x);
 
 
 

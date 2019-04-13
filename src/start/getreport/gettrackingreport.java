@@ -47,10 +47,9 @@ public class gettrackingreport {                                    //焊工/材
         int designation_id = 0;
         int i = 0;
         int z = 0;
+        int p = 0;
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy.MM.dd");
-        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MMM.yyyy", Locale.US);
         SimpleDateFormat simpleDateFormat3 = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat simpleDateFormat4 = new SimpleDateFormat("MMM.dd.yyyy", Locale.US);
 
@@ -77,12 +76,16 @@ public class gettrackingreport {                                    //焊工/材
         Sheet sheet=workBook.getSheetAt(0);
 
         putsheet(sheet,5,2,prodno);
+
+        putsheet(sheet,5+41,2,prodno);
         ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
         ps.setString(1,prodno);
         rs = ps.executeQuery();
         if(rs.next()){
             dwgno = rs.getString("dwgno");
             putsheet(sheet,5,5,rs.getString("dwgno"));
+
+            putsheet(sheet,5+41,5,rs.getString("dwgno"));
         }
         rs.close();
         ps.close();
@@ -102,6 +105,9 @@ public class gettrackingreport {                                    //焊工/材
         if(rs.next()){
             putsheet(sheet,5,10,rs.getString("prodname"));
             putsheet(sheet,6,10,rs.getString("ename"));
+
+            putsheet(sheet,5+41,10,rs.getString("prodname"));
+            putsheet(sheet,6+41,10,rs.getString("ename"));
         }
         rs.close();
         ps.close();
@@ -110,36 +116,85 @@ public class gettrackingreport {                                    //焊工/材
         ps.setString(1,prodno);
         rs = ps.executeQuery();
         while (rs.next()){
-            parts_id = rs.getInt("parts_id_name");
-            ps1 = conn.prepareStatement("SELECT * FROM parts WHERE id = ?");
-            ps1.setInt(1,parts_id);
+            ps1 = conn.prepareStatement("SELECT * FROM matlcoderules ");
             rs1 = ps1.executeQuery();
             if(rs1.next()){
-                putsheet(sheet,9+i,9,rs1.getString("partsname"));
-            }
-            rs1.close();
-            ps1.close();
-
-            ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
-            ps1.setString(1,rs.getString("codedmarking"));
-            rs1 = ps1.executeQuery();
-            if(rs1.next()){
-                ps2 = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
-                ps2.setInt(1,rs1.getInt("contraststand_id_designation"));
-                rs2 = ps2.executeQuery();
-                if(rs2.next()){
-                    putsheet(sheet,9+i,10,rs2.getString("designation"));
+                if(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1) != rs1.getString("welding").charAt(0)){
+                    p=1;
                 }
-                rs2.close();
-                ps2.close();
             }
             rs1.close();
             ps1.close();
 
+            if(p==1){
+                if(i<29){
+                    parts_id = rs.getInt("parts_id_name");
+                    ps1 = conn.prepareStatement("SELECT * FROM parts WHERE id = ?");
+                    ps1.setInt(1,parts_id);
+                    rs1 = ps1.executeQuery();
+                    if(rs1.next()){
+                        putsheet(sheet,9+i,9,rs1.getString("partsname"));
+                    }
+                    rs1.close();
+                    ps1.close();
 
-            putsheet(sheet,9+i,11,rs.getString("codedmarking"));
-            putsheet(sheet,9+i,13,rs.getString("spec"));
-            i++;
+                    ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+                    ps1.setString(1,rs.getString("codedmarking"));
+                    rs1 = ps1.executeQuery();
+                    if(rs1.next()){
+                        ps2 = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
+                        ps2.setInt(1,rs1.getInt("contraststand_id_designation"));
+                        rs2 = ps2.executeQuery();
+                        if(rs2.next()){
+                            putsheet(sheet,9+i,10,rs2.getString("designation"));
+                        }
+                        rs2.close();
+                        ps2.close();
+                    }
+                    rs1.close();
+                    ps1.close();
+
+
+                    putsheet(sheet,9+i,11,rs.getString("codedmarking"));
+                    putsheet(sheet,9+i,13,rs.getString("spec"));
+                    i++;
+                    p=0;
+                }else {
+                    parts_id = rs.getInt("parts_id_name");
+                    ps1 = conn.prepareStatement("SELECT * FROM parts WHERE id = ?");
+                    ps1.setInt(1,parts_id);
+                    rs1 = ps1.executeQuery();
+                    if(rs1.next()){
+                        putsheet(sheet,9+i+41,9,rs1.getString("partsname"));
+                    }
+                    rs1.close();
+                    ps1.close();
+
+                    ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+                    ps1.setString(1,rs.getString("codedmarking"));
+                    rs1 = ps1.executeQuery();
+                    if(rs1.next()){
+                        ps2 = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
+                        ps2.setInt(1,rs1.getInt("contraststand_id_designation"));
+                        rs2 = ps2.executeQuery();
+                        if(rs2.next()){
+                            putsheet(sheet,9+i+41,10,rs2.getString("designation"));
+                        }
+                        rs2.close();
+                        ps2.close();
+                    }
+                    rs1.close();
+                    ps1.close();
+
+
+                    putsheet(sheet,9+i+41,11,rs.getString("codedmarking"));
+                    putsheet(sheet,9+i+41,13,rs.getString("spec"));
+                    i++;
+                    p=0;
+                }
+
+            }
+
         }
         rs.close();
         ps.close();
@@ -155,9 +210,35 @@ public class gettrackingreport {                                    //焊工/材
             }else if(z<14){
                 putsheet(sheet,24+z,4,rs.getString("weldno"));
                 putsheet(sheet,24+z,6,rs.getString("usernote"));
+            }else {
+                if(z<21){
+                    putsheet(sheet,31+z-14+41,4,rs.getString("weldno"));
+                    putsheet(sheet,31+z-14+41,6,rs.getString("usernote"));
+                }else {
+                    putsheet(sheet,24+z-14+41,4,rs.getString("weldno"));
+                    putsheet(sheet,24+z-14+41,6,rs.getString("usernote"));
+                }
             }
 
             z++;
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+        ps.setString(1,prodno);
+        rs= ps.executeQuery();
+        while (rs.next()){
+            calendar.setTime(rs.getDate("exworkdate"));
+            putsheet(sheet,38,5,simpleDateFormat3.format(calendar));
+            putsheet(sheet,39,5,simpleDateFormat4.format(calendar));
+            putsheet(sheet,38,12,simpleDateFormat3.format(calendar));
+            putsheet(sheet,39,12,simpleDateFormat4.format(calendar));
+
+            putsheet(sheet,38+41,5,simpleDateFormat3.format(calendar));
+            putsheet(sheet,39+41,5,simpleDateFormat4.format(calendar));
+            putsheet(sheet,38+41,12,simpleDateFormat3.format(calendar));
+            putsheet(sheet,39+41,12,simpleDateFormat4.format(calendar));
         }
         rs.close();
         ps.close();

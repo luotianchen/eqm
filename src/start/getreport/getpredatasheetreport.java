@@ -40,11 +40,13 @@ public class getpredatasheetreport {                            //压力容器�
         ArrayList<String> guanc_detemp = new ArrayList<String>();
         ArrayList<String> guanc_maxwpress = new ArrayList<String>();
         ArrayList<String> guanc_wmedia = new ArrayList<String>();
+        ArrayList<String> guanc_ewmedia = new ArrayList<String>();
 
         ArrayList<String> kc_depress = new ArrayList<String>();
         ArrayList<String> kc_detemp = new ArrayList<String>();
         ArrayList<String> kc_maxwpress = new ArrayList<String>();
         ArrayList<String> kc_wmedia = new ArrayList<String>();
+        ArrayList<String> kc_ewmedia = new ArrayList<String>();
 
 
         String prodname = null;
@@ -80,7 +82,9 @@ public class getpredatasheetreport {                            //压力容器�
         String k_wmedia = null;                //壳体工作介质
         String k_ewmedia = null;                //壳体工作介质英文
         String g_wmedia = null;                //管程工作介质
+        String g_ewmedia = null;                //管程工作介质英文
         String j_wmedia = null;                //夹套工作介质
+        String j_ewmedia = null;                //夹套工作介质英文
         String m_type = null;                   //主体结构型式*
         String m_etype = null;                  //主体结构型式英文*
         String installtype = null;              //安装型式
@@ -195,14 +199,14 @@ public class getpredatasheetreport {                            //压力容器�
                 leaktestp = rs.getString("leaktestp");
             }else {
 
-                getme(volume,rs);
-                getme(innerdia,rs);
-                getme(pttype,rs);
-                getme(epttype,rs);
-                getme(testpress,rs);
-                getme(leaktest,rs);
-                getme(eleaktest,rs);
-                getme(leaktestp,rs);
+                getme(volume,rs,"volume");
+                getme(innerdia,rs,"innerdia");
+                getme(pttype,rs,"pttype");
+                getme(epttype,rs,"epttype");
+                getme(testpress,rs,"testpress");
+                getme(leaktest,rs,"leaktest");
+                getme(eleaktest,rs,"eleaktest");
+                getme(leaktestp,rs,"leaktestp");
 
             }
 
@@ -367,14 +371,44 @@ public class getpredatasheetreport {                            //压力容器�
         rs.close();
         ps.close();
 
+
         ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
-        ps.setString(1,k_wmedia);
+        ps.setString(1,j_wmedia);
         rs = ps.executeQuery();
         if(rs.next()){
-            k_ewmedia = rs.getString("wmediaen");
+            j_ewmedia = rs.getString("wmediaen");
         }
         rs.close();
         ps.close();
+
+
+        for(int z = 0;z<kc_wmedia.size();z++){
+            ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
+            ps.setString(1,kc_wmedia.get(z));
+            rs = ps.executeQuery();
+            if(rs.next()){
+                kc_ewmedia.add(rs.getString("wmediaen"));
+            }
+            rs.close();
+            ps.close();
+        }
+
+        k_ewmedia = getmat(kc_ewmedia);
+
+        for(int z = 0;z<guanc_wmedia.size();z++){
+            ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
+            ps.setString(1,guanc_wmedia.get(z));
+            rs = ps.executeQuery();
+            if(rs.next()){
+                guanc_ewmedia.add(rs.getString("wmediaen"));
+            }
+            rs.close();
+            ps.close();
+        }
+
+        g_ewmedia = getmat(guanc_ewmedia);
+
+
 
         ps = conn.prepareStatement("SELECT * FROM safedisdevice WHERE status = 1 AND dwgno = ?");
         ps.setString(1,dwgno);
@@ -409,7 +443,9 @@ public class getpredatasheetreport {                            //压力容器�
         putsheet(sheet,12,20,weight);
         putsheet(sheet,14,6,f_mat);
         putsheet(sheet,14,14,f_thi);
-        putsheet(sheet,14,20,chweight);
+        if(!chweight.equals("0")){
+            putsheet(sheet,14,20,chweight);
+        }
         putsheet(sheet,16,6,c_mat);
         putsheet(sheet,16,14,c_thi);
         putsheet(sheet,18,6,j_mat);
@@ -426,7 +462,9 @@ public class getpredatasheetreport {                            //压力容器�
         putsheet(sheet,26,6,k_wmedia);
         putsheet(sheet,27,6,k_ewmedia);
         putsheet(sheet,26,14,g_wmedia);
+        putsheet(sheet,27,14,g_ewmedia);
         putsheet(sheet,26,20,j_wmedia);
+        putsheet(sheet,27,20,j_ewmedia);
         putsheet(sheet,28,7,m_type);
         putsheet(sheet,29,7,m_etype);
         putsheet(sheet,28,19,installtype);
@@ -444,7 +482,9 @@ public class getpredatasheetreport {                            //压力容器�
         putsheet(sheet,37,7,eleaktest);
         putsheet(sheet,36,19,leaktestp);
         putsheet(sheet,38,7,httype);
-        putsheet(sheet,38,19,httemp);
+        if(!httemp.equals("0")){
+            putsheet(sheet,38,19,httemp);
+        }
         putsheet(sheet,54,11,zj_name);
         putsheet(sheet,55,11,zj_ename);
         putsheet(sheet,56,11,zj_uniformcode);
@@ -470,7 +510,7 @@ public class getpredatasheetreport {                            //压力容器�
     public String getmat(ArrayList<String> as){
         for(int i=0;i<as.size();i++){
             for (int j=0;j<as.size();j++){
-                if(i!=j && as.get(i)==as.get(j)){
+                if(i!=j && as.get(i).equals(as.get(j))){
                     as.remove(as.get(j));
                 }
             }
@@ -486,12 +526,12 @@ public class getpredatasheetreport {                            //压力容器�
         return a;
     }
 
-    public void getme(String x , ResultSet rs) throws SQLException {
+    public void getme(String x , ResultSet rs,String a) throws SQLException {
         if(x == null){
-            x = rs.getString("volume");
+            x = rs.getString(a);
         }else {
-            if(rs.getString("volume") != null){
-                x = x + "/" + rs.getString("volume");
+            if(rs.getString(a) != null){
+                x = x + "/" + rs.getString(a);
             }
         }
     }

@@ -23,6 +23,10 @@ public class putpregaumeatable {                                        //提交
         PreparedStatement ps = null;
         ResultSet rs = null;
 
+        if(pp.getExitdate().equals("")){
+            pp.setExitdate(null);
+        }
+
         putpregaumeatableresult result = new putpregaumeatableresult();
 
         java.sql.Date date= new java.sql.Date(new java.util.Date().getTime());

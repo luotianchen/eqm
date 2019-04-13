@@ -47,13 +47,14 @@ public class getpromatlreport {                                 //产品材料�
         int t = 0;
         String dwgno = null;
         String exworkdate = null;
+        String hardness = null;
 
 
         ArrayList<String> material = null;
         ArrayList<String> codedmarking_f = null;
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MMM.dd.yyyy", Locale.US);
 
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
@@ -99,7 +100,7 @@ public class getpromatlreport {                                 //产品材料�
         if(rs.next()){
             calendar.setTime(rs.getDate("exworkdate"));
             exworkdate = simpleDateFormat1.format(calendar.getTime());
-            putsheet(sheet,30,29,exworkdate);
+            putsheet(sheet,30+32*t,29,exworkdate);
         }
         rs.close();
 
@@ -129,6 +130,7 @@ public class getpromatlreport {                                 //产品材料�
             rs = ps.executeQuery();
             if(rs.next()){
                 putsheet(sheet,8+i*2+t*32,1,rs.getString("partsname"));
+                putsheet(sheet,9+i*2+t*32,1,rs.getString("epartsname"));
             }
             rs.close();
             ps.close();
@@ -187,6 +189,7 @@ public class getpromatlreport {                                 //产品材料�
                 rs_x = ps_x.executeQuery();
                 if(rs_x.next()){
                     putsheet(sheet,8+i*2+t*32,5,rs_x.getString("millunit"));
+                    putsheet(sheet,9+i*2+t*32,5,rs_x.getString("millunitename"));
                 }
                 rs_x.close();
                 ps_x.close();
@@ -195,9 +198,9 @@ public class getpromatlreport {                                 //产品材料�
                 putsheet(sheet,8+i*2+t*32,22,rs.getString("rel1"));
                 putsheet(sheet,8+i*2+t*32,24,rs.getString("rm1"));
                 putsheet(sheet,8+i*2+t*32,26,rs.getString("elong1"));
-                putsheet(sheet,8+i*2+t*32,28,rs.getString("hardness1"));
+                putsheet(sheet,8+i*2+t*32,28,xieganghardness(rs));
                 putsheet(sheet,8+i*2+t*32,29,rs.getString("bending_id_impacttemp"));
-                putsheet(sheet,8+i*2+t*32,30,rs.getString("impactp1"));
+                putsheet(sheet,8+i*2+t*32,30,xiegangimpactp(rs));
                 putsheet(sheet,8+i*2+t*32,33,rs.getString("bending_id_bendangle"));
                 putsheet(sheet,8+i*2+t*32,35,rs.getString("bendaxdia"));
 
@@ -206,7 +209,7 @@ public class getpromatlreport {                                 //产品材料�
                 ps_x.setInt(1,utclass_id);
                 rs_x = ps_x.executeQuery();
                 if(rs_x.next()){
-                    putsheet(sheet,8+i*2+t*32,36,rs_x.getString("utclass"));
+                    putsheet(sheet,8+i*2+t*32,36,change(rs_x.getInt("utclass")));
                 }
                 rs_x.close();
                 ps_x.close();
@@ -218,13 +221,12 @@ public class getpromatlreport {                                 //产品材料�
             ps.setString(1,rs1.getString("codedmarking"));
             rs = ps.executeQuery();
             while (rs.next()){
-
                 putsheet(sheet,9+i*2+t*32,22,rs.getString("rel1"));
                 putsheet(sheet,9+i*2+t*32,24,rs.getString("rm1"));
                 putsheet(sheet,9+i*2+t*32,26,rs.getString("elong1"));
-                putsheet(sheet,9+i*2+t*32,28,rs.getString("hardness1"));
+                putsheet(sheet,9+i*2+t*32,28,xieganghardness(rs));
                 putsheet(sheet,9+i*2+t*32,29,rs.getString("impacttemp"));
-                putsheet(sheet,9+i*2+t*32,30,rs.getString("impactp1"));
+                putsheet(sheet,9+i*2+t*32,30,xiegangimpactp(rs));
                 putsheet(sheet,9+i*2+t*32,33,rs.getString("bendangle"));
                 putsheet(sheet,9+i*2+t*32,35,rs.getString("bendaxdia"));
 
@@ -323,106 +325,75 @@ public class getpromatlreport {                                 //产品材料�
 
     }
 
-    public static void copyCellStyle(XSSFCellStyle fromStyle, XSSFCellStyle toStyle) {
-        toStyle.cloneStyleFrom(fromStyle);//此一行代码搞定
-    }
-    public static void mergeSheetAllRegion(XSSFSheet fromSheet, XSSFSheet toSheet) {//合并单元格
-        int num = fromSheet.getNumMergedRegions();
-        CellRangeAddress cellR = null;
-        for (int i = 0; i < num; i++) {
-            cellR = fromSheet.getMergedRegion(i);
-            toSheet.addMergedRegion(cellR);
+    public String xieganghardness(ResultSet rs) throws SQLException {
+        String b=null;
+        String a[] = new String[3];
+        int i = 0;
+        if(rs.getString("hardness1") != null && rs.getString("hardness1").equals("")){
+            a[i] = rs.getString("hardness1");
+            i++;
         }
-    }
-
-    public static void copyCell(XSSFWorkbook wb, XSSFCell fromCell, XSSFCell toCell) {
-        XSSFCellStyle newstyle=wb.createCellStyle();
-        copyCellStyle(fromCell.getCellStyle(), newstyle);
-        //toCell.setEncoding(fromCell.getEncoding());
-        //样式
-        toCell.setCellStyle(newstyle);
-        if (fromCell.getCellComment() != null) {
-            toCell.setCellComment(fromCell.getCellComment());
+        if(rs.getString("hardness2") != null && rs.getString("hardness2").equals("")){
+            a[i] = rs.getString("hardness2");
+            i++;
         }
-        // 不同数据类型处理
-        int fromCellType = fromCell.getCellType();
-        toCell.setCellType(fromCellType);
-        if (fromCellType == XSSFCell.CELL_TYPE_NUMERIC) {
-
-        } else if (fromCellType == XSSFCell.CELL_TYPE_STRING) {
-            toCell.setCellValue(fromCell.getRichStringCellValue());
-        } else if (fromCellType == XSSFCell.CELL_TYPE_BLANK) {
-            // nothing21
-        } else if (fromCellType == XSSFCell.CELL_TYPE_BOOLEAN) {
-            toCell.setCellValue(fromCell.getBooleanCellValue());
-        } else if (fromCellType == XSSFCell.CELL_TYPE_ERROR) {
-            toCell.setCellErrorValue(fromCell.getErrorCellValue());
-        } else if (fromCellType == XSSFCell.CELL_TYPE_FORMULA) {
-            toCell.setCellFormula(fromCell.getCellFormula());
-        } else { // nothing29
+        if(rs.getString("hardness3") != null && rs.getString("hardness3").equals("")){
+            a[i] = rs.getString("hardness3");
+            i++;
         }
 
-    }
-
-    public static void copyRow(XSSFWorkbook wb, XSSFRow oldRow, XSSFRow toRow){
-        toRow.setHeight(oldRow.getHeight());
-        for (Iterator cellIt = oldRow.cellIterator(); cellIt.hasNext();) {
-            XSSFCell tmpCell = (XSSFCell) cellIt.next();
-            XSSFCell newCell = toRow.createCell(tmpCell.getColumnIndex());
-            copyCell(wb,tmpCell, newCell);
-        }
-    }
-    public static void copySheet(XSSFWorkbook wb,XSSFSheet fromSheet, XSSFSheet toSheet) {
-        mergeSheetAllRegion(fromSheet, toSheet);
-        //设置列宽
-        for(int i=0;i<=fromSheet.getRow(fromSheet.getFirstRowNum()).getLastCellNum();i++){
-            toSheet.setColumnWidth(i,fromSheet.getColumnWidth(i));
-        }
-        for (Iterator rowIt = fromSheet.rowIterator(); rowIt.hasNext();) {
-            XSSFRow oldRow = (XSSFRow) rowIt.next();
-            XSSFRow newRow = toSheet.createRow(oldRow.getRowNum());
-            copyRow(wb,oldRow,newRow);
-        }
-    }
-
-
-    public static void main(String[] args) {
-        List<String> pathList = new ArrayList<String>();
-        pathList.add("d:/swingPrint/printTemplate/" + "3容量法100_4" + ".xlsx");
-//	    	pathList.add("d:/swingPrint/printTemplate/" + "48藻类计数检测原始记录_1" + ".xlsx");
-        //将所有类型的尽调excel文件合并成一个excel文件
-        XSSFWorkbook newExcelCreat = new XSSFWorkbook();
-        try {
-
-            for(int i = 0;i<pathList.size();i++) {//遍历每个源excel文件，fileNameList为源文件的名称集合
-                InputStream in = new FileInputStream(pathList.get(i));
-                XSSFWorkbook fromExcel = new XSSFWorkbook(in);
-                XSSFSheet oldSheet = fromExcel.getSheetAt(0);//模板文件Sheet1
-                XSSFSheet newSheet = newExcelCreat.createSheet("Sheet"+(i+1)+"");
-                copySheet(newExcelCreat, oldSheet, newSheet);
+        for(int j = 0;j<a.length;j++){
+            if(j==0){
+                b=a[j];
+            }else {
+                b = b + "/" +a[j];
             }
-        } catch (FileNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
         }
+        return b;
+    }
 
 
-        String allFileName="d:/swingPrint/tempFile/fgModelPrint.xlsx";
-        try {
-            FileOutputStream fileOut = new FileOutputStream(allFileName);
-            newExcelCreat.write(fileOut);
-            fileOut.flush();
-            fileOut.close();
-            System.out.println("复制成功");
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+    public String xiegangimpactp(ResultSet rs) throws SQLException {
+        String b=null;
+        String a[] = new String[3];
+        int i = 0;
+        if(rs.getString("impactp1") != null && rs.getString("impactp1").equals("")){
+            a[i] = rs.getString("impactp1");
+            i++;
         }
+        if(rs.getString("impactp2") != null && rs.getString("impactp2").equals("")){
+            a[i] = rs.getString("impactp2");
+            i++;
+        }
+        if(rs.getString("impactp3") != null && rs.getString("impactp3").equals("")){
+            a[i] = rs.getString("impactp3");
+            i++;
+        }
+
+        for(int j = 0;j<a.length;j++){
+            if(j==0){
+                b=a[j];
+            }else {
+                b = b + "/" +a[j];
+            }
+        }
+        return b;
+    }
+
+    public String change(int i){
+        String ii = null;
+        if(i==1){
+            ii = "Ⅰ";
+        }
+        if(i==2){
+            ii = "Ⅱ";
+        }
+        if(i==3){
+            ii = "Ⅲ";
+        }
+        if(i==0){
+            ii = "/";
+        }
+        return ii;
     }
 }

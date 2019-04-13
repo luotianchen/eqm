@@ -83,22 +83,26 @@ public class getleaktestreport {                                                
                 calendar.setTime(sdf.parse(data.get(i).getCalibdate()));
                 putsheet(sheet,6+i*46,11,simpleDateFormat3.format(calendar.getTime()));
                 putsheet(sheet,7+i*46,11,simpleDateFormat4.format(calendar.getTime()));
+                calendar.setTime(sdf.parse(data.get(i).getCalibdate2()));
                 putsheet(sheet,8+i*46,11,simpleDateFormat3.format(calendar.getTime()));
                 putsheet(sheet,9+i*46,11,simpleDateFormat4.format(calendar.getTime()));
             }
 
 
             putsheet(sheet,10+i*46,1,data.get(i).getPgaugeno1());
-            putsheet(sheet,11+i*46,1,data.get(i).getPgaugeno1());
+            putsheet(sheet,11+i*46,1,data.get(i).getPgaugeno2());
             putsheet(sheet,10+i*46,5,data.get(i).getType());
             putsheet(sheet,10+i*46,11,data.get(i).getTestmedia());
             putsheet(sheet,11+i*46,11,data.get(i).getEtestmedia());
             putsheet(sheet,12+i*46,1,data.get(i).getClcontent());
             putsheet(sheet,12+i*46,5,data.get(i).getCircutemp());
             putsheet(sheet,12+i*46,11,data.get(i).getMediatemp());
-            putsheet(sheet,15+i*46,4,data.get(i).getTestpress());
-            putsheet(sheet,28+i*46,4,data.get(i).getTestpress());
+            putsheet(sheet,15+i*46,4,data.get(i).getLeaktestp());
+            putsheet(sheet,28+i*46,4,data.get(i).getLeaktestp());
             putsheet(sheet,38+i*46,6,data.get(i).getDewelltime());
+
+            putsheet(sheet,41+i*46,0,"   本产品经  "+data.get(i).getLeaktestp()+" Mpa试验，无渗漏，合格。");
+            putsheet(sheet,42+i*46,0,"     This product is tested with pressure of  "+data.get(i).getLeaktestp()+" Mpa; and has no leak is acceptable. ");
         }
 
 

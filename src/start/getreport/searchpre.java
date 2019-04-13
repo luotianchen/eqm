@@ -53,7 +53,6 @@ public class searchpre {
                 data.setDwgno(rs1.getString("dwgno"));
                 data.setName(name);
                 data.setEname(ename);
-                data.setDated(rs1.getString("dated1"));
                 data.setTestmedia(rs1.getString("testmedia"));
                 data.setEtestmedia(rs1.getString("etestmedia"));
                 data.setClcontent(rs1.getString("clcontent"));
@@ -64,7 +63,10 @@ public class searchpre {
                 ps.setString(3,"dated1");
                 rs = ps.executeQuery();
                 if(rs.next()){
+                    data.setDated(rs.getString("date"));
+
                     data.setPgaugeno1(rs.getString("pgaugeno1"));
+                    data.setPgaugeno2(rs.getString("pgaugeno2"));
                     data.setCircutemp(rs.getString("circutemp"));
                     data.setMediatemp(rs.getString("mediatemp"));
                     data.setTestpress(rs.getString("testpress"));
@@ -76,7 +78,7 @@ public class searchpre {
                 d1 = sdf.parse(data.getDated());
                 d = new java.sql.Date(d1.getTime());
 
-                ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND ? BETWEEN calibdate AND recalibdate");
+                ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status = 1 AND ? BETWEEN calibdate AND recalibdate");
                 ps.setString(1,data.getPgaugeno1());
                 ps.setDate(2,d);
                 rs = ps.executeQuery();
@@ -104,6 +106,39 @@ public class searchpre {
                 rs.close();
                 ps.close();
 
+                ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status = 1 AND ? BETWEEN calibdate AND recalibdate");
+                ps.setString(1,data.getPgaugeno2());
+                ps.setDate(2,d);
+                rs = ps.executeQuery();
+                if (rs.next()){
+                    String dx = rs.getString("calibdate");
+                    data.setCalibdate2(rs.getString("calibdate"));
+                    rs.close();
+                    rs = ps.executeQuery();
+                    while (rs.next()){
+                        if(getDaySub(dx,rs.getString("calibdate"))>0){
+                            data.setCalibdate2(rs.getString("calibdate"));
+                            dx = rs.getString("calibdate");
+                        }
+                    }
+
+                }
+                rs.close();
+                ps.close();
+
+                ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+                ps.setString(1,data.getDwgno());
+                ps.setString(2,name);
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    data.setPttype(rs.getString("pttype"));
+                    data.setEpttype(rs.getString("epttype"));
+                    data.setDepress(rs.getString("depress"));
+                    data.setLeaktestp(rs.getString("leaktestp"));
+                }
+                rs.close();
+                ps.close();
+
                 as.add(data);
 
 
@@ -113,7 +148,6 @@ public class searchpre {
                     data.setDwgno(rs1.getString("dwgno"));
                     data.setName(name);
                     data.setEname(ename);
-                    data.setDated(rs1.getString("dated2"));
                     data.setTestmedia(rs1.getString("testmedia"));
                     data.setEtestmedia(rs1.getString("etestmedia"));
                     data.setClcontent(rs1.getString("clcontent"));
@@ -124,7 +158,10 @@ public class searchpre {
                     ps.setString(3,"dated2");
                     rs = ps.executeQuery();
                     if(rs.next()){
+                        data.setDated(rs.getString("date"));
+
                         data.setPgaugeno1(rs.getString("pgaugeno1"));
+                        data.setPgaugeno2(rs.getString("pgaugeno2"));
                         data.setCircutemp(rs.getString("circutemp"));
                         data.setMediatemp(rs.getString("mediatemp"));
                         data.setTestpress(rs.getString("testpress"));
@@ -136,7 +173,7 @@ public class searchpre {
                     d1 = sdf.parse(data.getDated());
                     d = new java.sql.Date(d1.getTime());
 
-                    ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND ? BETWEEN calibdate AND recalibdate");
+                    ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status = 1 AND ? BETWEEN calibdate AND recalibdate");
                     ps.setString(1,data.getPgaugeno1());
                     ps.setDate(2,d);
                     rs = ps.executeQuery();
@@ -164,6 +201,39 @@ public class searchpre {
                     rs.close();
                     ps.close();
 
+                    ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status = 1 AND ? BETWEEN calibdate AND recalibdate");
+                    ps.setString(1,data.getPgaugeno2());
+                    ps.setDate(2,d);
+                    rs = ps.executeQuery();
+                    if (rs.next()){
+                        String dx = rs.getString("calibdate");
+                        data.setCalibdate2(rs.getString("calibdate"));
+                        rs.close();
+                        rs = ps.executeQuery();
+                        while (rs.next()){
+                            if(getDaySub(dx,rs.getString("calibdate"))>0){
+                                data.setCalibdate2(rs.getString("calibdate"));
+                                dx = rs.getString("calibdate");
+                            }
+                        }
+
+                    }
+                    rs.close();
+                    ps.close();
+
+                    ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+                    ps.setString(1,data.getDwgno());
+                    ps.setString(2,name);
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        data.setPttype(rs.getString("pttype"));
+                        data.setEpttype(rs.getString("epttype"));
+                        data.setDepress(rs.getString("depress"));
+                        data.setLeaktestp(rs.getString("leaktestp"));
+                    }
+                    rs.close();
+                    ps.close();
+
                     as.add(data);
 
                     if(rs1.getString("dated3") != null && !rs1.getString("dated3").equals("")){
@@ -172,7 +242,6 @@ public class searchpre {
                         data.setDwgno(rs1.getString("dwgno"));
                         data.setName(name);
                         data.setEname(ename);
-                        data.setDated(rs1.getString("dated3"));
                         data.setTestmedia(rs1.getString("testmedia"));
                         data.setEtestmedia(rs1.getString("etestmedia"));
                         data.setClcontent(rs1.getString("clcontent"));
@@ -183,7 +252,10 @@ public class searchpre {
                         ps.setString(3,"dated3");
                         rs = ps.executeQuery();
                         if(rs.next()){
+                            data.setDated(rs.getString("date"));
+
                             data.setPgaugeno1(rs.getString("pgaugeno1"));
+                            data.setPgaugeno2(rs.getString("pgaugeno2"));
                             data.setCircutemp(rs.getString("circutemp"));
                             data.setMediatemp(rs.getString("mediatemp"));
                             data.setTestpress(rs.getString("testpress"));
@@ -195,7 +267,7 @@ public class searchpre {
                         d1 = sdf.parse(data.getDated());
                         d = new java.sql.Date(d1.getTime());
 
-                        ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND ? BETWEEN calibdate AND recalibdate");
+                        ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status = 1 AND ? BETWEEN calibdate AND recalibdate");
                         ps.setString(1,data.getPgaugeno1());
                         ps.setDate(2,d);
                         rs = ps.executeQuery();
@@ -223,6 +295,40 @@ public class searchpre {
                         rs.close();
                         ps.close();
 
+                        ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status = 1 AND ? BETWEEN calibdate AND recalibdate");
+                        ps.setString(1,data.getPgaugeno2());
+                        ps.setDate(2,d);
+                        rs = ps.executeQuery();
+                        if (rs.next()){
+                            String dx = rs.getString("calibdate");
+                            data.setCalibdate2(rs.getString("calibdate"));
+                            rs.close();
+                            rs = ps.executeQuery();
+                            while (rs.next()){
+                                if(getDaySub(dx,rs.getString("calibdate"))>0){
+                                    data.setCalibdate2(rs.getString("calibdate"));
+                                    dx = rs.getString("calibdate");
+                                }
+                            }
+
+                        }
+                        rs.close();
+                        ps.close();
+
+
+                        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+                        ps.setString(1,data.getDwgno());
+                        ps.setString(2,name);
+                        rs = ps.executeQuery();
+                        if(rs.next()){
+                            data.setPttype(rs.getString("pttype"));
+                            data.setEpttype(rs.getString("epttype"));
+                            data.setDepress(rs.getString("depress"));
+                            data.setLeaktestp(rs.getString("leaktestp"));
+                        }
+                        rs.close();
+                        ps.close();
+
                         as.add(data);
 
                     }
@@ -235,6 +341,7 @@ public class searchpre {
         }
         rs1.close();
         ps1.close();
+
 
 
         return as;

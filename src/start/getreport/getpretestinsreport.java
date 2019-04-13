@@ -79,13 +79,14 @@ public class getpretestinsreport {                                              
                 calendar.setTime(sdf.parse(data.get(i).getCalibdate()));
                 putsheet(sheet,6+i*45,7,simpleDateFormat3.format(calendar.getTime()));
                 putsheet(sheet,7+i*45,7,simpleDateFormat4.format(calendar.getTime()));
+                calendar.setTime(sdf.parse(data.get(i).getCalibdate2()));
                 putsheet(sheet,8+i*45,7,simpleDateFormat3.format(calendar.getTime()));
                 putsheet(sheet,9+i*45,7,simpleDateFormat4.format(calendar.getTime()));
             }
 
 
             putsheet(sheet,10+i*45,1,data.get(i).getPgaugeno1());
-            putsheet(sheet,11+i*45,1,data.get(i).getPgaugeno1());
+            putsheet(sheet,11+i*45,1,data.get(i).getPgaugeno2());
             putsheet(sheet,10+i*45,4,data.get(i).getType());
             putsheet(sheet,10+i*45,7,data.get(i).getTestmedia());
             putsheet(sheet,11+i*45,7,data.get(i).getEtestmedia());
@@ -93,10 +94,13 @@ public class getpretestinsreport {                                              
             putsheet(sheet,12+i*45,4,data.get(i).getCircutemp());
             putsheet(sheet,12+i*45,7,data.get(i).getMediatemp());
             putsheet(sheet,15+i*45,4,data.get(i).getTestpress());
-            putsheet(sheet,17+i*45,5,data.get(i).getTestpress());
+            putsheet(sheet,17+i*45,5,data.get(i).getDepress());
             putsheet(sheet,27+i*45,4,data.get(i).getTestpress());
-            putsheet(sheet,29+i*45,5,data.get(i).getTestpress());
+            putsheet(sheet,29+i*45,5,data.get(i).getDepress());
             putsheet(sheet,35+i*45,5,data.get(i).getDewelltime());
+
+            putsheet(sheet,40+i*45,0,"本产品经  "+data.get(i).getTestpress()+"  Mpa试验，无渗漏；无可见的异常变形；无异常响声；试验结论合格。");
+            putsheet(sheet,41+i*45,0,"This product is tested with pressure of  "+data.get(i).getTestpress()+"   Mpa; and has no leak, visible abnormal deformation, no abnormal noise; the test conclusion is acceptable.");
         }
 
 

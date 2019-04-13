@@ -18,14 +18,27 @@ public class updateprestatus {                                          //发放
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String prodno=null;
 
         updateprestatusresult result = new updateprestatusresult();
 
         try {
+            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE audit = ?");
+            ps.setString(1,up.getAudit());
+            rs = ps.executeQuery();
+            if(rs.next()){
+                prodno = rs.getString("prodno");
+            }
+            rs.close();
+            ps.close();
+
+
             if(up.getStatus()==1){
-                ps = conn.prepareStatement("UPDATE pressureparts SET status = ? WHERE audit=? AND status = 1");
+                ps = conn.prepareStatement("UPDATE pressureparts SET status = ? WHERE prodno=? AND status = 1");
                 ps.setInt(1,3);
-                ps.setString(2,up.getAudit());
+                ps.setString(2,prodno);
                 ps.executeUpdate();
                 ps.close();
             }

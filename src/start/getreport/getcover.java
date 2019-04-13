@@ -104,8 +104,7 @@ public class getcover {                                                 //获取
         ps.setString(1,prodno);
         rs = ps.executeQuery();
         if(rs.next()){
-            calendar.setTime(rs.getDate("blankdate"));
-            calendar.add(calendar.DATE, -1);
+            calendar.setTime(rs.getDate("exworkdate"));
             date = simpleDateFormat1.format(calendar.getTime());
         }
         rs.close();

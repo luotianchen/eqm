@@ -10,15 +10,21 @@ public class searchpredata {
     private String measrangemin;                       //压力表量程min*
     private String measrangemax;                       //压力表量程max*
     private String calibdate;                           //压力表检定日期*
+    private String calibdate2;                           //压力表检定日期*
     private String pgaugeno1;                           //压力表编号*
+    private String pgaugeno2;
     private String type;                                //型号(表盘直径)*
     private String testmedia;                           //试验介质*
     private String etestmedia;                          //英文*
     private String clcontent;                           //氯离子含量*
     private String circutemp;                           //环境温度*
     private String mediatemp;                           //介质温度*
-    private String testpress;                           //图
+    private String testpress;                           //图试验压力
+    private String depress;                             //设计压力
     private String dewelltime;                          //图2
+    private String pttype;                                  //试压类别
+    private String epttype;
+    private String leaktestp;                           //气密性试验压力
 
     public searchpredata(){
         super();
@@ -166,5 +172,53 @@ public class searchpredata {
 
     public void setDewelltime(String dewelltime) {
         this.dewelltime = dewelltime;
+    }
+
+    public String getPttype() {
+        return pttype;
+    }
+
+    public void setPttype(String pttype) {
+        this.pttype = pttype;
+    }
+
+    public String getEpttype() {
+        return epttype;
+    }
+
+    public void setEpttype(String epttype) {
+        this.epttype = epttype;
+    }
+
+    public String getPgaugeno2() {
+        return pgaugeno2;
+    }
+
+    public void setPgaugeno2(String pgaugeno2) {
+        this.pgaugeno2 = pgaugeno2;
+    }
+
+    public String getCalibdate2() {
+        return calibdate2;
+    }
+
+    public void setCalibdate2(String calibdate2) {
+        this.calibdate2 = calibdate2;
+    }
+
+    public String getDepress() {
+        return depress;
+    }
+
+    public void setDepress(String depress) {
+        this.depress = depress;
+    }
+
+    public String getLeaktestp() {
+        return leaktestp;
+    }
+
+    public void setLeaktestp(String leaktestp) {
+        this.leaktestp = leaktestp;
     }
 }

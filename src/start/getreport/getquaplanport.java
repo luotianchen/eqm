@@ -133,7 +133,15 @@ public class getquaplanport {                                               //�
             ps1 = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 11");
             rs1 = ps1.executeQuery();
             if(rs1.next()){
-                putsheet(sheet,16,7,rs.getString("stand")+";"+searchmainstand(prodno)+""+rs1.getString("stand"));
+
+                ps2 = conn.prepareStatement("SELECT * FROM datacontraststandstand WHERE id = 10");
+                rs2 = ps2.executeQuery();
+                if(rs2.next()){
+                    putsheet(sheet,16,7,rs.getString("stand")+";"+searchmainstand(prodno)+";"+rs1.getString("stand")+";"+rs2.getString("stand"));
+                }
+                rs2.close();
+                ps2.close();
+
             }
             rs1.close();
             ps1.close();
@@ -288,9 +296,9 @@ public class getquaplanport {                                               //�
         rs = ps.executeQuery();
         if(rs.next()){
             if(rs.getString("dealter").equals("无") && rs.getString("submatl").equals("无")){
-                putsheet(sheet,11,11,"R/E");        //4
-            }else {
                 putsheet(sheet,11,11,"/");        //4
+            }else {
+                putsheet(sheet,11,11,"R/E");        //4
             }
 
             if(rs.getString("nprocess").equals("有")){
@@ -315,7 +323,7 @@ public class getquaplanport {                                               //�
                 putsheet(sheet,22,11,"R/E");        //15
                 putsheet(sheet,24,11,"R/E");        //17
             }else {
-                putsheet(sheet,24,11,"/");        //17
+                putsheet(sheet,22,11,"/");        //15
                 putsheet(sheet,24,11,"/");        //17
             }
 
@@ -400,8 +408,8 @@ public class getquaplanport {                                               //�
                     putsheet(sheet,46,11,"/");        //39
                     putsheet(sheet,47,11,"/");        //40
                 }else {
-                    putsheet(sheet,15,11,"/");        //8
-                    putsheet(sheet,16,11,"/");        //9
+                    putsheet(sheet,15,11,"R");        //8
+                    putsheet(sheet,16,11,"R");        //9
                     putsheet(sheet,46,11,"R");        //39
                     putsheet(sheet,47,11,"R");        //40
                 }
@@ -412,7 +420,7 @@ public class getquaplanport {                                               //�
                     putsheet(sheet,51,11,"/");        //44
                 }
 
-                if(rs.getString("crytank").equals("有")){
+                if(rs.getString("crytank").equals("是")){
                     putsheet(sheet,58,11,"E");        //51
                 }else {
                     putsheet(sheet,58,11,"/");        //51
@@ -435,14 +443,14 @@ public class getquaplanport {                                               //�
         rs = ps.executeQuery();
         while (rs.next()){
             if(!rs.getString("leaktest").equals("/")){
-                putsheet(sheet,55,11,"E");
-                putsheet(sheet,56,11,"E");
-                putsheet(sheet,57,11,"R");
+                putsheet(sheet,55,11,"E");              //48
+                putsheet(sheet,56,11,"E");              //49
+                putsheet(sheet,57,11,"R");              //50
                 break;
             }else {
-                putsheet(sheet,55,11,"/");
-                putsheet(sheet,56,11,"/");
-                putsheet(sheet,56,11,"/");
+                putsheet(sheet,55,11,"/");              //48
+                putsheet(sheet,56,11,"/");              //49
+                putsheet(sheet,57,11,"/");              //50
             }
         }
         rs.close();
@@ -456,10 +464,10 @@ public class getquaplanport {                                               //�
             calendar.setTime(rs.getDate("blankdate"));
             calendar.add(calendar.DATE, -1);
 
-            putsheet(sheet,64,4,simpleDateFormat1.format(calendar.getTime()));
-            putsheet(sheet,65,4,simpleDateFormat2.format(calendar.getTime()));
-            putsheet(sheet,64,8,simpleDateFormat1.format(calendar.getTime()));
-            putsheet(sheet,65,8,simpleDateFormat2.format(calendar.getTime()));
+            putsheet(sheet,65,4,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,66,4,simpleDateFormat2.format(calendar.getTime()));
+            putsheet(sheet,65,8,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,66,8,simpleDateFormat2.format(calendar.getTime()));
         }
 
 
@@ -470,20 +478,32 @@ public class getquaplanport {                                               //�
 
 
 
-//        FileInputStream fileXlsx1 = new FileInputStream(url1);                              //隐藏行
-//        XSSFWorkbook workBook1 = new XSSFWorkbook(fileXlsx1);
-//        fileXlsx1.close();
-//        Sheet sheet1=workBook1.getSheetAt(0);
-//        List<List<String>> result1 = readXlsx(workBook1);
-//        for (int i = 0;i<64;i++){
-//            if(result1.get(i).get(11).equals("/")){
+        FileInputStream fileXlsx1 = new FileInputStream(url1);                              //隐藏行
+        XSSFWorkbook workBook1 = new XSSFWorkbook(fileXlsx1);
+        fileXlsx1.close();
+        Sheet sheet1=workBook1.getSheetAt(0);
+        List<List<String>> result1 = readXlsx(workBook1);
+        int q =1;
+        for (int i = 7;i<64;i++){
+            if(result1.get(i).get(11).equals("/")){
+
+                if(i==62){
+//                    Row row1 = sheet1.getRow(i+2);
+//                    row1.setZeroHeight(true);                    //隐藏下一行
+                }
+
+                System.out.println(i+"x");
 //                Row row = sheet1.getRow(i+1);
-//                row.setZeroHeight(true);
-//            }
-//        }
-//        OutputStream out1 = new FileOutputStream(url1);
-//        workBook1.write(out1);
-//        out1.close();
+//                row.setZeroHeight(true);                    //隐藏下一行
+            }else {
+
+                putsheet(sheet1,i+1,0,String.valueOf(q));
+                q++;
+            }
+        }
+        OutputStream out1 = new FileOutputStream(url1);
+        workBook1.write(out1);
+        out1.close();
 
 
 

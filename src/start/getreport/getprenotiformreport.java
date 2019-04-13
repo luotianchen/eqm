@@ -80,17 +80,14 @@ public class getprenotiformreport {                                         //åŽ
                 if(rs.getString("dated2")==null || rs.getString("dated2").equals("")){
                     if(!(rs.getString("dated1")==null || rs.getString("dated1").equals(""))){
                         calendar.setTime(rs.getDate("dated1"));
-                        calendar.add(calendar.DATE, -1);
                         dated = simpleDateFormat1.format(calendar.getTime());
                     }
                 }else {
                     calendar.setTime(rs.getDate("dated2"));
-                    calendar.add(calendar.DATE, -1);
                     dated = simpleDateFormat1.format(calendar.getTime());
                 }
             }else {
                 calendar.setTime(rs.getDate("dated3"));
-                calendar.add(calendar.DATE, -1);
                 dated = simpleDateFormat1.format(calendar.getTime());
             }
 
