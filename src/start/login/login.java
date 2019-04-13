@@ -107,6 +107,7 @@ public class login {                                                            
             String target = new String(decodedData);
             String timesCount = target.split(";")[1].split("=")[1];
             String timeEnd = target.split(";")[2].split("=")[1];
+
 //            String cpu = target.split(";")[3].split("=")[1];
 //
 //            long start = System.currentTimeMillis();
