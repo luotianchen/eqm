@@ -27,7 +27,7 @@ public class searchchanneldata {                                                
         searchchanneldatadata data = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = ? ORDER BY id");
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = ? ORDER BY tongdaoshu ASC");
             ps.setString(1,sp.getDwgno());
             ps.setInt(2,sp.getStatus());
             rs = ps.executeQuery();
@@ -63,7 +63,6 @@ public class searchchanneldata {                                                
             }
             rs.close();
             ps.close();
-            Collections.reverse(as);                                          //将list倒序
             result.setData(as);
             result.setResult("success");
         }catch (Exception e){

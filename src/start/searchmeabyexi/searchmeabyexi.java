@@ -28,7 +28,7 @@ public class searchmeabyexi {                                   //根据出厂�
         java.sql.Date d = new java.sql.Date(d1.getTime());
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND ? BETWEEN calibdate AND recalibdate");
+            ps = conn.prepareStatement("SELECT * FROM pregaumeatable WHERE exitno = ? AND status=1 AND ? BETWEEN calibdate AND recalibdate");
             ps.setString(1,sp.getExitno());
             ps.setDate(2,d);
             rs = ps.executeQuery();
@@ -45,7 +45,6 @@ public class searchmeabyexi {                                   //根据出厂�
                         dx = rs.getString("calibdate");
                     }
                 }
-
                 result.setResult("success");
             }else {
                 result.setResult("fail");
