@@ -32,5 +32,6 @@
     <orderEntry type="library" name="xmlbean-1.5.5" level="project" />
     <orderEntry type="library" name="xmlbeans-2.6.0" level="project" />
     <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="sun.misc.BASE64Decoder" level="project" />
   </component>
 </module>
