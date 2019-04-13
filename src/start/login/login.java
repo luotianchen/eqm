@@ -62,13 +62,23 @@ public class login {                                                            
         System.out.println(path);
         String newpath = null;
 
-        String[] sourceStrArray = path.split("\\\\");
+        System.out.println(File.separator);
+
+
+        String[] sourceStrArray = null;
+
+        if(File.separator.equals("\\")){
+            sourceStrArray = path.split(File.separator+File.separator);
+        }else {
+            sourceStrArray = path.split(File.separator);
+        }
+
         for (int i = 0; i < sourceStrArray.length-1; i++) {
             System.out.println(sourceStrArray[i]);
             if(i==0){
                 newpath = sourceStrArray[i];
             }else {
-                newpath = newpath + "\\" + sourceStrArray[i];
+                newpath = newpath + File.separator + sourceStrArray[i];
             }
 
         }
@@ -97,14 +107,14 @@ public class login {                                                            
             String target = new String(decodedData);
             String timesCount = target.split(";")[1].split("=")[1];
             String timeEnd = target.split(";")[2].split("=")[1];
-            String cpu = target.split(";")[3].split("=")[1];
-
-            long start = System.currentTimeMillis();
-            Process process = Runtime.getRuntime().exec(new String[] { "wmic", "cpu", "get", "ProcessorId" });
-            process.getOutputStream().close();
-            Scanner sc = new Scanner(process.getInputStream());
-            String property = sc.next();
-            String serial = sc.next();
+//            String cpu = target.split(";")[3].split("=")[1];
+//
+//            long start = System.currentTimeMillis();
+//            Process process = Runtime.getRuntime().exec(new String[] { "wmic", "cpu", "get", "ProcessorId" });
+//            process.getOutputStream().close();
+//            Scanner sc = new Scanner(process.getInputStream());
+//            String property = sc.next();
+//            String serial = sc.next();
 
 
 
