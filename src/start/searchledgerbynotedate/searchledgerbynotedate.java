@@ -39,10 +39,33 @@ public class searchledgerbynotedate {                                           
                 ps1.setString(1,rs.getString("name"));
                 ps1.setString(2,rs.getString("kind"));
                 ps1.setDate(3,new java.sql.Date(sdf.parse(sp.getDate()).getTime()));
+                rs1 = ps1.executeQuery();
+                while (rs1.next()){
+                    data = new searchledgerbynotedatedata();
+                    data.setGaugename(rs1.getString("gaugename"));
+                    data.setGaugeno(rs1.getString("gaugeno"));
+                    data.setExitno(rs1.getString("exitno"));
+                    data.setType(rs1.getString("type"));
+                    data.setMeasrangemax(rs1.getString("measrangemax"));
+                    data.setMeasrangemin(rs1.getString("measrangemin"));
+                    data.setAccuclass(rs1.getString("accuclass"));
+                    data.setMillunit(rs1.getString("millunit"));
+                    data.setExitdate(rs1.getString("exitdate"));
+                    data.setManaglevel(rs1.getString("managlevel"));
+                    data.setCalibdate(rs1.getString("calibdate"));
+                    data.setRecalibdate(rs1.getString("recalibdate"));
+                    data.setCalibinterval(rs1.getString("calibinterval"));
+                    data.setNote(rs1.getString("note"));
+                    data.setSpecialist(rs1.getString("specialist").replaceAll("#","/"));
+                    as.add(data);
+                }
+                rs1.close();
+                ps1.close();
             }
             rs.close();
             ps.close();
-
+            result.setResult("success");
+            result.setData(as);
 
         }catch (Exception e){
             result.setResult(e.toString());
