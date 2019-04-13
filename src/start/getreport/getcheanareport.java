@@ -85,7 +85,7 @@ public class getcheanareport {                                              //åŒ
             calendar.setTime(rs.getDate("indate"));
             putsheet(sheet,3,42,simpleDateFormat1.format(calendar.getTime())+"-c"+num);
             putsheet(sheet,7,7,simpleDateFormat1.format(calendar.getTime())+"-c"+num);
-            putsheet(sheet,38,44,simpleDateFormat2.format(calendar.getTime()));
+            putsheet(sheet,37,44,simpleDateFormat2.format(calendar.getTime()));
             num_p=rs.getInt("times");
 
 

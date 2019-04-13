@@ -78,7 +78,7 @@ public class putprenotiform {                                                   
                         rs.close();
                         ps.close();
                         ps = conn.prepareStatement("UPDATE prenotiform SET prodno = ? ,dwgno = ? ,presstestp_id_ppart1=? ,dated1=? ," +
-                                "testmedia = ? , etestmedia = ? , clcontent = ? , user = ? , date = ? WHERE prodno = ?");
+                                "testmedia = ? , etestmedia = ? , clcontent = ? , user = ? , date = ? WHERE prodno = ? AND presstestp_id_ppart1=?");
                         ps.setString(1,pp.getProdno());
                         ps.setString(2,pp.getDwgno());
                         ps.setInt(3,ppart_id);
@@ -89,6 +89,7 @@ public class putprenotiform {                                                   
                         ps.setString(8,pp.getUser());
                         ps.setDate(9,time);
                         ps.setString(10,pp.getProdno());
+                        ps.setInt(11,ppart_id);
                         ps.executeUpdate();
                         ps.close();
 

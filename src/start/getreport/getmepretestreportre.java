@@ -40,6 +40,7 @@ public class getmepretestreportre {
         String num=null;
         int num_p=0;
         int matlname_id=0;
+        int matlstand_id = 0;
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy/MM/dd");
@@ -73,19 +74,20 @@ public class getmepretestreportre {
         ps.setString(1,codedmarking);
         rs = ps.executeQuery();
         if(rs.next()){
-            calendar.setTime(rs.getDate("indate"));
-            calendar.add(calendar.DATE, 2);
-            putsheet(sheet,4,14,simpleDateFormat1.format(calendar.getTime()));
             ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
             ps1.setString(1,codedmarking);
             rs1 = ps1.executeQuery();
             if(rs1.next()){
+                calendar.setTime(rs1.getDate("indate"));
+                calendar.add(calendar.DATE, 2);
+                putsheet(sheet,4,14,simpleDateFormat1.format(calendar.getTime()));
+
                 if(rs.getInt("retimes")<10){
                     num="0"+rs.getString("retimes");
                 }else {
                     num=rs.getString("retimes");
                 }
-                putsheet(sheet,4,32,rs1.getString("indate").substring(0,4)+"-y"+num);
+                putsheet(sheet,4,29,"力学第 "+rs1.getString("indate").substring(0,4)+"-y"+num+" 号");
                 num_p=rs.getInt("times");
             }
             rs1.close();
@@ -126,6 +128,8 @@ public class getmepretestreportre {
 
             if(rs.getString("bendaxdia")!=null && !rs.getString("bendaxdia").equals("")){
                 putsheet(sheet,10+i*2,23,rs.getString("bendaxdia"));
+                putsheet(sheet,10+i*2,27,"合格");
+                putsheet(sheet,10+i*2,20,"180°");
                 i++;
             }
             i=0;
@@ -162,6 +166,7 @@ public class getmepretestreportre {
         rs = ps.executeQuery();
         if(rs.next()){
             matlname_id=rs.getInt("matlname_id_matlname");
+            matlstand_id = rs.getInt("contraststand_id_matlstand");
             putsheet(sheet,6,31,rs.getString("qty"));
         }
         rs.close();
@@ -172,6 +177,15 @@ public class getmepretestreportre {
         rs = ps.executeQuery();
         if(rs.next()){
             putsheet(sheet,6,4,rs.getString("matlname"));
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
+        ps.setInt(1,matlstand_id);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            putsheet(sheet,26,4,rs.getString("matlstand"));
         }
         rs.close();
         ps.close();
