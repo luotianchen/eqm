@@ -25,7 +25,7 @@ public class putprenotiform {                                                   
         java.sql.Date time = new java.sql.Date(new java.util.Date().getTime());
 
         int ppart_id = 0;
-        try {
+//        try {
             if(pp.getTestmedia()==null || pp.getTestmedia().equals("")){
                 ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
                 ps.setString(1,pp.getProdno());
@@ -69,9 +69,8 @@ public class putprenotiform {                                                   
                 if(rs.next()){
                     rs.close();
                     ps.close();
-                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ? AND ename = ?");
+                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ?");
                     ps.setString(1,pp.getPpart());
-                    ps.setString(2,pp.getEppart());
                     rs = ps.executeQuery();
                     if(rs.next()){
                         ppart_id = rs.getInt("id");
@@ -111,6 +110,7 @@ public class putprenotiform {                                                   
                         }
                         result.setResult("success");
                     }else {
+                        System.out.println(2);
                         rs.close();
                         ps.close();
                         result.setResult("fail");
@@ -118,9 +118,8 @@ public class putprenotiform {                                                   
                 }else {
                     ps.close();
                     rs.close();
-                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ? AND ename = ?");
+                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ?");
                     ps.setString(1,pp.getPpart());
-                    ps.setString(2,pp.getEppart());
                     rs = ps.executeQuery();
                     if(rs.next()){
                         ppart_id = rs.getInt("id");
@@ -161,6 +160,7 @@ public class putprenotiform {                                                   
                     }else {
                         rs.close();
                         ps.close();
+                        System.out.println(1);
                         result.setResult("fail");
                     }
                 }
@@ -168,9 +168,9 @@ public class putprenotiform {                                                   
 
 
             }
-        }catch (Exception e){
-            result.setResult(e.toString());
-        }
+//        }catch (Exception e){
+//            result.setResult(e.toString());
+//        }
         conn.close();
 
         return result;
