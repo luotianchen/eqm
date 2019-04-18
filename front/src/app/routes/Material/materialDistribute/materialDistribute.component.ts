@@ -77,9 +77,12 @@ export class MaterialDistributeComponent implements OnInit {
     });
     this.materialDistributeService.getuserform().subscribe(res=>{
       if(res['result']=='success'){
-        this.users = res['data'];
-        for(let user of this.users){
-          this.username2name[user.username] = user.name;
+        this.users = [];
+        for(let user of res['data']){
+          if(this.checkRole(user)){
+            this.users.push(user);
+            this.username2name[user.username] = user.name;
+          }
         }
       }
     });
@@ -93,6 +96,9 @@ export class MaterialDistributeComponent implements OnInit {
       enpartsname:[null, [Validators.required]]
     });
     this.updateEditCache();
+  }
+  checkRole(user:any){
+    return (user.role==55 ||  user.role==56 ||user.role2==55 ||  user.role2==56 ||user.role3==55 ||  user.role3==56 ||user.role4==55 ||  user.role4==56 ||user.role5==55 ||  user.role5==56);
   }
 
   searchData(): void {
@@ -140,6 +146,7 @@ export class MaterialDistributeComponent implements OnInit {
     this.updateEditCache();
     this.editCache[ `${this.i}` ].edit = true;
   }
+
 
   deleteRow(i: string): void {
     const dataSet = this.dataSet.filter(d => d.key !== i);

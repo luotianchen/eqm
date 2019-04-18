@@ -30,7 +30,7 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
       measrangemax:[null,[Validators.required]],
       accuclass:[null,[Validators.required]],
       millunit:[null,[Validators.required]],
-      exitdate:[null,[Validators.required]],
+      exitdate:[null],
       managlevel:[null,[Validators.required]],
       calibdate:[null,[Validators.required]],
       recalibdate:[null,[Validators.required]],
@@ -162,9 +162,11 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
     }
     if(this.validateForm.valid){
       console.log(this.validateForm.value);
+      this.validateForm.setControl('exitno',new FormControl({value: this.validateForm.controls['exitno'].value, disabled: false}));
       this.measuringInstrumentLedgerService.putMeasuringInstrumentLedger(this.validateForm.value).subscribe((res)=>{
         if(res['result']=="success"){
           this.msg.success("提交成功！");
+          this.validateForm.reset();
         }
       })
     }

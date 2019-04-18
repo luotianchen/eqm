@@ -37,7 +37,7 @@
           <a nz-popconfirm nzTitle="您确定要删除此部门？" (nzOnConfirm)="confirmDeleteDepartment(item.department)">删除部门</a>
         </td>
         <td *ngIf="item.role && item.department" style="text-align: center">
-          <a (click)="showModal('changeRoleName',item.role)">修改角色名称</a>
+          <a (click)="showModal('changeRoleName',item.role);showEditRoleTooltip();">修改角色名称</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a (click)="showModal('moveRole',item.role)">移动角色</a>
           <nz-divider nzType="vertical"></nz-divider>
@@ -79,7 +79,7 @@
   <div nz-row>
     <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">角色名称：</div>
     <div nz-col [nzSpan]="8">
-      <input nz-input [(ngModel)]="datamodel.roleName" disabled placeholder="请输入新角色名称"/>
+      <input nz-input [(ngModel)]="datamodel.roleName" placeholder="请输入新角色名称"/>
     </div>
   </div>
 </nz-modal>

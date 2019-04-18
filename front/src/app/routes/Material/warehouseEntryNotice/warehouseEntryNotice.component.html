@@ -65,7 +65,7 @@
     </form>
   </nz-tab>
 </nz-tabset>
-<div *ngIf="dataSet.length > 0 && mode == 1" #print>
+<div *ngIf="dataSet.length > 0 && mode == 1" #print style="width: 900px">
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
     [mode]="'popup'"
@@ -90,9 +90,9 @@
     <i nz-icon type="question-circle" theme="outline"></i>
   </button>
   </p>
-  <div *ngFor="let item of dataSet;let i = index" class="report1" style="width: 720px">
+  <div *ngFor="let item of dataSet;let i = index" class="report1" style="padding-top: 63px;padding-bottom: 205px;">
     <table border=0 cellpadding=0 cellspacing=0 width=707 style='border-collapse:
- collapse;table-layout:fixed;width:532pt;margin-left: 50px;margin-top: 50px;margin-bottom: 100px'>
+ collapse;table-layout:fixed;width:532pt;margin-left: 90px'>
       <colgroup width=49 span=2 style='mso-width-source:userset;mso-width-alt:1578;
  width:37pt'></colgroup>
       <colgroup width=33 style='mso-width-source:userset;mso-width-alt:1066;width:25pt'></colgroup>
@@ -147,7 +147,7 @@
         <td colspan=2 height=44 class=xl72 width=98 style='height:33.0pt;width:74pt'>规格</td>
         <td colspan=4 class=xl73 width=197 style='border-left:none;width:148pt'>{{item.spec}}</td>
         <td colspan=2 class=xl73 width=98 style='border-left:none;width:74pt'>数量</td>
-        <td colspan=4 class=xl73 width=149 style='border-left:none;width:112pt'>{{item.qty}}</td>
+        <td colspan=4 class=xl73 width=149 style='border-left:none;width:112pt'>{{item.qty}}{{item.unit}}</td>
         <td colspan=2 class=xl73 width=165 style='border-right:1.0pt solid black;
   border-left:none;width:124pt'>{{item.codedmarking}}</td>
       </tr>
@@ -156,7 +156,7 @@
         <td colspan=4 class=xl73 width=197 style='border-left:none;width:148pt'>{{item.supplier}}</td>
         <td colspan=2 class=xl73 width=98 style='border-left:none;width:74pt'>材料标准</td>
         <td colspan=6 class=xl73 width=314 style='border-right:1.0pt solid black;
-  border-left:none;width:236pt'>{{item.modelstand}}</td>
+  border-left:none;width:236pt'>{{item.modelstand+"/"}}{{item.matlstand}}</td>
       </tr>
       <tr height=44 style='mso-height-source:userset;height:33.0pt'>
         <td colspan=2 height=44 class=xl72 width=98 style='height:33.0pt;width:74pt'>质证书号</td>
@@ -268,9 +268,10 @@
       </tr>
     </table>
   </div>
+  <div style="page-break-after: always;"></div>
 </div>
 
-<div *ngIf="dataSet.length > 0 && mode == 2" #print2>
+<div *ngIf="dataSet.length > 0 && mode == 2" #print2 style="width: 900px">
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
     [mode]="'popup'"
@@ -295,10 +296,10 @@
     <i nz-icon type="question-circle" theme="outline"></i>
   </button>
   </p>
-  <div *ngFor="let item of dataSet;let i = index" class="report2" style="width: 720px">
+  <div *ngFor="let item of dataSet;let i = index" class="report2" style="padding-top: 63px;padding-bottom: 192px;">
 
     <table border=0 cellpadding=0 cellspacing=0 width=765 style='border-collapse:
- collapse;table-layout:fixed;width:574pt;margin-left: 50px;margin-top: 50px;margin-bottom: 100px'>
+ collapse;table-layout:fixed;width:574pt;margin-left: 80px'>
       <colgroup width=85 span=2 style='mso-width-source:userset;mso-width-alt:2730;
  width:64pt'></colgroup>
       <colgroup width=97 style='mso-width-source:userset;mso-width-alt:3114;width:73pt'></colgroup>
@@ -345,15 +346,15 @@
         <td colspan=2 class=xl99 width=182 style='border-left:none;width:137pt'>{{item.matlname}}</td>
         <td class=xl74 width=64 style='border-left:none;width:48pt'>型号</td>
         <td colspan=2 class=xl88 width=211 style='border-right:.5pt solid black;
-  border-left:none;width:158pt'>{{item.designation}}</td>
+  border-left:none;width:158pt'>{{type == 3 ? item.dimension : item.spec}}</td>
         <td class=xl74 width=71 style='border-left:none;width:53pt'>规格</td>
-        <td class=xl71 width=152 style='border-left:none;width:114pt'>{{item.spec}}</td>
+        <td class=xl71 width=152 style='border-left:none;width:114pt'></td>
       </tr>
       <tr height=27 style='mso-height-source:userset;height:20.25pt'>
         <td rowspan=2 height=50 class=xl87 width=85 style='height:37.5pt;border-top:
   none;width:64pt'>数量</td>
         <td rowspan=2 class=xl78 width=85 style='border-bottom:.5pt solid black;
-  border-top:none;width:64pt'>{{item.qty}}</td>
+  border-top:none;width:64pt'>{{item.qty}}{{item.unit}}</td>
         <td class=xl78 width=97 style='border-top:none;border-left:none;width:73pt'>生产</td>
         <td colspan=3 rowspan=2 class=xl90 width=275 style='border-right:.5pt solid black;
   border-bottom:.5pt solid black;width:206pt'>{{item.millunit}}</td>
@@ -373,7 +374,7 @@
         <td colspan=2 rowspan=2 class=xl90 width=211 style='border-right:.5pt solid black;
   border-bottom:.5pt solid black;width:158pt'>{{showDate(item.indate)}}</td>
         <td rowspan=2 class=xl75 width=71 style='border-top:none;width:53pt'>标准</td>
-        <td rowspan=2 class=xl98 width=152 style='border-top:none;width:114pt'>{{item.modelstand}}</td>
+        <td rowspan=2 class=xl98 width=152 style='border-top:none;width:114pt'>{{item.modelstand+"/"}}{{item.matlstand}}</td>
       </tr>
       <tr height=24 style='mso-height-source:userset;height:18.0pt'>
         <td height=24 class=xl72 width=85 style='height:18.0pt;width:64pt'>单位</td>
@@ -382,7 +383,7 @@
       <tr height=19 style='mso-height-source:userset;height:14.25pt'>
         <td height=19 class=xl80 width=85 style='height:14.25pt;border-top:none;
   width:64pt'>其它</td>
-        <td colspan=5 rowspan=2 class=xl79 width=457 style='width:343pt'>　</td>
+        <td colspan=5 rowspan=2 class=xl79 width=457 style='width:343pt'>{{item.designation}}</td>
         <td class=xl78 width=71 style='border-top:none;border-left:none;width:53pt'>质证</td>
         <td rowspan=2 class=xl98 width=152 style='border-top:none;width:114pt'>{{item.warrantyno}}</td>
       </tr>
@@ -479,7 +480,7 @@
       <tr height=33 style='mso-height-source:userset;height:25.5pt'>
         <td colspan=7 height=33 class=xl108 width=680 style='border-right:1.0pt solid black;
   height:25.5pt;border-left:none;width:510pt'>经检验该符合<span
-          style='mso-spacerun:yes'>{{item.matlname}}
+          style='mso-spacerun:yes'>{{item.modelstand+"/"}}{{item.matlstand}}
   </span>标准，验收合格，同意入库。</td>
       </tr>
       <tr height=20 style='height:15.0pt'>
@@ -522,11 +523,12 @@
         <td class=xl86>　</td>
       </tr>
     </table>
+    <div style="page-break-after: always;"></div>
   </div>
 </div>
 
 
-<div  *ngIf="dataSet.length > 0 && mode == 3" #print3>
+<div  *ngIf="dataSet.length > 0 && mode == 3" #print3 style="width: 900px">
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
     [mode]="'popup'"
@@ -551,9 +553,9 @@
     <i nz-icon type="question-circle" theme="outline"></i>
   </button>
   </p>
-  <div *ngFor="let item of dataSet;let i = index" class="report3" style="width: 720px">
+  <div *ngFor="let item of dataSet;let i = index" class="report3" style="padding-top: 63px;padding-bottom: 206px;">
     <table border=0 cellpadding=0 cellspacing=0 width=721 style='border-collapse:
- collapse;table-layout:fixed;width:540pt;margin-left: 50px;margin-top: 50px;margin-bottom: 100px'>
+ collapse;table-layout:fixed;width:540pt;margin-left: 70px;font-size: 14px'>
       <colgroup width=71 style='width:53pt'></colgroup>
       <colgroup width=35 style='mso-width-source:userset;mso-width-alt:1109;width:26pt'></colgroup>
       <colgroup width=33 style='mso-width-source:userset;mso-width-alt:1066;width:25pt'></colgroup>
@@ -618,7 +620,7 @@
         <td colspan=6 class=xl109 width=262 style='border-right:.5pt solid black;
   border-left:none;width:197pt;text-align: center'>{{item.supplier}}</td>
         <td class=xl68 width=51 style='border-top:none;border-left:none;width:38pt'>数量</td>
-        <td class=xl67 width=73 style='border-top:none;border-left:none;width:55pt;text-align: center'>{{item.qty}}</td>
+        <td class=xl67 width=73 style='border-top:none;border-left:none;width:55pt;text-align: center'>{{item.qty}}{{item.unit}}</td>
         <td colspan=2 class=xl77 width=87 style='border-right:.5pt solid black;
   border-left:none;width:65pt'>出厂日期</td>
         <td colspan=2 class=xl82 width=142 style='border-right:1.0pt solid black;
@@ -631,7 +633,7 @@
         <td colspan=2 class=xl82 width=124 style='border-left:none;width:93pt;text-align: center'>{{item.heatbatchno}}</td>
         <td colspan=2 class=xl68 width=87 style='border-left:none;width:65pt'>焊材标准</td>
         <td colspan=2 class=xl82 width=142 style='border-right:1.0pt solid black;
-  border-left:none;width:106pt;text-align: center'>{{item.modelstand}}</td>
+  border-left:none;width:106pt;text-align: center'>{{item.matlstand}}</td>
       </tr>
       <tr height=48 style='mso-height-source:userset;height:36.0pt'>
         <td rowspan=14 height=588 class=xl102 width=71 style='height:441.0pt;
@@ -754,5 +756,6 @@
         <td colspan=2 class=xl70>{{showDate(item.indate)}}</td>
       </tr>
     </table>
+    <div style="page-break-after: always;"></div>
   </div>
 </div>

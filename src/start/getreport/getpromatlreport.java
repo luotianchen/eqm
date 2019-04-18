@@ -104,7 +104,7 @@ public class getpromatlreport {                                 //产品材料�
         }
         rs.close();
 
-        ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1");
+        ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 ORDER BY partno ASC ");
         ps1.setString(1,prodno);
         rs1 = ps1.executeQuery();
         while (rs1.next()){
@@ -130,7 +130,7 @@ public class getpromatlreport {                                 //产品材料�
             rs = ps.executeQuery();
             if(rs.next()){
                 putsheet(sheet,8+i*2+t*32,1,rs.getString("partsname"));
-                putsheet(sheet,9+i*2+t*32,1,rs.getString("epartsname"));
+                putsheet(sheet,9+i*2+t*32,1,rs.getString("enpartsname"));
             }
             rs.close();
             ps.close();
@@ -195,9 +195,9 @@ public class getpromatlreport {                                 //产品材料�
                 ps_x.close();
 
                 putsheet(sheet,8+i*2+t*32,6,rs.getString("heattreatcondition_id_heatcondi"));
-                putsheet(sheet,8+i*2+t*32,22,rs.getString("rel1"));
-                putsheet(sheet,8+i*2+t*32,24,rs.getString("rm1"));
-                putsheet(sheet,8+i*2+t*32,26,rs.getString("elong1"));
+                putsheet(sheet,8+i*2+t*32,22,xiegangrel(rs));
+                putsheet(sheet,8+i*2+t*32,24,xiegangrm(rs));
+                putsheet(sheet,8+i*2+t*32,26,xiegangelong(rs));
                 putsheet(sheet,8+i*2+t*32,28,xieganghardness(rs));
                 putsheet(sheet,8+i*2+t*32,29,rs.getString("bending_id_impacttemp"));
                 putsheet(sheet,8+i*2+t*32,30,xiegangimpactp(rs));
@@ -221,9 +221,9 @@ public class getpromatlreport {                                 //产品材料�
             ps.setString(1,rs1.getString("codedmarking"));
             rs = ps.executeQuery();
             while (rs.next()){
-                putsheet(sheet,9+i*2+t*32,22,rs.getString("rel1"));
-                putsheet(sheet,9+i*2+t*32,24,rs.getString("rm1"));
-                putsheet(sheet,9+i*2+t*32,26,rs.getString("elong1"));
+                putsheet(sheet,9+i*2+t*32,22,xiegangrel(rs));
+                putsheet(sheet,9+i*2+t*32,24,xiegangrm(rs));
+                putsheet(sheet,9+i*2+t*32,26,xiegangelong(rs));
                 putsheet(sheet,9+i*2+t*32,28,xieganghardness(rs));
                 putsheet(sheet,9+i*2+t*32,29,rs.getString("impacttemp"));
                 putsheet(sheet,9+i*2+t*32,30,xiegangimpactp(rs));
@@ -299,7 +299,7 @@ public class getpromatlreport {                                 //产品材料�
 
 
 
-        excel2Pdf_heng(url1,url2);                                       //转PDF
+        excel2Pdf(url1,url2);                                       //转PDF
         File filepdf = new File(uploadPath, pdfname);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
         headers.setContentDispositionFormData("attachment", "产品材料清单.pdf");// 文件的属性，也就是文件叫什么吧
@@ -327,58 +327,111 @@ public class getpromatlreport {                                 //产品材料�
 
     public String xieganghardness(ResultSet rs) throws SQLException {
         String b=null;
-        String a[] = new String[3];
-        int i = 0;
         if(rs.getString("hardness1") != null && rs.getString("hardness1").equals("")){
-            a[i] = rs.getString("hardness1");
-            i++;
+            b = rs.getString("hardness1");
         }
         if(rs.getString("hardness2") != null && rs.getString("hardness2").equals("")){
-            a[i] = rs.getString("hardness2");
-            i++;
+            b = rs.getString("hardness2");
         }
         if(rs.getString("hardness3") != null && rs.getString("hardness3").equals("")){
-            a[i] = rs.getString("hardness3");
-            i++;
+            b = rs.getString("hardness3");
         }
 
-        for(int j = 0;j<a.length;j++){
-            if(j==0){
-                b=a[j];
-            }else {
-                b = b + "/" +a[j];
-            }
-        }
         return b;
     }
 
 
     public String xiegangimpactp(ResultSet rs) throws SQLException {
         String b=null;
-        String a[] = new String[3];
-        int i = 0;
+        ArrayList<String> a = new ArrayList<String>();
         if(rs.getString("impactp1") != null && rs.getString("impactp1").equals("")){
-            a[i] = rs.getString("impactp1");
-            i++;
+            a.add(rs.getString("impactp1"));
         }
         if(rs.getString("impactp2") != null && rs.getString("impactp2").equals("")){
-            a[i] = rs.getString("impactp2");
-            i++;
+            a.add(rs.getString("impactp2"));
         }
         if(rs.getString("impactp3") != null && rs.getString("impactp3").equals("")){
-            a[i] = rs.getString("impactp3");
-            i++;
+            a.add(rs.getString("impactp3"));
         }
 
-        for(int j = 0;j<a.length;j++){
+        for(int j = 0;j<a.size();j++){
             if(j==0){
-                b=a[j];
+                b=a.get(j);
             }else {
-                b = b + "/" +a[j];
+                b = b + "/" +a.get(j);
             }
         }
+
+
         return b;
     }
+
+    public String xiegangrel(ResultSet rs) throws SQLException {
+        String b=null;
+        ArrayList<String> a = new ArrayList<String>();
+        if(rs.getString("rel1") != null && rs.getString("rel1").equals("")){
+            a.add(rs.getString("rel1"));
+        }
+        if(rs.getString("rel2") != null && rs.getString("rel2").equals("")){
+            a.add(rs.getString("rel2"));
+        }
+
+        for(int j = 0;j<a.size();j++){
+            if(j==0){
+                b=a.get(j);
+            }else {
+                b = b + "/" +a.get(j);
+            }
+        }
+
+
+        return b;
+    }
+
+    public String xiegangrm(ResultSet rs) throws SQLException {
+        String b=null;
+        ArrayList<String> a = new ArrayList<String>();
+        if(rs.getString("rm1") != null && rs.getString("rm1").equals("")){
+            a.add(rs.getString("rm1"));
+        }
+        if(rs.getString("rm2") != null && rs.getString("rm2").equals("")){
+            a.add(rs.getString("rm2"));
+        }
+
+        for(int j = 0;j<a.size();j++){
+            if(j==0){
+                b=a.get(j);
+            }else {
+                b = b + "/" +a.get(j);
+            }
+        }
+
+
+        return b;
+    }
+
+    public String xiegangelong(ResultSet rs) throws SQLException {
+        String b=null;
+        ArrayList<String> a = new ArrayList<String>();
+        if(rs.getString("elong1") != null && rs.getString("elong1").equals("")){
+            a.add(rs.getString("elong1"));
+        }
+        if(rs.getString("elong2") != null && rs.getString("elong2").equals("")){
+            a.add(rs.getString("elong2"));
+        }
+
+        for(int j = 0;j<a.size();j++){
+            if(j==0){
+                b=a.get(j);
+            }else {
+                b = b + "/" +a.get(j);
+            }
+        }
+
+
+        return b;
+    }
+
 
     public String change(int i){
         String ii = null;

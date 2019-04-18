@@ -199,14 +199,14 @@ public class getpredatasheetreport {                            //压力容器�
                 leaktestp = rs.getString("leaktestp");
             }else {
 
-                getme(volume,rs,"volume");
-                getme(innerdia,rs,"innerdia");
-                getme(pttype,rs,"pttype");
-                getme(epttype,rs,"epttype");
-                getme(testpress,rs,"testpress");
-                getme(leaktest,rs,"leaktest");
-                getme(eleaktest,rs,"eleaktest");
-                getme(leaktestp,rs,"leaktestp");
+                volume = getme(volume,rs,"volume");
+                innerdia = getme(innerdia,rs,"innerdia");
+                pttype = getme(pttype,rs,"pttype");
+                epttype = getme(epttype,rs,"epttype");
+                testpress = getme(testpress,rs,"testpress");
+                leaktest = getme(leaktest,rs,"leaktest");
+                eleaktest = getme(eleaktest,rs,"eleaktest");
+                leaktestp = getme(leaktestp,rs,"leaktestp");
 
             }
 
@@ -519,6 +519,9 @@ public class getpredatasheetreport {                            //压力容器�
         if(!as.isEmpty()){
             a = as.get(0);
             for(int i=1;i<as.size();i++){
+                if(as.get(i).equals("0")){
+                    continue;
+                }
                 a = a+"/"+as.get(i);
             }
         }
@@ -526,7 +529,7 @@ public class getpredatasheetreport {                            //压力容器�
         return a;
     }
 
-    public void getme(String x , ResultSet rs,String a) throws SQLException {
+    public String getme(String x , ResultSet rs,String a) throws SQLException {
         if(x == null){
             x = rs.getString(a);
         }else {
@@ -534,5 +537,7 @@ public class getpredatasheetreport {                            //压力容器�
                 x = x + "/" + rs.getString(a);
             }
         }
+
+        return x;
     }
 }

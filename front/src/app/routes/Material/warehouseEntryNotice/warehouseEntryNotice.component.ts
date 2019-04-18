@@ -14,13 +14,14 @@ export class WarehouseEntryNoticeComponent implements OnInit {
   public thisyear = new Date().getFullYear;
   public validateForm: FormGroup;
   public validateForm2: FormGroup;
+  type:number;
   matlType = {
     1:1,
     2:1,
     3:2,
     4:2,
     5:3
-  }; // 1/2/3/4/5分别对应板材、管件、法兰、封头、焊材5种材料，后面的1、2、3为对应的模式，每一种模式对应种报表央视
+  }; // 1/2/3/4/5分别对应板材、管件、法兰、封头、焊材5种材料，后面的1、2、3为对应的模式，每一种模式对应种报表样式
   mode = 0;
   hancaiData = {
     "焊条" : ['完好','无','完好','无','符合要求','/','/','/',	'/','/','/'],
@@ -60,6 +61,7 @@ export class WarehouseEntryNoticeComponent implements OnInit {
           this.msg.error("您输入的材料不属于板材、管件、法兰、封头、焊材！")
           return;
         }else{
+          this.type = res['data'];
           this.mode = this.matlType[res['data']];
         }
       }

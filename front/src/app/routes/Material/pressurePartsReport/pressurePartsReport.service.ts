@@ -9,7 +9,7 @@ export class PressurePartsReportService {
   getprodno(){
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
-  putdistribute(prodno){
+  searchprematl(prodno){ // 查询受压元件一览表
     return this.http.post(this.api.BASEURL+"/searchprematl",{prodno:prodno,status:1});
   }
   getSignImage(username){

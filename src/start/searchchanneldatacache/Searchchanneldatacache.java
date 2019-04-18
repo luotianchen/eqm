@@ -28,7 +28,7 @@ public class Searchchanneldatacache {                                           
         searchchanneldatacachedata data = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM channeldatacache WHERE dwgno = ?");
+            ps = conn.prepareStatement("SELECT * FROM channeldatacache WHERE dwgno = ? ORDER BY tongdaoshu ASC");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
             while (rs.next()){
@@ -63,7 +63,6 @@ public class Searchchanneldatacache {                                           
             }
             rs.close();
             ps.close();
-            Collections.reverse(as);                                          //将list倒序
             result.setData(as);
             result.setResult("success");
         }catch (Exception e){

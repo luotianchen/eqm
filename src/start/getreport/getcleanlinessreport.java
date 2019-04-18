@@ -65,6 +65,8 @@ public class getcleanlinessreport {                                     //清洁
         String shmatl = null;
         String dated = null;
 
+        int ppart_id = 0;
+
 
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
@@ -146,8 +148,18 @@ public class getcleanlinessreport {                                     //清洁
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+        ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ?");
+        ps.setString(1,name);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            ppart_id = rs.getInt("id");
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1 = ？");
         ps.setString(1,prodno);
+        ps.setInt(2,ppart_id);
         rs = ps.executeQuery();
         if(rs.next()){
             if(rs.getString("dated3")==null || rs.getString("dated3").equals("")){

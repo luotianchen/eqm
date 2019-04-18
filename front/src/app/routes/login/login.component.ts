@@ -47,6 +47,14 @@ export class LoginComponent implements OnInit {
           if(res['email']!=null)
             this._storage.set('email', res['email']);
           this.router.navigate(['dashboard']);
+        }else if(res['result'] == -2){
+          this.loadStatus = false;
+          this.loginBtn = '登录';
+          this.message.error('系统尚未激活或已使用期限到期！');
+        }else if(res['result'] == -3){
+          this.loadStatus = false;
+          this.loginBtn = '登录';
+          this.message.error('激活码与本机器不匹配！');
         } else {
           this.loadStatus = false;
           this.loginBtn = '登录';

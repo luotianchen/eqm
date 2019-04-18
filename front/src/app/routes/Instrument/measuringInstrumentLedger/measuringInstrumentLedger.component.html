@@ -6,6 +6,17 @@
   <div nz-row [nzGutter]="16" nzType="flex">
     <div nz-col nzSpan="4">
       <nz-form-item>
+        <nz-form-label nzRequired nzFor="gaugeno">厂内编号</nz-form-label>
+        <nz-form-control nzHasFeedback>
+          <input nz-input style="width: 100%" placeholder="厂内编号"  formControlName="gaugeno" name="gaugeno" id="gaugeno" (blur)="getInfoByGaugeno()">
+          <nz-form-explain *ngIf="validateForm.get('gaugeno').dirty && validateForm.get('gaugeno').errors">
+            厂内编号不能为空！
+          </nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
         <nz-form-label nzRequired nzFor="gaugename">
           名称
         </nz-form-label>
@@ -15,17 +26,6 @@
           </nz-select>
           <nz-form-explain *ngIf="validateForm.get('gaugename').dirty && validateForm.get('gaugename').errors">
             名称不能为空！
-          </nz-form-explain>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="4">
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="gaugeno">厂内编号</nz-form-label>
-        <nz-form-control nzHasFeedback>
-          <input nz-input style="width: 100%" placeholder="厂内编号"  formControlName="gaugeno" name="gaugeno" id="gaugeno" (blur)="getInfoByGaugeno()">
-          <nz-form-explain *ngIf="validateForm.get('gaugeno').dirty && validateForm.get('gaugeno').errors">
-            厂内编号不能为空！
           </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
@@ -93,9 +93,6 @@
         <nz-form-label nzRequired nzFor="exitdate">出厂日期</nz-form-label>
         <nz-form-control nzHasFeedback>
           <input nz-input formControlName="exitdate" name="exitdate" placeholder="出厂日期" type="text" id="exitdate" (blur)="formatInDate(this.validateForm.controls['exitdate']);">
-          <nz-form-explain *ngIf="validateForm.get('exitdate').dirty && validateForm.get('exitdate').errors">
-            出厂日期不能为空！(格式：YYYY-MM-DD或MM-DD)
-          </nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>

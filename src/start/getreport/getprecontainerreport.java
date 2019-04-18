@@ -208,6 +208,13 @@ public class getprecontainerreport {                                            
                     putsheet(sheet,49,5,"符  合\nConforming");
                     putsheet(sheet,49,7,"合  格\nAcceptable");
                     break;
+                }else {
+                    putsheet(sheet,45,5,"------");
+                    putsheet(sheet,45,7,"------");
+                    putsheet(sheet,47,5,"------");
+                    putsheet(sheet,47,7,"------");
+                    putsheet(sheet,49,5,"------");
+                    putsheet(sheet,49,7,"------");
                 }
             }
             rs1.close();
@@ -226,12 +233,15 @@ public class getprecontainerreport {                                            
                 putsheet(sheet,55,5,"符  合\nConforming");
                 putsheet(sheet,55,7,"合  格\nAcceptable");
                 break;
+            }else{
+                putsheet(sheet,55,5,"------");
+                putsheet(sheet,55,7,"------");
             }
         }
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND status = 1");
+        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
         ps.setString(1,dwgno);
         rs = ps.executeQuery();
         if(rs.next()){
@@ -310,6 +320,9 @@ public class getprecontainerreport {                                            
             if(i==0){
                 s = String.valueOf(as.get(i));
             }else {
+                if(as.get(i)==0){
+                    continue;
+                }
                 s =s + "/" + String.valueOf(as.get(i));
             }
         }

@@ -17,6 +17,7 @@ public class searchmatlnoticedata {
     private String dimension;                             //尺寸
     private String indate;                               //入库日期
     private String modelstand;                          //型号标准*
+    private String heatcondi;                          //热处理状态*
     //焊材才拥有以下属性，否则全为null
     //以下通过焊材名称在焊材牌号表中查询
     private String pack;                                //包装
@@ -248,5 +249,13 @@ public class searchmatlnoticedata {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getHeatcondi() {
+        return heatcondi;
+    }
+
+    public void setHeatcondi(String heatcondi) {
+        this.heatcondi = heatcondi;
     }
 }

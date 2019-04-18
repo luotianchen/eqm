@@ -42,7 +42,7 @@ export class PressurePartsReportComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.prodno = this.validateForm.value.prodno;
-      this.pressurePartsReportService.putdistribute(this.validateForm.value.prodno).subscribe((res)=>{
+      this.pressurePartsReportService.searchprematl(this.validateForm.value.prodno).subscribe((res)=>{
         if(res['result']=="success"){
           if(res['data'].length>0){
             this.reportData = res;

@@ -24,23 +24,23 @@ public class putpreandleak {                                    //提交压力�
 
         putpreandleakresult result = new putpreandleakresult();
 
-//        try {
-            ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ?");
-            ps.setString(1,pp.getProdno());
-            rs = ps.executeQuery();
-            if(rs.next()){
-                ps1 = conn.prepareStatement("DELETE FROM pretest WHERE prodno = ?");
-                ps1.setString(1,pp.getProdno());
-                ps1.executeUpdate();
-                ps1.close();
-
-                ps1 = conn.prepareStatement("DELETE FROM leakagetest WHERE prodno = ?");
-                ps1.setString(1,pp.getProdno());
-                ps1.executeUpdate();
-                ps1.close();
-            }
-            rs.close();
-            ps.close();
+        try {
+//            ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ?");
+//            ps.setString(1,pp.getProdno());
+//            rs = ps.executeQuery();
+//            if(rs.next()){
+//                ps1 = conn.prepareStatement("DELETE FROM pretest WHERE prodno = ?");
+//                ps1.setString(1,pp.getProdno());
+//                ps1.executeUpdate();
+//                ps1.close();
+//
+//                ps1 = conn.prepareStatement("DELETE FROM leakagetest WHERE prodno = ?");
+//                ps1.setString(1,pp.getProdno());
+//                ps1.executeUpdate();
+//                ps1.close();
+//            }
+//            rs.close();
+//            ps.close();
 
 
             if(pp.getData().getDated1().getStatus() == 0){
@@ -167,9 +167,9 @@ public class putpreandleak {                                    //提交压力�
                 }
                 result.setResult("success");
             }
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }

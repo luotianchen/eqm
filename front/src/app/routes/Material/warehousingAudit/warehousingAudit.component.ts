@@ -19,6 +19,7 @@ export class WarehousingAuditComponent implements OnInit {
   public matlname = [];
   public millunits = [];
   public specs = [];
+  codedmarkings = []
   public dataset = [];
     onSpecInput(value: string): void {
     this.specs = value ? [
@@ -49,6 +50,11 @@ export class WarehousingAuditComponent implements OnInit {
         this.millunits = res['data']['millunit'];
       }
     });
+    this.warehousingAuditService.getCodedmarking().subscribe(res=>{
+      if(res['result'] == "success"){
+        this.codedmarkings = res['data'];
+      }
+    })
   }
 
   resetForm(): void {

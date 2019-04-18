@@ -9,4 +9,7 @@ export class MeasuringInstrumentLedgerQueryService {
   getaudit(gaugeno,exitno,calibdate){
     return this.http.post(this.api.BASEURL+"/searchpregaubystatus",{status:1,gaugeno:gaugeno,exitno:exitno,calibdate:calibdate});
   }
+  searchledgerbynotedate(note, date){
+    return this.http.post(`${this.api.BASEURL}/searchledgerbynotedate`,{note:note,date:date});
+  }
 }

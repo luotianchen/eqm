@@ -1,6 +1,10 @@
 <div>
   <h3 class="title">计量台帐查询</h3>
+  <span style="float: right">
+    <button class="tool-button" nz-button nzType="default" (click)="showModal()">计量台账Excel导出</button>
+  </span>
 </div>
+<nz-divider></nz-divider>
 <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
   <div nz-row [nzGutter]="24">
     <div nz-col [nzSpan]="6">
@@ -86,3 +90,25 @@
     </tbody>
   </nz-table>
 </div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="导出excel" (nzOnOk)="handleOk()">
+  <form nz-form [formGroup]="validateForm2">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" nzFor="note">台账类别</nz-form-label>
+          <nz-form-control [nzSm]="16">
+            <input nz-input formControlName="note" name="note" id="note" placeholder="台账类别"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" nzFor="date">打印日期</nz-form-label>
+          <nz-form-control [nzSm]="16">
+            <input nz-input formControlName="date" name="date" id="date" placeholder="打印日期"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-modal>

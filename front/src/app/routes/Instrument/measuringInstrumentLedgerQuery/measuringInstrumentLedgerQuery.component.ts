@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {NzMessageService} from "ng-zorro-antd";
 import {SessionStorageService} from '../../../core/storage/storage.service';
 import {MeasuringInstrumentLedgerQueryService} from './measuringInstrumentLedgerQuery.service';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NgxXLSXService} from "@notadd/ngx-xlsx";
 
 @Component({
   selector: 'app-measuringInstrumentLedgerQuery',
@@ -13,14 +14,39 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
   public dataSet:any[];
   loading = true;
-  constructor(public measuringInstrumentLedgerQueryService:MeasuringInstrumentLedgerQueryService,public message : NzMessageService,public _storage:SessionStorageService,public fb:FormBuilder){
+  isVisible = false;
+  constructor(public measuringInstrumentLedgerQueryService:MeasuringInstrumentLedgerQueryService,public message : NzMessageService,public _storage:SessionStorageService,public fb:FormBuilder,private excel:NgxXLSXService){
+    this.isVisible = false;
   }
+  headers = [
+    '名称',
+    '厂内编号',
+    '出厂编号',
+    '型号',
+    '测量范围小',
+    '测量范围大',
+    '精度等级',
+    '生产单位',
+    '出厂日期',
+    '管理类别',
+    '检定日期',
+    '下次检定日期',
+    '专管人',
+    '确认间隔',
+    '备注'
+  ];
+
   validateForm:FormGroup;
+  validateForm2:FormGroup;
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       gaugeno:[null],
       exitno:[null],
       calibdate:[null],
+    })
+    this.validateForm2 = this.fb.group({
+      note:[null,[Validators.required]],
+      date:[null,[Validators.required]]
     })
     this.searchData(true)
   }
@@ -50,5 +76,23 @@ export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[ i ].markAsDirty();
+      this.validateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.validateForm.valid){
+      this.measuringInstrumentLedgerQueryService.searchledgerbynotedate(this.validateForm2.value.note,this.validateForm2.value.date).subscribe((res)=>{
+        if(res['result']=="success"){
+          this.excel.exportAsExcelFile(res['data'],'计量台账',this.headers);
+          this.isVisible = false;
+        }
+      })
+    }
   }
 }

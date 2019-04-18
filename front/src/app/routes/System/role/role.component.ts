@@ -299,6 +299,14 @@ export class RoleComponent implements OnInit {
     });
   }
   confirmDeleteRole(role){
+    if(role == 55 || role == 56){
+      this.msg.error("焊工和铆工不能被删除！");
+      return;
+    }
+    if(role == 1){
+      this.msg.error("检验员不能删除！");
+      return;
+    }
     this.roleService.deleteRole(role).subscribe((res)=>{
       if(res["result"]=='success'){
         this.msg.success("删除成功！");
@@ -307,5 +315,8 @@ export class RoleComponent implements OnInit {
         this.msg.error("该角色下还有用户，删除失败！");
       }
     });
+  }
+  showEditRoleTooltip(){
+    this.msg.info("请勿修改材料代用相关部门名称！（设计责任工程师、材料责任工程师、焊接责任工程师、工艺责任工程师、检验与试验责任工程师、技术负责人）")
   }
 }

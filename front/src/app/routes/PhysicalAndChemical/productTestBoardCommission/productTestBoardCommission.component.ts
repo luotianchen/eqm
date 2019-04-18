@@ -97,7 +97,7 @@ export class ProductTestBoardCommissionComponent implements OnInit {
       this.productTestBoardCommissionService.putproducttestboardcommission(
         {
           "prodno":this.validateForm.value.prodno,
-          "prodname":this.validateForm.value.prodname,
+          "prodname":this.validateForm.controls['prodname'].value,
           "evaluastand":this.validateForm.value.evaluastand,
           "specimenno":this.validateForm.value.specimenno,
           "specimenname":this.validateForm.value.specimenname,

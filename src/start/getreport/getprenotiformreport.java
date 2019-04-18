@@ -44,7 +44,7 @@ public class getprenotiformreport {                                         //�
         String detemp = null;                       //设计温度
         String wmedia = null;                       //工作介质
         String testpress = null;                    //试验压力
-        String leaktestp = null;                     //气密性试验压力
+        String leaktestp = null;                    //气密性试验压力
         String dated = null;                        //开具日期
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法

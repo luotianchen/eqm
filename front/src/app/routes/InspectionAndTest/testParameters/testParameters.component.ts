@@ -496,9 +496,9 @@ export class TestParametersComponent implements OnInit {
                 nzTitle: '成功',
                 nzContent: '您已提交成功！'
               });
+              this.checklink();
             }
           });
-          this.checklink();
         }
       },(err)=>{
         this.modalService.error({

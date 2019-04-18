@@ -64,45 +64,45 @@ public class getleaktestreport {                                                
 
         for (int i = 0;i<data.size();i++){
             System.out.println(i);
-            putsheet(sheet,3+i*46,0,data.get(i).getDwgno());
-            putsheet(sheet,3+i*46,10,data.get(i).getProdno());
-            putsheet(sheet,4+i*46,1,data.get(i).getName());
-            putsheet(sheet,5+i*46,1,data.get(i).getEname());
+            putsheet(sheet,3+i*47,0,data.get(i).getDwgno());
+            putsheet(sheet,3+i*47,10,data.get(i).getProdno());
+            putsheet(sheet,4+i*47,1,data.get(i).getName());
+            putsheet(sheet,5+i*47,1,data.get(i).getEname());
 
             calendar.setTime(sdf.parse(data.get(i).getDated()));
-            putsheet(sheet,4+i*46,5,simpleDateFormat3.format(calendar.getTime()));
-            putsheet(sheet,5+i*46,5,simpleDateFormat4.format(calendar.getTime()));
-            putsheet(sheet,44+i*46,11,simpleDateFormat3.format(calendar.getTime()));
-            putsheet(sheet,45+i*46,11,simpleDateFormat4.format(calendar.getTime()));
+            putsheet(sheet,4+i*47,5,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,5+i*47,5,simpleDateFormat4.format(calendar.getTime()));
+            putsheet(sheet,44+i*47,11,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,45+i*47,11,simpleDateFormat4.format(calendar.getTime()));
 
 
-            putsheet(sheet,6+i*46,1,data.get(i).getAccuclass());
-            putsheet(sheet,6+i*46,5,data.get(i).getMeasrangemin()+"-"+data.get(i).getMeasrangemax());
+            putsheet(sheet,6+i*47,1,data.get(i).getAccuclass());
+            putsheet(sheet,6+i*47,5,data.get(i).getMeasrangemin()+"-"+data.get(i).getMeasrangemax());
 
             if(data.get(i).getCalibdate()!=null && !data.get(i).getCalibdate().equals("")){
                 calendar.setTime(sdf.parse(data.get(i).getCalibdate()));
-                putsheet(sheet,6+i*46,11,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,7+i*46,11,simpleDateFormat4.format(calendar.getTime()));
+                putsheet(sheet,6+i*47,11,simpleDateFormat3.format(calendar.getTime()));
+                putsheet(sheet,7+i*47,11,simpleDateFormat4.format(calendar.getTime()));
                 calendar.setTime(sdf.parse(data.get(i).getCalibdate2()));
-                putsheet(sheet,8+i*46,11,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,9+i*46,11,simpleDateFormat4.format(calendar.getTime()));
+                putsheet(sheet,8+i*47,11,simpleDateFormat3.format(calendar.getTime()));
+                putsheet(sheet,9+i*47,11,simpleDateFormat4.format(calendar.getTime()));
             }
 
 
-            putsheet(sheet,10+i*46,1,data.get(i).getPgaugeno1());
-            putsheet(sheet,11+i*46,1,data.get(i).getPgaugeno2());
-            putsheet(sheet,10+i*46,5,data.get(i).getType());
-            putsheet(sheet,10+i*46,11,data.get(i).getTestmedia());
-            putsheet(sheet,11+i*46,11,data.get(i).getEtestmedia());
-            putsheet(sheet,12+i*46,1,data.get(i).getClcontent());
-            putsheet(sheet,12+i*46,5,data.get(i).getCircutemp());
-            putsheet(sheet,12+i*46,11,data.get(i).getMediatemp());
-            putsheet(sheet,15+i*46,4,data.get(i).getLeaktestp());
-            putsheet(sheet,28+i*46,4,data.get(i).getLeaktestp());
-            putsheet(sheet,38+i*46,6,data.get(i).getDewelltime());
+            putsheet(sheet,10+i*47,1,data.get(i).getPgaugeno1());
+            putsheet(sheet,11+i*47,1,data.get(i).getPgaugeno2());
+            putsheet(sheet,10+i*47,5,data.get(i).getType());
+            putsheet(sheet,10+i*47,11,data.get(i).getTestmedia());
+            putsheet(sheet,11+i*47,11,data.get(i).getEtestmedia());
+            putsheet(sheet,12+i*47,1,data.get(i).getClcontent());
+            putsheet(sheet,12+i*47,5,data.get(i).getCircutemp());
+            putsheet(sheet,12+i*47,11,data.get(i).getMediatemp());
+            putsheet(sheet,15+i*47,4,data.get(i).getLeaktestp());
+            putsheet(sheet,28+i*47,4,data.get(i).getLeaktestp());
+            putsheet(sheet,38+i*47,6,data.get(i).getDewelltime());
 
-            putsheet(sheet,41+i*46,0,"   本产品经  "+data.get(i).getLeaktestp()+" Mpa试验，无渗漏，合格。");
-            putsheet(sheet,42+i*46,0,"     This product is tested with pressure of  "+data.get(i).getLeaktestp()+" Mpa; and has no leak is acceptable. ");
+            putsheet(sheet,41+i*47,0,"   本产品经  "+data.get(i).getLeaktestp()+" Mpa试验，无渗漏，合格。");
+            putsheet(sheet,42+i*47,0,"     This product is tested with pressure of  "+data.get(i).getLeaktestp()+" Mpa; and has no leak is acceptable. ");
         }
 
 

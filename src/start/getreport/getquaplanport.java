@@ -488,13 +488,13 @@ public class getquaplanport {                                               //�
             if(result1.get(i).get(11).equals("/")){
 
                 if(i==62){
-//                    Row row1 = sheet1.getRow(i+2);
-//                    row1.setZeroHeight(true);                    //隐藏下一行
+                    Row row1 = sheet1.getRow(i+2);
+                    row1.setZeroHeight(true);                    //隐藏下一行
                 }
 
                 System.out.println(i+"x");
-//                Row row = sheet1.getRow(i+1);
-//                row.setZeroHeight(true);                    //隐藏下一行
+                Row row = sheet1.getRow(i+1);
+                row.setZeroHeight(true);                    //隐藏下一行
             }else {
 
                 putsheet(sheet1,i+1,0,String.valueOf(q));

@@ -8,7 +8,7 @@
         <nz-form-label [nzSm]="6" nzFor="codedmarking">入库编号</nz-form-label>
         <nz-form-control [nzSm]="14">
           <nz-select nzMode="default" formControlName="codedmarking" name="codedmarking" id="codedmarking" nzShowSearch nzAllowClear nzPlaceHolder="入库编号">
-            <nz-option *ngFor="let option of dataset" [nzLabel]="option.codedmarking" [nzValue]="option.codedmarking"></nz-option>
+            <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>

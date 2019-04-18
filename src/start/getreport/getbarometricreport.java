@@ -64,49 +64,49 @@ public class getbarometricreport {                                          //�
 
         for (int i = 0;i<data.size();i++){
 
-            putsheet(sheet,3+i*45,2,data.get(i).getPttype()+"\n"+data.get(i).getEpttype());
+            putsheet(sheet,3+i*47,2,data.get(i).getPttype()+"\n"+data.get(i).getEpttype());
 
-            putsheet(sheet,3+i*45,0,data.get(i).getDwgno());
-            putsheet(sheet,3+i*45,7,data.get(i).getProdno());
-            putsheet(sheet,4+i*45,1,data.get(i).getName());
-            putsheet(sheet,5+i*45,1,data.get(i).getEname());
+            putsheet(sheet,3+i*47,0,data.get(i).getDwgno());
+            putsheet(sheet,3+i*47,7,data.get(i).getProdno());
+            putsheet(sheet,4+i*47,1,data.get(i).getName());
+            putsheet(sheet,5+i*47,1,data.get(i).getEname());
 
             calendar.setTime(sdf.parse(data.get(i).getDated()));
-            putsheet(sheet,4+i*45,4,simpleDateFormat3.format(calendar.getTime()));
-            putsheet(sheet,5+i*45,4,simpleDateFormat4.format(calendar.getTime()));
-            putsheet(sheet,44+i*45,7,simpleDateFormat3.format(calendar.getTime()));
-            putsheet(sheet,45+i*45,7,simpleDateFormat4.format(calendar.getTime()));
+            putsheet(sheet,4+i*47,4,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,5+i*47,4,simpleDateFormat4.format(calendar.getTime()));
+            putsheet(sheet,44+i*47,7,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,45+i*47,7,simpleDateFormat4.format(calendar.getTime()));
 
 
-            putsheet(sheet,6+i*45,1,data.get(i).getAccuclass());
-            putsheet(sheet,6+i*45,4,data.get(i).getMeasrangemin()+"-"+data.get(i).getMeasrangemax());
+            putsheet(sheet,6+i*47,1,data.get(i).getAccuclass());
+            putsheet(sheet,6+i*47,4,data.get(i).getMeasrangemin()+"-"+data.get(i).getMeasrangemax());
 
             if(data.get(i).getCalibdate()!=null && !data.get(i).getCalibdate().equals("")){
                 calendar.setTime(sdf.parse(data.get(i).getCalibdate()));
-                putsheet(sheet,6+i*45,8,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,7+i*45,8,simpleDateFormat4.format(calendar.getTime()));
+                putsheet(sheet,6+i*47,8,simpleDateFormat3.format(calendar.getTime()));
+                putsheet(sheet,7+i*47,8,simpleDateFormat4.format(calendar.getTime()));
                 calendar.setTime(sdf.parse(data.get(i).getCalibdate2()));
-                putsheet(sheet,8+i*45,8,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,9+i*45,8,simpleDateFormat4.format(calendar.getTime()));
+                putsheet(sheet,8+i*47,8,simpleDateFormat3.format(calendar.getTime()));
+                putsheet(sheet,9+i*47,8,simpleDateFormat4.format(calendar.getTime()));
             }
 
 
-            putsheet(sheet,10+i*45,1,data.get(i).getPgaugeno1());
-            putsheet(sheet,11+i*45,1,data.get(i).getPgaugeno2());
-            putsheet(sheet,10+i*45,4,data.get(i).getType());
-            putsheet(sheet,10+i*45,8,data.get(i).getTestmedia());
-            putsheet(sheet,11+i*45,8,data.get(i).getEtestmedia());
-            putsheet(sheet,12+i*45,1,data.get(i).getClcontent());
-            putsheet(sheet,12+i*45,4,data.get(i).getCircutemp());
-            putsheet(sheet,12+i*45,8,data.get(i).getMediatemp());
-            putsheet(sheet,16+i*45,4,data.get(i).getTestpress());
-            putsheet(sheet,17+i*45,5,data.get(i).getDepress());
-            putsheet(sheet,28+i*45,4,data.get(i).getTestpress());
-            putsheet(sheet,29+i*45,5,data.get(i).getDepress());
-            putsheet(sheet,37+i*45,5,data.get(i).getDewelltime());
+            putsheet(sheet,10+i*47,1,data.get(i).getPgaugeno1());
+            putsheet(sheet,11+i*47,1,data.get(i).getPgaugeno2());
+            putsheet(sheet,10+i*47,4,data.get(i).getType());
+            putsheet(sheet,10+i*47,8,data.get(i).getTestmedia());
+            putsheet(sheet,11+i*47,8,data.get(i).getEtestmedia());
+            putsheet(sheet,12+i*47,1,data.get(i).getClcontent());
+            putsheet(sheet,12+i*47,4,data.get(i).getCircutemp());
+            putsheet(sheet,12+i*47,8,data.get(i).getMediatemp());
+            putsheet(sheet,16+i*47,4,data.get(i).getTestpress());
+            putsheet(sheet,17+i*47,5,data.get(i).getDepress());
+            putsheet(sheet,28+i*47,4,data.get(i).getTestpress());
+            putsheet(sheet,29+i*47,5,data.get(i).getDepress());
+            putsheet(sheet,37+i*47,5,data.get(i).getDewelltime());
 
-            putsheet(sheet,41+i*45,0,"   本产品经 " +data.get(i).getTestpress()+ " Mpa试验，无渗漏；无可见的异常变形；无异常响声；试验结论合格。");
-            putsheet(sheet,42+i*45,0," This product is tested with pressure of  "+data.get(i).getTestpress()+"  Mpa; and has no leak, visible abnormal deformation, no abnormal noise; the test conclusion is acceptable. ");
+            putsheet(sheet,41+i*47,0,"   本产品经 " +data.get(i).getTestpress()+ " Mpa试验，无渗漏；无可见的异常变形；无异常响声；试验结论合格。");
+            putsheet(sheet,42+i*47,0," This product is tested with pressure of  "+data.get(i).getTestpress()+"  Mpa; and has no leak, visible abnormal deformation, no abnormal noise; the test conclusion is acceptable. ");
         }
 
 

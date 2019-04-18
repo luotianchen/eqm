@@ -15,6 +15,7 @@ export class WeldingRecordComponent implements OnInit {
   validateForm: FormGroup;
   dataSet = [];
   users = [];
+  users2 = [];
   status = false;
   i = 1;
   ngOnInit(): void {
@@ -25,7 +26,16 @@ export class WeldingRecordComponent implements OnInit {
     });
     this.weldingRecordService.getUserNames().subscribe(res=>{
       if(res['result'] == "success"){
-        this.users = res['data'];
+        this.users = [];
+        this.users2 = [];
+        for(let user of res['data']){
+          if(this.checkRole(user)){
+            this.users.push(user);
+          }
+          if(this.checkRole2(user)){
+            this.users2.push(user);
+          }
+        }
       }
     })
     this.validateForm = this.fb.group({
@@ -33,6 +43,14 @@ export class WeldingRecordComponent implements OnInit {
       "prodname":[null, [Validators.required]],
       "dwgno":[null, [Validators.required]],
     });
+  }
+
+  checkRole(user:any){
+    return (user.role==55 || user.role2==55 ||  user.role3==55 ||  user.role4==55 ||  user.role5==55 );
+  }
+
+  checkRole2(user:any){
+    return (user.role==51 ||user.role2==51 ||user.role3==51 ||user.role4==51 ||user.role5==51);
   }
 
   searchData(): void {
@@ -75,23 +93,25 @@ export class WeldingRecordComponent implements OnInit {
     this.check(key);
   }
   check(key){
+    console.log(this.editCache[key].data.ndtdate ,this.editCache[key].data.entrustdate,this.editCache[key].data.welddate);
     if(this.editCache[key].data.ndtdate && this.editCache[key].data.entrustdate){
       let ndtdate = this.editCache[key].data.ndtdate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
-      if(ndtdate[0] < entrustdate[0]){
+      console.log(ndtdate);
+      if(parseInt(ndtdate[0]) < parseInt(entrustdate[0])){
         this.editCache[key].data['ndtdate'] = null;
-      }else if(ndtdate[1] < entrustdate[1]){
+      }else if(parseInt(ndtdate[1]) < parseInt(entrustdate[1])){
         this.editCache[key].data['ndtdate'] = null;
-      }else if(ndtdate[2] < entrustdate[2]){
+      }else if(parseInt(ndtdate[2]) < parseInt(entrustdate[2])){
         this.editCache[key].data['ndtdate'] = null;
       }
     }
     if(this.editCache[key].data.welddate && this.editCache[key].data.entrustdate){
       let welddate = this.editCache[key].data.welddate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
-      if(entrustdate[0] < welddate[0]){
+      if(parseInt(entrustdate[0]) < parseInt(welddate[0])){
         this.editCache[key].data['entrustdate'] = null;
-      }else if(entrustdate[1] < welddate[1]){
+      }else if(parseInt(entrustdate[1]) < parseInt(welddate[1])){
         this.editCache[key].data['entrustdate'] = null;
-      }else if(entrustdate[2] < welddate[2]){
+      }else if(parseInt(entrustdate[2]) < parseInt(welddate[2])){
         this.editCache[key].data['entrustdate'] = null;
       }
     }
