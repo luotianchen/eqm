@@ -191,7 +191,6 @@ public class searchmatlnotice {                                                 
                             data.setHeatbatchno(rs.getString("heatbatchno"));
                             data.setDimension(rs.getString("dimension"));
                             data.setIndate(rs.getString("indate"));
-                            data.setHeatcondi(rs.getString("heattreatcondition_id_heatcondi"));
                             if((rs.getString("codedmarking").charAt(rsru.getInt("indexx")-1))==rsru.getInt("welding")){
                                 ps1 = conn.prepareStatement("SELECT * FROM weldingcard WHERE matlname_id_matlname=?");
                                 ps1.setInt(1,rs.getInt("matlname_id_matlname"));
