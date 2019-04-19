@@ -104,7 +104,7 @@ public class getpromatlreport {                                 //产品材料�
         }
         rs.close();
 
-        ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 ORDER BY partno ASC ");
+        ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 ORDER BY partno is null,partno ASC  ");
         ps1.setString(1,prodno);
         rs1 = ps1.executeQuery();
         while (rs1.next()){
@@ -327,13 +327,13 @@ public class getpromatlreport {                                 //产品材料�
 
     public String xieganghardness(ResultSet rs) throws SQLException {
         String b=null;
-        if(rs.getString("hardness1") != null && rs.getString("hardness1").equals("")){
+        if(rs.getString("hardness1") != null && !rs.getString("hardness1").equals("")){
             b = rs.getString("hardness1");
         }
-        if(rs.getString("hardness2") != null && rs.getString("hardness2").equals("")){
+        if(rs.getString("hardness2") != null && !rs.getString("hardness2").equals("")){
             b = rs.getString("hardness2");
         }
-        if(rs.getString("hardness3") != null && rs.getString("hardness3").equals("")){
+        if(rs.getString("hardness3") != null && !rs.getString("hardness3").equals("")){
             b = rs.getString("hardness3");
         }
 
@@ -344,13 +344,13 @@ public class getpromatlreport {                                 //产品材料�
     public String xiegangimpactp(ResultSet rs) throws SQLException {
         String b=null;
         ArrayList<String> a = new ArrayList<String>();
-        if(rs.getString("impactp1") != null && rs.getString("impactp1").equals("")){
+        if(rs.getString("impactp1") != null && !rs.getString("impactp1").equals("")){
             a.add(rs.getString("impactp1"));
         }
-        if(rs.getString("impactp2") != null && rs.getString("impactp2").equals("")){
+        if(rs.getString("impactp2") != null && !rs.getString("impactp2").equals("")){
             a.add(rs.getString("impactp2"));
         }
-        if(rs.getString("impactp3") != null && rs.getString("impactp3").equals("")){
+        if(rs.getString("impactp3") != null && !rs.getString("impactp3").equals("")){
             a.add(rs.getString("impactp3"));
         }
 
@@ -369,10 +369,10 @@ public class getpromatlreport {                                 //产品材料�
     public String xiegangrel(ResultSet rs) throws SQLException {
         String b=null;
         ArrayList<String> a = new ArrayList<String>();
-        if(rs.getString("rel1") != null && rs.getString("rel1").equals("")){
+        if(rs.getString("rel1") != null && !rs.getString("rel1").equals("")){
             a.add(rs.getString("rel1"));
         }
-        if(rs.getString("rel2") != null && rs.getString("rel2").equals("")){
+        if(rs.getString("rel2") != null && !rs.getString("rel2").equals("")){
             a.add(rs.getString("rel2"));
         }
 
@@ -391,10 +391,10 @@ public class getpromatlreport {                                 //产品材料�
     public String xiegangrm(ResultSet rs) throws SQLException {
         String b=null;
         ArrayList<String> a = new ArrayList<String>();
-        if(rs.getString("rm1") != null && rs.getString("rm1").equals("")){
+        if(rs.getString("rm1") != null && !rs.getString("rm1").equals("")){
             a.add(rs.getString("rm1"));
         }
-        if(rs.getString("rm2") != null && rs.getString("rm2").equals("")){
+        if(rs.getString("rm2") != null && !rs.getString("rm2").equals("")){
             a.add(rs.getString("rm2"));
         }
 
@@ -413,10 +413,10 @@ public class getpromatlreport {                                 //产品材料�
     public String xiegangelong(ResultSet rs) throws SQLException {
         String b=null;
         ArrayList<String> a = new ArrayList<String>();
-        if(rs.getString("elong1") != null && rs.getString("elong1").equals("")){
+        if(rs.getString("elong1") != null && !rs.getString("elong1").equals("")){
             a.add(rs.getString("elong1"));
         }
-        if(rs.getString("elong2") != null && rs.getString("elong2").equals("")){
+        if(rs.getString("elong2") != null && !rs.getString("elong2").equals("")){
             a.add(rs.getString("elong2"));
         }
 

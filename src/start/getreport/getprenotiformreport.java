@@ -47,6 +47,8 @@ public class getprenotiformreport {                                         //�
         String leaktestp = null;                    //气密性试验压力
         String dated = null;                        //开具日期
 
+        int ppart_id = 0;
+
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
 
@@ -71,8 +73,18 @@ public class getprenotiformreport {                                         //�
         fileXlsx.close();
         Sheet sheet=workBook.getSheetAt(0);
 
-        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+        ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ?");
+        ps.setString(1,name);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            ppart_id = rs.getInt("id");
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ? AND presstestp_id_ppart1=?");
         ps.setString(1,prodno);
+        ps.setInt(2,ppart_id);
         rs = ps.executeQuery();
         if(rs.next()){
             dwgno = rs.getString("dwgno");

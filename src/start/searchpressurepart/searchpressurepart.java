@@ -42,7 +42,7 @@ public class searchpressurepart {                                               
         int modelstand2_id=0;
 
         try {
-            ps= conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ?");                          //先查询受压原件表data2，查询出入库编号用来查询入库表data1
+            ps= conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status=1");                          //先查询受压原件表data2，查询出入库编号用来查询入库表data1
             ps.setString(1,sp.getProdno());
             rs=ps.executeQuery();
             while(rs.next()){
@@ -72,7 +72,7 @@ public class searchpressurepart {                                               
                 rs1.close();
                 ps1.close();
 
-                ps1=conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ?");              //查到入库编号后查询入库信息
+                ps1=conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status=1");              //查到入库编号后查询入库信息
                 ps1.setString(1,data2.getCodedmarking());
                 rs1 = ps1.executeQuery();
                 while (rs1.next()){
