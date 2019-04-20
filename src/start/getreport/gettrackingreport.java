@@ -29,7 +29,7 @@ import static start.excel.excel.putsheet;
 
 @Controller
 @CrossOrigin
-public class gettrackingreport {                                    //焊工/材料跟踪记录报表
+public class gettrackingreport {                                    //焊工材料跟踪记录报表
     @RequestMapping(value = "gettrackingreport")
     public @ResponseBody ResponseEntity<byte[]> gettrackingreport(String prodno, HttpServletRequest request) throws Exception {
         jdbc j = new jdbc();
@@ -231,15 +231,15 @@ public class gettrackingreport {                                    //焊工/材
         rs= ps.executeQuery();
         while (rs.next()){
             calendar.setTime(rs.getDate("exworkdate"));
-            putsheet(sheet,38,5,simpleDateFormat3.format(calendar));
-            putsheet(sheet,39,5,simpleDateFormat4.format(calendar));
-            putsheet(sheet,38,12,simpleDateFormat3.format(calendar));
-            putsheet(sheet,39,12,simpleDateFormat4.format(calendar));
+            putsheet(sheet,38,5,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,39,5,simpleDateFormat4.format(calendar.getTime()));
+            putsheet(sheet,38,12,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,39,12,simpleDateFormat4.format(calendar.getTime()));
 
-            putsheet(sheet,38+39,5,simpleDateFormat3.format(calendar));
-            putsheet(sheet,39+39,5,simpleDateFormat4.format(calendar));
-            putsheet(sheet,38+39,12,simpleDateFormat3.format(calendar));
-            putsheet(sheet,39+39,12,simpleDateFormat4.format(calendar));
+            putsheet(sheet,38+39,5,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,39+39,5,simpleDateFormat4.format(calendar.getTime()));
+            putsheet(sheet,38+39,12,simpleDateFormat3.format(calendar.getTime()));
+            putsheet(sheet,39+39,12,simpleDateFormat4.format(calendar.getTime()));
         }
         rs.close();
         ps.close();
