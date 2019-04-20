@@ -104,7 +104,7 @@ public class getpromatlreport {                                 //产品材料�
         }
         rs.close();
 
-        ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 ORDER BY partno is null,partno ASC  ");
+        ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 AND ispresspart = 1 ORDER BY partno is null,partno ASC  ");
         ps1.setString(1,prodno);
         rs1 = ps1.executeQuery();
         while (rs1.next()){

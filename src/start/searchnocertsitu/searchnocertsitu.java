@@ -57,7 +57,7 @@ public class searchnocertsitu {
         String sql_x=null;
         int z=0;
 
-//        try{
+        try{
             ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE certsitu= '质保书未到'");
             rs=ps.executeQuery();
             while(rs.next()){
@@ -326,9 +326,9 @@ public class searchnocertsitu {
                 result.setResult("success");
                 result.setData(as_q);
             }
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
 
