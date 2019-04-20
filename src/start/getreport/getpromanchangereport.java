@@ -16,6 +16,7 @@ import start.jdbc.jdbc;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
+import java.util.UUID;
 
 import static start.excel.excel.putsheet;
 
@@ -37,7 +38,7 @@ public class getpromanchangereport {                                //产品制�
         File realfile = new File(uploadPath,"产品制造变更报告.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = "产品制造变更报告_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 

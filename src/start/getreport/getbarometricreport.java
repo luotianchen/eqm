@@ -17,10 +17,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.util.*;
 
 import static start.excel.excel.putsheet;
 
@@ -39,7 +36,7 @@ public class getbarometricreport {                                          //�
         File realfile = new File(uploadPath,"气压试验报告.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = "气压试验报告_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 

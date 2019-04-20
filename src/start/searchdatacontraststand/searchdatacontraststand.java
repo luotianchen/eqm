@@ -66,7 +66,7 @@ public class searchdatacontraststand {                                      //é€
             ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
             ps.setString(1,sp.getDwgno());
             rs = ps.executeQuery();
-            if(rs.next()){
+            while (rs.next()){
                 if(!(rs.getString("shthick1") == null || rs.getString("shthick1").equals(""))){
                     shthick_data.add(rs.getString("shthick1"));
 

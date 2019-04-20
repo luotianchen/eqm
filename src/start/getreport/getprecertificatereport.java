@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.UUID;
 
 import static start.excel.excel.putsheet;
 
@@ -73,7 +74,7 @@ public class getprecertificatereport {                              //压力容�
         File realfile = new File(uploadPath,"压力容器产品合格证.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = "压力容器产品合格证_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 

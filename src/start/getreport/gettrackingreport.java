@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.UUID;
 
 import static start.excel.excel.putsheet;
 
@@ -61,7 +62,7 @@ public class gettrackingreport {                                    //焊工/材
         File realfile = new File(uploadPath,"焊工材料跟踪记录.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = "焊工材料跟踪记录_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 
@@ -77,7 +78,7 @@ public class gettrackingreport {                                    //焊工/材
 
         putsheet(sheet,5,2,prodno);
 
-        putsheet(sheet,5+41,2,prodno);
+        putsheet(sheet,5+39,2,prodno);
         ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
         ps.setString(1,prodno);
         rs = ps.executeQuery();
@@ -85,7 +86,7 @@ public class gettrackingreport {                                    //焊工/材
             dwgno = rs.getString("dwgno");
             putsheet(sheet,5,5,rs.getString("dwgno"));
 
-            putsheet(sheet,5+41,5,rs.getString("dwgno"));
+            putsheet(sheet,5+39,5,rs.getString("dwgno"));
         }
         rs.close();
         ps.close();
@@ -106,8 +107,8 @@ public class gettrackingreport {                                    //焊工/材
             putsheet(sheet,5,10,rs.getString("prodname"));
             putsheet(sheet,6,10,rs.getString("ename"));
 
-            putsheet(sheet,5+41,10,rs.getString("prodname"));
-            putsheet(sheet,6+41,10,rs.getString("ename"));
+            putsheet(sheet,5+39,10,rs.getString("prodname"));
+            putsheet(sheet,6+39,10,rs.getString("ename"));
         }
         rs.close();
         ps.close();
@@ -165,7 +166,7 @@ public class gettrackingreport {                                    //焊工/材
                     ps1.setInt(1,parts_id);
                     rs1 = ps1.executeQuery();
                     if(rs1.next()){
-                        putsheet(sheet,9+i+41,9,rs1.getString("partsname"));
+                        putsheet(sheet,9+i+39,9,rs1.getString("partsname"));
                     }
                     rs1.close();
                     ps1.close();
@@ -178,7 +179,7 @@ public class gettrackingreport {                                    //焊工/材
                         ps2.setInt(1,rs1.getInt("contraststand_id_designation"));
                         rs2 = ps2.executeQuery();
                         if(rs2.next()){
-                            putsheet(sheet,9+i+41,10,rs2.getString("designation"));
+                            putsheet(sheet,9+i+39,10,rs2.getString("designation"));
                         }
                         rs2.close();
                         ps2.close();
@@ -187,8 +188,8 @@ public class gettrackingreport {                                    //焊工/材
                     ps1.close();
 
 
-                    putsheet(sheet,9+i+41,11,rs.getString("codedmarking"));
-                    putsheet(sheet,9+i+41,13,rs.getString("spec"));
+                    putsheet(sheet,9+i+39,11,rs.getString("codedmarking"));
+                    putsheet(sheet,9+i+39,13,rs.getString("spec"));
                     i++;
                     p=0;
                 }
@@ -212,11 +213,11 @@ public class gettrackingreport {                                    //焊工/材
                 putsheet(sheet,24+z,6,rs.getString("usernote"));
             }else {
                 if(z<21){
-                    putsheet(sheet,31+z-14+41,4,rs.getString("weldno"));
-                    putsheet(sheet,31+z-14+41,6,rs.getString("usernote"));
+                    putsheet(sheet,31+z-14+39,4,rs.getString("weldno"));
+                    putsheet(sheet,31+z-14+39,6,rs.getString("usernote"));
                 }else {
-                    putsheet(sheet,24+z-14+41,4,rs.getString("weldno"));
-                    putsheet(sheet,24+z-14+41,6,rs.getString("usernote"));
+                    putsheet(sheet,24+z-14+39,4,rs.getString("weldno"));
+                    putsheet(sheet,24+z-14+39,6,rs.getString("usernote"));
                 }
             }
 
@@ -235,10 +236,10 @@ public class gettrackingreport {                                    //焊工/材
             putsheet(sheet,38,12,simpleDateFormat3.format(calendar));
             putsheet(sheet,39,12,simpleDateFormat4.format(calendar));
 
-            putsheet(sheet,38+41,5,simpleDateFormat3.format(calendar));
-            putsheet(sheet,39+41,5,simpleDateFormat4.format(calendar));
-            putsheet(sheet,38+41,12,simpleDateFormat3.format(calendar));
-            putsheet(sheet,39+41,12,simpleDateFormat4.format(calendar));
+            putsheet(sheet,38+39,5,simpleDateFormat3.format(calendar));
+            putsheet(sheet,39+39,5,simpleDateFormat4.format(calendar));
+            putsheet(sheet,38+39,12,simpleDateFormat3.format(calendar));
+            putsheet(sheet,39+39,12,simpleDateFormat4.format(calendar));
         }
         rs.close();
         ps.close();

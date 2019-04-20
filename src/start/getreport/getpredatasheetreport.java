@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static start.excel.excel.putsheet;
 
@@ -116,7 +117,7 @@ public class getpredatasheetreport {                            //压力容器�
         File realfile = new File(uploadPath,"压力容器产品数据表.xlsx");
         InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = "压力容器产品数据表_copy.xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         File file = new File(uploadPath, filename);
 
 

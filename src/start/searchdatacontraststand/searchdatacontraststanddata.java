@@ -1,128 +1,152 @@
 package start.searchdatacontraststand;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class searchdatacontraststanddata {
-    private ArrayList<Double> aweldmaxangul;                                //A类焊缝最大棱角度
-    private ArrayList<Double> bweldmaxangul;                                //B类焊缝最大棱角度
-    private ArrayList<Double> aweldmaxalign;                                //A类焊缝最大错边量
-    private ArrayList<Double> bweldmaxalign;                                //B类焊缝最大错边量
-    private ArrayList<Double> weldreinfs;                                   //焊缝余高（单面坡口）
-    private ArrayList<Double> weldreinfd;                                   //焊缝余高（双面坡口）
-    private double proheight;                                               //产品总高实测值
-    private ArrayList<Double> innerdia;                                     //筒体内径实测值
-    private ArrayList<Double> roundness;                                    //筒体圆度实测值
-    private double length;                                                  //筒体长度标准值实测值
-    private double straightness;                                            //筒体直线度实测值
-    private ArrayList<Double> outward;                                          //封头形状偏差外凸实测值
-    private ArrayList<Double> concave;
+    DecimalFormat df = new DecimalFormat("#.0");
+
+    private ArrayList<String> aweldmaxangul;                                //A类焊缝最大棱角度
+    private ArrayList<String> bweldmaxangul;                                //B类焊缝最大棱角度
+    private ArrayList<String> aweldmaxalign;                                //A类焊缝最大错边量
+    private ArrayList<String> bweldmaxalign;                                //B类焊缝最大错边量
+    private ArrayList<String> weldreinfs;                                   //焊缝余高（单面坡口）
+    private ArrayList<String> weldreinfd;                                   //焊缝余高（双面坡口）
+    private String proheight;                                               //产品总高实测值
+    private ArrayList<String> innerdia;                                     //筒体内径实测值
+    private ArrayList<String> roundness;                                    //筒体圆度实测值
+    private String length;                                                  //筒体长度标准值实测值
+    private String straightness;                                            //筒体直线度实测值
+    private ArrayList<Integer> outward;                                          //封头形状偏差外凸实测值
+    private ArrayList<Integer> concave;
     private ArrayList<String> shthick;
     public searchdatacontraststanddata(){
         super();
     }
 
-    public ArrayList<Double> getAweldmaxangul() {
+    public ArrayList<String> getAweldmaxangul() {
         return aweldmaxangul;
     }
 
     public void setAweldmaxangul(ArrayList<Double> aweldmaxangul) {
-        this.aweldmaxangul = aweldmaxangul;
+        for (int i = 0 ; i<aweldmaxangul.size();i++){
+            this.aweldmaxangul.add(df.format(aweldmaxangul.get(i)));
+        }
+
     }
 
-    public ArrayList<Double> getBweldmaxangul() {
+    public ArrayList<String> getBweldmaxangul() {
         return bweldmaxangul;
     }
 
     public void setBweldmaxangul(ArrayList<Double> bweldmaxangul) {
-        this.bweldmaxangul = bweldmaxangul;
+        for (int i = 0 ; i<bweldmaxangul.size();i++){
+            this.bweldmaxangul.add(df.format(bweldmaxangul.get(i)));
+        }
     }
 
-    public ArrayList<Double> getAweldmaxalign() {
+    public ArrayList<String> getAweldmaxalign() {
         return aweldmaxalign;
     }
 
     public void setAweldmaxalign(ArrayList<Double> aweldmaxalign) {
-        this.aweldmaxalign = aweldmaxalign;
+        for (int i = 0 ; i<aweldmaxalign.size();i++){
+            this.aweldmaxalign.add(df.format(aweldmaxalign.get(i)));
+        }
     }
 
-    public ArrayList<Double> getBweldmaxalign() {
+    public ArrayList<String> getBweldmaxalign() {
         return bweldmaxalign;
     }
 
     public void setBweldmaxalign(ArrayList<Double> bweldmaxalign) {
-        this.bweldmaxalign = bweldmaxalign;
+        for (int i = 0 ; i<bweldmaxalign.size();i++){
+            this.bweldmaxalign.add(df.format(bweldmaxalign.get(i)));
+        }
     }
 
-    public ArrayList<Double> getWeldreinfs() {
+    public ArrayList<String> getWeldreinfs() {
         return weldreinfs;
     }
 
     public void setWeldreinfs(ArrayList<Double> weldreinfs) {
-        this.weldreinfs = weldreinfs;
+        for (int i = 0 ; i<weldreinfs.size();i++){
+            this.weldreinfs.add(df.format(weldreinfs.get(i)));
+        }
     }
 
-    public ArrayList<Double> getWeldreinfd() {
+    public ArrayList<String> getWeldreinfd() {
         return weldreinfd;
     }
 
     public void setWeldreinfd(ArrayList<Double> weldreinfd) {
-        this.weldreinfd = weldreinfd;
+        for (int i = 0 ; i<weldreinfd.size();i++){
+            this.weldreinfd.add(df.format(weldreinfd.get(i)));
+        }
     }
 
-    public double getProheight() {
+    public String getProheight() {
         return proheight;
     }
 
     public void setProheight(double proheight) {
-        this.proheight = proheight;
+        this.proheight = df.format(proheight);
     }
 
-    public ArrayList<Double> getInnerdia() {
+    public ArrayList<String> getInnerdia() {
         return innerdia;
     }
 
     public void setInnerdia(ArrayList<Double> innerdia) {
-        this.innerdia = innerdia;
+        for (int i = 0 ; i<innerdia.size();i++){
+            this.innerdia.add(df.format(innerdia.get(i)));
+        }
     }
 
-    public ArrayList<Double> getRoundness() {
+    public ArrayList<String> getRoundness() {
         return roundness;
     }
 
     public void setRoundness(ArrayList<Double> roundness) {
-        this.roundness = roundness;
+        for (int i = 0 ; i<roundness.size();i++){
+            this.roundness.add(df.format(roundness.get(i)));
+        }
     }
 
-    public double getLength() {
+    public String getLength() {
         return length;
     }
 
     public void setLength(double length) {
-        this.length = length;
+        this.length = df.format(length);
     }
 
-    public ArrayList<Double> getOutward() {
+    public ArrayList<Integer> getOutward() {
         return outward;
     }
 
     public void setOutward(ArrayList<Double> outward) {
-        this.outward = outward;
+        for (int i = 0 ; i<outward.size();i++){
+            this.outward.add(outward.get(i).intValue());
+        }
     }
 
-    public ArrayList<Double> getConcave() {
+    public ArrayList<Integer> getConcave() {
         return concave;
     }
 
     public void setConcave(ArrayList<Double> concave) {
-        this.concave = concave;
+        for (int i = 0 ; i<concave.size();i++){
+            this.concave.add(concave.get(i).intValue());
+        }
     }
 
-    public double getStraightness() {
+    public String getStraightness() {
         return straightness;
     }
 
     public void setStraightness(double straightness) {
-        this.straightness = straightness;
+        this.straightness = df.format(straightness);
     }
 
     public ArrayList<String> getShthick() {
