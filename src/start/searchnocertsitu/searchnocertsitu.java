@@ -83,8 +83,8 @@ public class searchnocertsitu {
             ps=conn.prepareStatement(sql+sql_x);
             ps.setInt(1,nocertsitu_id);
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                ps.setInt(2,pdesignation_id);
-            }
+            ps.setInt(2,pdesignation_id);
+        }
             rs=ps.executeQuery();
             while (rs.next()){
                 sncd = new searchnocertsitudata();
@@ -250,12 +250,14 @@ public class searchnocertsitu {
             }
             rs=ps.executeQuery();
             while (rs.next()){
-                for (int i=0;i<as.size();i++){
-                    if(as.get(i).getCodedmarking().equals(rs.getString("codedmarking"))){
-                        z=1;
-                    }
-                }
-                if(z==0){
+
+                ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+                ps1.setString(1,rs.getString("codedmarking"));
+                rs1 = ps1.executeQuery();
+                if(!rs1.next()){
+                    rs1.close();
+                    ps1.close();
+
                     sncd = new searchnocertsitudata();
                     if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
                         ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
@@ -304,7 +306,8 @@ public class searchnocertsitu {
                     }
                     as.add(sncd);
                 }else {
-                    z=0;
+                    rs1.close();
+                    ps1.close();
                 }
 
             }
