@@ -19,15 +19,30 @@ public class getdwgnoaudited {                                      //获取所�
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
 
         getdwgnoauditedresult result  = new getdwgnoauditedresult();
         ArrayList<String> as = new ArrayList<String>();
+        ArrayList<Integer> sc = new ArrayList<Integer>();
 
         try {
             ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 1");
             rs = ps.executeQuery();
             while (rs.next()){
+                for (int i = 0;i<as.size();i++){
+                    if(as.get(i).equals(rs.getString("dwgno"))){
+                        ps1 = conn.prepareStatement("DELETE FROM proparlist WHERE id = ?");
+                        ps1.setInt(1,sc.get(i));
+                        ps1.executeUpdate();
+                        ps1.close();
+                        as.remove(i);
+                        break;
+                    }
+                }
+
                 as.add(rs.getString("dwgno"));
+                sc.add(rs.getInt("id"));
             }
             rs.close();
             ps.close();

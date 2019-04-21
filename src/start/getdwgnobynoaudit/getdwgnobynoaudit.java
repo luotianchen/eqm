@@ -20,28 +20,43 @@ public class getdwgnobynoaudit {                                    //获取所�
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
 
         getdwgnobynoauditresult result = new getdwgnobynoauditresult();
         getdwgnobynoauditdata data = null;
         ArrayList<getdwgnobynoauditdata> ag = new ArrayList<getdwgnobynoauditdata>();
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 0");
             rs = ps.executeQuery();
             while (rs.next()){
+                for (int i = 0;i<ag.size();i++){
+                    if(ag.get(i).getDwgno().equals(rs.getString("dwgno"))){
+                        ps1 = conn.prepareStatement("DELETE FROM proparlist WHERE id = ?");
+                        ps1.setInt(1,ag.get(i).getSc());
+                        ps1.executeUpdate();
+                        ps1.close();
+                        ag.remove(i);
+                        break;
+                    }
+                }
+
+
                 data = new getdwgnobynoauditdata();
                 data.setDate(rs.getString("date"));
                 data.setDwgno(rs.getString("dwgno"));
                 data.setUser(rs.getString("user"));
+                data.setSc(rs.getInt("id"));
                 ag.add(data);
             }
             rs.close();
             ps.close();
             result.setData(ag);
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }

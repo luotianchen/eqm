@@ -69,9 +69,8 @@ public class putprenotiform {                                                   
                 if(rs.next()){
                     rs.close();
                     ps.close();
-                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ? AND ename = ?");
+                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ? ");
                     ps.setString(1,pp.getPpart());
-                    ps.setString(2,pp.getEppart());
                     rs = ps.executeQuery();
                     if(rs.next()){
                         ppart_id = rs.getInt("id");
@@ -118,9 +117,8 @@ public class putprenotiform {                                                   
                 }else {
                     ps.close();
                     rs.close();
-                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ? AND ename = ?");
+                    ps = conn.prepareStatement("SELECT * FROM presstestp WHERE presstestp = ?");
                     ps.setString(1,pp.getPpart());
-                    ps.setString(2,pp.getEppart());
                     rs = ps.executeQuery();
                     if(rs.next()){
                         ppart_id = rs.getInt("id");
