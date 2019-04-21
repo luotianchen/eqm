@@ -48,7 +48,7 @@ public class searchpreandleaknew {                                     //新试�
             rs.close();
             ps.close();
 
-            ps2 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
+            ps2 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1 ORDER BY tongdaoshu ASC");
             ps2.setString(1,dwgno);
             rs2 = ps2.executeQuery();
             while (rs2.next()){
