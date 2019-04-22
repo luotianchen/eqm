@@ -16,7 +16,10 @@ import start.jdbc.jdbc;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import static start.excel.excel.putsheet;
@@ -38,6 +41,9 @@ public class getrematerialreport {                                      //材料
         int supplier_id=0;                              //供货单位
         int designation_id=0;                              //牌号
         int stand_id=0;                                 //标准
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+        Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
 
 
         String realPath = request.getSession().getServletContext().getRealPath("");
@@ -69,11 +75,16 @@ public class getrematerialreport {                                      //材料
             supplier_id = rs.getInt("supplier_id_supplier");
             designation_id = rs.getInt("contraststand_id_designation");
             stand_id = rs.getInt("contraststand_id_matlstand");
+            calendar.setTime(rs.getDate("indate"));
+
+
             putsheet(sheet,4,12,rs.getString("heattreatcondition_id_heatcondi"));
             putsheet(sheet,5,2,rs.getString("spec"));
             putsheet(sheet,7,0,rs.getString("heatbatchno"));
             putsheet(sheet,7,8,rs.getString("qty"));
             putsheet(sheet,7,12,codedmarking);
+            putsheet(sheet,16,1,sdf.format(calendar.getTime()));
+            putsheet(sheet,16,9,sdf.format(calendar.getTime()));
         }
         rs.close();
         ps.close();
