@@ -89,6 +89,14 @@ public class getmepretestreport {                                               
             putsheet(sheet,8,9,rs.getString("bendatype"));             //弯曲类型
             putsheet(sheet,8,10,rs.getString("bendangle"));             //弯曲角度（°）
             putsheet(sheet,8,11,rs.getString("bendaxdia"));             //弯曲直径
+
+            if((rs.getString("bendatype")!=null) ||
+                    (rs.getString("bendangle")!=null) ||
+                    (rs.getString("bendaxdia")!=null)){
+                putsheet(sheet,8,13,"合格");
+                putsheet(sheet,8,8,"1");
+            }
+
             putsheet(sheet,8,15,rs.getString("shocktemp"));             //试验温度
             putsheet(sheet,8,16,rs.getString("gaptype"));             //缺口类型
 
@@ -145,7 +153,7 @@ public class getmepretestreport {                                               
         ps.setString(2,specimenno);
         rs = ps.executeQuery();
         while (rs.next()){
-            putsheet(sheet,4,1,rs.getString("specimenname"));
+            putsheet(sheet,4,1,prodno + "--"+rs.getString("specimenname"));
             putsheet(sheet,4,7,rs.getString("designation"));
             putsheet(sheet,4,10,rs.getString("spec"));
             putsheet(sheet,5,14,rs.getString("drawingnumber"));

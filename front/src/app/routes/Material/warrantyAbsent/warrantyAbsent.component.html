@@ -9,6 +9,7 @@
   <nz-table
     #ajaxTable
     nzShowSizeChanger
+    nzSize="small"
     [nzFrontPagination]="false"
     [nzData]="dataSetDisplay"
     [nzLoading]="loading"
@@ -25,7 +26,7 @@
       <th>规格</th>
       <th>材料标准号</th>
       <th>供货单位</th>
-      <th nzCustomFilter>
+      <th nzCustomFilter nzWidth="100px">
         炉批号
         <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown1>
           <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown1.nzVisible" nz-dropdown></i>
@@ -36,7 +37,7 @@
           </div>
         </nz-dropdown>
       </th>
-      <th nzCustomFilter>
+      <th nzCustomFilter nzWidth="100px">
         质保书号
         <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown2>
           <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown2.nzVisible" nz-dropdown></i>
@@ -47,7 +48,7 @@
           </div>
         </nz-dropdown>
       </th>
-      <th>数量</th>
+      <th nzWidth="50px">数量</th>
       <th>备注</th>
       <th>入库日期</th>
     </tr>

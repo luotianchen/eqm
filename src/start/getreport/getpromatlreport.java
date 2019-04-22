@@ -156,22 +156,22 @@ public class getpromatlreport {                                 //产品材料�
             rs = ps.executeQuery();
             while (rs.next()){
                 setma(material,"c",rs);
-                setma(material,"mn",rs);
                 setma(material,"si",rs);
-                setma(material,"p",rs);
-                setma(material,"s",rs);
+                setma(material,"mn",rs);
                 setma(material,"cr",rs);
                 setma(material,"ni",rs);
-                setma(material,"ti",rs);
-                setma(material,"cu",rs);
-                setma(material,"fe",rs);
-                setma(material,"n",rs);
-                setma(material,"alt",rs);
                 setma(material,"mo",rs);
-                setma(material,"mg",rs);
+                setma(material,"ti",rs);
+                setma(material,"als",rs);
+                setma(material,"alt",rs);
                 setma(material,"zn",rs);
-                setma(material,"nb",rs);
+                setma(material,"p",rs);
+                setma(material,"s",rs);
+                setma(material,"fe",rs);
                 setma(material,"v",rs);
+                setma(material,"cu",rs);
+                setma(material,"mg",rs);
+                setma(material,"nb",rs);
                 setma(material,"b",rs);
                 setma(material,"w",rs);
                 setma(material,"sb",rs);
@@ -179,7 +179,7 @@ public class getpromatlreport {                                 //产品材料�
                 setma(material,"zr",rs);
                 setma(material,"ca",rs);
                 setma(material,"be",rs);
-                setma(material,"als",rs);
+                setma(material,"N",rs);
 
                 putsheet(sheet,8+i*2+t*32,4,rs.getString("heatbatchno"));
 

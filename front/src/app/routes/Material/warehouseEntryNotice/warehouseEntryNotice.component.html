@@ -65,7 +65,7 @@
     </form>
   </nz-tab>
 </nz-tabset>
-<div *ngIf="dataSet.length > 0 && mode == 1" #print style="width: 900px">
+<div *ngIf="dataSet.length > 0 && mode == 1" #print style="width: 800px">
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
     [mode]="'popup'"
@@ -90,9 +90,9 @@
     <i nz-icon type="question-circle" theme="outline"></i>
   </button>
   </p>
-  <div *ngFor="let item of dataSet;let i = index" class="report1" style="padding-top: 63px;padding-bottom: 205px;">
+  <div *ngFor="let item of dataSet;let i = index" class="report1" style="padding-top: 63px;page-break-after: always;">
     <table border=0 cellpadding=0 cellspacing=0 width=707 style='border-collapse:
- collapse;table-layout:fixed;width:532pt;margin-left: 90px'>
+ collapse;table-layout:fixed;width:532pt;margin-left: 40px'>
       <colgroup width=49 span=2 style='mso-width-source:userset;mso-width-alt:1578;
  width:37pt'></colgroup>
       <colgroup width=33 style='mso-width-source:userset;mso-width-alt:1066;width:25pt'></colgroup>
@@ -268,10 +268,9 @@
       </tr>
     </table>
   </div>
-  <div style="page-break-after: always;"></div>
 </div>
 
-<div *ngIf="dataSet.length > 0 && mode == 2" #print2 style="width: 900px">
+<div *ngIf="dataSet.length > 0 && mode == 2" #print2 style="width: 850px">
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
     [mode]="'popup'"
@@ -296,10 +295,10 @@
     <i nz-icon type="question-circle" theme="outline"></i>
   </button>
   </p>
-  <div *ngFor="let item of dataSet;let i = index" class="report2" style="padding-top: 63px;padding-bottom: 192px;">
+  <div *ngFor="let item of dataSet;let i = index" class="report2" style="padding-top: 33px;page-break-after: always;">
 
     <table border=0 cellpadding=0 cellspacing=0 width=765 style='border-collapse:
- collapse;table-layout:fixed;width:574pt;margin-left: 80px'>
+ collapse;table-layout:fixed;width:574pt;margin-left: 40px'>
       <colgroup width=85 span=2 style='mso-width-source:userset;mso-width-alt:2730;
  width:64pt'></colgroup>
       <colgroup width=97 style='mso-width-source:userset;mso-width-alt:3114;width:73pt'></colgroup>
@@ -346,7 +345,7 @@
         <td colspan=2 class=xl99 width=182 style='border-left:none;width:137pt'>{{item.matlname}}</td>
         <td class=xl74 width=64 style='border-left:none;width:48pt'>型号</td>
         <td colspan=2 class=xl88 width=211 style='border-right:.5pt solid black;
-  border-left:none;width:158pt'>{{type == 3 ? item.dimension : item.spec}}</td>
+  border-left:none;width:158pt'>{{type == 4 ? item.dimension : item.spec}}</td>
         <td class=xl74 width=71 style='border-left:none;width:53pt'>规格</td>
         <td class=xl71 width=152 style='border-left:none;width:114pt'></td>
       </tr>
@@ -528,7 +527,7 @@
 </div>
 
 
-<div  *ngIf="dataSet.length > 0 && mode == 3" #print3 style="width: 900px">
+<div  *ngIf="dataSet.length > 0 && mode == 3" #print3 style="width: 880px">
   <p style="margin-bottom: 20px;margin-top: 20px">
   <essence-ng2-print
     [mode]="'popup'"
@@ -553,9 +552,9 @@
     <i nz-icon type="question-circle" theme="outline"></i>
   </button>
   </p>
-  <div *ngFor="let item of dataSet;let i = index" class="report3" style="padding-top: 63px;padding-bottom: 206px;">
+  <div *ngFor="let item of dataSet;let i = index" class="report3" style="padding-top: 63px;page-break-after: always;">
     <table border=0 cellpadding=0 cellspacing=0 width=721 style='border-collapse:
- collapse;table-layout:fixed;width:540pt;margin-left: 70px;font-size: 14px'>
+ collapse;table-layout:fixed;width:540pt;margin-left: 50px;font-size: 14px'>
       <colgroup width=71 style='width:53pt'></colgroup>
       <colgroup width=35 style='mso-width-source:userset;mso-width-alt:1109;width:26pt'></colgroup>
       <colgroup width=33 style='mso-width-source:userset;mso-width-alt:1066;width:25pt'></colgroup>

@@ -216,7 +216,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
   constructor(public productTestBoardDataRegistrationService: ProductTestBoardDataRegistrationService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
   calc1(controlname){//整数2舍3入，7上8下
-    let num = this.validateForm.value[controlname];
+    let num = parseInt(this.validateForm.value[controlname]);
     if(isNaN(num)){
       this.validateForm.controls[controlname].setValue(null);
       return;

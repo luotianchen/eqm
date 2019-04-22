@@ -582,6 +582,12 @@ export class WarehousingRegistrationComponent implements OnInit {
     }
 
   }
+  onSaveClick(){
+    if(this.validateForm.value.warrantysitu!='质保书未到')
+      this.message.error("请将质保书情况修改为质保书未到！");
+    else
+      this.savetocache(null);
+  }
   savetocache(e){
     if (e) {
       e.preventDefault();
@@ -648,17 +654,14 @@ export class WarehousingRegistrationComponent implements OnInit {
       "utclass":this.utclass[this.validateForm.value.utclass]
     };
     if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
-      if(this.validateForm.value.warrantysitu!='质保书未到')
-        this.message.error("请将质保书情况修改为质保书未到！");
-      else
-        this.warehousingregistrationService.putmaterialcache(data).subscribe(res => {
-          if (res['result'] == "success") {
-            this.message.success("保存成功！");
-          }else{
-            this.message.error("提交失败，请稍后重试！");
+      this.warehousingregistrationService.putmaterialcache(data).subscribe(res => {
+        if (res['result'] == "success") {
+          this.message.success("保存成功！");
+        }else{
+          this.message.error("提交失败，请稍后重试！");
 
-          }
-        })
+        }
+      })
     }else{
       this.message.error("入库编号不能为空！");
     }

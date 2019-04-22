@@ -92,9 +92,9 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="testdate" (blur)="formatInDate()">试验日期</nz-form-label>
+        <nz-form-label nzRequired nzFor="testdate">试验日期</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <input nz-input placeholder="YYYY-MM-DD" formControlName="testdate" name="testdate" id="testdate"/>
+          <input nz-input placeholder="YYYY-MM-DD" formControlName="testdate" name="testdate" id="testdate" (blur)="formatInDate()"/>
         </nz-form-control>
       </nz-form-item>
     </div>

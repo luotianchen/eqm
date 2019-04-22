@@ -89,7 +89,7 @@ public class getmepretestreportre {
                     num=rs.getString("retimes");
                 }
                 putsheet(sheet,4,29,"力学第 "+rs1.getString("indate").substring(0,4)+"-y"+num+" 号");
-                num_p=rs.getInt("times");
+                num_p=rs.getInt("retimes");
             }
             rs1.close();
             ps1.close();
@@ -197,7 +197,7 @@ public class getmepretestreportre {
 
 
         if(num_p != 0){
-            ps = conn.prepareStatement("UPDATE rematerial SET times = ? WHERE codedmarking = ? AND status=1");
+            ps = conn.prepareStatement("UPDATE rematerial SET retimes = ? WHERE codedmarking = ? AND status=1");
             ps.setInt(1,num_p++);
             ps.setString(2,codedmarking);
             ps.executeUpdate();

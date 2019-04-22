@@ -50,6 +50,7 @@ export class WarehousingQueryComponent implements OnInit {
     value:0,
     label:"未审核"
   }];
+  codedmarkings = [];
   constructor(public fb: FormBuilder, public warehousingQueryService: WarehousingQueryService) {
     this.warehousingQueryService.getputmaterial().subscribe(res => {
       if (res['result'] === 'success') {
@@ -57,6 +58,11 @@ export class WarehousingQueryComponent implements OnInit {
         this.millunits = res['data']['millunit'];
       }
     });
+    this.warehousingQueryService.getCodedmarking().subscribe(res=>{
+      if(res['result'] == "success"){
+        this.codedmarkings = res['data'];
+      }
+    })
   }
   resetForm(): void {
     for (const i in this.validateForm.controls) {

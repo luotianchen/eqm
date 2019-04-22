@@ -147,28 +147,12 @@ public class getcleanlinessreport {                                     //清洁
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+        ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
         ps.setString(1,prodno);
         rs = ps.executeQuery();
         if(rs.next()){
-            if(rs.getString("dated3")==null || rs.getString("dated3").equals("")){
-                if(rs.getString("dated2")==null || rs.getString("dated2").equals("")){
-                    if(!(rs.getString("dated1")==null || rs.getString("dated1").equals(""))){
-                        calendar.setTime(rs.getDate("dated1"));
-                        calendar.add(calendar.DATE, 1);
-                        dated = simpleDateFormat1.format(calendar.getTime());
-                    }
-                }else {
-                    calendar.setTime(rs.getDate("dated2"));
-                    calendar.add(calendar.DATE, 1);
-                    dated = simpleDateFormat1.format(calendar.getTime());
-                }
-            }else {
-                calendar.setTime(rs.getDate("dated3"));
-                calendar.add(calendar.DATE, 1);
-                dated = simpleDateFormat1.format(calendar.getTime());
-            }
-
+            calendar.setTime(rs.getDate("exworkdate"));
+            dated = simpleDateFormat1.format(calendar.getTime());
         }
         rs.close();
         ps.close();

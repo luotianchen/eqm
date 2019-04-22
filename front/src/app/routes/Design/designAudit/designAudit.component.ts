@@ -52,7 +52,7 @@ export class DesignAuditComponent implements OnInit {
       this.modelData.saferel = res["data"].reverse();
     });
     this.designAuditService.getchannel(dwgno,0).subscribe((res)=>{
-      this.modelData.channel = res["data"].reverse();
+      this.modelData.channel = res["data"];
     });
   }
 

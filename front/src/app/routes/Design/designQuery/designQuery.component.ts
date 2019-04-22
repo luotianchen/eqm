@@ -63,7 +63,7 @@ export class DesignQueryComponent implements OnInit {
       this.modelData.saferel = res["data"].reverse();
     });
     this.designQueryService.getchannel(dwgno,1).subscribe((res)=>{
-      this.modelData.channel = res["data"].reverse();
+      this.modelData.channel = res["data"]
     });
   }
 

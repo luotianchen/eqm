@@ -103,6 +103,7 @@ public class getpredatasheetreport {                            //压力容器�
         String eleaktest = null;                 //泄漏试验种类英文;
         String leaktestp = null;                //泄漏试验压力;
         String httype = null;                   //热处理种类
+        String ehttype = null;                   //热处理种类英文
         String httemp = null;                   //热处理温度
         String zj_name = null;                  //监督检验机构
         String zj_ename = null;                 //ename
@@ -483,6 +484,7 @@ public class getpredatasheetreport {                            //压力容器�
         putsheet(sheet,37,7,eleaktest);
         putsheet(sheet,36,19,leaktestp);
         putsheet(sheet,38,7,httype);
+        putsheet(sheet,39,7,ceng(httype));
         if(!httemp.equals("0")){
             putsheet(sheet,38,19,httemp);
         }
@@ -535,10 +537,27 @@ public class getpredatasheetreport {                            //压力容器�
             x = rs.getString(a);
         }else {
             if(rs.getString(a) != null){
-                x = x + "/" + rs.getString(a);
+                if(x.indexOf(rs.getString(a))==-1){
+                    x = x + "/" + rs.getString(a);
+                }
             }
         }
 
         return x;
+    }
+
+    public String ceng(String chinese){
+        String eng = null;
+        if(chinese.equals("退火")){
+            eng = "A";
+        }
+        if(chinese.equals("固溶")){
+            eng = "S";
+        }
+        if(chinese.equals("正火")){
+            eng = "N";
+        }
+
+        return eng;
     }
 }

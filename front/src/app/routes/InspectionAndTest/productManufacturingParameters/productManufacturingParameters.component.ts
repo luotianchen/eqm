@@ -486,4 +486,9 @@ export class ProductManufacturingParametersComponent implements OnInit {
     }
   }
 
+  toInteger = function (value) {
+    value = Math.round(parseFloat(value));
+    return value;
+  };
 }
+

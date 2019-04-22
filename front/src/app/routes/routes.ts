@@ -84,6 +84,7 @@ import {HydraulicTestReportComponent} from "./Report/hydraulicTestReport/hydraul
 import {BarometricReportComponent} from "./Report/barometricReport/barometricReport.component";
 import {LeaktestReportComponent} from "./Report/leaktestReport/leaktestReport.component";
 import {ProdManuChangeReportComponent} from "./Report/prodManuChangeReport/prodManuChangeReport.component";
+import {Exception403Component} from "./exception/exception403.component";
 
 export const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -495,7 +496,9 @@ export const routes: Routes = [
         }
       },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-      {path: '404', component: Exception404Component}
+      {path: '404', component: Exception404Component},
+      {path: '500', component: Exception404Component},
+      {path: '403', component: Exception403Component}
     ]
   },
   {path: '**', redirectTo: '/404', pathMatch: 'full'}

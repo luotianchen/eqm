@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-404',
@@ -10,6 +9,6 @@ import {Router} from '@angular/router';
 export class Exception404Component implements OnInit {
   ngOnInit() {
   }
-  constructor(private router: Router) {
+  constructor() {
   }
 }

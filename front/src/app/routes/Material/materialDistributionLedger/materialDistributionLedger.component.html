@@ -21,7 +21,7 @@
 </form>
 <nz-tabset>
   <nz-tab nzTitle="材料发放台帐">
-    <div *ngIf="status" #print>
+    <div *ngIf="status" #print style="size: A4 landscape;">
       <p>
         <essence-ng2-print
           [mode]="'iframe'"
@@ -44,7 +44,7 @@
           <i nz-icon type="question-circle" theme="outline"></i>
         </button>
       </p>
-      <div *ngFor="let dataSet of dataSets" style="padding-top: 5px;padding-bottom: 15px;">
+      <div *ngFor="let dataSet of dataSets" style="padding-top: 5px;page-break-after: always">
         <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
          collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 12px'>
           <colgroup width=37 span=2 style='mso-width-source:userset;mso-width-alt:1194;width:28pt'></colgroup>
@@ -132,7 +132,7 @@
           <i nz-icon type="question-circle" theme="outline"></i>
         </button>
       </p>
-      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;padding-bottom: 35px;width: 900px">
+      <div *ngFor="let dataSet of dataSets2" style="padding-top: 15px;page-break-after: always;width: 900px">
         <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
          collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left: 60px;font-size: 14px'>
           <colgroup width=49 style='mso-width-source:userset;mso-width-alt:1578;width:37pt'></colgroup>

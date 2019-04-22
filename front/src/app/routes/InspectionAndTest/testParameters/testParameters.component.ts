@@ -28,31 +28,31 @@ export class TestParametersComponent implements OnInit {
     },{
       label: "外筒",value:{name:"外筒",ename: "Outshell Cylinder"}
     },{
-      label: "管程",value:{name:"管程",ename: "TubeSide"}
+      label: "管程",value:{name:"管程",ename: "Tube Side"}
     },{
-      label: "管程I",value:{name:"管程I",ename: "TubeSide I"}
+      label: "管程I",value:{name:"管程I",ename: "Tube Side I"}
     },{
-      label: "管程II",value:{name:"管程II",ename: "TubeSide II"}
+      label: "管程II",value:{name:"管程II",ename: "Tube Side II"}
     },{
-      label: "管程III",value:{name:"管程III",ename: "TubeSide III"}
+      label: "管程III",value:{name:"管程III",ename: "Tube Side III"}
     },{
-      label: "管程IV",value:{name:"管程IV",ename: "TubeSide IV"}
+      label: "管程IV",value:{name:"管程IV",ename: "Tube Side IV"}
     },{
-      label: "管程V",value:{name:"管程V",ename: "TubeSide V"}
+      label: "管程V",value:{name:"管程V",ename: "Tube Side V"}
     },{
-      label: "管程VI",value:{name:"管程VI",ename: "TubeSide VI"}
+      label: "管程VI",value:{name:"管程VI",ename: "Tube Side VI"}
     },{
-      label: "管程VII",value:{name:"管程VII",ename: "TubeSide VII"}
+      label: "管程VII",value:{name:"管程VII",ename: "Tube Side VII"}
     },{
-      label: "管程VIII",value:{name:"管程VIII",ename: "TubeSide VIII"}
+      label: "管程VIII",value:{name:"管程VIII",ename: "Tube Side VIII"}
     },{
-      label: "管程IX",value:{name:"管程VIII",ename: "TubeSide IX"}
+      label: "管程IX",value:{name:"管程VIII",ename: "Tube Side IX"}
     },{
-      label: "管程X",value:{name:"管程VIII",ename: "TubeSide X"}
+      label: "管程X",value:{name:"管程VIII",ename: "Tube Side X"}
     },{
-      label: "管程XI",value:{name:"管程VIII",ename: "TubeSide XI"}
+      label: "管程XI",value:{name:"管程VIII",ename: "Tube Side XI"}
     },{
-      label: "管程XII",value:{name:"管程VIII",ename: "TubeSide XII"}
+      label: "管程XII",value:{name:"管程VIII",ename: "Tube Side XII"}
     },{
       label: "壳程",value:{name:"壳程",ename: "Shell Side"}
     },{

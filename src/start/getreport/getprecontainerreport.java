@@ -106,7 +106,7 @@ public class getprecontainerreport {                                            
         ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
         ps.setString(1,prodno);
         rs = ps.executeQuery();
-        if(rs.next()){
+        if (rs.next()){
             aweldmaxangul = rs.getString("aweldmaxangul");                                //A类焊缝最大棱角度
             aweldmaxangul = aweldmaxangul.substring(1,aweldmaxangul.length()-1);
             aweldmaxangul=aweldmaxangul.replaceAll(",","/");
@@ -165,17 +165,28 @@ public class getprecontainerreport {                                            
         rs.close();
         ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
+        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1 ORDER BY tongdaoshu ASC ");
         ps.setString(1,dwgno);
         rs = ps.executeQuery();
-        if(rs.next()){
-            shthick = rs.getString("shthick1");                                      //冷卷筒节投料的钢材厚度标准
-            if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("") && !rs.getString("shthick2").equals(rs.getString("shthick1"))){
-                shthick = shthick + "/" + rs.getString("shthick2");
+        while (rs.next()){
+            String sh = null;
+
+            sh = rs.getString("shthick1");                                      //冷卷筒节投料的钢材厚度标准
+
+            if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("") && sh.indexOf(rs.getString("shthick2"))== -1 && shthick.indexOf(rs.getString("shthick2"))==-1){
+                sh = sh + "/" + rs.getString("shthick2");
             }
-            if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("") && !rs.getString("shthick3").equals(rs.getString("shthick1")) && !rs.getString("shthick3").equals(rs.getString("shthick2"))){
-                shthick = shthick + "/" + rs.getString("shthick3");
+            if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("") && sh.indexOf(rs.getString("shthick3"))== -1 && shthick.indexOf(rs.getString("shthick3"))==-1){
+                sh = sh + "/" + rs.getString("shthick3");
             }
+
+            if(shthick == null || shthick.equals("")){
+                shthick = sh;
+            }else {
+                shthick = shthick + "/" +sh;
+            }
+
+
         }
         rs.close();
         ps.close();
@@ -320,7 +331,9 @@ public class getprecontainerreport {                                            
                 if(as.get(i)==0){
                     continue;
                 }
-                s =s + "/" + String.valueOf(as.get(i));
+                if(s.indexOf(String.valueOf(as.get(i)))==-1){
+                    s =s + "/" + String.valueOf(as.get(i));
+                }
             }
         }
         return s;

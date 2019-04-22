@@ -8,6 +8,7 @@ public class searchmatlnoticedata {
     private String codedmarking;                        //入库编号
     private String spec;                                //规格
     private String qty;                                 //数量
+    private String unit;                                //单位
     private String warrantyno;                          //质保书号
     private String matlstand;                           //材料标准*
     private String heatbatchno;                         //炉批号
@@ -17,6 +18,7 @@ public class searchmatlnoticedata {
     private String dimension;                             //尺寸
     private String indate;                               //入库日期
     private String modelstand;                          //型号标准*
+    private String heatcondi;                          //热处理状态*
     //焊材才拥有以下属性，否则全为null
     //以下通过焊材名称在焊材牌号表中查询
     private String pack;                                //包装
@@ -248,5 +250,21 @@ public class searchmatlnoticedata {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getHeatcondi() {
+        return heatcondi;
+    }
+
+    public void setHeatcondi(String heatcondi) {
+        this.heatcondi = heatcondi;
     }
 }

@@ -205,19 +205,19 @@ public class gettrackingreport {                                    //焊工材�
         ps.setString(1,prodno);
         rs= ps.executeQuery();
         while (rs.next()){
-            if(z<7){
-                putsheet(sheet,31+z,0,rs.getString("weldno"));
-                putsheet(sheet,31+z,2,rs.getString("usernote"));
-            }else if(z<14){
-                putsheet(sheet,24+z,4,rs.getString("weldno"));
-                putsheet(sheet,24+z,6,rs.getString("usernote"));
+            if(z<12){
+                putsheet(sheet,26+z,0,rs.getString("weldno"));
+                putsheet(sheet,26+z,2,rs.getString("usernote"));
+            }else if(z<24){
+                putsheet(sheet,14+z,4,rs.getString("weldno"));
+                putsheet(sheet,14+z,6,rs.getString("usernote"));
             }else {
-                if(z<21){
-                    putsheet(sheet,31+z-14+39,4,rs.getString("weldno"));
-                    putsheet(sheet,31+z-14+39,6,rs.getString("usernote"));
+                if(z<36){
+                    putsheet(sheet,26+z-24+39,4,rs.getString("weldno"));
+                    putsheet(sheet,26+z-24+39,6,rs.getString("usernote"));
                 }else {
-                    putsheet(sheet,24+z-14+39,4,rs.getString("weldno"));
-                    putsheet(sheet,24+z-14+39,6,rs.getString("usernote"));
+                    putsheet(sheet,14+z-24+39,4,rs.getString("weldno"));
+                    putsheet(sheet,14+z-24+39,6,rs.getString("usernote"));
                 }
             }
 
