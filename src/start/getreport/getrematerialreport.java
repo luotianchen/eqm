@@ -15,10 +15,8 @@ import start.jdbc.jdbc;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static start.excel.excel.putsheet;
@@ -33,6 +31,8 @@ public class getrematerialreport {                                      //材料
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
 
         int matlname_id=0;                              //产品名称
         int supplier_id=0;                              //供货单位
@@ -120,7 +120,57 @@ public class getrematerialreport {                                      //材料
         if(rs.next()){
             putsheet(sheet,8,1,rs.getString("why"));
             putsheet(sheet,12,1,rs.getString("forceperformance"));
-            putsheet(sheet,14,1,rs.getString("chemicalcomposition"));
+
+            if(rs.getString("chemicalcomposition").equals("无")){
+                putsheet(sheet,14,1,rs.getString("chemicalcomposition"));
+            }
+
+            if(rs.getString("chemicalcomposition").equals("有")){
+                ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+                ps1.setString(1,codedmarking);
+                rs1 = ps1.executeQuery();
+                if(rs1.next()){
+                    ArrayList<String> material = new ArrayList<String>();
+                    setma(material,"c",rs1);
+                    setma(material,"mn",rs1);
+                    setma(material,"si",rs1);
+                    setma(material,"p",rs1);
+                    setma(material,"s",rs1);
+                    setma(material,"cr",rs1);
+                    setma(material,"ni",rs1);
+                    setma(material,"ti",rs1);
+                    setma(material,"cu",rs1);
+                    setma(material,"fe",rs1);
+                    setma(material,"n",rs1);
+                    setma(material,"alt",rs1);
+                    setma(material,"mo",rs1);
+                    setma(material,"mg",rs1);
+                    setma(material,"zn",rs1);
+                    setma(material,"nb",rs1);
+                    setma(material,"v",rs1);
+                    setma(material,"b",rs1);
+                    setma(material,"w",rs1);
+                    setma(material,"sb",rs1);
+                    setma(material,"al",rs1);
+                    setma(material,"zr",rs1);
+                    setma(material,"ca",rs1);
+                    setma(material,"be",rs1);
+                    setma(material,"als",rs1);
+                    String material_q=null;
+                    for (int i = 0;i<material.size();i++){
+                        if(i==0){
+                            material_q = material.get(i);
+                        }else {
+                            material_q = material_q + "/" + material.get(i);
+                        }
+                    }
+
+                    putsheet(sheet,14,1,material_q);
+                }
+                rs1.close();
+                ps1.close();
+
+            }
         }
         rs.close();
         ps.close();
@@ -141,5 +191,21 @@ public class getrematerialreport {                                      //材料
         file.delete();
         filepdf.delete();
         return download;
+    }
+
+
+
+    public void setma(ArrayList<String> as , String a , ResultSet rs) throws SQLException {
+        int f = 0;
+        for (int i = 0;i<as.size();i++){
+            if(as.get(i).equals(a)){
+                f=1;
+                break;
+            }
+        }
+        if(f==0 && !(rs.getString(a)==null || rs.getString(a).equals(""))){
+            as.add(a);
+        }
+
     }
 }

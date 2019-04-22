@@ -55,7 +55,17 @@ public class searchpre {
                 data.setEname(ename);
                 data.setTestmedia(rs1.getString("testmedia"));
                 data.setEtestmedia(rs1.getString("etestmedia"));
-                data.setClcontent(rs1.getString("clcontent"));
+
+
+                ps = conn.prepareStatement("SELECT * FROM watertest");
+                rs = ps.executeQuery();
+                while (rs.next()){
+                    if(getDaySub(rs.getString("testdate"),rs1.getString("dated1"))<=31){
+                        data.setClcontent(rs.getString("testrst"));
+                    }
+                }
+                rs.close();
+                ps.close();
 
                 ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart =? AND datetype = ?");
                 ps.setString(1,prodno);
@@ -150,7 +160,16 @@ public class searchpre {
                     data.setEname(ename);
                     data.setTestmedia(rs1.getString("testmedia"));
                     data.setEtestmedia(rs1.getString("etestmedia"));
-                    data.setClcontent(rs1.getString("clcontent"));
+
+                    ps = conn.prepareStatement("SELECT * FROM watertest");
+                    rs = ps.executeQuery();
+                    while (rs.next()){
+                        if(getDaySub(rs.getString("testdate"),rs1.getString("dated2"))<=31){
+                            data.setClcontent(rs.getString("testrst"));
+                        }
+                    }
+                    rs.close();
+                    ps.close();
 
                     ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart =? AND datetype = ?");
                     ps.setString(1,prodno);
@@ -244,7 +263,16 @@ public class searchpre {
                         data.setEname(ename);
                         data.setTestmedia(rs1.getString("testmedia"));
                         data.setEtestmedia(rs1.getString("etestmedia"));
-                        data.setClcontent(rs1.getString("clcontent"));
+
+                        ps = conn.prepareStatement("SELECT * FROM watertest");
+                        rs = ps.executeQuery();
+                        while (rs.next()){
+                            if(getDaySub(rs.getString("testdate"),rs1.getString("dated3"))<=31){
+                                data.setClcontent(rs.getString("testrst"));
+                            }
+                        }
+                        rs.close();
+                        ps.close();
 
                         ps = conn.prepareStatement("SELECT * FROM pretest WHERE prodno = ? AND ppart =? AND datetype = ?");
                         ps.setString(1,prodno);
