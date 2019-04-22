@@ -17,10 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.UUID;
+import java.util.*;
 
 import static start.excel.excel.putsheet;
 
@@ -36,6 +33,37 @@ public class getrematerialreport {                                      //材料
         ResultSet rs=null;
         PreparedStatement ps1 = null;
         ResultSet rs1=null;
+
+        HashMap<String,String> m = new HashMap<String,String>(){
+            {
+                put("c","C%");
+                put("mn","Mn%");
+                put("si","Si%");
+                put("p","P%");
+                put("s","S%");
+                put("cr","Cr%");
+                put("ni","Ni%");
+                put("ti","Ti%");
+                put("cu","Cu%");
+                put("fe","Fe%");
+                put("n","N%");
+                put("alt","Alt%");
+                put("mo","Mo%");
+                put("mg","Mg%");
+                put("zn","Zn%");
+                put("nb","Nb%");
+                put("v","V%");
+                put("b","B%");
+                put("w","W%");
+                put("sb","Sb%");
+                put("al","Al%");
+                put("zr","Zr%");
+                put("ca","Ca%");
+                put("be","Be%");
+                put("als","Als%");
+            }
+        };
+
 
         int matlname_id=0;                              //产品名称
         int supplier_id=0;                              //供货单位
@@ -84,6 +112,11 @@ public class getrematerialreport {                                      //材料
             putsheet(sheet,7,8,rs.getString("qty"));
             putsheet(sheet,7,12,codedmarking);
             putsheet(sheet,16,1,sdf.format(calendar.getTime()));
+            putsheet(sheet,18,10,sdf.format(calendar.getTime()));
+            putsheet(sheet,19,10,sdf.format(calendar.getTime()));
+
+            calendar.add(Calendar.DATE,3);
+
             putsheet(sheet,16,9,sdf.format(calendar.getTime()));
         }
         rs.close();
@@ -170,9 +203,9 @@ public class getrematerialreport {                                      //材料
                     String material_q=null;
                     for (int i = 0;i<material.size();i++){
                         if(i==0){
-                            material_q = material.get(i);
+                            material_q = m.get(material.get(i));
                         }else {
-                            material_q = material_q + "/" + material.get(i);
+                            material_q = material_q + " " + m.get(material.get(i));
                         }
                     }
 

@@ -198,7 +198,7 @@ public class getmepretestreportre {
 
         if(num_p != 0){
             ps = conn.prepareStatement("UPDATE rematerial SET retimes = ? WHERE codedmarking = ? AND status=1");
-            ps.setInt(1,num_p++);
+            ps.setInt(1,num_p+1);
             ps.setString(2,codedmarking);
             ps.executeUpdate();
             ps.close();

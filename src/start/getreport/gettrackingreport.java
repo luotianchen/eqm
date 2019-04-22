@@ -213,8 +213,8 @@ public class gettrackingreport {                                    //焊工材�
                 putsheet(sheet,14+z,6,rs.getString("usernote"));
             }else {
                 if(z<36){
-                    putsheet(sheet,26+z-24+39,4,rs.getString("weldno"));
-                    putsheet(sheet,26+z-24+39,6,rs.getString("usernote"));
+                    putsheet(sheet,26+z-24+39,0,rs.getString("weldno"));
+                    putsheet(sheet,26+z-24+39,2,rs.getString("usernote"));
                 }else {
                     putsheet(sheet,14+z-24+39,4,rs.getString("weldno"));
                     putsheet(sheet,14+z-24+39,6,rs.getString("usernote"));

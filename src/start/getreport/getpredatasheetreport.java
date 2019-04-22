@@ -258,7 +258,7 @@ public class getpredatasheetreport {                            //压力容器�
                 j_thi = getmat(jiatao_thi);
             }
 
-            if(rs.getInt("index")==1){
+            if(rs.getInt("tongdaoshu")==1){
                 c_mat = rs.getString("liningmatl");
                 c_thi = rs.getString("liningthick");
             }
@@ -522,7 +522,7 @@ public class getpredatasheetreport {                            //压力容器�
         if(!as.isEmpty()){
             a = as.get(0);
             for(int i=1;i<as.size();i++){
-                if(as.get(i).equals("0")){
+                if(null==as.get(i)|| as.get(i).equals("0") || as.get(i).equals("") ){
                     continue;
                 }
                 a = a+"/"+as.get(i);

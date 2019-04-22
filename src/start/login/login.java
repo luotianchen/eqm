@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import rsa.Base64Utils;
 import rsa.RSAUtils;
+import start.getreport.QRCodeUtil;
 import start.jdbc.jdbc;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +64,6 @@ public class login {                                                            
         String newpath = null;
 
         System.out.println(File.separator);
-
 
         String[] sourceStrArray = null;
 
@@ -122,6 +122,7 @@ public class login {                                                            
             is.close();
 
             cal2.setTime(format.parse(timeEnd));
+
 
 //            if(cpu.equals(serial)){
                 if(Integer.parseInt(timesCount)>=0 && cal1.before(cal2)){
