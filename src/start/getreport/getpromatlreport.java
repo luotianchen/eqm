@@ -296,7 +296,7 @@ public class getpromatlreport {                                 //产品材料�
         workBook.write(out);
         out.close();
 
-
+        conn.close();
 
 
         excel2Pdf(url1,url2);                                       //转PDF

@@ -131,6 +131,8 @@ public class gethpretestreport {                                        //液（
         workBook.write(out);
         out.close();
 
+        conn.close();
+
         File filepdf = new File(uploadPath, filename);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
         headers.setContentDispositionFormData("attachment", "液压过程卡.xlsx");// 文件的属性，也就是文件叫什么吧

@@ -370,7 +370,7 @@ public class searchpre {
         rs1.close();
         ps1.close();
 
-
+        conn.close();
 
         return as;
     }

@@ -129,6 +129,7 @@ public class getcover {                                                 //获取
         workBook.write(out);
         out.close();
 
+        conn.close();
 
         excel2Pdf(url1,url2);                                       //转PDF
         File filepdf = new File(uploadPath, pdfname);

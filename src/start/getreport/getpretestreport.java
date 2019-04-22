@@ -135,6 +135,8 @@ public class getpretestreport {                             //气压（气液组
         workBook.write(out);
         out.close();
 
+        conn.close();
+
         File filepdf = new File(uploadPath, filename);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
         headers.setContentDispositionFormData("attachment", "气压、气液混合.xlsx");// 文件的属性，也就是文件叫什么吧

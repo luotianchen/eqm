@@ -20,7 +20,7 @@ import com.google.zxing.MultiFormatWriter;
 /**
  * 使用方法：
  *
- * System.out.println(QRCodeUtil.getQRCode(request,"helloword"));
+ * System.out.println(QRCodeUtil.getQRCode(request,"helloword",75,75));
  *
  */
 public class QRCodeUtil {
@@ -80,6 +80,6 @@ public class QRCodeUtil {
         String uploadPath = path + File.separator +  "upload";
         File outputFile = new File(uploadPath + File.separator + filename+".jpg");
         writeToFile(bitMatrix, format, outputFile);
-        return uploadPath + filename+".jpg";
+        return uploadPath +File.separator+ filename+".jpg";
     }
 }

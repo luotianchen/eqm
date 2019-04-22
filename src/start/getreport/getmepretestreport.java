@@ -189,6 +189,8 @@ public class getmepretestreport {                                               
         workBook.write(out);
         out.close();
 
+        conn.close();
+
 
         File filepdf = new File(uploadPath, filename);
         HttpHeaders headers = new HttpHeaders();// 设置一个head

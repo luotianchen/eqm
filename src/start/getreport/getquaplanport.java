@@ -473,7 +473,7 @@ public class getquaplanport {                                               //�
         workBook.write(out);
         out.close();
 
-
+        conn.close();
 
         FileInputStream fileXlsx1 = new FileInputStream(url1);                              //隐藏行
         XSSFWorkbook workBook1 = new XSSFWorkbook(fileXlsx1);

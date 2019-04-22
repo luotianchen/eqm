@@ -33,5 +33,8 @@
     <orderEntry type="library" name="xmlbeans-2.6.0" level="project" />
     <orderEntry type="library" name="activation" level="project" />
     <orderEntry type="library" name="sun.misc.BASE64Decoder" level="project" />
+    <orderEntry type="library" name="itextpdf-5.5.8" level="project" />
+    <orderEntry type="library" name="itext-asian" level="project" />
+    <orderEntry type="library" name="core-3.3.3" level="project" />
   </component>
 </module>
