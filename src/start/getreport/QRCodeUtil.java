@@ -60,9 +60,13 @@ public class QRCodeUtil {
         }
     }
 
-    public static String getQRCode(HttpServletRequest request, String QRContent) throws Exception {
-        int width = 75; // 二维码图片宽度
-        int height = 75; // 二维码图片高度
+
+    /*
+    *
+    * request为HttpServletRequest对象，用于获取uploadpath，QRContent为二维码内容，width、height为宽度和高度
+    *
+    * */
+    public static String getQRCode(HttpServletRequest request, String QRContent,int width,int height) throws Exception {
         String format = "jpg";// 二维码的图片格式
 
         Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
