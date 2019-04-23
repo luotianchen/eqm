@@ -9,8 +9,8 @@ export class CertificateReportService {
   getcodedmarking(){
     return this.http.get(this.api.BASEURL+"/getcodedmarking");
   }
-  getmaterial(codedmarking){
-    return this.http.post(this.api.BASEURL+"/getmaterial",{codedmarking:codedmarking});
+  getReport(codedmarking){
+    return this.http.post(this.api.BASEURL+"/getinspectionreport",{codedmarking:codedmarking});
   }
   getlogo(){
     return this.http.get(`${this.api.BASEURL}/getlogo`);

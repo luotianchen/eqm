@@ -88,7 +88,7 @@ public class getmepretestreportre {
                 }else {
                     num=rs.getString("retimes");
                 }
-                putsheet(sheet,4,29,"力学第 "+rs1.getString("indate").substring(0,4)+"-y"+num+" 号");
+                putsheet(sheet,4,29,"力学第 "+rs.getString("indate").substring(0,4)+"-y"+num+" 号");
                 num_p=rs.getInt("retimes");
             }
             rs1.close();

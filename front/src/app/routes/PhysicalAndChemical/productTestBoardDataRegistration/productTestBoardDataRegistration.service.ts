@@ -16,12 +16,6 @@ export class ProductTestBoardDataRegistrationService {
   searchprotestboardcom(prodno) {
     return this.http.post(`${this.api.BASEURL}/searchprotestboardcom`,{status:1,prodno:prodno});
   }
-  gettestboardstand(){
-    return this.http.get(this.api.BASEURL+"/gettestboardstand");
-  }
-  addtestboardstand(testboardstand){
-    return this.http.post(this.api.BASEURL+"/puttestboardstand",{testboardstand:testboardstand})
-  }
   gettestno(testno){
     return this.http.post(this.api.BASEURL+"/gettestno",{testno:testno});
   }

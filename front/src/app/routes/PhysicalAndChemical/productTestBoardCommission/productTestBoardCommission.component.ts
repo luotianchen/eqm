@@ -47,6 +47,7 @@ export class ProductTestBoardCommissionComponent implements OnInit {
         "specimenname":["产品试板",[Validators.required]],
         "weldingsteelseal":[null,[Validators.required]],
         "designation":[null,[Validators.required]],
+        "weldmatl":[null,[Validators.required]],
         "spec":[null,[Validators.required]],
         "groovetype":[null,[Validators.required]],
         "weldingmethod":[null,[Validators.required]],
@@ -91,7 +92,7 @@ export class ProductTestBoardCommissionComponent implements OnInit {
   submitForm(){
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
+      this.validateForm.controls[ i ].updateValueAndValidity()
     }
     if(this.validateForm.valid){
       this.productTestBoardCommissionService.putproducttestboardcommission(
@@ -104,6 +105,7 @@ export class ProductTestBoardCommissionComponent implements OnInit {
           "weldingsteelseal":this.validateForm.value.weldingsteelseal,
           "designation":this.validateForm.value.designation,
           "spec":this.validateForm.value.spec,
+          "weldmatl":this.validateForm.value.weldmatl,
           "groovetype":this.validateForm.value.groovetype,
           "weldingmethod":this.validateForm.value.weldingmethod,
           "weldingposition":this.validateForm.value.weldingposition,

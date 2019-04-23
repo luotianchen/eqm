@@ -11,9 +11,9 @@ export class ProductTestBoardCommissionReportService {
     return this.http.get(this.api.BASEURL+"/getprodno");
   }
   getAudit(prodno){
-    return this.http.post(this.api.BASEURL+'/searchproductplatedata',{
-      status:1,
-      prodno:prodno
+    return this.http.post(this.api.BASEURL+'/searchprotestboardcom',{
+      prodno:prodno,
+      status:1
     })
   }
   getDepartments(){

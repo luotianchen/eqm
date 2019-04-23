@@ -56,9 +56,9 @@ public class getinspectionreport {                                              
         PdfStamper stamper = null;
 
         //创建一个pdf读入流
-        reader = new PdfReader(uploadPath+"\\检验合格证.pdf");
+        reader = new PdfReader(uploadPath + File.separator+"检验合格证.pdf");
         //根据一个pdfreader创建一个pdfStamper.用来生成新的pdf.
-        String newpath = uploadPath+"\\"+ UUID.randomUUID().toString() +".pdf";
+        String newpath = uploadPath+ File.separator+ UUID.randomUUID().toString() +".pdf";
         stamper = new PdfStamper(reader,new FileOutputStream(newpath));
         //这个字体是itext-asian.jar中自带的 所以不用考虑操作系统环境问题.
         BaseFont bf = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);

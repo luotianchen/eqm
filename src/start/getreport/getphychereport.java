@@ -89,9 +89,7 @@ public class getphychereport {                                          //理化
         ps.setString(2,specimenno);
         rs= ps.executeQuery();
         if(rs.next()){
-            judgestand = rs.getString("judgestand");
             gaptype = rs.getString("gaptype");
-            matl = rs.getString("specimenmatl");
         }
         rs.close();
         ps.close();
@@ -102,6 +100,8 @@ public class getphychereport {                                          //理化
         rs= ps.executeQuery();
         if(rs.next()){
             prodname = rs.getString("prodname");
+            matl = rs.getString("weldmatl");
+            judgestand = rs.getString("evaluastand");
             specimenname = rs.getString("specimenname");
             weldingsteelseal = rs.getString("weldingsteelseal");
             designation_spec = rs.getString("designation")+ " " + rs.getString("spec");

@@ -71,6 +71,16 @@
     </div>
     <div nz-col nzSpan="4">
       <nz-form-item>
+        <nz-form-label nzRequired nzFor="weldmatl">焊接材料</nz-form-label>
+        <nz-form-control>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="焊接材料"  formControlName="weldmatl" name="weldmatl" id="weldmatl">
+            <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="4">
+      <nz-form-item>
         <nz-form-label nzRequired nzFor="spec">规格</nz-form-label>
         <nz-form-control>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="规格"  formControlName="spec" name="spec" id="spec">

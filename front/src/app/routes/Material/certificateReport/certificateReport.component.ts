@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CertificateReportService} from './certificateReport.service';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NzMessageService} from "ng-zorro-antd";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-certificateReport',
@@ -10,40 +12,17 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class CertificateReportComponent implements OnInit {
   validateForm: FormGroup;
-  public codedmarking = null;
   public codedmarkings = [];
-  public value : any = null;
-  public information = "";
-  public now = new Date();
-  year = null;
-  month = null;
-  day = null;
-  logourl = null;
-  constructor(public certificateReportService:CertificateReportService,public fb: FormBuilder){
-  }
-  searchData(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
-    }
-    if(this.validateForm.valid){
-      this.codedmarking = null;
-      this.certificateReportService.getmaterial(this.validateForm.value.codedmarking).subscribe(res=>{
-        if(res['result']=="success"){
-          this.value = res['data'];
-          this.information = this.value.codedmarking+","+this.value.modelstand+","+this.value.designation+","+this.value.heatbatchno+","+this.value.spec+","+this.value.dimension+","+this.value.millunit+","+this.value.name+","+this.value.indate;
-          this.codedmarking = this.validateForm.value.codedmarking;
-        }
-      })
-    }
+  codedmarking = "";
+  public pdfSrc = null;
+  public loading = false;
+  status = false;
+  objectUrl = null;
+  constructor(public certificateReportService:CertificateReportService,public fb: FormBuilder,private sanitizer: DomSanitizer,private msg:NzMessageService){
   }
   ngOnInit(): void {
-    this.year = this.now.getFullYear();
-    this.month = this.now.getMonth()+1;
-    this.day = this.now.getDate();
     this.certificateReportService.getlogo().subscribe(res=>{
-      if(res['result'] == "success"){
-        this.logourl = res['url'];
+      if(res['result'] != "success"){alert("管理员未设置logo！");
       }
     });
     this.certificateReportService.getcodedmarking().subscribe((res) => {
@@ -54,15 +33,28 @@ export class CertificateReportComponent implements OnInit {
     this.validateForm = this.validateForm = this.fb.group({
       "codedmarking":[null, [Validators.required]]
     });
-    this.printCSS = ['assets/css/certificateReport.css'];
   }
-  printCSS: string[];
-  printStyle: string;
-  printBtnBoolean = true;
-  printComplete() {
-    this.printBtnBoolean = true;
-  }
-  beforePrint() {
-    this.printBtnBoolean = false;
+  submitForm(): void {
+    // tslint:disable-next-line:no-any
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[ i ].markAsDirty();
+      this.validateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.validateForm.valid){
+      this.codedmarking = this.validateForm.value.codedmarking;
+      this.loading = true;
+      const formData = new FormData();
+      formData.append('codedmarking', this.validateForm.value.codedmarking);
+      this.certificateReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
+        this.pdfSrc = new Uint8Array(res);
+        let blob = new Blob([res], {type: 'application/pdf'});
+        this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+        this.loading = false;
+        this.status = true;
+      },err=>{
+        this.loading = false;
+        this.msg.error("出现异常，请稍后重试！")
+      })
+    }
   }
 }

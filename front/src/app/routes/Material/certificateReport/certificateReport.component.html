@@ -15,51 +15,19 @@
       </nz-form-item>
     </div>
     <div nz-col [nzSpan]="8">
-      <button nz-button [nzType]="'primary'" (click)="searchData()">查询</button>
+      <button nz-button [nzType]="'primary'" (click)="submitForm()" [nzLoading]="loading">
+        生成材料合格证
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a nz-button nzType="primary" download="{{codedmarking}}+材料合格证.pdf" [href]="objectUrl" *ngIf="status"><i nz-icon type="download"></i>下载合格证</a>
     </div>
   </div>
 </form>
 
-<div #print *ngIf="codedmarking!=null">
-  <p style="margin-bottom: 20px;margin-top: 20px">
-    <essence-ng2-print
-      [mode]="'iframe'"
-      [printCSS]="printCSS"
-      [popTitle]="'材料合格证'"
-      [btnText]="'打印材料合格证'"
-      [printHTML]="print"
-      [showBtn]="printBtnBoolean"
-      [btnClass]="{'ant-btn':true}"
-      (click)="beforePrint()"
-      (printComplete)="printComplete()">
-    </essence-ng2-print>
-    <button
-      nz-button
-      nz-popover
-      *ngIf="printBtnBoolean"
-      nzType="primary"
-      nzTitle="注意事项"
-      nzContent="请在打印页面，点击更多设置-边距-最小值。"
-      nzShape="circle"
-      style="margin-left: 20px;margin-top: 4px">
-      <i nz-icon type="question-circle" theme="outline"></i>
-    </button>
-  </p>
-  <div style="width: 1000px;height: 350px;position: relative;overflow: hidden">
-    <img src="assets/report/hegezheng.png" draggable="false" style="width: 100%;height:auto;position: absolute;left: 0;top: 0;">
-    <qrcode class="qrcode" [qrdata]="information" [size]="256" [level]="'L'"></qrcode>
-    <img *ngIf="logourl!=null" [src]="logourl" style="height: 30px;z-index: 200;position: absolute;left: 60px;top: 35px;">
-    <div style="position: absolute;font-size: 10px;top: 74px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.codedmarking}}</div>
-    <div style="position: absolute;font-size: 10px;top: 74px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.modelstand}}</div>
-    <div style="position: absolute;font-size: 10px;top: 102px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.designation}}</div>
-    <div style="position: absolute;font-size: 10px;top: 102px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.heatbatchno}}</div>
-    <div style="position: absolute;font-size: 10px;top: 120px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.spec}}</div>
-    <div style="position: absolute;font-size: 10px;top: 135px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.dimension}}</div>
-    <div style="position: absolute;font-size: 10px;top: 130px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.millunit}}</div>
-    <div style="position: absolute;font-size: 10px;top: 158px;left: 100px;letter-spacing: 0;font-family: initial;">{{value.name}}</div>
-    <div style="position: absolute;font-size: 10px;top: 158px;left: 220px;letter-spacing: 0;font-family: initial;">{{value.indate}}</div>
-    <div style="position: absolute;font-size: 10px;top: 48px;left: 324px;letter-spacing: 0;font-family: serif;transform: scale(0.75)">{{year}}</div>
-    <div style="position: absolute;font-size: 10px;top: 48px;left: 352px;letter-spacing: 0;font-family: serif;transform: scale(0.75)">{{month}}</div>
-    <div style="position: absolute;font-size: 10px;top: 48px;left: 365px;letter-spacing: 0;font-family: serif;transform: scale(0.75)">{{day}}</div>
-  </div>
-</div>
+<nz-divider></nz-divider>
+<pdf-viewer [src]="pdfSrc"
+            [render-text]="true"
+            style="display: block;"
+            *ngIf="status"
+></pdf-viewer>
+

@@ -24,7 +24,6 @@
     "@angular/router": "^7.2.8",
     "@nguniversal/express-engine": "^7.1.1",
     "@notadd/ngx-xlsx": "^1.0.1",
-    "angularx-qrcode": "^1.5.3",
     "babel-polyfill": "^6.26.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.6.5",

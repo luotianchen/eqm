@@ -15,7 +15,6 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
   validateForm: FormGroup;
   testboardstandValidateForm: FormGroup;
   dataSet = [];
-  testboardstands = [];
   matlstands = [];
   specimennos = [];
   specimennoandprodnos = [];
@@ -68,11 +67,6 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     this.productTestBoardDataRegistrationService.getputmaterial().subscribe(res=>{
       if(res['result'] == 'success'){
         this.matls = res['data']['designation'];
-      }
-    })
-    this.productTestBoardDataRegistrationService.gettestboardstand().subscribe(res=>{
-      if(res['result'] == "success"){
-        this.testboardstands = res['data'];
       }
     })
     this.validateForm = this.fb.group({
@@ -167,6 +161,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
           let data = res['data'].filter(item=>item.specimenno == this.validateForm.value.specimenno)[0];
           this.validateForm.controls['specimenmatl'].setValue(data.designation);
           this.validateForm.controls['specimenspec'].setValue(data.spec);
+          this.validateForm.controls['judgestand'].setValue(data.evaluastand);
           this.getMatlstand();
         }
       })
@@ -184,6 +179,7 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
           let data = res['data'].filter(item=>item.specimenno == this.validateForm.value.specimenno)[0];
           this.validateForm.controls['specimenmatl'].setValue(data.designation);
           this.validateForm.controls['specimenspec'].setValue(data.spec);
+          this.validateForm.controls['judgestand'].setValue(data.evaluastand);
           this.getMatlstand();
         }
       })
@@ -272,27 +268,6 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
       this.tplModalButtonLoading = false;
       this.tplModal.destroy();
     }, 1000);
-  }
-
-  addtestboardstand(){
-    this.testboardstandValidateForm.controls['testboardstand'].markAsDirty();
-    this.testboardstandValidateForm.controls['testboardstand'].updateValueAndValidity();
-    if(this.testboardstandValidateForm.valid){
-      this.productTestBoardDataRegistrationService.addtestboardstand(this.testboardstandValidateForm.value.testboardstand).subscribe((res)=>{
-        if(res["result"]=="success"){
-          this.modalService.success({
-            nzTitle: '成功',
-            nzContent: '您已提交成功！'
-          });
-          this.productTestBoardDataRegistrationService.gettestboardstand().subscribe((res)=>{
-            if(res['result']=="success"){
-              this.testboardstands = res['data'];
-            }
-          })
-          this.destroyTplModal();
-        }
-      })
-    }
   }
 
   formatEntrustdate(controlname){//日期格式化

@@ -9,6 +9,7 @@ public class putprotestboardcompost {
     private String weldingsteelseal;
     private String designation;
     private String spec;
+    private String weldmatl;
     private String groovetype;
     private String weldingmethod;
     private String weldingposition;
@@ -210,5 +211,13 @@ public class putprotestboardcompost {
 
     public void setProdname(String prodname) {
         this.prodname = prodname;
+    }
+
+    public String getWeldmatl() {
+        return weldmatl;
+    }
+
+    public void setWeldmatl(String weldmatl) {
+        this.weldmatl = weldmatl;
     }
 }

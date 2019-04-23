@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../../../shared.module';
 import {CertificateReportComponent} from "./certificateReport.component";
-import {EssenceNg2PrintModule} from 'essence-ng2-print';
-import {QRCodeModule} from "angularx-qrcode";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -10,8 +9,7 @@ import {QRCodeModule} from "angularx-qrcode";
   ],
   imports: [
     SharedModule.forRoot(),
-    EssenceNg2PrintModule,
-    QRCodeModule
+    PdfViewerModule
   ],
   exports: [
     CertificateReportComponent
