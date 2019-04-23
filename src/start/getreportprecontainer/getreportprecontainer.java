@@ -57,10 +57,10 @@ public class getreportprecontainer {                                        //ç”
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1 ORDER BY tongdaoshu ASC");
             ps.setString(1,dwgno);
             rs = ps.executeQuery();
-            if(rs.next()){
+            while (rs.next()){
                 if(!(rs.getString("shthick1") == null || rs.getString("shthick1").equals(""))){
                     shthick_data.add(rs.getString("shthick1"));
 
@@ -187,7 +187,7 @@ public class getreportprecontainer {                                        //ç”
             ps2.close();
 
 
-            ps2 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
+            ps2 = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1 ORDER BY tongdaoshu ASC");
             ps2.setString(1,dwgno);
             rs2 = ps2.executeQuery();
             while (rs2.next()){

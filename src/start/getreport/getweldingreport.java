@@ -93,16 +93,16 @@ public class getweldingreport {                                         //产品
                 putsheet(sheet,60,39,simpleDateFormat4.format(calendar.getTime()));
             }else {
                 putsheet(sheet,3+61,0,rs.getString("dwgno"));
-                putsheet(sheet,9+i*2+61,3,rs.getString("weldno"));
+                putsheet(sheet,9+i*2+61-25*2,3,rs.getString("weldno"));
                 if(rs.getString("weldno")!=null){
-                    putsheet(sheet,9+i*2+61,0,rs.getString("weldno").substring(0,1));
+                    putsheet(sheet,9+i*2+61-25*2,0,rs.getString("weldno").substring(0,1));
                 }
-                putsheet(sheet,9+i*2+61,13,rs.getString("weldevano"));
-                putsheet(sheet,9+i*2+61,23,rs.getString("weldmethod"));
-                putsheet(sheet,9+i*2+61,30,rs.getString("usernote"));
+                putsheet(sheet,9+i*2+61-25*2,13,rs.getString("weldevano"));
+                putsheet(sheet,9+i*2+61-25*2,23,rs.getString("weldmethod"));
+                putsheet(sheet,9+i*2+61-25*2,30,rs.getString("usernote"));
                 calendar.setTime(rs.getDate("welddate"));
-                putsheet(sheet,9+i*2+61,38,simpleDateFormat1.format(calendar.getTime()));
-                putsheet(sheet,9+i*2+61,46,rs.getString("inspector"));
+                putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
+                putsheet(sheet,9+i*2+61-25*2,46,rs.getString("inspector"));
                 i++;
                 putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
                 putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));

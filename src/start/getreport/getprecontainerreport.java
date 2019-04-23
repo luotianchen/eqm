@@ -330,9 +330,11 @@ public class getprecontainerreport {                                            
             if(i==0){
                 s = String.valueOf(as.get(i));
             }else {
+
                 if(as.get(i)==0){
                     continue;
                 }
+
                 if(s.indexOf(String.valueOf(as.get(i)))==-1){
                     s =s + "/" + String.valueOf(as.get(i));
                 }
