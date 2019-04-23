@@ -2,6 +2,7 @@ package start.putprotestboardcom;
 
 public class putprotestboardcompost {
     private String prodno;
+    private String prodname;
     private String evaluastand;
     private String specimenno;
     private String specimenname;
@@ -201,5 +202,13 @@ public class putprotestboardcompost {
 
     public void setThermalimpactzonenum(String thermalimpactzonenum) {
         this.thermalimpactzonenum = thermalimpactzonenum;
+    }
+
+    public String getProdname() {
+        return prodname;
+    }
+
+    public void setProdname(String prodname) {
+        this.prodname = prodname;
     }
 }

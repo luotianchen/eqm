@@ -60,7 +60,7 @@ public class searchpre {
                 ps = conn.prepareStatement("SELECT * FROM watertest");
                 rs = ps.executeQuery();
                 while (rs.next()){
-                    if(getDaySub(rs.getString("testdate"),rs1.getString("dated1"))<=31){
+                    if(getDaySub(rs.getString("testdate"),rs1.getString("dated1"))<=31 && getDaySub(rs.getString("testdate"),rs1.getString("dated1"))>=0){
                         data.setClcontent(rs.getString("testrst"));
                     }
                 }
@@ -164,7 +164,7 @@ public class searchpre {
                     ps = conn.prepareStatement("SELECT * FROM watertest");
                     rs = ps.executeQuery();
                     while (rs.next()){
-                        if(getDaySub(rs.getString("testdate"),rs1.getString("dated2"))<=31){
+                        if(getDaySub(rs.getString("testdate"),rs1.getString("dated2"))<=31 && getDaySub(rs.getString("testdate"),rs1.getString("dated1"))>=0){
                             data.setClcontent(rs.getString("testrst"));
                         }
                     }
@@ -267,7 +267,7 @@ public class searchpre {
                         ps = conn.prepareStatement("SELECT * FROM watertest");
                         rs = ps.executeQuery();
                         while (rs.next()){
-                            if(getDaySub(rs.getString("testdate"),rs1.getString("dated3"))<=31){
+                            if(getDaySub(rs.getString("testdate"),rs1.getString("dated3"))<=31 && getDaySub(rs.getString("testdate"),rs1.getString("dated1"))>=0){
                                 data.setClcontent(rs.getString("testrst"));
                             }
                         }

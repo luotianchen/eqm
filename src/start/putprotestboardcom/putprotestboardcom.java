@@ -30,12 +30,12 @@ public class putprotestboardcom {                               //提交产品�
                     "groovetype,weldingmethod,weldingposition,heatcondi," +
                     "representno,representpart,drawingnumber,surfacebending," +
                     "backbending,lateralbending,flattening,shocktemperature," +
-                    "weldzoneshocknum,thermalimpactzonenum,user,date) VALUES (?,?,?," +
+                    "weldzoneshocknum,thermalimpactzonenum,user,date,prodname) VALUES (?,?,?," +
                     "?,?,?,?," +
                     "?,?,?,?," +
                     "?,?,?,?," +
                     "?,?,?,?," +
-                    "?,?,?,?)");
+                    "?,?,?,?,?)");
             ps.setString(1,pp.getProdno());
             ps.setString(2,pp.getEvaluastand());
             ps.setString(3,pp.getSpecimenno());
@@ -59,6 +59,7 @@ public class putprotestboardcom {                               //提交产品�
             ps.setString(21,pp.getThermalimpactzonenum());
             ps.setString(22,pp.getUser());
             ps.setDate(23,new java.sql.Date(new java.util.Date().getTime()));
+            ps.setString(24,pp.getProdname());
             ps.executeUpdate();
             ps.close();
             result.setResult("success");
