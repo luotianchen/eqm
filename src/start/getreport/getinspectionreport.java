@@ -171,6 +171,7 @@ public class getinspectionreport {                                              
 
 
                 erweimapath = QRCodeUtil.getQRCode(request,erweima,105,105);
+                System.out.println(erweimapath);
 
                 //创建一个image对象.
                 Image image1 = Image.getInstance(erweimapath);
