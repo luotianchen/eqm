@@ -56,9 +56,9 @@ public class getinspectionreport {                                              
         PdfStamper stamper = null;
 
         //创建一个pdf读入流
-        reader = new PdfReader(uploadPath + File.separator+"检验合格证.pdf");
+        reader = new PdfReader(uploadPath+File.separator+"检验合格证.pdf");
         //根据一个pdfreader创建一个pdfStamper.用来生成新的pdf.
-        String newpath = uploadPath+ File.separator+ UUID.randomUUID().toString() +".pdf";
+        String newpath = uploadPath+File.separator+ UUID.randomUUID().toString() +".pdf";
         stamper = new PdfStamper(reader,new FileOutputStream(newpath));
         //这个字体是itext-asian.jar中自带的 所以不用考虑操作系统环境问题.
         BaseFont bf = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
@@ -157,13 +157,15 @@ public class getinspectionreport {                                              
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
                     if(rs1.getString("logo") != null && !rs1.getString("logo").equals("")){
-                        //创建一个image对象.
-                        Image image = Image.getInstance(rs1.getString("logo"));
-                        //设置image对象的输出位置pa.getAsNumber(pa.size()-1).floatValue() 是该页pdf坐标轴的y轴的最大值  0, 0, 841.92, 595.32
-                        image.setAbsolutePosition(195,443);
-                        //设置插入的图片大小
-                        image.scaleToFit(50,50);
-                        over.addImage(image);
+                        try{
+                            //创建一个image对象.
+                            Image image = Image.getInstance(rs1.getString("logo"));
+                            //设置image对象的输出位置pa.getAsNumber(pa.size()-1).floatValue() 是该页pdf坐标轴的y轴的最大值  0, 0, 841.92, 595.32
+                            image.setAbsolutePosition(195,443);
+                            //设置插入的图片大小
+                            image.scaleToFit(50,50);
+                            over.addImage(image);
+                        }catch (Exception e){ }
                     }
                 }
 
