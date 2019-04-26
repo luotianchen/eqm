@@ -44,6 +44,8 @@ public class getcheanareport {                                              //�
         int num_p=0;
         int matlname_id=0;
 
+        int matlstand_id =0;
+
         String realPath = request.getSession().getServletContext().getRealPath("");
         String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
         String uploadPath = path + "upload";                                                //获取文件名称
@@ -146,6 +148,7 @@ public class getcheanareport {                                              //�
 
             putsheet(sheet,7,21,rs.getString("spec"));
             matlname_id=rs.getInt("matlname_id_matlname");
+            matlstand_id = rs.getInt("contraststand_id_matlstand");
         }
         rs.close();
         ps.close();
@@ -155,6 +158,15 @@ public class getcheanareport {                                              //�
         rs = ps.executeQuery();
         if(rs.next()){
             putsheet(sheet,7,14,rs.getString("matlname"));
+        }
+        rs.close();
+        ps.close();
+
+        ps = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
+        ps.setInt(1,matlstand_id);
+        rs = ps.executeQuery();
+        if(rs.next()){
+            putsheet(sheet,35,4,rs.getString("matlstand"));
         }
         rs.close();
         ps.close();
