@@ -28,6 +28,8 @@ public class searchallmaterial {                                                
         searchallmaterialdata samd;
         searchallmaterialresult result = new searchallmaterialresult();
         String sql;
+        String sql_end = " limit ?,?";
+
         int num = 1;
         int codedmarking_p=0;
         int matlname_p=0;
@@ -56,6 +58,8 @@ public class searchallmaterial {                                                
         PreparedStatement ps1 = null;
         ResultSet rs=null;
         ResultSet rs1=null;
+
+        int i = 0;
 
 
         try{
@@ -120,9 +124,10 @@ public class searchallmaterial {                                                
                 ps.close();
             }
 
-
+            sql = sql + sql_end;
 
             ps=conn.prepareStatement(sql);
+            System.out.println(sql);
             if(codedmarking_p==1){
                 ps.setString(num,sp.getSearchdata().getCodedmarking());
                 num++;
@@ -151,6 +156,12 @@ public class searchallmaterial {                                                
                 ps.setString(num,sp.getSearchdata().getIndate());
                 num++;
             }
+
+            ps.setInt(num,(sp.getPageindex()-1)*sp.getPagesize());
+            num++;
+            ps.setInt(num,sp.getPagesize());
+            num++;
+
 
             rs=ps.executeQuery();
             while(rs.next()){
@@ -311,24 +322,8 @@ public class searchallmaterial {                                                
             ps.close();
             result.setResult("success");
             result.setTotal(as.size());
-        }catch (Exception e){
-            result.setResult("fail");
-        }
-        try{
             Collections.reverse(as);                                          //将list倒序
-            int as_size;
-            as_size=as.size();
-            if(as_size<=((sp.getPageindex()-1)*sp.getPagesize())){
-                result.setResult("fail");
-            }else if((as_size-((sp.getPageindex()-1)*sp.getPagesize())<sp.getPagesize())){
-                ArrayList<searchallmaterialdata> as_q=new ArrayList<searchallmaterialdata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),as_size));
-                result.setResult("success");
-                result.setData(as_q);
-            }else{
-                ArrayList<searchallmaterialdata> as_q=new ArrayList<searchallmaterialdata>(as.subList(((sp.getPageindex()-1)*sp.getPagesize()),(sp.getPageindex()*sp.getPagesize())));
-                result.setResult("success");
-                result.setData(as_q);
-            }
+            result.setData(as);
         }catch (Exception e){
             result.setResult("fail");
         }
