@@ -11,10 +11,7 @@
 
 >
     <!-- 静态资源映射 -->
-    <!--
-    <mvc:resources mapping="/eqm/**" location="/WEB-INF/eqm/"></mvc:resources>
-    <mvc:resources mapping="/report/**" location="/WEB-INF/eqm/assets/report"></mvc:resources>
-    -->
+    <mvc:resources mapping="/**" location="/WEB-INF/"></mvc:resources>
     <!-- 组件扫描 -->
     <context:component-scan base-package="start"></context:component-scan>
     <mvc:default-servlet-handler/>
@@ -22,7 +19,11 @@
     <mvc:annotation-driven/>
 
     <!-- 视图解析器 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
 
     <!-- 文件上传解析器(10M) -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

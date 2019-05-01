@@ -10,8 +10,8 @@ import java.util.ArrayList;
 @CrossOrigin
 @Controller
 public class getcodedmarking {                                  //查询所有已审核入库编号
-    @RequestMapping(value = "getcodedmarking",method = RequestMethod.GET)
-    public @ResponseBody getcodedmarkingresult getcodedmarking() throws ClassNotFoundException, SQLException {
+    @RequestMapping(value = "getcodedmarking")
+    public @ResponseBody getcodedmarkingresult getcodedmarking(@RequestBody getcodedmarkingpost gp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -22,7 +22,8 @@ public class getcodedmarking {                                  //查询所有�
         ArrayList<String> as = new ArrayList<String>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE status = 1");
+            ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE status = 1 AND codedmarking LIKE ? limit 0,200");
+            ps.setString(1,gp.getCodedmarking()+"%");
             rs = ps.executeQuery();
             while (rs.next()){
                 as.add(rs.getString("codedmarking"));
