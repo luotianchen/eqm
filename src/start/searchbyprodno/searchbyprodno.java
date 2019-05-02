@@ -81,7 +81,7 @@ public class searchbyprodno {                                               //é€
                 data.setPartno(rs.getString("partno"));
                 data.setQty(rs.getString("qty"));
                 data.setCodedmarking(rs.getString("codedmarking"));
-                data.setIssuedate(sdf.format(rs.getDate("issuedate")));
+                data.setIssuedate(rs.getString("issuedate"));
                 data.setIspresspart(rs.getString("ispresspart"));
                 data.setWeldno(rs.getString("weldno"));
                 data.setReturnqty(rs.getInt("returnqty"));
@@ -150,6 +150,7 @@ public class searchbyprodno {                                               //é€
             }
             rs.close();
             ps.close();
+
 
             ps=conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno=?");
             ps.setString(1,result.getDwgno());
