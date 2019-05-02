@@ -27,6 +27,10 @@ public class searchallmaterial {                                                
         ArrayList<searchallmaterialdata> as=new ArrayList<searchallmaterialdata>();
         searchallmaterialdata samd;
         searchallmaterialresult result = new searchallmaterialresult();
+
+        String sql1 = "SELECT * ";
+        String sql2 = "SELECT count(*) as num ";
+
         String sql;
         String sql_end = " limit ?,?";
 
@@ -63,7 +67,7 @@ public class searchallmaterial {                                                
 
 
         try{
-            sql="SELECT * FROM putmaterial WHERE 1=1 ";
+            sql="FROM putmaterial WHERE 1=1 ";
             if(!(sp.getSearchdata().getCodedmarking()==null||sp.getSearchdata().getCodedmarking().equals(""))){
                 sql=sql+"and codedmarking = ? ";
                 codedmarking_p=1;
@@ -123,37 +127,45 @@ public class searchallmaterial {                                                
                 rs.close();
                 ps.close();
             }
-
+            ps1 = conn.prepareStatement(sql2 + sql);
+            System.out.println(sql2 + sql);
             sql = sql + sql_end;
 
-            ps=conn.prepareStatement(sql);
-            System.out.println(sql);
+            ps=conn.prepareStatement(sql1 + sql);
+            System.out.println(sql1 + sql);
             if(codedmarking_p==1){
                 ps.setString(num,sp.getSearchdata().getCodedmarking());
+                ps1.setString(num,sp.getSearchdata().getCodedmarking());
                 num++;
             }
             if(matlname_p==1){
                 ps.setInt(num,matlname_id);
+                ps1.setInt(num,matlname_id);
                 num++;
             }
             if(designation_p==1){
                 ps.setInt(num,designation_id);
+                ps1.setInt(num,designation_id);
                 num++;
             }
             if(spec_p==1){
                 ps.setString(num,sp.getSearchdata().getSpec());
+                ps1.setString(num,sp.getSearchdata().getSpec());
                 num++;
             }
             if(millunit_p==1){
                 ps.setInt(num,millunit_id);
+                ps1.setInt(num,millunit_id);
                 num++;
             }
             if(status_p==1){
                 ps.setInt(num,sp.getSearchdata().getStatus());
+                ps1.setInt(num,sp.getSearchdata().getStatus());
                 num++;
             }
             if(indate_p==1){
                 ps.setString(num,sp.getSearchdata().getIndate());
+                ps1.setString(num,sp.getSearchdata().getIndate());
                 num++;
             }
 
@@ -161,6 +173,13 @@ public class searchallmaterial {                                                
             num++;
             ps.setInt(num,sp.getPagesize());
             num++;
+
+            rs1 = ps1.executeQuery();
+            if(rs1.next()){
+                result.setTotal(rs1.getInt("num"));
+            }
+            rs1.close();
+            ps1.close();
 
 
             rs=ps.executeQuery();
@@ -321,7 +340,6 @@ public class searchallmaterial {                                                
             rs.close();
             ps.close();
             result.setResult("success");
-            result.setTotal(as.size());
             Collections.reverse(as);                                          //将list倒序
             result.setData(as);
         }catch (Exception e){
