@@ -10,7 +10,7 @@ export class MenuService {
 
   getMenu() {
     return new Promise((resolve, reject) => {
-      this.http.get('api/menu.json')
+      this.http.get('/assets/api/menu.json')
         .subscribe(result => {
           this.setting.setMenuStatus(true);
           resolve(result);

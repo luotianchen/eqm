@@ -37,5 +37,5 @@
     })(window);
 </script>
 <app-root></app-root>
-<script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
+<script type="text/javascript" src="static/runtime.js"></script><script type="text/javascript" src="static/polyfills.js"></script><script type="text/javascript" src="static/styles.js"></script><script type="text/javascript" src="static/vendor.js"></script><script type="text/javascript" src="static/main.js"></script></body>
 </html>

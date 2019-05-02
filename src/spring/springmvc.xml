@@ -11,7 +11,8 @@
 
 >
     <!-- 静态资源映射 -->
-    <!--<mvc:resources mapping="/**" location="/WEB-INF/"/>-->
+    <mvc:resources mapping="/static/**" location="/WEB-INF/static/"/>
+    <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"/>
     <!--<mvc:resources mapping="/upload/" location="/upload/"/>-->
     <!-- 组件扫描 -->
     <context:component-scan base-package="start"/>

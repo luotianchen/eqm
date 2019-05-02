@@ -234,7 +234,7 @@
     <p class="title">1.如何激活？</p>
     <p class="text">输入localhost/install后会弹出以下界面（服务器端），在路径选择栏（第一栏）选择安装位置下apache-tomcat-8.5.40\webapps文件夹，在激活码输入框输入购买的激活码，点击激活按钮后提示激活成功则完成激活步骤。</p>
     <p style="text-align: center">
-        <img src="install/install-1.png">
+        <img src="assets/install/install-1.png">
     </p>
     <p class="title">2.产品质量计划、产品材料清单等pdf无法正常生成</p>
     <p class="text">首先请按照下列提示完成JAVA环境变量配置，若仍然不能使用，请检查是否已在服务器安装Microsoft Office产品（2007版需安装excelSaveAsPDFandXPS组件）</p>
