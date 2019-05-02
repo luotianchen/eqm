@@ -14,7 +14,7 @@ export class CertificateReportComponent implements OnInit {
   validateForm: FormGroup;
   public codedmarkings = [];
   codedmarking = "";
-  public pdfSrc = null;
+  // public pdfSrc = null;
   public loading = false;
   status = false;
   objectUrl = null;
@@ -25,13 +25,13 @@ export class CertificateReportComponent implements OnInit {
       if(res['result'] != "success"){alert("管理员未设置logo！");
       }
     });
-    this.certificateReportService.getcodedmarking().subscribe((res) => {
+    this.validateForm = this.validateForm = this.fb.group({
+      "codedmarking":[null, [Validators.required]]
+    });
+    this.certificateReportService.getcodedmarking(this.validateForm.value.codedmarking).subscribe((res) => {
       if (res["result"] == "success") {
         this.codedmarkings = res['data'];
       }
-    });
-    this.validateForm = this.validateForm = this.fb.group({
-      "codedmarking":[null, [Validators.required]]
     });
   }
   submitForm(): void {
@@ -41,14 +41,15 @@ export class CertificateReportComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.status = false;
       this.codedmarking = this.validateForm.value.codedmarking;
       this.loading = true;
       const formData = new FormData();
       formData.append('codedmarking', this.validateForm.value.codedmarking);
       this.certificateReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
-        this.pdfSrc = new Uint8Array(res);
         let blob = new Blob([res], {type: 'application/pdf'});
         this.objectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+        // this.pdfSrc = new Uint8Array(res);
         this.loading = false;
         this.status = true;
       },err=>{
@@ -56,5 +57,12 @@ export class CertificateReportComponent implements OnInit {
         this.msg.error("出现异常，请稍后重试！")
       })
     }
+  }
+  search(codedmarking:string){
+    this.certificateReportService.getcodedmarking(codedmarking).subscribe((res) => {
+      if (res["result"] == "success") {
+        this.codedmarkings = res['data'];
+      }
+    });
   }
 }

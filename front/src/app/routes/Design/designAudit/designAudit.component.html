@@ -33,7 +33,7 @@
     </tbody>
   </nz-table>
 </div>
-<nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"[nzMaskClosable]="false" [nzPlacement]="placement" [nzWidth]="720" [nzVisible]="visible" nzTitle="详细内容" (nzOnClose)="close()">
+<nz-drawer [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"[nzMaskClosable]="false" [nzPlacement]="placement" [nzWidth]="720" [nzVisible]="visible" nzTitle="详细内容({{dwgnonow}})" (nzOnClose)="close()">
   <nz-radio-group [(ngModel)]="placement">
     <label nz-radio nzValue="left">左</label>
     <label nz-radio nzValue="right">右</label>

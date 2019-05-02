@@ -303,8 +303,12 @@ export class RoleComponent implements OnInit {
       this.msg.error("焊工和铆工不能被删除！");
       return;
     }
-    if(role == 1){
+    if(role == 51){
       this.msg.error("检验员不能删除！");
+      return;
+    }
+    if(role == 1){
+      this.msg.error("超级管理员不能删除！");
       return;
     }
     this.roleService.deleteRole(role).subscribe((res)=>{

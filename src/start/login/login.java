@@ -108,14 +108,14 @@ public class login {                                                            
             String timesCount = target.split(";")[1].split("=")[1];
             String timeEnd = target.split(";")[2].split("=")[1];
 
-//            String cpu = target.split(";")[3].split("=")[1];
-//
-//            long start = System.currentTimeMillis();
-//            Process process = Runtime.getRuntime().exec(new String[] { "wmic", "cpu", "get", "ProcessorId" });
-//            process.getOutputStream().close();
-//            Scanner sc = new Scanner(process.getInputStream());
-//            String property = sc.next();
-//            String serial = sc.next();
+            String cpu = target.split(";")[3].split("=")[1];
+
+            long start = System.currentTimeMillis();
+            Process process = Runtime.getRuntime().exec(new String[] { "wmic", "cpu", "get", "ProcessorId" });
+            process.getOutputStream().close();
+            Scanner sc = new Scanner(process.getInputStream());
+            String property = sc.next();
+            String serial = sc.next();
 
 
 
@@ -124,7 +124,7 @@ public class login {                                                            
             cal2.setTime(format.parse(timeEnd));
 
 
-//            if(cpu.equals(serial)){
+            if(cpu.equals(serial)){
                 if(Integer.parseInt(timesCount)>=0 && cal1.before(cal2)){
                     System.out.println(1);
                     ps=conn.prepareStatement("SELECT * FROM userform");
@@ -208,9 +208,9 @@ public class login {                                                            
                 }else {
                     result.setResult("-2");
                 }
-//            }else {
-//                result.setResult("-3");
-//            }
+            }else {
+                result.setResult("-3");
+            }
         }else {
             result.setResult("-2");
         }

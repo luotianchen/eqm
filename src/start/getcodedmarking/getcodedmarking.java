@@ -22,6 +22,8 @@ public class getcodedmarking {                                  //查询所有�
         ArrayList<String> as = new ArrayList<String>();
 
         try {
+            if(gp.getCodedmarking()==null)
+                gp.setCodedmarking("");
             ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE status = 1 AND codedmarking LIKE ? limit 0,200");
             ps.setString(1,gp.getCodedmarking()+"%");
             rs = ps.executeQuery();

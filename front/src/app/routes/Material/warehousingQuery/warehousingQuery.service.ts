@@ -9,8 +9,8 @@ export class WarehousingQueryService {
   getputmaterial() {
     return this.http.get(this.api.BASEURL+'/getputmaterial');
   }
-  getCodedmarking(){
-    return this.http.get(this.api.BASEURL+'/getcodedmarking');
+  getCodedmarking(codedmarking){
+    return this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking});
   }
   searchallmaterial(pageindex,pagesize,codedmarking,matlname,designation,spec,millunit,indate,status){
     return this.http.post(this.api.BASEURL+"/searchallmaterial",{

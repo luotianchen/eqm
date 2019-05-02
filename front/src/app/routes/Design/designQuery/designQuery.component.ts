@@ -20,6 +20,7 @@ export class DesignQueryComponent implements OnInit {
     channel:[],
     saferel:[]
   };
+  dwgnonow = null;
   types = [ { text: 'I', value: 'I'}, { text: 'II', value: 'II' }, { text: 'III', value: 'III' } ];
   loading = true;
   constructor(public designQueryService:DesignQueryService,public fb:FormBuilder,public message : NzMessageService,public _storage:SessionStorageService){
@@ -55,6 +56,7 @@ export class DesignQueryComponent implements OnInit {
   visible = false;
 
   open2(dwgno): void {
+    this.dwgnonow = dwgno;
     this.designQueryService.getbydwgno(dwgno,1).subscribe((res)=>{
       this.modelData.data = res["data"];
     });

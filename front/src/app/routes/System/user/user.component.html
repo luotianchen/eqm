@@ -3,7 +3,7 @@
   <span style="float: right"><button nz-button nzType="primary" (click)="showModal('add',null)">添加用户</button></span>
 </div>
 <nz-divider></nz-divider>
-<nz-table #basicTable [nzData]="dataSetDisplay">
+<nz-table nzSize="middle" #basicTable [nzData]="dataSetDisplay">
   <thead>
   <tr>
     <th nzCustomFilter>

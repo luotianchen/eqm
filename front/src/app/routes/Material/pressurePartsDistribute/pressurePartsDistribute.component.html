@@ -5,7 +5,9 @@
         <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
           <nz-select style="width: 100%" nzPlaceHolder="产品编号"  nzShowSearch formControlName="prodno" name="prodno" id="prodno">
-            <nz-option *ngFor="let option of prodno" [nzLabel]="option" [nzValue]="option"></nz-option>
+            <ng-container *ngFor="let option of prodno;let i = index">
+              <nz-option *ngIf="i<50" [nzLabel]="option" [nzValue]="option"></nz-option>
+            </ng-container>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -128,8 +130,8 @@
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="入库编号" [(ngModel)]="editCache[data.key].data.codedmarking" (nzOpenChange)="screeningCodedmarking(editCache[data.key].data.designation)">
-            <ng-container *ngFor="let option of codedmarkings">
-              <nz-option *ngIf="codedmarkingDisplay.indexOf(option)!=-1" [nzLabel]="option" [nzValue]="option"></nz-option>
+            <ng-container *ngFor="let option of codedmarkings;let i = index">
+              <nz-option *ngIf="codedmarkingDisplay.indexOf(option)!=-1&&i<50" [nzLabel]="option" [nzValue]="option"></nz-option>
             </ng-container>
           </nz-select>
         </ng-container>

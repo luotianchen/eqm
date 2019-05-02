@@ -64,7 +64,7 @@ export class WeldingDistributeComponent implements OnInit {
         this.partsnames = res['data'];
       }
     });
-    this.weldingDistributeService.getcodedmarking().subscribe(res=>{
+    this.weldingDistributeService.getcodedmarking(null).subscribe(res=>{
       if(res['result']=="success"){
         this.codedmarkings = res['data'];
         this.codedmarkingDisplay = res['data'];
@@ -319,5 +319,12 @@ export class WeldingDistributeComponent implements OnInit {
         }
       }); else this.codedmarkingDisplay = this.codedmarkings;
     } else this.codedmarkingDisplay = this.codedmarkings;
+  }
+  search(codedmarking:string){
+    this.weldingDistributeService.getcodedmarking(codedmarking).subscribe((res) => {
+      if (res["result"] == "success") {
+        this.codedmarkings = res['data'];
+      }
+    });
   }
 }

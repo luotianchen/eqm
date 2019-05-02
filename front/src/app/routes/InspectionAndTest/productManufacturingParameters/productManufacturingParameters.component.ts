@@ -383,11 +383,12 @@ export class ProductManufacturingParametersComponent implements OnInit {
     if(this.validateForm.value.dedate!=null && this.validateForm.value.blankdate!=null){
       let detime = this.validateForm.value.dedate.split("-");
       let blanktime = this.validateForm.value.blankdate.split("-");
-      if(parseInt(blanktime[0])<parseInt(detime[0])){
+      console.log(detime,blanktime)
+      if(parseInt(blanktime[0]) < parseInt(detime[0])){
         this.validateForm.controls['blankdate'].setValue(null);
       } else if(parseInt(blanktime[0]) == parseInt(detime[0]) && parseInt(blanktime[1])<parseInt(detime[1])){
         this.validateForm.controls['blankdate'].setValue(null);
-      } else if(parseInt(blanktime[1]) == parseInt(detime[1]) && parseInt(blanktime[2])<parseInt(detime[2])){
+      } else if(parseInt(blanktime[0]) == parseInt(detime[0]) && parseInt(blanktime[1]) == parseInt(detime[1]) && parseInt(blanktime[2])<parseInt(detime[2])){
         this.validateForm.controls['blankdate'].setValue(null);
       }
     }
@@ -398,7 +399,7 @@ export class ProductManufacturingParametersComponent implements OnInit {
         this.validateForm.controls['exworkdate'].setValue(null);
       } else if(parseInt(blanktime[0]) == parseInt(exworkdate[0]) && parseInt(blanktime[1])>parseInt(exworkdate[1])){
         this.validateForm.controls['exworkdate'].setValue(null);
-      } else if(parseInt(blanktime[1]) == parseInt(exworkdate[1]) && parseInt(blanktime[2])>parseInt(exworkdate[2])){
+      } else if(parseInt(blanktime[0]) == parseInt(exworkdate[0]) && parseInt(blanktime[1]) == parseInt(exworkdate[1]) && parseInt(blanktime[2])>parseInt(exworkdate[2])){
         this.validateForm.controls['exworkdate'].setValue(null);
       }
     }

@@ -53,27 +53,27 @@
     [nzData]="dataset"
     [nzLoading]="loading"
     [nzTotal]="total"
-    nzSize="middle"
+    nzSize="small"
     [(nzPageIndex)]="pageindex"
     [(nzPageSize)]="pagesize"
     (nzPageIndexChange)="searchData()"
     (nzPageSizeChange)="searchData(true)">
     <thead>
     <tr>
-      <th>入库编号</th>
+      <th nzWidth="150px">入库编号</th>
       <th>质保书情况</th>
       <th>供货单位</th>
       <th>生产单位</th>
       <th>入库日期</th>
-      <th>炉批号</th>
+      <th nzWidth="150px">炉批号</th>
       <th>材料名称</th>
-      <th>质保书号</th>
+      <th nzWidth="150px">质保书号</th>
       <th>材料标准</th>
       <th>牌号</th>
       <th>规格</th>
       <th>数量</th>
       <th>单位</th>
-      <th>尺寸</th>
+      <th nzWidth="100px">尺寸</th>
       <th>热处理状态</th>
     </tr>
     </thead>

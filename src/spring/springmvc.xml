@@ -11,9 +11,10 @@
 
 >
     <!-- 静态资源映射 -->
-    <!--<mvc:resources mapping="/**" location="/WEB-INF/"></mvc:resources>-->
+    <!--<mvc:resources mapping="/**" location="/WEB-INF/"/>-->
+    <!--<mvc:resources mapping="/upload/" location="/upload/"/>-->
     <!-- 组件扫描 -->
-    <context:component-scan base-package="start"></context:component-scan>
+    <context:component-scan base-package="start"/>
 
     <mvc:default-servlet-handler/>
     <!-- 适配器和映射器 -->

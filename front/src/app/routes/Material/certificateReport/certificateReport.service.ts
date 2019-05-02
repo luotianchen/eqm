@@ -6,11 +6,11 @@ import {ApiService} from "../../../core/api/api.service";
 export class CertificateReportService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
-  getcodedmarking(){
-    return this.http.get(this.api.BASEURL+"/getcodedmarking");
+  getcodedmarking(codedmarking){
+    return this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking});
   }
-  getReport(codedmarking){
-    return this.http.post(this.api.BASEURL+"/getinspectionreport",{codedmarking:codedmarking});
+  getReport(formData){
+    return this.http.post(this.api.BASEURL+"/getinspectionreport" , formData, { responseType: 'arraybuffer' });
   }
   getlogo(){
     return this.http.get(`${this.api.BASEURL}/getlogo`);

@@ -58,7 +58,7 @@ export class WarehousingQueryComponent implements OnInit {
         this.millunits = res['data']['millunit'];
       }
     });
-    this.warehousingQueryService.getCodedmarking().subscribe(res=>{
+    this.warehousingQueryService.getCodedmarking(null).subscribe(res=>{
       if(res['result'] == "success"){
         this.codedmarkings = res['data'];
       }
@@ -118,5 +118,12 @@ export class WarehousingQueryComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+  search(codedmarking:string){
+    this.warehousingQueryService.getCodedmarking(codedmarking).subscribe((res) => {
+      if (res["result"] == "success") {
+        this.codedmarkings = res['data'];
+      }
+    });
   }
 }

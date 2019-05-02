@@ -7,9 +7,9 @@ import {ApiService} from '../../../core/api/api.service';
 export class MaterialReinspectionCommissionService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
-  getcodedmarking(){
+  getcodedmarking(codedmarking){
     return new Promise((resolve, reject) => {
-      this.http.get(this.api.BASEURL+"/getcodedmarking").subscribe(
+      this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking}).subscribe(
         result=>{
           resolve(result);
         }

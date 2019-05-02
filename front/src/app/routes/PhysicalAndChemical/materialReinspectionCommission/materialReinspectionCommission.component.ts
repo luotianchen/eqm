@@ -15,7 +15,7 @@ export class  MaterialReinspectionCommissionComponent implements OnInit {
   validateForm: FormGroup;
   tensileDetails = ['Rp0.2','Rp1.0','Rm','A'];
   ngOnInit(): void {
-    this.materialReinspectionCommissionService.getcodedmarking().then((res:any)=>{
+    this.materialReinspectionCommissionService.getcodedmarking(null).then((res:any)=>{
       if(res['result']=="success")
         this.codedmarkings = res.data;
     });
@@ -133,5 +133,12 @@ export class  MaterialReinspectionCommissionComponent implements OnInit {
       resultStr += "其他："+this.validateForm.value.otherDetail+"";
     }
     return resultStr;
+  }
+  search(codedmarking:string){
+    this.materialReinspectionCommissionService.getcodedmarking(codedmarking).then((res:any)=>{
+      if (res["result"] == "success") {
+        this.codedmarkings = res['data'];
+      }
+    });
   }
 }

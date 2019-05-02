@@ -96,12 +96,11 @@ export class WeldingRecordComponent implements OnInit {
     console.log(this.editCache[key].data.ndtdate ,this.editCache[key].data.entrustdate,this.editCache[key].data.welddate);
     if(this.editCache[key].data.ndtdate && this.editCache[key].data.entrustdate){
       let ndtdate = this.editCache[key].data.ndtdate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
-      console.log(ndtdate);
       if(parseInt(ndtdate[0]) < parseInt(entrustdate[0])){
         this.editCache[key].data['ndtdate'] = null;
-      }else if(parseInt(ndtdate[1]) < parseInt(entrustdate[1])){
+      }else if(parseInt(ndtdate[0]) == parseInt(entrustdate[0]) && parseInt(ndtdate[1]) < parseInt(entrustdate[1])){
         this.editCache[key].data['ndtdate'] = null;
-      }else if(parseInt(ndtdate[2]) < parseInt(entrustdate[2])){
+      }else if(parseInt(ndtdate[0]) == parseInt(entrustdate[0]) && parseInt(ndtdate[1]) == parseInt(entrustdate[1]) && parseInt(ndtdate[2]) < parseInt(entrustdate[2])){
         this.editCache[key].data['ndtdate'] = null;
       }
     }
@@ -109,9 +108,9 @@ export class WeldingRecordComponent implements OnInit {
       let welddate = this.editCache[key].data.welddate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
       if(parseInt(entrustdate[0]) < parseInt(welddate[0])){
         this.editCache[key].data['entrustdate'] = null;
-      }else if(parseInt(entrustdate[1]) < parseInt(welddate[1])){
+      }else if(parseInt(entrustdate[0]) == parseInt(welddate[0]) && parseInt(entrustdate[1]) < parseInt(welddate[1])){
         this.editCache[key].data['entrustdate'] = null;
-      }else if(parseInt(entrustdate[2]) < parseInt(welddate[2])){
+      }else if(parseInt(entrustdate[0]) == parseInt(welddate[0]) && parseInt(entrustdate[1]) == parseInt(welddate[1]) && parseInt(entrustdate[2]) < parseInt(welddate[2])){
         this.editCache[key].data['entrustdate'] = null;
       }
     }

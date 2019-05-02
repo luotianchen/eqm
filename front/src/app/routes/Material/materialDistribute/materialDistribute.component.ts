@@ -64,12 +64,6 @@ export class MaterialDistributeComponent implements OnInit {
         this.partsnames = res['data'];
       }
     });
-    this.materialDistributeService.getcodedmarking().subscribe(res=>{
-      if(res['result']=="success"){
-        this.codedmarkings = res['data'];
-        this.codedmarkingDisplay = res['data'];
-      }
-    });
     this.materialDistributeService.getputmaterial().subscribe(res=>{
       if(res['result']=='success'){
         this.designations = res['data']['designation'];
@@ -90,6 +84,12 @@ export class MaterialDistributeComponent implements OnInit {
       "prodno":[null, [Validators.required]],
       "prodname":[null],
       "dwgno":[null],
+    });
+    this.materialDistributeService.getcodedmarking(this.validateForm.value.codedmarking).subscribe(res=>{
+      if(res['result']=="success"){
+        this.codedmarkings = res['data'];
+        this.codedmarkingDisplay = res['data'];
+      }
     });
     this.partsnameValidateForm = this.fb.group({
       partsname:[null, [Validators.required]],
@@ -316,5 +316,12 @@ export class MaterialDistributeComponent implements OnInit {
         }
       }); else this.codedmarkingDisplay = this.codedmarkings;
     } else this.codedmarkingDisplay = this.codedmarkings;
+  }
+  search(codedmarking:string){
+    this.materialDistributeService.getcodedmarking(codedmarking).subscribe((res) => {
+      if (res["result"] == "success") {
+        this.codedmarkings = res['data'];
+      }
+    });
   }
 }

@@ -8,7 +8,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="codedmarking">入库编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="入库编号"  formControlName="codedmarking" name="codedmarking" id="codedmarking">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="入库编号"  formControlName="codedmarking" name="codedmarking" id="codedmarking" nzServerSearch (nzOnSearch)="search($event)">
             <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -24,10 +24,10 @@
   </div>
 </form>
 
-<nz-divider></nz-divider>
-<pdf-viewer [src]="pdfSrc"
-            [render-text]="true"
-            style="display: block;"
-            *ngIf="status"
-></pdf-viewer>
+<!--<nz-divider></nz-divider>-->
+<!--<pdf-viewer [src]="pdfSrc"-->
+            <!--[render-text]="true"-->
+            <!--style="display: block;"-->
+            <!--*ngIf="status"-->
+<!--&gt;</pdf-viewer>-->
 

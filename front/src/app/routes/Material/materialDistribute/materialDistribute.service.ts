@@ -28,8 +28,8 @@ export class MaterialDistributeService {
   getputmaterial() {
     return this.http.get(`${this.api.BASEURL}/getputmaterial`);
   }
-  getcodedmarking() {
-    return this.http.get(`${this.api.BASEURL}/getcodedmarking`);
+  getcodedmarking(codedmarking){
+    return this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking});
   }
   getuserform() {
     return this.http.get(`${this.api.BASEURL}/getuserform`);
