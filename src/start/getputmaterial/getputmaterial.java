@@ -39,12 +39,14 @@ public class getputmaterial {                                                   
         ps.close();
 
 
-        ps=conn.prepareStatement("SELECT * FROM matlname");                                //查询材料名称
+        ps=conn.prepareStatement("SELECT * FROM matlname WHERE matlname IS NOT null AND matlname != ''");                                //查询材料名称
         rs=ps.executeQuery();
         ArrayList<String> matlname = new ArrayList<String>();
         while(rs.next()){
-            matlname.add(rs.getString("matlname"));                             //返回材料名称
-            res.setResult("success");                                                       //添加成功
+            if(!rs.getString("matlname").trim().isEmpty()){
+                matlname.add(rs.getString("matlname"));                             //返回材料名称
+                res.setResult("success");                                                       //添加成功
+            }
         }
         data.setMatlname(matlname);                                                         //添加到data
         rs.close();
