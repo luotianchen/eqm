@@ -3,7 +3,7 @@
   <span style="float: right"><button nz-button nzType="primary" (click)="showModal('addDepartment',null)">新增部门</button></span>
 </div>
 <nz-divider></nz-divider>
-<nz-table #nzTable [nzData]="data" nzBordered>
+<nz-table #nzTable [nzData]="data" nzBordered nzPageSize="100" nzHideOnSinglePage>
   <thead>
   <tr>
     <th nzWidth="40%">名称</th>
@@ -14,7 +14,7 @@
   <tbody>
   <ng-template ngFor let-data [ngForOf]="nzTable.data">
     <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
-      <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+      <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent) && !!(!item.role && item.department && item.departmentname)">
         <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
           <span *ngIf="item.role && item.department">{{item.rolename}}</span>
           <span *ngIf="!item.role && item.department">{{item.departmentname}}</span>

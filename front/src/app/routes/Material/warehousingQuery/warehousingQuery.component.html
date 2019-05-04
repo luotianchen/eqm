@@ -99,7 +99,7 @@
     [(nzPageIndex)]="pageindex"
     [(nzPageSize)]="pagesize"
     (nzPageIndexChange)="searchData()"
-    (nzPageSizeChange)="searchData(true)">
+    (nzPageSizeChange)="searchData(true)" nzShowQuickJumper nzShowTotal nzHideOnSinglePage>
     <thead>
     <tr>
       <th nzShowExpand></th>
@@ -165,7 +165,7 @@
               <span nz-col nzSpan="4" *ngIf="data.ca!=null">Ca%:{{data.ca}}</span>
               <span nz-col nzSpan="4" *ngIf="data.be!=null">Be%:{{data.be}}</span>
               <span nz-col nzSpan="4" *ngIf="data.p!=null">P%:{{data.p}}</span>
-              <span nz-col nzSpan="4" *ngIf="data.s!=null">S%:{{data.s}}</span>
+              <span nz-col nzSpan="4" *ngIf="data.s!=null">Si%:{{data.si}}</span>
               <span nz-col nzSpan="4" *ngIf="data.heatcondi!=null">热处理状态:{{data.heatcondi}}</span>
               <span nz-col nzSpan="4" *ngIf="data.rel1!=null">屈服强度1:{{data.rel1}}</span>
               <span nz-col nzSpan="4" *ngIf="data.rel2!=null">屈服强度2:{{data.rel2}}</span>

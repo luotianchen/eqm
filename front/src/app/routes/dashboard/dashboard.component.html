@@ -1,7 +1,7 @@
 <div nz-row>
   <div nz-col nzSpan="24">
     <nz-card style="border-radius: 10px;margin-bottom: 20px">
-      <h1>{{_storage.get("name")}}，{{this.getGrate()}}</h1>
+      <h1>{{_storage.get("name")}}，{{grateSentence}}</h1>
     </nz-card>
   </div>
 </div>
@@ -10,28 +10,24 @@
     <div nz-row>
         <div nz-col nzSpan="12" nz-tooltip [nzTitle]="matlContent">
           <nz-card style="border-radius: 10px;background-color: #fa8c16!important;height: 180px;" [nzLoading]="loading">
-            <h1 style="color:#fff!important;">{{dataModel.matl}}</h1>
-            <h3 style="color:#fff!important;">材料待审核数据</h3>
+            <nz-statistic class="statistic" [nzValue]="dataModel.matl | number" [nzTitle]="'材料待审核数据'" nzSuffix="条"></nz-statistic>
           </nz-card>
         </div>
         <div nz-col nzSpan="12" nz-tooltip [nzTitle]="pyAndCheContent">
           <nz-card style="border-radius: 10px;background-color: #eb2f96!important;height: 180px;" [nzLoading]="loading">
-            <h1 style="color:#fff!important;">{{dataModel.pyhandche}}</h1>
-            <h3 style="color:#fff!important;">理化待审核数据</h3>
+            <nz-statistic class="statistic" [nzValue]="dataModel.pyhandche | number" [nzTitle]="'理化待审核数据'" nzSuffix="条"></nz-statistic>
           </nz-card>
       </div>
     </div>
     <div nz-row>
       <div nz-col nzSpan="12" nz-tooltip [nzTitle]="inspectContent">
         <nz-card style="border-radius: 10px;background-color: #1890ff!important;height: 180px;" [nzLoading]="loading">
-          <h1 style="color:#fff!important;">{{dataModel.inspecandtest}}</h1>
-          <h3 style="color:#fff!important;">检验与试验待审核数据</h3>
+          <nz-statistic class="statistic" [nzValue]="dataModel.inspecandtest | number" [nzTitle]="'检验与试验待审核数据'" nzSuffix="条"></nz-statistic>
         </nz-card>
       </div>
       <div nz-col nzSpan="12" nz-tooltip [nzTitle]="designContent">
         <nz-card style="border-radius: 10px;background-color: #52c41a!important;height: 180px;" [nzLoading]="loading">
-          <h1 style="color:#fff!important;">{{dataModel.design}}/{{dataModel.measinstru}}</h1>
-          <h3 style="color:#fff!important;">设计/计量台账待审核数据</h3>
+          <nz-statistic class="statistic" [nzValue]="dataModel.design+'/'+dataModel.measinstru" [nzTitle]="'设计/计量台账待审核数据'" nzSuffix="条"></nz-statistic>
         </nz-card>
       </div>
     </div>

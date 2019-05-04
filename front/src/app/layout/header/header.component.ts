@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {SettingsService} from '../../core/services/settings.service';
 import {MenuService} from '../../core/services/menu.service';
 import {SessionStorageService} from 'src/app/core/storage/storage.module';
-
+import {NzMessageService} from "ng-zorro-antd";
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
@@ -13,17 +13,20 @@ import {SessionStorageService} from 'src/app/core/storage/storage.module';
 export class HeaderComponent {
   navs = null;
   searchstatus = false;
+  flag = true;
   powers = {};
   roles = [];
-  constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService) {
+  constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService,private msg:NzMessageService) {
   }
-  ngOnInit(){
+
+  ngOnInit() {
     this.powers = JSON.parse(this._storage.get('powermap'));
     this.roles = this._storage.get('roles').split(';');
     this.menu.getMenu().then((result: any) => {
       this.navs = result.data;
     });
   }
+
   getSettingNav() {
     return this.settings.nav;
   }
@@ -31,14 +34,15 @@ export class HeaderComponent {
   toggleCollapsed() {
     this.settings.setLayout('isCollapsed', !this.settings.layout.isCollapsed);
   }
+
   setNav(str) {
     this.settings.setnav(str);
   }
+
   signOut() {
     this._storage.clear();
     this.router.navigate(['login']);
   }
-
   showByRouter(routeurl){
     let url = routeurl.slice(1);
     let ifShow = false;
@@ -52,7 +56,7 @@ export class HeaderComponent {
 
   menuShowIfSubmenu(menu){
     let ifShow = false;
-    if(menu.data)
+    if(!!menu.data)
       for(let item of menu.data){
         if(item.submenu){
           for(let submenu of item.submenu){
@@ -65,7 +69,7 @@ export class HeaderComponent {
             return true;
         }
       }
-    if(menu.submenu){
+    if(!!menu.submenu){
       for(let item of menu.submenu)
         if(this.showByRouter(item.route))
           ifShow = true;
@@ -73,4 +77,67 @@ export class HeaderComponent {
     return ifShow;
   }
 
+  updateMenu(){
+    setTimeout(() => {
+      this.menu.getMenu().then((result: any) => {
+        this.setmenulist(result.data);
+        let flag: boolean = true;
+        for (let sider of this.menulist) {
+          for (let item of sider.data) {
+            item.selected = item.route == this.router.url;
+            if (item.route == this.router.url) flag = false;
+            let submenu = item['submenu'];
+            if (!!submenu) {
+              for (let sub of submenu) {
+                sub.selected = sub.route == this.router.url;
+                if(sub.route == this.router.url){
+                  flag = false;
+                  this.settings.setnav(sider.name);
+                  this.setmenuOpenMapTrue(item.name,true);
+                }
+              }
+            }
+          }
+        }
+        if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
+          for (let sider of this.menulist) {
+            sider.data[0].selected = true;
+          }
+          if(this.menulist.length>0) this.settings.setnav(this.menulist[0]['name']);
+        }
+      });
+    },500)
+  }
+
+  oepnMenuOpenMapHandle(name,value){
+    this.settings.oepnMenuOpenMapHandle(name,value);
+  }
+
+  openHandler(value: string): void {
+    for (const key in this.menuOpenMap) {
+      if (key !== value) {
+        this.oepnMenuOpenMapHandle(key,false);
+      }
+    }
+  }
+
+  get menulist() {
+    return this.settings.menulist;
+  }
+
+  setmenulist(o) {
+    this.settings.setmenulist(o);
+  }
+
+  get menuOpenMap() {
+    return this.settings.menuOpenMap;
+  }
+
+  setmenuOpenMap(o) {
+    this.settings.setmenuOpenMap(o);
+  }
+  setmenuOpenMapTrue(name,value){
+    this.settings.oepnMenuOpenMapHandle(name,value);
+  }
+  route:string;
 }

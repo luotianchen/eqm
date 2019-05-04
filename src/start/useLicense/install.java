@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 @CrossOrigin
 public class install {
     @RequestMapping("install")
-    public String install(HttpServletRequest request, HttpServletResponse response){
-        EndInt i = new EndInt();
-        i.EndInt();
+    public String installp(HttpServletRequest request, HttpServletResponse response){
+        new Thread(() -> {
+            EndInt i = new EndInt();
+            i.EndInt();
+        }).run();
         return "install";
     }
 

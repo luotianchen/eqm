@@ -15,8 +15,9 @@ export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
   public dataSet:any[];
   loading = true;
   isVisible = false;
+  loadpage = false;
   constructor(public measuringInstrumentLedgerQueryService:MeasuringInstrumentLedgerQueryService,public message : NzMessageService,public _storage:SessionStorageService,public fb:FormBuilder,private excel:NgxXLSXService){
-    this.isVisible = false;
+    this.loadpage = true;
   }
   headers = [
     '名称',

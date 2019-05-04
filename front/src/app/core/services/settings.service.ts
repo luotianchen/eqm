@@ -10,7 +10,9 @@ export interface Layout {
 export class SettingsService {
   private _layout;
   private _loaded: boolean;
-  private __nav: string;
+  private _nav: string;
+  private _menulist: any;
+  private _menuOpenMap = {};
 
   constructor(private _local: LocalStorageService) {
     const layout = this._local.get('layout');
@@ -49,10 +51,30 @@ export class SettingsService {
   }
 
   get nav():string {
-    return this.__nav;
+    return this._nav;
   }
 
   setnav(value) {
-    this.__nav = value;
+    this._nav = value;
+  }
+
+  get menulist():any {
+    return this._menulist;
+  }
+
+  setmenulist(value) {
+    this._menulist = value;
+  }
+
+  get menuOpenMap():any {
+    return this._menuOpenMap;
+  }
+
+  setmenuOpenMap(value){
+    this._menuOpenMap = value;
+  }
+
+  oepnMenuOpenMapHandle(name,value){
+    this._menuOpenMap[name] = value;
   }
 }

@@ -1,9 +1,9 @@
 <div>
   <h3 class="title">材料入库登记</h3>
   <span style="float: right">
-    <button class="tool-button" nz-button nzType="default" routerLink="/material/warrantyAbsent" routerLinkActive="active">质保书未到查询</button>
-    <button class="tool-button" nz-button nzType="default" routerLink="/material/singleWarrantyAbsent" routerLinkActive="active">单项质保书未到查询</button>
-    <button class="tool-button" nz-button nzType="default" routerLink="/material/monthMaterial" routerLinkActive="active">月材料查询</button>
+    <button class="tool-button" nz-button nzType="default" (click)="goTo('/material/warrantyAbsent')">质保书未到查询</button>
+    <button class="tool-button" nz-button nzType="default" (click)="goTo('/material/singleWarrantyAbsent')">单项质保书未到查询</button>
+    <button class="tool-button" nz-button nzType="default" (click)="goTo('/material/monthMaterial')">月材料查询</button>
   </span>
 </div>
 <nz-divider></nz-divider>

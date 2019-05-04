@@ -5,6 +5,8 @@ import {WarehousingRegistrationService} from "./warehousingRegistration.service"
 import {NzNotificationService, NzMessageService, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
 import {NzModalRef} from "ng-zorro-antd/modal";
+import {SettingsService} from "../../../core/services/settings.service";
+import {MenuService} from "../../../core/services/menu.service";
 
 @Component({
   selector: 'app-warehousingRegistration',
@@ -221,6 +223,20 @@ export class WarehousingRegistrationComponent implements OnInit {
     "utclass":null//UT级别
   };
 
+
+  constructor(public fb: FormBuilder, public router: Router,public modalService: NzModalService, public warehousingregistrationService:WarehousingRegistrationService,public notification: NzNotificationService,public message : NzMessageService, public storage: SessionStorageService,public settings: SettingsService, public menu: MenuService) {
+    this.warehousingregistrationService.getputmaterial().subscribe(res => {
+      if (res['result'] === 'success') {
+        this.warrantysitu = res['data']['warrantysitu'];
+        this.matlname = res['data']['matlname'];
+        this.modelstand = res['data']['modelstand'];
+        this.supplier = res['data']['supplier'];
+        this.millunits = res['data']['millunit'];
+        this.designation = res['data']['designation'];
+      }
+    });
+  }
+
   changeHardness(name){ //硬度校验
     if(name==null){
       this.validateForm.controls['hardness1'].setValidators([]);
@@ -365,20 +381,6 @@ export class WarehousingRegistrationComponent implements OnInit {
       this.validateForm.controls["indate"].setValue(null);
     }
   }
-
-  constructor(public fb: FormBuilder, public router: Router,public modalService: NzModalService, public warehousingregistrationService:WarehousingRegistrationService,public notification: NzNotificationService,public message : NzMessageService, public storage: SessionStorageService) {
-    this.warehousingregistrationService.getputmaterial().subscribe(res => {
-      if (res['result'] === 'success') {
-        this.warrantysitu = res['data']['warrantysitu'];
-        this.matlname = res['data']['matlname'];
-        this.modelstand = res['data']['modelstand'];
-        this.supplier = res['data']['supplier'];
-        this.millunits = res['data']['millunit'];
-        this.designation = res['data']['designation'];
-      }
-    });
-  }
-
   getFormControl(name) {
     return this.validateForm.controls[name];
   }
@@ -756,6 +758,7 @@ export class WarehousingRegistrationComponent implements OnInit {
   backtoDashboard(modal){
     modal.destroy();
     this.router.navigateByUrl("/dashboard");
+    this.updateMenu();
   }
 
   //通过入库编号查询其他所有内容，并根据规格、牌号、材料标准控制显隐
@@ -1158,5 +1161,60 @@ export class WarehousingRegistrationComponent implements OnInit {
         })
       }
     }
+  }
+
+  updateMenu(){
+    setTimeout(() => {
+      this.menu.getMenu().then((result: any) => {
+        this.setmenulist(result.data);
+        let flag: boolean = true;
+        for (let sider of this.menulist) {
+          for (let item of sider.data) {
+            item.selected = item.route == this.router.url;
+            if (item.route == this.router.url) flag = false;
+            let submenu = item['submenu'];
+            if (!!submenu) {
+              for (let sub of submenu) {
+                sub.selected = sub.route == this.router.url;
+                if(sub.route == this.router.url){
+                  flag = false;
+                  this.settings.setnav(sider.name);
+                  this.setmenuOpenMapTrue(item.name,true);
+                }
+              }
+            }
+          }
+        }
+        if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
+          for (let sider of this.menulist) {
+            sider.data[0].selected = true;
+          }
+          if(this.menulist.length>0) this.settings.setnav(this.menulist[0]['name']);
+        }
+      });
+    },500)
+  }
+  get menulist() {
+    return this.settings.menulist;
+  }
+
+  setmenulist(o) {
+    this.settings.setmenulist(o);
+  }
+
+  get menuOpenMap() {
+    return this.settings.menuOpenMap;
+  }
+
+  setmenuOpenMap(o) {
+    this.settings.setmenuOpenMap(o);
+  }
+  setmenuOpenMapTrue(name,value){
+    this.settings.oepnMenuOpenMapHandle(name,value);
+  }
+
+  goTo(route){
+    this.router.navigateByUrl(route);
+    this.updateMenu();
   }
 }

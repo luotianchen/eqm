@@ -11,6 +11,7 @@ import {DashboardService} from './dashboard.service';
 export class DashboardComponent implements OnInit {
   constructor(public _storage: SessionStorageService, private dashboard: DashboardService) {
   }
+  grateSentence = "您好";
   loading = true;
   dataModel:any = {
     result:"success",
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit {
       sentence = "下午好！";
     else
       sentence = "晚上好！";
-    return sentence;
+    this.grateSentence = sentence;
   }
   ngOnInit() {
     this.dashboard.getinfo().subscribe(res=>{
@@ -58,7 +59,7 @@ export class DashboardComponent implements OnInit {
       if(res['result'] == "success"){
         this.dataModel = res;
       }
-    })
-
+    });
+    let t1 = setTimeout(this.getGrate,1000 * 60);
   }
 }

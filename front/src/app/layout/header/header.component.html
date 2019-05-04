@@ -8,14 +8,32 @@
     </ng-container>
   </ul>
   <div class="rightWarpper">
-    <div class="buttonR" [ngStyle]="{'width':searchstatus ? '150px' : '44px' }" onblur="searchstatus = false">
-      <i nz-icon type="search" theme="outline" *ngIf="!searchstatus" (click)="searchstatus = true"></i>
-      <nz-input-group [nzSuffix]="suffixIconSearch" *ngIf="searchstatus">
-        <input type="text" nz-input placeholder="请输入搜索内容" (blur)="searchstatus = false">
+    <div class="buttonR" [ngStyle]="{'width':searchstatus ? '200px' : '44px' ,'padding-left':searchstatus ? '10px' : '0' ,'padding-right':searchstatus ? '10px' : '0' }" (click)="searchstatus = flag;flag = true">
+      <i nz-icon type="search" theme="outline" *ngIf="!searchstatus" nzPlacement="bottom" nzTitle="输入文字进行功能快速检索" nz-tooltip></i>
+      <nz-input-group [nzSuffix]="suffixIconSearch" *ngIf="searchstatus" style="height: 33px;">
+        <nz-select nz-input nzPlaceHolder="功能快速检索" nzShowSearch [nzShowArrow]="false" [(ngModel)]="route" nzAutoFocus nzNotFoundContent="未找到该功能" nzAllowClear>
+          <nz-option-group *ngFor="let nav of navs" [nzLabel]="nav.name">
+            <ng-container *ngIf="menuShowIfSubmenu(nav)">
+              <ng-container *ngFor="let o of nav.data">
+                <nz-option *ngIf="!o.submenu && o.name!='首页' && showByRouter(o.route)" [nzLabel]="o.name" [nzValue]="o.route"> </nz-option>
+                <ng-container *ngIf="o.submenu && menuShowIfSubmenu(o)">
+                  <ng-container *ngFor="let item of o.submenu">
+                    <nz-option *ngIf="showByRouter(item.route)" [nzLabel]="item.name" [nzValue]="item.route"> </nz-option>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </nz-option-group>
+          <nz-option-group nzLabel="其他">
+            <nz-option nzLabel="个人资料" nzValue="/profile"> </nz-option>
+            <nz-option nzLabel="修改密码" nzValue="/changePassword"> </nz-option>
+          </nz-option-group>
+        </nz-select>
       </nz-input-group>
       <ng-template #suffixIconSearch>
-        <i nz-icon type="search"></i>
+          <i nz-icon nzType="arrow-right" nzTheme="outline" (click)="flag = false;this.router.navigate([route]);updateMenu();"></i>
       </ng-template>
+
     </div>
       <div class="buttonR" nz-popover nzTitle="通知" [nzContent]="notices" nzTrigger="click" nzPlacement="bottom">
           <i nz-icon type="bell" theme="outline"></i>

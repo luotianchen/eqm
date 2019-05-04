@@ -34,7 +34,8 @@
     [(nzPageIndex)]="pageindex"
     [(nzPageSize)]="pagesize"
     (nzPageIndexChange)="searchData()"
-    (nzPageSizeChange)="searchData(true)">
+    (nzPageSizeChange)="searchData(true)"
+    nzShowQuickJumper nzShowTotal nzHideOnSinglePage>
     <thead>
     <tr>
       <th>牌号</th>

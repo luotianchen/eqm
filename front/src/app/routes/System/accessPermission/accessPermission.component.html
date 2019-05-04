@@ -2,7 +2,7 @@
   <h3 class="title">访问权限管理</h3>
 </div>
 <nz-divider></nz-divider>
-<nz-table #expandTable [(nzData)]="dataSet" nzBordered [nzShowPagination]="false">
+<nz-table #expandTable [(nzData)]="dataSet" nzBordered nzPageSize="100" nzHideOnSinglePage>
   <thead>
   <tr>
     <th nzWidth="40%">名称</th>

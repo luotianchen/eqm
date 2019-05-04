@@ -4,7 +4,6 @@ import {MenuService} from '../../core/services/menu.service';
 import {Router} from '@angular/router';
 import {SessionStorageService} from "../../core/storage/storage.service";
 import {NzMessageService} from "ng-zorro-antd";
-
 @Component({
   selector: 'app-sider',
   templateUrl: 'sider.component.html',
@@ -13,8 +12,6 @@ import {NzMessageService} from "ng-zorro-antd";
 
 export class SiderComponent {
   theme = this.settings.layout.isDark;
-  menulist: any;
-  menuOpenMap = {};
   powers = {};
   roles = [];
   typeofNav() {
@@ -23,6 +20,26 @@ export class SiderComponent {
 
   getSettingNav() {
     return this.settings.nav;
+  }
+
+  get menulist() {
+    return this.settings.menulist;
+  }
+
+  setmenulist(o) {
+    this.settings.setmenulist(o);
+  }
+
+  get menuOpenMap() {
+    return this.settings.menuOpenMap;
+  }
+
+  setmenuOpenMap(o) {
+    this.settings.setmenuOpenMap(o);
+  }
+
+  oepnMenuOpenMapHandle(name,value){
+    this.settings.oepnMenuOpenMapHandle(name,value);
   }
 
   constructor(public settings: SettingsService, private menuService: MenuService, private router: Router, private _storage:SessionStorageService,private msg:NzMessageService) {
@@ -42,33 +59,30 @@ export class SiderComponent {
 
   menuShowIfSubmenu(menu){
     let ifShow = false;
-    if(menu.data)
-      for(let item of menu.data){
+    if(!!menu.data)
+      for(let item of menu.data)
         if(item.submenu){
           for(let submenu of item.submenu){
             if(this.showByRouter(submenu.route) && submenu.route!="/dashboard")
               return true;
           }
-        }
-        else{
+        }else{
           if(this.showByRouter(item.route) && item.route!="/dashboard")
             return true;
         }
-      }
-    if(menu.submenu){
+    if(!!menu.submenu)
       for(let item of menu.submenu)
         if(this.showByRouter(item.route))
           ifShow = true;
-    }
     return ifShow;
   }
 
   updateMenu(){
     setTimeout(() => {
       this.menuService.getMenu().then((result: any) => {
-        this.menulist = result.data;
+        this.setmenulist(result.data);
         let flag: boolean = true;
-        for (let sider of this.menulist) {
+        for (let sider of this.menulist)
           for (let item of sider.data) {
             item.selected = item.route == this.router.url;
             if (item.route == this.router.url) flag = false;
@@ -79,16 +93,14 @@ export class SiderComponent {
                 if(sub.route == this.router.url){
                   flag = false;
                   this.settings.setnav(sider.name);
-                  this.menuOpenMap[item.name] = true;
+                  this.oepnMenuOpenMapHandle(item.name,true);
                 }
               }
             }
           }
-        }
         if (flag || this.router.url =="/dashboard" || this.router.url =="/") {
-          for (let sider of this.menulist) {
+          for (let sider of this.menulist)
             sider.data[0].selected = true;
-          }
           if(this.menulist.length>0) this.settings.setnav(this.menulist[0]['name']);
         }
       });
@@ -109,7 +121,7 @@ export class SiderComponent {
   openHandler(value: string): void {
     for (const key in this.menuOpenMap) {
       if (key !== value) {
-        this.menuOpenMap[ key ] = false;
+        this.oepnMenuOpenMapHandle(key,false);
       }
     }
   }

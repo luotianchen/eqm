@@ -116,6 +116,7 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
       if(res['result']=="success"){
         this.dataSet = res['data'];
         for(let audit of this.dataSet){
+          audit['expand'] = false;
           this.dataDetail[audit.audit] = {
             design_note:null,
             matl_note:null,

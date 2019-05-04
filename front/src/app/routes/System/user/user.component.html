@@ -3,10 +3,10 @@
   <span style="float: right"><button nz-button nzType="primary" (click)="showModal('add',null)">添加用户</button></span>
 </div>
 <nz-divider></nz-divider>
-<nz-table nzSize="middle" #basicTable [nzData]="dataSetDisplay">
+<nz-table nzSize="middle" #basicTable [nzData]="dataSetDisplay" nzShowQuickJumper nzShowSizeChanger nzShowTotal nzHideOnSinglePage>
   <thead>
   <tr>
-    <th nzCustomFilter>
+    <th nzCustomFilter nzWidth="100px">
       用户名
       <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown1>
         <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown1.nzVisible" nz-dropdown></i>
@@ -17,7 +17,7 @@
         </div>
       </nz-dropdown>
     </th>
-    <th nzCustomFilter>
+    <th nzCustomFilter nzWidth="100px">
       姓名
       <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown2>
         <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown2.nzVisible" nz-dropdown></i>
@@ -31,8 +31,8 @@
     <th>角色</th>
     <th>邮箱</th>
     <th>备注</th>
-    <th>签名状态</th>
-    <th>操作</th>
+    <th nzWidth="150px">签名状态</th>
+    <th nzWidth="250px">操作</th>
   </tr>
   </thead>
   <tbody>
