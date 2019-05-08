@@ -39,7 +39,7 @@
   <tr *ngFor="let data of basicTable.data">
     <td>{{data.username}}</td>
     <td>{{data.name}}</td>
-    <td>
+    <td *ngIf="!!roles">
       <span *ngIf="data.role!=0">{{data.role==0?"":roles[data.role].rolename}}</span>
       <span *ngIf="data.role2!=0">、{{data.role2==0?"":roles[data.role2].rolename}}</span>
       <span *ngIf="data.role3!=0">、{{data.role3==0?"":roles[data.role3].rolename}}</span>

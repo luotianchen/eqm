@@ -38,6 +38,7 @@ export class RoleComponent implements OnInit {
   k = 1;
   departmentId = null;
   roleId = null;
+  note = null;
   isVisible = {
     changeDepartmentName:false,
     addRole:false,
@@ -60,21 +61,21 @@ export class RoleComponent implements OnInit {
   getData(){
     this.roleService.getRoles().subscribe((res)=>{
       if(res['result']=="success"){
-        this.roles = res['data'];
+        this.roles = res['data'].filter(item => item.rolename!=null);
         this.roles2 = [];
         for(let item of res["data"]){
           this.roles2[item.role] = item.rolename;
         }
         this.roleService.getDepartments().subscribe((res)=>{
           if(res['result']=="success"){
-            this.data = res["data"].filter(item => item.department!=0);
-            this.roleService.getUsers().subscribe((res)=>{
+            this.data = res["data"].filter(item => item.departmentname!=null);
+            this.roleService.getUsers().subscribe((res)=>{ //key中a、b作用，防止 1 11 1和 1 1 11这样不同的ijk连成的可以一样
               if(res['result']=="success"){
                 this.users = res['data'];
                 for(let item of this.data){
                   item.key = this.i++;
                   for(let roleitem of this.roles){
-                    roleitem.key = this.i*10+(this.j++);
+                    roleitem.key = this.i*10+'a'+(this.j++);
                     if(item.department == roleitem.department){
                       if(!item.children)
                         item.children = [];
@@ -84,10 +85,10 @@ export class RoleComponent implements OnInit {
                       let flag = false;
                       if(!roleitem.children)
                         roleitem.children = [];
-                      for(let item of roleitem.children){
-                        if(item.username == useritem.username){
+                      for(let a of roleitem.children){
+                        if(a.username == useritem.username){
                           flag = true;
-                          break;
+                          continue;
                         }
                       }
                       if(flag)
@@ -96,34 +97,35 @@ export class RoleComponent implements OnInit {
                         let userq  = {};
                         for(let i in useritem)
                           userq[i] = useritem[i];
-                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        userq['key'] = this.i*100+'a'+this.j*10+'b'+this.k++;
                         roleitem.children.push(userq);
                       }
                       if(useritem.role2==roleitem.role){
                         let userq  = {};
                         for(let i in useritem)
                           userq[i] = useritem[i];
+                        userq['key'] = this.i*100+'a'+this.j*10+'b'+this.k++;
                         roleitem.children.push(userq);
                       }
                       if(useritem.role3==roleitem.role){
                         let userq  = {};
                         for(let i in useritem)
                           userq[i] = useritem[i];
-                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        userq['key'] = this.i*100+'a'+this.j*10+'b'+this.k++;
                         roleitem.children.push(userq);
                       }
                       if(useritem.role4==roleitem.role){
                         let userq  = {};
                         for(let i in useritem)
                           userq[i] = useritem[i];
-                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        userq['key'] = this.i*100+'a'+this.j*10+'b'+this.k++;
                         roleitem.children.push(userq);
                       }
                       if(useritem.role5==roleitem.role){
                         let userq  = {};
                         for(let i in useritem)
                           userq[i] = useritem[i];
-                        userq['key'] = this.i*100+this.j*10+this.k++;
+                        userq['key'] = this.i*100+'a'+this.j*10+'b'+this.k++;
                         roleitem.children.push(userq);
                       }
                     }
@@ -131,9 +133,11 @@ export class RoleComponent implements OnInit {
                   }
                   this.j = 1;
                 }
+                console.log(this.data)
                 this.data.forEach(item => {
                   this.expandDataCache[ item.key ] = this.convertTreeToList(item);
                 });
+                console.log(this.expandDataCache);
               }
             })
           }
@@ -193,6 +197,7 @@ export class RoleComponent implements OnInit {
       this.username = args.username;
       this.name = args.name;
       this.email = args.email;
+      this.note = args.note;
       this.role = this.roles2[args.role];
       this.role2 = this.roles2[args.role2];
       this.role3 = this.roles2[args.role3];

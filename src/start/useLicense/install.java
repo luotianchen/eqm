@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 public class install {
     @RequestMapping("install")
     public String installp(HttpServletRequest request, HttpServletResponse response){
-        new Thread(() -> {
             EndInt i = new EndInt();
             i.EndInt();
-        }).run();
         return "install";
     }
 

@@ -1,6 +1,7 @@
 import {filter} from 'rxjs/operators';
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET} from '@angular/router';
+import {SettingsService} from "../../core/services/settings.service";
 
 
 interface IBreadcrumb {
@@ -19,7 +20,7 @@ export class BreadComponent implements OnInit {
   public breadcrumbs: IBreadcrumb[];
 
   constructor(private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router, public settings:SettingsService) {
     this.breadcrumbs = [];
   }
 
@@ -71,5 +72,8 @@ export class BreadComponent implements OnInit {
       // recursive
       return this.getBreadcrumbs(child, url, breadcrumbs);
     }
+  }
+  setnav(value){
+    this.settings.setnav(value);
   }
 }

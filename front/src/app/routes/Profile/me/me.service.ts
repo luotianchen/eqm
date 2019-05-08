@@ -4,7 +4,7 @@ import {ApiService} from "../../../core/api/api.service";
 import {filter} from "rxjs/internal/operators";
 
 @Injectable()
-export class ProfileService {
+export class MeService {
   constructor( private http: HttpClient,private apiService:ApiService) {
   }
   getDepartment(role){

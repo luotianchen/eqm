@@ -29,14 +29,8 @@ export class DashboardComponent implements OnInit {
     productmanu:0,//产品制造参数
     measinstru:0,//计量台账
     design:0,//设计
-  }
-  public grates = [
-    ,
-    "上午好！",
-    "中午好！",
-    "下午好！",
-    "晚上好！"
-  ]
+  };
+
   getGrate(){
     let day  = new Date();
     let time = day.getHours();
@@ -52,6 +46,7 @@ export class DashboardComponent implements OnInit {
     else
       sentence = "晚上好！";
     this.grateSentence = sentence;
+    window.setTimeout(this.getGrate,1000 * 60);
   }
   ngOnInit() {
     this.dashboard.getinfo().subscribe(res=>{
@@ -60,6 +55,7 @@ export class DashboardComponent implements OnInit {
         this.dataModel = res;
       }
     });
-    let t1 = setTimeout(this.getGrate,1000 * 60);
+    this.getGrate();
+    window.setTimeout(this.getGrate,1000 * 60);
   }
 }

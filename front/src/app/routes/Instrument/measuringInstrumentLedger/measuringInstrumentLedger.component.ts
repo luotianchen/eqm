@@ -196,6 +196,8 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
           this.validateForm.controls['calibdate'].setValue(null);
           this.validateForm.setControl('exitno',new FormControl({value: res['data'][0].exitno, disabled: true}));
           this.msg.success("已恢复数据");
+        }else{
+          this.validateForm.setControl('exitno',new FormControl({value: null, disabled: false}));
         }
       })
     else

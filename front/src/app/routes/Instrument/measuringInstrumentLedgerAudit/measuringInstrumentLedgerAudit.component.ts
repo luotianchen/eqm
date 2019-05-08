@@ -10,7 +10,7 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [MeasuringInstrumentLedgerAuditService]
 })
 export class MeasuringInstrumentLedgerAuditComponent implements OnInit {
-  public dataSet:any[];
+  public dataSet = [];
   loading = true;
   constructor(public measuringInstrumentLedgerAuditService:MeasuringInstrumentLedgerAuditService,public message : NzMessageService,public _storage:SessionStorageService){
     this.searchData();
@@ -18,7 +18,7 @@ export class MeasuringInstrumentLedgerAuditComponent implements OnInit {
   ngOnInit(): void {
   }
   searchData(){
-    this.measuringInstrumentLedgerAuditService.getaudit().subscribe((res)=>{
+    this.measuringInstrumentLedgerAuditService.getaudit().subscribe((res:any)=>{
       if(res['result']=="success"){
         this.dataSet = res['data'];
         this.loading = false;
@@ -29,7 +29,7 @@ export class MeasuringInstrumentLedgerAuditComponent implements OnInit {
     })
   }
   Audit(id,result){
-    this.measuringInstrumentLedgerAuditService.audit(id,result,this._storage.get("username")).subscribe((res)=>{
+    this.measuringInstrumentLedgerAuditService.audit(id,result,this._storage.get("username")).subscribe((res:any)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
         this.searchData();

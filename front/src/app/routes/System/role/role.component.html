@@ -14,7 +14,7 @@
   <tbody>
   <ng-template ngFor let-data [ngForOf]="nzTable.data">
     <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
-      <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent) && !!(!item.role && item.department && item.departmentname)">
+      <tr *ngIf="(item.parent&&item.parent.expand)|| (!(item.parent) && !!(!item.role && item.department))">
         <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
           <span *ngIf="item.role && item.department">{{item.rolename}}</span>
           <span *ngIf="!item.role && item.department">{{item.departmentname}}</span>
@@ -44,7 +44,7 @@
           <a nz-popconfirm nzTitle="您确定要删除此角色？" (nzOnConfirm)="confirmDeleteRole(item.role)">删除角色</a>
         </td>
         <td *ngIf="!item.department" style="text-align: center">
-          <a (click)="showModal('showUser',{username:item.username,name:item.name,role:item.role,role2:item.role2,role3:item.role3,role4:item.role4,role5:item.role5,email:item.email})">查看用户</a>
+          <a (click)="showModal('showUser',{username:item.username,name:item.name,role:item.role,role2:item.role2,role3:item.role3,role4:item.role4,role5:item.role5,email:item.email,note:item.note})">查看用户</a>
         </td>
       </tr>
     </ng-template>
@@ -105,6 +105,10 @@
   <div nz-row>
     <div nz-col [nzSpan]="5">邮箱：</div>
     <div nz-col [nzSpan]="19">{{email}}</div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="5">备注：</div>
+    <div nz-col [nzSpan]="19">{{note}}</div>
   </div>
   <div nz-row>
     <div nz-col [nzSpan]="5">角色：</div>

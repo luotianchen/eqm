@@ -4,6 +4,9 @@
       <nz-breadcrumb-item>
         <a routerLink="/dashboard"><i nz-icon type="home" style="margin-right: 5px"></i><span>首页</span></a>
       </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a (click)="setnav(settings.nav_cache)"><i nz-icon nzType="appstore" nzTheme="outline" style="margin-right: 5px"></i><span>{{settings.nav_cache}}</span></a>
+      </nz-breadcrumb-item>
       <ng-container *ngFor="let breadcrumb of breadcrumbs;">
         <nz-breadcrumb-item *ngIf="breadcrumb.url!=='/dashboard'">
           <ng-template *ngIf="index!==breadcrumbs.length-1">

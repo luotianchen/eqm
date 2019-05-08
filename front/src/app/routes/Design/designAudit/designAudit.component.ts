@@ -10,7 +10,7 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [DesignAuditService]
 })
 export class DesignAuditComponent implements OnInit {
-  public dataSet:any;
+  public dataSet = [];
   placement = 'left';
   public modelData = {
     data:{},
@@ -26,7 +26,7 @@ export class DesignAuditComponent implements OnInit {
     this.loading = false;
   }
   searchData(){
-    this.designAuditService.getaudit().subscribe((res)=>{
+    this.designAuditService.getaudit().subscribe((res:any)=>{
       if(res['result']=="success"){
         this.dataSet = res['data'].reverse();
       }

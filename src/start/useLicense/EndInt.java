@@ -48,9 +48,9 @@ public class EndInt extends JFrame {
         Container cont=this.getContentPane();
         this.setLayout(null);
         JLabel label1 = new JLabel("请输入License：");
-        JTextArea jta=new JTextArea();
+        MJTextArea jta=new MJTextArea();
         JLabel route = new JLabel("请选择webapp路径");
-        JTextField jbtroute = new JTextField();
+        MJTextField jbtroute = new MJTextField();
         JButton jbt=new JButton("请选择路径");
         JButton btn=new JButton("立即激活");
 
@@ -66,12 +66,12 @@ public class EndInt extends JFrame {
         jbt.setBounds(310,20,70,40);
         label1.setBounds(30, 60, 120, 40);
         jta.setBounds(30,100,340,140);
-        btn.setBounds(150,260,100,40);
+        btn.setBounds(125,260,150,40);
 
         jta.setLineWrap(true);
         this.setVisible(true);
         this.setBounds(500, 260, 400, 350);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
         btn.addActionListener(new ActionListener() {

@@ -129,4 +129,8 @@ export class SiderComponent {
   switch() {
     this.settings.setLayout('isDark', !this.settings.layout.isDark);
   }
+
+  setnav_cache() {
+    this.settings.setnav_cache(this.settings.nav);
+  }
 }

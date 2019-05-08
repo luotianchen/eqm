@@ -12,7 +12,7 @@ import {NgxXLSXService} from "@notadd/ngx-xlsx";
   providers: [MeasuringInstrumentLedgerQueryService]
 })
 export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
-  public dataSet:any[];
+  public dataSet = [];
   loading = true;
   isVisible = false;
   loadpage = false;
@@ -66,10 +66,10 @@ export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
     }
   }
   searchData(reset: boolean = false){
-    this.measuringInstrumentLedgerQueryService.getaudit(this.validateForm.value.gaugeno,this.validateForm.value.exitno,this.validateForm.value.calibdate).subscribe((res)=>{
+    this.measuringInstrumentLedgerQueryService.getaudit(this.validateForm.value.gaugeno,this.validateForm.value.exitno,this.validateForm.value.calibdate).subscribe((res:any)=>{
       if(res['result']=="success"){
         if(reset)
-          this.dataSet = res['data'].filter(item=>new Date(item.recalibdate) >= new Date())
+          this.dataSet = res['data'].filter(item=>new Date(item.recalibdate) >= new Date());
         else
           this.dataSet = res['data'];
         for(let data of this.dataSet)

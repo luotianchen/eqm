@@ -8,16 +8,12 @@ export class MenuService {
 
   }
 
-  getMenu() {
-    return new Promise((resolve, reject) => {
+  getMenu = () => new Promise((resolve, reject) => {
       this.http.get('/assets/api/menu.json')
         .subscribe(result => {
           this.setting.setMenuStatus(true);
           resolve(result);
-        });
+        })
     });
-  }
-  getNavs = () =>{
-    return this.getMenu()
-  }
+  getNavs = () => this.getMenu();
 }

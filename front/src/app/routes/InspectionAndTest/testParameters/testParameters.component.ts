@@ -14,6 +14,7 @@ export class TestParametersComponent implements OnInit {
   public dwgnos = [];
   public exitnos = [];
   public dataModel = [];
+  public loading = false;
   public pparts = [
     {
       label: "整体",value:{name:"整体",ename: "Integer"}
@@ -174,6 +175,7 @@ export class TestParametersComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.loading = true;
         this.testParametersService.getPressandLeak(this.validateForm.controls['prodno'].value).subscribe(res=>{
           if(res['result'] == "success"){
             this.channelForms = [];
@@ -277,7 +279,6 @@ export class TestParametersComponent implements OnInit {
                   }
                 }
               }
-              this.showChannel = true;
               if (channel['dated1'] &&(channel['dated1']['press'] || channel['dated1']['leak'])){
                 model.dated1 = {
                   status: 2,//0隐藏，1显示，2禁用
@@ -384,7 +385,10 @@ export class TestParametersComponent implements OnInit {
               this.dataModel.push(model)
               this.channelForms.push(fbb);
             }
+            this.loading = false;
+            this.showChannel = true;
           }else{
+            this.loading = false;
             this.message.error("查询通道信息失败！请稍后重试")
           }
         })

@@ -202,6 +202,7 @@ export class DesignInputComponent implements OnInit {
     this.designInputService.searchdesbydec(this.validateForm.value.deconame).subscribe(res=>{
       if(res['result'] == 'success'){
         this.dedate = res['data']['time'];
+        this.validateForm.controls['designdate'].updateValueAndValidity();
       }
     })
   }

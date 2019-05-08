@@ -11,6 +11,7 @@ export class SettingsService {
   private _layout;
   private _loaded: boolean;
   private _nav: string;
+  private _nav_cache: string = "材料管理";
   private _menulist: any;
   private _menuOpenMap = {};
 
@@ -56,6 +57,14 @@ export class SettingsService {
 
   setnav(value) {
     this._nav = value;
+  }
+
+  get nav_cache():string {
+    return this._nav_cache;
+  }
+
+  setnav_cache(value) {
+    this._nav_cache = value;
   }
 
   get menulist():any {

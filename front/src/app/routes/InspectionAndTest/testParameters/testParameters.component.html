@@ -26,7 +26,7 @@
     </div>
   </div>
 </form>
-<div *ngIf="link==2 && showChannel">
+<div *ngIf="link==2 && showChannel && !loading">
   <nz-divider></nz-divider>
   <div *ngFor="let chnl of dataModel;let i = index">
     <nz-collapse [nzBordered]="false">
@@ -369,3 +369,5 @@
     </nz-collapse>
   </div>
 </div>
+<nz-divider *ngIf="loading"></nz-divider>
+<nz-skeleton nzTitle="false" nzActive *ngIf="loading"></nz-skeleton>

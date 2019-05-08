@@ -877,7 +877,7 @@
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(matlnameTitle, matlnameContent, matlnameFooter)">添加材料名称</button>
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(modelstandTitle, modelstandContent, modelstandFooter)">添加型号标准</button>
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(millunitTitle, millunitContent, millunitFooter)">添加生产单位</button>
-  <a class="tool-button" nz-button nzType="default" href="/#/material/warehousingQuery">材料入库查询</a>
+  <a class="tool-button" nz-button nzType="default" (click)="goTo('/material/warehousingQuery')">材料入库查询</a>
 </div>
 <div id="addMillunit">
   <form nz-form [formGroup]="millunitValidateForm">

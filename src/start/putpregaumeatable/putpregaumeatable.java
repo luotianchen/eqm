@@ -55,11 +55,11 @@ public class putpregaumeatable {                                        //提交
                         "measrangemin,measrangemax," +
                         "accuclass,millunit,exitdate,managlevel," +
                         "calibdate,recalibdate,specialist,calibinterval," +
-                        "note,date) VALUES (?,?,?,?," +
+                        "note,date,user) VALUES (?,?,?,?," +
                         "?,?," +
                         "?,?,?,?," +
                         "?,?,?,?," +
-                        "?,?)");
+                        "?,?,?)");
                 ps.setString(1,pp.getGaugename());
                 ps.setString(2,pp.getGaugeno());
                 ps.setString(3,pp.getExitno());
@@ -76,6 +76,7 @@ public class putpregaumeatable {                                        //提交
                 ps.setString(14,pp.getCalibinterval());
                 ps.setString(15,pp.getNote());
                 ps.setDate(16,date);
+                ps.setString(16,pp.getUser());
                 ps.executeUpdate();
                 ps.close();
                 result.setResult("success");

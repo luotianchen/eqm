@@ -77,7 +77,7 @@ public class searchallmaterial {                                                
                 matlname_p=1;
             }
             if(!(sp.getSearchdata().getDesignation()==null || sp.getSearchdata().getDesignation().equals(""))){
-                sql=sql+"and contraststand_id_designation=? ";
+                sql=sql+"and contraststand_id_designation in (select id from contraststand where designation = ?) ";
                 designation_p=1;
             }
             if(!(sp.getSearchdata().getSpec()==null || sp.getSearchdata().getSpec().equals(""))){
@@ -103,16 +103,6 @@ public class searchallmaterial {                                                
                 rs=ps.executeQuery();
                 while (rs.next()){
                     matlname_id = rs.getInt("id");
-                }
-                rs.close();
-                ps.close();
-            }
-            if(designation_p==1){
-                ps=conn.prepareStatement("SELECT * FROM contraststand WHERE designation=?");
-                ps.setString(1,sp.getSearchdata().getDesignation());
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    designation_id = rs.getInt("id");
                 }
                 rs.close();
                 ps.close();
@@ -144,8 +134,8 @@ public class searchallmaterial {                                                
                 num++;
             }
             if(designation_p==1){
-                ps.setInt(num,designation_id);
-                ps1.setInt(num,designation_id);
+                ps.setString(num,sp.getSearchdata().getDesignation());
+                ps1.setString(num,sp.getSearchdata().getDesignation());
                 num++;
             }
             if(spec_p==1){

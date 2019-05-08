@@ -11,9 +11,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   providers: [DesignQueryService]
 })
 export class DesignQueryComponent implements OnInit {
-  public dataSet2:any;
+  public dataSet2 = [];
   validateForm:FormGroup;
-  public dataSet2Display:any;
+  public dataSet2Display = [];
   placement = 'left';
   public modelData = {
     data:{},
@@ -32,7 +32,7 @@ export class DesignQueryComponent implements OnInit {
     this.searchData();
   }
   searchData(){
-    this.designQueryService.getaudited().subscribe((res)=>{
+    this.designQueryService.getaudited().subscribe((res:any)=>{
       if(res['result']=="success"){
         this.loading = false;
         let dwgnos = res['data'];
@@ -41,7 +41,7 @@ export class DesignQueryComponent implements OnInit {
           let data = {dwgno:dwgno};
           this.dataSet2.push(data);
           let that = this;
-          this.designQueryService.getbydwgno(dwgno,1).subscribe((res)=>{
+          this.designQueryService.getbydwgno(dwgno,1).subscribe((res:any)=>{
             if(res['result'] == "success"){
               for(let i in res['data']){
                 that.dataSet2.filter(item=>item.dwgno == dwgno)[0][i] = res['data'][i];
@@ -57,14 +57,14 @@ export class DesignQueryComponent implements OnInit {
 
   open2(dwgno): void {
     this.dwgnonow = dwgno;
-    this.designQueryService.getbydwgno(dwgno,1).subscribe((res)=>{
+    this.designQueryService.getbydwgno(dwgno,1).subscribe((res:any)=>{
       this.modelData.data = res["data"];
     });
     this.visible = true;
-    this.designQueryService.getsaferel(dwgno,1).subscribe((res)=>{
+    this.designQueryService.getsaferel(dwgno,1).subscribe((res:any)=>{
       this.modelData.saferel = res["data"].reverse();
     });
-    this.designQueryService.getchannel(dwgno,1).subscribe((res)=>{
+    this.designQueryService.getchannel(dwgno,1).subscribe((res:any)=>{
       this.modelData.channel = res["data"]
     });
   }

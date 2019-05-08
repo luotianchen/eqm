@@ -4,7 +4,7 @@
   </div>
   <ul nz-menu [nzMode]="'horizontal'" style="line-height: 64px;">
     <ng-container *ngFor="let nav of navs;let i = index">
-      <li nz-menu-item [nzSelected]="nav.name == getSettingNav()" *ngIf="menuShowIfSubmenu(nav)" (click)="setNav(nav.name.toString())">{{nav.name.toString()}}</li>
+      <li nz-menu-item [nzSelected]="nav.name == getSettingNav()" *ngIf="menuShowIfSubmenu(nav)" (click)="setNav(nav.name.toString());">{{nav.name.toString()}}</li>
     </ng-container>
   </ul>
   <div class="rightWarpper">
@@ -12,18 +12,20 @@
       <i nz-icon type="search" theme="outline" *ngIf="!searchstatus" nzPlacement="bottom" nzTitle="输入文字进行功能快速检索" nz-tooltip></i>
       <nz-input-group [nzSuffix]="suffixIconSearch" *ngIf="searchstatus" style="height: 33px;">
         <nz-select nz-input nzPlaceHolder="功能快速检索" nzShowSearch [nzShowArrow]="false" [(ngModel)]="route" nzAutoFocus nzNotFoundContent="未找到该功能" nzAllowClear>
-          <nz-option-group *ngFor="let nav of navs" [nzLabel]="nav.name">
-            <ng-container *ngIf="menuShowIfSubmenu(nav)">
-              <ng-container *ngFor="let o of nav.data">
-                <nz-option *ngIf="!o.submenu && o.name!='首页' && showByRouter(o.route)" [nzLabel]="o.name" [nzValue]="o.route"> </nz-option>
-                <ng-container *ngIf="o.submenu && menuShowIfSubmenu(o)">
-                  <ng-container *ngFor="let item of o.submenu">
-                    <nz-option *ngIf="showByRouter(item.route)" [nzLabel]="item.name" [nzValue]="item.route"> </nz-option>
+          <ng-container *ngFor="let nav of navs">
+            <nz-option-group *ngIf="menuShowIfSubmenu(nav)" [nzLabel]="nav.name">
+              <ng-container *ngIf="menuShowIfSubmenu(nav)">
+                <ng-container *ngFor="let o of nav.data">
+                  <nz-option *ngIf="!o.submenu && o.name!='首页' && showByRouter(o.route)" [nzLabel]="o.name" [nzValue]="o.route"> </nz-option>
+                  <ng-container *ngIf="o.submenu && menuShowIfSubmenu(o)">
+                    <ng-container *ngFor="let item of o.submenu">
+                      <nz-option *ngIf="showByRouter(item.route)" [nzLabel]="item.name" [nzValue]="item.route"> </nz-option>
+                    </ng-container>
                   </ng-container>
                 </ng-container>
               </ng-container>
-            </ng-container>
-          </nz-option-group>
+            </nz-option-group>
+          </ng-container>
           <nz-option-group nzLabel="其他">
             <nz-option nzLabel="个人资料" nzValue="/profile"> </nz-option>
             <nz-option nzLabel="修改密码" nzValue="/changePassword"> </nz-option>
@@ -43,9 +45,9 @@
         <span title><i nz-icon type="user" style="margin-right: 10px;"></i>{{ _storage.get("name") }}</span>
       </a>
       <ul nz-menu nzSelectable style="width: 160px;text-align: center">
-        <li nz-menu-item (click)="router.navigate(['/profile']);">
+        <li nz-menu-item (click)="router.navigate(['/profile/me']);">
           <i nz-icon type="solution" theme="outline"></i>个人资料</li>
-        <li nz-menu-item (click)="router.navigate(['/changePassword']);">
+        <li nz-menu-item (click)="router.navigate(['/profile/changePassword']);">
           <i nz-icon type="setting" theme="outline"></i>修改密码</li>
         <li nz-menu-divider></li>
         <li nz-menu-item (click)="signOut()">

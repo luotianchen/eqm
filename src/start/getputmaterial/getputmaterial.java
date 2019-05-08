@@ -39,7 +39,7 @@ public class getputmaterial {                                                   
         ps.close();
 
 
-        ps=conn.prepareStatement("SELECT * FROM matlname WHERE matlname IS NOT null AND matlname != ''");                                //查询材料名称
+        ps=conn.prepareStatement("SELECT DISTINCT matlname FROM matlname WHERE matlname IS NOT null AND matlname != ''");                                //查询材料名称
         rs=ps.executeQuery();
         ArrayList<String> matlname = new ArrayList<String>();
         while(rs.next()){
@@ -77,12 +77,14 @@ public class getputmaterial {                                                   
         ps.close();
 
 
-        ps=conn.prepareStatement("SELECT * FROM contraststand");                             //查询对照标准表
+        ps=conn.prepareStatement("SELECT DISTINCT matlstand FROM contraststand WHERE matlstand IS NOT null AND matlstand != ''");                             //查询对照标准表
         rs=ps.executeQuery();
         ArrayList<String> matlstand = new ArrayList<String>();
         while(rs.next()){
-            matlstand.add(rs.getString("matlstand"));                             ////返回材料标准号
-            res.setResult("success");                                                       //添加成功
+            if(!rs.getString("matlstand").trim().isEmpty()){
+                matlstand.add(rs.getString("matlstand"));                             ////返回材料标准号
+                res.setResult("success");                                                       //添加成功
+            }
         }
         data.setMatlstand(matlstand);                                                           //添加到data
         rs.close();
@@ -101,18 +103,13 @@ public class getputmaterial {                                                   
         ps.close();
 
 
-        ps=conn.prepareStatement("SELECT * FROM contraststand");                             //查询对照标准表
+        ps=conn.prepareStatement("SELECT DISTINCT designation FROM contraststand WHERE designation IS NOT null AND designation != ''");                             //查询对照标准表
         rs=ps.executeQuery();
         ArrayList<String> designation = new ArrayList<String>();
         while(rs.next()){
-            designation.add(rs.getString("designation"));                             ////返回牌号
-            res.setResult("success");                                                       //添加成功
-        }
-        for (int i = 0; i < designation.size() - 1; i++) {
-            for (int q = designation.size() - 1; q > i; q--) {
-                if (designation.get(q).equals(designation.get(i))) {
-                    designation.remove(q);
-                }
+            if(!rs.getString("designation").trim().isEmpty()){
+                designation.add(rs.getString("designation"));                             ////返回牌号
+                res.setResult("success");                                                       //添加成功
             }
         }
         data.setDesignation(designation);                                                         //添加到data
