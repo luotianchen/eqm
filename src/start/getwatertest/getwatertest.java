@@ -20,10 +20,13 @@ public class getwatertest {                                         //水质检�
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs = null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1 = null;
 
         getwatertestresult result = new getwatertestresult();
         ArrayList<getwatertestdata> as = new ArrayList<getwatertestdata>();
         getwatertestdata data = null;
+        int unit_id = 0;
 
         int i=0;
 
@@ -32,7 +35,7 @@ public class getwatertest {                                         //水质检�
             rs = ps.executeQuery();
             while (rs.next()){
                 data = new getwatertestdata();
-                data.setUnit(rs.getString("unit"));
+                unit_id = rs.getInt("unit");
                 data.setIndate(rs.getString("indate"));
                 data.setQty(rs.getInt("qty"));
                 data.setName(rs.getString("name"));
@@ -44,6 +47,16 @@ public class getwatertest {                                         //水质检�
                 data.setTestdate(rs.getString("testdate"));
                 data.setDate(rs.getString("date"));
                 data.setUser(rs.getString("user"));
+
+                ps1 = conn.prepareStatement("SELECT * FROM department WHERE id = ?");
+                ps1.setInt(1,unit_id);
+                rs1 = ps1.executeQuery();
+                if (rs1.next()){
+                    data.setUnit(rs1.getString("departmentname"));
+                }
+                rs1.close();
+                ps1.close();
+
                 as.add(data);
                 i++;
                 if(i==4){
@@ -52,6 +65,9 @@ public class getwatertest {                                         //水质检�
             }
             rs.close();
             ps.close();
+
+
+
             result.setResult("success");
             result.setData(as);
         }catch (Exception e){
