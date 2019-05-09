@@ -35,8 +35,8 @@ public class searchsubstitutestatus {                                           
         searchsubstitutestatusdata data = null;
         ArrayList<searchsubstitutestatusdata> as = new ArrayList<searchsubstitutestatusdata>();
 
-//        try {
-            sql = "SELECT distinct audit,date,prodno,user,why,status_b,status_c FROM matlsubstitution ";
+        try {
+            sql = "SELECT distinct audit,date,prodno,user,why,status_b,status_c,design_status,matl_status,welding_status,process_status,inspection_status FROM matlsubstitution ";
             if(!(sp.getDesign_status()==0&&sp.getMatl_status()==0&&sp.getWelding_status()==0&&sp.getProcess_status()==0&&sp.getInspection_status()==0
             &&sp.getStatus_b()==0&&sp.getStatus_c()==0)){
                 sql =sql + "WHERE 1=2 ";
@@ -82,12 +82,16 @@ public class searchsubstitutestatus {                                           
                 ps1.close();
 
                 if(b_f==0 && c_f==0){
-                    data.setAudit(rs.getString("audit"));
-                    data.setDate(sdf.format(rs.getDate("date")));
-                    data.setProdno(rs.getString("prodno"));
-                    data.setUser(rs.getString("user"));
-                    data.setWhy(rs.getString("why"));
-                    as.add(data);
+                    if(!(rs.getInt("design_status")==1 &&rs.getInt("design_status")==1 &&rs.getInt("design_status")==1 &&rs.getInt("design_status")==1)){
+                        data.setAudit(rs.getString("audit"));
+                        data.setDate(sdf.format(rs.getDate("date")));
+                        data.setProdno(rs.getString("prodno"));
+                        data.setUser(rs.getString("user"));
+                        data.setWhy(rs.getString("why"));
+                        as.add(data);
+                    }
+
+
                 }else {
                     if(b_f==1 && c_f==1){
                         if(sp.getStatus_b()==1 || sp.getStatus_c() == 1){
@@ -133,9 +137,9 @@ public class searchsubstitutestatus {                                           
             Collections.reverse(as);                                          //将list倒序
             result.setData(as);
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
