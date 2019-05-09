@@ -73,7 +73,7 @@ public class searchstatusthrough {                                              
                 data.setWhy(rs.getString("why"));
                 as.add(data);
                 type_B=0;
-                type_B=0;
+                type_C=0;
             }
             rs.close();
             ps.close();
