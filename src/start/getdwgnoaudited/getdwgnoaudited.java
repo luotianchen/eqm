@@ -23,30 +23,39 @@ public class getdwgnoaudited {                                      //获取所�
         ResultSet rs1=null;
 
         getdwgnoauditedresult result  = new getdwgnoauditedresult();
-        ArrayList<String> as = new ArrayList<String>();
+        ArrayList<getdwgnoauditeddata> ag = new ArrayList<getdwgnoauditeddata>();
+        getdwgnoauditeddata data = null;
         ArrayList<Integer> sc = new ArrayList<Integer>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 1");
+            ps = conn.prepareStatement("SELECT id,dwgno, (select prodname from productname where id = productname_id_prodname) as prodname, type, mainstand, designdate, deconame FROM proparlist WHERE audit = 1 ORDER BY date DESC");
             rs = ps.executeQuery();
             while (rs.next()){
-                for (int i = 0;i<as.size();i++){
-                    if(as.get(i).equals(rs.getString("dwgno"))){
+                for (int i = 0;i<ag.size();i++){
+                    if(ag.get(i).getDwgno().equals(rs.getString("dwgno"))){
                         ps1 = conn.prepareStatement("DELETE FROM proparlist WHERE id = ?");
-                        ps1.setInt(1,sc.get(i));
+                        ps1.setInt(1,ag.get(i).getSc());
                         ps1.executeUpdate();
                         ps1.close();
-                        as.remove(i);
+                        ag.remove(i);
                         break;
                     }
                 }
 
-                as.add(rs.getString("dwgno"));
-                sc.add(rs.getInt("id"));
+
+                data = new getdwgnoauditeddata();
+                data.setDwgno(rs.getString("dwgno"));
+                data.setProdname(rs.getString("prodname"));
+                data.setType(rs.getString("type"));
+                data.setMainstand(rs.getString("mainstand"));
+                data.setDesigndate(rs.getString("designdate"));
+                data.setDeconame(rs.getString("deconame"));
+                data.setSc(rs.getInt("id"));
+                ag.add(data);
             }
             rs.close();
             ps.close();
-            result.setData(as);
+            result.setData(ag);
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");

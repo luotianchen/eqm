@@ -12,14 +12,15 @@ import {SessionStorageService} from "../../../core/storage/storage.service";
 })
 export class WeldingDistributeComponent implements OnInit {
   public prodno:any;
+  isLoading = false;
   validateForm: FormGroup;
   partsnameValidateForm: FormGroup;
   status = false;
   i=1;
   partsnames = [];
   designations = [];
-  codedmarkings = [];
   users = [];
+  matlcode:any;
   username2name = {};
   specs = []
   ruleindex = null;
@@ -64,12 +65,11 @@ export class WeldingDistributeComponent implements OnInit {
         this.partsnames = res['data'];
       }
     });
-    this.weldingDistributeService.getcodedmarking(null).subscribe(res=>{
-      if(res['result']=="success"){
-        this.codedmarkings = res['data'];
-        this.codedmarkingDisplay = res['data'];
+    this.weldingDistributeService.getindexbymatlcoderules().subscribe(res => {
+      if(res['result'] == "success"){
+        this.matlcode = res;
       }
-    });
+    })
     this.weldingDistributeService.getputmaterial().subscribe(res=>{
       if(res['result']=='success'){
         this.designations = res['data']['designation'];
@@ -86,7 +86,7 @@ export class WeldingDistributeComponent implements OnInit {
         }
       }
     });
-    this.validateForm = this.validateForm = this.fb.group({
+    this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
       "dwgno":[null],
@@ -306,25 +306,24 @@ export class WeldingDistributeComponent implements OnInit {
     }
   }
   codedmarkingDisplay = [];
-  screeningCodedmarking(des){//根据牌号筛选codedmarking
+  screeningCodedmarking(key) {//根据牌号筛选codedmarking
+    let des = this.editCache[key].data.designation;
+    this.editCache[key].data.codedmarking = null;
     if (des != null) {
-      if (des != null) this.weldingDistributeService.getCodedmarkingByDesignation(des).subscribe(res => {
-        if (res['result'] == "success") {
-          let data = res['data'];
-          this.weldingDistributeService.getindexbymatlcoderules().subscribe(res => {
-            if (res['result'] == "success") {
-              this.codedmarkingDisplay = data.filter(item=>item[res['index']-1] == res['welding'])//若为焊材，显示
-            }
-          })
-        }
-      }); else this.codedmarkingDisplay = this.codedmarkings;
-    } else this.codedmarkingDisplay = this.codedmarkings;
-  }
-  search(codedmarking:string){
-    this.weldingDistributeService.getcodedmarking(codedmarking).subscribe((res) => {
-      if (res["result"] == "success") {
-        this.codedmarkings = res['data'];
-      }
-    });
+      if (des != null){
+        this.isLoading = true;
+        this.weldingDistributeService.getCodedmarkingByDesignation(des).subscribe(res => {
+          if (res['result'] == "success") {
+            let data = res['data'];
+            this.codedmarkingDisplay = data.filter(item=>item[this.matlcode['index']-1] == this.matlcode['welding'])//若为焊材，显示
+            this.isLoading = false;
+          }else{
+            this.isLoading = false;
+          }
+        },err=>{
+          this.isLoading = false;
+        })
+      }else this.codedmarkingDisplay = [];
+    } else this.codedmarkingDisplay = [];
   }
 }

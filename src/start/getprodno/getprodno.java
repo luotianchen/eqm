@@ -9,6 +9,7 @@ import start.jdbc.jdbc;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @CrossOrigin
 @Controller
@@ -25,7 +26,7 @@ public class getprodno {                                                        
         getprodnoresult result = new getprodnoresult();
 
         try {
-            ps=conn.prepareStatement("SELECT * FROM prenotiform");
+            ps=conn.prepareStatement("SELECT DISTINCT prodno FROM prenotiform");
             rs=ps.executeQuery();
             while (rs.next()){
                 data.add(rs.getString("prodno"));
@@ -39,6 +40,7 @@ public class getprodno {                                                        
                     }
                 }
             }
+            Collections.reverse(data);
             result.setData(data);
             result.setResult("success");
         }catch (Exception e){

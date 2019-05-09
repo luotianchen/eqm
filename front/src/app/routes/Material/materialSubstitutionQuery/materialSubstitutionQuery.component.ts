@@ -189,7 +189,7 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
           this.reportData.inspection_username = null;
         });
         this.reportData.b_note = res["data"][0]["b_note"];
-        this.reportData.b_date = res["data"][0]["b_date"].split("-");
+        if(res["data"][0]["b_date"]) this.reportData.b_date = res["data"][0]["b_date"].split("-");
         this.materialSubstitutionQueryService.getSignImage(res["data"][0]["b_username"]).then((res)=>{
           if(res["result"]=="success"){
             this.reportData.b_username = res['url'];
@@ -197,8 +197,9 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
         }).catch((err)=>{
           this.reportData.b_username = null;
         });
+
         this.reportData.c_note = res["data"][0]["c_note"];
-        this.reportData.c_date = res["data"][0]["c_date"].split("-");
+        if(res["data"][0]["c_date"]) this.reportData.c_date = res["data"][0]["c_date"].split("-");
         this.materialSubstitutionQueryService.getSignImage(res["data"][0]["c_username"]).then((res)=>{
           if(res["result"]=="success"){
             this.reportData.c_username = res['url'];

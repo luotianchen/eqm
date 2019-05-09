@@ -43,17 +43,17 @@
     [nzData]="dataSet" nzShowQuickJumper nzShowTotal nzHideOnSinglePage>
     <thead>
     <tr>
-      <th nzWidth="120px">发料日期</th>
-      <th nzWidth="80px">焊缝号</th>
-      <th nzWidth="100px">名称</th>
-      <th nzWidth="100px">焊材牌号</th>
-      <th nzWidth="80px">规格</th>
-      <th nzWidth="130px">入库编号</th>
-      <th nzWidth="60px">发放数量</th>
-      <th nzWidth="60px">退回数量</th>
-      <th nzWidth="60px">回收焊条</th>
-      <th nzWidth="100px">领料人</th>
-      <th nzWidth="80px">备注</th>
+      <th>发料日期</th>
+      <th>焊缝号</th>
+      <th style="min-width: 100px;">名称</th>
+      <th style="min-width: 100px;">焊材牌号</th>
+      <th style="min-width: 100px;">规格</th>
+      <th style="min-width: 120px;">入库编号</th>
+      <th>发放数量</th>
+      <th>退回数量</th>
+      <th>回收焊条</th>
+      <th style="min-width: 90px;">领料人</th>
+      <th>备注</th>
       <th style="min-width: 100px;">操作</th>
     </tr>
     </thead>
@@ -87,7 +87,7 @@
                 {{data.spartname}}
               </ng-container>
               <ng-container *ngIf="editCache[data.key].edit">
-                <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="零件名称"  nz-input [(ngModel)]="editCache[data.key].data.spartname">
+                <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="零件名称" [(ngModel)]="editCache[data.key].data.spartname" [nzShowArrow]="false">
                   <nz-option *ngFor="let option of partsnames" [nzLabel]="option" [nzValue]="option"></nz-option>
                 </nz-select>
               </ng-container>
@@ -99,7 +99,7 @@
             {{data.designation}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号"  nz-input [(ngModel)]="editCache[data.key].data.designation">
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" [nzShowArrow]="false" (nzBlur)="screeningCodedmarking(data.key)">
               <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
             </nz-select>
           </ng-container>
@@ -122,10 +122,13 @@
             {{data.codedmarking}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="入库编号" [(ngModel)]="editCache[data.key].data.codedmarking" (nzOpenChange)="screeningCodedmarking(editCache[data.key].data.designation)" nzServerSearch (nzOnSearch)="search($event)">
-              <ng-container *ngFor="let option of codedmarkings">
-                <nz-option *ngIf="codedmarkingDisplay.indexOf(option)!=-1" [nzLabel]="option" [nzValue]="option"></nz-option>
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" [(ngModel)]="editCache[data.key].data.codedmarking" [nzShowArrow]="false" nzNotFoundContent="无符合记录">
+              <ng-container *ngFor="let option of codedmarkingDisplay">
+                <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
               </ng-container>
+              <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+                <i nz-icon type="loading" class="loading-icon"></i> 请稍等……
+              </nz-option>
             </nz-select>
           </ng-container>
         </td>
@@ -158,7 +161,7 @@
             {{username2name[data.picker]}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="领料人"  nz-input [(ngModel)]="editCache[data.key].data.picker">
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="领料人" [(ngModel)]="editCache[data.key].data.picker" [nzShowArrow]="false">
               <nz-option *ngFor="let option of users" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
             </nz-select>
           </ng-container>

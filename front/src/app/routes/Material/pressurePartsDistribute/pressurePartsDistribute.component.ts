@@ -17,8 +17,8 @@ export class PressurePartsDistributeComponent implements OnInit {
   status = false;
   i=1;
   partsnames = [];
+  isLoading = false;
   designations = [];
-  codedmarkings = [];
   users = [];
   username2name = {};
   specs = []
@@ -56,12 +56,6 @@ export class PressurePartsDistributeComponent implements OnInit {
         this.partsnames = res['data'];
       }
     });
-    this.pressurePartsDistributeService.getcodedmarking().subscribe(res=>{
-      if(res['result']=="success"){
-        this.codedmarkings = res['data'];
-        this.codedmarkingDisplay = res['data'];
-      }
-    });
     this.pressurePartsDistributeService.getputmaterial().subscribe(res=>{
       if(res['result']=='success'){
         this.designations = res['data']['designation'];
@@ -75,7 +69,7 @@ export class PressurePartsDistributeComponent implements OnInit {
         }
       }
     });
-    this.validateForm = this.validateForm = this.fb.group({
+    this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
       "dwgno":[null],
@@ -284,14 +278,22 @@ export class PressurePartsDistributeComponent implements OnInit {
     }
   }
   codedmarkingDisplay = [];
-  screeningCodedmarking(des){//根据牌号筛选codedmarking
-    if(des!=null && des!=null)
-      this.pressurePartsDistributeService.getCodedmarkingByDesignation(des).subscribe(res=>{
-        if(res['result'] == "success"){
+  screeningCodedmarking(key) {//根据牌号筛选codedmarking
+    let des = this.editCache[key].data.designation;
+    this.editCache[key].data.codedmarking = null;
+    if (des != null && des != null){
+      this.isLoading = true;
+      this.pressurePartsDistributeService.getCodedmarkingByDesignation(des).subscribe(res => {
+        if (res['result'] == "success") {
           this.codedmarkingDisplay = res['data'];
+          this.isLoading = false;
+        } else {
+          this.codedmarkingDisplay = [];
+          this.isLoading = false;
         }
-      });
-    else
-      this.codedmarkingDisplay = this.codedmarkings;
+      }, err => {
+        this.isLoading = false;
+      })
+    }else this.codedmarkingDisplay = [];
   }
 }

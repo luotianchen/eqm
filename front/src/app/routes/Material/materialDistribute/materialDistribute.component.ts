@@ -14,16 +14,19 @@ export class MaterialDistributeComponent implements OnInit {
   public prodno:any;
   validateForm: FormGroup;
   partsnameValidateForm: FormGroup;
+  copyvalidateForm: FormGroup;
   status = false;
   i=0;
+  matlcode:any;
+  isLoading = false;
   partsnames = [];
   designations = [];
-  codedmarkings = [];
   users = [];
   username2name = {};
   specs = [];
   ruleindex = null;
   rule = null;
+  copyprodnos = []
   onSpecInput(value: string): void { //当规格输入时展开选项
     this.specs = value ? [
       value,
@@ -59,6 +62,11 @@ export class MaterialDistributeComponent implements OnInit {
         this.rule = res['welding']
       }
     })
+    this.materialDistributeService.getindexbymatlcoderules().subscribe(res => {
+      if(res['result'] == "success"){
+        this.matlcode = res;
+      }
+    })
     this.materialDistributeService.getPartsname().subscribe(res=>{
       if(res['result']=='success'){
         this.partsnames = res['data'];
@@ -80,17 +88,14 @@ export class MaterialDistributeComponent implements OnInit {
         }
       }
     });
-    this.validateForm = this.validateForm = this.fb.group({
+    this.validateForm = this.fb.group({
       "prodno":[null, [Validators.required]],
       "prodname":[null],
       "dwgno":[null],
     });
-    this.materialDistributeService.getcodedmarking(this.validateForm.value.codedmarking).subscribe(res=>{
-      if(res['result']=="success"){
-        this.codedmarkings = res['data'];
-        this.codedmarkingDisplay = res['data'];
-      }
-    });
+    this.copyvalidateForm = this.fb.group({
+      "prodno":[null, [Validators.required]]
+    })
     this.partsnameValidateForm = this.fb.group({
       partsname:[null, [Validators.required]],
       enpartsname:[null, [Validators.required]]
@@ -262,6 +267,7 @@ export class MaterialDistributeComponent implements OnInit {
       nzFooter: tplFooter,
       nzMaskClosable: false,
       nzClosable: true,
+      nzWidth: 700,
       nzOnOk: null
     });
   }
@@ -300,28 +306,107 @@ export class MaterialDistributeComponent implements OnInit {
           }
         });
       }
+    }else if(which == "copyfrom"){
+      let dataset2 = [];
+      for(let i =0;i<this.dataSet2.length;i++){
+        if(this.mapOfCheckedId[i]) dataset2.push(this.dataSet2[i]);
+      }
+      this.dataSet = [...this.dataSet,...dataset2];
+      for(this.i = 0;this.i < this.dataSet.length;this.i++){
+        this.dataSet[this.i]['key'] = `${this.i}`;
+      }
+      this.updateEditCache();
+      this.tplModal.destroy();
     }
   }
+
   codedmarkingDisplay = [];
-  screeningCodedmarking(des){//根据牌号筛选codedmarking
+  screeningCodedmarking(key){//根据牌号筛选codedmarking
+    let des = this.editCache[key].data.designation;
+    this.editCache[key].data.codedmarking = null;
     if (des != null) {
-      if (des != "") this.materialDistributeService.getCodedmarkingByDesignation(des).subscribe(res => {
-        if (res['result'] == "success") {
-          let data = res['data'];
-          this.materialDistributeService.getindexbymatlcoderules().subscribe(res => {
-            if (res['result'] == "success") {
-              this.codedmarkingDisplay = data.filter(item=>item[res['index']-1] != res['welding'])//若不是焊材，显示
-            }
-          })
-        }
-      }); else this.codedmarkingDisplay = this.codedmarkings;
-    } else this.codedmarkingDisplay = this.codedmarkings;
+      if (des != null){
+          this.isLoading = true;
+          this.materialDistributeService.getCodedmarkingByDesignation(des).subscribe(res => {
+          if (res['result'] == "success") {
+            let data = res['data'];
+            this.codedmarkingDisplay = data.filter(item=>item[this.matlcode['index']-1] != this.matlcode['welding'])//若不为焊材，显示
+            this.isLoading = false;
+          }else{
+            this.isLoading = false;
+          }
+        },err=>{
+          this.isLoading = false;
+        });
+      }else this.codedmarkingDisplay = [];
+    } else this.codedmarkingDisplay = [];
   }
-  search(codedmarking:string){
-    this.materialDistributeService.getcodedmarking(codedmarking).subscribe((res) => {
-      if (res["result"] == "success") {
-        this.codedmarkings = res['data'];
+  dataSet2 = [];
+  dataSet2Display = [];
+  status2 = true;
+  copy(){
+    this.materialDistributeService.getprodnosbydwgno(this.validateForm.controls['dwgno'].value).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.copyprodnos = res['data'];
+        if(this.copyprodnos.length>0){
+          this.copyvalidateForm.controls['prodno'].setValue(this.copyprodnos[0]);
+          this.searchData2();
+        }
       }
-    });
+    })
+  }
+  searchData2(): void {
+    for (const i in this.copyvalidateForm.controls) {
+      this.copyvalidateForm.controls[ i ].markAsDirty();
+      this.copyvalidateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.copyvalidateForm.valid){
+      this.isAllDisplayDataChecked = false;
+      this.mapOfCheckedId = {};
+      this.status2 = false;
+      this.dataSet2 = [];
+      this.materialDistributeService.getdistribute(this.copyvalidateForm.controls['prodno'].value).subscribe((res) => {
+        if(res['result']=="success"){
+          this.dataSet2 = res['data'].filter(data=>!data.codedmarking|| data.codedmarking.length<this.ruleindex ||data.codedmarking[this.ruleindex-1] != this.rule);
+          for(let i = 0;i<this.dataSet2.length;i++){
+            this.mapOfCheckedId[i] = false;
+          }
+          this.status2 = true;
+        }
+      })
+    }else{
+      this.status2 = false;
+    }
+  }
+  isAllDisplayDataChecked = false;
+  mapOfCheckedId: { [key: string]: boolean } = {};
+  checkAll(){
+    if(this.isAllDisplayDataChecked){
+      for(let i = 0;i<this.dataSet2.length;i++){
+        this.mapOfCheckedId[i] = true;
+      }
+    }else{
+      for(let i = 0;i<this.dataSet2.length;i++){
+        this.mapOfCheckedId[i] = false;
+      }
+    }
+  }
+  checkAll2(){
+    if(!this.isAllDisplayDataChecked){
+      let flag = true;
+      for(let i = 0;i<this.dataSet2.length;i++){
+        if(this.mapOfCheckedId[i] == false)
+          flag = false;
+      }
+      if(flag) this.isAllDisplayDataChecked = true;
+    }
+    if(this.isAllDisplayDataChecked){
+      let flag = true;
+      for(let i = 0;i<this.dataSet2.length;i++){
+        if(this.mapOfCheckedId[i] == false)
+          flag = false;
+      }
+      if(!flag) this.isAllDisplayDataChecked = false;
+    }
   }
 }

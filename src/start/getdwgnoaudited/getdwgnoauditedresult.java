@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class getdwgnoauditedresult {
     private String result;
-    private ArrayList<String> data;
-    private ArrayList<Integer> sc;
+    private ArrayList<getdwgnoauditeddata> data;
+
     public getdwgnoauditedresult(){
         super();
     }
@@ -18,19 +18,11 @@ public class getdwgnoauditedresult {
         this.result = result;
     }
 
-    public ArrayList<String> getData() {
+    public ArrayList<getdwgnoauditeddata> getData() {
         return data;
     }
 
-    public void setData(ArrayList<String> data) {
+    public void setData(ArrayList<getdwgnoauditeddata> data) {
         this.data = data;
-    }
-
-    public ArrayList<Integer> getSc() {
-        return sc;
-    }
-
-    public void setSc(ArrayList<Integer> sc) {
-        this.sc = sc;
     }
 }

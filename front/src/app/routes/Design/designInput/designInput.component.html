@@ -54,7 +54,7 @@
           产品名称
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="prodname" name="prodname" id="prodname" nzPlaceHolder="产品名称"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="prodname" name="prodname" id="prodname" nzPlaceHolder="产品名称"  nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.prodnames" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('prodname').dirty && this.validateForm.get('prodname').errors">
@@ -69,7 +69,7 @@
           容器类别
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="type" name="type" id="type" nzPlaceHolder="容器类别"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select nzAutoFocus formControlName="type" name="type" id="type" nzPlaceHolder="容器类别"  nzShowSearch nzAllowClear nzAllowClear>
             <nz-option *ngFor="let o of this.types" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('type').dirty && this.validateForm.get('type').errors">
@@ -84,7 +84,7 @@
           产品标准
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="mainstand" name="mainstand" id="mainstand" nzPlaceHolder="产品标准"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select nzAutoFocus formControlName="mainstand" name="mainstand" id="mainstand" nzPlaceHolder="产品标准"  nzShowSearch nzAllowClear nzAllowClear>
             <nz-option *ngFor="let o of this.stands" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('mainstand').dirty && this.validateForm.get('mainstand').errors">
@@ -99,7 +99,7 @@
           产品标准2
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="minorstand" name="minorstand" id="minorstand" nzPlaceHolder="产品标准2"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select nzAutoFocus formControlName="minorstand" name="minorstand" id="minorstand" nzPlaceHolder="产品标准2"  nzShowSearch nzAllowClear nzAllowClear>
             <nz-option *ngFor="let o of this.stands" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('minorstand').dirty && this.validateForm.get('minorstand').errors">
@@ -153,7 +153,7 @@
           安装型式
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="installtype" name="installtype" id="installtype" nzPlaceHolder="安装型式"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select nzAutoFocus formControlName="installtype" name="installtype" id="installtype" nzPlaceHolder="安装型式"  nzShowSearch nzAllowClear nzAllowClear>
             <nz-option *ngFor="let o of this.installtypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('installtype').dirty && this.validateForm.get('installtype').errors">
@@ -168,7 +168,7 @@
           支座型式
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="supptype" name="supptype" id="supptype" nzPlaceHolder="支座型式"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select nzAutoFocus formControlName="supptype" name="supptype" id="supptype" nzPlaceHolder="支座型式"  nzShowSearch nzAllowClear nzAllowClear>
             <nz-option *ngFor="let o of this.supptypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('supptype').dirty && this.validateForm.get('supptype').errors">
@@ -183,7 +183,7 @@
           保温绝热方式
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="insultype" name="insultype" id="insultype" nzPlaceHolder="保温绝热方式"  nzShowSearch nzAllowClear nzAllowClear>
+          <nz-select nzAutoFocus formControlName="insultype" name="insultype" id="insultype" nzPlaceHolder="保温绝热方式"  nzShowSearch nzAllowClear nzAllowClear>
             <nz-option *ngFor="let o of this.insultypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('insultype').dirty && this.validateForm.get('insultype').errors">
@@ -224,7 +224,7 @@
           低温贮槽
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="crytank" name="crytank" id="crytank" nzPlaceHolder="低温贮槽"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="crytank" name="crytank" id="crytank" nzPlaceHolder="低温贮槽"  nzShowSearch nzAllowClear>
             <nz-option [nzValue]="'是'" [nzLabel]="'是'"></nz-option>
             <nz-option [nzValue]="'否'" [nzLabel]="'否'"></nz-option>
           </nz-select>
@@ -240,7 +240,7 @@
           试板情况
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="testplatesitu" name="testplatesitu" id="testplatesitu" nzPlaceHolder="试板情况"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="testplatesitu" name="testplatesitu" id="testplatesitu" nzPlaceHolder="试板情况"  nzShowSearch nzAllowClear>
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
@@ -256,7 +256,7 @@
           热处理种类
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="httype" name="httype" id="httype" nzPlaceHolder="热处理种类"  nzShowSearch nzAllowClear (ngModelChange)="hideHttemp()">
+          <nz-select nzAutoFocus formControlName="httype" name="httype" id="httype" nzPlaceHolder="热处理种类"  nzShowSearch nzAllowClear (ngModelChange)="hideHttemp()">
             <nz-option [nzValue]="'退火'" [nzLabel]="'退火'"></nz-option>
             <nz-option [nzValue]="'正火'" [nzLabel]="'正火'"></nz-option>
             <nz-option [nzValue]="'固溶'" [nzLabel]="'固溶'"></nz-option>
@@ -274,7 +274,7 @@
           热处理试板
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="httsetplate" name="httsetplate" id="httsetplate" nzPlaceHolder="热处理试板"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="httsetplate" name="httsetplate" id="httsetplate" nzPlaceHolder="热处理试板"  nzShowSearch nzAllowClear>
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
@@ -303,7 +303,7 @@
           安全泄放装置
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="saferel" name="saferel" id="saferel" nzPlaceHolder="安全泄放装置"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="saferel" name="saferel" id="saferel" nzPlaceHolder="安全泄放装置"  nzShowSearch nzAllowClear>
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
@@ -319,7 +319,7 @@
           按疲劳分析设置
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="analyde" name="analyde" id="analyde" nzPlaceHolder="按疲劳分析设置"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="analyde" name="analyde" id="analyde" nzPlaceHolder="按疲劳分析设置"  nzShowSearch nzAllowClear>
             <nz-option [nzValue]="'有'" [nzLabel]="'有'"></nz-option>
             <nz-option [nzValue]="'无'" [nzLabel]="'无'"></nz-option>
           </nz-select>
@@ -348,7 +348,7 @@
           单位
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="unit" name="unit" id="unit" nzPlaceHolder="单位"  nzShowSearch nzAllowClear>
+          <nz-select nzAutoFocus formControlName="unit" name="unit" id="unit" nzPlaceHolder="单位"  nzShowSearch nzAllowClear>
             <nz-option [nzValue]="'㎡'" [nzLabel]="'㎡'"></nz-option>
             <nz-option [nzValue]="'m³'" [nzLabel]="'m³'"></nz-option>
             <nz-option [nzValue]="'/'" [nzLabel]="'/'"></nz-option>
@@ -391,7 +391,7 @@
           设计单位{{dedate==null?'':'(有效期：'+dedate+'）'}}
         </nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch (ngModelChange)="setDeDate()">
+          <nz-select nzAutoFocus formControlName="deconame" name="deconame" id="deconame" nzPlaceHolder="设计单位"  nzShowSearch (ngModelChange)="setDeDate()">
             <nz-option *ngFor="let o of this.deconames" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="this.validateForm.get('deconame').dirty && this.validateForm.get('deconame').errors">
@@ -522,7 +522,7 @@
             通道名称
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="name" name="name" id="name" nzPlaceHolder="通道名称"  nzShowSearch nzAllowClear (ngModelChange)="changeSelectedStatus()">
+            <nz-select nzAutoFocus formControlName="name" name="name" id="name" nzPlaceHolder="通道名称"  nzShowSearch nzAllowClear (ngModelChange)="changeSelectedStatus()">
               <ng-container *ngFor="let o of channelnames">
                 <nz-option [nzValue]="o.value" [nzLabel]="o.label" [nzDisabled]="o.selected"></nz-option>
               </ng-container>
@@ -565,7 +565,7 @@
             壳体材料1
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="shmatl1" name="shmatl1" id="shmatl1" nzPlaceHolder="壳体材料1"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="shmatl1" name="shmatl1" id="shmatl1" nzPlaceHolder="壳体材料1"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('shmatl1').dirty && validateForm1.get('shmatl1').errors">
@@ -580,7 +580,7 @@
             壳体材料2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="shmatl2" name="shmatl2" id="shmatl2" nzPlaceHolder="壳体材料2"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="shmatl2" name="shmatl2" id="shmatl2" nzPlaceHolder="壳体材料2"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('shmatl2').dirty && validateForm1.get('shmatl2').errors">
@@ -595,7 +595,7 @@
             壳体材料3
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="shmatl3" name="shmatl3" id="shmatl3" nzPlaceHolder="壳体材料3"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="shmatl3" name="shmatl3" id="shmatl3" nzPlaceHolder="壳体材料3"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('shmatl3').dirty && validateForm1.get('shmatl3').errors">
@@ -675,7 +675,7 @@
             工作介质
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="工作介质"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="工作介质"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.wmedias" [nzValue]="o.name" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('wmedia').dirty && validateForm1.get('wmedia').errors">
@@ -781,7 +781,7 @@
             试压类别
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear (ngModelChange)="changepttypestats(this.validateForm1)">
+            <nz-select nzAutoFocus formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear (ngModelChange)="changepttypestats(this.validateForm1)">
               <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('pttype').dirty && validateForm1.get('pttype').errors">
@@ -809,7 +809,7 @@
             泄漏试验方式
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="泄漏试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(this.validateForm1)">
+            <nz-select nzAutoFocus formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="泄漏试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(this.validateForm1)">
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm1.get('leaktest').dirty && validateForm1.get('leaktest').errors">
@@ -846,7 +846,7 @@
             通道名称
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="name" name="name" id="name" nzPlaceHolder="通道名称"  nzShowSearch nzAllowClear (ngModelChange)="changeSelectedStatus()">
+            <nz-select nzAutoFocus formControlName="name" name="name" id="name" nzPlaceHolder="通道名称"  nzShowSearch nzAllowClear (ngModelChange)="changeSelectedStatus()">
               <ng-container *ngFor="let o of channelnames">
                 <nz-option [nzValue]="o.value" [nzLabel]="o.label" [nzDisabled]="o.selected"></nz-option>
               </ng-container>
@@ -889,7 +889,7 @@
             夹套材料1
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="shmatl1" name="shmatl1" id="shmatl1" nzPlaceHolder="夹套材料1"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="shmatl1" name="shmatl1" id="shmatl1" nzPlaceHolder="夹套材料1"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('shmatl1').dirty && validateForm2.get('shmatl1').errors">
@@ -904,7 +904,7 @@
             夹套材料2
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="shmatl2" name="shmatl2" id="shmatl2" nzPlaceHolder="夹套材料2"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="shmatl2" name="shmatl2" id="shmatl2" nzPlaceHolder="夹套材料2"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('shmatl2').dirty && validateForm2.get('shmatl2').errors">
@@ -919,7 +919,7 @@
             夹套材料3
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="shmatl3" name="shmatl3" id="shmatl3" nzPlaceHolder="夹套材料3"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="shmatl3" name="shmatl3" id="shmatl3" nzPlaceHolder="夹套材料3"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('shmatl3').dirty && validateForm2.get('shmatl3').errors">
@@ -973,7 +973,7 @@
             夹套介质
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="夹套介质"  nzShowSearch nzAllowClear>
+            <nz-select nzAutoFocus formControlName="wmedia" name="wmedia" id="wmedia" nzPlaceHolder="夹套介质"  nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of this.wmedias" [nzValue]="o.name" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('wmedia').dirty && validateForm2.get('wmedia').errors">
@@ -1079,7 +1079,7 @@
             试压类别
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear (ngModelChange)="changepttypestats(this.validateForm2)">
+            <nz-select nzAutoFocus formControlName="pttype" name="pttype" id="pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear (ngModelChange)="changepttypestats(this.validateForm2)">
               <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('pttype').dirty && validateForm2.get('pttype').errors">
@@ -1107,7 +1107,7 @@
             气密性试验方式
           </nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(this.validateForm2)">
+            <nz-select nzAutoFocus formControlName="leaktest" name="leaktest" id="leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear (ngModelChange)="changeleaktestpstats(this.validateForm2)">
               <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
             </nz-select>
             <nz-form-explain *ngIf="validateForm2.get('leaktest').dirty && validateForm2.get('leaktest').errors">
@@ -1140,7 +1140,7 @@
     <div nz-row [nzGutter]="16" style="margin: 20px -8px;">
       <div nz-col nzSpan="4">
             <p style="margin-top: 10px;margin-bottom: 10px">通道名称：</p>
-            <nz-select [(ngModel)]="data.name" nzPlaceHolder="通道名称"  nzShowSearch nzAllowClear style="width: 100%" (nzOpenChange)="changeSelectedStatus()">
+            <nz-select nzAutoFocus [(ngModel)]="data.name" nzPlaceHolder="通道名称"  nzShowSearch nzAllowClear style="width: 100%" (nzOpenChange)="changeSelectedStatus()">
               <ng-container *ngFor="let o of channelnames">
                 <nz-option [nzValue]="o.value" [nzLabel]="o.label" [nzDisabled]="o.selected"></nz-option>
               </ng-container>
@@ -1156,19 +1156,19 @@
       </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">容器材料1</p>
-            <nz-select [(ngModel)]="data.shmatl1" nzPlaceHolder="容器材料1"  nzShowSearch nzAllowClear style="width: 100%">
+            <nz-select nzAutoFocus [(ngModel)]="data.shmatl1" nzPlaceHolder="容器材料1"  nzShowSearch nzAllowClear style="width: 100%">
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
       </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">容器材料2</p>
-            <nz-select [(ngModel)]="data.shmatl2" nzPlaceHolder="容器材料2"  nzShowSearch nzAllowClear style="width: 100%">
+            <nz-select nzAutoFocus [(ngModel)]="data.shmatl2" nzPlaceHolder="容器材料2"  nzShowSearch nzAllowClear style="width: 100%">
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
       </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">容器材料3</p>
-            <nz-select [(ngModel)]="data.shmatl3" nzPlaceHolder="容器材料3"  nzShowSearch nzAllowClear style="width: 100%">
+            <nz-select nzAutoFocus [(ngModel)]="data.shmatl3" nzPlaceHolder="容器材料3"  nzShowSearch nzAllowClear style="width: 100%">
               <nz-option *ngFor="let o of this.designations" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
       </div>
@@ -1188,7 +1188,7 @@
       </div>
       <div nz-col nzSpan="4">
         <p style="margin-top: 10px;margin-bottom: 10px">工作介质</p>
-        <nz-select style="width: 100%" [(ngModel)]="data.wmedia" nzPlaceHolder="夹套介质"  nzShowSearch nzAllowClear>
+        <nz-select nzAutoFocus style="width: 100%" [(ngModel)]="data.wmedia" nzPlaceHolder="夹套介质"  nzShowSearch nzAllowClear>
           <nz-option *ngFor="let o of this.wmedias" [nzValue]="o.name" [nzLabel]="o.name"></nz-option>
         </nz-select>
       </div>
@@ -1224,7 +1224,7 @@
       </div>
     <div nz-col nzSpan="4">
       <p style="margin-top: 10px;margin-bottom: 10px">试压类别</p>
-      <nz-select [(ngModel)]="data.pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear style="width: 100%">
+      <nz-select nzAutoFocus [(ngModel)]="data.pttype" nzPlaceHolder="试压类别"  nzShowSearch nzAllowClear style="width: 100%">
         <nz-option *ngFor="let o of this.pttypes" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
       </nz-select>
     </div>
@@ -1234,7 +1234,7 @@
       </div>
     <div nz-col nzSpan="4">
       <p style="margin-top: 10px;margin-bottom: 10px">气密性试验方式</p>
-      <nz-select [(ngModel)]="data.leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear style="width: 100%">
+      <nz-select nzAutoFocus [(ngModel)]="data.leaktest" nzPlaceHolder="气密性试验方式"  nzShowSearch nzAllowClear style="width: 100%">
         <nz-option *ngFor="let o of this.leaktests" [nzValue]="o" [nzLabel]="o.name"></nz-option>
       </nz-select>
     </div>

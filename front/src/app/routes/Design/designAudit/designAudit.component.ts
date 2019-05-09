@@ -28,7 +28,7 @@ export class DesignAuditComponent implements OnInit {
   searchData(){
     this.designAuditService.getaudit().subscribe((res:any)=>{
       if(res['result']=="success"){
-        this.dataSet = res['data'].reverse();
+        this.dataSet = res['data'];
       }
     })
   }

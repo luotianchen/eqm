@@ -770,11 +770,15 @@ export class DesignInputComponent implements OnInit {
         }
       })
     }else{
-      this.designInputService.saveChannel({dwgno:this.validateForm.value.dwgno,data:channelData}).subscribe((res)=>{
-        if(res["result"]=="success"){
-          this.saveProduce()
-        }
-      })
+      if(this.validateForm.value.channelnum>0){
+        this.designInputService.saveChannel({dwgno:this.validateForm.value.dwgno,data:channelData}).subscribe((res)=>{
+          if(res["result"]=="success"){
+            this.saveProduce()
+          }
+        })
+      }else{
+        this.saveProduce()
+      }
     }
   }
   submitForm(){
@@ -910,11 +914,15 @@ export class DesignInputComponent implements OnInit {
           }
         })
       }else{
-        this.designInputService.putChannel({dwgno:this.validateForm.value.dwgno,data:channelData}).subscribe((res)=>{
-          if(res["result"]=="success"){
-            this.putProduce()
-          }
-        })
+        if(this.validateForm.value.channelnum>0){
+          this.designInputService.putChannel({dwgno:this.validateForm.value.dwgno,data:channelData}).subscribe((res)=>{
+            if(res["result"]=="success"){
+              this.putProduce()
+            }
+          })
+        }else{
+          this.putProduce()
+        }
       }
     }
   }

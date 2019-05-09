@@ -35,21 +35,8 @@ export class DesignQueryComponent implements OnInit {
     this.designQueryService.getaudited().subscribe((res:any)=>{
       if(res['result']=="success"){
         this.loading = false;
-        let dwgnos = res['data'];
-        this.dataSet2 = [];
-        for(let dwgno of dwgnos){
-          let data = {dwgno:dwgno};
-          this.dataSet2.push(data);
-          let that = this;
-          this.designQueryService.getbydwgno(dwgno,1).subscribe((res:any)=>{
-            if(res['result'] == "success"){
-              for(let i in res['data']){
-                that.dataSet2.filter(item=>item.dwgno == dwgno)[0][i] = res['data'][i];
-              }
-            }
-          });
-        }
-        this.dataSet2Display = this.dataSet2.reverse().filter(item=>!this.validateForm.value.dwgno || item.dwgno == this.validateForm.value.dwgno);
+        this.dataSet2 = res['data']
+        this.dataSet2Display = this.dataSet2.filter(item=>!this.validateForm.value.dwgno || item.dwgno == this.validateForm.value.dwgno);
       }
     })
   }

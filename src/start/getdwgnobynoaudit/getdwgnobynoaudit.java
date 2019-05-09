@@ -27,8 +27,8 @@ public class getdwgnobynoaudit {                                    //获取所�
         getdwgnobynoauditdata data = null;
         ArrayList<getdwgnobynoauditdata> ag = new ArrayList<getdwgnobynoauditdata>();
 
-//        try {
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 0");
+        try {
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 0 ORDER BY date DESC");
             rs = ps.executeQuery();
             while (rs.next()){
                 for (int i = 0;i<ag.size();i++){
@@ -54,9 +54,9 @@ public class getdwgnobynoaudit {                                    //获取所�
             ps.close();
             result.setData(ag);
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }

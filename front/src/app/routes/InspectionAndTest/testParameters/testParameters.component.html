@@ -13,7 +13,7 @@
         <nz-form-label [nzSm]="9" nzFor="dwgno">图号</nz-form-label>
         <nz-form-control [nzSm]="14">
           <nz-select formControlName="dwgno" name="dwgno" id="dwgno" nzPlaceHolder="图号" nzShowSearch nzAllowClear (ngModelChange)="getChannel()">
-            <nz-option *ngFor="let o of this.dwgnos" [nzValue]="o" [nzLabel]="o"></nz-option>
+            <nz-option *ngFor="let o of dwgnos" [nzValue]="o.dwgno" [nzLabel]="o.dwgno"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>

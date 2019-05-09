@@ -142,9 +142,27 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
     this.audit_result.c_note = this.dataDetail[audit].c_note;
     this.audit_result[this.audit_user[type]] = this._storage.get("username");
     this.audit_result.audit = audit;
+    let that = this;
     this.materialSubstitutionAuditService.audit(this.audit_result).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
+        that.audit_result = {
+          audit:null,
+          design_status:0,
+          matl_status:0,
+          welding_status:0,
+          process_status:0,
+          inspection_status:0,
+          status_b:0,
+          status_c:0,
+          design_note:null,
+          matl_note:null,
+          welding_note:null,
+          process_note:null,
+          inspection_note:null,
+          b_note:null,
+          c_note:null
+        };
         this.searchData();
       }else{
         this.message.error("操作失败，请稍后重试！");
@@ -166,5 +184,17 @@ export class MaterialSubstitutionAuditComponent implements OnInit {
   changeRole(){
     this.isVisible = true;
     this.rolename = null;
+  }
+  haveb(o){
+    for(let item of o){
+      if(item.type=='B') return true
+    }
+    return false;
+  }
+  havec(o){
+    for(let item of o){
+      if(item.type=='C') return true
+    }
+    return false;
   }
 }
