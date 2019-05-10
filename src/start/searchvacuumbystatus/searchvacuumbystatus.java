@@ -26,7 +26,7 @@ public class searchvacuumbystatus {                                     //查询
         ArrayList<searchvacuumbystatusdata> as = new ArrayList<searchvacuumbystatusdata>();
         searchvacuumbystatusdata data = null;
 
-        String sql = "SELECT * FROM vacuumparameters WHERE 1=1 ";
+        String sql = "SELECT `id`, `prodno`, `initnum`, `statnum`, `initpa`, `statpa`, `htcurrent`, `initdate`, `enddate`, `sealvacu`, `sealdate`, `testtemp`, `sealtemp`, `vacuop`, `leakoutrate`, `status`, (SELECT name FROM userform WHERE username = audit_user) as `audit_user`, `date`, (SELECT name FROM userform WHERE username = user) as user FROM vacuumparameters WHERE 1=1 ";
         int num = 0;
 
         try {

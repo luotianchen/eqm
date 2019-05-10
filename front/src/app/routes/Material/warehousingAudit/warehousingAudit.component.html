@@ -95,7 +95,7 @@
       <th>牌号</th>
       <th>规格</th>
       <th>生产单位</th>
-      <th>数量</th>
+      <th style="min-width: 60px">数量</th>
       <th>供货单位</th>
       <th style="min-width: 110px">操作</th>
     </tr>
@@ -121,58 +121,58 @@
       <tr [nzExpand]="data.expand">
         <td></td>
         <td colspan="10">
-          <div nz-row class="datas">
-            <span nz-col nzSpan="4" *ngIf="data.warrantysitu!=null"><strong>质保书情况：</strong>{{data.warrantysitu}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.note!=null"><strong>备注：</strong>{{data.note}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.indate!=null"><strong>入库日期：</strong>{{data.indate}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.warrantyno!=null"><strong>质保书号：</strong>{{data.warrantyno}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.matlstand!=null"><strong>材料标准号：</strong>{{data.matlstand}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.modelstand!=null"><strong>型号标准号：</strong>{{data.modelstand}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.unit!=null"><strong>数量单位：</strong>{{data.unit}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.dimension!=null"><strong>尺寸：</strong>{{data.dimension}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.heatbatchno!=null"><strong>炉批号：</strong>{{data.heatbatchno}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.c!=null"><strong>C%：</strong>{{data.c}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.s!=null"><strong>S%：</strong>{{data.s}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.mn!=null"><strong>Mn%：</strong>{{data.mn}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.cu!=null"><strong>Cu%：</strong>{{data.cu}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.ni!=null"><strong>Ni%：</strong>{{data.ni}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.cr!=null"><strong>Cr%：</strong>{{data.cr}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.mo!=null"><strong>Mo%：</strong>{{data.mo}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.nb!=null"><strong>Nb%：</strong>{{data.nb}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.v!=null"><strong>V%：</strong>{{data.v}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.ti!=null"><strong>Ti%：</strong>{{data.ti}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.als!=null"><strong>ALs%：</strong>{{data.als}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.alt!=null"><strong>ALt%：</strong>{{data.alt}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.n!=null"><strong>N%：</strong>{{data.n}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.fe!=null"><strong>Fe%：</strong>{{data.fe}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.mg!=null"><strong>Mg%：</strong>{{data.mg}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.zn!=null"><strong>Zn%：</strong>{{data.zn}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.b!=null"><strong>B%：</strong>{{data.b}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.w!=null"><strong>W%：</strong>{{data.w}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.sb!=null"><strong>Sb%：</strong>{{data.sb}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.al!=null"><strong>Al%：</strong>{{data.al}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.zr!=null"><strong>Zr%：</strong>{{data.zr}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.ca!=null"><strong>Ca%：</strong>{{data.ca}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.be!=null"><strong>Be%：</strong>{{data.be}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.p!=null"><strong>P%：</strong>{{data.p}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.si!=null"><strong>Si%：</strong>{{data.si}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.heatcondi!=null"><strong>热处理状态：</strong>{{data.heatcondi}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.rel1!=null"><strong>屈服强度1：</strong>{{data.rel1}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.rel2!=null"><strong>屈服强度2：</strong>{{data.rel2}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.rm1!=null"><strong>抗拉强度1：</strong>{{data.rm1}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.rm2!=null"><strong>抗拉强度2：</strong>{{data.rm2}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.elong1!=null"><strong>延长率1：</strong>{{data.elong1}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.elong2!=null"><strong>延长率2：</strong>{{data.elong2}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.hardness1!=null"><strong>硬度1：</strong>{{data.hardness1}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.hardness2!=null"><strong>硬度2：</strong>{{data.hardness2}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.hardness3!=null"><strong>硬度3：</strong>{{data.hardness3}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.impactp1!=null"><strong>冲击功1：</strong>{{data.impactp1}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.impactp2!=null"><strong>冲击功2：</strong>{{data.impactp2}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.impactp3!=null"><strong>冲击功3：</strong>{{data.impactp3}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.impacttemp!=null"><strong>冲击温度：</strong>{{data.impacttemp}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.bendangle!=null"><strong>弯曲角度：</strong>{{data.bendangle}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.bendaxdia!=null"><strong>弯曲直径：</strong>{{data.bendaxdia}}</span>
-            <span nz-col nzSpan="4" *ngIf="data.utclass!=null"><strong>超声波级别：</strong>{{utclass[data.utclass]}}</span>
+          <div nz-row nzType="flex" nzJustify="start" nzAlign="top">
+            <div nz-col nzSpan="4" *ngIf="data.warrantysitu!=null"><strong>质保书情况：</strong>{{data.warrantysitu}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.note!=null"><strong>备注：</strong>{{data.note}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.indate!=null"><strong>入库日期：</strong>{{data.indate}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.warrantyno!=null"><strong>质保书号：</strong>{{data.warrantyno}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.matlstand!=null"><strong>材料标准号：</strong>{{data.matlstand}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.modelstand!=null"><strong>型号标准号：</strong>{{data.modelstand}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.unit!=null"><strong>数量单位：</strong>{{data.unit}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.dimension!=null"><strong>尺寸：</strong>{{data.dimension}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.heatbatchno!=null"><strong>炉批号：</strong>{{data.heatbatchno}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.c!=null"><strong>C：</strong>{{data.c}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.s!=null"><strong>S：</strong>{{data.s}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.mn!=null"><strong>Mn：</strong>{{data.mn}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.cu!=null"><strong>Cu：</strong>{{data.cu}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.ni!=null"><strong>Ni：</strong>{{data.ni}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.cr!=null"><strong>Cr：</strong>{{data.cr}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.mo!=null"><strong>Mo：</strong>{{data.mo}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.nb!=null"><strong>Nb：</strong>{{data.nb}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.v!=null"><strong>V：</strong>{{data.v}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.ti!=null"><strong>Ti：</strong>{{data.ti}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.als!=null"><strong>ALs：</strong>{{data.als}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.alt!=null"><strong>ALt：</strong>{{data.alt}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.n!=null"><strong>N：</strong>{{data.n}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.fe!=null"><strong>Fe：</strong>{{data.fe}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.mg!=null"><strong>Mg：</strong>{{data.mg}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.zn!=null"><strong>Zn：</strong>{{data.zn}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.b!=null"><strong>B：</strong>{{data.b}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.w!=null"><strong>W：</strong>{{data.w}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.sb!=null"><strong>Sb：</strong>{{data.sb}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.al!=null"><strong>Al：</strong>{{data.al}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.zr!=null"><strong>Zr：</strong>{{data.zr}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.ca!=null"><strong>Ca：</strong>{{data.ca}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.be!=null"><strong>Be：</strong>{{data.be}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.p!=null"><strong>P：</strong>{{data.p}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.si!=null"><strong>Si：</strong>{{data.si}}%</div>
+            <div nz-col nzSpan="4" *ngIf="data.heatcondi!=null"><strong>热处理状态：</strong>{{data.heatcondi}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.rel1!=null"><strong>屈服强度1：</strong>{{data.rel1}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.rel2!=null"><strong>屈服强度2：</strong>{{data.rel2}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.rm1!=null"><strong>抗拉强度1：</strong>{{data.rm1}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.rm2!=null"><strong>抗拉强度2：</strong>{{data.rm2}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.elong1!=null"><strong>延长率1：</strong>{{data.elong1}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.elong2!=null"><strong>延长率2：</strong>{{data.elong2}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.hardness1!=null"><strong>硬度1：</strong>{{data.hardness1}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.hardness2!=null"><strong>硬度2：</strong>{{data.hardness2}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.hardness3!=null"><strong>硬度3：</strong>{{data.hardness3}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.impactp1!=null"><strong>冲击功1：</strong>{{data.impactp1}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.impactp2!=null"><strong>冲击功2：</strong>{{data.impactp2}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.impactp3!=null"><strong>冲击功3：</strong>{{data.impactp3}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.impacttemp!=null"><strong>冲击温度：</strong>{{data.impacttemp}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.bendangle!=null"><strong>弯曲角度：</strong>{{data.bendangle}}</div>
+            <div nz-col nzSpan="4" *ngIf="data.bendaxdia!=null"><strong>弯曲直径：</strong>{{data.bendaxdia}}a</div>
+            <div nz-col nzSpan="4" *ngIf="data.utclass!=null"><strong>超声波级别：</strong>{{utclass[data.utclass]}}</div>
           </div>
         </td>
       </tr>

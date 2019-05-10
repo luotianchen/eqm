@@ -15,7 +15,7 @@ import java.util.Collections;
 @CrossOrigin
 @Controller
 public class searchprodnobydwgno {
-    @RequestMapping(value = "searchprodnobydwgno")
+    @RequestMapping(value = "searchprodnobydwgno") //通过图号查询产品编号
     public @ResponseBody
     searchprodnobydwgnoresult searchbydepartment(@RequestBody searchprodnobydwgnopost sp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();

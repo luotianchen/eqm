@@ -82,7 +82,7 @@ public class searchsubstitutestatus {                                           
                 ps1.close();
 
                 if(b_f==0 && c_f==0){
-                    if(!(rs.getInt("design_status")==1 &&rs.getInt("design_status")==1 &&rs.getInt("design_status")==1 &&rs.getInt("design_status")==1)){
+                    if(!(rs.getInt("design_status")==1 &&rs.getInt("matl_status")==1 &&rs.getInt("welding_status")==1 &&rs.getInt("process_status")==1&&rs.getInt("inspection_status")==1)){
                         data.setAudit(rs.getString("audit"));
                         data.setDate(sdf.format(rs.getDate("date")));
                         data.setProdno(rs.getString("prodno"));
@@ -131,6 +131,8 @@ public class searchsubstitutestatus {                                           
                         }
                     }
                 }
+                b_f = 0;
+                c_f = 0;
             }
             rs.close();
             ps.close();

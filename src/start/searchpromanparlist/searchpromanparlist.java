@@ -28,7 +28,7 @@ public class searchpromanparlist {                              //产品制造�
         ArrayList<searchpromanparlistdata> as = new ArrayList<searchpromanparlistdata>();
         searchpromanparlistdata data = null;
 
-        String sql = "SELECT * FROM promanparlist WHERE 1=1 ";
+        String sql = "SELECT `id`, `prodno`, `orderunit`, `eorderunit`, `proparlist_id_dwgno`, `ecode`, `dealter`, `submatl`, `docum`, `dedate`, `blankdate`, `matlretest`, `specmatl`, `overmatl`, `nwpq`, `nprocess`, `copsitu`, `aweldmaxangul`, `bweldmaxangul`, `aweldmaxalign`, `bweldmaxalign`, `weldreinfs`, `weldreinfd`, `exworkdate`, (select `name` from userform where username = user) as `user`, `date`, (select `name` from userform where username = audit_user) as `audit_user`, `status`, `type`, `etype`, `proheight`, `innerdia`, `roundness`, `length`, `straightness`, `thick`, `minthickstand`, `minthick`, `outward`, `concave` FROM promanparlist WHERE 1=1 ";
         int num = 0;
 
         try {

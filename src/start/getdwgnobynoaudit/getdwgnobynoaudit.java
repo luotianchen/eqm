@@ -28,7 +28,7 @@ public class getdwgnobynoaudit {                                    //获取所�
         ArrayList<getdwgnobynoauditdata> ag = new ArrayList<getdwgnobynoauditdata>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE audit = 0 ORDER BY date DESC");
+            ps = conn.prepareStatement("SELECT date,dwgno,(SELECT name FROM userform WHERE username = user) as user,id FROM proparlist WHERE audit = 0 ORDER BY date DESC");
             rs = ps.executeQuery();
             while (rs.next()){
                 for (int i = 0;i<ag.size();i++){

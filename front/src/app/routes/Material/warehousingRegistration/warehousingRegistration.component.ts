@@ -242,6 +242,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       this.validateForm.controls['hardness1'].setValidators([]);
       this.validateForm.controls['hardness2'].setValidators([]);
       this.validateForm.controls['hardness3'].setValidators([]);
+      return;
     }
     if(this.validateForm.controls[name].value==null)
       this.validateForm.controls[name].setErrors({required: true});
@@ -567,22 +568,17 @@ export class WarehousingRegistrationComponent implements OnInit {
    * 判断弯曲直径大小（格式：数组+'a'），输入弯曲直径应大于标准中的直径大小
    */
   judgeBendaxdia(){
-    let value = this.validateForm.value.bendaxdia;
-    let exp = /^([1-9]\d*|0)(\.\d{1,2})*(a)$/;
-    if(!exp.test(value)){
-      this.validateForm.controls["bendaxdia"].setValue(null);
-      return;
-    }
-    if(this.dataDetail.bendaxdia){
-      let index = this.dataDetail.bendaxdia.indexOf("a");
-      let yaoqiu = parseFloat(this.dataDetail.bendaxdia.substring(0,index));
-      let index2 = value.indexOf("a");
-      let newValue = parseFloat(value.substring(0,index2));
-      if(newValue > yaoqiu){
-        this.validateForm.controls["bendaxdia"].setValue(null);
+    if(this.validateForm.value.bendaxdia){
+      let value = this.validateForm.value.bendaxdia;
+      if(this.dataDetail.bendaxdia){
+        let index = this.dataDetail.bendaxdia.indexOf("a");
+        let yaoqiu = parseFloat(this.dataDetail.bendaxdia.substring(0,index));
+        if(this.validateForm.value.bendaxdia > yaoqiu)
+          this.validateForm.controls["bendaxdia"].setErrors({overflow: true, error: true});
+        else
+          this.validateForm.controls["bendaxdia"].setErrors(null)
       }
     }
-
   }
   onSaveClick(){
     if(this.validateForm.value.warrantysitu!='质保书未到')
@@ -1217,4 +1213,7 @@ export class WarehousingRegistrationComponent implements OnInit {
     this.router.navigateByUrl(route);
     this.updateMenu();
   }
+  formatterA = (value: number) => value?`${value}a`:null;
+  parserA  = (value: string)=>value.replace('a', '');
+
 }

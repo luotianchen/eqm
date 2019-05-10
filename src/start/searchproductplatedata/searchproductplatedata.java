@@ -26,7 +26,7 @@ public class searchproductplatedata {                                           
         ArrayList<searchproductplatedatadata> as = new ArrayList<searchproductplatedatadata>();
         searchproductplatedatadata data = null;
 
-        String sql = "SELECT * FROM productplate WHERE 1=1 ";
+        String sql = "SELECT `id`, (SELECT name FROM userform WHERE username = user) as user, `status`, `date`, (SELECT name FROM userform WHERE username = audit_user) as audit_user, `prodno`, `testno`, `specimenno`, `specimentype`, `specimenmatl`, `specimenspec`, `parentmatltand`, `judgestand`, `testdate`, `a`, `b`, `so`, `f02`, `f1`, `f02mpa`, `f1mpa`, `fm`, `rm`, `lo`, `lu`, `apercent`, `fractposit`, `hardness1`, `hardness2`, `hardness3`, `bendangle`, `bendaxdia`, `bendatype`, `surfacebending1`, `backbending1`, `surfacebending2`, `backbending2`, `w1`, `lew1`, `w2`, `lew2`, `w3`, `lew3`, `h1`, `leh1`, `h2`, `leh2`, `h3`, `leh3`, `gaptype`, `shocktemp` FROM productplate WHERE 1=1 ";
         int num = 0;
 
         try {

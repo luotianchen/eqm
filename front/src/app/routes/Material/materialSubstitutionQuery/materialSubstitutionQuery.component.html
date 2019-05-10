@@ -1,5 +1,5 @@
 <div>
-  <h3 class="title">材料入库情况查询</h3>
+  <h3 class="title">材料代用通知单查询</h3>
 </div>
 <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
   <div nz-row [nzGutter]="24">
@@ -249,21 +249,21 @@
       <td colspan=2 rowspan=5 height=200 class=xl80 width=48 style='border-right:
   .5pt solid black;border-bottom:.5pt solid black;height:153.75pt;width:36pt'>审批</td>
       <td colspan=20 class=xl101 width=480 style='border-left:none;width:360pt'>设计责任人：
-        &nbsp;&nbsp;&nbsp;<span *ngIf="reportData.chave">{{reportData.c_note}}</span>
-        <img *ngIf="reportData.chave && reportData.c_username!=null" style="height:34px;float: right" src="{{reportData.c_username}}">
+        &nbsp;&nbsp;&nbsp;<span *ngIf="reportData.c_have">{{reportData.c_note}}</span>
+        <img *ngIf="reportData.c_have && reportData.c_username!=null" style="height:34px;float: right" src="{{reportData.c_username}}">
       </td>
       <td colspan=6 class=xl99 width=144 style='border-right:.5pt solid black;
-  width:108pt'><span *ngIf="reportData.chave">{{reportData.date[0]}}年{{reportData.date[1]}}月{{reportData.date[2]}}日</span></td>
+  width:108pt'><span *ngIf="reportData.c_have">{{reportData.date[0]}}年{{reportData.date[1]}}月{{reportData.date[2]}}日</span></td>
       <td class=xl65 width=24 style='border-top:none;border-left:none;width:18pt'>C类</td>
     </tr>
     <tr height=40 style='mso-height-source:userset;height:30.75pt'>
       <td colspan=20 height=40 class=xl101 width=480 style='height:30.75pt;
   border-left:none;width:360pt'>技术负责人：
-        &nbsp;&nbsp;&nbsp;<span *ngIf="reportData.bhave">{{reportData.b_note}}</span>
-        <img *ngIf="reportData.bhave && reportData.b_username!=null" style="height:34px;float: right" src="{{reportData.b_username}}">
+        &nbsp;&nbsp;&nbsp;<span *ngIf="reportData.b_have">{{reportData.b_note}}</span>
+        <img *ngIf="reportData.b_have && reportData.b_username!=null" style="height:34px;float: right" src="{{reportData.b_username}}">
       </td>
       <td colspan=6 class=xl99 width=144 style='border-right:.5pt solid black;
-  width:108pt'><span *ngIf="reportData.bhave">{{reportData.date[0]}}年{{reportData.date[1]}}月{{reportData.date[2]}}日</span></td>
+  width:108pt'><span *ngIf="reportData.b_have">{{reportData.date[0]}}年{{reportData.date[1]}}月{{reportData.date[2]}}日</span></td>
       <td class=xl65 width=24 style='border-top:none;border-left:none;width:18pt'>B类</td>
     </tr>
     <tr class=xl65535 height=40 style='mso-height-source:userset;height:30.75pt'>

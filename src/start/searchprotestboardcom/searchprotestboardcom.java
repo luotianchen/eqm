@@ -26,7 +26,7 @@ public class searchprotestboardcom {                                    //产品
         ArrayList<searchprotestboardcomdata> as = new ArrayList<searchprotestboardcomdata>();
         searchprotestboardcomdata data = null;
 
-        String sql = "SELECT * FROM protestboardcom WHERE 1=1 ";
+        String sql = "SELECT `id`, `prodno`, `prodname`, `evaluastand`, `specimenno`, `specimenname`, `weldingsteelseal`, `designation`, `spec`, `groovetype`, `weldingmethod`, `weldingposition`, `heatcondi`, `representno`, `representpart`, `drawingnumber`, `surfacebending`, `backbending`, `lateralbending`, `flattening`, `shocktemperature`, `weldzoneshocknum`, `thermalimpactzonenum`, (select `name` from userform where username = user) as `user`,(select `name` from userform where username = audit_user) as `audit_user`, `date`, `status` FROM protestboardcom WHERE 1=1 ";
         int num = 0;
 
         try {

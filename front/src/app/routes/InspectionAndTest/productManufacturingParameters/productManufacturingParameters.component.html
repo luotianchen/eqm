@@ -140,7 +140,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="nprocess">新工艺</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="新工艺（固容规规定外的情况）"  formControlName="nprocess" name="nprocess" id="nprocess">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="新工艺(固容规规定外的情况)"  formControlName="nprocess" name="nprocess" id="nprocess">
             <nz-option nzLabel="有" nzValue="有"></nz-option>
             <nz-option nzLabel="无" nzValue="无"></nz-option>
           </nz-select>
@@ -178,7 +178,7 @@
     </div>
     <div nz-col [nzSpan]="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="thick">冷卷筒体投料厚度{{returnArray2String(this.dataStand.shthick)}}</nz-form-label>
+        <nz-form-label nzRequired nzFor="thick" [ngClass]="this.dataStand.shthick.length>3?'lengjuan':''">冷卷筒体投料厚度{{returnArray2String(this.dataStand.shthick)}}</nz-form-label>
         <nz-form-control>
           <input nz-input placeholder="冷卷筒体投料厚度实测值" formControlName="thick" name="thick" id="thick"/>
         </nz-form-control>
@@ -203,7 +203,7 @@
     <div nz-col [nzSpan]="4"
          *ngIf="this.validateForm.value.dwgno!=null">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="proheight">产品总高（标准值：{{dataStand.proheight}}）</nz-form-label>
+        <nz-form-label nzRequired nzFor="proheight">产品总高(标准值：{{dataStand.proheight}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="产品总高实测值" formControlName="proheight" name="proheight" id="proheight"/>
         </nz-form-control>
@@ -212,7 +212,7 @@
     <div nz-col [nzSpan]="4"
          *ngIf="this.validateForm.value.dwgno!=null">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="length">筒体长度（标准值：{{dataStand.length}}）</nz-form-label>
+        <nz-form-label nzRequired nzFor="length">筒体长度(标准值：{{dataStand.length}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="筒体长度实测值" formControlName="length" name="length" id="length"/>
         </nz-form-control>
@@ -221,7 +221,7 @@
     <div nz-col [nzSpan]="4"
          *ngIf="this.validateForm.value.dwgno!=null">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="straightness">筒体直线度（标准值：{{dataStand.straightness}}）</nz-form-label>
+        <nz-form-label nzRequired nzFor="straightness">筒体直线度(标准值：{{dataStand.straightness}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="筒体直线度实测值" formControlName="straightness" name="straightness" id="straightness"/>
         </nz-form-control>
@@ -278,13 +278,13 @@
   </ng-container>
   <ng-container *ngFor="let item of dataStand.weldreinfs;let i = index">
     <div nz-col [nzSpan]="4" *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfs.length>0">
-      <p>焊缝余高（单面坡口）{{i+1}}</p>
+      <p>焊缝余高(单面坡口){{i+1}}</p>
       <nz-input-number [(ngModel)]="dataDetail.weldreinfs[i]" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'0~'+item" style="width:100%;"></nz-input-number>
     </div>
   </ng-container>
   <ng-container *ngFor="let item of dataStand.weldreinfd;let i = index">
     <div nz-col [nzSpan]="4" *ngIf="this.validateForm.value.dwgno!=null && dataStand.weldreinfd.length>0">
-      <p>焊缝余高（双面坡口）{{i+1}}</p>
+      <p>焊缝余高(双面坡口){{i+1}}</p>
       <nz-input-number [(ngModel)]="dataDetail.weldreinfd[i]" [nzMin]="0" [nzStep]="1" [nzPlaceHolder]="'0~'+item" style="width:100%;"></nz-input-number>
     </div>
   </ng-container>
@@ -387,7 +387,7 @@
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="weldreinfs2">焊缝余高（单面坡口）(标准值：{{dataStand2.weldreinfs}})</nz-form-label>
+        <nz-form-label nzRequired nzFor="weldreinfs2">焊缝余高(单面坡口)(标准值：{{dataStand2.weldreinfs}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="请输入实测值" formControlName="weldreinfs" name="weldreinfs" id="weldreinfs2"/>
         </nz-form-control>
@@ -395,7 +395,7 @@
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="weldreinfd">焊缝余高（双面坡口）(标准值：{{dataStand2.weldreinfd}})</nz-form-label>
+        <nz-form-label nzRequired nzFor="weldreinfd">焊缝余高(双面坡口)(标准值：{{dataStand2.weldreinfd}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="请输入实测值" formControlName="weldreinfd" name="weldreinfd" id="weldreinfd"/>
         </nz-form-control>
@@ -427,7 +427,7 @@
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="proheight2">产品总高（标准值：{{dataStand2.proheight}}）</nz-form-label>
+        <nz-form-label nzRequired nzFor="proheight2">产品总高(标准值：{{dataStand2.proheight}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="产品总高实测值" formControlName="proheight" name="proheight" id="proheight2"/>
         </nz-form-control>
@@ -435,7 +435,7 @@
     </div>
     <div nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="length2">筒体长度（标准值：{{dataStand2.length}}）</nz-form-label>
+        <nz-form-label nzRequired nzFor="length2">筒体长度(标准值：{{dataStand2.length}})</nz-form-label>
         <nz-form-control>
           <input nz-input placeHolder="筒体长度实测值" formControlName="length" name="length" id="length2"/>
         </nz-form-control>
@@ -490,7 +490,7 @@
 
 <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
   <ng-template #modalTitle>
-    安全泄放装置信息输入（图号：{{this.validateForm.value.dwgno}}）
+    安全泄放装置信息输入(图号：{{this.validateForm.value.dwgno}})
   </ng-template>
 
   <ng-template #modalContent>

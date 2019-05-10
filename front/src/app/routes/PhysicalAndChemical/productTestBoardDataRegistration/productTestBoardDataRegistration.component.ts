@@ -146,8 +146,8 @@ export class ProductTestBoardDataRegistrationComponent implements OnInit {
     else
       this.validateForm.controls['so'].setValue("请检查输入是否有误!");
   }
-  formatterA = (value: number) => value?`${value} a`:null;
-  parserA = (value: string) => value.replace(' a', '');
+  formatterA = (value: number) => value?`${value}a`:null;
+  parserA = (value: string) => value.replace('a', '');
 
   setProdno(){
     this.prodnos = [];

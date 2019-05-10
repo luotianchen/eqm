@@ -843,7 +843,15 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="bendaxdia">弯曲直径</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <input placeholder="≤{{this.dataDetail.bendaxdia}}" nz-input formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" (blur)="judgeBendaxdia()">
+            <nz-input-number style="width: 100%" nzPlaceHolder="≤{{this.dataDetail.bendaxdia}}" formControlName="bendaxdia" name="bendaxdia" id="bendaxdia" nzAddOnAfter="a" [nzFormatter]="formatterA" [nzParser]="parserA" (ngModelChange)="judgeBendaxdia()"></nz-input-number>
+            <nz-form-explain *ngIf="validateForm.get('bendaxdia').dirty&&validateForm.get('bendaxdia').errors">
+              <ng-container *ngIf="validateForm.get('bendaxdia').hasError('required')">
+                弯曲直径不能为空
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('bendaxdia').hasError('overflow')">
+                输入值应≤{{this.dataDetail.bendaxdia}}！
+              </ng-container>
+            </nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>

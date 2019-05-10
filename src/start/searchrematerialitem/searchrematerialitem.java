@@ -26,7 +26,7 @@ public class searchrematerialitem {                                 //材料复�
         ArrayList<searchrematerialitemdata> as = new ArrayList<searchrematerialitemdata>();
         searchrematerialitemdata data = null;
 
-        String sql = "SELECT * FROM rematerialitem WHERE 1=1 ";
+        String sql = "SELECT `id`, `codedmarking`, `why`, `forceperformance`, `chemicalcomposition`, (SELECT name FROM userform WHERE username = user) as user, (SELECT name FROM userform WHERE username = audit_user) as `audit_user`, `date`, `status` FROM rematerialitem WHERE 1=1 ";
         int num = 0;
 
         try {

@@ -156,7 +156,7 @@
         <td colspan=4 class=xl73 width=197 style='border-left:none;width:148pt'>{{item.supplier}}</td>
         <td colspan=2 class=xl73 width=98 style='border-left:none;width:74pt'>材料标准</td>
         <td colspan=6 class=xl73 width=314 style='border-right:1.0pt solid black;
-  border-left:none;width:236pt'>{{item.modelstand+"/"}}{{item.matlstand}}</td>
+  border-left:none;width:236pt'>{{item.modelstand}}{{(item.modelstand&&item.matlstand)||(!item.modelstand&&!item.matlstand)?'/':''}}{{item.matlstand}}</td>
       </tr>
       <tr height=44 style='mso-height-source:userset;height:33.0pt'>
         <td colspan=2 height=44 class=xl72 width=98 style='height:33.0pt;width:74pt'>质证书号</td>
@@ -373,7 +373,7 @@
         <td colspan=2 rowspan=2 class=xl90 width=211 style='border-right:.5pt solid black;
   border-bottom:.5pt solid black;width:158pt'>{{showDate(item.indate)}}</td>
         <td rowspan=2 class=xl75 width=71 style='border-top:none;width:53pt'>标准</td>
-        <td rowspan=2 class=xl98 width=152 style='border-top:none;width:114pt'>{{item.modelstand+"/"}}{{item.matlstand}}</td>
+        <td rowspan=2 class=xl98 width=152 style='border-top:none;width:114pt'>{{item.modelstand}}{{(item.modelstand&&item.matlstand)||(!item.modelstand&&!item.matlstand)?'/':''}}{{item.matlstand}}</td>
       </tr>
       <tr height=24 style='mso-height-source:userset;height:18.0pt'>
         <td height=24 class=xl72 width=85 style='height:18.0pt;width:64pt'>单位</td>

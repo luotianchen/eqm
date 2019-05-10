@@ -29,7 +29,7 @@ public class searchpregaubystatus {                                         //æŸ
 
         liststring ls = new liststring();
 
-        String sql = "SELECT * FROM pregaumeatable WHERE status = ?";
+        String sql = "SELECT `id`, `gaugename`, `gaugeno`, `exitno`, `type`, `measrangemin`, `measrangemax`, `accuclass`, `millunit`, `exitdate`, `managlevel`, `calibdate`, `recalibdate`, `calibinterval`, `specialist`, `alarm`, `note`, (select `name` from userform where username = user) as `user`, `status`,  (select `name` from userform where username = audit_user) as `audit_user`, `date` FROM pregaumeatable WHERE status = ?";
         int num = 1;
 
         try {
@@ -76,8 +76,8 @@ public class searchpregaubystatus {                                         //æŸ
                 data.setSpecialist(ls.stringtolist(rs.getString("specialist"),"#"));
                 data.setCalibinterval(rs.getString("calibinterval"));
                 data.setNote(rs.getString("note"));
-                data.setUser(rs.getString("user"));
                 data.setDate(rs.getString("date"));
+                data.setUser(rs.getString("user"));
                 data.setAudit_user(rs.getString("audit_user"));
 
                 as.add(data);

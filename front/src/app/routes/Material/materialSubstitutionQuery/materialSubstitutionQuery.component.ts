@@ -147,7 +147,7 @@ export class MaterialSubstitutionQueryComponent implements OnInit {
           this.reportData["substitutespec"+(i+1)] = res["data"][i]["substitutespec"];
           this.reportData["type"+(i+1)] = res["data"][i]["type"];
           if(this.reportData["type"+(i+1)] == "B") this.reportData['b_have'] = true;
-          if(this.reportData["type"+(i+1)] == "C") this.reportData['C_have'] = true;
+          if(this.reportData["type"+(i+1)] == "C") this.reportData['c_have'] = true;
           this.reportData["code"] = res["data"][i]["code"];
         }
         this.reportData.design_note = res["data"][0]["design_note"];
