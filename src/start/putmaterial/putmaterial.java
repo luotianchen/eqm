@@ -269,7 +269,7 @@ public class putmaterial {                                                      
                 ps.setInt(43,designation_id);
                 ps.setInt(44,millunit_id);
                 ps.setString(45,pp.getImpacttemp());
-                ps.setInt(46,bendangle_id);
+                ps.setString(46,pp.getBendangle());
                 ps.setInt(47,utclass_id);
                 ps.setString(48,pp.getAls());
                 ps.setString(49,pp.getFe());
