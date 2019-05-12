@@ -187,12 +187,16 @@ export class RoleComponent implements OnInit {
     }
   }
 
-  showModal(type,args): void {
+  showModal(type,args:any): void {
     this.isVisible[type] = true;
     if(type=="changeDepartmentName" || type=="addRole")
       this.departmentId = args;
-    if(type=="changeRoleName" || "moveRole")
+    if(type=="changeRoleName")
       this.roleId = args;
+    if(type=="moveRole"){
+      this.roleId = args.role;
+      this.departmentId = args.department;
+    }
     if(type=="showUser"){
       this.username = args.username;
       this.name = args.name;

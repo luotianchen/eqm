@@ -1,12 +1,12 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
-import {FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {WarehousingRegistrationService} from "./warehousingRegistration.service";
 import {NzNotificationService, NzMessageService, NzModalService} from "ng-zorro-antd";
 import {SessionStorageService} from "../../../core/storage/storage.service";
-import {NzModalRef} from "ng-zorro-antd/modal";
 import {SettingsService} from "../../../core/services/settings.service";
 import {MenuService} from "../../../core/services/menu.service";
+import {NzModalRef} from "ng-zorro-antd";
 
 @Component({
   selector: 'app-warehousingRegistration',
@@ -236,7 +236,6 @@ export class WarehousingRegistrationComponent implements OnInit {
       }
     });
   }
-
   changeHardness(name){ //硬度校验
     if(name==null){
       this.validateForm.controls['hardness1'].setValidators([]);
@@ -388,14 +387,16 @@ export class WarehousingRegistrationComponent implements OnInit {
 
 
   getMatlstand(){
-    if(this.validateForm.value.designation!=null){
-      this.matlstand = [];
-      this.validateForm.controls['matlstand'].reset();
-      this.warehousingregistrationService.getmatlstandbydesignation(this.validateForm.value.designation).subscribe(res=>{
-        if(res['result']=="success"){
-          this.matlstand = res['matlstand'];
-        }
-      })
+    if(!this.getmode){
+      if(this.validateForm.value.designation!=null){
+        this.matlstand = [];
+        this.validateForm.controls['matlstand'].setValue(null);
+        this.warehousingregistrationService.getmatlstandbydesignation(this.validateForm.value.designation).subscribe(res=>{
+          if(res['result']=="success"){
+            this.matlstand = res['matlstand'];
+          }
+        })
+      }
     }
   }
 
@@ -403,165 +404,166 @@ export class WarehousingRegistrationComponent implements OnInit {
    * 当输入材料标准、牌号都输入完后，会先通过这两项去查询相应标准，若查不到，则检测规格是否输入，已输入则用材料标准、牌号、规格三项查询相应标准内容。
    */
   checkForContraststand(){
-    if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null &&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!=""){
-      this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,null).subscribe(res => {
-        if(res['result'] == "success") {
-          this.dataDetail = res['data'];
-          this.dataDetail.status = true;
-          this.notification.remove();
-          if(this.dataDetail.note)
-            this.notification.blank('注意', this.dataDetail.note, {
-              nzDuration: 5000,
-              nzStyle: {
-                color:"red"
+    if(!this.getmode)
+      if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null &&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!=""){
+        this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,null).subscribe(res => {
+          if(res['result'] == "success") {
+            this.dataDetail = res['data'];
+            this.dataDetail.status = true;
+            this.notification.remove();
+            if(this.dataDetail.note)
+              this.notification.blank('注意', this.dataDetail.note, {
+                nzDuration: 8000,
+                nzStyle: {
+                  color:"red"
+                }
+              });
+            switch (this.dataDetail.utclass) {
+              case 0:
+                this.utclasses = ['/']
+                this.validateForm.controls['utclass'].setValue('/');
+                this.validateForm.controls['utclass'].disable();
+                break;
+              case 1 :
+                this.validateForm.controls['utclass'].setValue(null);
+                this.validateForm.controls['utclass'].enable();
+                this.utclasses = [
+                  "I"
+                ];
+                break;
+              case 2 :
+                this.validateForm.controls['utclass'].setValue(null);
+                this.validateForm.controls['utclass'].enable();
+                this.utclasses = [
+                  "I",
+                  "II"
+                ];
+                break;
+              case 3 :
+                this.validateForm.controls['utclass'].setValue(null);
+                this.validateForm.controls['utclass'].enable();
+                this.utclasses = [
+                  "I",
+                  "II",
+                  "III"
+                ];
+                break;
+              case 4 :
+                this.validateForm.controls['utclass'].setValue(null);
+                this.validateForm.controls['utclass'].enable();
+                this.utclasses = [
+                  "I",
+                  "II",
+                  "III",
+                  "IV"
+                ];
+                break;
+            }
+            for (let i =0;i<this.maxmin.length;i++){
+              let item = this.maxmin[i];
+              if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
+                if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
+                this.validateForm.controls[item].setValidators([Validators.required]);
+              }else{
+                this.validateForm.controls[item].setValidators([]);
+              }
+            }
+            for(let i =0;i<this.direct.length;i++){
+              let item = this.direct[i];
+              if (this.dataDetail[item] != null) {
+                this.validateForm.controls[item].setValidators([Validators.required]);
+              }else{
+                this.validateForm.controls[item].setValidators([]);
+              }
+            }
+            this.changeHardness(null);
+            if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
+              this.validateForm.controls['heatcondi'].setValue(null);
+          }else if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
+            let specData = this.validateForm.value.spec;
+            if(this.validateForm.value.spec.indexOf("δ=")!=-1){
+              specData = parseFloat(this.validateForm.value.spec.substring(2,specData.length));
+            }
+            this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,specData).subscribe(res => {
+              if(res['result'] == "success"){
+                this.dataDetail = res['data'];
+                this.dataDetail.status = true;
+                this.notification.remove();
+                if(this.dataDetail.note)
+                  this.notification.blank('注意', this.dataDetail.note, {
+                    nzDuration: 8000,
+                    nzStyle: {
+                      color:"red"
+                    }
+                  });
+                switch(this.dataDetail.utclass){
+                  case 0:
+                    this.utclasses = ['/']
+                    this.validateForm.controls['utclass'].setValue('/');
+                    this.validateForm.controls['utclass'].disable();
+                    break;
+                  case 1 :
+                    this.validateForm.controls['utclass'].setValue(null);
+                    this.validateForm.controls['utclass'].enable();
+                    this.utclasses = [
+                      "I"
+                    ];
+                    break;
+                  case 2 :
+                    this.validateForm.controls['utclass'].setValue(null);
+                    this.validateForm.controls['utclass'].enable();
+                    this.utclasses = [
+                      "I",
+                      "II"
+                    ];
+                    break;
+                  case 3 :
+                    this.validateForm.controls['utclass'].setValue(null);
+                    this.validateForm.controls['utclass'].enable();
+                    this.utclasses = [
+                      "I",
+                      "II",
+                      "III"
+                    ];
+                    break;
+                  case 4 :
+                    this.validateForm.controls['utclass'].setValue(null);
+                    this.validateForm.controls['utclass'].enable();
+                    this.utclasses = [
+                      "I",
+                      "II",
+                      "III",
+                      "IV"
+                    ];
+                    break;
+                }
+                for (let i =0;i<this.maxmin.length;i++){
+                  let item = this.maxmin[i];
+                  if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
+                    this.validateForm.controls[item].setValidators([Validators.required]);
+                    if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                    if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
+                  }else{
+                    this.validateForm.controls[item].setValidators([]);
+                  }
+                }
+                for(let i =0;i<this.direct.length;i++){
+                  let item = this.direct[i];
+                  if (this.dataDetail[item] != null) {
+                    this.validateForm.controls[item].setValidators([Validators.required]);
+                  }else{
+                    this.validateForm.controls[item].setValidators([]);
+                  }
+                }
+                this.changeHardness(null);
+                if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
+                  this.validateForm.controls['heatcondi'].setValue(null);
               }
             });
-          switch (this.dataDetail.utclass) {
-            case 0:
-              this.utclasses = ['/']
-              this.validateForm.controls['utclass'].setValue('/');
-              this.validateForm.controls['utclass'].disable();
-              break;
-            case 1 :
-              this.validateForm.controls['utclass'].setValue(null);
-              this.validateForm.controls['utclass'].enable();
-              this.utclasses = [
-                "I"
-              ];
-              break;
-            case 2 :
-              this.validateForm.controls['utclass'].setValue(null);
-              this.validateForm.controls['utclass'].enable();
-              this.utclasses = [
-                "I",
-                "II"
-              ];
-              break;
-            case 3 :
-              this.validateForm.controls['utclass'].setValue(null);
-              this.validateForm.controls['utclass'].enable();
-              this.utclasses = [
-                "I",
-                "II",
-                "III"
-              ];
-              break;
-            case 4 :
-              this.validateForm.controls['utclass'].setValue(null);
-              this.validateForm.controls['utclass'].enable();
-              this.utclasses = [
-                "I",
-                "II",
-                "III",
-                "IV"
-              ];
-              break;
           }
-          for (let i =0;i<this.maxmin.length;i++){
-            let item = this.maxmin[i];
-            if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-              if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
-              if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
-              this.validateForm.controls[item].setValidators([Validators.required]);
-            }else{
-              this.validateForm.controls[item].setValidators([]);
-            }
-          }
-          for(let i =0;i<this.direct.length;i++){
-            let item = this.direct[i];
-            if (this.dataDetail[item] != null) {
-              this.validateForm.controls[item].setValidators([Validators.required]);
-            }else{
-              this.validateForm.controls[item].setValidators([]);
-            }
-          }
-          this.changeHardness(null);
-          if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
-            this.validateForm.controls['heatcondi'].setValue(null);
-        }else if(this.validateForm.value.matlstand!=null && this.validateForm.value.designation!=null && this.validateForm.value.spec!=null&&this.validateForm.value.matlstand!="" && this.validateForm.value.designation!="" && this.validateForm.value.spec!=""){
-          let specData = this.validateForm.value.spec;
-          if(this.validateForm.value.spec.indexOf("δ=")!=-1){
-            specData = parseFloat(this.validateForm.value.spec.substring(2,specData.length));
-          }
-          this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation ,specData).subscribe(res => {
-            if(res['result'] == "success"){
-              this.dataDetail = res['data'];
-              this.dataDetail.status = true;
-              this.notification.remove();
-              if(this.dataDetail.note)
-                this.notification.blank('注意', this.dataDetail.note, {
-                  nzDuration: 5000,
-                  nzStyle: {
-                    color:"red"
-                  }
-                });
-              switch(this.dataDetail.utclass){
-                case 0:
-                  this.utclasses = ['/']
-                  this.validateForm.controls['utclass'].setValue('/');
-                  this.validateForm.controls['utclass'].disable();
-                  break;
-                case 1 :
-                  this.validateForm.controls['utclass'].setValue(null);
-                  this.validateForm.controls['utclass'].enable();
-                  this.utclasses = [
-                    "I"
-                  ];
-                  break;
-                case 2 :
-                  this.validateForm.controls['utclass'].setValue(null);
-                  this.validateForm.controls['utclass'].enable();
-                  this.utclasses = [
-                    "I",
-                    "II"
-                  ];
-                  break;
-                case 3 :
-                  this.validateForm.controls['utclass'].setValue(null);
-                  this.validateForm.controls['utclass'].enable();
-                  this.utclasses = [
-                    "I",
-                    "II",
-                    "III"
-                  ];
-                  break;
-                case 4 :
-                  this.validateForm.controls['utclass'].setValue(null);
-                  this.validateForm.controls['utclass'].enable();
-                  this.utclasses = [
-                    "I",
-                    "II",
-                    "III",
-                    "IV"
-                  ];
-                  break;
-              }
-              for (let i =0;i<this.maxmin.length;i++){
-                let item = this.maxmin[i];
-                if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([Validators.required]);
-                  if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
-                  if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
-                }else{
-                  this.validateForm.controls[item].setValidators([]);
-                }
-              }
-              for(let i =0;i<this.direct.length;i++){
-                let item = this.direct[i];
-                if (this.dataDetail[item] != null) {
-                  this.validateForm.controls[item].setValidators([Validators.required]);
-                }else{
-                  this.validateForm.controls[item].setValidators([]);
-                }
-              }
-              this.changeHardness(null);
-              if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
-                this.validateForm.controls['heatcondi'].setValue(null);
-            }
-          });
-        }
-      });
-    }
+        });
+      }
   }
 
   /**
@@ -582,7 +584,7 @@ export class WarehousingRegistrationComponent implements OnInit {
   }
   onSaveClick(){
     if(this.validateForm.value.warrantysitu!='质保书未到')
-      this.message.error("请将质保书情况修改为质保书未到！");
+      this.message['error']("请将质保书情况修改为质保书未到！");
     else
       this.savetocache(null);
   }
@@ -654,14 +656,14 @@ export class WarehousingRegistrationComponent implements OnInit {
     if(this.validateForm.value.codedmarking!=null && this.validateForm.value.codedmarking!=""){
       this.warehousingregistrationService.putmaterialcache(data).subscribe(res => {
         if (res['result'] == "success") {
-          this.message.success("保存成功！");
+          this.message['success']("保存成功！");
         }else{
-          this.message.error("提交失败，请稍后重试！");
+          this.message['error']("提交失败，请稍后重试！");
 
         }
       })
     }else{
-      this.message.error("入库编号不能为空！");
+      this.message['error']("入库编号不能为空！");
     }
   }
   submitForm() {
@@ -734,7 +736,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       this.savetocache(null);
       this.warehousingregistrationService.submitForm(data).subscribe(res => {
         if (res['result'] == "success") {
-          const modal = this.modalService.success({
+          const modal = this.modalService['success']({
             nzTitle: '录入成功',
             nzContent: '录入成功1条记录'
           });
@@ -743,19 +745,21 @@ export class WarehousingRegistrationComponent implements OnInit {
           // window.setTimeout(() => this.backtoDashboard(modal), 3000);
 
         }else{
-          this.message.error("提交失败，请检查输入的数据后重新提交！");
+          this.message['error']("提交失败，请检查输入的数据后重新提交！");
 
         }
       })
     }
   }
 
-
+  errorData = null;
   backtoDashboard(modal){
     modal.destroy();
     this.router.navigateByUrl("/dashboard");
     this.updateMenu();
   }
+
+  getmode = false; //查询模式，不会触发checkForConstrant方法
 
   //通过入库编号查询其他所有内容，并根据规格、牌号、材料标准控制显隐
   getInfoByCodedmarking(e?: MouseEvent){
@@ -763,8 +767,9 @@ export class WarehousingRegistrationComponent implements OnInit {
       e.preventDefault();
     }
     if(this.validateForm.controls['codedmarking'].value==null || this.validateForm.controls['codedmarking'].value==""){
-      this.message.error("入库编号不能为空！");
+      this.message['error']("入库编号不能为空！");
     }else{
+      this.getmode = true;
       this.warehousingregistrationService.getmaterialByCodedmarking(this.validateForm.controls['codedmarking'].value).subscribe(res => {
         if (res['result'] == "success") {
           for (const i in res['data']) {
@@ -776,7 +781,12 @@ export class WarehousingRegistrationComponent implements OnInit {
               }
             }
           }
-          this.getMatlstand();
+          this.matlstand = [];
+          this.warehousingregistrationService.getmatlstandbydesignation(this.validateForm.value.designation).subscribe(res=>{
+            if(res['result']=="success"){
+              this.matlstand = res['matlstand'];
+            }
+          })
           this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation,null).subscribe(res1 => {
             if(res1['result'] == "success") {
               this.dataDetail = res1['data'];
@@ -784,7 +794,7 @@ export class WarehousingRegistrationComponent implements OnInit {
               this.notification.remove();
               if(this.dataDetail.note)
                 this.notification.blank('注意', this.dataDetail.note, {
-                  nzDuration: 5000,
+                  nzDuration: 8000,
                   nzStyle: {
                     color:"red"
                   }
@@ -847,9 +857,9 @@ export class WarehousingRegistrationComponent implements OnInit {
               if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)
                 this.validateForm.controls['heatcondi'].setValue(null);
             }else{
-              let specData = res['data']['spec'];
-              if(res['data']['spec'].indexOf("δ=")!=-1){
-                specData = parseFloat(res['data']['spec'].substring(2,specData.length));
+              let specData = this.validateForm.controls['spec'].value;
+              if(specData.indexOf("δ=")!=-1){
+                specData = parseFloat(specData.substring(2,specData.length));
               }
               this.warehousingregistrationService.contraststand(this.validateForm.value.matlstand,this.validateForm.value.designation,specData).subscribe(res2 => {
                 if(res2['result'] == "success"){
@@ -858,7 +868,7 @@ export class WarehousingRegistrationComponent implements OnInit {
                   this.notification.remove();
                   if(this.dataDetail.note)
                     this.notification.blank('注意', this.dataDetail.note, {
-                      nzDuration: 5000,
+                      nzDuration: 8000,
                       nzStyle: {
                         color:"red"
                       }
@@ -920,17 +930,28 @@ export class WarehousingRegistrationComponent implements OnInit {
                   }
                   if(this.dataDetail['heatcondi'].indexOf(this.validateForm.value.heatcondi)==-1)//若热处理选项不包含已选项
                     this.validateForm.controls['heatcondi'].setValue(null);
+                }else{
+                  this.errorData = JSON.stringify(res['data'], null, '\t');
+                  this.modalService['error']({
+                    nzTitle: '数据错误',
+                    nzContent: this.tpl,
+                    nzWidth: 700
+                  })
                 }
               });
             }
+            this.getmode = false;
           });
           this.validateForm.controls['matlstand'].setValue(res['data']['matlstand']);
         }else{
-          this.message.error("请核对入库编号是否填写正确！");
+          this.message['error']("请核对入库编号是否填写正确！");
         }
       })
     }
   }
+  @ViewChild('tpl')
+  tpl:TemplateRef<{}>;
+
   resetForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].reset();
@@ -1043,7 +1064,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       if (this.millunitValidateForm.valid) {
         this.warehousingregistrationService.addMillunit(this.millunitValidateForm.value.millunit,this.millunitValidateForm.value.millunitename).subscribe(res => {
           if (res['result'] == "success") {
-            let modal = this.modalService.success({
+            let modal = this.modalService['success']({
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
@@ -1060,7 +1081,7 @@ export class WarehousingRegistrationComponent implements OnInit {
             });
             this.destroyTplModal();
           }else{
-            this.message.error("添加失败，请稍后重试！");
+            this.message['error']("添加失败，请稍后重试！");
             this.destroyTplModal();
           }
         });
@@ -1074,7 +1095,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       if (this.supplierValidateForm.valid){
         this.warehousingregistrationService.addSupplier(this.supplierValidateForm.value.supplier).subscribe(res =>{
           if(res['result'] == "success"){
-            let modal = this.modalService.success({
+            let modal = this.modalService['success']({
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
@@ -1091,7 +1112,7 @@ export class WarehousingRegistrationComponent implements OnInit {
             });
             this.destroyTplModal();
           }else{
-            this.message.error("添加失败，请稍后重试！");
+            this.message['error']("添加失败，请稍后重试！");
             this.destroyTplModal();
           }
         });
@@ -1104,7 +1125,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       if (this.matlnameValidateForm.valid){
         this.warehousingregistrationService.addMatlname(this.matlnameValidateForm.value.matlname).subscribe(res=>{
           if(res['result'] == "success"){
-            let modal = this.modalService.success({
+            let modal = this.modalService['success']({
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
@@ -1121,7 +1142,7 @@ export class WarehousingRegistrationComponent implements OnInit {
             });
             this.destroyTplModal();
           }else{
-            this.message.error("添加失败，请稍后重试！");
+            this.message['error']("添加失败，请稍后重试！");
             this.destroyTplModal();
           }
         });
@@ -1134,7 +1155,7 @@ export class WarehousingRegistrationComponent implements OnInit {
       if (this.modelstandValidateForm.valid) {
         this.warehousingregistrationService.addModelstand(this.modelstandValidateForm.value.modelstand).subscribe(res => {
           if (res['result'] == "success") {
-            let modal = this.modalService.success({
+            let modal = this.modalService['success']({
               nzTitle: '添加成功',
               nzContent: '已成功添加一条记录！'
             });
@@ -1151,7 +1172,7 @@ export class WarehousingRegistrationComponent implements OnInit {
             });
             this.destroyTplModal();
           } else {
-            this.message.error("添加失败，请稍后重试！");
+            this.message['error']("添加失败，请稍后重试！");
             this.destroyTplModal();
           }
         })

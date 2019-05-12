@@ -34,6 +34,6 @@ export class RoleService {
     return this.http.post(this.api.BASEURL+"/deleterole",{role:role});
   }
   moveRole(role,department){
-    return this.http.post(this.api.BASEURL+"/changeroledepartment",{role:role,department:department});
+    return this.http.post(this.api.BASEURL+"/changedepartmentbyrole",{role:role,department:department});
   }
 }

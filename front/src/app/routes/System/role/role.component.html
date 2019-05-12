@@ -39,7 +39,7 @@
         <td *ngIf="item.role && item.department" style="text-align: center">
           <a (click)="showModal('changeRoleName',item.role)">修改角色名称</a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="showModal('moveRole',item.role)">移动角色</a>
+          <a (click)="showModal('moveRole',{role:item.role,department:item.department})">移动角色</a>
           <nz-divider nzType="vertical"></nz-divider>
           <a nz-popconfirm nzTitle="您确定要删除此角色？" (nzOnConfirm)="confirmDeleteRole(item.role)">删除角色</a>
         </td>
@@ -88,7 +88,9 @@
     <div nz-col [nzSpan]="5" [nzOffset]="3" style="line-height: 32px;">请选择移动至：</div>
     <div nz-col [nzSpan]="8">
       <nz-select style="width: 100%" [(ngModel)]="datamodel.department">
-        <nz-option *ngFor="let option of data" [nzLabel]="option.departmentname" [nzValue]="option.department"></nz-option>
+        <ng-container *ngFor="let option of data">
+          <nz-option *ngIf="option.department!=departmentId" [nzLabel]="option.departmentname" [nzValue]="option.department"></nz-option>
+        </ng-container>
       </nz-select>
     </div>
   </div>

@@ -970,3 +970,23 @@
     </ng-template>
   </form>
 </div>
+<ng-template #tpl>
+  <p>材料牌号与材料标准不匹配，请联系超级管理员更新标准对照表解决此问题。</p>
+  <nz-table nzSize="middle" [nzNoResult]="null">
+    <tr>
+      <td>材料牌号</td>
+      <td>{{this.validateForm.value.designation}}</td>
+    </tr>
+    <tr>
+      <td>材料标准</td>
+      <td>{{this.validateForm.value.matlstand}}</td>
+    </tr>
+    <tr *ngIf="this.validateForm.value.spec">
+      <td>规格</td>
+      <td>{{this.validateForm.value.spec}}</td>
+    </tr>
+  </nz-table>
+  <p>您可以复制以下数据反馈给超级管理员，谢谢：</p>
+  <p><textarea nz-input [(ngModel)]="errorData" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea></p>
+</ng-template>
+

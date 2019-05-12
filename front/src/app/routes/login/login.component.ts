@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       this.loginBtn = '登录中...';
       const username = this.validateForm.value.userName;
       const password = this.validateForm.value.password;
+
       this.loginService.login(username, password).then((res: any) => {
         this.getRoutePower();
         if (res['result'] === 'success') {

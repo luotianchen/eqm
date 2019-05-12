@@ -117,7 +117,7 @@ public class searchallmaterial {                                                
                 rs.close();
                 ps.close();
             }
-            sql+=" ORDER BY date DESC";
+            sql+=" ORDER BY codedmarking DESC";
             ps1 = conn.prepareStatement(sql2 + sql);
             System.out.println(sql2 + sql);
             sql = sql + sql_end;
@@ -331,7 +331,6 @@ public class searchallmaterial {                                                
             rs.close();
             ps.close();
             result.setResult("success");
-            Collections.reverse(as);                                          //将list倒序
             result.setData(as);
         }catch (Exception e){
             result.setResult("fail");

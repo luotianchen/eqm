@@ -17,7 +17,6 @@ export class HomeComponent {
   roles = [];
   except = ['/login','/404','/','/profile/me','/profile/chanegePassword'];
   constructor(public settings: SettingsService,private router: Router,private _storage:SessionStorageService,private http:HttpClient,private api:ApiService) {
-    this.router.navigate(['dashboard']);
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event:any) => {
       //监听router改变结束事件
       // console.log('NavigationEnd:', event);
