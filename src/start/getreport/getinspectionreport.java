@@ -117,14 +117,20 @@ public class getinspectionreport {                                              
                 rs1.close();
                 ps1.close();
 
-                over.showTextAligned(0,rs.getString("heatbatchno"),307,402,0);
-                erweima = erweima + "," + rs.getString("heatbatchno");
+                if(!(rs.getString("heatbatchno")==null||rs.getString("heatbatchno").equals(""))) {
+                    over.showTextAligned(0, rs.getString("heatbatchno"), 307, 402, 0);
+                    erweima = erweima + "," + rs.getString("heatbatchno");
+                }
 
-                over.showTextAligned(0,rs.getString("spec"),220,387,0);
-                erweima = erweima + "," + rs.getString("spec");
+                if(!(rs.getString("spec")==null||rs.getString("spec").equals(""))) {
+                    over.showTextAligned(0, rs.getString("spec"), 220, 387, 0);
+                    erweima = erweima + "," + rs.getString("spec");
+                }
 
-                over.showTextAligned(0,rs.getString("dimension"),220,377,0);
-                erweima = erweima + "," + rs.getString("dimension");
+                if(!(rs.getString("dimension")==null||rs.getString("dimension").equals(""))){
+                    over.showTextAligned(0,rs.getString("dimension"),220,377,0);
+                    erweima = erweima + "," + rs.getString("dimension");
+                }
 
                 ps1 = conn.prepareStatement("SELECT * FROM millunit WHERE id = ?");
                 ps1.setInt(1,rs.getInt("millunit_id_millunit"));
@@ -194,6 +200,7 @@ public class getinspectionreport {                                              
         stamper.close();
         conn.close();
 
+        System.out.println(erweimapath);
         File filepdf = new File(newpath);
         File filepdf1 = new File(erweimapath);
         HttpHeaders headers = new HttpHeaders();// 设置一个head
