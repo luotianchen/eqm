@@ -103,11 +103,13 @@ public class searchpressurepart {                                               
                     ps2.close();
 
                     as1.add(data1);
+                    data1 = null;
                 }
                 rs1.close();
                 ps1.close();
 
                 as2.add(data2);
+                data2 = null;
             }
             rs.close();
             ps.close();
@@ -153,11 +155,13 @@ public class searchpressurepart {                                               
 
             }
 
-
         }catch (Exception e){
             result.setResult("fail");
         }
-
+        as1 = null;
+        as2 = null;
+        as1_q = null;
+        as2_q = null;
         return result;
     }
 }

@@ -119,11 +119,9 @@ public class searchallmaterial {                                                
             }
             sql+=" ORDER BY codedmarking DESC";
             ps1 = conn.prepareStatement(sql2 + sql);
-            System.out.println(sql2 + sql);
             sql = sql + sql_end;
 
             ps=conn.prepareStatement(sql1 + sql);
-            System.out.println(sql1 + sql);
             if(codedmarking_p==1){
                 ps.setString(num,sp.getSearchdata().getCodedmarking());
                 ps1.setString(num,sp.getSearchdata().getCodedmarking());
@@ -327,6 +325,7 @@ public class searchallmaterial {                                                
                 ps1.close();
 
                 as.add(samd);
+                samd = null;
             }
             rs.close();
             ps.close();
@@ -335,6 +334,7 @@ public class searchallmaterial {                                                
         }catch (Exception e){
             result.setResult("fail");
         }
+        as = null;
         conn.close();
         return result;
     }
