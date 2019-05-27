@@ -94,6 +94,7 @@ public class searchpromanparlist {                              //产品制造�
                 data.setOutward(rs.getString("outward"));
                 data.setConcave(rs.getString("concave"));
                 as.add(data);
+                data = null;
             }
             rs.close();
             ps.close();
