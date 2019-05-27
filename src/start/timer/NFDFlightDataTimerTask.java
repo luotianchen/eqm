@@ -331,6 +331,7 @@ public class NFDFlightDataTimerTask extends TimerTask {
         } catch (Exception e) {
             System.out.println("-------------解析信息发生异常--------------");
         }
+        System.gc();
     }
 
 }
