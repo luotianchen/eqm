@@ -63,108 +63,118 @@ public class getphychereport {                                          //理化
         String gaptype = null;                                  //缺口型式*
         String matl=null;
 
-        String realPath = request.getSession().getServletContext().getRealPath("");
-        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-        String uploadPath = path + "upload";                                                //获取文件名称
-        System.out.println(uploadPath);
-        File realfile = new File(uploadPath,"理化委托单.xlsx");
-        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+        ResponseEntity<byte[]> download = null;
+        File file = null;
+        File filepdf = null;
 
-        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-        File file = new File(uploadPath, filename);
+        try {
+            String realPath = request.getSession().getServletContext().getRealPath("");
+            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+            String uploadPath = path + "upload";                                                //获取文件名称
+            System.out.println(uploadPath);
+            File realfile = new File(uploadPath,"理化委托单.xlsx");
+            InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+
+            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+            file = new File(uploadPath, filename);
 
 
 
-        FileUtils.copyInputStreamToFile(inputStream, file);
-        String url1 = uploadPath +"/"+ filename;
+            FileUtils.copyInputStreamToFile(inputStream, file);
+            String url1 = uploadPath +"/"+ filename;
 
 
-        FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
-        XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
-        fileXlsx.close();
-        Sheet sheet=workBook.getSheetAt(0);
+            FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
+            XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
+            fileXlsx.close();
+            Sheet sheet=workBook.getSheetAt(0);
 
-        ps = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ? AND specimenno = ? AND status = 1");
-        ps.setString(1,prodno);
-        ps.setString(2,specimenno);
-        rs= ps.executeQuery();
-        if(rs.next()){
-            gaptype = rs.getString("gaptype");
+            ps = conn.prepareStatement("SELECT * FROM productplate WHERE prodno = ? AND specimenno = ? AND status = 1");
+            ps.setString(1,prodno);
+            ps.setString(2,specimenno);
+            rs= ps.executeQuery();
+            if(rs.next()){
+                gaptype = rs.getString("gaptype");
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM protestboardcom WHERE prodno = ? AND specimenno = ? AND status = 1");
+            ps.setString(1,prodno);
+            ps.setString(2,specimenno);
+            rs= ps.executeQuery();
+            if(rs.next()){
+                prodname = rs.getString("prodname");
+                matl = rs.getString("weldmatl");
+                judgestand = rs.getString("evaluastand");
+                specimenname = rs.getString("specimenname");
+                weldingsteelseal = rs.getString("weldingsteelseal");
+                designation_spec = rs.getString("designation")+ " " + rs.getString("spec");
+                groovetype = rs.getString("groovetype");
+                weldingmethod_weldingposition = rs.getString("weldingmethod")+ " " + rs.getString("weldingposition");
+                heatcondi = rs.getString("heatcondi");
+                representno = rs.getString("representno");
+                representpart = rs.getString("representpart");
+                drawingnumber = rs.getString("drawingnumber");
+                surfacebending = rs.getString("surfacebending");
+                backbending = rs.getString("backbending");
+                lateralbending = rs.getString("lateralbending");
+                shocktemperature = rs.getString("shocktemperature");
+                weldzoneshocknum = rs.getString("weldzoneshocknum");
+                thermalimpactzonenum = rs.getString("thermalimpactzonenum");
+            }
+            rs.close();
+            ps.close();
+
+            putsheet(sheet,5,8,prodname);
+            putsheet(sheet,5,29,judgestand);
+            putsheet(sheet,5,50,prodno_specimenno);
+            putsheet(sheet,7,8,specimenname);
+            putsheet(sheet,7,29,weldingsteelseal);
+            putsheet(sheet,7,50,matl);
+            putsheet(sheet,9,8,designation_spec);
+            putsheet(sheet,9,29,groovetype);
+            putsheet(sheet,9,50,weldingmethod_weldingposition);
+            putsheet(sheet,11,8,heatcondi);
+            putsheet(sheet,11,29,representno);
+            putsheet(sheet,11,50,representpart);
+            putsheet(sheet,17,9,drawingnumber);
+            putsheet(sheet,23,9,surfacebending);
+            putsheet(sheet,25,9,backbending);
+            putsheet(sheet,27,9,lateralbending);
+            putsheet(sheet,19,17,shocktemperature);
+            putsheet(sheet,19,22,weldzoneshocknum);
+            putsheet(sheet,19,26,thermalimpactzonenum);
+            putsheet(sheet,21,22,gaptype);
+            putsheet(sheet,4,5,department);
+            putsheet(sheet,4,47,simpleDateFormat1.format(calendar.getTime()));
+            putsheet(sheet,39,46,simpleDateFormat1.format(calendar.getTime()));
+            calendar.add(calendar.DATE, 3);
+            putsheet(sheet,31,46,simpleDateFormat1.format(calendar.getTime()));
+
+
+
+
+
+            OutputStream out = new FileOutputStream(url1);
+            workBook.write(out);
+            out.close();
+
+            conn.close();
+
+
+            filepdf = new File(uploadPath, filename);
+            HttpHeaders headers = new HttpHeaders();// 设置一个head
+            headers.setContentDispositionFormData("attachment", "理化委托单.xlsx");// 文件的属性，也就是文件叫什么吧
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
+            download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
+            file.delete();
+            filepdf.delete();
+        }catch (Exception e){
+            file.delete();
+            filepdf.delete();
         }
-        rs.close();
-        ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM protestboardcom WHERE prodno = ? AND specimenno = ? AND status = 1");
-        ps.setString(1,prodno);
-        ps.setString(2,specimenno);
-        rs= ps.executeQuery();
-        if(rs.next()){
-            prodname = rs.getString("prodname");
-            matl = rs.getString("weldmatl");
-            judgestand = rs.getString("evaluastand");
-            specimenname = rs.getString("specimenname");
-            weldingsteelseal = rs.getString("weldingsteelseal");
-            designation_spec = rs.getString("designation")+ " " + rs.getString("spec");
-            groovetype = rs.getString("groovetype");
-            weldingmethod_weldingposition = rs.getString("weldingmethod")+ " " + rs.getString("weldingposition");
-            heatcondi = rs.getString("heatcondi");
-            representno = rs.getString("representno");
-            representpart = rs.getString("representpart");
-            drawingnumber = rs.getString("drawingnumber");
-            surfacebending = rs.getString("surfacebending");
-            backbending = rs.getString("backbending");
-            lateralbending = rs.getString("lateralbending");
-            shocktemperature = rs.getString("shocktemperature");
-            weldzoneshocknum = rs.getString("weldzoneshocknum");
-            thermalimpactzonenum = rs.getString("thermalimpactzonenum");
-        }
-        rs.close();
-        ps.close();
-
-        putsheet(sheet,5,8,prodname);
-        putsheet(sheet,5,29,judgestand);
-        putsheet(sheet,5,50,prodno_specimenno);
-        putsheet(sheet,7,8,specimenname);
-        putsheet(sheet,7,29,weldingsteelseal);
-        putsheet(sheet,7,50,matl);
-        putsheet(sheet,9,8,designation_spec);
-        putsheet(sheet,9,29,groovetype);
-        putsheet(sheet,9,50,weldingmethod_weldingposition);
-        putsheet(sheet,11,8,heatcondi);
-        putsheet(sheet,11,29,representno);
-        putsheet(sheet,11,50,representpart);
-        putsheet(sheet,17,9,drawingnumber);
-        putsheet(sheet,23,9,surfacebending);
-        putsheet(sheet,25,9,backbending);
-        putsheet(sheet,27,9,lateralbending);
-        putsheet(sheet,19,17,shocktemperature);
-        putsheet(sheet,19,22,weldzoneshocknum);
-        putsheet(sheet,19,26,thermalimpactzonenum);
-        putsheet(sheet,21,22,gaptype);
-        putsheet(sheet,4,5,department);
-        putsheet(sheet,4,47,simpleDateFormat1.format(calendar.getTime()));
-        putsheet(sheet,39,46,simpleDateFormat1.format(calendar.getTime()));
-        calendar.add(calendar.DATE, 3);
-        putsheet(sheet,31,46,simpleDateFormat1.format(calendar.getTime()));
-
-
-
-
-
-        OutputStream out = new FileOutputStream(url1);
-        workBook.write(out);
-        out.close();
-
-        conn.close();
-
-
-        File filepdf = new File(uploadPath, filename);
-        HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "理化委托单.xlsx");// 文件的属性，也就是文件叫什么吧
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
-        ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
-        file.delete();
-        filepdf.delete();
         return download;
 
 

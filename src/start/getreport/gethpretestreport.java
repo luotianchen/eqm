@@ -46,100 +46,110 @@ public class gethpretestreport {                                        //液（
         String prenotiform_user = null;                     //数据填写
         String prenotiform_username = null;                     //数据填写
 
-        String realPath = request.getSession().getServletContext().getRealPath("");
-        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-        String uploadPath = path + "upload";                                                //获取文件名称
-        System.out.println(uploadPath);
-        File realfile = new File(uploadPath,"液压过程卡.xlsx");
-        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+        ResponseEntity<byte[]> download = null;
+        File file = null;
+        File filepdf = null;
 
-        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-        File file = new File(uploadPath, filename);
+        try {
+            String realPath = request.getSession().getServletContext().getRealPath("");
+            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+            String uploadPath = path + "upload";                                                //获取文件名称
+            System.out.println(uploadPath);
+            File realfile = new File(uploadPath,"液压过程卡.xlsx");
+            InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+
+            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+            file = new File(uploadPath, filename);
 
 
 
-        FileUtils.copyInputStreamToFile(inputStream, file);
-        String url1 = uploadPath +"/"+ filename;
+            FileUtils.copyInputStreamToFile(inputStream, file);
+            String url1 = uploadPath +"/"+ filename;
 
-        FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
-        XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
-        fileXlsx.close();
-        Sheet sheet=workBook.getSheetAt(0);
+            FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
+            XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
+            fileXlsx.close();
+            Sheet sheet=workBook.getSheetAt(0);
 
-        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
-        ps.setString(1,prodno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            dwgno = rs.getString("dwgno");
-            testmedia = rs.getString("testmedia");
-            prenotiform_username = rs.getString("user");
+            ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+            ps.setString(1,prodno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                dwgno = rs.getString("dwgno");
+                testmedia = rs.getString("testmedia");
+                prenotiform_username = rs.getString("user");
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
+            ps.setString(1,dwgno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                type = rs.getString("type");
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+            ps.setString(1,dwgno);
+            ps.setString(2,name);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                pttype = rs.getString("pttype");
+                leaktestp = rs.getString("leaktestp");
+                depress = rs.getString("depress");
+                wpress = rs.getString("wpress");
+                wmedia = rs.getString("wmedia");
+                detemp = rs.getString("detemp");
+                wtemp = rs.getString("wtemp");
+                testpress = rs.getString("testpress");
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
+            ps.setString(1,prenotiform_username);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                prenotiform_user = rs.getString("name");
+            }
+            rs.close();
+            ps.close();
+
+
+            putsheet(sheet,2,1,prodno);
+            putsheet(sheet,2,4,type);
+            putsheet(sheet,2,6,pttype);
+            putsheet(sheet,3,1,depress);
+            putsheet(sheet,3,4,wpress);
+            putsheet(sheet,3,6,wmedia);
+            putsheet(sheet,4,1,detemp);
+            putsheet(sheet,4,4,wtemp);
+            putsheet(sheet,5,1,testpress);
+            putsheet(sheet,5,4,testmedia);
+            putsheet(sheet,8,1,prenotiform_user);
+
+
+
+            OutputStream out = new FileOutputStream(url1);
+            workBook.write(out);
+            out.close();
+
+            conn.close();
+
+            filepdf = new File(uploadPath, filename);
+            HttpHeaders headers = new HttpHeaders();// 设置一个head
+            headers.setContentDispositionFormData("attachment", "液压过程卡.xlsx");// 文件的属性，也就是文件叫什么吧
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
+            download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
+            file.delete();
+            filepdf.delete();
+        }catch (Exception e){
+            file.delete();
+            filepdf.delete();
         }
-        rs.close();
-        ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
-        ps.setString(1,dwgno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            type = rs.getString("type");
-        }
-        rs.close();
-        ps.close();
-
-        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
-        ps.setString(1,dwgno);
-        ps.setString(2,name);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            pttype = rs.getString("pttype");
-            leaktestp = rs.getString("leaktestp");
-            depress = rs.getString("depress");
-            wpress = rs.getString("wpress");
-            wmedia = rs.getString("wmedia");
-            detemp = rs.getString("detemp");
-            wtemp = rs.getString("wtemp");
-            testpress = rs.getString("testpress");
-        }
-        rs.close();
-        ps.close();
-
-        ps = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
-        ps.setString(1,prenotiform_username);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            prenotiform_user = rs.getString("name");
-        }
-        rs.close();
-        ps.close();
-
-
-        putsheet(sheet,2,1,prodno);
-        putsheet(sheet,2,4,type);
-        putsheet(sheet,2,6,pttype);
-        putsheet(sheet,3,1,depress);
-        putsheet(sheet,3,4,wpress);
-        putsheet(sheet,3,6,wmedia);
-        putsheet(sheet,4,1,detemp);
-        putsheet(sheet,4,4,wtemp);
-        putsheet(sheet,5,1,testpress);
-        putsheet(sheet,5,4,testmedia);
-        putsheet(sheet,8,1,prenotiform_user);
-
-
-
-        OutputStream out = new FileOutputStream(url1);
-        workBook.write(out);
-        out.close();
-
-        conn.close();
-
-        File filepdf = new File(uploadPath, filename);
-        HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "液压过程卡.xlsx");// 文件的属性，也就是文件叫什么吧
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
-        ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
-        file.delete();
-        filepdf.delete();
         return download;
     }
 }

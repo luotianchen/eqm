@@ -111,157 +111,162 @@ public class getpredatasheetreport {                            //压力容器�
         String zj_manuno = null;                //机构核准证编号
         int i = 0;
 
-        String realPath = request.getSession().getServletContext().getRealPath("");
-        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-        String uploadPath = path + "upload";                                                //获取文件名称
-        System.out.println(uploadPath);
-        File realfile = new File(uploadPath,"压力容器产品数据表.xlsx");
-        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+        ResponseEntity<byte[]> download = null;
+        File file = null;
+        File filepdf = null;
 
-        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-        File file = new File(uploadPath, filename);
+        try {
+            String realPath = request.getSession().getServletContext().getRealPath("");
+            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+            String uploadPath = path + "upload";                                                //获取文件名称
+            System.out.println(uploadPath);
+            File realfile = new File(uploadPath,"压力容器产品数据表.xlsx");
+            InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+
+            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+            file = new File(uploadPath, filename);
 
 
 
-        FileUtils.copyInputStreamToFile(inputStream, file);
-        String url1 = uploadPath +"/"+ filename;
+            FileUtils.copyInputStreamToFile(inputStream, file);
+            String url1 = uploadPath +"/"+ filename;
 
 
-        FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
-        XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
-        fileXlsx.close();
-        Sheet sheet=workBook.getSheetAt(0);
+            FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
+            XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
+            fileXlsx.close();
+            Sheet sheet=workBook.getSheetAt(0);
 
-        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
-        ps.setString(1,prodno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            dwgno = rs.getString("dwgno");
-        }
-        rs.close();
-        ps.close();
-
-        ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
-        ps.setString(1,dwgno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            prodname_id = rs.getInt("productname_id_prodname");
-            type = rs.getString("type");
-            if(!(rs.getString("mainstand") == null || rs.getString("mainstand").equals(""))){
-                stand = stand + "、" + rs.getString("mainstand");
+            ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+            ps.setString(1,prodno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                dwgno = rs.getString("dwgno");
             }
-            if(!(rs.getString("minorstand") == null || rs.getString("minorstand").equals("")) && !rs.getString("mainstand").equals(rs.getString("minorstand"))){
-                stand = stand + "、" + rs.getString("minorstand");
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM proparlist WHERE dwgno = ? AND audit = 1");
+            ps.setString(1,dwgno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                prodname_id = rs.getInt("productname_id_prodname");
+                type = rs.getString("type");
+                if(!(rs.getString("mainstand") == null || rs.getString("mainstand").equals(""))){
+                    stand = stand + "、" + rs.getString("mainstand");
+                }
+                if(!(rs.getString("minorstand") == null || rs.getString("minorstand").equals("")) && !rs.getString("mainstand").equals(rs.getString("minorstand"))){
+                    stand = stand + "、" + rs.getString("minorstand");
+                }
+                deservicelife = rs.getString("deservicelife");
+                proheight = rs.getString("proheight");
+                weight = rs.getString("weight");
+                chweight = rs.getString("chweight");
+                installtype = rs.getString("installtype");
+                einstalltype = rs.getString("einstalltype");
+                supptype = rs.getString("supptype");
+                esupptype = rs.getString("esupptype");
+                insultype = rs.getString("insultype");
+                einsultype = rs.getString("einsultype");
+                ndetype = rs.getString("ndetype");
+                nderatio = rs.getString("nderatio");
+                httype = rs.getString("httype");
+                httemp = rs.getString("httemp");
             }
-            deservicelife = rs.getString("deservicelife");
-            proheight = rs.getString("proheight");
-            weight = rs.getString("weight");
-            chweight = rs.getString("chweight");
-            installtype = rs.getString("installtype");
-            einstalltype = rs.getString("einstalltype");
-            supptype = rs.getString("supptype");
-            esupptype = rs.getString("esupptype");
-            insultype = rs.getString("insultype");
-            einsultype = rs.getString("einsultype");
-            ndetype = rs.getString("ndetype");
-            nderatio = rs.getString("nderatio");
-            httype = rs.getString("httype");
-            httemp = rs.getString("httemp");
-        }
-        rs.close();
-        ps.close();
+            rs.close();
+            ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
-        ps.setString(1,prodno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            ecode = rs.getString("ecode");
-            m_type = rs.getString("type");
-            m_etype = rs.getString("etype");
-        }
-        rs.close();
-        ps.close();
-
-        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
-        ps.setString(1,dwgno);
-        rs= ps.executeQuery();
-        while (rs.next()){
-
-
-
-
-            if(i==0){
-                volume = rs.getString("volume");
-                innerdia = rs.getString("innerdia");
-                pttype = rs.getString("pttype");
-                epttype = rs.getString("epttype");
-                testpress = rs.getString("testpress");
-                leaktest = rs.getString("leaktest");
-                eleaktest = rs.getString("eleaktest");
-                leaktestp = rs.getString("leaktestp");
-            }else {
-
-                volume = getme(volume,rs,"volume");
-                innerdia = getme(innerdia,rs,"innerdia");
-                pttype = getme(pttype,rs,"pttype");
-                epttype = getme(epttype,rs,"epttype");
-                testpress = getme(testpress,rs,"testpress");
-                leaktest = getme(leaktest,rs,"leaktest");
-                eleaktest = getme(eleaktest,rs,"eleaktest");
-                leaktestp = getme(leaktestp,rs,"leaktestp");
-
+            ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+            ps.setString(1,prodno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                ecode = rs.getString("ecode");
+                m_type = rs.getString("type");
+                m_etype = rs.getString("etype");
             }
+            rs.close();
+            ps.close();
 
-            if(!rs.getString("name").equals("夹套")){
-                if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
-                    mat.add(rs.getString("shmatl1"));
-                }
-                if(rs.getString("shmatl2")!=null && !rs.getString("shmatl2").equals("")){
-                    mat.add(rs.getString("shmatl2"));
-                }
-                if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
-                    mat.add(rs.getString("shmatl3"));
-                }
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND status = 1");
+            ps.setString(1,dwgno);
+            rs= ps.executeQuery();
+            while (rs.next()){
 
 
-                if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
-                    thi.add(rs.getString("shthick1"));
-                }
-                if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("")){
-                    thi.add(rs.getString("shthick2"));
-                }
-                if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
-                    thi.add(rs.getString("shthick3"));
-                }
-
-            }else {
-                if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
-                    jiatao.add(rs.getString("shmatl1"));
-                }
-                if(rs.getString("shmatl2")!=null && !rs.getString("shmatl2").equals("")){
-                    jiatao.add(rs.getString("shmatl2"));
-                }
-                if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
-                    jiatao.add(rs.getString("shmatl3"));
-                }
 
 
-                if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
-                    jiatao_thi.add(rs.getString("shthick1"));
-                }
-                if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("")){
-                    jiatao_thi.add(rs.getString("shthick2"));
-                }
-                if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
-                    jiatao_thi.add(rs.getString("shthick3"));
-                }
-                j_thi = getmat(jiatao_thi);
-            }
+                if(i==0){
+                    volume = rs.getString("volume");
+                    innerdia = rs.getString("innerdia");
+                    pttype = rs.getString("pttype");
+                    epttype = rs.getString("epttype");
+                    testpress = rs.getString("testpress");
+                    leaktest = rs.getString("leaktest");
+                    eleaktest = rs.getString("eleaktest");
+                    leaktestp = rs.getString("leaktestp");
+                }else {
 
-            if(rs.getInt("tongdaoshu")==1){
-                c_mat = rs.getString("liningmatl");
-                c_thi = rs.getString("liningthick");
-            }
+                    volume = getme(volume,rs,"volume");
+                    innerdia = getme(innerdia,rs,"innerdia");
+                    pttype = getme(pttype,rs,"pttype");
+                    epttype = getme(epttype,rs,"epttype");
+                    testpress = getme(testpress,rs,"testpress");
+                    leaktest = getme(leaktest,rs,"leaktest");
+                    eleaktest = getme(eleaktest,rs,"eleaktest");
+                    leaktestp = getme(leaktestp,rs,"leaktestp");
+
+                }
+
+                if(!rs.getString("name").equals("夹套")){
+                    if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
+                        mat.add(rs.getString("shmatl1"));
+                    }
+                    if(rs.getString("shmatl2")!=null && !rs.getString("shmatl2").equals("")){
+                        mat.add(rs.getString("shmatl2"));
+                    }
+                    if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
+                        mat.add(rs.getString("shmatl3"));
+                    }
+
+
+                    if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
+                        thi.add(rs.getString("shthick1"));
+                    }
+                    if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("")){
+                        thi.add(rs.getString("shthick2"));
+                    }
+                    if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
+                        thi.add(rs.getString("shthick3"));
+                    }
+
+                }else {
+                    if(rs.getString("shmatl1")!=null && !rs.getString("shmatl1").equals("")){
+                        jiatao.add(rs.getString("shmatl1"));
+                    }
+                    if(rs.getString("shmatl2")!=null && !rs.getString("shmatl2").equals("")){
+                        jiatao.add(rs.getString("shmatl2"));
+                    }
+                    if(rs.getString("shmatl3")!=null && !rs.getString("shmatl3").equals("")){
+                        jiatao.add(rs.getString("shmatl3"));
+                    }
+
+
+                    if(rs.getString("shthick1")!=null && !rs.getString("shthick1").equals("")){
+                        jiatao_thi.add(rs.getString("shthick1"));
+                    }
+                    if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("")){
+                        jiatao_thi.add(rs.getString("shthick2"));
+                    }
+                    if(rs.getString("shthick3")!=null && !rs.getString("shthick3").equals("")){
+                        jiatao_thi.add(rs.getString("shthick3"));
+                    }
+                    j_thi = getmat(jiatao_thi);
+                }
+
+                if(rs.getInt("tongdaoshu")==1){
+                    c_mat = rs.getString("liningmatl");
+                    c_thi = rs.getString("liningthick");
+                }
 
 //            t_mat = rs.getString("shmatl1");
 //            if(rs.getString("shmatl2")!= null && !rs.getString("shmatl2").equals("")){
@@ -305,210 +310,215 @@ public class getpredatasheetreport {                            //压力容器�
 //            }
 
 
-            if(rs.getString("name").contains("管程")){
-                guanc_depress.add(rs.getString("depress"));
-                guanc_detemp.add(rs.getString("detemp"));
-                guanc_maxwpress.add(rs.getString("maxwpress"));
-                guanc_wmedia.add(rs.getString("wmedia"));
+                if(rs.getString("name").contains("管程")){
+                    guanc_depress.add(rs.getString("depress"));
+                    guanc_detemp.add(rs.getString("detemp"));
+                    guanc_maxwpress.add(rs.getString("maxwpress"));
+                    guanc_wmedia.add(rs.getString("wmedia"));
+                }
+
+                if(!rs.getString("name").contains("管程") && !rs.getString("name").equals("夹套")){
+                    kc_depress.add(rs.getString("depress"));
+                    kc_detemp.add(rs.getString("detemp"));
+                    kc_maxwpress.add(rs.getString("maxwpress"));
+                    kc_wmedia.add(rs.getString("wmedia"));
+                }
+
+
+                if(rs.getString("name").equals("夹套")){
+
+                    j_depress = rs.getString("depress");
+                    j_detemp = rs.getString("detemp");
+                    j_maxwpress = rs.getString("maxwpress");
+                    j_wmedia = rs.getString("wmedia");
+                }
+
+                i++;
             }
+            i=0;
+            t_mat = getmat(mat);
+            f_mat = t_mat;
+            k_thi = getmat(thi);
+            f_thi = k_thi;
+            j_mat = getmat(jiatao);
+            j_thi = getmat(jiatao_thi);
 
-            if(!rs.getString("name").contains("管程") && !rs.getString("name").equals("夹套")){
-                kc_depress.add(rs.getString("depress"));
-                kc_detemp.add(rs.getString("detemp"));
-                kc_maxwpress.add(rs.getString("maxwpress"));
-                kc_wmedia.add(rs.getString("wmedia"));
-            }
-
-
-            if(rs.getString("name").equals("夹套")){
-
-                j_depress = rs.getString("depress");
-                j_detemp = rs.getString("detemp");
-                j_maxwpress = rs.getString("maxwpress");
-                j_wmedia = rs.getString("wmedia");
-            }
-
-            i++;
-        }
-        i=0;
-        t_mat = getmat(mat);
-        f_mat = t_mat;
-        k_thi = getmat(thi);
-        f_thi = k_thi;
-        j_mat = getmat(jiatao);
-        j_thi = getmat(jiatao_thi);
-
-        g_depress = getmat(guanc_depress);
-        g_detemp = getmat(guanc_detemp);
-        g_maxwpress = getmat(guanc_maxwpress);
-        g_wmedia = getmat(guanc_wmedia);
-        k_depress = getmat(kc_depress);
-        System.out.println(kc_depress.size());
-        k_detemp = getmat(kc_detemp);
-        k_maxwpress = getmat(kc_maxwpress);
-        k_wmedia = getmat(kc_wmedia);
-        rs.close();
-        ps.close();
+            g_depress = getmat(guanc_depress);
+            g_detemp = getmat(guanc_detemp);
+            g_maxwpress = getmat(guanc_maxwpress);
+            g_wmedia = getmat(guanc_wmedia);
+            k_depress = getmat(kc_depress);
+            System.out.println(kc_depress.size());
+            k_detemp = getmat(kc_detemp);
+            k_maxwpress = getmat(kc_maxwpress);
+            k_wmedia = getmat(kc_wmedia);
+            rs.close();
+            ps.close();
 
 
-        ps = conn.prepareStatement("SELECT * FROM supervisionunit WHERE id = 1");
-        rs = ps.executeQuery();
-        if(rs.next()){
-            zj_name = rs.getString("name");                  //监督检验机构
-            zj_ename = rs.getString("ename");                 //ename
-            zj_uniformcode = rs.getString("uniformcode");           //统一社会信用代码
-            zj_manuno = rs.getString("manuno");                //机构核准证编号
-        }
-        rs.close();
-        ps.close();
-
-
-        ps = conn.prepareStatement("SELECT * FROM productname WHERE id = ?");
-        ps.setInt(1,prodname_id);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            prodname = rs.getString("prodname");
-            ename = rs.getString("ename");
-        }
-        rs.close();
-        ps.close();
-
-
-        ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
-        ps.setString(1,j_wmedia);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            j_ewmedia = rs.getString("wmediaen");
-        }
-        rs.close();
-        ps.close();
-
-
-        for(int z = 0;z<kc_wmedia.size();z++){
-            ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
-            ps.setString(1,kc_wmedia.get(z));
+            ps = conn.prepareStatement("SELECT * FROM supervisionunit WHERE id = 1");
             rs = ps.executeQuery();
             if(rs.next()){
-                kc_ewmedia.add(rs.getString("wmediaen"));
+                zj_name = rs.getString("name");                  //监督检验机构
+                zj_ename = rs.getString("ename");                 //ename
+                zj_uniformcode = rs.getString("uniformcode");           //统一社会信用代码
+                zj_manuno = rs.getString("manuno");                //机构核准证编号
             }
             rs.close();
             ps.close();
-        }
 
-        k_ewmedia = getmat(kc_ewmedia);
 
-        for(int z = 0;z<guanc_wmedia.size();z++){
-            ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
-            ps.setString(1,guanc_wmedia.get(z));
+            ps = conn.prepareStatement("SELECT * FROM productname WHERE id = ?");
+            ps.setInt(1,prodname_id);
             rs = ps.executeQuery();
             if(rs.next()){
-                guanc_ewmedia.add(rs.getString("wmediaen"));
+                prodname = rs.getString("prodname");
+                ename = rs.getString("ename");
             }
             rs.close();
             ps.close();
-        }
-
-        g_ewmedia = getmat(guanc_ewmedia);
 
 
-
-        ps = conn.prepareStatement("SELECT * FROM safedisdevice WHERE status = 1 AND dwgno = ?");
-        ps.setString(1,dwgno);
-        rs = ps.executeQuery();
-        while (rs.next()){
-            if(i<5){
-                putsheet(sheet,44+i*2,0,rs.getString("name"));
-                putsheet(sheet,44+i*2,3,rs.getString("model"));
-                putsheet(sheet,44+i*2,8,rs.getString("spec"));
-                putsheet(sheet,44+i*2,13,rs.getString("qty"));
-                putsheet(sheet,44+i*2,17,rs.getString("mfunit"));
+            ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
+            ps.setString(1,j_wmedia);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                j_ewmedia = rs.getString("wmediaen");
             }
-            i++;
+            rs.close();
+            ps.close();
+
+
+            for(int z = 0;z<kc_wmedia.size();z++){
+                ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
+                ps.setString(1,kc_wmedia.get(z));
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    kc_ewmedia.add(rs.getString("wmediaen"));
+                }
+                rs.close();
+                ps.close();
+            }
+
+            k_ewmedia = getmat(kc_ewmedia);
+
+            for(int z = 0;z<guanc_wmedia.size();z++){
+                ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
+                ps.setString(1,guanc_wmedia.get(z));
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    guanc_ewmedia.add(rs.getString("wmediaen"));
+                }
+                rs.close();
+                ps.close();
+            }
+
+            g_ewmedia = getmat(guanc_ewmedia);
+
+
+
+            ps = conn.prepareStatement("SELECT * FROM safedisdevice WHERE status = 1 AND dwgno = ?");
+            ps.setString(1,dwgno);
+            rs = ps.executeQuery();
+            while (rs.next()){
+                if(i<5){
+                    putsheet(sheet,44+i*2,0,rs.getString("name"));
+                    putsheet(sheet,44+i*2,3,rs.getString("model"));
+                    putsheet(sheet,44+i*2,8,rs.getString("spec"));
+                    putsheet(sheet,44+i*2,13,rs.getString("qty"));
+                    putsheet(sheet,44+i*2,17,rs.getString("mfunit"));
+                }
+                i++;
+            }
+            i = 0;
+            rs.close();
+            ps.close();
+
+            System.out.println(prodname);
+            putsheet(sheet,4,5,prodname);
+            putsheet(sheet,5,5,ename);
+            putsheet(sheet,4,19,type);
+            putsheet(sheet,6,5,stand);
+            putsheet(sheet,6,19,prodno);
+            putsheet(sheet,8,5,ecode);
+            putsheet(sheet,8,19,deservicelife);
+            putsheet(sheet,10,6,volume);
+            putsheet(sheet,10,14,innerdia);
+            putsheet(sheet,10,20,proheight);
+            putsheet(sheet,12,6,t_mat);
+            putsheet(sheet,12,14,k_thi);
+            putsheet(sheet,12,20,weight);
+            putsheet(sheet,14,6,f_mat);
+            putsheet(sheet,14,14,f_thi);
+            if(!chweight.equals("0")){
+                putsheet(sheet,14,20,chweight);
+            }
+            putsheet(sheet,16,6,c_mat);
+            putsheet(sheet,16,14,c_thi);
+            putsheet(sheet,18,6,j_mat);
+            putsheet(sheet,18,14,j_thi);
+            putsheet(sheet,20,6,k_depress);
+            putsheet(sheet,20,14,k_detemp);
+            putsheet(sheet,20,20,k_maxwpress);
+            putsheet(sheet,22,6,g_depress);
+            putsheet(sheet,22,14,g_detemp);
+            putsheet(sheet,22,20,g_maxwpress);
+            putsheet(sheet,24,6,j_depress);
+            putsheet(sheet,24,14,j_detemp);
+            putsheet(sheet,24,20,j_maxwpress);
+            putsheet(sheet,26,6,k_wmedia);
+            putsheet(sheet,27,6,k_ewmedia);
+            putsheet(sheet,26,14,g_wmedia);
+            putsheet(sheet,27,14,g_ewmedia);
+            putsheet(sheet,26,20,j_wmedia);
+            putsheet(sheet,27,20,j_ewmedia);
+            putsheet(sheet,28,7,m_type);
+            putsheet(sheet,29,7,m_etype);
+            putsheet(sheet,28,19,installtype);
+            putsheet(sheet,29,19,einstalltype);
+            putsheet(sheet,30,7,supptype);
+            putsheet(sheet,31,7,esupptype);
+            putsheet(sheet,30,19,insultype);
+            putsheet(sheet,31,19,einsultype);
+            putsheet(sheet,32,7,ndetype);
+            putsheet(sheet,32,19,nderatio);
+            putsheet(sheet,34,7,pttype);
+            putsheet(sheet,35,7,epttype);
+            putsheet(sheet,34,19,testpress);
+            putsheet(sheet,36,7,leaktest);
+            putsheet(sheet,37,7,eleaktest);
+            putsheet(sheet,36,19,leaktestp);
+            putsheet(sheet,38,7,httype);
+            putsheet(sheet,39,7,ceng(httype));
+            if(!httemp.equals("0")){
+                putsheet(sheet,38,19,httemp);
+            }
+            putsheet(sheet,54,11,zj_name);
+            putsheet(sheet,55,11,zj_ename);
+            putsheet(sheet,56,11,zj_uniformcode);
+            putsheet(sheet,56,20,zj_manuno);
+
+
+
+            OutputStream out = new FileOutputStream(url1);
+            workBook.write(out);
+            out.close();
+
+            conn.close();
+
+
+            filepdf = new File(uploadPath, filename);
+            HttpHeaders headers = new HttpHeaders();// 设置一个head
+            headers.setContentDispositionFormData("attachment", "压力容器产品数据表.xlsx");// 文件的属性，也就是文件叫什么吧
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
+            download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
+            file.delete();
+            filepdf.delete();
+        }catch (Exception e){
+            file.delete();
+            filepdf.delete();
         }
-        i = 0;
-        rs.close();
-        ps.close();
 
-        System.out.println(prodname);
-        putsheet(sheet,4,5,prodname);
-        putsheet(sheet,5,5,ename);
-        putsheet(sheet,4,19,type);
-        putsheet(sheet,6,5,stand);
-        putsheet(sheet,6,19,prodno);
-        putsheet(sheet,8,5,ecode);
-        putsheet(sheet,8,19,deservicelife);
-        putsheet(sheet,10,6,volume);
-        putsheet(sheet,10,14,innerdia);
-        putsheet(sheet,10,20,proheight);
-        putsheet(sheet,12,6,t_mat);
-        putsheet(sheet,12,14,k_thi);
-        putsheet(sheet,12,20,weight);
-        putsheet(sheet,14,6,f_mat);
-        putsheet(sheet,14,14,f_thi);
-        if(!chweight.equals("0")){
-            putsheet(sheet,14,20,chweight);
-        }
-        putsheet(sheet,16,6,c_mat);
-        putsheet(sheet,16,14,c_thi);
-        putsheet(sheet,18,6,j_mat);
-        putsheet(sheet,18,14,j_thi);
-        putsheet(sheet,20,6,k_depress);
-        putsheet(sheet,20,14,k_detemp);
-        putsheet(sheet,20,20,k_maxwpress);
-        putsheet(sheet,22,6,g_depress);
-        putsheet(sheet,22,14,g_detemp);
-        putsheet(sheet,22,20,g_maxwpress);
-        putsheet(sheet,24,6,j_depress);
-        putsheet(sheet,24,14,j_detemp);
-        putsheet(sheet,24,20,j_maxwpress);
-        putsheet(sheet,26,6,k_wmedia);
-        putsheet(sheet,27,6,k_ewmedia);
-        putsheet(sheet,26,14,g_wmedia);
-        putsheet(sheet,27,14,g_ewmedia);
-        putsheet(sheet,26,20,j_wmedia);
-        putsheet(sheet,27,20,j_ewmedia);
-        putsheet(sheet,28,7,m_type);
-        putsheet(sheet,29,7,m_etype);
-        putsheet(sheet,28,19,installtype);
-        putsheet(sheet,29,19,einstalltype);
-        putsheet(sheet,30,7,supptype);
-        putsheet(sheet,31,7,esupptype);
-        putsheet(sheet,30,19,insultype);
-        putsheet(sheet,31,19,einsultype);
-        putsheet(sheet,32,7,ndetype);
-        putsheet(sheet,32,19,nderatio);
-        putsheet(sheet,34,7,pttype);
-        putsheet(sheet,35,7,epttype);
-        putsheet(sheet,34,19,testpress);
-        putsheet(sheet,36,7,leaktest);
-        putsheet(sheet,37,7,eleaktest);
-        putsheet(sheet,36,19,leaktestp);
-        putsheet(sheet,38,7,httype);
-        putsheet(sheet,39,7,ceng(httype));
-        if(!httemp.equals("0")){
-            putsheet(sheet,38,19,httemp);
-        }
-        putsheet(sheet,54,11,zj_name);
-        putsheet(sheet,55,11,zj_ename);
-        putsheet(sheet,56,11,zj_uniformcode);
-        putsheet(sheet,56,20,zj_manuno);
-
-
-
-        OutputStream out = new FileOutputStream(url1);
-        workBook.write(out);
-        out.close();
-
-        conn.close();
-
-
-        File filepdf = new File(uploadPath, filename);
-        HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "压力容器产品数据表.xlsx");// 文件的属性，也就是文件叫什么吧
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
-        ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
-        file.delete();
-        filepdf.delete();
         return download;
     }
 

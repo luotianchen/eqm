@@ -47,86 +47,94 @@ public class getweldingreport {                                         //产品
         SimpleDateFormat simpleDateFormat3 = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat simpleDateFormat4 = new SimpleDateFormat("MMM.dd.yyyy", Locale.US);
 
+        ResponseEntity<byte[]> download = null;
+        File file = null;
+        File filepdf = null;
 
-        String realPath = request.getSession().getServletContext().getRealPath("");
-        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-        String uploadPath = path + "upload";                                                //获取文件名称
-        System.out.println(uploadPath);
-        File realfile = new File(uploadPath,"焊接记录.xlsx");
-        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+        try {
+            String realPath = request.getSession().getServletContext().getRealPath("");
+            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+            String uploadPath = path + "upload";                                                //获取文件名称
+            System.out.println(uploadPath);
+            File realfile = new File(uploadPath,"焊接记录.xlsx");
+            InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-        File file = new File(uploadPath, filename);
-
-
-
-        FileUtils.copyInputStreamToFile(inputStream, file);
-        String url1 = uploadPath +"/"+ filename;
-
-
-        FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
-        XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
-        fileXlsx.close();
-        Sheet sheet=workBook.getSheetAt(0);
+            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+            file = new File(uploadPath, filename);
 
 
-        putsheet(sheet,3,42,prodno);
-        putsheet(sheet,3+61,42,prodno);
-        ps = conn.prepareStatement("SELECT * FROM weldingrecord WHERE prodno = ?");
-        ps.setString(1,prodno);
-        rs= ps.executeQuery();
-        while (rs.next()){
-            if(i<25){
-                putsheet(sheet,3,0,rs.getString("dwgno"));
-                putsheet(sheet,9+i*2,3,rs.getString("weldno"));
-                if(rs.getString("weldno")!=null){
-                    putsheet(sheet,9+i*2,0,rs.getString("weldno").substring(0,1));
+
+            FileUtils.copyInputStreamToFile(inputStream, file);
+            String url1 = uploadPath +"/"+ filename;
+
+
+            FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
+            XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
+            fileXlsx.close();
+            Sheet sheet=workBook.getSheetAt(0);
+
+
+            putsheet(sheet,3,42,prodno);
+            putsheet(sheet,3+61,42,prodno);
+            ps = conn.prepareStatement("SELECT * FROM weldingrecord WHERE prodno = ?");
+            ps.setString(1,prodno);
+            rs= ps.executeQuery();
+            while (rs.next()){
+                if(i<25){
+                    putsheet(sheet,3,0,rs.getString("dwgno"));
+                    putsheet(sheet,9+i*2,3,rs.getString("weldno"));
+                    if(rs.getString("weldno")!=null){
+                        putsheet(sheet,9+i*2,0,rs.getString("weldno").substring(0,1));
+                    }
+                    putsheet(sheet,9+i*2,13,rs.getString("weldevano"));
+                    putsheet(sheet,9+i*2,23,rs.getString("weldmethod"));
+                    putsheet(sheet,9+i*2,30,rs.getString("usernote"));
+                    calendar.setTime(rs.getDate("welddate"));
+                    putsheet(sheet,9+i*2,38,simpleDateFormat1.format(calendar.getTime()));
+                    putsheet(sheet,9+i*2,46,rs.getString("inspector"));
+                    i++;
+                    putsheet(sheet,59,39,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,60,39,simpleDateFormat4.format(calendar.getTime()));
+                }else {
+                    putsheet(sheet,3+61,0,rs.getString("dwgno"));
+                    putsheet(sheet,9+i*2+61-25*2,3,rs.getString("weldno"));
+                    if(rs.getString("weldno")!=null){
+                        putsheet(sheet,9+i*2+61-25*2,0,rs.getString("weldno").substring(0,1));
+                    }
+                    putsheet(sheet,9+i*2+61-25*2,13,rs.getString("weldevano"));
+                    putsheet(sheet,9+i*2+61-25*2,23,rs.getString("weldmethod"));
+                    putsheet(sheet,9+i*2+61-25*2,30,rs.getString("usernote"));
+                    calendar.setTime(rs.getDate("welddate"));
+                    putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
+                    putsheet(sheet,9+i*2+61-25*2,46,rs.getString("inspector"));
+                    i++;
+                    putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));
                 }
-                putsheet(sheet,9+i*2,13,rs.getString("weldevano"));
-                putsheet(sheet,9+i*2,23,rs.getString("weldmethod"));
-                putsheet(sheet,9+i*2,30,rs.getString("usernote"));
-                calendar.setTime(rs.getDate("welddate"));
-                putsheet(sheet,9+i*2,38,simpleDateFormat1.format(calendar.getTime()));
-                putsheet(sheet,9+i*2,46,rs.getString("inspector"));
-                i++;
-                putsheet(sheet,59,39,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,60,39,simpleDateFormat4.format(calendar.getTime()));
-            }else {
-                putsheet(sheet,3+61,0,rs.getString("dwgno"));
-                putsheet(sheet,9+i*2+61-25*2,3,rs.getString("weldno"));
-                if(rs.getString("weldno")!=null){
-                    putsheet(sheet,9+i*2+61-25*2,0,rs.getString("weldno").substring(0,1));
-                }
-                putsheet(sheet,9+i*2+61-25*2,13,rs.getString("weldevano"));
-                putsheet(sheet,9+i*2+61-25*2,23,rs.getString("weldmethod"));
-                putsheet(sheet,9+i*2+61-25*2,30,rs.getString("usernote"));
-                calendar.setTime(rs.getDate("welddate"));
-                putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
-                putsheet(sheet,9+i*2+61-25*2,46,rs.getString("inspector"));
-                i++;
-                putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));
             }
+            rs.close();
+            ps.close();
+
+
+
+
+            OutputStream out = new FileOutputStream(url1);
+            workBook.write(out);
+            out.close();
+
+            conn.close();
+
+            filepdf = new File(uploadPath, filename);
+            HttpHeaders headers = new HttpHeaders();// 设置一个head
+            headers.setContentDispositionFormData("attachment", "焊接记录.xlsx");// 文件的属性，也就是文件叫什么吧
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
+            download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
+            file.delete();
+            filepdf.delete();
+        }catch (Exception e){
+            file.delete();
+            filepdf.delete();
         }
-        rs.close();
-        ps.close();
-
-
-
-
-        OutputStream out = new FileOutputStream(url1);
-        workBook.write(out);
-        out.close();
-
-        conn.close();
-
-        File filepdf = new File(uploadPath, filename);
-        HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "焊接记录.xlsx");// 文件的属性，也就是文件叫什么吧
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
-        ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
-        file.delete();
-        filepdf.delete();
         return download;
     }
 }

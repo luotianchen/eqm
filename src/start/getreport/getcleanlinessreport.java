@@ -66,203 +66,212 @@ public class getcleanlinessreport {                                     //清洁
         String shmatl = null;
         String dated = null;
 
+        ResponseEntity<byte[]> download = null;
+        File file = null;
+        File filepdf = null;
 
-        String realPath = request.getSession().getServletContext().getRealPath("");
-        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-        String uploadPath = path + "upload";                                                //获取文件名称
-        System.out.println(uploadPath);
-        File realfile = new File(uploadPath,"清洁度检查报告.xlsx");
-        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+        try {
+            String realPath = request.getSession().getServletContext().getRealPath("");
+            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+            String uploadPath = path + "upload";                                                //获取文件名称
+            System.out.println(uploadPath);
+            File realfile = new File(uploadPath,"清洁度检查报告.xlsx");
+            InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-        File file = new File(uploadPath, filename);
-
-
-
-        FileUtils.copyInputStreamToFile(inputStream, file);
-        String url1 = uploadPath +"/"+ filename;
+            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+            file = new File(uploadPath, filename);
 
 
-        FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
-        XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
-        fileXlsx.close();
-        Sheet sheet=workBook.getSheetAt(0);
 
-        putsheet(sheet,3,8,prodno);
+            FileUtils.copyInputStreamToFile(inputStream, file);
+            String url1 = uploadPath +"/"+ filename;
 
-        ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
-        ps.setString(1,prodno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            dwgno = rs.getString("dwgno");
-            putsheet(sheet,3,0,dwgno);
-        }
-        rs.close();
-        ps.close();
 
-        ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
-        ps.setString(1,dwgno);
-        ps.setString(2,name);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            wmedia = rs.getString("wmedia");
-            shmatl1 = rs.getString("shmatl1");
-            shmatl2 = rs.getString("shmatl2");
-            shmatl3 = rs.getString("shmatl3");
-            if(shmatl1 != null && !shmatl1.equals("")){
-                shmatl = shmatl1;
+            FileInputStream fileXlsx = new FileInputStream(url1);                                       //填写报表
+            XSSFWorkbook workBook = new XSSFWorkbook(fileXlsx);
+            fileXlsx.close();
+            Sheet sheet=workBook.getSheetAt(0);
+
+            putsheet(sheet,3,8,prodno);
+
+            ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
+            ps.setString(1,prodno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                dwgno = rs.getString("dwgno");
+                putsheet(sheet,3,0,dwgno);
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM channeldata WHERE dwgno = ? AND name = ? AND status = 1");
+            ps.setString(1,dwgno);
+            ps.setString(2,name);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                wmedia = rs.getString("wmedia");
+                shmatl1 = rs.getString("shmatl1");
+                shmatl2 = rs.getString("shmatl2");
+                shmatl3 = rs.getString("shmatl3");
+                if(shmatl1 != null && !shmatl1.equals("")){
+                    shmatl = shmatl1;
+                }
+
+                if(shmatl2 != null && !shmatl2.equals("") && !shmatl2.equals(shmatl1)){
+                    shmatl = shmatl + "/" + shmatl2;
+                }
+
+                if(shmatl3 != null && !shmatl3.equals("") && !shmatl3.equals(shmatl1) && !shmatl3.equals(shmatl2)){
+                    shmatl = shmatl + "/" + shmatl3;
+                }
+
+                putsheet(sheet,4,2,shmatl);
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
+            ps.setString(1,wmedia);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                ewmedia = rs.getString("wmediaen");
+            }
+            rs.close();
+            ps.close();
+
+            putsheet(sheet,4,7,wmedia);
+            putsheet(sheet,5,7,ewmedia);
+
+            ps = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
+            ps.setString(1,username);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                putsheet(sheet,37,1,rs.getString("name"));
+            }
+            rs.close();
+            ps.close();
+
+            ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+            ps.setString(1,prodno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                calendar.setTime(rs.getDate("exworkdate"));
+                dated = simpleDateFormat1.format(calendar.getTime());
+            }
+            rs.close();
+            ps.close();
+
+            putsheet(sheet,8,4,date);
+            putsheet(sheet,9,4,dated);
+            putsheet(sheet,10,4,dated);
+
+
+
+            if(cleanname.equals("普通")){
+                putsheet(sheet,7,6,clean_2);
+
+                putsheet(sheet,12,6,inspection_1);
+
+                putsheet(sheet,17,0,quain_1);
+                putsheet(sheet,18,0,quain_2);
             }
 
-            if(shmatl2 != null && !shmatl2.equals("") && !shmatl2.equals(shmatl1)){
-                shmatl = shmatl + "/" + shmatl2;
+            if(cleanname.equals("去油脱脂")){
+                putsheet(sheet,7,6,clean_1);
+                putsheet(sheet,8,6,clean_2);
+
+                putsheet(sheet,12,6,inspection_1);
+                putsheet(sheet,13,6,inspection_2);
+
+
+                putsheet(sheet,17,0,quain_1);
+                putsheet(sheet,18,0,quain_2);
+                putsheet(sheet,19,0,quain_3);
+                putsheet(sheet,20,0,quain_4);
             }
 
-            if(shmatl3 != null && !shmatl3.equals("") && !shmatl3.equals(shmatl1) && !shmatl3.equals(shmatl2)){
-                shmatl = shmatl + "/" + shmatl3;
+            if(cleanname.equals("酸洗钝化")){
+                putsheet(sheet,7,6,clean_1);
+                putsheet(sheet,8,6,clean_2);
+                putsheet(sheet,9,6,clean_3);
+
+
+                putsheet(sheet,12,6,inspection_1);
+                putsheet(sheet,13,6,inspection_2);
+                putsheet(sheet,14,6,inspection_3);
+
+
+                putsheet(sheet,17,0,quain_1);
+                putsheet(sheet,18,0,quain_2);
+                putsheet(sheet,19,0,quain_3);
+                putsheet(sheet,20,0,quain_4);
             }
 
-            putsheet(sheet,4,2,shmatl);
-        }
-        rs.close();
-        ps.close();
+            if(cleanname.equals("特殊要求")){
+                putsheet(sheet,7,6,clean_1);
+                putsheet(sheet,8,6,clean_2);
+                putsheet(sheet,9,6,clean_3);
+                putsheet(sheet,10,6,clean_4);
 
-        ps = conn.prepareStatement("SELECT * FROM wmedia WHERE wmedia = ?");
-        ps.setString(1,wmedia);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            ewmedia = rs.getString("wmediaen");
-        }
-        rs.close();
-        ps.close();
+                putsheet(sheet,12,6,inspection_1);
+                putsheet(sheet,13,6,inspection_2);
+                putsheet(sheet,14,6,inspection_3);
+                putsheet(sheet,15,6,inspection_4);
 
-        putsheet(sheet,4,7,wmedia);
-        putsheet(sheet,5,7,ewmedia);
+                putsheet(sheet,17,0,quain_1);
+                putsheet(sheet,18,0,quain_2);
+                putsheet(sheet,19,0,quain_3);
+                putsheet(sheet,20,0,quain_4);
+                putsheet(sheet,21,0,quain_5);
+                putsheet(sheet,22,0,quain_6);
+            }
 
-        ps = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
-        ps.setString(1,username);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            putsheet(sheet,37,1,rs.getString("name"));
-        }
-        rs.close();
-        ps.close();
+            if(cleanname.equals("蓝点法要求")){
+                putsheet(sheet,7,6,clean_1);
+                putsheet(sheet,8,6,clean_2);
+                putsheet(sheet,9,6,clean_3);
 
-        ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
-        ps.setString(1,prodno);
-        rs = ps.executeQuery();
-        if(rs.next()){
-            calendar.setTime(rs.getDate("exworkdate"));
-            dated = simpleDateFormat1.format(calendar.getTime());
-        }
-        rs.close();
-        ps.close();
 
-        putsheet(sheet,8,4,date);
-        putsheet(sheet,9,4,dated);
-        putsheet(sheet,10,4,dated);
+                putsheet(sheet,12,6,inspection_1);
+                putsheet(sheet,13,6,inspection_2);
+                putsheet(sheet,14,6,inspection_3);
+                putsheet(sheet,15,6,inspection_5);
+
+                putsheet(sheet,17,0,quain_1);
+                putsheet(sheet,18,0,quain_2);
+                putsheet(sheet,19,0,quain_3);
+                putsheet(sheet,20,0,quain_4);
+                putsheet(sheet,21,0,quain_5);
+                putsheet(sheet,22,0,quain_6);
+            }
 
 
 
-        if(cleanname.equals("普通")){
-            putsheet(sheet,7,6,clean_2);
-
-            putsheet(sheet,12,6,inspection_1);
-
-            putsheet(sheet,17,0,quain_1);
-            putsheet(sheet,18,0,quain_2);
-        }
-
-        if(cleanname.equals("去油脱脂")){
-            putsheet(sheet,7,6,clean_1);
-            putsheet(sheet,8,6,clean_2);
-
-            putsheet(sheet,12,6,inspection_1);
-            putsheet(sheet,13,6,inspection_2);
 
 
-            putsheet(sheet,17,0,quain_1);
-            putsheet(sheet,18,0,quain_2);
-            putsheet(sheet,19,0,quain_3);
-            putsheet(sheet,20,0,quain_4);
-        }
-
-        if(cleanname.equals("酸洗钝化")){
-            putsheet(sheet,7,6,clean_1);
-            putsheet(sheet,8,6,clean_2);
-            putsheet(sheet,9,6,clean_3);
 
 
-            putsheet(sheet,12,6,inspection_1);
-            putsheet(sheet,13,6,inspection_2);
-            putsheet(sheet,14,6,inspection_3);
 
 
-            putsheet(sheet,17,0,quain_1);
-            putsheet(sheet,18,0,quain_2);
-            putsheet(sheet,19,0,quain_3);
-            putsheet(sheet,20,0,quain_4);
+
+            OutputStream out = new FileOutputStream(url1);
+            workBook.write(out);
+            out.close();
+
+            conn.close();
+
+            filepdf = new File(uploadPath, filename);
+            HttpHeaders headers = new HttpHeaders();// 设置一个head
+            headers.setContentDispositionFormData("attachment", "清洁度检查报告.xlsx");// 文件的属性，也就是文件叫什么吧
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
+            download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
+            file.delete();
+            filepdf.delete();
+        }catch (Exception e){
+            file.delete();
+            filepdf.delete();
         }
 
-        if(cleanname.equals("特殊要求")){
-            putsheet(sheet,7,6,clean_1);
-            putsheet(sheet,8,6,clean_2);
-            putsheet(sheet,9,6,clean_3);
-            putsheet(sheet,10,6,clean_4);
-
-            putsheet(sheet,12,6,inspection_1);
-            putsheet(sheet,13,6,inspection_2);
-            putsheet(sheet,14,6,inspection_3);
-            putsheet(sheet,15,6,inspection_4);
-
-            putsheet(sheet,17,0,quain_1);
-            putsheet(sheet,18,0,quain_2);
-            putsheet(sheet,19,0,quain_3);
-            putsheet(sheet,20,0,quain_4);
-            putsheet(sheet,21,0,quain_5);
-            putsheet(sheet,22,0,quain_6);
-        }
-
-        if(cleanname.equals("蓝点法要求")){
-            putsheet(sheet,7,6,clean_1);
-            putsheet(sheet,8,6,clean_2);
-            putsheet(sheet,9,6,clean_3);
-
-
-            putsheet(sheet,12,6,inspection_1);
-            putsheet(sheet,13,6,inspection_2);
-            putsheet(sheet,14,6,inspection_3);
-            putsheet(sheet,15,6,inspection_5);
-
-            putsheet(sheet,17,0,quain_1);
-            putsheet(sheet,18,0,quain_2);
-            putsheet(sheet,19,0,quain_3);
-            putsheet(sheet,20,0,quain_4);
-            putsheet(sheet,21,0,quain_5);
-            putsheet(sheet,22,0,quain_6);
-        }
-
-
-
-
-
-
-
-
-
-
-        OutputStream out = new FileOutputStream(url1);
-        workBook.write(out);
-        out.close();
-
-        conn.close();
-
-        File filepdf = new File(uploadPath, filename);
-        HttpHeaders headers = new HttpHeaders();// 设置一个head
-        headers.setContentDispositionFormData("attachment", "清洁度检查报告.xlsx");// 文件的属性，也就是文件叫什么吧
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);// 内容是字节流
-        ResponseEntity<byte[]> download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
-        file.delete();
-        filepdf.delete();
         return download;
     }
 }
