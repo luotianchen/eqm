@@ -76,7 +76,7 @@ public class putpregaumeatable {                                        //提交
                 ps.setString(14,pp.getCalibinterval());
                 ps.setString(15,pp.getNote());
                 ps.setDate(16,date);
-                ps.setString(16,pp.getUser());
+                ps.setString(17,pp.getUser());
                 ps.executeUpdate();
                 ps.close();
                 result.setResult("success");
