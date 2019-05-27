@@ -107,7 +107,7 @@
           {{data.designation}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" (nzBlur)="screeningCodedmarking(data.key)" [nzShowArrow]="false">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" [nzShowArrow]="false">
             <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </ng-container>
@@ -125,7 +125,7 @@
           {{data.codedmarking}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" [(ngModel)]="editCache[data.key].data.codedmarking"  [nzShowArrow]="false" nzNotFoundContent="无符合记录">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" (nzFocus)="screeningCodedmarking(data.key)" [(ngModel)]="editCache[data.key].data.codedmarking"  [nzShowArrow]="false" nzNotFoundContent="无符合记录">
             <ng-container *ngFor="let option of codedmarkingDisplay;let i = index">
               <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
             </ng-container>

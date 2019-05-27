@@ -42,7 +42,7 @@
       <i nz-icon type="question-circle" theme="outline"></i>
     </button>
   </p>
-  <div style="width:900px;border: none;padding-bottom: 25px" *ngFor="let reportData of reportDatas;let i = index;">
+  <div style="width:900px;border: none;page-break-after: always;" *ngFor="let reportData of reportDatas;let i = index;">
     <table class="report" border=0 cellpadding=0 cellspacing=0 width=808 style='border-collapse:
    collapse;table-layout:fixed;width:606pt;white-space: nowrap;margin-left:50px;font-size: 12px'>
       <colgroup width=44 style='mso-width-source:userset;mso-width-alt:1408;width:33pt'></colgroup>
@@ -57,10 +57,10 @@
         <td colspan="8" style="border:none;padding-left: 5px">表 C-10</td>
       </tr>
       <tr [ngStyle]="{'text-align': 'center'}">
-        <td colspan="8" style="border:none;"><h1>材料清单</h1></td>
+        <td colspan="8" style="border:none;"><h1 style="margin-bottom: 0;">材料清单</h1></td>
       </tr>
       <tr [ngStyle]="{'text-align': 'center'}">
-        <td colspan="8" style="border:none;"><h2>Material List</h2></td>
+        <td colspan="8" style="border:none;"><h2 style="margin-bottom: 0;">Material List</h2></td>
       </tr>
       <tr style="vertical-align: bottom">
         <td colspan="4" style="border:none;"><span style="padding-left: 70px">产品名称：{{reportData.prodname}}</span></td>

@@ -32,6 +32,9 @@
     <div nz-col [nzSpan]="4">
       <button class="tool-button" nz-button nzType="default" (click)="createTplModal(partsnameTitle, partsnameContent, partsnameFooter)">添加零件名称</button>
     </div>
+    <div nz-col [nzSpan]="4" *ngIf="status">
+      <button class="tool-button" nz-button nzType="default" (click)="createTplModal(copyfromTitle, copyfromContent, copyfromFooter);copy()">复制来自于</button>
+    </div>
   </div>
 </form>
 <div *ngIf="status" style="margin-top: 20px">
@@ -99,7 +102,7 @@
             {{data.designation}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" [nzShowArrow]="false" (nzBlur)="screeningCodedmarking(data.key)">
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" [nzShowArrow]="false">
               <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
             </nz-select>
           </ng-container>
@@ -122,7 +125,7 @@
             {{data.codedmarking}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" [(ngModel)]="editCache[data.key].data.codedmarking" [nzShowArrow]="false" nzNotFoundContent="无符合记录">
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" [(ngModel)]="editCache[data.key].data.codedmarking" [nzShowArrow]="false" nzNotFoundContent="无符合记录" (nzFocus)="screeningCodedmarking(data.key)">
               <ng-container *ngFor="let option of codedmarkingDisplay">
                 <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
               </ng-container>
@@ -224,4 +227,87 @@
       <button nz-button nzType="primary" (click)="submitInfo('partsname')" [nzLoading]="tplModalButtonLoading">提交</button>
     </ng-template>
   </form>
+</div>
+
+
+<div id="copyfrom">
+  <ng-template #copyfromTitle>
+    <span>复制来自于同图号其他产品编号的发放数据</span>
+  </ng-template>
+  <ng-template #copyfromContent>
+    <form nz-form [formGroup]="copyvalidateForm" class="ant-advanced-search-form">
+      <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="18">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
+            <nz-form-control [nzSm]="14" nzHasFeedback>
+              <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno2" id="prodno2">
+                <nz-option *ngFor="let option of copyprodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzSpan]="6">
+          <button nz-button [nzType]="'primary'" (click)="searchData2($event)">查询</button>
+        </div>
+      </div>
+    </form>
+    <nz-divider></nz-divider>
+    <div style="max-width: 700px;max-height: 400px;overflow-x: scroll;overflow-y: scroll;padding-bottom: 20px;padding-right: 20px">
+      <nz-table
+        nzSize="small"
+        style="width: 1200px;"
+        *ngIf="status2"
+        nzTitle="（可上下左右滚动）"
+        #basicTable [nzData]="dataSet2"
+        [nzFrontPagination]="false"
+        [nzShowPagination]="false"
+      >
+        <thead>
+        <tr>
+          <th
+            nzShowCheckbox
+            [(nzChecked)]="isAllDisplayDataChecked"
+            (nzCheckedChange)="checkAll()"
+          ></th>
+          <th nzWidth="100px">发料日期</th>
+          <th nzWidth="100px">焊缝号</th>
+          <th nzWidth="100px">名称</th>
+          <th nzWidth="100px">焊材牌号</th>
+          <th nzWidth="100px">规格</th>
+          <th nzWidth="120px">入库编号</th>
+          <th nzWidth="50px">发放数量</th>
+          <th nzWidth="50px">退回数量</th>
+          <th nzWidth="50px">回收焊条</th>
+          <th nzWidth="100px">领料人</th>
+          <th nzWidth="100px">备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of basicTable.data;let i = index">
+          <td
+            nzShowCheckbox
+            [(nzChecked)]="mapOfCheckedId[i]"
+            (nzCheckedChange)="checkAll2()"
+          ></td>
+          <td>{{ data.issuedate }}</td>
+          <td>{{ data.weldno }}</td>
+          <td>{{ data.spartname }}</td>
+          <td>{{ data.designation }}</td>
+          <td>{{ data.spec }}</td>
+          <td>{{ data.codedmarking }}</td>
+          <td>{{ data.qty }}</td>
+          <td>{{ data.returnqty }}</td>
+          <td>{{ data.dimension }}</td>
+          <td>{{ username2name[data.picker] }}</td>
+          <td>{{ data.note }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </ng-template>
+  <ng-template #copyfromFooter>
+    <button nz-button nzType="default" (click)="tplModal.destroy()">取消</button>
+    <button nz-button nzType="primary" (click)="submitInfo('copyfrom')" [nzLoading]="tplModalButtonLoading">确认粘贴</button>
+  </ng-template>
 </div>

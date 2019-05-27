@@ -24,7 +24,7 @@
   </div>
 </form>
 <div style="margin-top: 30px;" *ngIf="!status">
-  <nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="dataset" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageindex" [(nzPageSize)]="pagesize" (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)" nzShowQuickJumper nzShowTotal nzHideOnSinglePage>
+  <nz-table #ajaxTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="dataset" [nzLoading]="loading" [nzTotal]="total" [(nzPageIndex)]="pageindex" [(nzPageSize)]="pagesize" (nzPageIndexChange)="searchData()" (nzPageSizeChange)="searchData(true)" nzShowQuickJumper nzShowTotal nzHideOnSinglePage nzBordered>
     <thead>
     <tr>
       <th>提交人</th>

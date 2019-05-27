@@ -40,4 +40,7 @@ export class WeldingDistributeService {
   getindexbymatlcoderules(){ //获取材料代码信息
     return this.http.get(`${this.api.BASEURL}/getindexbymatlcoderules`)
   }
+  getprodnosbydwgno(dwgno){
+    return this.http.post(`${this.api.BASEURL}/searchprodnobydwgno`,{dwgno:dwgno});
+  }
 }

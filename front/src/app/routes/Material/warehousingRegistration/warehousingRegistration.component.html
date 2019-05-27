@@ -26,7 +26,7 @@
       <nz-form-item>
         <nz-form-label nzFor="warrantysitu">质保书情况</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="warrantysitu" name="warrantysitu" id="warrantysitu" nzPlaceHolder="质保书情况" nzShowSearch nzAllowClear>
+          <nz-select  [nzShowArrow]="false" formControlName="warrantysitu" name="warrantysitu" id="warrantysitu" nzPlaceHolder="质保书情况" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.warrantysitu" [nzValue]="o.certsitu" [nzLabel]="o.certsitu"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -62,7 +62,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="matlname">材料名称</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="matlname" name="matlname" id="matlname" nzPlaceHolder="材料名称" nzShowSearch nzAllowClear>
+          <nz-select  [nzShowArrow]="false" formControlName="matlname" name="matlname" id="matlname" nzPlaceHolder="材料名称" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.matlname" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="validateForm.get('matlname').dirty && validateForm.get('matlname').errors">
@@ -90,7 +90,7 @@
       <nz-form-item>
         <nz-form-label nzFor="supplier">供货单位</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="supplier" name="supplier" id="supplier" nzPlaceHolder="供货单位" nzShowSearch nzAllowClear>
+          <nz-select  [nzShowArrow]="false" formControlName="supplier" name="supplier" id="supplier" nzPlaceHolder="供货单位" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.supplier" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -100,7 +100,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="designation">牌号</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="designation" name="designation" id="designation" nzPlaceHolder="牌号" nzShowSearch nzAllowClear  (ngModelChange)="getMatlstand()">
+          <nz-select  [nzShowArrow]="false" formControlName="designation" name="designation" id="designation" nzPlaceHolder="牌号" nzShowSearch nzAllowClear  (ngModelChange)="getMatlstand()">
             <nz-option *ngFor="let o of this.designation" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="validateForm.get('designation').dirty && validateForm.get('designation').errors">
@@ -113,7 +113,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="matlstand">材料标准</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="matlstand" name="matlstand" id="matlstand" nzPlaceHolder="请先选择牌号" nzShowSearch nzAllowClear (ngModelChange)="checkForContraststand()">
+          <nz-select  [nzShowArrow]="false" formControlName="matlstand" name="matlstand" id="matlstand" nzPlaceHolder="请先选择牌号" nzShowSearch nzAllowClear (ngModelChange)="checkForContraststand()">
             <nz-option *ngFor="let o of this.matlstand" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="validateForm.get('matlstand').dirty && validateForm.get('matlstand').errors">
@@ -141,7 +141,7 @@
       <nz-form-item>
         <nz-form-label nzFor="modelstand">型号标准</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="modelstand" name="modelstand" id="modelstand" nzPlaceHolder="型号标准" nzShowSearch nzAllowClear>
+          <nz-select  [nzShowArrow]="false" formControlName="modelstand" name="modelstand" id="modelstand" nzPlaceHolder="型号标准" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of this.modelstand" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -153,7 +153,7 @@
         <nz-form-control nzHasFeedback>
           <nz-input-group nzCompact>
             <input nz-input formControlName="qty" name="qty" type="text" id="qty" style="width: 60%">
-            <nz-select nzMode="default" formControlName="unit" name="unit" id="unit" nzShowSearch style="width: 40%">
+            <nz-select  [nzShowArrow]="false" nzMode="default" formControlName="unit" name="unit" id="unit" nzShowSearch style="width: 40%">
               <nz-option *ngFor="let option of units" [nzLabel]="option" [nzValue]="option">
               </nz-option>
             </nz-select>
@@ -179,7 +179,7 @@
       <nz-form-item>
         <nz-form-label nzRequired nzFor="millunit">生产单位</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select nzMode="default" formControlName="millunit" name="millunit" id="millunit" nzShowSearch nzAllowClear nzPlaceHolder="生产单位">
+          <nz-select  [nzShowArrow]="false" nzMode="default" formControlName="millunit" name="millunit" id="millunit" nzShowSearch nzAllowClear nzPlaceHolder="生产单位">
             <nz-option *ngFor="let option of millunits" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
           <nz-form-explain *ngIf="validateForm.get('millunit').dirty && validateForm.get('millunit').errors">
@@ -203,7 +203,7 @@
       <nz-form-item>
         <nz-form-label nzFor="bendangle">弯曲角度</nz-form-label>
         <nz-form-control nzHasFeedback>
-          <nz-select formControlName="bendangle" name="bendangle" id="bendangle" nzPlaceHolder="弯曲角度" nzShowSearch nzAllowClear>
+          <nz-select  [nzShowArrow]="false" formControlName="bendangle" name="bendangle" id="bendangle" nzPlaceHolder="弯曲角度" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let o of bendangles" [nzValue]="o" [nzLabel]="o"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -821,7 +821,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="heatcondi">热处理状态</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select nzMode="default" formControlName="heatcondi" name="heatcondi" nzPlaceHolder="热处理状态" id="heatcondi" nzShowSearch nzAllowClear>
+            <nz-select  [nzShowArrow]="false" nzMode="default" formControlName="heatcondi" name="heatcondi" nzPlaceHolder="热处理状态" id="heatcondi" nzShowSearch nzAllowClear>
               <nz-option *ngFor="let option of dataDetail['heatcondi'].split('、')" [nzLabel]="option" [nzValue]="option"></nz-option>
               <nz-option nzLabel="/" nzValue="/"></nz-option>
             </nz-select>
@@ -859,7 +859,7 @@
         <nz-form-item>
           <nz-form-label nzRequired nzFor="utclass">UT级别</nz-form-label>
           <nz-form-control nzHasFeedback>
-            <nz-select formControlName="utclass" name="utclass" id="utclass" nzPlaceHolder="UT级别" nzShowSearch nzAllowClear>
+            <nz-select  [nzShowArrow]="false" formControlName="utclass" name="utclass" id="utclass" nzPlaceHolder="UT级别" nzShowSearch nzAllowClear>
               <nz-option *ngFor="let o of utclasses" [nzValue]="o" [nzLabel]="o"></nz-option>
             </nz-select>
           </nz-form-control>
@@ -884,7 +884,6 @@
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(supplierTitle, supplierContent, supplierFooter)">添加供货单位</button>
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(matlnameTitle, matlnameContent, matlnameFooter)">添加材料名称</button>
   <button class="tool-button" nz-button nzType="default" (click)="createTplModal(modelstandTitle, modelstandContent, modelstandFooter)">添加型号标准</button>
-  <button class="tool-button" nz-button nzType="default" (click)="createTplModal(millunitTitle, millunitContent, millunitFooter)">添加生产单位</button>
   <a class="tool-button" nz-button nzType="default" (click)="goTo('/material/warehousingQuery')">材料入库查询</a>
 </div>
 <div id="addMillunit">

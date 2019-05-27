@@ -104,7 +104,6 @@ export class WarehouseEntryNoticeComponent implements OnInit {
           if(this.validateForm.valid) {
             this.warehouseEntryNoticeService.getReport(null,this.validateForm.value.year,this.validateForm.value.month,this.validateForm.value.matlcode).subscribe((res)=>{
               if(res["result"]=="success"){
-                console.log('assets/css/warehouseEntryNotice'+this.mode+'.css')
                 this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
                 this.dataSet = res["data"];
                 for(let item of this.dataSet){

@@ -740,8 +740,7 @@ export class WarehousingRegistrationComponent implements OnInit {
             nzTitle: '录入成功',
             nzContent: '录入成功1条记录'
           });
-          this.validateForm.reset();
-          this.validateForm.clearValidators();
+          this.resetForm();
           // window.setTimeout(() => this.backtoDashboard(modal), 3000);
 
         }else{
@@ -956,6 +955,8 @@ export class WarehousingRegistrationComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].reset();
     }
+    this.validateForm.controls['modelstand'].setValue('/');
+    this.validateForm.clearValidators();
   }
 
   ngOnInit() {

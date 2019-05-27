@@ -36,6 +36,8 @@ public class getpredatasheetreport {                            //压力容器�
         ArrayList<String> jiatao = new ArrayList<String>();                     //夹套材料
         ArrayList<String> thi = new ArrayList<String>();                        //不为夹套的厚度
         ArrayList<String> jiatao_thi = new ArrayList<String>();                     //夹套厚度
+        ArrayList<String> fengtou_thi = new ArrayList<String>();            //封头厚度
+
 
         ArrayList<String> guanc_depress = new ArrayList<String>();
         ArrayList<String> guanc_detemp = new ArrayList<String>();
@@ -194,6 +196,13 @@ public class getpredatasheetreport {                            //压力容器�
 
 
 
+                if(rs.getString("hdthick1")!=null && !rs.getString("hdthick2").equals("")){
+                    fengtou_thi.add(rs.getString("hdthick1"));
+                }
+
+                if(rs.getString("hdthick2")!=null && !rs.getString("hdthick2").equals("")){
+                    fengtou_thi.add(rs.getString("hdthick2"));
+                }
 
                 if(i==0){
                     volume = rs.getString("volume");
@@ -339,7 +348,7 @@ public class getpredatasheetreport {                            //压力容器�
             t_mat = getmat(mat);
             f_mat = t_mat;
             k_thi = getmat(thi);
-            f_thi = k_thi;
+            f_thi = getmat(fengtou_thi);
             j_mat = getmat(jiatao);
             j_thi = getmat(jiatao_thi);
 

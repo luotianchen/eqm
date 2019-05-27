@@ -49,7 +49,6 @@ export class MeComponent {
           this.department.add(res['departmentname']);
 
       });
-    console.log(this.department)
     this.meService.getSignImage(this._storage.get("username")).subscribe((res) => {
       if (res['result'] == "success") {
         this.imgURL = res['url'];

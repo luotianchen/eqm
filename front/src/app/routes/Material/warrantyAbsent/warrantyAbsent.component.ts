@@ -16,6 +16,8 @@ export class WarrantyAbsentComponent implements OnInit {
   public loading = true;
   public searchheatbatchno = '';
   public searchwarrantyno = '';
+  public searchcodedmarking = '';
+  public searchsupplier = '';
 
   ngOnInit(): void {
     this.searchData();
@@ -31,11 +33,12 @@ export class WarrantyAbsentComponent implements OnInit {
       if(res["result"]=="success"){
         this.total = res["total"];
         this.dataset = res["data"];
-        this.dataSetDisplay = this.dataset;
+        this.dataSetDisplay = this.dataset.slice();
         this.loading = false;
       }
     });
   }
+
   download(){
     this.warrantyAbsentService.download().subscribe((res:any)=>{
       let blob = new Blob([res]);
@@ -52,17 +55,19 @@ export class WarrantyAbsentComponent implements OnInit {
   }
 
   searchHeatbatchno(): void { //炉批号筛选
-    const filterFunc = (item) => {
-      return item.heatbatchno.indexOf(this.searchheatbatchno) !== -1;
-    };
-    this.dataSetDisplay = this.dataset.filter(item => filterFunc(item));
+    this.dataSetDisplay = this.dataset.filter(item => !!item.heatbatchno && item.heatbatchno.indexOf(this.searchheatbatchno) !== -1);
   }
 
   searchWarrantyno(): void { //质保书号筛选
-    const filterFunc = (item) => {
-      return item.warrantyno.indexOf(this.searchwarrantyno) !== -1;
-    };
-    this.dataSetDisplay = this.dataset.filter(item => filterFunc(item));
+    this.dataSetDisplay = this.dataset.filter(item => !!item.warrantyno && item.warrantyno.indexOf(this.searchwarrantyno) !== -1);
+  }
+
+  searchCodedmarking(): void{ //入库编号筛选
+    this.dataSetDisplay = this.dataset.filter(item=>!!item.codedmarking && item.codedmarking.indexOf(this.searchcodedmarking) !== -1)
+  }
+
+  searchSupplier(): void {
+    this.dataSetDisplay = this.dataset.filter(item=>!!item.supplier && item.supplier.indexOf(this.searchsupplier) !== -1)
   }
 
 }

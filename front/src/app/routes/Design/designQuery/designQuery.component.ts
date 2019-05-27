@@ -28,14 +28,14 @@ export class DesignQueryComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       "dwgno":[null],
-    })
+    });
     this.searchData();
   }
   searchData(){
     this.designQueryService.getaudited().subscribe((res:any)=>{
       if(res['result']=="success"){
         this.loading = false;
-        this.dataSet2 = res['data']
+        this.dataSet2 = res['data'];
         this.dataSet2Display = this.dataSet2.filter(item=>!this.validateForm.value.dwgno || item.dwgno == this.validateForm.value.dwgno);
       }
     })
@@ -52,7 +52,7 @@ export class DesignQueryComponent implements OnInit {
       this.modelData.saferel = res["data"].reverse();
     });
     this.designQueryService.getchannel(dwgno,1).subscribe((res:any)=>{
-      this.modelData.channel = res["data"]
+      this.modelData.channel = res["data"];
     });
   }
 
@@ -76,5 +76,8 @@ export class DesignQueryComponent implements OnInit {
   reset(): void {
     this.searchname = '';
     this.search();
+  }
+  trimNumber(str){
+    return str.replace(/\d+/g,'');
   }
 }

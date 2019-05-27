@@ -49,6 +49,7 @@ export class PressurePartsReportComponent implements OnInit {
             this.pressurePartsReportService.getSignImage(this.reportData['issuematl']).then((res)=>{
               if(res['result']=="success"){
                 this.reportData['issuematl'] = res['url'];
+                if(!this.reportData['issuedate']) this.msg.error("请在产品制造参数提交完工日期！")
                 this.pressurePartsReportService.getSignImage(this.reportData['audit_user']).then((res)=>{
                   if(res['result']=="success"){
                     this.reportData['audit_user'] = res['url'];
@@ -72,7 +73,6 @@ export class PressurePartsReportComponent implements OnInit {
                       });
                       this.reportData['data'] = this.reportData['data'].slice(19);
                     }
-                    console.log(this.reportDatas);
                   }else{
                     this.msg.error("请检查材料责任人"+this.reportData['audit_user']+"是否正确上传签名！");
                   }

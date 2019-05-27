@@ -202,7 +202,6 @@ export class MaterialDistributeComponent implements OnInit {
       this.dataSet[j]['issuematl'] = this._storage.get('username');
       for(let i in this.dataSet[j]){
         if(this.dataSet[j][i]==null && i != 'returnqty' && i!='weldno'){
-          console.log(i)
           this.message.error("您有尚未填写的数据，请填写完整后再提交！");
           return;
         }
@@ -355,7 +354,8 @@ export class MaterialDistributeComponent implements OnInit {
       }
     })
   }
-  searchData2(): void {
+  searchData2(e): void {
+    e.preventDefault();
     for (const i in this.copyvalidateForm.controls) {
       this.copyvalidateForm.controls[ i ].markAsDirty();
       this.copyvalidateForm.controls[ i ].updateValueAndValidity();

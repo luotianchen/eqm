@@ -24,8 +24,8 @@ export class DesignInputComponent implements OnInit {
   prodnames = [];
   types = [
     "I",
-    "II",
-    "III"
+    "Ⅱ",
+    "Ⅲ"
   ];
   stands = [];
   designations = [];
@@ -77,79 +77,79 @@ export class DesignInputComponent implements OnInit {
     },{
       label: "管程",value:{name:"管程",ename: "TubeSide"},selected:false
     },{
-      label: "管程I",value:{name:"管程I",ename: "TubeSide I"},selected:false
+      label: "管程Ⅰ",value:{name:"管程Ⅰ",ename: "TubeSide Ⅰ"},selected:false
     },{
-      label: "管程II",value:{name:"管程II",ename: "TubeSide II"},selected:false
+      label: "管程Ⅱ",value:{name:"管程Ⅱ",ename: "TubeSide Ⅱ"},selected:false
     },{
-      label: "管程III",value:{name:"管程III",ename: "TubeSide III"},selected:false
+      label: "管程Ⅲ",value:{name:"管程Ⅲ",ename: "TubeSide Ⅲ"},selected:false
     },{
-      label: "管程IV",value:{name:"管程IV",ename: "TubeSide IV"},selected:false
+      label: "管程Ⅳ",value:{name:"管程Ⅳ",ename: "TubeSide Ⅳ"},selected:false
     },{
-      label: "管程V",value:{name:"管程V",ename: "TubeSide V"},selected:false
+      label: "管程Ⅴ",value:{name:"管程Ⅴ",ename: "TubeSide Ⅴ"},selected:false
     },{
-      label: "管程VI",value:{name:"管程VI",ename: "TubeSide VI"},selected:false
+      label: "管程Ⅵ",value:{name:"管程Ⅵ",ename: "TubeSide Ⅵ"},selected:false
     },{
-      label: "管程VII",value:{name:"管程VII",ename: "TubeSide VII"},selected:false
+      label: "管程Ⅶ",value:{name:"管程Ⅶ",ename: "TubeSide Ⅶ"},selected:false
     },{
-      label: "管程VIII",value:{name:"管程VIII",ename: "TubeSide VIII"},selected:false
+      label: "管程Ⅷ",value:{name:"管程Ⅷ",ename: "TubeSide Ⅷ"},selected:false
     },{
-      label: "管程IX",value:{name:"管程VIII",ename: "TubeSide IX"},selected:false
+      label: "管程Ⅸ",value:{name:"管程Ⅷ",ename: "TubeSide Ⅸ"},selected:false
     },{
-      label: "管程X",value:{name:"管程VIII",ename: "TubeSide X"},selected:false
+      label: "管程Ⅹ",value:{name:"管程Ⅷ",ename: "TubeSide Ⅹ"},selected:false
     },{
-      label: "管程XI",value:{name:"管程VIII",ename: "TubeSide XI"},selected:false
+      label: "管程Ⅺ",value:{name:"管程Ⅷ",ename: "TubeSide Ⅺ"},selected:false
     },{
-      label: "管程XII",value:{name:"管程VIII",ename: "TubeSide XII"},selected:false
+      label: "管程Ⅻ",value:{name:"管程Ⅷ",ename: "TubeSide Ⅻ"},selected:false
     },{
       label: "壳程",value:{name:"壳程",ename: "Shell Side"},selected:false
     },{
       label: "壳程I",value:{name:"壳程I",ename: "Shell Side I"},selected:false
     },{
-      label: "壳程II",value:{name:"壳程II",ename: "Shell Side II"},selected:false
+      label: "壳程Ⅱ",value:{name:"壳程Ⅱ",ename: "Shell Side Ⅱ"},selected:false
     },{
-      label: "壳程III",value:{name:"壳程III",ename: "Shell Side III"},selected:false
+      label: "壳程Ⅲ",value:{name:"壳程Ⅲ",ename: "Shell Side Ⅲ"},selected:false
     },{
-      label: "壳程IV",value:{name:"壳程IV",ename: "Shell Side IV"},selected:false
+      label: "壳程Ⅳ",value:{name:"壳程Ⅳ",ename: "Shell Side Ⅳ"},selected:false
     },{
-      label: "壳程V",value:{name:"壳程V",ename: "Shell Side V"},selected:false
+      label: "壳程Ⅴ",value:{name:"壳程Ⅴ",ename: "Shell Side Ⅴ"},selected:false
     },{
-      label: "壳程VI",value:{name:"壳程VI",ename: "Shell Side VI"},selected:false
+      label: "壳程Ⅵ",value:{name:"壳程Ⅵ",ename: "Shell Side Ⅵ"},selected:false
     },{
-      label: "壳程VII",value:{name:"壳程VII",ename: "Shell Side VII"},selected:false
+      label: "壳程Ⅶ",value:{name:"壳程Ⅶ",ename: "Shell Side Ⅶ"},selected:false
     },{
-      label: "壳程VIII",value:{name:"壳程VIII",ename: "Shell Side VIII"},selected:false
+      label: "壳程Ⅷ",value:{name:"壳程Ⅷ",ename: "Shell Side Ⅷ"},selected:false
     },{
-      label: "壳程IX",value:{name:"壳程IX",ename: "Shell Side IX"},selected:false
+      label: "壳程Ⅸ",value:{name:"壳程Ⅸ",ename: "Shell Side Ⅸ"},selected:false
     },{
-      label: "壳程X",value:{name:"壳程X",ename: "Shell Side X"},selected:false
+      label: "壳程Ⅹ",value:{name:"壳程Ⅹ",ename: "Shell Side Ⅹ"},selected:false
     },{
-      label: "壳程XI",value:{name:"壳程XI",ename: "Shell Side XI"},selected:false
+      label: "壳程Ⅺ",value:{name:"壳程Ⅺ",ename: "Shell Side Ⅺ"},selected:false
     },{
-      label: "壳程XII",value:{name:"壳程XII",ename: "Shell Side XII"},selected:false
+      label: "壳程Ⅻ",value:{name:"壳程Ⅻ",ename: "Shell Side Ⅻ"},selected:false
     },    {
       label: "I通道",value:{name:"I通道",ename: "I gallery"},selected:false
     },{
-      label: "II通道",value:{name:"II通道",ename: "II gallery"},selected:false
+      label: "Ⅱ通道",value:{name:"Ⅱ通道",ename: "Ⅱ gallery"},selected:false
     },{
-      label: "III通道",value:{name:"III通道",ename: "III gallery"},selected:false
+      label: "Ⅲ通道",value:{name:"Ⅲ通道",ename: "Ⅲ gallery"},selected:false
     },{
-      label: "IV通道",value:{name:"IV通道",ename: "IVgallery"},selected:false
+      label: "Ⅳ通道",value:{name:"Ⅳ通道",ename: "Ⅳgallery"},selected:false
     },{
-      label: "V通道",value:{name:"V通道",ename: "V gallery"},selected:false
+      label: "Ⅴ通道",value:{name:"Ⅴ通道",ename: "Ⅴ gallery"},selected:false
     },{
-      label: "VI通道",value:{name:"VI通道",ename: "VI gallery"},selected:false
+      label: "Ⅵ通道",value:{name:"Ⅵ通道",ename: "Ⅵ gallery"},selected:false
     },{
-      label: "VII通道",value:{name:"VII通道",ename: "VII gallery"},selected:false
+      label: "Ⅶ通道",value:{name:"Ⅶ通道",ename: "Ⅶ gallery"},selected:false
     },{
-      label: "VIII通道",value:{name:"VIII通道",ename: "VIII gallery"},selected:false
+      label: "Ⅷ通道",value:{name:"Ⅷ通道",ename: "Ⅷ gallery"},selected:false
     },{
-      label: "IX通道",value:{name:"IX通道",ename: "IX gallery"},selected:false
+      label: "Ⅸ通道",value:{name:"Ⅸ通道",ename: "Ⅸ gallery"},selected:false
     },{
-      label: "X通道",value:{name:"X通道",ename: "X gallery"},selected:false
+      label: "Ⅹ通道",value:{name:"Ⅹ通道",ename: "Ⅹ gallery"},selected:false
     },{
-      label: "XI通道",value:{name:"XI通道",ename: "XI gallery"},selected:false
+      label: "Ⅺ通道",value:{name:"Ⅺ通道",ename: "Ⅺ gallery"},selected:false
     },{
-      label: "XII通道",value:{name:"XII通道",ename: "XII gallery"},selected:false
+      label: "Ⅻ通道",value:{name:"Ⅻ通道",ename: "Ⅻ gallery"},selected:false
     }
   ];
   pttypes = [
@@ -412,7 +412,6 @@ export class DesignInputComponent implements OnInit {
         form.controls['leaktestp'].setValidators(Validators.required);
       else{
         form.controls['leaktestp'].setValidators(null);
-        console.log(form.controls['leaktestp'])
       }
     }
   }

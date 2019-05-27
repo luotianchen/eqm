@@ -93,7 +93,6 @@ export class WeldingRecordComponent implements OnInit {
     this.check(key);
   }
   check(key){
-    console.log(this.editCache[key].data.ndtdate ,this.editCache[key].data.entrustdate,this.editCache[key].data.welddate);
     if(this.editCache[key].data.ndtdate && this.editCache[key].data.entrustdate){
       let ndtdate = this.editCache[key].data.ndtdate.split('-'),entrustdate = this.editCache[key].data.entrustdate.split('-');
       if(parseInt(ndtdate[0]) < parseInt(entrustdate[0])){

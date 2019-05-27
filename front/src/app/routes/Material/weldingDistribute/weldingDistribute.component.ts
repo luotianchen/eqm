@@ -14,6 +14,7 @@ export class WeldingDistributeComponent implements OnInit {
   public prodno:any;
   isLoading = false;
   validateForm: FormGroup;
+  copyvalidateForm: FormGroup;
   partsnameValidateForm: FormGroup;
   status = false;
   i=1;
@@ -25,6 +26,7 @@ export class WeldingDistributeComponent implements OnInit {
   specs = []
   ruleindex = null;
   rule = null;
+  copyprodnos = []
   onSpecInput(value: string): void { //当规格输入时展开选项
     this.specs = value ? [
       value,
@@ -199,7 +201,6 @@ export class WeldingDistributeComponent implements OnInit {
       this.dataSet[j]['issuematl'] = this._storage.get('username');
       for(let i in this.dataSet[j]){
         if(this.dataSet[j][i]==null && i!='partno' && i!="note"){
-          console.log(i);
           this.message.error("您有尚未填写的数据，请填写完整后再提交！");
           return;
         }
@@ -303,6 +304,17 @@ export class WeldingDistributeComponent implements OnInit {
           }
         });
       }
+    }else if(which == "copyfrom"){
+      let dataset2 = [];
+      for(let i =0;i<this.dataSet2.length;i++){
+        if(this.mapOfCheckedId[i]) dataset2.push(this.dataSet2[i]);
+      }
+      this.dataSet = [...this.dataSet,...dataset2];
+      for(this.i = 0;this.i < this.dataSet.length;this.i++){
+        this.dataSet[this.i]['key'] = `${this.i}`;
+      }
+      this.updateEditCache();
+      this.tplModal.destroy();
     }
   }
   codedmarkingDisplay = [];
@@ -325,5 +337,75 @@ export class WeldingDistributeComponent implements OnInit {
         })
       }else this.codedmarkingDisplay = [];
     } else this.codedmarkingDisplay = [];
+  }
+
+  dataSet2 = [];
+  dataSet2Display = [];
+  status2 = true;
+  copy(){
+    this.weldingDistributeService.getprodnosbydwgno(this.validateForm.controls['dwgno'].value).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.copyprodnos = res['data'];
+        if(this.copyprodnos.length>0){
+          this.copyvalidateForm.controls['prodno'].setValue(this.copyprodnos[0]);
+          this.searchData2(event);
+        }
+      }
+    })
+  }
+  searchData2(e): void {
+    e.preventDefault();
+    for (const i in this.copyvalidateForm.controls) {
+      this.copyvalidateForm.controls[ i ].markAsDirty();
+      this.copyvalidateForm.controls[ i ].updateValueAndValidity();
+    }
+    if(this.copyvalidateForm.valid){
+      this.isAllDisplayDataChecked = false;
+      this.mapOfCheckedId = {};
+      this.status2 = false;
+      this.dataSet2 = [];
+      this.weldingDistributeService.getdistribute(this.copyvalidateForm.controls['prodno'].value).subscribe((res) => {
+        if(res['result']=="success"){
+          this.dataSet2 = res['data'].filter(data=>!data.codedmarking|| data.codedmarking.length<this.ruleindex ||data.codedmarking[this.ruleindex-1] != this.rule);
+          for(let i = 0;i<this.dataSet2.length;i++){
+            this.mapOfCheckedId[i] = false;
+          }
+          this.status2 = true;
+        }
+      })
+    }else{
+      this.status2 = false;
+    }
+  }
+  isAllDisplayDataChecked = false;
+  mapOfCheckedId: { [key: string]: boolean } = {};
+  checkAll(){
+    if(this.isAllDisplayDataChecked){
+      for(let i = 0;i<this.dataSet2.length;i++){
+        this.mapOfCheckedId[i] = true;
+      }
+    }else{
+      for(let i = 0;i<this.dataSet2.length;i++){
+        this.mapOfCheckedId[i] = false;
+      }
+    }
+  }
+  checkAll2(){
+    if(!this.isAllDisplayDataChecked){
+      let flag = true;
+      for(let i = 0;i<this.dataSet2.length;i++){
+        if(this.mapOfCheckedId[i] == false)
+          flag = false;
+      }
+      if(flag) this.isAllDisplayDataChecked = true;
+    }
+    if(this.isAllDisplayDataChecked){
+      let flag = true;
+      for(let i = 0;i<this.dataSet2.length;i++){
+        if(this.mapOfCheckedId[i] == false)
+          flag = false;
+      }
+      if(!flag) this.isAllDisplayDataChecked = false;
+    }
   }
 }

@@ -42,7 +42,7 @@ export class SiderComponent {
     this.settings.oepnMenuOpenMapHandle(name,value);
   }
 
-  constructor(public settings: SettingsService, private menuService: MenuService, private router: Router, private _storage:SessionStorageService,private msg:NzMessageService) {
+  constructor(public settings: SettingsService, private menuService: MenuService, public router: Router, private _storage:SessionStorageService,private msg:NzMessageService) {
     this.updateMenu();
   }
 

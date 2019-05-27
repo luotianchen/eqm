@@ -76,7 +76,7 @@ public class searchnocertsitu {
             ps.close();
 
             sql="SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? AND status = 1 ";
-            sql_x = "ORDER BY codedmarking";
+            sql_x = " ORDER BY codedmarking DESC";
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                 sql=sql+"AND contraststand_id_designation=? ";
             }

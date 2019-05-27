@@ -111,7 +111,7 @@
             {{data.designation}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" [nzShowArrow]="false" (nzBlur)="screeningCodedmarking(data.key)">
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="牌号" [(ngModel)]="editCache[data.key].data.designation" [nzShowArrow]="false">
               <nz-option *ngFor="let option of designations" [nzLabel]="option" [nzValue]="option"></nz-option>
             </nz-select>
           </ng-container>
@@ -129,7 +129,7 @@
             {{data.codedmarking}}
           </ng-container>
           <ng-container *ngIf="editCache[data.key].edit">
-            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" [(ngModel)]="editCache[data.key].data.codedmarking" [nzShowArrow]="false" nzNotFoundContent="无符合记录">
+            <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" [(ngModel)]="editCache[data.key].data.codedmarking" [nzShowArrow]="false" nzNotFoundContent="无符合记录" (nzFocus)="screeningCodedmarking(data.key)">
               <ng-container *ngFor="let option of codedmarkingDisplay">
                 <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
               </ng-container>
@@ -246,7 +246,7 @@
             </nz-form-item>
           </div>
           <div nz-col [nzSpan]="6">
-            <button nz-button [nzType]="'primary'" (click)="searchData2()">查询</button>
+            <button nz-button [nzType]="'primary'" (click)="searchData2($event)">查询</button>
           </div>
         </div>
       </form>

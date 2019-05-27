@@ -66,8 +66,7 @@ export class MeasuringInstrumentSettingComponent implements OnInit {
       nzOkText    : '我确认',
       nzOkType    : 'danger',
       nzOnOk      : () => this.infoLogin(),
-      nzCancelText: '取消发送',
-      nzOnCancel  : () => console.log('取消发送')
+      nzCancelText: '取消发送'
     });
   }
   isVisible = false;

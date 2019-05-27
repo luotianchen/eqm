@@ -133,11 +133,9 @@ export class RoleComponent implements OnInit {
                   }
                   this.j = 1;
                 }
-                console.log(this.data)
                 this.data.forEach(item => {
                   this.expandDataCache[ item.key ] = this.convertTreeToList(item);
                 });
-                console.log(this.expandDataCache);
               }
             })
           }

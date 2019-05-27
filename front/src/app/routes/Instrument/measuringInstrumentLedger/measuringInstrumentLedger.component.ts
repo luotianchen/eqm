@@ -162,7 +162,6 @@ export class MeasuringInstrumentLedgerComponent implements OnInit {
     }
     if(this.validateForm.valid){
       this.validateForm.controls['exitno'].enable();
-      console.log(this.validateForm.value);
       this.measuringInstrumentLedgerService.putMeasuringInstrumentLedger(this.validateForm.value).subscribe((res)=>{
         if(res['result']=="success"){
           this.msg.success("提交成功！");

@@ -193,7 +193,6 @@ export class ProductManufacturingParametersComponent implements OnInit {
               this.listOfData.forEach(item=>{
                 item.id = this.i++;
               })
-              console.log(this.listOfData);
             }
           })
           this.productManufacturingParametersService.getDataStand(this.validateForm.value.dwgno).then((res) => {
@@ -383,7 +382,6 @@ export class ProductManufacturingParametersComponent implements OnInit {
     if(this.validateForm.value.dedate!=null && this.validateForm.value.blankdate!=null){
       let detime = this.validateForm.value.dedate.split("-");
       let blanktime = this.validateForm.value.blankdate.split("-");
-      console.log(detime,blanktime)
       if(parseInt(blanktime[0]) < parseInt(detime[0])){
         this.validateForm.controls['blankdate'].setValue(null);
       } else if(parseInt(blanktime[0]) == parseInt(detime[0]) && parseInt(blanktime[1])<parseInt(detime[1])){

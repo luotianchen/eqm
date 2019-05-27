@@ -21,11 +21,29 @@
     <thead>
     <tr>
       <th>材料名称</th>
-      <th>入库编号</th>
+      <th nzCustomFilter nzWidth="110px">入库编号
+        <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown3>
+          <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown3.nzVisible" nz-dropdown></i>
+          <div class="custom-filter-dropdown">
+            <input type="text" nz-input placeholder="搜索入库编号" [(ngModel)]="searchcodedmarking" class="searchInput">
+            <button nz-button [nzType]="'primary'" (click)="searchCodedmarking()">搜索</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchcodedmarking = '';searchCodedmarking()">重置</button>
+          </div>
+        </nz-dropdown>
+      </th>
       <th>牌号</th>
       <th nzWidth="70px">规格</th>
       <th>材料标准号</th>
-      <th>供货单位</th>
+      <th nzCustomFilter>供货单位
+        <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown4>
+          <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown4.nzVisible" nz-dropdown></i>
+          <div class="custom-filter-dropdown">
+            <input type="text" nz-input placeholder="搜索入库编号" [(ngModel)]="searchsupplier" class="searchInput">
+            <button nz-button [nzType]="'primary'" (click)="searchSupplier()">搜索</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchsupplier = '';searchSupplier()">重置</button>
+          </div>
+        </nz-dropdown>
+      </th>
       <th nzCustomFilter nzWidth="140px">
         炉批号
         <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown1>

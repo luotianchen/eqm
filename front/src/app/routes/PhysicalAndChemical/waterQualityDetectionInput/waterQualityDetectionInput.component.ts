@@ -19,7 +19,6 @@ export class  WaterQualityDetectionInputComponent implements OnInit {
   ngOnInit(): void {
     this.waterQualityDetectionInputService.getDepartments().then((res)=>{
       if(res['result'] == "success"){
-        console.log(res)
         this.units = res['data'].filter(item=>item.department!=0);
       }
     });
