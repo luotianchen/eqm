@@ -117,7 +117,7 @@ public class getpredatasheetreport {                            //压力容器�
         File file = null;
         File filepdf = null;
 
-        try {
+//        try {
             String realPath = request.getSession().getServletContext().getRealPath("");
             String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
             String uploadPath = path + "upload";                                                //获取文件名称
@@ -196,7 +196,7 @@ public class getpredatasheetreport {                            //压力容器�
 
 
 
-                if(rs.getString("hdthick1")!=null && !rs.getString("hdthick2").equals("")){
+                if(rs.getString("hdthick1")!=null && !rs.getString("hdthick1").equals("")){
                     fengtou_thi.add(rs.getString("hdthick1"));
                 }
 
@@ -523,10 +523,10 @@ public class getpredatasheetreport {                            //压力容器�
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             file.delete();
             filepdf.delete();
-        }catch (Exception e){
-            file.delete();
-            filepdf.delete();
-        }
+//        }catch (Exception e){
+//            file.delete();
+//            filepdf.delete();
+//        }
 
         return download;
     }
