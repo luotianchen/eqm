@@ -23,20 +23,28 @@ public class getprodname {                                       //获取所有�
 
         getprodnameresult result = new getprodnameresult();
         ArrayList<String> as = new ArrayList<String>();
+        ArrayList<String> as1 = new ArrayList<String>();
 
         try {
             ps = conn.prepareStatement("SELECT * FROM productname");
             rs = ps.executeQuery();
             while (rs.next()){
-                as.add(rs.getString("prodname"));
+                as1.add(rs.getString("prodname"));
             }
             rs.close();
             ps.close();
+            for (String str : as1) {
+                if (!as.contains(str)) {
+                    as.add(str);
+                }
+            }
             result.setData(as);
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
         }
+        as = null;
+        as1 = null;
         conn.close();
         return result;
     }
