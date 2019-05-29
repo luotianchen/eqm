@@ -50,6 +50,12 @@ export class ProductManufacturingParametersService {
   putManufacturing(data){
     return this.http.post(this.api.BASEURL+"/putpromanparlist",data);
   }
+  saveManufacturing(data){
+    return this.http.post(this.api.BASEURL+"/putpromanparlistcache",data);
+  }
+  getManufacturingCache(prodno){
+    return this.http.post(this.api.BASEURL+"/searchpromanparlistcache",{prodno:prodno});
+  }
   putManufacturing2(data){
     return this.http.post(this.api.BASEURL+"/putpromanparlist2",data);
   }

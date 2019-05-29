@@ -23,10 +23,10 @@ export class WeldingDistributeComponent implements OnInit {
   users = [];
   matlcode:any;
   username2name = {};
-  specs = []
+  specs = [];
   ruleindex = null;
   rule = null;
-  copyprodnos = []
+  copyprodnos = [];
   onSpecInput(value: string): void { //当规格输入时展开选项
     this.specs = value ? [
       value,
@@ -93,6 +93,9 @@ export class WeldingDistributeComponent implements OnInit {
       "prodname":[null],
       "dwgno":[null],
     });
+    this.copyvalidateForm = this.fb.group({
+      "prodno":[null, [Validators.required]]
+    })
     this.partsnameValidateForm = this.fb.group({
       partsname:[null, [Validators.required]],
       enpartsname:[null, [Validators.required]]
@@ -161,6 +164,7 @@ export class WeldingDistributeComponent implements OnInit {
   dataSet = [];
 
   startEdit(key: string): void {
+    this.screeningCodedmarking(key,false);
     this.editCache[ key ].edit = true;
   }
 
@@ -318,9 +322,9 @@ export class WeldingDistributeComponent implements OnInit {
     }
   }
   codedmarkingDisplay = [];
-  screeningCodedmarking(key) {//根据牌号筛选codedmarking
+  screeningCodedmarking(key,flag){//根据牌号筛选codedmarking
     let des = this.editCache[key].data.designation;
-    this.editCache[key].data.codedmarking = null;
+    if(flag)this.editCache[key].data.codedmarking = null;
     if (des != null) {
       if (des != null){
         this.isLoading = true;
@@ -348,13 +352,14 @@ export class WeldingDistributeComponent implements OnInit {
         this.copyprodnos = res['data'];
         if(this.copyprodnos.length>0){
           this.copyvalidateForm.controls['prodno'].setValue(this.copyprodnos[0]);
-          this.searchData2(event);
+          this.searchData2(null);
         }
       }
     })
   }
   searchData2(e): void {
-    e.preventDefault();
+    if(e)
+      e.preventDefault();
     for (const i in this.copyvalidateForm.controls) {
       this.copyvalidateForm.controls[ i ].markAsDirty();
       this.copyvalidateForm.controls[ i ].updateValueAndValidity();
@@ -366,7 +371,7 @@ export class WeldingDistributeComponent implements OnInit {
       this.dataSet2 = [];
       this.weldingDistributeService.getdistribute(this.copyvalidateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
-          this.dataSet2 = res['data'].filter(data=>!data.codedmarking|| data.codedmarking.length<this.ruleindex ||data.codedmarking[this.ruleindex-1] != this.rule);
+          this.dataSet2 = res['data'].filter(data=>!data.codedmarking|| data.codedmarking.length<this.ruleindex ||data.codedmarking[this.ruleindex-1] == this.rule);
           for(let i = 0;i<this.dataSet2.length;i++){
             this.mapOfCheckedId[i] = false;
           }

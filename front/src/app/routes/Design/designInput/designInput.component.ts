@@ -103,7 +103,7 @@ export class DesignInputComponent implements OnInit {
     },{
       label: "壳程",value:{name:"壳程",ename: "Shell Side"},selected:false
     },{
-      label: "壳程I",value:{name:"壳程I",ename: "Shell Side I"},selected:false
+      label: "壳程Ⅰ",value:{name:"壳程Ⅰ",ename: "Shell Side Ⅰ"},selected:false
     },{
       label: "壳程Ⅱ",value:{name:"壳程Ⅱ",ename: "Shell Side Ⅱ"},selected:false
     },{
@@ -127,7 +127,7 @@ export class DesignInputComponent implements OnInit {
     },{
       label: "壳程Ⅻ",value:{name:"壳程Ⅻ",ename: "Shell Side Ⅻ"},selected:false
     },    {
-      label: "I通道",value:{name:"I通道",ename: "I gallery"},selected:false
+      label: "Ⅰ通道",value:{name:"Ⅰ通道",ename: "Ⅰ gallery"},selected:false
     },{
       label: "Ⅱ通道",value:{name:"Ⅱ通道",ename: "Ⅱ gallery"},selected:false
     },{

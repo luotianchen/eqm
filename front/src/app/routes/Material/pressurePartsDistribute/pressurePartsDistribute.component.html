@@ -125,7 +125,7 @@
           {{data.codedmarking}}
         </ng-container>
         <ng-container *ngIf="editCache[data.key].edit">
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" (nzFocus)="screeningCodedmarking(data.key)" [(ngModel)]="editCache[data.key].data.codedmarking"  [nzShowArrow]="false" nzNotFoundContent="无符合记录">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请先选牌号" (nzFocus)="screeningCodedmarking(data.key,true)" [(ngModel)]="editCache[data.key].data.codedmarking"  [nzShowArrow]="false" nzNotFoundContent="无符合记录">
             <ng-container *ngFor="let option of codedmarkingDisplay;let i = index">
               <nz-option [nzLabel]="option" [nzValue]="option"></nz-option>
             </ng-container>

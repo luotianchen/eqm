@@ -18,4 +18,7 @@ export class MaterialDistributionLedgerService {
   getindexbymatlcoderules(){ //获取材料代码信息
     return this.http.get(`${this.api.BASEURL}/getindexbymatlcoderules`)
   }
+  getuserform() {
+    return this.http.get(`${this.api.BASEURL}/getuserform`);
+  }
 }

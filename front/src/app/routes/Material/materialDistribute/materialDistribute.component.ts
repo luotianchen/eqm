@@ -162,6 +162,7 @@ export class MaterialDistributeComponent implements OnInit {
   dataSet = [];
 
   startEdit(key: string): void {
+    this.screeningCodedmarking(key,false);
     this.editCache[ key ].edit = true;
   }
 
@@ -320,9 +321,9 @@ export class MaterialDistributeComponent implements OnInit {
   }
 
   codedmarkingDisplay = [];
-  screeningCodedmarking(key){//根据牌号筛选codedmarking
+  screeningCodedmarking(key,flag){//根据牌号筛选codedmarking
     let des = this.editCache[key].data.designation;
-    this.editCache[key].data.codedmarking = null;
+    if(flag)this.editCache[key].data.codedmarking = null;
     if (des != null) {
       if (des != null){
           this.isLoading = true;
@@ -349,13 +350,14 @@ export class MaterialDistributeComponent implements OnInit {
         this.copyprodnos = res['data'];
         if(this.copyprodnos.length>0){
           this.copyvalidateForm.controls['prodno'].setValue(this.copyprodnos[0]);
-          this.searchData2();
+          this.searchData2(null);
         }
       }
     })
   }
   searchData2(e): void {
-    e.preventDefault();
+    if(e)
+      e.preventDefault();
     for (const i in this.copyvalidateForm.controls) {
       this.copyvalidateForm.controls[ i ].markAsDirty();
       this.copyvalidateForm.controls[ i ].updateValueAndValidity();

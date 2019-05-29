@@ -137,6 +137,7 @@ export class PressurePartsDistributeComponent implements OnInit {
   dataSet = [];
 
   startEdit(key: string): void {
+    this.screeningCodedmarking(key,false);
     this.editCache[ key ].edit = true;
   }
 
@@ -278,9 +279,9 @@ export class PressurePartsDistributeComponent implements OnInit {
     }
   }
   codedmarkingDisplay = [];
-  screeningCodedmarking(key) {//根据牌号筛选codedmarking
+  screeningCodedmarking(key,flag){//根据牌号筛选codedmarking
     let des = this.editCache[key].data.designation;
-    this.editCache[key].data.codedmarking = null;
+    if(flag)this.editCache[key].data.codedmarking = null;
     if (des != null && des != null){
       this.isLoading = true;
       this.pressurePartsDistributeService.getCodedmarkingByDesignation(des).subscribe(res => {

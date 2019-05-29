@@ -49,8 +49,11 @@ public class Putpressurepartscache {                                         //å
                 rs.close();
                 ps.close();
                 for (int i = 0; i < pp.getData().size(); i++) {
-                    java.util.Date d1 = sdf.parse(pp.getData().get(i).getIssuedate());
-                    Date d = new Date(d1.getTime());
+                    Date d = null;
+                    if(pp.getData().get(i).getIssuedate()!=null) {
+                        java.util.Date d1 = sdf.parse(pp.getData().get(i).getIssuedate());
+                        d = new Date(d1.getTime());
+                    }
 
 
                     ps = conn.prepareStatement("INSERT INTO pressurepartscache " +

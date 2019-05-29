@@ -21,6 +21,8 @@ export class MaterialDistributionLedgerComponent implements OnInit {
   public dataSets = [];
   public dataSets2 = [];
   public signs = {};
+  users = []
+  username2name = {};
   rule:any;
   constructor(public fb: FormBuilder, public materialDistributionLedgerService: MaterialDistributionLedgerService) {
   }
@@ -28,6 +30,14 @@ export class MaterialDistributionLedgerComponent implements OnInit {
     this.materialDistributionLedgerService.getprodno().subscribe((res) => {
       if (res["result"] == "success") {
         this.prodnos = res['data'];
+      }
+    });
+    this.materialDistributionLedgerService.getuserform().subscribe(res=>{
+      if(res['result']=='success'){
+        this.users = [];
+        for(let user of res['data']){
+            this.username2name[user.username] = user.name;
+        }
       }
     });
     this.validateForm = this.validateForm = this.fb.group({

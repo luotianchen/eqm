@@ -82,7 +82,8 @@ public class Searchbyprodnocache {                                              
                 data.setPartno(rs.getString("partno"));
                 data.setQty(rs.getString("qty"));
                 data.setCodedmarking(rs.getString("codedmarking"));
-                data.setIssuedate(sdf.format(rs.getDate("issuedate")));
+                if(rs.getDate("issuedate")!=null)
+                    data.setIssuedate(sdf.format(rs.getDate("issuedate")));
                 data.setIspresspart(rs.getString("ispresspart"));
                 data.setWeldno(rs.getString("weldno"));
                 data.setReturnqty(rs.getInt("returnqty"));

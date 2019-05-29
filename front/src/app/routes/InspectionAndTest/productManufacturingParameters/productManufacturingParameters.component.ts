@@ -234,16 +234,121 @@ export class ProductManufacturingParametersComponent implements OnInit {
     });
   }
 
+  saveForm(){
+    if(!this.validateForm.value.prodno){
+      this.message.error('产品编号不能为空');
+      return;
+    }
+    for(let i of this.dataDetail.concave)
+      i = parseInt(i);
+    for(let i of this.dataDetail.outward)
+      i = parseInt(i);
+    this.productManufacturingParametersService.saveManufacturing({
+      "prodno":this.validateForm.value.prodno,
+      "dwgno":this.validateForm.value.dwgno,
+      "orderunit":this.validateForm.value.orderunit?this.validateForm.value.orderunit.name:null,
+      "eorderunit":this.validateForm.value.orderunit?this.validateForm.value.orderunit.ename:null,
+      "ecode":this.validateForm.value.ecode,
+      "dealter":this.validateForm.value.dealter,
+      "submatl":this.validateForm.value.submatl,
+      "docum":this.validateForm.value.docum,
+      "dedate":this.validateForm.value.dedate,
+      "blankdate":this.validateForm.value.blankdate,
+      "matlretest":this.validateForm.value.matlretest,
+      "specmatl":this.validateForm.value.specmatl,
+      "overmatl":this.validateForm.value.overmatl,
+      "nwpq":this.validateForm.value.nwpq,
+      "nprocess":this.validateForm.value.nprocess,
+      "copsitu":this.validateForm.value.copsitu,
+      "exworkdate":this.validateForm.value.exworkdate,
+      "aweldmaxangul":JSON.stringify(this.dataDetail.aweldmaxangul),
+      "bweldmaxangul":JSON.stringify(this.dataDetail.bweldmaxangul),
+      "aweldmaxalign":JSON.stringify(this.dataDetail.aweldmaxalign),
+      "bweldmaxalign":JSON.stringify(this.dataDetail.bweldmaxalign),
+      "weldreinfs":JSON.stringify(this.dataDetail.weldreinfs),
+      "weldreinfd":JSON.stringify(this.dataDetail.weldreinfd),
+      "user":this._storage.get("username"),
+      "type":this.validateForm.value.type.name,
+      "etype":this.validateForm.value.type.ename,
+      "proheight":this.validateForm.value.proheight,
+      "innerdia":JSON.stringify(this.dataDetail.innerdia),
+      "roundness":JSON.stringify(this.dataDetail.roundness),
+      "length":this.validateForm.value.length,
+      "straightness":this.validateForm.value.straightness,
+      "thick":this.validateForm.value.thick,
+      "minthickstand":this.validateForm.value.minthickstand,
+      "minthick":this.validateForm.value.minthick,
+      "outward":JSON.stringify(this.dataDetail.outward),
+      "concave":JSON.stringify(this.dataDetail.concave)
+    }).subscribe((res)=>{
+      if(res['result']=="success"){
+        this.modalService.success({
+          nzTitle: '成功',
+          nzContent: '保存成功！'
+        });
+      }
+    })
+
+  }
+
+  searchpromanparlistcache(e){
+    if(e)
+      e.preventDefault();
+    if(!this.validateForm.value.prodno){
+      this.message.error('产品编号不能为空');
+      return;
+    }
+    this.productManufacturingParametersService.getManufacturingCache(this.validateForm.value.prodno).subscribe((res:any)=>{
+      if (res['result'] != "success") {
+        this.message.error("请检查产品编号是否输入正确！");
+      } else {
+        res['data'] = res['data'][0];
+        this.validateForm.controls['orderunit'].setValue(this.orderunits.filter(item => item.name == res['data']['orderunit'])[0]);
+        this.validateForm.controls['ecode'].setValue(res['data']['ecode']);
+        this.validateForm.controls['dealter'].setValue(res['data']['dealter']);
+        this.validateForm.controls['submatl'].setValue(res['data']['submatl']);
+        this.validateForm.controls['docum'].setValue(res['data']['docum']);
+        this.validateForm.controls['dedate'].setValue(res['data']['dedate']);
+        this.validateForm.controls['blankdate'].setValue(res['data']['blankdate']);
+        this.validateForm.controls['matlretest'].setValue(res['data']['matlretest']);
+        this.validateForm.controls['specmatl'].setValue(res['data']['specmatl']);
+        this.validateForm.controls['overmatl'].setValue(res['data']['overmatl']);
+        this.validateForm.controls['nwpq'].setValue(res['data']['nwpq']);
+        this.validateForm.controls['nprocess'].setValue(res['data']['nprocess']);
+        this.validateForm.controls['copsitu'].setValue(res['data']['copsitu']);
+        this.validateForm.controls['exworkdate'].setValue(res['data']['exworkdate']);
+        this.validateForm.controls['type'].setValue(this.types.filter(item => item.name == res['data']['type'])[0]);
+        this.validateForm.controls['proheight'].setValue(res['data']['proheight']);
+        this.validateForm.controls['length'].setValue(res['data']['length']);
+        this.validateForm.controls['straightness'].setValue(res['data']['straightness']);
+        this.validateForm.controls['thick'].setValue(res['data']['thick']);
+        this.validateForm.controls['minthickstand'].setValue(res['data']['minthickstand']);
+        this.validateForm.controls['minthick'].setValue(res['data']['minthick']);
+        if(!!res['data']['aweldmaxangul'])this.dataDetail.aweldmaxangul = JSON.parse(res['data']['aweldmaxangul']);
+        if(!!res['data']['bweldmaxangul'])this.dataDetail.bweldmaxangul = JSON.parse(res['data']['bweldmaxangul']);
+        if(!!res['data']['aweldmaxalign'])this.dataDetail.aweldmaxalign = JSON.parse(res['data']['aweldmaxalign']);
+        if(!!res['data']['bweldmaxalign'])this.dataDetail.bweldmaxalign = JSON.parse(res['data']['bweldmaxalign']);
+        if(!!res['data']['weldreinfs'])this.dataDetail.weldreinfs = JSON.parse(res['data']['weldreinfs']);
+        if(!!res['data']['weldreinfd'])this.dataDetail.weldreinfd = JSON.parse(res['data']['weldreinfd']);
+        if(!!res['data']['outward'])this.dataDetail.outward = JSON.parse(res['data']['outward']);
+        if(!!res['data']['concave'])this.dataDetail.concave = JSON.parse(res['data']['concave']);
+        if(!!res['data']['innerdia'])this.dataDetail.innerdia = JSON.parse(res['data']['innerdia']);
+        if(!!res['data']['roundness'])this.dataDetail.roundness = JSON.parse(res['data']['roundness']);
+        this.message.success("数据已恢复");
+      }
+    })
+  }
+
   submitForm(){
     for(const i in this.validateForm.controls){
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
-    for(let i in this.validateForm.controls){
-      if(this.validateForm.controls[i].valid == false)
-        console.log(i)
-    }
     if(this.validateForm.valid){
+      for(let i of this.dataDetail.concave)
+        i = parseInt(i);
+      for(let i of this.dataDetail.outward)
+        i = parseInt(i);
       this.productManufacturingParametersService.putManufacturing({
         "prodno":this.validateForm.value.prodno,
         "dwgno":this.validateForm.value.dwgno,

@@ -100,7 +100,7 @@
             <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.heatbatchno}}</td>
             <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.codedmarking}}</td>
             <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
-            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{username2name[data.picker]}}</td>
             <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap"><img *ngIf="!!signs && data.issuematl" [src]="signs && signs[data.issuematl]" style="height: 20px"></td>
             <td colspan="3" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
@@ -187,7 +187,7 @@
             <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.qty}}</td>
             <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.returnqty}}</td>
             <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.dimension}}</td>
-            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.picker}}</td>
+            <td colspan="2" style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{username2name[data.picker]}}</td>
             <td style="border: 1px solid #000;word-break:break-all;white-space:pre-wrap">{{data.note}}</td>
           </tr>
           <tr>

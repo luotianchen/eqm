@@ -10,7 +10,7 @@
   <form nz-form [formGroup]="validateForm">
     <div nz-col nzSpan="4">
       <nz-form-item>
-        <nz-form-label nzRequired nzFor="prodno">产品编号</nz-form-label>
+        <nz-form-label nzRequired nzFor="prodno">产品编号<button nz-button nzType="primary" nzShape="circle" (click)="searchpromanparlistcache($event)"><i nz-icon type="search"></i></button></nz-form-label>
         <nz-form-control nzHasFeedback>
           <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" (ngModelChange)="searchData()">
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -290,7 +290,8 @@
   </ng-container>
 </div>
 <div style="text-align:center;margin-top: 20px">
-  <button nz-button nzType="primary" (click)="submitForm()">提交</button>
+  <button nz-button nzType="primary" (click)="saveForm()">保存</button>
+  <button nz-button nzType="primary" (click)="submitForm()" style="margin-left: 20px">提交</button>
 </div>
 
 <div id="addOrderunit">

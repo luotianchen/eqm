@@ -138,7 +138,7 @@ public class searchpressurepart {                                               
 
             }
 
-            Collections.reverse(as2);                                          //将list1倒序
+            Collections.reverse(as2);                                          //将list2倒序
             int as2_size;
             as2_size=as2.size();
             if(as2_size<=((sp.getPageindex()-1)*sp.getPagesize())){
