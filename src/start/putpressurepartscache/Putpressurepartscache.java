@@ -25,7 +25,6 @@ public class Putpressurepartscache {                                         //å
         ResultSet rs = null;
         PreparedStatement ps1 = null ;
         ResultSet rs1 = null;
-
         putpressurepartscacheresult result = new putpressurepartscacheresult();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
