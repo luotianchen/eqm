@@ -23,11 +23,26 @@ public class putprodname {                                                      
         putprodnameresult result = new putprodnameresult();
 
         try {
-            ps = conn.prepareStatement("INSERT INTO productname(prodname,ename) values (?,?)");
+            ps = conn.prepareStatement("SELECT * FROM productname WHERE prodname = ?");
             ps.setString(1,pp.getProdname());
-            ps.setString(2,pp.getEname());
-            ps.executeUpdate();
-            ps.close();
+            rs = ps.executeQuery();
+            if(rs.next()){
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("UPDATE productname SET ename = ? WHERE prodname = ?");
+                ps.setString(1,pp.getEname());
+                ps.setString(2,pp.getProdname());
+                ps.executeUpdate();
+                ps.close();
+            }else {
+                rs.close();
+                ps.close();
+                ps = conn.prepareStatement("INSERT INTO productname(prodname,ename) values (?,?)");
+                ps.setString(1,pp.getProdname());
+                ps.setString(2,pp.getEname());
+                ps.executeUpdate();
+                ps.close();
+            }
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");

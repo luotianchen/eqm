@@ -33,11 +33,6 @@ public class getprodname {                                       //获取所有�
             }
             rs.close();
             ps.close();
-            for (String str : as1) {
-                if (!as.contains(str)) {
-                    as.add(str);
-                }
-            }
             result.setData(as);
             result.setResult("success");
         }catch (Exception e){
