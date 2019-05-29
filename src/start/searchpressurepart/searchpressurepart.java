@@ -75,7 +75,7 @@ public class searchpressurepart {                                               
                 ps1=conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status=1");              //查到入库编号后查询入库信息
                 ps1.setString(1,data2.getCodedmarking());
                 rs1 = ps1.executeQuery();
-                while (rs1.next()){
+                if (rs1.next()){
                     data1 = new searchpressurepartdata1();
                     data1.setCodedmarking(rs1.getString("codedmarking"));
                     data1.setSpec(rs1.getString("spec"));
@@ -104,6 +104,8 @@ public class searchpressurepart {                                               
 
                     as1.add(data1);
                     data1 = null;
+                }else {
+                    as1.add(data1);
                 }
                 rs1.close();
                 ps1.close();
