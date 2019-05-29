@@ -43,7 +43,7 @@ public class searchprematl {                                //受压元件使用
         String codedmarking = null;
         String dwgno = null;
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM prenotiform where prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
@@ -100,7 +100,7 @@ public class searchprematl {                                //受压元件使用
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status=1 ORDER BY partno is null,partno ASC ");
+            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status=1 group by partno,codedmarking ORDER BY partno is null,partno ASC ");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             while (rs.next()){
@@ -155,9 +155,9 @@ public class searchprematl {                                //受压元件使用
             }
             result.setData(as);
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
