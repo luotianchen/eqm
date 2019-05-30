@@ -51,18 +51,17 @@ public class getweldingreport {                                         //产品
         File file = null;
         File filepdf = null;
 
+        String realPath = request.getSession().getServletContext().getRealPath("");
+        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+        String uploadPath = path + "upload";                                                //获取文件名称
+        System.out.println(uploadPath);
+        File realfile = new File(uploadPath,"焊接记录.xlsx");
+        InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
+
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        file = new File(uploadPath, filename);
+
         try {
-            String realPath = request.getSession().getServletContext().getRealPath("");
-            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-            String uploadPath = path + "upload";                                                //获取文件名称
-            System.out.println(uploadPath);
-            File realfile = new File(uploadPath,"焊接记录.xlsx");
-            InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
-
-            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-            file = new File(uploadPath, filename);
-
-
 
             FileUtils.copyInputStreamToFile(inputStream, file);
             String url1 = uploadPath +"/"+ filename;
@@ -89,12 +88,15 @@ public class getweldingreport {                                         //产品
                     putsheet(sheet,9+i*2,13,rs.getString("weldevano"));
                     putsheet(sheet,9+i*2,23,rs.getString("weldmethod"));
                     putsheet(sheet,9+i*2,30,rs.getString("usernote"));
+
                     calendar.setTime(rs.getDate("welddate"));
-                    putsheet(sheet,9+i*2,38,simpleDateFormat1.format(calendar.getTime()));
+                    putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
+                    putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));
+
                     putsheet(sheet,9+i*2,46,rs.getString("inspector"));
                     i++;
-                    putsheet(sheet,59,39,simpleDateFormat3.format(calendar.getTime()));
-                    putsheet(sheet,60,39,simpleDateFormat4.format(calendar.getTime()));
+
                 }else {
                     putsheet(sheet,3+61,0,rs.getString("dwgno"));
                     putsheet(sheet,9+i*2+61-25*2,3,rs.getString("weldno"));
@@ -104,12 +106,15 @@ public class getweldingreport {                                         //产品
                     putsheet(sheet,9+i*2+61-25*2,13,rs.getString("weldevano"));
                     putsheet(sheet,9+i*2+61-25*2,23,rs.getString("weldmethod"));
                     putsheet(sheet,9+i*2+61-25*2,30,rs.getString("usernote"));
+
                     calendar.setTime(rs.getDate("welddate"));
                     putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
-                    putsheet(sheet,9+i*2+61-25*2,46,rs.getString("inspector"));
-                    i++;
                     putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
                     putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));
+
+                    putsheet(sheet,9+i*2+61-25*2,46,rs.getString("inspector"));
+                    i++;
+
                 }
             }
             rs.close();
@@ -133,7 +138,6 @@ public class getweldingreport {                                         //产品
             filepdf.delete();
         }catch (Exception e){
             file.delete();
-            filepdf.delete();
         }
         return download;
     }

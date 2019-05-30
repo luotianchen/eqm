@@ -56,17 +56,19 @@ public class getprenotiformreport {                                         //�
         ResponseEntity<byte[]> download = null;
         File file = null;
         File filepdf = null;
+        String realPath = request.getSession().getServletContext().getRealPath("");
+        String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
+        String uploadPath = path + "upload";                                                //获取文件名称
+        System.out.println(uploadPath);
 
+        String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
+        file = new File(uploadPath, filename);
         try {
-            String realPath = request.getSession().getServletContext().getRealPath("");
-            String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
-            String uploadPath = path + "upload";                                                //获取文件名称
-            System.out.println(uploadPath);
+
             File realfile = new File(uploadPath,"压力试验通知单.xlsx");
             InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
-            String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
-            file = new File(uploadPath, filename);
+
 
 
 
@@ -176,7 +178,6 @@ public class getprenotiformreport {                                         //�
             filepdf.delete();
         }catch (Exception e){
             file.delete();
-            filepdf.delete();
         }
 
         return download;

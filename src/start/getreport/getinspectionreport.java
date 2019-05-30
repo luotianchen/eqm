@@ -216,8 +216,7 @@ public class getinspectionreport {                                              
             filepdf.delete();
             filepdf1.delete();
         }catch (Exception e){
-            filepdf1.delete();
-            filepdf.delete();
+            System.out.println(e.toString());
         }
 
 
