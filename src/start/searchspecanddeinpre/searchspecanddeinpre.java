@@ -1,10 +1,7 @@
 package start.searchspecanddeinpre;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import start.jdbc.jdbc;
 
 import java.sql.*;
@@ -14,8 +11,8 @@ import java.util.WeakHashMap;
 @CrossOrigin
 @Controller
 public class searchspecanddeinpre {                                 //查询受压元件表所有已审核规格和牌号
-    @RequestMapping(value = "searchspecanddeinpre",method = RequestMethod.GET)
-    public @ResponseBody searchspecanddeinpreresult searchspecanddeinpre() throws ClassNotFoundException, SQLException {
+    @RequestMapping(value = "searchspecanddeinpre")
+    public @ResponseBody searchspecanddeinpreresult searchspecanddeinpre(@RequestBody searchspecanddeinprepost sp) throws ClassNotFoundException, SQLException {
         jdbc j = new jdbc();
         Class.forName(j.getDBDRIVER());
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
@@ -31,10 +28,19 @@ public class searchspecanddeinpre {                                 //查询受�
 
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE status = 1");
+            ps = conn.prepareStatement("SELECT * FROM pressurepartscache WHERE status = 1 AND prodno = ?");
+            ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             while (rs.next()){
                 spec.add(rs.getString("spec"));
+                for (int i = 0; i < spec.size() - 1; i++) {
+                    for (int z = spec.size() - 1; z > i; z--) {
+                        if (spec.get(z).equals(spec.get(i))) {
+                            spec.remove(z);
+                        }
+                    }
+                }
+
                 ps1 = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
                 ps1.setInt(1,rs.getInt("contraststand_id_designation"));
                 rs1 = ps1.executeQuery();
@@ -46,6 +52,22 @@ public class searchspecanddeinpre {                                 //查询受�
             }
             rs.close();
             ps.close();
+
+            for (int i = 0; i < spec.size() - 1; i++) {
+                for (int z = spec.size() - 1; z > i; z--) {
+                    if (spec.get(z).equals(spec.get(i))) {
+                        spec.remove(z);
+                    }
+                }
+            }
+
+            for (int i = 0; i < designation.size() - 1; i++) {
+                for (int z = designation.size() - 1; z > i; z--) {
+                    if (designation.get(z).equals(designation.get(i))) {
+                        designation.remove(z);
+                    }
+                }
+            }
 
             data.setDesignation(designation);
             data.setSpec(spec);

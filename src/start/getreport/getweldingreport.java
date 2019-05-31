@@ -138,6 +138,7 @@ public class getweldingreport {                                         //产品
             filepdf.delete();
         }catch (Exception e){
             file.delete();
+            System.out.println(e);
         }
         return download;
     }
