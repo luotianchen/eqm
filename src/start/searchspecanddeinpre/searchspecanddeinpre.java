@@ -29,8 +29,8 @@ public class searchspecanddeinpre {                                 //查询受�
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             while (rs.next()){
-                spec.add(rs.getString("spec"));
-                designation.add(rs.getString("designation"));
+                if(rs.getString("spec")!=null) spec.add(rs.getString("spec"));
+                if(rs.getString("designation")!=null) designation.add(rs.getString("designation"));
             }
             rs.close();
             ps.close();
