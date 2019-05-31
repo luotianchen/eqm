@@ -119,6 +119,22 @@ export class WeldingRecordComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
+    for(let data of this.dataSet){
+      if(data['welddate'] == null){
+        this.message.error("施焊日期不能为空！");
+        return;
+      }
+
+      if(data['entrustdate'] == null){
+        this.message.error("委托日期不能为空！");
+        return;
+      }
+
+      if(data['ndtdate'] == null){
+        this.message.error("无损检验日期不能为空！");
+        return;
+      }
+    }
     if(this.validateForm.valid){
       this.weldingRecordService.putWeldingRecord({
         user:this._storage.get('username'),

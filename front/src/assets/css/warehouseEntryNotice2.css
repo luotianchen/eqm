@@ -2,6 +2,7 @@
 table{
   margin: 0 auto;
 }
+p{margin:0!important}
 @page
 {margin:.75in .44in .75in .7in;
   mso-header-margin:.3in;
@@ -48,7 +49,7 @@ td
   mso-generic-font-family:auto;
   mso-font-charset:134;
   mso-number-format:General;
-  text-align:general;
+  text-align:center;
   vertical-align:middle;
   border:none;
   mso-background-source:auto;

@@ -174,6 +174,7 @@ export class PressurePartsDistributeComponent implements OnInit {
       this.message.error("您尚未填写任何数据，本次提交无效！");
       return;
     }
+    this.savedistribute();
     for(let j = 0;j<this.dataSet.length;j++){
       this.dataSet[j]['issuematl'] = this._storage.get('username');
     }

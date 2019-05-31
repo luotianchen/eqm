@@ -59,35 +59,34 @@ export class WarehouseEntryNoticeComponent implements OnInit {
       if(res['result']=='success'){
         if(res['data']==0){
           this.msg.error("您输入的材料不属于板材、管件、法兰、封头、焊材！")
-          return;
         }else{
           this.type = res['data'];
           this.mode = this.matlType[res['data']];
+          if(this.validateForm2.valid) {
+            this.warehouseEntryNoticeService.getReport(this.validateForm2.value.codedmarking,null,null,null).subscribe((res)=>{
+              if(res["result"]=="success"){
+                this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
+                this.dataSet = res["data"];
+                for(let item of this.dataSet){
+                  this.warehouseEntryNoticeService.getSignImage(item.user).then((res)=>{
+                    item.usersign = res["url"];
+                  }).catch(err=>{
+                    item.usersign = null;
+                  });
+                  this.warehouseEntryNoticeService.getSignImage(item.audit_user).then((res)=>{
+                    item.audit_usersign = res["url"];
+                  }).catch(err=>{
+                    item.audit_usersign = null;
+                  })
+                }
+              }else{
+                this.msg.error("查询通知单失败，请核对输入信息后重新查询！");
+              }
+            })
+          }
         }
       }
     })
-    if(this.validateForm2.valid) {
-        this.warehouseEntryNoticeService.getReport(this.validateForm2.value.codedmarking,null,null,null).subscribe((res)=>{
-          if(res["result"]=="success"){
-            this.printCSS = ['assets/css/warehouseEntryNotice'+this.mode+'.css'];
-            this.dataSet = res["data"];
-            for(let item of this.dataSet){
-              this.warehouseEntryNoticeService.getSignImage(item.user).then((res)=>{
-                item.usersign = res["url"];
-              }).catch(err=>{
-                item.usersign = null;
-              });
-              this.warehouseEntryNoticeService.getSignImage(item.audit_user).then((res)=>{
-                item.audit_usersign = res["url"];
-              }).catch(err=>{
-                item.audit_usersign = null;
-              })
-            }
-          }else{
-            this.msg.error("查询通知单失败，请核对输入信息后重新查询！");
-          }
-        })
-    }
   }
   searchDataByMatlcode(): void {
     for (const i in this.validateForm.controls) {

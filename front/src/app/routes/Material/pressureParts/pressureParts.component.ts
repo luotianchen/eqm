@@ -38,9 +38,9 @@ export class PressurePartsComponent implements OnInit {
       this.pressurePartsService.getpressureparts(this.pageindex,this.pagesize,this.validateForm.controls['prodno'].value).subscribe((res)=>{
         if(res["result"]=="success"){
           this.total = res["total"];
-          this.dataset = res["data1"];
+          this.dataset = res["data2"];
           for(let i=0;i< this.dataset.length;i++){
-            this.dataset[i].contrast = res['data2'][i];
+            this.dataset[i].contrast = res['data1'][i];
             this.dataset[i].index = i+1;
           }
           this.loading = false;

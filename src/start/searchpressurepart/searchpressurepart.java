@@ -80,7 +80,7 @@ public class searchpressurepart {                                               
                     data1.setCodedmarking(rs1.getString("codedmarking"));
                     data1.setSpec(rs1.getString("spec"));
                     data1.setIndate(sdf.format(rs1.getDate("indate")));
-                    data1.setQty("qty");
+                    data1.setQty(rs1.getString("qty"));
                     designation2_id=rs1.getInt("contraststand_id_designation");
                     modelstand2_id=rs1.getInt("modelstand_id_modelstand");
 

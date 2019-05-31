@@ -46,21 +46,23 @@
     <tbody>
     <ng-template ngFor let-data [ngForOf]="ajaxTable.data">
       <tr>
-        <td>{{data.index + (pageindex-1)*pagesize}}</td>
+        <td rowspan="2">{{data.index + (pageindex-1)*pagesize}}</td>
         <td>{{data.codedmarking}}</td>
         <td>{{data.designation}}</td>
         <td>{{data.spec}}</td>
-        <td>{{data.modelstand}}</td>
-        <td>{{data.indate}}</td>
+        <td>{{data.spartname}}</td>
+        <td>{{data.issuedate}}</td>
         <td>{{data.qty}}</td>
       </tr>
+      <tr class="contrast" *ngIf="!data.contrast">
+        <td colspan="6">未查询到入库数据</td>
+      </tr>
       <tr class="contrast" *ngIf="data.contrast">
-        <td></td>
         <td>{{data.contrast.codedmarking}}</td>
         <td>{{data.contrast.designation}}</td>
         <td>{{data.contrast.spec}}</td>
-        <td>{{data.contrast.spartname}}</td>
-        <td>{{data.contrast.issuedate}}</td>
+        <td>{{data.contrast.modelstand}}</td>
+        <td>{{data.contrast.indate}}</td>
         <td>{{data.contrast.qty}}</td>
       </tr>
     </ng-template>
