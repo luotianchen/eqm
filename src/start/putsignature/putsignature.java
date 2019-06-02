@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 @CrossOrigin
 @Controller
@@ -81,7 +82,8 @@ public class putsignature {                                                 //ä¸
         String type = uploadFileName.substring(uploadFileName.lastIndexOf("."));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String timeStr = sdf.format(new Date());
-        String name = fileName + "_" + timeStr + type;
+
+        String name = UUID.randomUUID().toString() + "_" + timeStr + type;
         return name;
     }
 }

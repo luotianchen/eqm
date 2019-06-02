@@ -1,8 +1,13 @@
 package start.getreport;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
+import org.apache.poi.hssf.usermodel.HSSFPatriarch;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.http.HttpHeaders;
@@ -15,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import start.jdbc.jdbc;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -77,8 +87,10 @@ public class getpromatlreport {                                 //产品材料�
 
             FileUtils.copyInputStreamToFile(inputStream, file);
             String pdfname = getUploadFileName("产品材料清单.pdf");
-            String url1 = uploadPath +"/"+ filename;
-            String url2 = uploadPath +"/"+ pdfname;
+            String url1 = uploadPath +"\\"+ filename;
+            String url2 = uploadPath +"\\"+ pdfname;
+
+            System.out.println(url1);
 
 
 
@@ -101,27 +113,84 @@ public class getpromatlreport {                                 //产品材料�
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+            ps = conn.prepareStatement("SELECT MAX(date) as date FROM pretest WHERE prodno = ?");
             ps.setString(1,prodno);
             rs = ps.executeQuery();
             if(rs.next()){
-                calendar.setTime(rs.getDate("exworkdate"));
-                exworkdate = simpleDateFormat1.format(calendar.getTime());
-                putsheet(sheet,30+32*t,29,exworkdate);
+                ps1 = conn.prepareStatement("SELECT MAX(date) as date FROM leakagetest WHERE prodno = ?");
+                ps1.setString(1,prodno);
+                rs1 = ps1.executeQuery();
+                if(rs1.next()){
+                    if(rs.getDate("date")!=null &&rs1.getDate("date")!= null){
+                        if(rs.getDate("date").before(rs1.getDate("date"))){
+                            calendar.setTime(rs1.getDate("date"));
+                            exworkdate = simpleDateFormat1.format(calendar.getTime());
+                        }else {
+                            calendar.setTime(rs.getDate("date"));
+                            exworkdate = simpleDateFormat1.format(calendar.getTime());
+                        }
+                    }
+
+                }
+                rs1.close();
+                ps1.close();
             }
             rs.close();
+            ps.close();
+
 
             ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 AND ispresspart = 1 group by partno,codedmarking ORDER BY partno is null,partno ASC  ");
             ps1.setString(1,prodno);
             rs1 = ps1.executeQuery();
             while (rs1.next()){
                 if(i==0){
+                    ps = conn.prepareStatement("SELECT signature FROM userform WHERE username = ?");
+                    System.out.println(rs1.getString("user"));
+                    ps.setString(1,rs1.getString("user"));
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        System.out.println(rs.getString("signature"));
+                        setimage(workBook,rs.getString("signature"),4,6,30,31);
+                    }
+                    rs.close();
+                    ps.close();
+
+                    ps = conn.prepareStatement("SELECT signature FROM userform WHERE username = ?");
+                    System.out.println(rs1.getString("audit_user"));
+                    ps.setString(1,rs1.getString("audit_user"));
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        System.out.println(rs.getString("signature"));
+                        setimage(workBook,rs.getString("signature"),13,19,30,31);
+                    }
+                    rs.close();
+                    ps.close();
+
+
                     material = new ArrayList<String>();
                     codedmarking_f = new ArrayList<String>();
                 }
                 if(i>=10){
                     i=0;
                     t++;
+                    ps = conn.prepareStatement("SELECT signature FROM userform WHERE username = ?");
+                    ps.setString(1,rs1.getString("user"));
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        setimage(workBook,rs.getString("signature"),4,6,30+32*t,31+32*t);
+                    }
+                    rs.close();
+                    ps.close();
+
+                    ps = conn.prepareStatement("SELECT signature FROM userform WHERE username = ?");
+                    ps.setString(1,rs1.getString("audit_user"));
+                    rs = ps.executeQuery();
+                    if(rs.next()){
+                        setimage(workBook,rs.getString("signature"),13,19,30+32*t,31+32*t);
+                    }
+                    rs.close();
+                    ps.close();
+
                     putsheet(sheet,1+32*t,26,prodno);
                     putsheet(sheet,1+32*t,2,dwgno);
                     putsheet(sheet,30+32*t,29,exworkdate);
@@ -297,8 +366,6 @@ public class getpromatlreport {                                 //产品材料�
 
 
 
-
-
             OutputStream out = new FileOutputStream(url1);
             workBook.write(out);
             out.close();
@@ -460,5 +527,80 @@ public class getpromatlreport {                                 //产品材料�
             ii = "/";
         }
         return ii;
+    }
+
+    public void setimage(XSSFWorkbook wb, String imageurl, int cell1, int cell2, int row1, int row2){
+        BufferedImage bufferImg = null;
+        //先把读进来的图片放到一个ByteArrayOutputStream中，以便产生ByteArray
+        try {
+
+            ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+            bufferImg = getRemoteBufferedImage(imageurl);
+
+            String type = imageurl.substring(imageurl.lastIndexOf("."));
+
+
+            if(type.equals(".jpg")){
+                ImageIO.write(bufferImg, "jpg", byteArrayOut);
+            }
+            if(type.equals(".png")){
+                ImageIO.write(bufferImg, "png", byteArrayOut);
+            }
+            if(type.equals(".jpeg")){
+                ImageIO.write(bufferImg, "jpeg", byteArrayOut);
+            }
+
+            XSSFSheet sheet1 = wb.getSheetAt(0);
+            //画图的顶级管理器，一个sheet只能获取一个（一定要注意这点）
+            XSSFDrawing patriarch = sheet1.createDrawingPatriarch();
+            //anchor主要用于设置图片的属性
+            XSSFClientAnchor anchor = new XSSFClientAnchor(0, 0, 255, 255,(short) cell1, row1, (short) cell2, row2);
+            anchor.setAnchorType(3);
+            //插入图片
+            System.out.println(type);
+            if(type.equals(".jpg")){
+                patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), XSSFWorkbook.PICTURE_TYPE_JPEG));
+            }
+            if(type.equals(".png")){
+                patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), XSSFWorkbook.PICTURE_TYPE_PNG));
+            }
+            if(type.equals(".jpeg")){
+                patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), XSSFWorkbook.PICTURE_TYPE_JPEG));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public BufferedImage getRemoteBufferedImage(String imageURL) {
+        URL url = null;
+        InputStream is = null;
+        BufferedImage bufferedImage = null;
+        try {
+            url = new URL(imageURL);
+            is = url.openStream();
+            bufferedImage = ImageIO.read(is);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            System.out.println("imageURL: " + imageURL + ",无效!");
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("imageURL: " + imageURL + ",读取失败!");
+            return null;
+        } finally {
+            try {
+                if(is!=null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("imageURL: " + imageURL + ",流关闭异常!");
+                return null;
+            }
+        }
+        return bufferedImage;
     }
 }

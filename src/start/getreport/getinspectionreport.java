@@ -95,7 +95,7 @@ public class getinspectionreport {                                              
                 gState.setStrokeOpacity(0.1f);
                 over.setGState(gState);
 
-                ps = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+                ps = conn.prepareStatement("SELECT * FROM putmaterialcache WHERE codedmarking = ? AND status = 1");
                 ps.setString(1,codedmarking);
                 rs = ps.executeQuery();
                 if(rs.next()){
@@ -103,25 +103,12 @@ public class getinspectionreport {                                              
                     over.showTextAligned(0,codedmarking,220,425,0);
                     erweima = codedmarking;
 
-                    ps1 = conn.prepareStatement("SELECT * FROM modelstand WHERE id = ?");
-                    ps1.setInt(1,rs.getInt("modelstand_id_modelstand"));
-                    rs1 = ps1.executeQuery();
-                    if(rs1.next()){
-                        over.showTextAligned(0,rs1.getString("modelstand"),307,425,0);
-                        erweima = erweima + "," + rs1.getString("modelstand");
-                    }
-                    rs1.close();
-                    ps1.close();
+                    over.showTextAligned(0,rs.getString("modelstand_id_modelstand"),307,425,0);
+                    erweima = erweima + "," + rs.getString("modelstand_id_modelstand");
 
-                    ps1 = conn.prepareStatement("SELECT * FROM contraststand WHERE id = ?");
-                    ps1.setInt(1,rs.getInt("contraststand_id_designation"));
-                    rs1 = ps1.executeQuery();
-                    if(rs1.next()){
-                        over.showTextAligned(0,rs1.getString("designation"),220,402,0);
-                        erweima = erweima + "," + rs1.getString("designation");
-                    }
-                    rs1.close();
-                    ps1.close();
+
+                    over.showTextAligned(0,rs.getString("contraststand_id_designation"),220,402,0);
+                    erweima = erweima + "," + rs.getString("contraststand_id_designation");
 
                     if(!(rs.getString("heatbatchno")==null||rs.getString("heatbatchno").equals(""))) {
                         over.showTextAligned(0, rs.getString("heatbatchno"), 307, 402, 0);
@@ -138,17 +125,12 @@ public class getinspectionreport {                                              
                         erweima = erweima + "," + rs.getString("dimension");
                     }
 
-                    ps1 = conn.prepareStatement("SELECT * FROM millunit WHERE id = ?");
-                    ps1.setInt(1,rs.getInt("millunit_id_millunit"));
-                    rs1 = ps1.executeQuery();
-                    if(rs1.next()){
-                        over.showTextAligned(0,rs1.getString("millunit"),307,382,0);
-                        erweima = erweima + "," + rs1.getString("millunit");
-                    }
-                    rs1.close();
-                    ps1.close();
 
-                    ps1 = conn.prepareStatement("SELECT * FROM userform WHERE id = ?");
+
+                    over.showTextAligned(0,rs.getString("millunit_id_millunit"),307,382,0);
+                    erweima = erweima + "," + rs.getString("millunit_id_millunit");
+
+                    ps1 = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
                     ps1.setInt(1,rs.getInt("user_id"));
                     rs1 = ps1.executeQuery();
                     if(rs1.next()){

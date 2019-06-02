@@ -16,6 +16,10 @@ import start.jdbc.jdbc;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.UUID;
 
 import static start.excel.excel.putsheet;
@@ -30,6 +34,13 @@ public class getpromanchangereport {                                //产品制�
         Connection conn = DriverManager.getConnection(j.getDBURL(),j.getDBUSER(),j.getDBPASS());
         PreparedStatement ps = null;
         ResultSet rs=null;
+        PreparedStatement ps1 = null;
+        ResultSet rs1=null;
+
+        Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
+        SimpleDateFormat simpleDateFormat3 = new SimpleDateFormat("yyyy年MM月");
+        SimpleDateFormat simpleDateFormat4 = new SimpleDateFormat("MMM.yyyy", Locale.US);
+
 
         ResponseEntity<byte[]> download = null;
         File file = null;
@@ -68,6 +79,32 @@ public class getpromanchangereport {                                //产品制�
             }
             rs.close();
             ps.close();
+
+            ps = conn.prepareStatement("SELECT MAX(date) as date FROM pretest WHERE prodno = ?");
+            ps.setString(1,prodno);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                ps1 = conn.prepareStatement("SELECT MAX(date) as date FROM leakagetest WHERE prodno = ?");
+                ps1.setString(1,prodno);
+                rs1 = ps1.executeQuery();
+                if(rs1.next()){
+                    if(rs.getDate("date").before(rs1.getDate("date"))){
+                        calendar.setTime(rs1.getDate("date"));
+                    }else {
+                        calendar.setTime(rs.getDate("date"));
+                    }
+
+                    putsheet(sheet,56,46,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,57,46,simpleDateFormat4.format(calendar.getTime()));
+
+
+                }
+                rs1.close();
+                ps1.close();
+            }
+            rs.close();
+            ps.close();
+
 
 
 

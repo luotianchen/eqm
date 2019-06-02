@@ -26,6 +26,22 @@ public class searchcontraststand {                                      //通过
         String spec = null;
 
         try {
+            ps = conn.prepareStatement("update contraststand set bending_id_utclass = null where bending_id_utclass = ''");
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("update contraststand set note = null where note = ''");
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("update contraststand set bendaxdia = null where bendaxdia = ''");
+            ps.executeUpdate();
+            ps.close();
+
+            ps = conn.prepareStatement("update contraststand set type = null where type = ''");
+            ps.executeUpdate();
+            ps.close();
+
             ps = conn.prepareStatement("SELECT * FROM protestboardcom WHERE prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();

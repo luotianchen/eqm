@@ -45,212 +45,55 @@ public class searchnocertsitu {
         searchnocertsitudata sncd = null;
         searchnocertsituresult result = new searchnocertsituresult();
 
-        int nocertsitu_id=0;
 
-        int matlname_id=0;
-        int designation_id=0;
-        int matlstand_id=0;
-        int supplier_id=0;
-        int millunit_id=0;
-        int pdesignation_id=0;
         String sql=null;
         String sql_x=null;
         int z=0;
 
+        int num = 1;
+
         try{
-            ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE certsitu= '质保书未到'");
-            rs=ps.executeQuery();
-            while(rs.next()){
-                nocertsitu_id = rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            ps=conn.prepareStatement("SELECT * FROM contraststand WHERE designation= ?");
-            ps.setString(1,sp.getDesignation());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                pdesignation_id = rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            sql="SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? AND status = 1 ";
-            sql_x = " ORDER BY codedmarking DESC";
-            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                sql=sql+"AND contraststand_id_designation=? ";
-            }
-            ps=conn.prepareStatement(sql+sql_x);
-            ps.setInt(1,nocertsitu_id);
-            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-            ps.setInt(2,pdesignation_id);
-        }
-            rs=ps.executeQuery();
-            while (rs.next()){
-                sncd = new searchnocertsitudata();
-                if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
-                    ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
-                    rs1 = ps1.executeQuery();
-                    if(rs1.next()){
-                        System.out.println(rs.getString("codedmarking"));
-                        System.out.println(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1));
-                        if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
-                            rs1.close();
-                            ps1.close();
-
-                            sncd.setCodedmarking(rs.getString("codedmarking"));
-                            sncd.setSpec(rs.getString("spec"));
-                            sncd.setQty(rs.getString("qty"));
-                            sncd.setNote(rs.getString("note"));
-                            sncd.setIndate(sdf.format(rs.getDate("indate")));
-                            sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                            sncd.setWarrantyno(rs.getString("warrantyno"));
-                            matlname_id=rs.getInt("matlname_id_matlname");
-                            designation_id=rs.getInt("contraststand_id_designation");
-                            matlstand_id=rs.getInt("contraststand_id_matlstand");
-                            supplier_id=rs.getInt("supplier_id_supplier");
-                            millunit_id=rs.getInt("millunit_id_millunit");
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM matlname WHERE id=?");
-                            ps1.setInt(1,matlname_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setMatlname(rs1.getString("matlname"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                            ps1.setInt(1,designation_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setDesignation(rs1.getString("designation"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                            ps1.setInt(1,matlstand_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setMatlstand(rs1.getString("matlstand"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM supplier WHERE id=?");
-                            ps1.setInt(1,supplier_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setSupplier(rs1.getString("supplier"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM millunit WHERE id=?");
-                            ps1.setInt(1,millunit_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setMillunit(rs1.getString("millunit"));
-                            }
-                            rs1.close();
-                            ps1.close();
-                        }else {
-                            rs1.close();
-                            ps1.close();
-                            continue;
-                        }
-                    }else {
-                        rs1.close();
-                        ps1.close();
-                    }
-                }else{
-                    sncd.setCodedmarking(rs.getString("codedmarking"));
-                    sncd.setSpec(rs.getString("spec"));
-                    sncd.setQty(rs.getString("qty"));
-                    sncd.setNote(rs.getString("note"));
-                    sncd.setIndate(sdf.format(rs.getDate("indate")));
-                    sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                    sncd.setWarrantyno(rs.getString("warrantyno"));
-                    matlname_id=rs.getInt("matlname_id_matlname");
-                    designation_id=rs.getInt("contraststand_id_designation");
-                    matlstand_id=rs.getInt("contraststand_id_matlstand");
-                    supplier_id=rs.getInt("supplier_id_supplier");
-                    millunit_id=rs.getInt("millunit_id_millunit");
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM matlname WHERE id=?");
-                    ps1.setInt(1,matlname_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setMatlname(rs1.getString("matlname"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                    ps1.setInt(1,designation_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setDesignation(rs1.getString("designation"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                    ps1.setInt(1,matlstand_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setMatlstand(rs1.getString("matlstand"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM supplier WHERE id=?");
-                    ps1.setInt(1,supplier_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setSupplier(rs1.getString("supplier"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM millunit WHERE id=?");
-                    ps1.setInt(1,millunit_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setMillunit(rs1.getString("millunit"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                }
-                as.add(sncd);
-            }
-            rs.close();
-            ps.close();
 
             sql="SELECT * FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
-            sql_x = "ORDER BY codedmarking";
+            sql_x = "ORDER BY codedmarking DESC";
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                 sql=sql+"AND contraststand_id_designation=? ";
             }
+            if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
+                sql=sql+"AND codedmarking=? ";
+            }
+            if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
+                sql=sql+"AND supplier_id_supplier=? ";
+            }
+            if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
+                sql=sql+"AND heatbatchno=? ";
+            }
+            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+                sql=sql+"AND warrantyno=? ";
+            }
             ps=conn.prepareStatement(sql+sql_x);
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                ps.setString(1,sp.getDesignation());
+                ps.setString(num,sp.getDesignation());
+                num++;
+            }
+            if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
+                ps.setString(num,sp.getCodedmarking());
+                num++;
+            }
+            if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
+                ps.setString(num,sp.getSupplier());
+                num++;
+            }
+            if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
+                ps.setString(num,sp.getHeatbatchno());
+                num++;
+            }
+            if(!(sp.getWarrantyno()==null || sp.getWarrantyno().equals(""))){
+                ps.setString(num,sp.getWarrantyno());
+                num++;
             }
             rs=ps.executeQuery();
             while (rs.next()){
-
                 ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
                 ps1.setString(1,rs.getString("codedmarking"));
                 rs1 = ps1.executeQuery();
@@ -349,263 +192,83 @@ public class searchnocertsitu {
         ArrayList<searchnocertsitudata> as =new ArrayList<searchnocertsitudata>();
         searchnocertsitudata sncd = null;
 
-        int nocertsitu_id=0;
-
-        int matlname_id=0;
-        int designation_id=0;
-        int matlstand_id=0;
-        int supplier_id=0;
-        int millunit_id=0;
-        int pdesignation_id=0;
         String sql=null;
-        String sql_x="ORDER BY codedmarking";
+        String sql_x=null;
         int z=0;
 
         try {
-            ps=conn.prepareStatement("SELECT * FROM warrantystatus WHERE certsitu= '质保书未到'");
-            rs=ps.executeQuery();
-            while(rs.next()){
-                nocertsitu_id = rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
 
-            ps=conn.prepareStatement("SELECT * FROM contraststand WHERE designation= ?");
-            ps.setString(1,sp.getDesignation());
-            rs=ps.executeQuery();
-            while(rs.next()){
-                pdesignation_id = rs.getInt("id");
-            }
-            rs.close();
-            ps.close();
-
-            sql="SELECT * FROM putmaterial WHERE warrantystatus_id_certsitu=? AND status=1 ";
+            sql="SELECT * FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
+            sql_x = "ORDER BY codedmarking DESC";
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                 sql=sql+"AND contraststand_id_designation=? ";
             }
             ps=conn.prepareStatement(sql+sql_x);
-            ps.setInt(1,nocertsitu_id);
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                ps.setInt(2,pdesignation_id);
+                ps.setString(1,sp.getDesignation());
             }
             rs=ps.executeQuery();
             while (rs.next()){
-                sncd = new searchnocertsitudata();
-                if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
-                    ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
-                    rs1 = ps1.executeQuery();
-                    if(rs1.next()){
-                        if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
-                            rs1.close();
-                            ps1.close();
 
-                            sncd.setCodedmarking(rs.getString("codedmarking"));
-                            sncd.setSpec(rs.getString("spec"));
-                            sncd.setQty(rs.getString("qty"));
-                            sncd.setNote(rs.getString("note"));
-                            sncd.setIndate(sdf.format(rs.getDate("indate")));
-                            sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                            sncd.setWarrantyno(rs.getString("warrantyno"));
-                            matlname_id=rs.getInt("matlname_id_matlname");
-                            designation_id=rs.getInt("contraststand_id_designation");
-                            matlstand_id=rs.getInt("contraststand_id_matlstand");
-                            supplier_id=rs.getInt("supplier_id_supplier");
-                            millunit_id=rs.getInt("millunit_id_millunit");
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM matlname WHERE id=?");
-                            ps1.setInt(1,matlname_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setMatlname(rs1.getString("matlname"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                            ps1.setInt(1,designation_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setDesignation(rs1.getString("designation"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                            ps1.setInt(1,matlstand_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setMatlstand(rs1.getString("matlstand"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM supplier WHERE id=?");
-                            ps1.setInt(1,supplier_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setSupplier(rs1.getString("supplier"));
-                            }
-                            rs1.close();
-                            ps1.close();
-
-
-                            ps1=conn.prepareStatement("SELECT * FROM millunit WHERE id=?");
-                            ps1.setInt(1,millunit_id);
-                            rs1=ps1.executeQuery();
-                            while (rs1.next()){
-                                sncd.setMillunit(rs1.getString("millunit"));
-                            }
-                            rs1.close();
-                            ps1.close();
-                        }else {
-                            rs1.close();
-                            ps1.close();
-                            continue;
-                        }
-                    }else {
-                        rs1.close();
-                        ps1.close();
-                    }
-                }else{
-                    sncd.setCodedmarking(rs.getString("codedmarking"));
-                    sncd.setSpec(rs.getString("spec"));
-                    sncd.setQty(rs.getString("qty"));
-                    sncd.setNote(rs.getString("note"));
-                    sncd.setIndate(sdf.format(rs.getDate("indate")));
-                    sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                    sncd.setWarrantyno(rs.getString("warrantyno"));
-                    matlname_id=rs.getInt("matlname_id_matlname");
-                    designation_id=rs.getInt("contraststand_id_designation");
-                    matlstand_id=rs.getInt("contraststand_id_matlstand");
-                    supplier_id=rs.getInt("supplier_id_supplier");
-                    millunit_id=rs.getInt("millunit_id_millunit");
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM matlname WHERE id=?");
-                    ps1.setInt(1,matlname_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setMatlname(rs1.getString("matlname"));
-                    }
+                ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
+                ps1.setString(1,rs.getString("codedmarking"));
+                rs1 = ps1.executeQuery();
+                if(!rs1.next()){
                     rs1.close();
                     ps1.close();
 
+                    sncd = new searchnocertsitudata();
+                    if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
+                        ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
+                        rs1 = ps1.executeQuery();
+                        if(rs1.next()){
+                            if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
+                                rs1.close();
+                                ps1.close();
 
-                    ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                    ps1.setInt(1,designation_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setDesignation(rs1.getString("designation"));
-                    }
-                    rs1.close();
-                    ps1.close();
+                                sncd.setCodedmarking(rs.getString("codedmarking"));
+                                sncd.setSpec(rs.getString("spec"));
+                                sncd.setQty(rs.getString("qty"));
+                                sncd.setNote(rs.getString("note"));
+                                sncd.setIndate(rs.getString("indate"));
+                                sncd.setHeatbatchno(rs.getString("heatbatchno"));
+                                sncd.setWarrantyno(rs.getString("warrantyno"));
+                                sncd.setMatlname(rs.getString("matlname_id_matlname"));
+                                sncd.setDesignation(rs.getString("contraststand_id_designation"));
+                                sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
+                                sncd.setSupplier(rs.getString("supplier_id_supplier"));
+                                sncd.setMillunit(rs.getString("millunit_id_millunit"));
 
-
-                    ps1=conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                    ps1.setInt(1,matlstand_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setMatlstand(rs1.getString("matlstand"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM supplier WHERE id=?");
-                    ps1.setInt(1,supplier_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setSupplier(rs1.getString("supplier"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-
-                    ps1=conn.prepareStatement("SELECT * FROM millunit WHERE id=?");
-                    ps1.setInt(1,millunit_id);
-                    rs1=ps1.executeQuery();
-                    while (rs1.next()){
-                        sncd.setMillunit(rs1.getString("millunit"));
-                    }
-                    rs1.close();
-                    ps1.close();
-
-                }
-                as.add(sncd);
-
-                sql="SELECT * FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
-                sql_x = "ORDER BY codedmarking";
-                if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                    sql=sql+"AND contraststand_id_designation=? ";
-                }
-                ps=conn.prepareStatement(sql+sql_x);
-                if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                    ps.setString(1,sp.getDesignation());
-                }
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    for (int i=0;i<as.size();i++){
-                        if(as.get(i).getCodedmarking().equals(rs.getString("codedmarking"))){
-                            z=1;
-                        }
-                    }
-                    if(z==0){
-                        sncd = new searchnocertsitudata();
-                        if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
-                            ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
-                            rs1 = ps1.executeQuery();
-                            if(rs1.next()){
-                                if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
-                                    rs1.close();
-                                    ps1.close();
-
-                                    sncd.setCodedmarking(rs.getString("codedmarking"));
-                                    sncd.setSpec(rs.getString("spec"));
-                                    sncd.setQty(rs.getString("qty"));
-                                    sncd.setNote(rs.getString("note"));
-                                    sncd.setIndate(rs.getString("indate"));
-                                    sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                                    sncd.setWarrantyno(rs.getString("warrantyno"));
-                                    sncd.setMatlname(rs.getString("matlname_id_matlname"));
-                                    sncd.setDesignation(rs.getString("contraststand_id_designation"));
-                                    sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
-                                    sncd.setSupplier(rs.getString("supplier_id_supplier"));
-                                    sncd.setMillunit(rs.getString("millunit_id_millunit"));
-
-                                }else {
-                                    rs1.close();
-                                    ps1.close();
-                                    continue;
-                                }
                             }else {
                                 rs1.close();
                                 ps1.close();
+                                continue;
                             }
-                        }else{
-                            sncd.setCodedmarking(rs.getString("codedmarking"));
-                            sncd.setSpec(rs.getString("spec"));
-                            sncd.setQty(rs.getString("qty"));
-                            sncd.setNote(rs.getString("note"));
-                            sncd.setIndate(rs.getString("indate"));
-                            sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                            sncd.setWarrantyno(rs.getString("warrantyno"));
-                            sncd.setMatlname(rs.getString("matlname_id_matlname"));
-                            sncd.setDesignation(rs.getString("contraststand_id_designation"));
-                            sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
-                            sncd.setSupplier(rs.getString("supplier_id_supplier"));
-                            sncd.setMillunit(rs.getString("millunit_id_millunit"));
-
+                        }else {
+                            rs1.close();
+                            ps1.close();
                         }
-                        as.add(sncd);
-                    }else {
-                        z=0;
-                    }
+                    }else{
+                        sncd.setCodedmarking(rs.getString("codedmarking"));
+                        sncd.setSpec(rs.getString("spec"));
+                        sncd.setQty(rs.getString("qty"));
+                        sncd.setNote(rs.getString("note"));
+                        sncd.setIndate(rs.getString("indate"));
+                        sncd.setHeatbatchno(rs.getString("heatbatchno"));
+                        sncd.setWarrantyno(rs.getString("warrantyno"));
+                        sncd.setMatlname(rs.getString("matlname_id_matlname"));
+                        sncd.setDesignation(rs.getString("contraststand_id_designation"));
+                        sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
+                        sncd.setSupplier(rs.getString("supplier_id_supplier"));
+                        sncd.setMillunit(rs.getString("millunit_id_millunit"));
 
+                    }
+                    as.add(sncd);
+                }else {
+                    rs1.close();
+                    ps1.close();
                 }
+
             }
             conn.close();
 

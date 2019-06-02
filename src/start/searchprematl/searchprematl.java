@@ -43,7 +43,7 @@ public class searchprematl {                                //受压元件使用
         String codedmarking = null;
         String dwgno = null;
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM prenotiform where prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
@@ -72,13 +72,26 @@ public class searchprematl {                                //受压元件使用
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+            ps = conn.prepareStatement("SELECT MAX(date) as date FROM pretest WHERE prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
             if(rs.next()){
-                result.setIssuedate(sdf.format(rs.getDate("exworkdate")));
+                ps1 = conn.prepareStatement("SELECT MAX(date) as date FROM leakagetest WHERE prodno = ?");
+                ps1.setString(1,sp.getProdno());
+                rs1 = ps1.executeQuery();
+                if(rs1.next()){
+                    if(rs.getDate("date").before(rs1.getDate("date"))){
+                        result.setIssuedate(sdf.format(rs1.getDate("date")));
+                    }else {
+                        result.setIssuedate(sdf.format(rs.getDate("date")));
+                    }
+                }
+                rs1.close();
+                ps1.close();
             }
             rs.close();
+            ps.close();
+
 
             ps = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1");
             ps.setString(1,sp.getProdno());
@@ -155,9 +168,9 @@ public class searchprematl {                                //受压元件使用
             }
             result.setData(as);
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }

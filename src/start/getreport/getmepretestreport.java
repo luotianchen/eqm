@@ -108,36 +108,42 @@ public class getmepretestreport {                                               
                 putsheet(sheet,8,16,rs.getString("gaptype"));             //缺口类型
 
                 if(rs.getString("w1")!=null && !rs.getString("w1").equals("")){
+                    putsheet(sheet,8+i,14,"s"+(i+1));
                     putsheet(sheet,8+i,17,"焊缝区");
                     putsheet(sheet,8+i,18,rs.getString("w1"));
                     putsheet(sheet,8+i,19,rs.getString("lew1"));
                     i++;
                 }
                 if(rs.getString("w2")!=null && !rs.getString("w2").equals("")){
+                    putsheet(sheet,8+i,14,"s"+(i+1));
                     putsheet(sheet,8+i,17,"焊缝区");
                     putsheet(sheet,8+i,18,rs.getString("w2"));
                     putsheet(sheet,8+i,19,rs.getString("lew2"));
                     i++;
                 }
                 if(rs.getString("w3")!=null && !rs.getString("w3").equals("")){
+                    putsheet(sheet,8+i,14,"s"+(i+1));
                     putsheet(sheet,8+i,17,"焊缝区");
                     putsheet(sheet,8+i,18,rs.getString("w3"));
                     putsheet(sheet,8+i,19,rs.getString("lew3"));
                     i++;
                 }
                 if(rs.getString("h1")!=null && !rs.getString("h1").equals("")){
+                    putsheet(sheet,8+i,14,"s"+(i+1));
                     putsheet(sheet,8+i,17,"热处理区");
                     putsheet(sheet,8+i,18,rs.getString("h1"));
                     putsheet(sheet,8+i,19,rs.getString("leh1"));
                     i++;
                 }
                 if(rs.getString("h2")!=null && !rs.getString("h2").equals("")){
+                    putsheet(sheet,8+i,14,"s"+(i+1));
                     putsheet(sheet,8+i,17,"热处理区");
                     putsheet(sheet,8+i,18,rs.getString("h2"));
                     putsheet(sheet,8+i,19,rs.getString("leh2"));
                     i++;
                 }
                 if(rs.getString("h3")!=null && !rs.getString("h3").equals("")){
+                    putsheet(sheet,8+i,14,"s"+(i+1));
                     putsheet(sheet,8+i,17,"热处理区");
                     putsheet(sheet,8+i,18,rs.getString("h3"));
                     putsheet(sheet,8+i,19,rs.getString("leh3"));

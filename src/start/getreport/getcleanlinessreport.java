@@ -38,7 +38,7 @@ public class getcleanlinessreport {                                     //清洁
         ResultSet rs=null;
 
         Calendar calendar =new GregorianCalendar();                                                     //日期操作方法
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy年MM月dd日");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
 
         String clean_1 = "化学 Chemical";
         String clean_2 = "擦洗 Scrubbing";

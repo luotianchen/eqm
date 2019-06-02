@@ -232,23 +232,36 @@ public class gettrackingreport {                                    //焊工材�
             rs.close();
             ps.close();
 
-            ps = conn.prepareStatement("SELECT * FROM promanparlist WHERE prodno = ? AND status = 1");
+            ps = conn.prepareStatement("SELECT MAX(date) as date FROM pretest WHERE prodno = ?");
             ps.setString(1,prodno);
-            rs= ps.executeQuery();
-            while (rs.next()){
-                calendar.setTime(rs.getDate("exworkdate"));
-                putsheet(sheet,38,5,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,39,5,simpleDateFormat4.format(calendar.getTime()));
-                putsheet(sheet,38,12,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,39,12,simpleDateFormat4.format(calendar.getTime()));
+            rs = ps.executeQuery();
+            if(rs.next()){
+                ps1 = conn.prepareStatement("SELECT MAX(date) as date FROM leakagetest WHERE prodno = ?");
+                ps1.setString(1,prodno);
+                rs1 = ps1.executeQuery();
+                if(rs1.next()){
+                    if(rs.getDate("date").before(rs1.getDate("date"))){
+                        calendar.setTime(rs1.getDate("date"));
+                    }else {
+                        calendar.setTime(rs.getDate("date"));
+                    }
 
-                putsheet(sheet,38+39,5,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,39+39,5,simpleDateFormat4.format(calendar.getTime()));
-                putsheet(sheet,38+39,12,simpleDateFormat3.format(calendar.getTime()));
-                putsheet(sheet,39+39,12,simpleDateFormat4.format(calendar.getTime()));
+                    putsheet(sheet,38,5,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,39,5,simpleDateFormat4.format(calendar.getTime()));
+                    putsheet(sheet,38,12,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,39,12,simpleDateFormat4.format(calendar.getTime()));
+
+                    putsheet(sheet,38+39,5,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,39+39,5,simpleDateFormat4.format(calendar.getTime()));
+                    putsheet(sheet,38+39,12,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,39+39,12,simpleDateFormat4.format(calendar.getTime()));
+                }
+                rs1.close();
+                ps1.close();
             }
             rs.close();
             ps.close();
+
 
 
 

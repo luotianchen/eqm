@@ -16,12 +16,10 @@ import start.jdbc.jdbc;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.UUID;
@@ -46,6 +44,9 @@ public class getweldingreport {                                         //产品
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("MMM.yyyy", Locale.US);
         SimpleDateFormat simpleDateFormat3 = new SimpleDateFormat("yyyy年MM月dd日");
         SimpleDateFormat simpleDateFormat4 = new SimpleDateFormat("MMM.dd.yyyy", Locale.US);
+
+        Date date = new Date();
+        Date date_real = new Date();
 
         ResponseEntity<byte[]> download = null;
         File file = null;
@@ -90,9 +91,21 @@ public class getweldingreport {                                         //产品
                     putsheet(sheet,9+i*2,30,rs.getString("usernote"));
 
                     calendar.setTime(rs.getDate("welddate"));
-                    putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
-                    putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
-                    putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));
+                    putsheet(sheet,9+i*2,38,simpleDateFormat1.format(calendar.getTime()));
+
+                    if(i == 0){
+                        date = rs.getDate("welddate");;
+                    }else {
+                        if(date.before(rs.getDate("welddate"))){
+                            date = rs.getDate("welddate");
+                        }
+                    }
+
+                    calendar.setTime(date);
+
+
+                    putsheet(sheet,59,39,simpleDateFormat3.format(calendar.getTime()));
+                    putsheet(sheet,60,39,simpleDateFormat4.format(calendar.getTime()));
 
                     putsheet(sheet,9+i*2,46,rs.getString("inspector"));
                     i++;
@@ -109,6 +122,16 @@ public class getweldingreport {                                         //产品
 
                     calendar.setTime(rs.getDate("welddate"));
                     putsheet(sheet,9+i*2+61-25*2,38,simpleDateFormat1.format(calendar.getTime()));
+
+                    if(i == 25){
+                        date = rs.getDate("welddate");;
+                    }else {
+                        if(date.before(rs.getDate("welddate"))){
+                            date = rs.getDate("welddate");
+                        }
+                    }
+                    calendar.setTime(date);
+
                     putsheet(sheet,59+61,39,simpleDateFormat3.format(calendar.getTime()));
                     putsheet(sheet,60+61,39,simpleDateFormat4.format(calendar.getTime()));
 
