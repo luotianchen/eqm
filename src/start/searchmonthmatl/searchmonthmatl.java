@@ -71,7 +71,7 @@ public class searchmonthmatl {
             rs.close();
             ps.close();
 
-            ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE indate LIKE ? ORDER BY codedmarking DESC");
+            ps=conn.prepareStatement("SELECT * FROM putmaterial WHERE indate LIKE ? ORDER BY codedmarking ASC");
             ps.setString(1,year_month);
             rs=ps.executeQuery();
             while (rs.next()){
