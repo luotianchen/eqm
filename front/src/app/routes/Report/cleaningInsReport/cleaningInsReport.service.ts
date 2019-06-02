@@ -18,5 +18,8 @@ export class CleaningInsReportService {
   getReport(formData){
     return this.http.post(this.api.BASEURL+"/getcleanlinessreport",formData, { responseType: 'arraybuffer' })
   }
+  getuserform() {
+    return this.http.get(`${this.api.BASEURL}/getuserform`);
+  }
 }
 

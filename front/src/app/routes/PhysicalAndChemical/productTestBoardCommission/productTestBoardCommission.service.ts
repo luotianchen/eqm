@@ -17,7 +17,7 @@ export class ProductTestBoardCommissionService {
     return this.http.get(this.api.BASEURL+"/getuserform");
   }
   getDesignationAndSpec(prodno){
-    return this.http.post(this.api.BASEURL+"/searchspecanddeinpre",{pordno:prodno});
+    return this.http.post(this.api.BASEURL+"/searchspecanddeinpre",{prodno:prodno});
   }
   putproducttestboardcommission(data){
     return this.http.post(this.api.BASEURL+"/putprotestboardcom",data);

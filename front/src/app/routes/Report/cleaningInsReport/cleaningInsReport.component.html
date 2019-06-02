@@ -42,8 +42,20 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="loading">
-      <i nz-icon type="download"></i>查询报表
-    </button>
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label [nzSm]="10" nzFor="operator">操作工</nz-form-label>
+        <nz-form-control [nzSm]="14" nzHasFeedback>
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="请选择操作工" id="operator" formControlName="operator">
+            <nz-option *ngFor="let option of users" [nzLabel]="option.name" [nzValue]="option.username"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6" style="text-align: right">
+      <button nz-button nzType="primary" (click)="submitForm()" [nzLoading]="loading">
+        <i nz-icon type="download"></i>查询报表
+      </button>
+    </div>
   </div>
 </form>

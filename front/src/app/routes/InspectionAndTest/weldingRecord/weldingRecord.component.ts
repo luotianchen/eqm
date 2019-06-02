@@ -67,12 +67,14 @@ export class WeldingRecordComponent implements OnInit {
           this.status = false;
         }
       })
-      this.weldingRecordService.getWeldingRecord(this.validateForm.value.prodno).subscribe(res=>{
+      this.weldingRecordService.getWeldingRecord(this.validateForm.value.prodno).subscribe((res:any)=>{
         if(res['result'] == "success"){
           if(res['data'].length>0){
             this.dataSet = res['data'];
-            for(let data of this.dataSet)
+            for(let data of this.dataSet){
               data.key = this.i++;
+              data.usernote = data.usernote.split('/');
+            }
             this.updateEditCache();
           }
         }
@@ -119,7 +121,8 @@ export class WeldingRecordComponent implements OnInit {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
-    for(let data of this.dataSet){
+    let dataset = this.dataSet;
+    for(let data of dataset){
       if(data['welddate'] == null){
         this.message.error("施焊日期不能为空！");
         return;
@@ -134,6 +137,7 @@ export class WeldingRecordComponent implements OnInit {
         this.message.error("无损检验日期不能为空！");
         return;
       }
+      data.usernote = data.usernote.join('/')
     }
     if(this.validateForm.valid){
       this.weldingRecordService.putWeldingRecord({
@@ -141,7 +145,7 @@ export class WeldingRecordComponent implements OnInit {
         prodno:this.validateForm.value.prodno,
         prodname:this.validateForm.value.prodname,
         dwgno:this.validateForm.value.dwgno,
-        data:this.dataSet
+        data:dataset
       }).subscribe((res)=>{
         if(res['result']=="success"){
           this.modalService.success({
@@ -161,7 +165,7 @@ export class WeldingRecordComponent implements OnInit {
       "weldno":null,
       "weldevano":null,
       "weldmethod":null,
-      "usernote":null,
+      "usernote":[],
       "welddate":null,
       "inspector":null,
       "entrustdate":null,
@@ -174,7 +178,7 @@ export class WeldingRecordComponent implements OnInit {
   deleteRow(i: string): void {
     const dataSet = this.dataSet.filter(d => d.key !== i);
     this.dataSet = dataSet;
-    this.updateEditCache();3
+    this.updateEditCache();
   }
   copyRow(i: string): void {
     this.i++;
@@ -184,7 +188,7 @@ export class WeldingRecordComponent implements OnInit {
       "weldno":`${dataSet.weldno}`,
       "weldevano":`${dataSet.weldevano}`,
       "weldmethod":`${dataSet.weldmethod}`,
-      "usernote":`${dataSet.usernote}`,
+      "usernote":dataSet.usernote.slice(),
       "welddate":`${dataSet.welddate}`,
       "inspector":`${dataSet.inspector}`,
       "entrustdate":`${dataSet.entrustdate}`,

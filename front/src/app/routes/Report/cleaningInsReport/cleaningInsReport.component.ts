@@ -24,8 +24,15 @@ export class CleaningInsReportComponent implements OnInit {
     "特殊要求",
     "蓝点法要求"
   ]
+  users = [];
+  matlcode:any;
   constructor(public cleaningInsReportService:CleaningInsReportService,public fb: FormBuilder,private msg:NzMessageService,private _storage:SessionStorageService){
   }
+
+  checkRole(user:any){
+    return (user.role==56 ||  user.role2==56 || user.role3==56 ||  user.role4==56 || user.role5==56);
+  }
+
   submitForm(): void {
     // tslint:disable-next-line:no-any
     for (const i in this.validateForm.controls) {
@@ -37,7 +44,7 @@ export class CleaningInsReportComponent implements OnInit {
       const formData = new FormData();
       formData.append('prodno', this.validateForm.value.prodno);
       formData.append('name', this.validateForm.value.name);
-      formData.append('username', this._storage.get("username"));
+      formData.append('username', this.validateForm.value.operator);
       formData.append('date', this.validateForm.value.date);
       formData.append('cleanname',this.validateForm.value.cleanname);
       this.cleaningInsReportService.getReport(formData).subscribe((res: ArrayBuffer)=>{
@@ -68,7 +75,18 @@ export class CleaningInsReportComponent implements OnInit {
       "prodno":[null, [Validators.required]],
       "name":[null, [Validators.required]],
       "cleanname":[null, [Validators.required]],
-      "date":[null, [Validators.required]]
+      "date":[null, [Validators.required]],
+      "operator":[null, [Validators.required]],
+    });
+    this.cleaningInsReportService.getuserform().subscribe(res=>{
+      if(res['result']=='success'){
+        this.users = [];
+        for(let user of res['data']){
+          if(this.checkRole(user)){
+            this.users.push(user);
+          }
+        }
+      }
     });
   }
   formatInDate(control){ //日期格式化

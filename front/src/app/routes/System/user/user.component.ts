@@ -39,9 +39,11 @@ export class UserComponent {
   img_username = null;
   public editimg = false;
 
+  mode = 0;//0为不显示，1为超级管理员模式，2为焊工、铆工模式
 
   ngOnInit(): void {
   }
+
   showModal(type,arg): void {
     this.isVisible[type] = true;
     if(type == "name"){
@@ -98,7 +100,16 @@ export class UserComponent {
             this.isVisible[type] = false;
             this.userService.getUsers().subscribe((res)=>{
               if(res["result"]=="success"){
-                this.dataSet = res["data"];
+                if(this.mode == 2){
+                  this.dataSet = [];
+                  for(let data of res["data"]){
+                    if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                      this.dataSet.push(data);
+                    }
+                  }
+                }else{
+                  this.dataSet = res["data"];
+                }
                 this.dataSetDisplay = this.dataSet;
               }
             });
@@ -116,7 +127,16 @@ export class UserComponent {
             this.isVisible[type] = false;
             this.userService.getUsers().subscribe((res)=>{
               if(res["result"]=="success"){
-                this.dataSet = res["data"];
+                if(this.mode == 2){
+                  this.dataSet = [];
+                  for(let data of res["data"]){
+                    if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                      this.dataSet.push(data);
+                    }
+                  }
+                }else{
+                  this.dataSet = res["data"];
+                }
                 this.dataSetDisplay = this.dataSet;
               }
             });
@@ -134,7 +154,16 @@ export class UserComponent {
             this.isVisible[type] = false;
             this.userService.getUsers().subscribe((res)=>{
               if(res["result"]=="success"){
-                this.dataSet = res["data"];
+                if(this.mode == 2){
+                  this.dataSet = [];
+                  for(let data of res["data"]){
+                    if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                      this.dataSet.push(data);
+                    }
+                  }
+                }else{
+                  this.dataSet = res["data"];
+                }
                 this.dataSetDisplay = this.dataSet;
               }
             });
@@ -152,7 +181,16 @@ export class UserComponent {
             this.isVisible[type] = false;
             this.userService.getUsers().subscribe((res)=>{
               if(res["result"]=="success"){
-                this.dataSet = res["data"];
+                if(this.mode == 2){
+                  this.dataSet = [];
+                  for(let data of res["data"]){
+                    if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                      this.dataSet.push(data);
+                    }
+                  }
+                }else{
+                  this.dataSet = res["data"];
+                }
                 this.dataSetDisplay = this.dataSet;
               }
             });
@@ -182,10 +220,20 @@ export class UserComponent {
       this.userService.addUser(this.username,this.name,this.rolemodel[0]==null?0:this.rolemodel[0],this.rolemodel[1]==null?0:this.rolemodel[1],this.rolemodel[2]==null?0:this.rolemodel[2],this.rolemodel[3]==null?0:this.rolemodel[3],this.rolemodel[4]==null?0:this.rolemodel[4]).subscribe((res)=>{
         if(res["result"]=="success"){
           this.msg.success("新增用户成功！");
+          this.msg.success("用户"+this.username+"的初始密码为123456，请尽快修改密码！");
           this.isVisible[type] = false;
           this.userService.getUsers().subscribe((res)=>{
             if(res["result"]=="success"){
-              this.dataSet = res["data"];
+              if(this.mode == 2){
+                this.dataSet = [];
+                for(let data of res["data"]){
+                  if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                    this.dataSet.push(data);
+                  }
+                }
+              }else{
+                this.dataSet = res["data"];
+              }
               this.dataSetDisplay = this.dataSet;
             }
           });
@@ -206,6 +254,12 @@ export class UserComponent {
     }
   }
   constructor(public _storage: SessionStorageService,public userService: UserService, public msg: NzMessageService, public router: Router) {
+    let roles = this._storage.get("roles").split(';');
+    if(roles.indexOf("1")!=-1){
+      this.mode = 1
+    } else {
+      this.mode = 2;
+    }
     this.userService.getRoles().subscribe((res)=>{
       if(res["result"]=="success"){
         this.roles = [];
@@ -217,7 +271,16 @@ export class UserComponent {
     });
     this.userService.getUsers().subscribe((res)=>{
       if(res["result"]=="success"){
-        this.dataSet = res["data"];
+        if(this.mode == 2){
+          this.dataSet = [];
+          for(let data of res["data"]){
+            if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+              this.dataSet.push(data);
+            }
+          }
+        }else{
+          this.dataSet = res["data"];
+        }
         this.dataSetDisplay = this.dataSet;
       }
     });
@@ -270,7 +333,16 @@ export class UserComponent {
         this.fileList = [];
         this.userService.getUsers().subscribe((res)=>{
           if(res["result"]=="success"){
-            this.dataSet = res["data"];
+            if(this.mode == 2){
+              this.dataSet = [];
+              for(let data of res["data"]){
+                if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                  this.dataSet.push(data);
+                }
+              }
+            }else{
+              this.dataSet = res["data"];
+            }
             this.dataSetDisplay = this.dataSet;
           }
         });
@@ -305,7 +377,16 @@ export class UserComponent {
         this.msg.success("删除成功！");
         this.userService.getUsers().subscribe((res)=>{
           if(res["result"]=="success"){
-            this.dataSet = res["data"];
+            if(this.mode == 2){
+              this.dataSet = [];
+              for(let data of res["data"]){
+                if(data.role==56 || data.role==55 || data.role2==56 || data.role2==55 ||data.role3==56 || data.role3==55 ||data.role4==56 || data.role4==55 ||data.role5==56 || data.role5==55){
+                  this.dataSet.push(data);
+                }
+              }
+            }else{
+              this.dataSet = res["data"];
+            }
             this.dataSetDisplay = this.dataSet;
           }
         });
