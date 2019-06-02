@@ -60,16 +60,16 @@ public class searchnocertsitu {
                 sql=sql+"AND contraststand_id_designation=? ";
             }
             if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
-                sql=sql+"AND codedmarking=? ";
+                sql=sql+"AND codedmarking LIKE ? ";
             }
             if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
-                sql=sql+"AND supplier_id_supplier=? ";
+                sql=sql+"AND supplier_id_supplier LIKE ? ";
             }
             if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
-                sql=sql+"AND heatbatchno=? ";
+                sql=sql+"AND heatbatchno LIKE ? ";
             }
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
-                sql=sql+"AND warrantyno=? ";
+                sql=sql+"AND warrantyno LIKE ?  ";
             }
             ps=conn.prepareStatement(sql+sql_x);
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
@@ -77,19 +77,19 @@ public class searchnocertsitu {
                 num++;
             }
             if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
-                ps.setString(num,sp.getCodedmarking());
+                ps.setString(num,"%"+sp.getCodedmarking()+"%");
                 num++;
             }
             if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
-                ps.setString(num,sp.getSupplier());
+                ps.setString(num,"%"+sp.getSupplier()+"%");
                 num++;
             }
             if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
-                ps.setString(num,sp.getHeatbatchno());
+                ps.setString(num,"%"+sp.getHeatbatchno()+"%");
                 num++;
             }
             if(!(sp.getWarrantyno()==null || sp.getWarrantyno().equals(""))){
-                ps.setString(num,sp.getWarrantyno());
+                ps.setString(num,"%"+sp.getWarrantyno()+"%");
                 num++;
             }
             rs=ps.executeQuery();
