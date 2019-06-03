@@ -131,7 +131,7 @@ public class getinspectionreport {                                              
                     erweima = erweima + "," + rs.getString("millunit_id_millunit");
 
                     ps1 = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
-                    ps1.setInt(1,rs.getInt("user_id"));
+                    ps1.setString(1,rs.getString("user_id"));
                     rs1 = ps1.executeQuery();
                     if(rs1.next()){
                         over.showTextAligned(0,rs1.getString("name"),220,358,0);
