@@ -73,7 +73,8 @@ export class WeldingRecordComponent implements OnInit {
             this.dataSet = res['data'];
             for(let data of this.dataSet){
               data.key = this.i++;
-              data.usernote = data.usernote.split('/');
+              if(!!data.usernote)
+                data.usernote = data.usernote.split('/').filter(item=>item);
             }
             this.updateEditCache();
           }
@@ -127,16 +128,6 @@ export class WeldingRecordComponent implements OnInit {
         this.message.error("施焊日期不能为空！");
         return;
       }
-
-      if(data['entrustdate'] == null){
-        this.message.error("委托日期不能为空！");
-        return;
-      }
-
-      if(data['ndtdate'] == null){
-        this.message.error("无损检验日期不能为空！");
-        return;
-      }
       data.usernote = data.usernote.join('/')
     }
     if(this.validateForm.valid){
@@ -185,14 +176,14 @@ export class WeldingRecordComponent implements OnInit {
     let dataSet = this.dataSet.filter(item=>item.key ==i)[0];
     this.dataSet = [ ...this.dataSet, {
       "key"    : `${this.i}`,
-      "weldno":`${dataSet.weldno}`,
-      "weldevano":`${dataSet.weldevano}`,
-      "weldmethod":`${dataSet.weldmethod}`,
-      "usernote":dataSet.usernote.slice(),
-      "welddate":`${dataSet.welddate}`,
-      "inspector":`${dataSet.inspector}`,
-      "entrustdate":`${dataSet.entrustdate}`,
-      "ndtdate":`${dataSet.ndtdate}`,
+      "weldno":dataSet.weldno,
+      "weldevano":dataSet.weldevano,
+      "weldmethod":dataSet.weldmethod,
+      "usernote":!!dataSet.usernote?dataSet.usernote.slice():null,
+      "welddate":dataSet.welddate,
+      "inspector":dataSet.inspector,
+      "entrustdate":dataSet.entrustdate,
+      "ndtdate":dataSet.ndtdate,
     } ];
     this.updateEditCache();
     this.editCache[ `${this.i}` ].edit = true;

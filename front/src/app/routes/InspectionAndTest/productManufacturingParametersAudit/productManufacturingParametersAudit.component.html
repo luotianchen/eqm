@@ -37,7 +37,7 @@
         <td>{{data.user}}</td>
         <td>{{data.prodno}}</td>
         <td>{{data.dwgno}}</td>
-        <td>{{data.orderunit}}<br>({{data.eorderunit}})</td>
+        <td>{{data.orderunit}}<br><span *ngIf="!!data.orderunit">({{data.eorderunit}})</span></td>
         <td>{{data.ecode}}</td>
         <td>{{data.dealter}}</td>
         <td>{{data.submatl}}</td>

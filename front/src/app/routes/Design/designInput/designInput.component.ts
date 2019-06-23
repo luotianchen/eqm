@@ -23,6 +23,7 @@ export class DesignInputComponent implements OnInit {
   deconames = [];
   prodnames = [];
   types = [
+    "/",
     "I",
     "Ⅱ",
     "Ⅲ"

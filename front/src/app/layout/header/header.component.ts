@@ -4,6 +4,8 @@ import {SettingsService} from '../../core/services/settings.service';
 import {MenuService} from '../../core/services/menu.service';
 import {SessionStorageService} from 'src/app/core/storage/storage.module';
 import {NzMessageService} from "ng-zorro-antd";
+import { HttpClient } from '@angular/common/http';
+import {ApiService} from "../../core/api/api.service";
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
@@ -15,8 +17,9 @@ export class HeaderComponent {
   searchstatus = false;
   flag = true;
   powers = {};
+  theme = this.settings.layout.isDark;
   roles = [];
-  constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService,private msg:NzMessageService) {
+  constructor(public settings: SettingsService, public menu: MenuService, public router: Router, public _storage: SessionStorageService,private msg:NzMessageService,public http:HttpClient,private api:ApiService) {
   }
 
   ngOnInit() {
@@ -25,6 +28,8 @@ export class HeaderComponent {
     this.menu.getMenu().then((result: any) => {
       this.navs = result.data;
     });
+    this.getMessage();
+    window.setTimeout(()=>this.getMessage,1000 * 60 * 5);
   }
 
   getSettingNav() {
@@ -140,4 +145,35 @@ export class HeaderComponent {
     this.settings.oepnMenuOpenMapHandle(name,value);
   }
   route:string;
+
+
+  messagelist = [];
+  unreadmessagelist = []
+  getMessage(){
+    this.http.post(this.api.BASEURL+"/read",{username:this._storage.get("username")}).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.messagelist = res['data'];
+        this.unreadmessagelist = res['data'].filter(item=>item.isread == 0);
+      }
+    })
+    window.setTimeout(()=>this.getMessage,1000 * 60 * 5);
+  }
+
+  setRead(id){
+    this.http.post(this.api.BASEURL+"/isread",{id:id}).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.getMessage();
+      }
+    })
+  }
+
+  deleteMessage(id){
+    this.http.post(this.api.BASEURL+"/deletemessage",{id:id}).subscribe(res=>{
+      if(res['result'] == "success"){
+        this.getMessage();
+      }
+    })
+  }
+  onlyUnRead = false; //只显示未读
+
 }

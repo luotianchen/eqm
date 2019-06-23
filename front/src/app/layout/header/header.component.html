@@ -37,8 +37,10 @@
       </ng-template>
 
     </div>
-      <div class="buttonR" nz-popover nzTitle="通知" [nzContent]="notices" nzTrigger="click" nzPlacement="bottom">
-          <i nz-icon type="bell" theme="outline"></i>
+      <div class="buttonR" nz-popover [nzTitle]="titleTemplate" [nzContent]="notices" nzTrigger="click" nzPlacement="bottom" (click)="getMessage()">
+        <nz-badge [nzCount]="unreadmessagelist.length">
+          <i nz-icon type="bell" theme="outline" style="font-size: 18px;"></i>
+        </nz-badge>
       </div>
     <nz-dropdown class="drop" style="margin-right: 20px" nzPlacement="bottom">
       <a class="menu" nz-dropdown>
@@ -57,5 +59,58 @@
   </div>
 </div>
 <ng-template #notices>
-  <nz-empty nzNotFoundContent="暂无通知"></nz-empty>
+  <div style="max-height: 400px;overflow-y: auto;max-width: 350px;padding: 5px">
+
+    <nz-list [nzItemLayout]="'vertical'" [nzDataSource]="messagelist" [nzRenderItem]="item" [nzSplit]="true" *ngIf="!onlyUnRead">
+      <ng-template #item let-item>
+          <nz-list-item [nzContent]="item.isread==1?'已读 '+item.date+' - '+item.send_user:'未读 '+item.date+' - '+item.send_user" [nzActions]="[action]">
+            <ng-template #action>
+              <a (click)="setRead(item.id)" *ngIf="item.isread==0">设为已读</a>
+              <nz-divider nzType="vertical" *ngIf="item.isread==0"></nz-divider>
+              <a (click)="deleteMessage(item.id)">删除通知</a>
+            </ng-template>
+            <nz-badge [nzDot]="item.isread==0">
+            <nz-list-item-meta
+              [nzTitle]="nzTitle"
+              [nzDescription]="item.content"
+            >
+                <ng-template #nzTitle>
+                  {{ item.title }}
+                </ng-template>
+            </nz-list-item-meta>
+            </nz-badge>
+          </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+    <nz-list [nzItemLayout]="'vertical'" [nzDataSource]="unreadmessagelist" [nzRenderItem]="item" [nzSplit]="true" *ngIf="onlyUnRead">
+      <ng-template #item let-item>
+        <nz-list-item [nzContent]="item.isread==1?'已读 '+item.date+' - '+item.send_user:'未读 '+item.date+' - '+item.send_user" [nzActions]="[action]">
+          <ng-template #action>
+            <a (click)="setRead(item.id)" *ngIf="item.isread==0">设为已读</a>
+            <nz-divider nzType="vertical" *ngIf="item.isread==0"></nz-divider>
+            <a (click)="deleteMessage(item.id)">删除通知</a>
+          </ng-template>
+          <nz-badge [nzDot]="item.isread==0">
+            <nz-list-item-meta
+              [nzTitle]="nzTitle"
+              [nzDescription]="item.content"
+            >
+              <ng-template #nzTitle>
+                {{ item.title }}
+              </ng-template>
+            </nz-list-item-meta>
+          </nz-badge>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </div>
+</ng-template>
+
+<ng-template #titleTemplate>
+  <p>通知
+    <span style="float: right;margin-left: 20px;">隐藏已读：
+      <nz-switch [(ngModel)]="onlyUnRead"></nz-switch>
+    </span>
+  </p>
 </ng-template>

@@ -10,8 +10,10 @@ import {SessionStorageService} from '../../../core/storage/storage.service';
   providers: [PressurePartsAuditService]
 })
 export class PressurePartsAuditComponent implements OnInit {
-  public dataSet:any;
+  public dataSet:any = [];
   public dataDetail = {};
+  username2name = {};
+  users = [];
   constructor(public pressurePartsAuditService:PressurePartsAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
   search(audit){
@@ -22,7 +24,15 @@ export class PressurePartsAuditComponent implements OnInit {
     })
   }
   ngOnInit(): void {
-    this.searchData();
+    this.pressurePartsAuditService.getuserform().subscribe(res=>{
+      if(res['result']=='success'){
+        this.users = res['data'];
+        for(let user of this.users){
+          this.username2name[user.username] = user.name;
+        }
+        this.searchData();
+      }
+    });
   }
   searchData(){
     this.pressurePartsAuditService.getaudit().subscribe((res)=>{

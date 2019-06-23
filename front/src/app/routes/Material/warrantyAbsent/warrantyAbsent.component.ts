@@ -10,30 +10,34 @@ import {WarrantyAbsentService} from './warrantyAbsent.service';
 export class WarrantyAbsentComponent implements OnInit {
   public pageindex = 1;
   public pagesize = 25;
-  public dataset = [];
-  public dataSetDisplay = [];
+  public dataSet = [];
   public total = 0;
   public loading = true;
-  public searchheatbatchno = '';
-  public searchwarrantyno = '';
-  public searchcodedmarking = '';
-  public searchsupplier = '';
+  public searchheatbatchno = null;
+  public searchwarrantyno = null;
+  public searchcodedmarking = null;
+  public searchsupplier = null;
 
   ngOnInit(): void {
-    this.searchData();
   }
   constructor(public warrantyAbsentService: WarrantyAbsentService){
+    this.searchData();
   }
   searchData(reset: boolean = false): void {
     if (reset) {
       this.pageindex = 1;
     }
     this.loading = true;
-    this.warrantyAbsentService.getAbsentData(this.pageindex,this.pagesize).subscribe((res)=>{
+    let searchData = {
+      heatbatchno:this.searchheatbatchno,
+      warrantyno:this.searchwarrantyno,
+      codedmarking:this.searchcodedmarking,
+      supplier:this.searchsupplier
+    }
+    this.warrantyAbsentService.getAbsentData(this.pageindex,this.pagesize,searchData).subscribe((res)=>{
       if(res["result"]=="success"){
         this.total = res["total"];
-        this.dataset = res["data"];
-        this.dataSetDisplay = this.dataset.slice();
+        this.dataSet = res["data"];
         this.loading = false;
       }
     });
@@ -52,22 +56,6 @@ export class WarrantyAbsentComponent implements OnInit {
       a.click();
       URL.revokeObjectURL(objectUrl);
     });
-  }
-
-  searchHeatbatchno(): void { //炉批号筛选
-    this.dataSetDisplay = this.dataset.filter(item => !!item.heatbatchno && item.heatbatchno.indexOf(this.searchheatbatchno) !== -1);
-  }
-
-  searchWarrantyno(): void { //质保书号筛选
-    this.dataSetDisplay = this.dataset.filter(item => !!item.warrantyno && item.warrantyno.indexOf(this.searchwarrantyno) !== -1);
-  }
-
-  searchCodedmarking(): void{ //入库编号筛选
-    this.dataSetDisplay = this.dataset.filter(item=>!!item.codedmarking && item.codedmarking.indexOf(this.searchcodedmarking) !== -1)
-  }
-
-  searchSupplier(): void {
-    this.dataSetDisplay = this.dataset.filter(item=>!!item.supplier && item.supplier.indexOf(this.searchsupplier) !== -1)
   }
 
 }

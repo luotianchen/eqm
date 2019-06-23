@@ -104,13 +104,13 @@
         <span>充装重量：{{modelData.data['chweight']}}</span>
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
-        <span>安装型式：{{modelData.data['installtype']}}({{modelData.data['einstalltype']}})</span>
+        <span>安装型式：{{modelData.data['installtype']}}<span  *ngIf="modelData.data['installtype']">({{modelData.data['einstalltype']}})</span></span>
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
-        <span>支座型式：{{modelData.data['supptype']}}({{modelData.data['esupptype']}})</span>
+        <span>支座型式：{{modelData.data['supptype']}}<span *ngIf="modelData.data['supptype']">({{modelData.data['esupptype']}})</span></span>
       </div>
       <div nz-col class="gutter-row" nzSpan="6">
-        <span>保温绝热方式：{{modelData.data['insultype']}}({{modelData.data['einsultype']}})</span>
+        <span>保温绝热方式：{{modelData.data['insultype']}}<span *ngIf="modelData.data['insultype']">({{modelData.data['einsultype']}})</span></span>
       </div>
     </div>
     <div nz-row nzGutter="16" style="margin:15px;">
@@ -220,7 +220,7 @@
           <span>工作压力：{{data.wpress}}</span>
         </div>
         <div nz-col class="gutter-row" nzSpan="8">
-          <span>试压类别：{{data.pttype}}({{data.epttype}})</span>
+          <span>试压类别：{{data.pttype}}<span *ngIf="!!data.pttype">({{data.epttype}})</span></span>
         </div>
       </div>
       <div nz-row nzGutter="16" style="margin:15px;">
@@ -234,7 +234,7 @@
           <span>工作温度：{{data.wtemp}}</span>
         </div>
         <div nz-col class="gutter-row" nzSpan="8">
-          <span>泄漏试验方式：{{data.leaktest}}({{data.eleaktest}})</span>
+          <span>泄漏试验方式：{{data.leaktest}}<span *ngIf="!!data.leaktest">({{data.eleaktest}})</span></span>
         </div>
       </div>
       <div nz-row nzGutter="16" style="margin:15px;" *ngIf="i==0">

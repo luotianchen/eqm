@@ -70,6 +70,8 @@ export class LoginComponent implements OnInit {
 
   constructor(public fb: FormBuilder, public message: NzMessageService,
               public loginService: LoginService, public router: Router, public _storage: SessionStorageService) {
+    document.getElementsByTagName('body')[0].style.minWidth = 320+"px";
+    document.getElementsByTagName('html')[0].style.minWidth = 320+"px";
   }
 
   getFormControl(name) {
