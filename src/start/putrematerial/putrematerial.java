@@ -23,8 +23,9 @@ public class putrematerial {                            //材料复验登记提�
         putrematerialresult result = new putrematerialresult();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND status = 0");
+            ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND status = 0 AND num = ?");
             ps.setString(1,pp.getCodedmarking());
+            ps.setInt(2,pp.getNum());
             rs = ps.executeQuery();
             if(rs.next()){
                 ps = conn.prepareStatement("UPDATE rematerial SET codedmarking=?,designation=?,stand=?,spec=?," +
@@ -87,11 +88,11 @@ public class putrematerial {                            //材料复验登记提�
                         "c,si,mn,cu,ni,cr,mo,nb,v,ti,alt,n,mg,p,s," +
                         "als,fe,zn,b,w,sb,al,zr,ca,be," +
                         "rel1,rel2,rm1,rm2,elong1,elong2,hardness1,hardness2,hardness3,impactp1,impactp2,impactp3," +
-                        "impacttemp,bendangle,bendaxdia,indate,user,date) VALUES (?,?,?,?," +
+                        "impacttemp,bendangle,bendaxdia,indate,user,date,num) VALUES (?,?,?,?," +
                         "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
                         "?,?,?,?,?,?,?,?,?,?," +
                         "?,?,?,?,?,?,?,?,?,?,?,?," +
-                        "?,?,?,?,?,?)");
+                        "?,?,?,?,?,?,?)");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(2,pp.getDesignation());
                 ps.setString(3,pp.getStand());
@@ -139,6 +140,7 @@ public class putrematerial {                            //材料复验登记提�
                 ps.setString(45,pp.getIndate());
                 ps.setString(46,pp.getUser());
                 ps.setDate(47,new java.sql.Date(new java.util.Date().getTime()));
+                ps.setInt(48,pp.getNum());
                 ps.executeUpdate();
                 ps.close();
             }

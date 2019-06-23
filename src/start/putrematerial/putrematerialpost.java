@@ -47,6 +47,7 @@ public class putrematerialpost {
     private String bendaxdia;                               //弯曲直径
     private String indate;
     private String user;
+    private int num;
 
     public putrematerialpost(){
         super();
@@ -417,5 +418,13 @@ public class putrematerialpost {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 }

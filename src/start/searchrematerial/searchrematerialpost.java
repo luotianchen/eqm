@@ -2,7 +2,7 @@ package start.searchrematerial;
 
 public class searchrematerialpost {
     private String codedmarking;
-    private int status;
+    private int status;                                                     //100表示要1和-2
     private String year;
     public searchrematerialpost(){
         super();

@@ -34,19 +34,25 @@ public class searchrematerial {                                         //材料
                 sql = sql + "AND codedmarking = ? ";
             }
             if(sp.getStatus() != -1){
-                sql = sql + "AND status = ? ";
+                if(sp.getStatus() == 100){
+                    sql = sql + "AND (status = 1 OR status = -2) ";
+                }else {
+                    sql = sql + "AND status = ? ";
+                }
             }
             if(!(sp.getYear() == null || sp.getYear().equals(""))){
                 sql = sql + "AND indate Like ? ";
             }
-            ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql+" order by num ASC ");
             if(!(sp.getCodedmarking() == null || sp.getCodedmarking().equals(""))){
                 num = num + 1;
                 ps.setString(num,sp.getCodedmarking());
             }
             if(sp.getStatus() != -1){
-                num = num + 1;
-                ps.setInt(num,sp.getStatus());
+                if(sp.getStatus() != 100){
+                    num = num + 1;
+                    ps.setInt(num,sp.getStatus());
+                }
             }
             if(!(sp.getYear() == null || sp.getYear().equals(""))){
                 num = num + 1;
