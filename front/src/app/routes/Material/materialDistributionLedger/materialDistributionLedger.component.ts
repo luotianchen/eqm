@@ -124,4 +124,13 @@ export class MaterialDistributionLedgerComponent implements OnInit {
   beforePrint() {
     this.printBtnBoolean = false;
   }
+  filteredDataSet(dataset:any){ //签名去重复
+    let signissuematl = [];
+    for(let item of dataset){
+      if(signissuematl.indexOf(item.issuematl)==-1){
+        signissuematl.push(item.issuematl)
+      }
+    }
+    return signissuematl;
+  }
 }

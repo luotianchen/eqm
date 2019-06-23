@@ -87,14 +87,16 @@ export class PressurePartsDistributeComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.editCache = {};
       this.pressurePartsDistributeService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
           this.validateForm.controls['dwgno'].setValue(res['dwgno']);
           this.dataSet = res['data'];
           this.status = true;
-          for(;this.i < this.dataSet.length;this.i++){
-            this.dataSet[this.i]['key'] = `${this.i}`;
+          this.i++;
+          for(let i=0;i < this.dataSet.length;this.i++,i++){
+            this.dataSet[i]['key'] = `${this.i}`;
           }
           this.updateEditCache();
         }
@@ -123,6 +125,7 @@ export class PressurePartsDistributeComponent implements OnInit {
       "ispresspart":2,//是否为主要受压元件
       "weldno":null,//焊缝号
       "returnqty":null,//退回数量
+      "issuematl":this._storage.get("username") //发料人
     } ];
     this.updateEditCache();
     this.editCache[ `${this.i}` ].edit = true;
@@ -174,10 +177,19 @@ export class PressurePartsDistributeComponent implements OnInit {
       this.message.error("您尚未填写任何数据，本次提交无效！");
       return;
     }
-    this.savedistribute();
-    for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('username');
+    for(let item of this.dataSet){
+      if(item.codedmarking == null){
+        this.message.error("入库编号不能为空！");
+        return;
+      }else if(item.issuedate == null){
+        this.message.error("发料日期不能为空！");
+        return;
+      }else if(item.picker == null){
+        this.message.error("领料人不能为空！");
+        return;
+      }
     }
+    this.savedistribute();
     this.pressurePartsDistributeService.putdistribute({
       prodno:this.validateForm.controls['prodno'].value,
       user:this._storage.get("username"),
@@ -202,18 +214,12 @@ export class PressurePartsDistributeComponent implements OnInit {
         return;
       }
     }
-    for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('name');
-    }
     this.pressurePartsDistributeService.savedistribute({
       prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
     }).subscribe((res)=>{
       if(res['result']=="success"){
-        let modal = this.modalService.success({
-          nzTitle: '保存成功',
-          nzContent: '发放记录保存成功！'
-        });
+        this.message.success("发放记录保存成功！");
       }else{
         this.message.error("保存失败，请稍后再试！")
       }

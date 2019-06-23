@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <title>企业质量管理系统</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <style>li.ant-menu-item.ng-star-inserted{outline:0}html,body{min-width:1200px;overflow-x:auto}.hidden{display:none!important}#loaders{z-index:1;position:absolute;left:0;top:0;right:0;bottom:0;margin:auto;display:block;width:160px;height:50px}.object{width:11px;height:11px;background-color:#00142a;float:left;margin-top:15px;margin-right:15px;-moz-border-radius:50% 50% 50% 50%;-webkit-border-radius:50% 50% 50% 50%;border-radius:50% 50% 50% 50%;-webkit-animation:object 1s infinite;animation:object 1s infinite}.object:last-child{margin-right:0}.object:nth-child(9){-webkit-animation-delay:.9s;animation-delay:.9s}.object:nth-child(8){-webkit-animation-delay:.8s;animation-delay:.8s}.object:nth-child(7){-webkit-animation-delay:.7s;animation-delay:.7s}.object:nth-child(6){-webkit-animation-delay:.6s;animation-delay:.6s}.object:nth-child(5){-webkit-animation-delay:.5s;animation-delay:.5s}.object:nth-child(4){-webkit-animation-delay:.4s;animation-delay:.4s}.object:nth-child(3){-webkit-animation-delay:.3s;animation-delay:.3s}.object:nth-child(2){-webkit-animation-delay:.2s;animation-delay:.2s}@-webkit-keyframes object{50%{-ms-transform:translate(0,-50px);-webkit-transform:translate(0,-50px);transform:translate(0,-50px)}}@keyframes object{50%{-ms-transform:translate(0,-50px);-webkit-transform:translate(0,-50px);transform:translate(0,-50px)}}.hideSlow{-webkit-animation-name:fadeOut;-webkit-animation-duration:.3s;-webkit-animation-iteration-count:1;-webkit-animation-delay:0s;opacity:0}@-webkit-keyframes fadeOut{0%{opacity:1}25%{opacity:.75}50%{opacity:.5}75%{opacity:.25}100%{opacity:0}}</style>
+  <style>li.ant-menu-item.ng-star-inserted{outline:0}html,body{height: 100%;width: 100%;position: absolute;top: 0;bottom: 0;min-width:1200px;overflow:visible}.hidden{display:none!important}#loaders{z-index:1;position:absolute;left:0;top:0;right:0;bottom:0;margin:auto;display:block;width:160px;height:50px}.object{width:11px;height:11px;background-color:#00142a;float:left;margin-top:15px;margin-right:15px;-moz-border-radius:50% 50% 50% 50%;-webkit-border-radius:50% 50% 50% 50%;border-radius:50% 50% 50% 50%;-webkit-animation:object 1s infinite;animation:object 1s infinite}.object:last-child{margin-right:0}.object:nth-child(9){-webkit-animation-delay:.9s;animation-delay:.9s}.object:nth-child(8){-webkit-animation-delay:.8s;animation-delay:.8s}.object:nth-child(7){-webkit-animation-delay:.7s;animation-delay:.7s}.object:nth-child(6){-webkit-animation-delay:.6s;animation-delay:.6s}.object:nth-child(5){-webkit-animation-delay:.5s;animation-delay:.5s}.object:nth-child(4){-webkit-animation-delay:.4s;animation-delay:.4s}.object:nth-child(3){-webkit-animation-delay:.3s;animation-delay:.3s}.object:nth-child(2){-webkit-animation-delay:.2s;animation-delay:.2s}@-webkit-keyframes object{50%{-ms-transform:translate(0,-50px);-webkit-transform:translate(0,-50px);transform:translate(0,-50px)}}@keyframes object{50%{-ms-transform:translate(0,-50px);-webkit-transform:translate(0,-50px);transform:translate(0,-50px)}}.hideSlow{-webkit-animation-name:fadeOut;-webkit-animation-duration:.3s;-webkit-animation-iteration-count:1;-webkit-animation-delay:0s;opacity:0}@-webkit-keyframes fadeOut{0%{opacity:1}25%{opacity:.75}50%{opacity:.5}75%{opacity:.25}100%{opacity:0}}</style>
 </head>
 <body>
 <div id="loaders">
@@ -34,6 +34,13 @@
         document.getElementById("ieTip").setAttribute("class","");
         document.getElementById('ieTip').style.top = (Math.min(document.documentElement.clientHeight, document.body.clientHeight) - 670)/2+"px";
       }
+    }
+    if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) { //移动端
+      document.getElementsByTagName('body')[0].style.minWidth = 320+"px";
+      document.getElementsByTagName('html')[0].style.minWidth = 320+"px";
+      document.getElementsByTagName('body')[0].className = "mobile";
+    }else{
+      document.getElementsByTagName('body')[0].className = "pc";
     }
   })(window);
 </script>

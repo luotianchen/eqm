@@ -11,7 +11,7 @@
     nzShowSizeChanger
     nzSize="small"
     [nzFrontPagination]="false"
-    [nzData]="dataSetDisplay"
+    [nzData]="dataSet"
     [nzLoading]="loading"
     [nzTotal]="total"
     [(nzPageIndex)]="pageindex"
@@ -26,8 +26,8 @@
           <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown3.nzVisible" nz-dropdown></i>
           <div class="custom-filter-dropdown">
             <input type="text" nz-input placeholder="搜索入库编号" [(ngModel)]="searchcodedmarking" class="searchInput">
-            <button nz-button [nzType]="'primary'" (click)="searchCodedmarking()">搜索</button>
-            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchcodedmarking = '';searchCodedmarking()">重置</button>
+            <button nz-button [nzType]="'primary'" (click)="searchData(true)">搜索</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchcodedmarking = null;searchData(true)">重置</button>
           </div>
         </nz-dropdown>
       </th>
@@ -38,9 +38,9 @@
         <nz-dropdown nzTrigger="click" [nzClickHide]="false" #dropdown4>
           <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown4.nzVisible" nz-dropdown></i>
           <div class="custom-filter-dropdown">
-            <input type="text" nz-input placeholder="搜索入库编号" [(ngModel)]="searchsupplier" class="searchInput">
-            <button nz-button [nzType]="'primary'" (click)="searchSupplier()">搜索</button>
-            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchsupplier = '';searchSupplier()">重置</button>
+            <input type="text" nz-input placeholder="搜索供货单位" [(ngModel)]="searchsupplier" class="searchInput">
+            <button nz-button [nzType]="'primary'" (click)="searchData(true)">搜索</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchsupplier = null;searchData(true)">重置</button>
           </div>
         </nz-dropdown>
       </th>
@@ -50,8 +50,8 @@
           <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown1.nzVisible" nz-dropdown></i>
           <div class="custom-filter-dropdown">
             <input type="text" nz-input placeholder="搜索炉批号" [(ngModel)]="searchheatbatchno" class="searchInput">
-            <button nz-button [nzType]="'primary'" (click)="searchHeatbatchno()">搜索</button>
-            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchheatbatchno = '';searchHeatbatchno()">重置</button>
+            <button nz-button [nzType]="'primary'" (click)="searchData(true)">搜索</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchheatbatchno = null;searchData(true)">重置</button>
           </div>
         </nz-dropdown>
       </th>
@@ -61,8 +61,8 @@
           <i nz-icon type="filter" theme="outline" class="ant-table-filter-icon" [class.ant-table-filter-open]="dropdown2.nzVisible" nz-dropdown></i>
           <div class="custom-filter-dropdown">
             <input type="text" nz-input placeholder="搜索质保书号" [(ngModel)]="searchwarrantyno" class="searchInput">
-            <button nz-button [nzType]="'primary'" (click)="searchWarrantyno()">搜索</button>
-            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchwarrantyno = '';searchWarrantyno()">重置</button>
+            <button nz-button [nzType]="'primary'" (click)="searchData(true)">搜索</button>
+            <button nz-button [nzType]="'default'" style="margin-left: 5px;" (click)="this.searchwarrantyno = null;searchData(true)">重置</button>
           </div>
         </nz-dropdown>
       </th>

@@ -112,6 +112,7 @@ export class MaterialDistributeComponent implements OnInit {
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.editCache = {};
       this.materialDistributeService.getdistribute(this.validateForm.controls['prodno'].value).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
@@ -147,6 +148,7 @@ export class MaterialDistributeComponent implements OnInit {
       "ispresspart":2,//是否为主要受压元件
       "weldno":null,//焊缝号
       "returnqty":null,//退回数量
+      "issuematl":this._storage.get("username") //发料人
     } ];
     this.updateEditCache();
     this.editCache[ `${this.i}` ].edit = true;
@@ -200,7 +202,6 @@ export class MaterialDistributeComponent implements OnInit {
       return;
     }
     for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('username');
       for(let i in this.dataSet[j]){
         if(this.dataSet[j][i]==null && i != 'returnqty' && i!='weldno'){
           this.message.error("您有尚未填写的数据，请填写完整后再提交！");
@@ -230,18 +231,12 @@ export class MaterialDistributeComponent implements OnInit {
         return;
       }
     }
-    for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('name');
-    }
     this.materialDistributeService.savedistribute({
       prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
     }).subscribe((res)=>{
       if(res['result']=="success"){
-        let modal = this.modalService.success({
-          nzTitle: '保存成功',
-          nzContent: '发放记录保存成功！'
-        });
+        this.message.success("发放记录保存成功！");
       }else{
         this.message.error("保存失败，请稍后再试！")
       }
@@ -309,12 +304,13 @@ export class MaterialDistributeComponent implements OnInit {
     }else if(which == "copyfrom"){
       let dataset2 = [];
       for(let i =0;i<this.dataSet2.length;i++){
-        if(this.mapOfCheckedId[i]) dataset2.push(this.dataSet2[i]);
+        if(this.mapOfCheckedId[i]) {
+          this.i++;
+          this.dataSet2[i].key = `${this.i}`;
+          dataset2.push(this.dataSet2[i]);
+        }
       }
       this.dataSet = [...this.dataSet,...dataset2];
-      for(this.i = 0;this.i < this.dataSet.length;this.i++){
-        this.dataSet[this.i]['key'] = `${this.i}`;
-      }
       this.updateEditCache();
       this.tplModal.destroy();
     }

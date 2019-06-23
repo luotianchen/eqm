@@ -2,6 +2,7 @@
   <div nz-col nzSpan="24">
     <nz-card style="border-radius: 10px;margin-bottom: 20px">
       <h1>{{_storage.get("name")}}，{{grateSentence}}</h1>
+      <span style="float: right;"><span style="font-size: 14px;color: #999;max-width:400px"><strong style="color: #666">历史上的今天：</strong>{{time}}</span><br><span style="color: #000;font-size: 18px">{{history}}</span></span>
     </nz-card>
   </div>
 </div>
@@ -39,25 +40,25 @@
   </div>
 </div>
 <ng-template #matlContent>
-  <p>材料入库审核：{{dataModel.matlin}}</p>
-  <p>材料发放审核：{{dataModel.matldist}}</p>
-  <p>材料代用审核：{{dataModel.matlsubs}}</p>
+  <p (click)="router.navigate(['/material/warehousingAudit']);updateMenu();">材料入库审核：{{dataModel.matlin}}</p>
+  <p (click)="router.navigate(['/material/pressurePartsAudit']);updateMenu();">材料发放审核：{{dataModel.matldist}}</p>
+  <p (click)="router.navigate(['/material/materialSubstitutionAudit']);updateMenu();">材料代用审核：{{dataModel.matlsubs}}</p>
 </ng-template>
 
 <ng-template #pyAndCheContent>
-  <p>复验申请审核：{{dataModel.matlreincom}}</p>
-  <p>复验委托审核：{{dataModel.matlrein}}</p>
-  <p>产品试板申请审核：{{dataModel.testboardcom}}</p>
-  <p>产品试板委托审核：{{dataModel.testboard}}</p>
+  <p (click)="router.navigate(['/physicalAndChemical/materialReinspectionCommissionAudit']);updateMenu();">复验申请审核：{{dataModel.matlreincom}}</p>
+  <p (click)="router.navigate(['/physicalAndChemical/materialReinspectionAudit']);updateMenu();">复验委托审核：{{dataModel.matlrein}}</p>
+  <p (click)="router.navigate(['/physicalAndChemical/productTestBoardCommissionAudit']);updateMenu();">产品试板申请审核：{{dataModel.testboardcom}}</p>
+  <p (click)="router.navigate(['/physicalAndChemical/productTestBoardDataRegistrationAudit']);updateMenu();">产品试板委托审核：{{dataModel.testboard}}</p>
 </ng-template>
 
 <ng-template #inspectContent>
-  <p>真空参数审核：{{dataModel.vacuum}}</p>
-  <p>产品制造参数审核：{{dataModel.productmanu}}</p>
+  <p (click)="router.navigate(['/inspectionAndTest/vacuumParameterAudit']);updateMenu();">真空参数审核：{{dataModel.vacuum}}</p>
+  <p (click)="router.navigate(['/inspectionAndTest/productManufacturingParametersAudit']);updateMenu();">产品制造参数审核：{{dataModel.productmanu}}</p>
 </ng-template>
 
 <ng-template #designContent>
-  <p>设计参数审核：{{dataModel.design}}</p>
-  <p>设备计量台账审核：{{dataModel.measinstru}}</p>
+  <p (click)="router.navigate(['/design/audit']);updateMenu();">设计参数审核：{{dataModel.design}}</p>
+  <p (click)="router.navigate(['/instrument/measuringInstrumentLedgerAudit']);updateMenu();">设备计量台账审核：{{dataModel.measinstru}}</p>
 </ng-template>
 

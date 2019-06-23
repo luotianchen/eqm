@@ -10,4 +10,7 @@ export class DashboardService {
   getinfo(){
     return this.http.get(this.api.BASEURL+"/getdashboardinfo");
   }
+  getHistory(){
+    return this.http.get(this.api.BASEURL+"/gethistory");
+  }
 }

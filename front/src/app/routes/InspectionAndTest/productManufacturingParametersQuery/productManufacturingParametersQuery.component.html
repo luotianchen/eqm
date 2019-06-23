@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="prodno">产品编号</nz-form-label>
         <nz-form-control [nzSm]="14" nzHasFeedback>
-          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno">
+          <nz-select nzShowSearch style="width: 100%" nzPlaceHolder="产品编号"  formControlName="prodno" name="prodno" id="prodno" nzAllowClear>
             <nz-option *ngFor="let option of prodnos" [nzLabel]="option" [nzValue]="option"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -58,7 +58,7 @@
       <td>{{data.user}}</td>
       <td>{{data.prodno}}</td>
       <td>{{data.dwgno}}</td>
-      <td>{{data.orderunit}}<br>({{data.eorderunit}})</td>
+      <td>{{data.orderunit}}<br><span *ngIf="!!data.orderunit">({{data.eorderunit}})</span></td>
       <td>{{data.ecode}}</td>
       <td>{{data.dealter}}</td>
       <td>{{data.submatl}}</td>

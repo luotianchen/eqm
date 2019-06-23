@@ -7,7 +7,7 @@ export class CertificateReportService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getcodedmarking(codedmarking){
-    return this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking});
+    return this.http.post(this.api.BASEURL+"/getcodedmarkingcache",{codedmarking:codedmarking});
   }
   getReport(formData){
     return this.http.post(this.api.BASEURL+"/getinspectionreport" , formData, { responseType: 'arraybuffer' });

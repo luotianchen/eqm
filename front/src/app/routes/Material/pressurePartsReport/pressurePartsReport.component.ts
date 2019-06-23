@@ -85,6 +85,8 @@ export class PressurePartsReportComponent implements OnInit {
           else
             this.msg.error("未查到受压元件材料记录！")
         }
+      },err=>{
+        this.msg.error("请检查试压日期是否正确提交！")
       })
     }
   }

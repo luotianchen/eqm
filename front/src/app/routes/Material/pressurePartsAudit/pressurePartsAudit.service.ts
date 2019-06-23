@@ -15,4 +15,7 @@ export class PressurePartsAuditService {
   audit(audit,status,audit_user){
     return this.http.post(this.api.BASEURL+"/updateprestatus",{audit:audit,status:status,audit_user:audit_user});
   }
+  getuserform() {
+    return this.http.get(`${this.api.BASEURL}/getuserform`);
+  }
 }

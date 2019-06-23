@@ -62,7 +62,7 @@
     </thead>
     <tbody>
     <ng-container *ngFor="let data of editRowTable.data">
-      <tr *ngIf="!data.codedmarking|| data.codedmarking.length<ruleindex || data.codedmarking[ruleindex-1] == rule">
+      <tr *ngIf="compareKey(data.key,initI)||(!!data.codedmarking && data.codedmarking.length >= ruleindex && data.codedmarking[ruleindex-1] == rule)">
         <td>
           <div class="editable-cell">
             <div class="editable-cell-text-wrapper">

@@ -2,39 +2,50 @@
   <h3 class="title">材料入库情况查询</h3>
 </div>
 <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
-  <div nz-row [nzGutter]="24">
-    <div nz-col [nzSpan]="8">
+  <div nz-row [nzGutter]="24" [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 8, xl: 8, xxl: 8 }">
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="codedmarking">入库编号</nz-form-label>
-        <nz-form-control [nzSm]="14">
-          <nz-select nzMode="default" formControlName="codedmarking" name="codedmarking" id="codedmarking" nzShowSearch nzAllowClear nzPlaceHolder="入库编号" nzServerSearch (nzOnSearch)="search($event)">
-            <nz-option *ngFor="let option of codedmarkings" [nzLabel]="option" [nzValue]="option"></nz-option>
-          </nz-select>
+        <nz-form-control [nzSm]="18">
+          <input nz-input formControlName="codedmarking" name="codedmarking" id="codedmarking" placeholder="入库编号" (input)="onCodedmarkingInput($event.target?.value)" (click)="onCodedmarkingInput($event.target?.value)" [nzAutocomplete]="codedmarkingauto" >
+          <nz-autocomplete nzBackfill #codedmarkingauto>
+            <nz-auto-option *ngFor="let option of codedmarkings" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="matlname">材料名称</nz-form-label>
-        <nz-form-control [nzSm]="14">
-          <nz-select formControlName="matlname" name="matlname" id="matlname" nzPlaceHolder="材料名称" nzShowSearch nzAllowClear>
-            <nz-option *ngFor="let o of this.matlname" [nzValue]="o" [nzLabel]="o"></nz-option>
-          </nz-select>
+        <nz-form-control [nzSm]="18">
+          <input nz-input formControlName="matlname" name="matlname" id="matlname" placeholder="材料名称" (input)="onMatlnameInput($event.target?.value)" (click)="onMatlnameInput($event.target?.value)" [nzAutocomplete]="matlnameauto" >
+          <nz-autocomplete nzBackfill #matlnameauto>
+            <nz-auto-option *ngFor="let option of matlnames" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="designation">牌号</nz-form-label>
-        <nz-form-control [nzSm]="14">
-          <input nz-input placeholder="牌号" formControlName="designation" name="designation" id="designation" >
+        <nz-form-control [nzSm]="18">
+          <input nz-input formControlName="designation" name="designation" id="designation" placeholder="牌号" (input)="onDesignationInput($event.target?.value)" (click)="onDesignationInput($event.target?.value)" [nzAutocomplete]="designationauto" >
+          <nz-autocomplete nzBackfill #designationauto>
+            <nz-auto-option *ngFor="let option of designations" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="spec">规格</nz-form-label>
-        <nz-form-control [nzSm]="14">
+        <nz-form-control [nzSm]="18">
           <div class="spec-input">
             <input placeholder="规格" nz-input  formControlName="spec" name="spec" id="spec" (input)="onSpecInput($event.target?.value)" (click)="onSpecInput($event.target?.value)" [nzAutocomplete]="specauto">
             <nz-autocomplete nzBackfill #specauto>
@@ -46,26 +57,42 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="millunit">生产单位</nz-form-label>
-        <nz-form-control [nzSm]="14">
-          <nz-select nzMode="default" formControlName="millunit" name="millunit" id="millunit" nzShowSearch nzAllowClear nzPlaceHolder="生产单位">
-            <nz-option *ngFor="let option of millunits" [nzLabel]="option" [nzValue]="option"></nz-option>
-          </nz-select>
+        <nz-form-control [nzSm]="18">
+          <input nz-input formControlName="millunit" name="millunit" id="millunit" placeholder="生产单位" [nzAutocomplete]="millunitauto"  (input)="onMillunitInput($event.target?.value)" (click)="onMillunitInput($event.target?.value)">
+          <nz-autocomplete nzBackfill #millunitauto>
+            <nz-auto-option *ngFor="let option of millunits" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" nzFor="heatbatchno">炉批号</nz-form-label>
+        <nz-form-control [nzSm]="18">
+          <input nz-input formControlName="heatbatchno" name="heatbatchno" id="heatbatchno" placeholder="炉批号" [nzAutocomplete]="heatbatchnoauto"  (input)="onHeatbatchnoInput($event.target?.value)" (click)="onHeatbatchnoInput($event.target?.value)">
+          <nz-autocomplete nzBackfill #heatbatchnoauto>
+            <nz-auto-option *ngFor="let option of heatbatchnos" [nzValue]="option">
+              {{option}}
+            </nz-auto-option>
+          </nz-autocomplete>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="indate">入库日期</nz-form-label>
-        <nz-form-control [nzSm]="14">
+        <nz-form-control [nzSm]="18">
           <input nz-input formControlName="indate" name="indate" placeholder="YYYY-MM-DD或MM-DD" type="text" id="indate" (blur)="formatInDate()">
         </nz-form-control>
       </nz-form-item>
     </div>
     <!--
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       <nz-form-item>
         <nz-form-label [nzSm]="6" nzFor="status">审核状态</nz-form-label>
         <nz-form-control [nzSm]="14">
@@ -78,11 +105,11 @@
       </nz-form-item>
     </div>
     -->
-    <div nz-col [nzSpan]="8">
+    <div nz-col [nzSpan]="6">
       <div nz-col nzSpan="8">
         <button nz-button [nzType]="'primary'" (click)="searchData(true)">查询</button>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="6">
         <button nz-button (click)="resetForm()">重置</button>
       </div>
     </div>

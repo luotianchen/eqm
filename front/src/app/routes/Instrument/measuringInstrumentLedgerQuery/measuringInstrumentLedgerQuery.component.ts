@@ -83,11 +83,11 @@ export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
   }
 
   handleOk(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
+    for (const i in this.validateForm2.controls) {
+      this.validateForm2.controls[ i ].markAsDirty();
+      this.validateForm2.controls[ i ].updateValueAndValidity();
     }
-    if(this.validateForm.valid){
+    if(this.validateForm2.valid){
       this.measuringInstrumentLedgerQueryService.searchledgerbynotedate(this.validateForm2.value.note,this.validateForm2.value.date).subscribe((res)=>{
         if(res['result']=="success"){
           this.excel.exportAsExcelFile(res['data'],'计量台账',this.headers);
@@ -95,5 +95,8 @@ export class MeasuringInstrumentLedgerQueryComponent implements OnInit {
         }
       })
     }
+  }
+  handleCancel(){
+    this.isVisible = false
   }
 }

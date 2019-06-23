@@ -9,6 +9,9 @@ export class WarehousingAuditService {
   getputmaterial() {
     return this.http.get(this.api.BASEURL+'/getputmaterial');
   }
+  searchHeatbatchno(heatbatchno){
+    return this.http.post(this.api.BASEURL+'/searchheatbatchno',{status:0,heatbatchno:heatbatchno});
+  }
   getCodedmarking(){
     return this.http.post(this.api.BASEURL+"/searchallmaterial",{
       pageindex:1,
@@ -24,7 +27,7 @@ export class WarehousingAuditService {
       }
     })
   }
-  searchallmaterial(pageindex,pagesize,codedmarking,matlname,designation,spec,millunit,indate){
+  searchallmaterial(pageindex,pagesize,codedmarking,matlname,designation,spec,millunit,heatbatchno,indate){
     return this.http.post(this.api.BASEURL+"/searchallmaterial",{
       pageindex:pageindex,
       pagesize:pagesize,
@@ -34,6 +37,7 @@ export class WarehousingAuditService {
         designation:designation,
         spec:spec,
         millunit:millunit,
+        heatbatchno:heatbatchno,
         indate:indate,
         status:0
       }
@@ -41,5 +45,12 @@ export class WarehousingAuditService {
   }
   audit(codedmarking,status,audit_user){
     return this.http.post(this.api.BASEURL+"/putaudit",{codedmarking:codedmarking,status:status,audit_user:audit_user})
+  }
+
+  putmessage(receive_user,codedmarking,audit_user){
+    return this.http.post(this.api.BASEURL+"/putmessage",{title:"材料入库审核未通过",content:"您的入库编号为"+codedmarking+"的入库信息被"+audit_user+"审核拒绝",send_type:"text",send_user:"系统提示",recieve_user:receive_user})
+  }
+  getuserform() {
+    return this.http.get(`${this.api.BASEURL}/getuserform`);
   }
 }

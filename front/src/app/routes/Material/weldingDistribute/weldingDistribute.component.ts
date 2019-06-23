@@ -107,12 +107,15 @@ export class WeldingDistributeComponent implements OnInit {
     return (user.role==55 ||  user.role==56 ||user.role2==55 ||  user.role2==56 ||user.role3==55 ||  user.role3==56 ||user.role4==55 ||  user.role4==56 ||user.role5==55 ||  user.role5==56);
   }
 
+
+  initI = 0;
   searchData(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[ i ].markAsDirty();
       this.validateForm.controls[ i ].updateValueAndValidity();
     }
     if(this.validateForm.valid){
+      this.editCache = {};
       this.weldingDistributeService.getdistribute(this.validateForm.value.prodno).subscribe((res) => {
         if(res['result']=="success"){
           this.validateForm.controls['prodname'].setValue(res['prodname']);
@@ -122,6 +125,7 @@ export class WeldingDistributeComponent implements OnInit {
           for(this.i = 0;this.i < this.dataSet.length;this.i++){
             this.dataSet[this.i]['key'] = `${this.i}`;
           }
+          this.initI = this.i;
           this.updateEditCache();
         }
       })
@@ -140,7 +144,7 @@ export class WeldingDistributeComponent implements OnInit {
       "spartname":null,//零件名称
       "spec":null,//规格
       "dimension":null,//尺寸
-      "partno":null,//件号
+      "partno":'/',//件号
       "designation":null,//牌号
       "qty":null,//数量
       "codedmarking":null,//入库编号
@@ -149,7 +153,8 @@ export class WeldingDistributeComponent implements OnInit {
       "ispresspart":1,//是否为主要受压元件
       "weldno":null,//焊缝号
       "returnqty":null,//退回数量
-      "note":null//备注
+      "note":null,//备注
+      "issuematl":this._storage.get("username") //发料人
     }];
     this.updateEditCache();
     this.editCache[ `${this.i}` ].edit = true;
@@ -202,7 +207,6 @@ export class WeldingDistributeComponent implements OnInit {
       return;
     }
     for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('username');
       for(let i in this.dataSet[j]){
         if(this.dataSet[j][i]==null && i!='partno' && i!="note"){
           this.message.error("您有尚未填写的数据，请填写完整后再提交！");
@@ -232,18 +236,12 @@ export class WeldingDistributeComponent implements OnInit {
         return;
       }
     }
-    for(let j = 0;j<this.dataSet.length;j++){
-      this.dataSet[j]['issuematl'] = this._storage.get('name');
-    }
     this.weldingDistributeService.savedistribute({
       prodno:this.validateForm.controls['prodno'].value,
       data:this.dataSet
     }).subscribe((res)=>{
       if(res['result']=="success"){
-        let modal = this.modalService.success({
-          nzTitle: '保存成功',
-          nzContent: '发放记录保存成功！'
-        });
+        this.message.success("发放记录保存成功！");
       }else{
         this.message.error("保存失败，请稍后再试！")
       }
@@ -311,12 +309,13 @@ export class WeldingDistributeComponent implements OnInit {
     }else if(which == "copyfrom"){
       let dataset2 = [];
       for(let i =0;i<this.dataSet2.length;i++){
-        if(this.mapOfCheckedId[i]) dataset2.push(this.dataSet2[i]);
+        if(this.mapOfCheckedId[i]) {
+          this.i++;
+          this.dataSet2[i].key = `${this.i}`;
+          dataset2.push(this.dataSet2[i]);
+        }
       }
       this.dataSet = [...this.dataSet,...dataset2];
-      for(this.i = 0;this.i < this.dataSet.length;this.i++){
-        this.dataSet[this.i]['key'] = `${this.i}`;
-      }
       this.updateEditCache();
       this.tplModal.destroy();
     }
@@ -412,5 +411,9 @@ export class WeldingDistributeComponent implements OnInit {
       }
       if(!flag) this.isAllDisplayDataChecked = false;
     }
+  }
+
+  compareKey(num1, num2){
+    return parseInt(num1)>parseInt(num2);
   }
 }

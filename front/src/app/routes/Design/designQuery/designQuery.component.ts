@@ -21,7 +21,7 @@ export class DesignQueryComponent implements OnInit {
     saferel:[]
   };
   dwgnonow = null;
-  types = [ { text: 'I', value: 'I'}, { text: 'II', value: 'II' }, { text: 'III', value: 'III' } ];
+  types = [ { text: 'I', value: 'I'}, { text: 'II', value: 'II' }, { text: 'III', value: 'III' } , { text: '/', value: '/' } ];
   loading = true;
   constructor(public designQueryService:DesignQueryService,public fb:FormBuilder,public message : NzMessageService,public _storage:SessionStorageService){
   }

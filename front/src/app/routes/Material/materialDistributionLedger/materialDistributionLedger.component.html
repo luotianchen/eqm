@@ -197,7 +197,10 @@
           </tr>
           <tr>
             <td colspan="16" style="height: 30px">
-              管理员：<img *ngIf="userSign" [src]="userSign" style="height: 40px">
+              管理员：
+              <ng-container *ngFor="let sign of filteredDataSet(dataSet)">
+                <img *ngIf="!!sign" [src]="signs && signs[sign]" style="height: 20px">
+              </ng-container>
             </td>
           </tr>
         </table>

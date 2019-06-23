@@ -1,5 +1,5 @@
 <div>
-  <h3 class="title">入库材料审核</h3>
+  <h3 class="title">受压元件审核</h3>
 </div>
 <div style="margin-top: 30px;">
   <nz-table
@@ -49,7 +49,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of innerTable.data">
-                <td>{{data.issuematl}}</td>
+                <td>{{username2name[data.issuematl]}}</td>
                 <td>{{data.spartname}}</td>
                 <td>{{data.spec}}</td>
                 <td>{{data.dimension}}</td>
@@ -58,7 +58,7 @@
                 <td>{{data.qty}}</td>
                 <td>{{data.codedmarking}}</td>
                 <td>{{data.issuedate}}</td>
-                <td>{{data.picker}}</td>
+                <td>{{username2name[data.picker]}}</td>
                 <td>{{data.weldno}}</td>
                 <td>{{data.returnqty}}</td>
                 <td>{{data.note}}</td>

@@ -133,4 +133,5 @@ export class SiderComponent {
   setnav_cache() {
     this.settings.setnav_cache(this.settings.nav);
   }
+
 }
