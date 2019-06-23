@@ -130,6 +130,8 @@ public class getputmaterial {                                                   
 
 
 
+
+
         conn.close();
 
         res.setData(data);                                                                          //返回data

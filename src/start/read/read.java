@@ -26,7 +26,7 @@ public class read {                                             //读取消息
         readdata data = null;
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM message WHERE recieve_user = ?");
+            ps = conn.prepareStatement("SELECT * FROM message WHERE recieve_user = ? order by id desc");
             ps.setString(1,rp.getUsername());
             rs = ps.executeQuery();
             while (rs.next()){

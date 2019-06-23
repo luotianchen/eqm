@@ -53,7 +53,7 @@ public class getinspectionreport {                                              
         File filepdf1 = null;
         File filepdf = null;
 
-        try {
+//        try {
             String realPath = request.getSession().getServletContext().getRealPath("");
             String path = realPath;                                                             //根目录下新建文件夹upload，存放上传图片
             String uploadPath = path + "upload";                                                //获取文件名称
@@ -103,12 +103,16 @@ public class getinspectionreport {                                              
                     over.showTextAligned(0,codedmarking,220,425,0);
                     erweima = codedmarking;
 
-                    over.showTextAligned(0,rs.getString("modelstand_id_modelstand"),307,425,0);
-                    erweima = erweima + "," + rs.getString("modelstand_id_modelstand");
+                    if(!(rs.getString("modelstand_id_modelstand")==null||rs.getString("modelstand_id_modelstand").equals(""))) {
+                        over.showTextAligned(0,rs.getString("modelstand_id_modelstand"),307,425,0);
+                        erweima = erweima + "," + rs.getString("modelstand_id_modelstand");
+                    }
 
+                    if(!(rs.getString("contraststand_id_designation")==null||rs.getString("contraststand_id_designation").equals(""))) {
+                        over.showTextAligned(0,rs.getString("contraststand_id_designation"),220,402,0);
+                        erweima = erweima + "," + rs.getString("contraststand_id_designation");
+                    }
 
-                    over.showTextAligned(0,rs.getString("contraststand_id_designation"),220,402,0);
-                    erweima = erweima + "," + rs.getString("contraststand_id_designation");
 
                     if(!(rs.getString("heatbatchno")==null||rs.getString("heatbatchno").equals(""))) {
                         over.showTextAligned(0, rs.getString("heatbatchno"), 307, 402, 0);
@@ -126,9 +130,12 @@ public class getinspectionreport {                                              
                     }
 
 
+                    if(!(rs.getString("millunit_id_millunit")==null||rs.getString("millunit_id_millunit").equals(""))){
+                        over.showTextAligned(0,rs.getString("millunit_id_millunit"),307,382,0);
+                        erweima = erweima + "," + rs.getString("millunit_id_millunit");
+                    }
 
-                    over.showTextAligned(0,rs.getString("millunit_id_millunit"),307,382,0);
-                    erweima = erweima + "," + rs.getString("millunit_id_millunit");
+
 
                     ps1 = conn.prepareStatement("SELECT * FROM userform WHERE username = ?");
                     ps1.setString(1,rs.getString("user_id"));
@@ -140,10 +147,12 @@ public class getinspectionreport {                                              
                     rs1.close();
                     ps1.close();
 
+                    if(!(rs.getString("indate")==null||rs.getString("indate").equals(""))){
+                        calendar.setTime(rs.getDate("indate"));
+                        over.showTextAligned(0,sdf.format(calendar.getTime()),307,358,0);
+                        erweima = erweima + "," + sdf.format(calendar.getTime());
+                    }
 
-                    calendar.setTime(rs.getDate("indate"));
-                    over.showTextAligned(0,sdf.format(calendar.getTime()),307,358,0);
-                    erweima = erweima + "," + sdf.format(calendar.getTime());
 
                     over.endText();
 
@@ -197,9 +206,9 @@ public class getinspectionreport {                                              
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             filepdf.delete();
             filepdf1.delete();
-        }catch (Exception e){
-            System.out.println(e.toString());
-        }
+//        }catch (Exception e){
+//            System.out.println(e.toString());
+//        }
 
 
         return download;

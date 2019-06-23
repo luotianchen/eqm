@@ -45,6 +45,7 @@ public class searchallmaterial {                                                
         int millunit_id=0;
         int status_p=0;
         int indate_p=0;
+        int heatibatchno_p=0;
 
         int user_rid=0;
         int warrantysitu_rid=0;
@@ -69,23 +70,23 @@ public class searchallmaterial {                                                
         try{
             sql="FROM putmaterial WHERE 1=1 ";
             if(!(sp.getSearchdata().getCodedmarking()==null||sp.getSearchdata().getCodedmarking().equals(""))){
-                sql=sql+"and codedmarking = ? ";
+                sql=sql+"and codedmarking LIKE ? ";
                 codedmarking_p=1;
             }
             if(!(sp.getSearchdata().getMatlname()==null || sp.getSearchdata().getMatlname().equals(""))){
-                sql=sql+"and matlname_id_matlname=? ";
+                sql=sql+"and matlname_id_matlname in (SELECT id FROM matlname WHERE matlname LIKE ?) ";
                 matlname_p=1;
             }
             if(!(sp.getSearchdata().getDesignation()==null || sp.getSearchdata().getDesignation().equals(""))){
-                sql=sql+"and contraststand_id_designation in (select id from contraststand where designation = ?) ";
+                sql=sql+"and contraststand_id_designation in (select id from contraststand where designation LIKE ?) ";
                 designation_p=1;
             }
             if(!(sp.getSearchdata().getSpec()==null || sp.getSearchdata().getSpec().equals(""))){
-                sql=sql+"and spec=? ";
+                sql=sql+"and spec LIKE ? ";
                 spec_p=1;
             }
             if(!(sp.getSearchdata().getMillunit()==null || sp.getSearchdata().getMillunit().equals(""))){
-                sql=sql+"and millunit_id_millunit=? ";
+                sql=sql+"and millunit_id_millunit in (SELECT id FROM millunit WHERE millunit LIKE ?) ";
                 millunit_p=1;
             }
             if(!(sp.getSearchdata().getStatus()==-1)){
@@ -96,55 +97,40 @@ public class searchallmaterial {                                                
                 sql=sql+"and indate = ? ";
                 indate_p=1;
             }
+            if(!(sp.getSearchdata().getHeatbatchno()==null || sp.getSearchdata().getHeatbatchno().equals(""))){
+                sql=sql+"and heatbatchno LIKE ? ";
+                heatibatchno_p=1;
+            }
 
-            if(matlname_p==1){
-                ps=conn.prepareStatement("SELECT * FROM matlname WHERE matlname=?");
-                ps.setString(1,sp.getSearchdata().getMatlname());
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    matlname_id = rs.getInt("id");
-                }
-                rs.close();
-                ps.close();
-            }
-            if(millunit_p==1){
-                ps=conn.prepareStatement("SELECT * FROM millunit WHERE millunit=?");
-                ps.setString(1,sp.getSearchdata().getMillunit());
-                rs=ps.executeQuery();
-                while (rs.next()){
-                    millunit_id = rs.getInt("id");
-                }
-                rs.close();
-                ps.close();
-            }
+
             sql+=" ORDER BY codedmarking DESC";
             ps1 = conn.prepareStatement(sql2 + sql);
             sql = sql + sql_end;
 
             ps=conn.prepareStatement(sql1 + sql);
             if(codedmarking_p==1){
-                ps.setString(num,sp.getSearchdata().getCodedmarking());
-                ps1.setString(num,sp.getSearchdata().getCodedmarking());
+                ps.setString(num,"%"+sp.getSearchdata().getCodedmarking()+"%");
+                ps1.setString(num,"%"+sp.getSearchdata().getCodedmarking()+"%");
                 num++;
             }
             if(matlname_p==1){
-                ps.setInt(num,matlname_id);
-                ps1.setInt(num,matlname_id);
+                ps.setString(num,"%"+sp.getSearchdata().getMatlname()+"%");
+                ps1.setString(num,"%"+ sp.getSearchdata().getMatlname()+"%");
                 num++;
             }
             if(designation_p==1){
-                ps.setString(num,sp.getSearchdata().getDesignation());
-                ps1.setString(num,sp.getSearchdata().getDesignation());
+                ps.setString(num,"%"+sp.getSearchdata().getDesignation()+"%");
+                ps1.setString(num,"%"+sp.getSearchdata().getDesignation()+"%");
                 num++;
             }
             if(spec_p==1){
-                ps.setString(num,sp.getSearchdata().getSpec());
-                ps1.setString(num,sp.getSearchdata().getSpec());
+                ps.setString(num,"%"+sp.getSearchdata().getSpec()+"%");
+                ps1.setString(num,"%"+sp.getSearchdata().getSpec()+"%");
                 num++;
             }
             if(millunit_p==1){
-                ps.setInt(num,millunit_id);
-                ps1.setInt(num,millunit_id);
+                ps.setString(num,"%"+sp.getSearchdata().getMillunit()+"%");
+                ps1.setString(num,"%"+sp.getSearchdata().getMillunit()+"%");
                 num++;
             }
             if(status_p==1){
@@ -155,6 +141,11 @@ public class searchallmaterial {                                                
             if(indate_p==1){
                 ps.setString(num,sp.getSearchdata().getIndate());
                 ps1.setString(num,sp.getSearchdata().getIndate());
+                num++;
+            }
+            if(heatibatchno_p==1){
+                ps.setString(num,"%"+sp.getSearchdata().getHeatbatchno()+"%");
+                ps1.setString(num,"%"+sp.getSearchdata().getHeatbatchno()+"%");
                 num++;
             }
 

@@ -23,13 +23,12 @@ public class getprodname {                                       //获取所有�
 
         getprodnameresult result = new getprodnameresult();
         ArrayList<String> as = new ArrayList<String>();
-        ArrayList<String> as1 = new ArrayList<String>();
 
         try {
             ps = conn.prepareStatement("SELECT * FROM productname");
             rs = ps.executeQuery();
             while (rs.next()){
-                as1.add(rs.getString("prodname"));
+                as.add(rs.getString("prodname"));
             }
             rs.close();
             ps.close();
@@ -39,7 +38,6 @@ public class getprodname {                                       //获取所有�
             result.setResult("fail");
         }
         as = null;
-        as1 = null;
         conn.close();
         return result;
     }

@@ -60,7 +60,7 @@ public class EndInt extends JFrame {
         cont.add(route);
         cont.add(jbt);
         cont.add(jbtroute);
-        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
         route.setBounds(30,20,120,40);
         jbtroute.setBounds(150,20,150,40);
         jbt.setBounds(310,20,70,40);

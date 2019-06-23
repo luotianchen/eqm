@@ -48,91 +48,119 @@ public class searchnocertsitu {
 
         String sql=null;
         String sql_x=null;
+//        String sql1 = "SELECT COUNT(id) as num FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
         int z=0;
 
         int num = 1;
+
+        int indexx = 0;
 
         try{
 
             sql="SELECT * FROM putmaterialcache WHERE warrantystatus_id_certsitu='质保书未到' ";
             sql_x = "ORDER BY codedmarking DESC";
+
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                 sql=sql+"AND contraststand_id_designation=? ";
+//                sql1=sql1+"AND contraststand_id_designation=? ";
             }
             if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
                 sql=sql+"AND codedmarking LIKE ? ";
+//                sql1=sql1+"AND codedmarking LIKE ? ";
             }
             if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
                 sql=sql+"AND supplier_id_supplier LIKE ? ";
+//                sql1=sql1+"AND supplier_id_supplier LIKE ? ";
             }
             if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
                 sql=sql+"AND heatbatchno LIKE ? ";
+//                sql1=sql1+"AND heatbatchno LIKE ? ";
             }
-            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+            if(!(sp.getWarrantyno()==null || sp.getWarrantyno().equals(""))){
                 sql=sql+"AND warrantyno LIKE ?  ";
+//                sql1=sql1+"AND warrantyno LIKE ?  ";
             }
-            ps=conn.prepareStatement(sql+sql_x);
+
+
+//            ps1 = conn.prepareStatement(sql1+"AND codedmarking not in (SELECT codedmarking FROM putmaterial WHERE status = 1) "+sql_x);
+//            if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
+//                ps1.setString(num,sp.getDesignation());
+//                System.out.println(num);
+//                num++;
+//            }
+//            if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
+//                ps1.setString(num,"%"+sp.getCodedmarking()+"%");
+//                System.out.println(num);
+//                num++;
+//            }
+//            if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
+//                ps1.setString(num,"%"+sp.getSupplier()+"%");
+//                System.out.println(num);
+//                num++;
+//            }
+//            if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
+//                ps1.setString(num,"%"+sp.getHeatbatchno()+"%");
+//                System.out.println(num);
+//                num++;
+//            }
+//            if(!(sp.getWarrantyno()==null || sp.getWarrantyno().equals(""))){
+//                ps1.setString(num,"%"+sp.getWarrantyno()+"%");
+//                System.out.println(num);
+//                num++;
+//            }
+//            rs1 = ps1.executeQuery();
+//            num = 1;
+//            if (rs1.next()){
+//                result.setTotal(rs1.getInt("num"));
+//            }else {
+//                result.setTotal(0);
+//            }
+//            rs1.close();
+//            ps1.close();
+
+
+            ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
+            rs1 = ps1.executeQuery();
+            if(rs1.next()){
+                indexx=rs1.getInt("indexx")-1;
+            }
+            rs1.close();
+            ps1.close();
+
+
+            ps = conn.prepareStatement(sql+"AND codedmarking not in (SELECT codedmarking FROM putmaterial WHERE status = 1) "+sql_x);
             if(!(sp.getDesignation()==null || sp.getDesignation().equals(""))){
                 ps.setString(num,sp.getDesignation());
+                System.out.println(num);
                 num++;
             }
             if(!(sp.getCodedmarking()==null || sp.getCodedmarking().equals(""))){
                 ps.setString(num,"%"+sp.getCodedmarking()+"%");
+                System.out.println(num);
                 num++;
             }
             if(!(sp.getSupplier()==null || sp.getSupplier().equals(""))){
                 ps.setString(num,"%"+sp.getSupplier()+"%");
+                System.out.println(num);
                 num++;
             }
             if(!(sp.getHeatbatchno()==null || sp.getHeatbatchno().equals(""))){
                 ps.setString(num,"%"+sp.getHeatbatchno()+"%");
+                System.out.println(num);
                 num++;
             }
             if(!(sp.getWarrantyno()==null || sp.getWarrantyno().equals(""))){
                 ps.setString(num,"%"+sp.getWarrantyno()+"%");
+                System.out.println(num);
                 num++;
             }
-            rs=ps.executeQuery();
+            rs = ps.executeQuery();
+            num = 1;
             while (rs.next()){
-                ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
-                ps1.setString(1,rs.getString("codedmarking"));
-                rs1 = ps1.executeQuery();
-                if(!rs1.next()){
-                    rs1.close();
-                    ps1.close();
 
-                    sncd = new searchnocertsitudata();
-                    if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
-                        ps1 = conn.prepareStatement("SELECT * FROM matlcoderules");
-                        rs1 = ps1.executeQuery();
-                        if(rs1.next()){
-                            if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(rs1.getInt("indexx")-1))){
-                                rs1.close();
-                                ps1.close();
-
-                                sncd.setCodedmarking(rs.getString("codedmarking"));
-                                sncd.setSpec(rs.getString("spec"));
-                                sncd.setQty(rs.getString("qty"));
-                                sncd.setNote(rs.getString("note"));
-                                sncd.setIndate(rs.getString("indate"));
-                                sncd.setHeatbatchno(rs.getString("heatbatchno"));
-                                sncd.setWarrantyno(rs.getString("warrantyno"));
-                                sncd.setMatlname(rs.getString("matlname_id_matlname"));
-                                sncd.setDesignation(rs.getString("contraststand_id_designation"));
-                                sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
-                                sncd.setSupplier(rs.getString("supplier_id_supplier"));
-                                sncd.setMillunit(rs.getString("millunit_id_millunit"));
-
-                            }else {
-                                rs1.close();
-                                ps1.close();
-                                continue;
-                            }
-                        }else {
-                            rs1.close();
-                            ps1.close();
-                        }
-                    }else{
+                if(!(sp.getMatlcode()==null || sp.getMatlcode().equals(""))){
+                    if(sp.getMatlcode().charAt(0)==(rs.getString("codedmarking").charAt(indexx))){
+                        sncd = new searchnocertsitudata();
                         sncd.setCodedmarking(rs.getString("codedmarking"));
                         sncd.setSpec(rs.getString("spec"));
                         sncd.setQty(rs.getString("qty"));
@@ -145,19 +173,32 @@ public class searchnocertsitu {
                         sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
                         sncd.setSupplier(rs.getString("supplier_id_supplier"));
                         sncd.setMillunit(rs.getString("millunit_id_millunit"));
+                        as.add(sncd);
 
                     }
+                }else{
+                    sncd = new searchnocertsitudata();
+                    sncd.setCodedmarking(rs.getString("codedmarking"));
+                    sncd.setSpec(rs.getString("spec"));
+                    sncd.setQty(rs.getString("qty"));
+                    sncd.setNote(rs.getString("note"));
+                    sncd.setIndate(rs.getString("indate"));
+                    sncd.setHeatbatchno(rs.getString("heatbatchno"));
+                    sncd.setWarrantyno(rs.getString("warrantyno"));
+                    sncd.setMatlname(rs.getString("matlname_id_matlname"));
+                    sncd.setDesignation(rs.getString("contraststand_id_designation"));
+                    sncd.setMatlstand(rs.getString("contraststand_id_matlstand"));
+                    sncd.setSupplier(rs.getString("supplier_id_supplier"));
+                    sncd.setMillunit(rs.getString("millunit_id_millunit"));
                     as.add(sncd);
-                }else {
-                    rs1.close();
-                    ps1.close();
                 }
-
             }
+            rs.close();
+            ps.close();
 
-            result.setTotal(as.size());
             int as_size;
             as_size=as.size();
+            result.setTotal(as_size);
             if(as_size<=((sp.getPageindex()-1)*sp.getPagesize())){
                 result.setResult("fail");
             }else if((as_size-((sp.getPageindex()-1)*sp.getPagesize())<sp.getPagesize())){
@@ -169,6 +210,7 @@ public class searchnocertsitu {
                 result.setResult("success");
                 result.setData(as_q);
             }
+
         }catch (Exception e){
             result.setResult("fail");
         }

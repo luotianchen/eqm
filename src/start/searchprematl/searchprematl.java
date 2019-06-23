@@ -80,11 +80,23 @@ public class searchprematl {                                //受压元件使用
                 ps1.setString(1,sp.getProdno());
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
-                    if(rs.getDate("date").before(rs1.getDate("date"))){
-                        result.setIssuedate(sdf.format(rs1.getDate("date")));
+                    if(rs.getDate("date")!=null && rs1.getDate("date")!=null){
+                        if(rs.getDate("date").before(rs1.getDate("date"))){
+                            result.setIssuedate(sdf.format(rs1.getDate("date")));
+                        }else {
+                            result.setIssuedate(sdf.format(rs.getDate("date")));
+                        }
                     }else {
-                        result.setIssuedate(sdf.format(rs.getDate("date")));
+                        if(rs.getDate("date") != null){
+                            result.setIssuedate(sdf.format(rs.getDate("date")));
+                        }
+
+                        if(rs1.getDate("date") != null){
+                            result.setIssuedate(sdf.format(rs1.getDate("date")));
+                        }
                     }
+
+
                 }
                 rs1.close();
                 ps1.close();

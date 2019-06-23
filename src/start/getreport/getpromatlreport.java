@@ -121,7 +121,8 @@ public class getpromatlreport {                                 //产品材料�
                 ps1.setString(1,prodno);
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
-                    if(rs.getDate("date")!=null &&rs1.getDate("date")!= null){
+
+                    if(rs.getDate("date")!=null && rs1.getDate("date")!=null){
                         if(rs.getDate("date").before(rs1.getDate("date"))){
                             calendar.setTime(rs1.getDate("date"));
                             exworkdate = simpleDateFormat1.format(calendar.getTime());
@@ -129,7 +130,19 @@ public class getpromatlreport {                                 //产品材料�
                             calendar.setTime(rs.getDate("date"));
                             exworkdate = simpleDateFormat1.format(calendar.getTime());
                         }
+                    }else {
+                        if(rs.getDate("date") == null  && rs1.getDate("date") != null){
+                            calendar.setTime(rs1.getDate("date"));
+                            exworkdate = simpleDateFormat1.format(calendar.getTime());
+                        }
+
+                        if(rs1.getDate("date") == null && rs.getDate("date") != null){
+                            calendar.setTime(rs.getDate("date"));
+                            exworkdate = simpleDateFormat1.format(calendar.getTime());
+                        }
                     }
+
+
 
                 }
                 rs1.close();
@@ -137,6 +150,8 @@ public class getpromatlreport {                                 //产品材料�
             }
             rs.close();
             ps.close();
+
+            putsheet(sheet,30,29,exworkdate);
 
 
             ps1 = conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status = 1 AND ispresspart = 1 group by partno,codedmarking ORDER BY partno is null,partno ASC  ");
@@ -194,6 +209,7 @@ public class getpromatlreport {                                 //产品材料�
                     putsheet(sheet,1+32*t,26,prodno);
                     putsheet(sheet,1+32*t,2,dwgno);
                     putsheet(sheet,30+32*t,29,exworkdate);
+                    System.out.println(t);
                     workBook.setPrintArea(
                             0,0,36,0,31+t*32
                     );
@@ -539,8 +555,8 @@ public class getpromatlreport {                                 //产品材料�
 
             String type = imageurl.substring(imageurl.lastIndexOf("."));
 
-
-            if(type.equals(".jpg")){
+            type = type.toLowerCase();
+            if(type.equals(".jpg") ){
                 ImageIO.write(bufferImg, "jpg", byteArrayOut);
             }
             if(type.equals(".png")){

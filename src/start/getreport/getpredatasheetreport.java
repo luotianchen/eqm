@@ -58,6 +58,7 @@ public class getpredatasheetreport {                            //压力容器�
         String dwgno = null;
         String type = null;                     //设备品种*
         String stand = "TSG 21-2016";          //产品标准*
+        String stand_two = null;
         String ecode = null;                    //设备代码*
         String deservicelife = null;            //设备使用年限*
         String volume = null;                   //容器容积;*
@@ -158,9 +159,17 @@ public class getpredatasheetreport {                            //压力容器�
                 type = rs.getString("type");
                 if(!(rs.getString("mainstand") == null || rs.getString("mainstand").equals(""))){
                     stand = stand + "、" + rs.getString("mainstand");
+                    stand_two = rs.getString("mainstand");
                 }
                 if(!(rs.getString("minorstand") == null || rs.getString("minorstand").equals("")) && !rs.getString("mainstand").equals(rs.getString("minorstand"))){
                     stand = stand + "、" + rs.getString("minorstand");
+                    if(stand != null){
+                        stand_two = stand_two + "、" + rs.getString("minorstand");
+                    }else {
+                        stand_two = rs.getString("minorstand");
+                    }
+
+
                 }
                 deservicelife = rs.getString("deservicelife");
                 proheight = rs.getString("proheight");
@@ -438,6 +447,13 @@ public class getpredatasheetreport {                            //压力容器�
                     putsheet(sheet,44+i*2,8,rs.getString("spec"));
                     putsheet(sheet,44+i*2,13,rs.getString("qty"));
                     putsheet(sheet,44+i*2,17,rs.getString("mfunit"));
+
+
+                    putsheet(sheet,44+i*2+61,0,rs.getString("name"));
+                    putsheet(sheet,44+i*2+61,3,rs.getString("model"));
+                    putsheet(sheet,44+i*2+61,8,rs.getString("spec"));
+                    putsheet(sheet,44+i*2+61,13,rs.getString("qty"));
+                    putsheet(sheet,44+i*2+61,17,rs.getString("mfunit"));
                 }
                 i++;
             }
@@ -508,6 +524,69 @@ public class getpredatasheetreport {                            //压力容器�
             putsheet(sheet,55,11,zj_ename);
             putsheet(sheet,56,11,zj_uniformcode);
             putsheet(sheet,56,20,zj_manuno);
+
+
+
+
+            putsheet(sheet,4+61,5,prodname);
+            putsheet(sheet,5+61,5,ename);
+            putsheet(sheet,4+61,19,type);
+            putsheet(sheet,6+61,5,stand_two);
+            putsheet(sheet,6+61,19,prodno);
+            putsheet(sheet,8+61,5,ecode);
+            putsheet(sheet,8+61,19,deservicelife);
+            putsheet(sheet,10+61,6,volume);
+            putsheet(sheet,10+61,14,innerdia);
+            putsheet(sheet,10+61,20,proheight);
+            putsheet(sheet,12+61,6,t_mat);
+            putsheet(sheet,12+61,14,k_thi);
+            putsheet(sheet,12+61,20,weight);
+            putsheet(sheet,14+61,6,f_mat);
+            putsheet(sheet,14+61,14,f_thi);
+            if(!chweight.equals("0")){
+                putsheet(sheet,14+61,20,chweight);
+            }
+            putsheet(sheet,16+61,6,c_mat);
+            putsheet(sheet,16+61,14,c_thi);
+            putsheet(sheet,18+61,6,j_mat);
+            putsheet(sheet,18+61,14,j_thi);
+            putsheet(sheet,20+61,6,k_depress);
+            putsheet(sheet,20+61,14,k_detemp);
+            putsheet(sheet,20+61,20,k_maxwpress);
+            putsheet(sheet,22+61,6,g_depress);
+            putsheet(sheet,22+61,14,g_detemp);
+            putsheet(sheet,22+61,20,g_maxwpress);
+            putsheet(sheet,24+61,6,j_depress);
+            putsheet(sheet,24+61,14,j_detemp);
+            putsheet(sheet,24+61,20,j_maxwpress);
+            putsheet(sheet,26+61,6,k_wmedia);
+            putsheet(sheet,27+61,6,k_ewmedia);
+            putsheet(sheet,26+61,14,g_wmedia);
+            putsheet(sheet,27+61,14,g_ewmedia);
+            putsheet(sheet,26+61,20,j_wmedia);
+            putsheet(sheet,27+61,20,j_ewmedia);
+            putsheet(sheet,28+61,7,m_type);
+            putsheet(sheet,29+61,7,m_etype);
+            putsheet(sheet,28+61,19,installtype);
+            putsheet(sheet,29+61,19,einstalltype);
+            putsheet(sheet,30+61,7,supptype);
+            putsheet(sheet,31+61,7,esupptype);
+            putsheet(sheet,30+61,19,insultype);
+            putsheet(sheet,31+61,19,einsultype);
+            putsheet(sheet,32+61,7,ndetype);
+            putsheet(sheet,32+61,19,nderatio);
+            putsheet(sheet,34+61,7,pttype);
+            putsheet(sheet,35+61,7,epttype);
+            putsheet(sheet,34+61,19,testpress);
+            putsheet(sheet,36+61,7,leaktest);
+            putsheet(sheet,37+61,7,eleaktest);
+            putsheet(sheet,36+61,19,leaktestp);
+            putsheet(sheet,38+61,7,httype);
+            putsheet(sheet,39+61,7,ceng(httype));
+            if(!httemp.equals("0")){
+                putsheet(sheet,38+61,19,httemp);
+            }
+
 
 
 

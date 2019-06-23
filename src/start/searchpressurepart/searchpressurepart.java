@@ -42,35 +42,22 @@ public class searchpressurepart {                                               
         int modelstand2_id=0;
 
         try {
-            ps= conn.prepareStatement("SELECT * FROM pressureparts WHERE prodno = ? AND status=1");                          //先查询受压原件表data2，查询出入库编号用来查询入库表data1
+            ps= conn.prepareStatement("SELECT * FROM pressurepartscache WHERE prodno = ? AND status=1");                          //先查询受压原件表data2，查询出入库编号用来查询入库表data1
             ps.setString(1,sp.getProdno());
             rs=ps.executeQuery();
             while(rs.next()){
                 data2 = new searchpressurepartdata2();
                 data2.setCodedmarking(rs.getString("codedmarking"));
                 data2.setSpec(rs.getString("spec"));
-                data2.setIssuedate(sdf.format(rs.getDate("issuedate")));
+                if(rs.getString("issuedate") != null && !rs.getString("issuedate").equals("")){
+                    data2.setIssuedate(sdf.format(rs.getDate("issuedate")));
+                }
+
                 data2.setQty(rs.getString("qty"));
-                designation1_id=rs.getInt("contraststand_id_designation");
-                spartname_id=rs.getInt("parts_id_name");
+                data2.setDesignation(rs.getString("contraststand_id_designation"));
+                data2.setSpartname(rs.getString("partno"));
 
-                ps1 = conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
-                ps1.setInt(1,designation1_id);
-                rs1=ps1.executeQuery();
-                while (rs1.next()){
-                    data2.setDesignation(rs1.getString("designation"));
-                }
-                rs1.close();
-                ps1.close();
 
-                ps1 = conn.prepareStatement("SELECT * FROM parts WHERE id=?");
-                ps1.setInt(1,spartname_id);
-                rs1=ps1.executeQuery();
-                while (rs1.next()){
-                    data2.setSpartname(rs1.getString("partsname"));
-                }
-                rs1.close();
-                ps1.close();
 
                 ps1=conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status=1");              //查到入库编号后查询入库信息
                 ps1.setString(1,data2.getCodedmarking());
@@ -82,7 +69,7 @@ public class searchpressurepart {                                               
                     data1.setIndate(sdf.format(rs1.getDate("indate")));
                     data1.setQty(rs1.getString("qty"));
                     designation2_id=rs1.getInt("contraststand_id_designation");
-                    modelstand2_id=rs1.getInt("modelstand_id_modelstand");
+                    modelstand2_id=rs1.getInt("contraststand_id_matlstand");
 
                     ps2 = conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
                     ps2.setInt(1,designation2_id);
@@ -93,11 +80,11 @@ public class searchpressurepart {                                               
                     rs2.close();
                     ps2.close();
 
-                    ps2 = conn.prepareStatement("SELECT * FROM modelstand WHERE id=?");
+                    ps2 = conn.prepareStatement("SELECT * FROM contraststand WHERE id=?");
                     ps2.setInt(1,modelstand2_id);
                     rs2=ps2.executeQuery();
                     while (rs2.next()){
-                        data1.setModelstand(rs2.getString("modelstand"));
+                        data1.setModelstand(rs2.getString("matlstand"));
                     }
                     rs2.close();
                     ps2.close();

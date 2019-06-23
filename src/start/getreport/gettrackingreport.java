@@ -64,7 +64,7 @@ public class gettrackingreport {                                    //焊工材�
 
         String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         file = new File(uploadPath, filename);
-        try {
+//        try {
 
             File realfile = new File(uploadPath,"焊工材料跟踪记录.xlsx");
             InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
@@ -240,11 +240,24 @@ public class gettrackingreport {                                    //焊工材�
                 ps1.setString(1,prodno);
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
-                    if(rs.getDate("date").before(rs1.getDate("date"))){
-                        calendar.setTime(rs1.getDate("date"));
+                    if(rs.getDate("date")!=null && rs1.getDate("date")!=null){
+                        if(rs.getDate("date").before(rs1.getDate("date"))){
+                            calendar.setTime(rs1.getDate("date"));
+
+                        }else {
+                            calendar.setTime(rs.getDate("date"));
+
+                        }
                     }else {
-                        calendar.setTime(rs.getDate("date"));
+                        if(rs.getDate("date") == null  && rs1.getDate("date") != null){
+                            calendar.setTime(rs1.getDate("date"));
+                        }
+
+                        if(rs1.getDate("date") == null && rs.getDate("date") != null){
+                            calendar.setTime(rs.getDate("date"));
+                        }
                     }
+
 
                     putsheet(sheet,38,5,simpleDateFormat3.format(calendar.getTime()));
                     putsheet(sheet,39,5,simpleDateFormat4.format(calendar.getTime()));
@@ -278,9 +291,9 @@ public class gettrackingreport {                                    //焊工材�
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             file.delete();
             filepdf.delete();
-        }catch (Exception e){
-            file.delete();
-        }
+//        }catch (Exception e){
+//            file.delete();
+//        }
 
 
         return download;

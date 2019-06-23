@@ -49,7 +49,7 @@ public class searchusematerial {                                                
 
 
         try{
-            ps=conn.prepareStatement("SELECT * FROM pressureparts WHERE codedmarking=?");
+            ps=conn.prepareStatement("SELECT * FROM pressureparts WHERE codedmarking=? GROUP BY prodno");
             ps.setString(1,sp.getCodedmarking());
             rs=ps.executeQuery();
             while(rs.next()){

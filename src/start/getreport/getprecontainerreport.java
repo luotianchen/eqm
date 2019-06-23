@@ -49,7 +49,7 @@ public class getprecontainerreport {                                            
 
         String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         file = new File(uploadPath, filename);
-        try {
+//        try {
             String dwgno = null;
             ps = conn.prepareStatement("SELECT * FROM prenotiform WHERE prodno = ?");
             ps.setString(1,prodno);
@@ -177,6 +177,8 @@ public class getprecontainerreport {                                            
 
                 sh = rs.getString("shthick1");                                      //冷卷筒节投料的钢材厚度标准
 
+                shthick = "";
+
                 if(rs.getString("shthick2")!=null && !rs.getString("shthick2").equals("") && sh.indexOf(rs.getString("shthick2"))== -1 && shthick.indexOf(rs.getString("shthick2"))==-1){
                     sh = sh + "/" + rs.getString("shthick2");
                 }
@@ -219,6 +221,13 @@ public class getprecontainerreport {                                            
                         putsheet(sheet,47,7,"合  格\nAcceptable");
                         putsheet(sheet,49,5,"符  合\nConforming");
                         putsheet(sheet,49,7,"合  格\nAcceptable");
+
+                        putsheet(sheet,45+71,5,"符  合\nConforming");
+                        putsheet(sheet,45+71,7,"合  格\nAcceptable");
+                        putsheet(sheet,47+71,5,"符  合\nConforming");
+                        putsheet(sheet,47+71,7,"合  格\nAcceptable");
+                        putsheet(sheet,49+71,5,"符  合\nConforming");
+                        putsheet(sheet,49+71,7,"合  格\nAcceptable");
                         break;
                     }else {
                         putsheet(sheet,45,5,"------");
@@ -227,6 +236,13 @@ public class getprecontainerreport {                                            
                         putsheet(sheet,47,7,"------");
                         putsheet(sheet,49,5,"------");
                         putsheet(sheet,49,7,"------");
+
+                        putsheet(sheet,45+71,5,"------");
+                        putsheet(sheet,45+71,7,"------");
+                        putsheet(sheet,47+71,5,"------");
+                        putsheet(sheet,47+71,7,"------");
+                        putsheet(sheet,49+71,5,"------");
+                        putsheet(sheet,49+71,7,"------");
                     }
                 }
                 rs1.close();
@@ -244,10 +260,16 @@ public class getprecontainerreport {                                            
                 if(rs.getString("name").equals("补强圈")){
                     putsheet(sheet,55,5,"符  合\nConforming");
                     putsheet(sheet,55,7,"合  格\nAcceptable");
+
+                    putsheet(sheet,55+71,5,"符  合\nConforming");
+                    putsheet(sheet,55+71,7,"合  格\nAcceptable");
                     break;
                 }else{
                     putsheet(sheet,55,5,"------");
                     putsheet(sheet,55,7,"------");
+
+                    putsheet(sheet,55+71,5,"------");
+                    putsheet(sheet,55+71,7,"------");
                 }
             }
             rs.close();
@@ -259,6 +281,9 @@ public class getprecontainerreport {                                            
             if(rs.next()){
                 putsheet(sheet,65,0,"结论：  本台产品外观及几何尺寸经检验符合"+rs.getString("minorstand")+"之要求，结论合格。");
                 putsheet(sheet,66,0,"Conlusion: The profile and geometric size of product has been inspected and is conforming to the requirements in "+rs.getString("minorstand")+", the result is Acceptable. ");
+
+                putsheet(sheet,65+71,0,"结论：  本台产品外观及几何尺寸经检验符合"+rs.getString("minorstand")+"之要求，结论合格。");
+                putsheet(sheet,66+71,0,"Conlusion: The profile and geometric size of product has been inspected and is conforming to the requirements in "+rs.getString("minorstand")+", the result is Acceptable. ");
             }
             rs.close();
             ps.close();
@@ -308,6 +333,48 @@ public class getprecontainerreport {                                            
 
 
 
+            putsheet(sheet,3+71,0,dwgno);
+            putsheet(sheet,3+71,6,prodno);
+            putsheet(sheet,7+71,4,String.valueOf(sr.getData().getProheight()));
+            putsheet(sheet,7+71,5,proheight);
+            putsheet(sheet,9+71,4,listtost(sr.getData().getInnerdia()));
+            putsheet(sheet,9+71,5,innerdia);
+            putsheet(sheet,11+71,4,String.valueOf(sr.getData().getLength()));
+            putsheet(sheet,11+71,5,length);
+            putsheet(sheet,13+71,4,String.valueOf(sr.getData().getStraightness()));
+            putsheet(sheet,13+71,5,straightness);
+            putsheet(sheet,15+71,4,listtost(sr.getData().getRoundness()));
+            putsheet(sheet,15+71,5,roundness);
+
+            putsheet(sheet,17+71,4,shthick);
+            putsheet(sheet,17+71,5,thick);
+            putsheet(sheet,19+71,4,minthickstand);
+            putsheet(sheet,19+71,5,minthick);
+
+            putsheet(sheet,21+71,5,outward);
+            putsheet(sheet,22+71,5,concave);
+
+            putsheet(sheet,25+71,4,listtost(sr.getData().getAweldmaxangul()));
+            putsheet(sheet,25+71,5,aweldmaxangul);
+            putsheet(sheet,27+71,4,listtost(sr.getData().getBweldmaxangul()));
+            putsheet(sheet,27+71,5,bweldmaxangul);
+            putsheet(sheet,29+71,4,listtost(sr.getData().getAweldmaxalign()));
+            putsheet(sheet,29+71,5,aweldmaxalign);
+            putsheet(sheet,31+71,4,listtost(sr.getData().getBweldmaxalign()));
+            putsheet(sheet,31+71,5,bweldmaxalign);
+
+            putsheet(sheet,35+71,4,listtost(sr.getData().getWeldreinfs()));
+            putsheet(sheet,35+71,5,weldreinfs);
+            putsheet(sheet,37+71,4,listtost(sr.getData().getWeldreinfd()));
+            putsheet(sheet,37+71,5,weldreinfd);
+
+
+            putsheet(sheet,67+71,5,exworkdate1);
+            putsheet(sheet,68+71,5,exworkdate2);
+
+
+
+
 
 
             OutputStream out = new FileOutputStream(url1);
@@ -324,9 +391,9 @@ public class getprecontainerreport {                                            
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             file.delete();
             filepdf.delete();
-        }catch (Exception e){
-            file.delete();
-        }
+//        }catch (Exception e){
+//            file.delete();
+//        }
 
 
 

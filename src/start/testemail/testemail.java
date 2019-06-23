@@ -66,6 +66,8 @@ public class testemail {                                            //发送测�
                     Properties properties = System.getProperties();
 
                     properties.put("mail.smtp.auth", "true");
+                    properties.put("mail.smtp.port", 465);
+                    properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
                     // 获取默认session对象
                     Session session = null;
 

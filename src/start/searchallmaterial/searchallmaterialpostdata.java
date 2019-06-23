@@ -8,6 +8,7 @@ public class searchallmaterialpostdata {
     private String millunit;                                        //生产单位*
     private int status;                                             //审核状态
     private String indate;                                              //入库日期
+    private String heatbatchno;                                    //炉批号
     public searchallmaterialpostdata(){
         super();
     }
@@ -66,5 +67,13 @@ public class searchallmaterialpostdata {
 
     public void setIndate(String indate) {
         this.indate = indate;
+    }
+
+    public String getHeatbatchno() {
+        return heatbatchno;
+    }
+
+    public void setHeatbatchno(String heatbatchno) {
+        this.heatbatchno = heatbatchno;
     }
 }

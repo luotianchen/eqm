@@ -191,6 +191,31 @@ public class getprecertificatereport {                              //压力容�
             putsheet(sheet,41,3,x_exworkdate);
             putsheet(sheet,42,3,x_exworkdate_x);
 
+            putsheet(sheet,54,1,z_deconame);
+            putsheet(sheet,55,1,z_edeconame);
+            putsheet(sheet,56,1,z_orgcode);
+            putsheet(sheet,56,3,z_delicense);
+            putsheet(sheet,58,1,prodname);
+            putsheet(sheet,59,1,ename);
+            putsheet(sheet,58,3,manulevel);
+            putsheet(sheet,61,1,prodno);
+            putsheet(sheet,61,3,ecode);
+            putsheet(sheet,63,1,dwgno);
+            putsheet(sheet,65,1, s_deconame != null ? s_deconame.replaceAll("\\d", "") : null);
+            putsheet(sheet,66,1,s_edeconame);
+            putsheet(sheet,67,1,s_orgcode);
+            putsheet(sheet,67,3,s_delicense);
+            putsheet(sheet,69,1,designdate);
+            putsheet(sheet,70,1,designdate_x);
+            putsheet(sheet,69,3,exworkdate);
+            putsheet(sheet,70,3,exworkdate_x);
+            putsheet(sheet,79,3,x_exworkdate);
+            putsheet(sheet,80,3,x_exworkdate_x);
+            putsheet(sheet,86,3,x_exworkdate);
+            putsheet(sheet,87,3,x_exworkdate_x);
+            putsheet(sheet,91,3,x_exworkdate);
+            putsheet(sheet,92,3,x_exworkdate_x);
+
 
 
 

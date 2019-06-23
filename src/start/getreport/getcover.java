@@ -57,7 +57,7 @@ public class getcover {                                                 //获取
 
         String filename =UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         file = new File(uploadPath, filename);
-        try {
+//        try {
             File realfile = new File(uploadPath,"封面.xlsx");
             InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
 
@@ -127,6 +127,8 @@ public class getcover {                                                 //获取
             putsheet(sheet,66,1,prodname);
             putsheet(sheet,68,1,prodno);
             putsheet(sheet,70,1,date);
+            putsheet(sheet,96,1,prodname);
+            putsheet(sheet,101,1,prodno);
 
 
 
@@ -144,9 +146,9 @@ public class getcover {                                                 //获取
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             file.delete();
             filepdf.delete();
-        }catch (Exception e){
-            file.delete();
-        }
+//        }catch (Exception e){
+//            file.delete();
+//        }
 
         return download;
 

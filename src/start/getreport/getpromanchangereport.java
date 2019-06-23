@@ -88,14 +88,31 @@ public class getpromanchangereport {                                //产品制�
                 ps1.setString(1,prodno);
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
-                    if(rs.getDate("date").before(rs1.getDate("date"))){
-                        calendar.setTime(rs1.getDate("date"));
+
+                    if(rs.getDate("date")!=null && rs1.getDate("date")!=null){
+                        if(rs.getDate("date").before(rs1.getDate("date"))){
+                            calendar.setTime(rs1.getDate("date"));
+                            putsheet(sheet,56,46,simpleDateFormat3.format(calendar.getTime()));
+                            putsheet(sheet,57,46,simpleDateFormat4.format(calendar.getTime()));
+                        }else {
+                            calendar.setTime(rs.getDate("date"));
+                            putsheet(sheet,56,46,simpleDateFormat3.format(calendar.getTime()));
+                            putsheet(sheet,57,46,simpleDateFormat4.format(calendar.getTime()));
+                        }
                     }else {
-                        calendar.setTime(rs.getDate("date"));
+                        if(rs.getDate("date") == null && rs1.getDate("date") != null){
+                            calendar.setTime(rs1.getDate("date"));
+                            putsheet(sheet,56,46,simpleDateFormat3.format(calendar.getTime()));
+                            putsheet(sheet,57,46,simpleDateFormat4.format(calendar.getTime()));
+                        }
+
+                        if(rs1.getDate("date") == null && rs.getDate("date") != null){
+                            calendar.setTime(rs.getDate("date"));
+                            putsheet(sheet,56,46,simpleDateFormat3.format(calendar.getTime()));
+                            putsheet(sheet,57,46,simpleDateFormat4.format(calendar.getTime()));
+                        }
                     }
 
-                    putsheet(sheet,56,46,simpleDateFormat3.format(calendar.getTime()));
-                    putsheet(sheet,57,46,simpleDateFormat4.format(calendar.getTime()));
 
 
                 }

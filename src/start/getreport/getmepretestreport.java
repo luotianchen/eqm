@@ -86,12 +86,15 @@ public class getmepretestreport {                                               
                     putsheet(sheet,5,20,"1");
                 }
 
+                putsheet(sheet,7,6,"延伸率%(标距"+rs.getString("lo")+"mm)");
+
+
                 putsheet(sheet,8,0,specimenno);
                 putsheet(sheet,8,2,rs.getString("so"));             //截面积
                 putsheet(sheet,8,3,rs.getString("f02mpa"));             //屈服强度RP0.2(Mpa)
                 putsheet(sheet,8,4,rs.getString("f1mpa"));             //屈服强度RP1.0(Mpa)
                 putsheet(sheet,8,5,rs.getString("rm"));             //抗拉强度
-                putsheet(sheet,8,6,rs.getString("a"));             //延伸率%
+                putsheet(sheet,8,6,rs.getString("apercent"));             //延伸率%
                 putsheet(sheet,8,7,rs.getString("fractposit"));             //抗拉断裂位置
                 putsheet(sheet,8,9,rs.getString("bendatype"));             //弯曲类型
                 putsheet(sheet,8,10,rs.getString("bendangle"));             //弯曲角度（°）

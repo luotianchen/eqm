@@ -78,4 +78,5 @@ public class getputmaterialdata {
     public void setHeatcondi(ArrayList<String> heatcondi) {
         this.heatcondi = heatcondi;
     }
+
 }
