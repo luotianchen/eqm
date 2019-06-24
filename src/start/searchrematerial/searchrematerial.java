@@ -26,10 +26,10 @@ public class searchrematerial {                                         //材料
         ArrayList<searchrematerialdata> as = new ArrayList<searchrematerialdata>();
         searchrematerialdata data = null;
 
-        String sql = "SELECT `id`, `c`, `mn`, `si`, `p`, `s`, `cr`, `ni`, `ti`, `cu`, `fe`, `n`, `alt`, `mo`, `mg`, `zn`, `nb`, `v`, `als`, `b`, `w`, `sb`, `al`, `zr`, `ca`, `be`, `rel1`, `rel2`, `rm1`, `rm2`, `elong1`, `elong2`, `hardness1`, `hardness2`, `hardness3`, `impactp1`, `impactp2`, `impactp3`, `bendaxdia`, `designation`, `impacttemp`, `bendangle`, `codedmarking`, `stand`, `spec`, `indate`, (SELECT name FROM userform WHERE username = user) as user, (SELECT name FROM userform WHERE username = audit_user) as `audit_user`, `status`, `date`, `times`, `retimes` FROM rematerial WHERE 1=1 ";
+        String sql = "SELECT `id`, `c`, `mn`, `si`, `p`, `s`, `cr`, `ni`, `ti`, `cu`, `fe`, `n`, `alt`, `mo`, `mg`, `zn`, `nb`, `v`, `als`, `b`, `w`, `sb`, `al`, `zr`, `ca`, `be`, `rel1`, `rel2`, `rm1`, `rm2`, `elong1`, `elong2`, `hardness1`, `hardness2`, `hardness3`, `impactp1`, `impactp2`, `impactp3`, `bendaxdia`, `designation`, `impacttemp`, `bendangle`, `codedmarking`, `stand`, `spec`, `indate`, (SELECT name FROM userform WHERE username = user) as user, (SELECT name FROM userform WHERE username = audit_user) as `audit_user`, `status`, `date`, `times`, `retimes`,`num` FROM rematerial WHERE 1=1 ";
         int num = 0;
 
-        try {
+//        try {
             if(!(sp.getCodedmarking() == null || sp.getCodedmarking().equals(""))){
                 sql = sql + "AND codedmarking = ? ";
             }
@@ -117,9 +117,9 @@ public class searchrematerial {                                         //材料
             Collections.reverse(as);                                          //将list倒序
             result.setData(as);
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
