@@ -49,6 +49,7 @@ public class searchrematerialdata {
     private String user;
     private String date;
     private String audit_user;
+    private int num;
     public searchrematerialdata(){
         super();
     }
@@ -435,5 +436,13 @@ public class searchrematerialdata {
 
     public void setAudit_user(String audit_user) {
         this.audit_user = audit_user;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 }

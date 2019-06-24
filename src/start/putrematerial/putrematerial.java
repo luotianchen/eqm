@@ -23,7 +23,7 @@ public class putrematerial {                            //材料复验登记提�
         putrematerialresult result = new putrematerialresult();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND status = 0 AND num = ?");
+            ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND (status = 0 OR status =-2) AND num = ?");
             ps.setString(1,pp.getCodedmarking());
             ps.setInt(2,pp.getNum());
             rs = ps.executeQuery();

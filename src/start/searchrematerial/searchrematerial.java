@@ -109,6 +109,7 @@ public class searchrematerial {                                         //材料
                 data.setUser(rs.getString("user"));
                 data.setDate(rs.getString("date"));
                 data.setAudit_user(rs.getString("audit_user"));
+                data.setNum(rs.getInt("num"));
                 as.add(data);
             }
             rs.close();
