@@ -22,7 +22,7 @@ public class putrematerial {                            //材料复验登记提�
 
         putrematerialresult result = new putrematerialresult();
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND (status = 0 OR status =-2) AND num = ?");
             ps.setString(1,pp.getCodedmarking());
             ps.setInt(2,pp.getNum());
@@ -145,9 +145,9 @@ public class putrematerial {                            //材料复验登记提�
                 ps.close();
             }
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }
