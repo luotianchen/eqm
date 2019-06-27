@@ -33,7 +33,7 @@ public class putrematerial {                            //材料复验登记提�
                         "c=?,si=?,mn=?,cu=?,ni=?,cr=?,mo=?,nb=?,v=?,ti=?,alt=?,n=?,mg=?,p=?,s=?," +
                         "als=?,fe=?,zn=?,b=?,w=?,sb=?,al=?,zr=?,ca=?,be=?," +
                         "rel1=?,rel2=?,rm1=?,rm2=?,elong1=?,elong2=?,hardness1=?,hardness2=?,hardness3=?,impactp1=?,impactp2=?,impactp3=?," +
-                        "impacttemp=?,bendangle=?,bendaxdia=?,indate=?,user=?,date=? WHERE codedmarking = ? AND (status = 0 OR status =-2) AND num = ?");
+                        "impacttemp=?,bendangle=?,bendaxdia=?,indate=?,user=?,date=?,status = 0 WHERE codedmarking = ? AND (status = 0 OR status =-2) AND num = ?");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(2,pp.getDesignation());
                 ps.setString(3,pp.getStand());
@@ -143,12 +143,7 @@ public class putrematerial {                            //材料复验登记提�
                 ps.setString(45,pp.getIndate());
                 ps.setString(46,pp.getUser());
                 ps.setDate(47,new java.sql.Date(new java.util.Date().getTime()));
-                if(pp.getNum()==-2){
-                    ps.setInt(48,0);
-                }else {
-                    ps.setInt(48,pp.getNum());
-                }
-
+                ps.setInt(48,pp.getNum());
                 ps.executeUpdate();
                 ps.close();
             }
