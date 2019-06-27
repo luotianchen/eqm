@@ -4,6 +4,7 @@ public class changestatusforrematlpost {
     private String codedmarking;
     private int status;
     private String audit_user;
+    private int num;
     public changestatusforrematlpost(){
         super();
     }
@@ -30,5 +31,13 @@ public class changestatusforrematlpost {
 
     public void setAudit_user(String audit_user) {
         this.audit_user = audit_user;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 }

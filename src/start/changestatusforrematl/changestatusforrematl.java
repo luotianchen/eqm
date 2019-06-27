@@ -24,18 +24,43 @@ public class changestatusforrematl {                                    //材料
 
         try {
             if(cp.getStatus()==1){
-                ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 1");
-                ps.setInt(1,3);
+                ps = conn.prepareStatement("DELETE FROM rematerial WHERE codedmarking = ? AND status = 1 AND num = ?");
+                ps.setString(1,cp.getCodedmarking());
+                ps.setInt(2,cp.getNum());
+                ps.executeUpdate();
+                ps.close();
+
+                ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 0 AND num = ?");
+                ps.setInt(1,cp.getStatus());
                 ps.setString(2,cp.getAudit_user());
                 ps.setString(3,cp.getCodedmarking());
+                ps.setInt(4,cp.getNum());
                 ps.executeUpdate();
+                ps.close();
+            }else {
+                ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND status = 1 AND num = ?");
+                if(rs.next()){
+                    rs.close();
+                    ps.close();
+                    ps = conn.prepareStatement("DELETE FROM rematerial WHERE codedmarking = ? AND status = 0 AND num = ?");
+                    ps.setString(1,cp.getCodedmarking());
+                    ps.setInt(2,cp.getNum());
+                    ps.executeUpdate();
+                    ps.close();
+                }else {
+                    rs.close();
+                    ps.close();
+                    ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 0 AND num = ?");
+                    ps.setInt(1,-2);
+                    ps.setString(2,cp.getAudit_user());
+                    ps.setString(3,cp.getCodedmarking());
+                    ps.setInt(4,cp.getNum());
+                    ps.executeUpdate();
+                    ps.close();
+                }
             }
 
-            ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 0");
-            ps.setInt(1,cp.getStatus());
-            ps.setString(2,cp.getAudit_user());
-            ps.setString(3,cp.getCodedmarking());
-            ps.executeUpdate();
+
             result.setResult("success");
         }catch (Exception e){
             result.setResult("fail");
