@@ -27,8 +27,8 @@ export class MaterialReinspectionAuditComponent implements OnInit {
       }
     })
   }
-  audit(prodno,status){
-    this.materialReinspectionAuditService.Audit(prodno,status,this._storage.get("username")).subscribe((res)=>{
+  audit(prodno,status,num){
+    this.materialReinspectionAuditService.Audit(prodno,status,num,this._storage.get("username")).subscribe((res)=>{
       if(res["result"]=="success"){
         this.message.success("审核成功！");
         this.searchData();

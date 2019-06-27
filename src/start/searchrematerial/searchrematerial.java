@@ -41,7 +41,7 @@ public class searchrematerial {                                         //材料
             if(!(sp.getYear() == null || sp.getYear().equals(""))){
                 sql = sql + "AND indate Like ? ";
             }
-            ps = conn.prepareStatement(sql+" AND not exists (select * from rematerial where num=r1.num and status>r1.status) ORDER BY num ASC");
+            ps = conn.prepareStatement(sql+" AND not exists (select * from rematerial where num=r1.num and status>r1.status) ORDER BY num DESC");
             if(!(sp.getCodedmarking() == null || sp.getCodedmarking().equals(""))){
                 num = num + 1;
                 ps.setString(num,sp.getCodedmarking());

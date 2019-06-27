@@ -13,11 +13,12 @@ export class MaterialReinspectionAuditService {
       status:0
     })
   }
-  Audit(codedmarking,status,audit_user){
+  Audit(codedmarking,status,num,audit_user){
     return this.http.post(this.api.BASEURL+'/changestatusforrematl',{
       codedmarking:codedmarking,
       audit_user:audit_user,
       status:status,
+      num:num,
     })
   }
 }
