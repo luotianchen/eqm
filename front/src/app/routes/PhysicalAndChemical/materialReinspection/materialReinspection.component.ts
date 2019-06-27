@@ -14,6 +14,7 @@ import {Observable, Observer} from "rxjs/index";
 export class  MaterialReinspectionComponent implements OnInit {
   public codedmarkings;
   validateForm: FormGroup;
+  rematerialForms:any;
 
   public direct = [ //直接判断是否为null来控制是否现实的
     "impacttemp",
@@ -268,18 +269,18 @@ export class  MaterialReinspectionComponent implements OnInit {
     }//误差
   };
 
-  formatInDate(){ //日期格式化
+  formatInDate(control){ //日期格式化
     let monthDay = /^([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
     let yearMonthDay = /^[1-9]\d{3}-([0]?[1-9]|1[0-2])-([0]?[1-9]|[1-2][0-9]|3[0-1])$/;
-    if(monthDay.test(this.validateForm.controls['indate'].value)){
-      this.validateForm.controls["indate"].setValue(new Date().getFullYear()+"-"+this.validateForm.controls['indate'].value);
-    }else if(!yearMonthDay.test(this.validateForm.controls['indate'].value)){
-      this.validateForm.controls["indate"].setValue(null);
+    if(monthDay.test(control.value)){
+      control.setValue(new Date().getFullYear()+"-"+control.value);
+    }else if(!yearMonthDay.test(control.value)){
+      control.setValue(null);
     }
   }
 
 
-  checkForDeveiation(controlname){
+  checkForDeveiation(form,controlname){
     if(!this.deviation[controlname]){
       return [0,0];
     }
@@ -287,7 +288,7 @@ export class  MaterialReinspectionComponent implements OnInit {
       return [0,0];
     else{
       for(let dev of this.deviation[controlname]){
-        if(this.belongto(this.validateForm.value[controlname],dev.range)){
+        if(this.belongto(form.controls[controlname].value,dev.range)){
           return dev.deviation.split('~');
         }
       }
@@ -295,8 +296,8 @@ export class  MaterialReinspectionComponent implements OnInit {
     return [0,0];
   }
 
-  updateMaxMin(item){
-    this.validateForm.controls[item].setValidators([Validators.required]);
+  updateMaxMin(form,item){
+    form.controls[item].setValidators([Validators.required]);
   }
 
   Number(num){
@@ -385,13 +386,13 @@ export class  MaterialReinspectionComponent implements OnInit {
   public chemicalcomposition = true;
 
   getInfoCompleted(){
+    this.searchMatl();
     if(this.validateForm.controls['codedmarking'].value!=null && this.validateForm.controls['codedmarking'].value!=""){
       this.materialReinspectionService.searchmatlnotice(this.validateForm.controls['codedmarking'].value).then((res:any)=>{
         if(res['result']=="success"){
           this.validateForm.controls['designation'].setValue(res['data']['designation']);
           this.validateForm.controls['stand'].setValue(res['data']['matlstand']);
           this.validateForm.controls['spec'].setValue(res['data']['spec']);
-          this.validateForm.controls['indate'].setValue(res['data']['indate']);
           this.materialReinspectionService.searchrematerialitem(this.validateForm.controls['codedmarking'].value).subscribe(res=>{
             if(res['result'] == "success")
               if(res['data'].length>0)
@@ -403,7 +404,7 @@ export class  MaterialReinspectionComponent implements OnInit {
     }
   }
 
-  changeChemicalcompositionDisplay(){//判断化学元素是否需要显示
+  changeChemicalcompositionDisplay(form){//判断化学元素是否需要显示
     let chemicalcomposition = [
         "c",
         "si",
@@ -433,14 +434,14 @@ export class  MaterialReinspectionComponent implements OnInit {
       ];
     if(!this.chemicalcomposition){
       for(let item of chemicalcomposition){
-        this.validateForm.controls[item].setValidators([]);
+        form.controls[item].setValidators([]);
         this.dataDetail[item].max = null;
         this.dataDetail[item].min = null;
       }
     }
   }
 
-  changeForceDisplay(){
+  changeForceDisplay(form){
     let forces = [
       'rel1',
       'rel2',
@@ -459,91 +460,93 @@ export class  MaterialReinspectionComponent implements OnInit {
       'bendaxdia'
     ];
     for(let item of forces)
-      this.validateForm.controls[item].setValidators([]);
+      form.controls[item].setValidators([]);
   }
 
 
   constructor(public materialReinspectionService: MaterialReinspectionService,public fb:FormBuilder,public message:NzMessageService,public modalService: NzModalService, public _storage: SessionStorageService) {
   }
-  changeHardness(name){ //硬度校验
-    if(!this.validateForm.controls[name].value)
-      this.validateForm.controls[name].setErrors({required: true});
-    else if(!/^[0-9]+(.[0-9])?[/][0-9]+(.[0-9])?[/][0-9]+(.[0-9])?$/.test(this.validateForm.controls[name].value)){
-      this.validateForm.controls[name].setValue(null);
-      this.validateForm.controls[name].setErrors({partern: true, error: true});
+  changeHardness(control,name){ //硬度校验
+    if(!control.value)
+      control.setErrors({required: true});
+    else if(!/^[0-9]+(.[0-9])?[/][0-9]+(.[0-9])?[/][0-9]+(.[0-9])?$/.test(control.value)){
+      control.setValue(null);
+      control.setErrors({partern: true, error: true});
     }else{
-      let data = this.validateForm.controls[name].value.split('/');
+      let data = control.value.split('/');
       for(let item of data){
         if(parseFloat(item) > this.dataDetail[name].max || parseFloat(item) < this.dataDetail[name].min) {
-          this.validateForm.controls[name].setErrors({overflow: true, error: true});
+          control.setErrors({overflow: true, error: true});
         }
       }
     }
   }
 
   //最大最小值检验
-  MaxMinJudge(name){
+  MaxMinJudge(form,name){
     if (this.dataDetail[name].max == null || this.dataDetail[name].max == 'null') this.dataDetail[name].max = 99999;
     if (this.dataDetail[name].min == null || this.dataDetail[name].min == 'null') this.dataDetail[name].min = 0;
-    if (this.validateForm.controls[name].value==null) {
-      this.validateForm.controls[name].setErrors({required: true})
-    } else if (this.validateForm.controls[name].value >  (Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(name)[1])) || this.validateForm.controls[name].value < (Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(name)[0]))) {
-      this.validateForm.controls[name].setErrors({overflow: true, error: true});
-    }
+    if (form.controls[name].value==null) {
+      form.controls[name].setErrors({required: true})
+    } else if (form.controls[name].value > Number(this.dataDetail[name].max) + Number(this.checkForDeveiation(form,name)[1])  || form.controls[name].value < Number(this.dataDetail[name].min) - Number(this.checkForDeveiation(form,name)[0])) {
+      form.controls[name].setErrors({overflow: true, error: true});
+      }
   }
 
-  submitForm(){
-    for(const i in this.validateForm.controls){
-      this.validateForm.controls[ i ].markAsDirty();
-      this.validateForm.controls[ i ].updateValueAndValidity();
+  submitForm(index){
+    let form = this.rematerialForms[index];
+    for(const i in form.controls){
+      form.controls[ i ].markAsDirty();
+      form.controls[ i ].updateValueAndValidity();
     }
-    if(this.validateForm.valid){
+    if(form.valid){
       this.materialReinspectionService.putMatlReinspection({
         "codedmarking":this.validateForm.controls['codedmarking'].value,
         "designation":this.validateForm.controls['designation'].value,
         "stand":this.validateForm.controls['stand'].value,
         "spec":this.validateForm.controls['spec'].value,
-        "c":this.validateForm.controls['c'].value,
-        "mn":this.validateForm.controls['mn'].value,
-        "si":this.validateForm.controls['si'].value,
-        "p":this.validateForm.controls['p'].value,
-        "s":this.validateForm.controls['s'].value,
-        "cr":this.validateForm.controls['cr'].value,
-        "ni":this.validateForm.controls['ni'].value,
-        "ti":this.validateForm.controls['ti'].value,
-        "mo":this.validateForm.controls['mo'].value,
-        "nb":this.validateForm.controls['nb'].value,
-        "cu":this.validateForm.controls['cu'].value,
-        "fe":this.validateForm.controls['fe'].value,
-        "n":this.validateForm.controls['n'].value,
-        "alt":this.validateForm.controls['alt'].value,
-        "als":this.validateForm.controls['als'].value,
-        "mg":this.validateForm.controls['mg'].value,
-        "zn":this.validateForm.controls['zn'].value,
-        "v":this.validateForm.controls['v'].value,
-        "b":this.validateForm.controls['b'].value,
-        "w":this.validateForm.controls['w'].value,
-        "sb":this.validateForm.controls['sb'].value,
-        "al":this.validateForm.controls['al'].value,
-        "zr":this.validateForm.controls['zr'].value,
-        "ca":this.validateForm.controls['ca'].value,
-        "be":this.validateForm.controls['be'].value,
-        "rel1":this.validateForm.controls['rel1'].value,
-        "rel2":this.validateForm.controls['rel2'].value,
-        "rm1":this.validateForm.controls['rm1'].value,
-        "rm2":this.validateForm.controls['rm2'].value,
-        "elong1":this.validateForm.controls['elong1'].value,
-        "elong2":this.validateForm.controls['elong2'].value,
-        "hardness1":this.validateForm.controls['hardness1'].value,
-        "hardness2":this.validateForm.controls['hardness2'].value,
-        "hardness3":this.validateForm.controls['hardness3'].value,
-        "impactp1":this.validateForm.controls['impactp1'].value,
-        "impactp2":this.validateForm.controls['impactp2'].value,
-        "impactp3":this.validateForm.controls['impactp3'].value,
-        "impacttemp":this.validateForm.controls['impacttemp'].value,
-        "bendangle":this.validateForm.controls['bendangle'].value,
-        "bendaxdia":this.validateForm.controls['bendaxdia'].value,
-        "indate":this.validateForm.controls['indate'].value,
+        "c":form.controls['c'].value,
+        "mn":form.controls['mn'].value,
+        "si":form.controls['si'].value,
+        "p":form.controls['p'].value,
+        "s":form.controls['s'].value,
+        "cr":form.controls['cr'].value,
+        num:index+1,
+        "ni":form.controls['ni'].value,
+        "ti":form.controls['ti'].value,
+        "mo":form.controls['mo'].value,
+        "nb":form.controls['nb'].value,
+        "cu":form.controls['cu'].value,
+        "fe":form.controls['fe'].value,
+        "n":form.controls['n'].value,
+        "alt":form.controls['alt'].value,
+        "als":form.controls['als'].value,
+        "mg":form.controls['mg'].value,
+        "zn":form.controls['zn'].value,
+        "v":form.controls['v'].value,
+        "b":form.controls['b'].value,
+        "w":form.controls['w'].value,
+        "sb":form.controls['sb'].value,
+        "al":form.controls['al'].value,
+        "zr":form.controls['zr'].value,
+        "ca":form.controls['ca'].value,
+        "be":form.controls['be'].value,
+        "rel1":form.controls['rel1'].value,
+        "rel2":form.controls['rel2'].value,
+        "rm1":form.controls['rm1'].value,
+        "rm2":form.controls['rm2'].value,
+        "elong1":form.controls['elong1'].value,
+        "elong2":form.controls['elong2'].value,
+        "hardness1":form.controls['hardness1'].value,
+        "hardness2":form.controls['hardness2'].value,
+        "hardness3":form.controls['hardness3'].value,
+        "impactp1":form.controls['impactp1'].value,
+        "impactp2":form.controls['impactp2'].value,
+        "impactp3":form.controls['impactp3'].value,
+        "impacttemp":form.controls['impacttemp'].value,
+        "bendangle":form.controls['bendangle'].value,
+        "bendaxdia":form.controls['bendaxdia'].value,
+        "indate":form.controls['indate'].value,
         "user":this._storage.get("username")
       }).then((res:any)=>{
         if(res['result']=="success"){
@@ -551,7 +554,7 @@ export class  MaterialReinspectionComponent implements OnInit {
             nzTitle: '成功',
             nzContent: '您已提交成功！'
           });
-          this.validateForm.reset();
+          form.reset();
         }
       })
     }
@@ -560,25 +563,79 @@ export class  MaterialReinspectionComponent implements OnInit {
   searchMatl(){
     this.materialReinspectionService.searchrematerial(this.validateForm.controls['codedmarking'].value).subscribe(res=>{
       if(res['result'] == "success"){
-        for(let i in this.validateForm.controls){
-          if(i!='codedmarking' && i!="designation" && i!="spec" && i!="stand"){
-            this.validateForm.controls[i].enable();
-            this.validateForm.controls[i].setValue(null);
-          }
-        }
-        if(res['data'] && res['data'].length>0){
-          for(let i in res['data'][0]){
-            if(res['data'][0][i]){
-              if(this.validateForm.controls[i] && i!='codedmarking' && i!="designation" && i!="spec" && i!="stand"){
-                this.validateForm.controls[i].setValue(res['data'][0][i]);
-                this.validateForm.controls[i].disable();
-              }
-            }
-          }
+        this.rematerialForms=[];
+        let fbb:FormGroup;
+        for(let rematl of res['data']){
+          fbb=this.fb.group({
+            al:rematl.al,
+            als: rematl.als,
+            alt: rematl.alt,
+            b: rematl.b,
+            be: rematl.be,
+            bendangle:rematl.bendangle,
+            bendaxdia:rematl.bendaxdia,
+            c: rematl.c,
+            ca: rematl.ca,
+            cr: rematl.cr,
+            cu: rematl.cu,
+            elong1: rematl.elong1,
+            elong2:rematl.elong2,
+            fe:rematl.fe,
+            hardness1: rematl.hardness1,
+            hardness2: rematl.hardness2,
+            hardness3: rematl.hardness3,
+            impactp1: rematl.impactp1,
+            impactp2: rematl.impactp2,
+            impactp3: rematl.impactp3,
+            impacttemp:rematl.impacttemp,
+            indate: [rematl.indate,[Validators.required]],
+            mg: rematl.mg,
+            mn: rematl.mn,
+            mo: rematl.mo,
+            n:rematl.n,
+            nb: rematl.nb,
+            ni: rematl.ni,
+            p: rematl.p,
+            rel1: rematl.rel1,
+            rel2: rematl.rel2,
+            rm1: rematl.rm1,
+            rm2: rematl.rm2,
+            s: rematl.s,
+            sb: rematl.sb,
+            si: rematl.si,
+            spec: rematl.spec,
+            stand: rematl.stand,
+            ti: rematl.ti,
+            v: rematl.v,
+            w: rematl.w,
+            zn: rematl.zn,
+            zr: rematl.zr
+          })
+          this.rematerialForms.push(fbb);
         }
       }
     })
   }
+
+  fillMatl(){
+    for (let form of this.rematerialForms) {
+      for(let i in form.controls){
+        if(i!='codedmarking' && i!="designation" && i!="spec" && i!="stand" && i!="date"){
+          form.controls[i].enable();
+        }
+      }
+      if(this.rematerialForms && this.rematerialForms.length>0){
+        for(let i in form.controls){
+          if(form.controls[i]){
+            if(form.controls[i].value && i!='codedmarking' && i!="designation" && i!="spec" && i!="stand"&& i!="date"){
+              form.controls[i].disable();
+            }
+          }
+        }
+      }
+    }
+  }
+
 
   /**
    * 当输入材料标准、牌号都输入完后，会先通过这两项去查询相应标准，若查不到，则检测规格是否输入，已输入则用材料标准、牌号、规格三项查询相应标准内容。
@@ -590,25 +647,27 @@ export class  MaterialReinspectionComponent implements OnInit {
           this.dataDetail = res['data'];
           this.dataDetail.status = true;
           this.deviation = this.dataDetail.deviation;
-          for (let i =0;i<this.maxmin.length;i++){
-            let item = this.maxmin[i];
-            if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-              this.validateForm.controls[item].setValidators([Validators.required]);
-              if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
-              if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
-            }else{
-              this.validateForm.controls[item].setValidators([]);
+          for (let x=0;x<this.rematerialForms.length;x++){
+            for (let i =0;i<this.maxmin.length;i++){
+              let item = this.maxmin[i];
+              if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
+                this.rematerialForms[x].controls[item].setValidators([Validators.required]);
+                if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
+              }else{
+                this.rematerialForms[x].controls[item].setValidators([]);
+              }
             }
-          }
-          for(let i =0;i<this.direct.length;i++){
-            let item = this.direct[i];
-            if (this.dataDetail[item] != null) {
-              this.validateForm.controls[item].setValidators([Validators.required]);
+            for(let i =0;i<this.direct.length;i++){
+              let item = this.direct[i];
+              if (this.dataDetail[item] != null) {
+                this.rematerialForms[x].controls[item].setValidators([Validators.required]);
+              }
             }
+            this.changeChemicalcompositionDisplay(this.rematerialForms[x]);
+            this.changeForceDisplay(this.rematerialForms[x]);
           }
-          this.changeChemicalcompositionDisplay();
-          this.changeForceDisplay();
-          this.searchMatl();
+          this.fillMatl();
         }else if(this.validateForm.controls['stand'].value!=null && this.validateForm.controls['designation'].value!=null && this.validateForm.controls['spec'].value!=null&&this.validateForm.controls['stand'].value!="" && this.validateForm.controls['designation'].value!="" && this.validateForm.controls['spec'].value!=""){
           let specData = this.validateForm.controls['spec'].value;
           if(this.validateForm.controls['spec'].value.indexOf("δ=")!=-1){
@@ -619,25 +678,27 @@ export class  MaterialReinspectionComponent implements OnInit {
               this.dataDetail = res['data'];
               this.dataDetail.status = true;
               this.deviation = this.dataDetail.deviation;
-              for (let i =0;i<this.maxmin.length;i++){
-                let item = this.maxmin[i];
-                if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
-                  this.validateForm.controls[item].setValidators([Validators.required]);
-                  if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
-                  if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
-                }else{
-                  this.validateForm.controls[item].setValidators([]);
+              for (let x=0;x<this.rematerialForms.length;x++){
+                for (let i =0;i<this.maxmin.length;i++){
+                  let item = this.maxmin[i];
+                  if (this.dataDetail[item].max != null || this.dataDetail[item].min != null) {
+                    this.rematerialForms[x].controls[item].setValidators([Validators.required]);
+                    if (this.dataDetail[item].max == null || this.dataDetail[item].max == 'null') this.dataDetail[item]['max'] = 99999;
+                    if (this.dataDetail[item].min == null || this.dataDetail[item].min == 'null') this.dataDetail[item]['min'] = 0;
+                  }else{
+                    this.rematerialForms[x].controls[item].setValidators([]);
+                  }
                 }
-              }
-              for(let i =0;i<this.direct.length;i++){
-                let item = this.direct[i];
-                if (this.dataDetail[item] != null) {
-                  this.validateForm.controls[item].setValidators([Validators.required]);
+                for(let i =0;i<this.direct.length;i++){
+                  let item = this.direct[i];
+                  if (this.dataDetail[item] != null) {
+                    this.rematerialForms[x].controls[item].setValidators([Validators.required]);
+                  }
                 }
+                this.changeChemicalcompositionDisplay(this.rematerialForms[x]);
+                this.changeForceDisplay(this.rematerialForms[x]);
               }
-              this.changeChemicalcompositionDisplay();
-              this.changeForceDisplay();
-              this.searchMatl();
+              this.fillMatl();
             }
           });
         }
@@ -649,11 +710,11 @@ export class  MaterialReinspectionComponent implements OnInit {
   /**
    * 判断弯曲直径大小（格式：数组+'a'），输入弯曲直径应大于标准中的直径大小
    */
-  judgeBendaxdia(){
-    let value = this.validateForm.controls['bendaxdia'].value;
+  judgeBendaxdia(form){
+    let value = form.value;
     let exp = /^([1-9]\d*|0)(\.\d{1,2})*(a)$/;
     if(!exp.test(value)){
-      this.validateForm.controls["bendaxdia"].setValue(null);
+      form.setValue(null);
       return;
     }
     if(this.dataDetail.bendaxdia){
@@ -662,10 +723,8 @@ export class  MaterialReinspectionComponent implements OnInit {
       let index2 = value.indexOf("a");
       let newValue = parseFloat(value.substring(0,index2));
       if(newValue > yaoqiu){
-        this.validateForm.controls["bendaxdia"].setValue(null);
+        form.controls["bendaxdia"].setValue(null);
       }
     }
-
   }
-
 }

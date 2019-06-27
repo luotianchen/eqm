@@ -22,7 +22,7 @@ public class changestatusforrematl {                                    //材料
 
         changestatusforrematlresult result = new changestatusforrematlresult();
 
-        try {
+//        try {
             if(cp.getStatus()==1){
                 ps = conn.prepareStatement("DELETE FROM rematerial WHERE codedmarking = ? AND status = 1 AND num = ?");
                 ps.setString(1,cp.getCodedmarking());
@@ -39,6 +39,9 @@ public class changestatusforrematl {                                    //材料
                 ps.close();
             }else {
                 ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND status = 1 AND num = ?");
+                ps.setString(1,cp.getCodedmarking());
+                ps.setInt(2,cp.getNum());
+                rs = ps.executeQuery();
                 if(rs.next()){
                     rs.close();
                     ps.close();
@@ -50,11 +53,17 @@ public class changestatusforrematl {                                    //材料
                 }else {
                     rs.close();
                     ps.close();
-                    ps = conn.prepareStatement("UPDATE rematerial SET status = ?,audit_user = ? WHERE codedmarking = ? AND status = 0 AND num = ?");
-                    ps.setInt(1,-2);
-                    ps.setString(2,cp.getAudit_user());
-                    ps.setString(3,cp.getCodedmarking());
-                    ps.setInt(4,cp.getNum());
+                    ps = conn.prepareStatement("DELETE FROM rematerial WHERE codedmarking = ? AND status = 0 AND num = ?");
+                    ps.setString(1,cp.getCodedmarking());
+                    ps.setInt(2,cp.getNum());
+                    ps.executeUpdate();
+                    ps.close();
+
+
+                    ps = conn.prepareStatement("INSERT INTO rematerial(codedmarking,num,status) VALUES (?,?,?)");
+                    ps.setString(1,cp.getCodedmarking());
+                    ps.setInt(2,cp.getNum());
+                    ps.setInt(3,-2);
                     ps.executeUpdate();
                     ps.close();
                 }
@@ -62,9 +71,9 @@ public class changestatusforrematl {                                    //材料
 
 
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }

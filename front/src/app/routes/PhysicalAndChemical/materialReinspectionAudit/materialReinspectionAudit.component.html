@@ -30,7 +30,7 @@
       <td>{{data.designation}}</td>
       <td>{{data.stand}}</td>
       <td>{{data.spec}}</td>
-      <td><a (click)="audit(data.codedmarking,1)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.codedmarking,2)">拒绝</a></td>
+      <td><a (click)="audit(data.codedmarking,1,data.num)">通过</a><nz-divider nzType="vertical"></nz-divider><a (click)="audit(data.codedmarking,2,data.num)">拒绝</a></td>
     </tr>
     <tr [nzExpand]="data.expand">
       <td></td>
