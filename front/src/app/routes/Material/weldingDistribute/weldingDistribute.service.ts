@@ -28,8 +28,8 @@ export class WeldingDistributeService {
   getputmaterial() {
     return this.http.get(`${this.api.BASEURL}/getputmaterial`);
   }
-  getcodedmarking(codedmarking){
-    return this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking});
+  getcodedmarking() {
+    return this.http.get(`${this.api.BASEURL}/getcodedmarking`);
   }
   getuserform() {
     return this.http.get(`${this.api.BASEURL}/getuserform`);

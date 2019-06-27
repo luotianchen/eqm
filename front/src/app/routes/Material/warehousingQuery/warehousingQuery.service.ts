@@ -9,13 +9,10 @@ export class WarehousingQueryService {
   getputmaterial() {
     return this.http.get(this.api.BASEURL+'/getputmaterial');
   }
-  searchHeatbatchno(heatbatchno){
-    return this.http.post(this.api.BASEURL+'/searchheatbatchno',{status:1,heatbatchno:heatbatchno});
+  getCodedmarking(){
+    return this.http.get(this.api.BASEURL+'/getcodedmarking');
   }
-  getCodedmarking(codedmarking){
-    return this.http.post(this.api.BASEURL+"/getcodedmarking",{codedmarking:codedmarking});
-  }
-  searchallmaterial(pageindex,pagesize,codedmarking,matlname,designation,spec,millunit,heatbatchno,indate,status){
+  searchallmaterial(pageindex,pagesize,codedmarking,matlname,designation,spec,millunit,indate,status){
     return this.http.post(this.api.BASEURL+"/searchallmaterial",{
       pageindex:pageindex,
       pagesize:pagesize,
@@ -25,7 +22,6 @@ export class WarehousingQueryService {
         designation:designation,
         spec:spec,
         millunit:millunit,
-        heatbatchno:heatbatchno,
         indate:indate,
         status:status
       }

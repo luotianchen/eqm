@@ -12,6 +12,11 @@
           <element id="library" level="project" name="sun.misc.BASE64Decoder" />
           <element id="library" level="project" name="activation" />
           <element id="library" level="project" name="xmlbeans-2.6.0" />
+          <element id="library" level="project" name="itextpdf-5.5.8" />
+          <element id="library" level="project" name="itext-asian" />
+          <element id="library" level="project" name="core-3.3.3" />
+          <element id="library" level="project" name="swingx-1.6.1" />
+          <element id="library" level="project" name="commons-codec-1.11" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="eqm/web/Web" />

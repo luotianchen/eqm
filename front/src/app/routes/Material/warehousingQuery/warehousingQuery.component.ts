@@ -14,18 +14,10 @@ export class WarehousingQueryComponent implements OnInit {
   public pagesize = 25;
   public total = 0;
   public loading = true;
-  public matlnameDataSet = [];
-  public matlnames = [];
-  public millunitDataSet = [];
+  public matlname = [];
   public millunits = [];
   public specs = [];
-  public heatbatchnos = [];
-  public codedmarkings = [];
   public dataset = [];
-  public designationDataSet = [];
-  public designations = [];
-  username2name = {};
-  users = [];
     onSpecInput(value: string): void {
     this.specs = value ? [
       value,
@@ -48,29 +40,6 @@ export class WarehousingQueryComponent implements OnInit {
       "10~60目"
     ];
   }
-  onCodedmarkingInput(value: string): void {
-    this.warehousingQueryService.getCodedmarking(value).subscribe((res) => {
-      if (res["result"] == "success") {
-        this.codedmarkings = res['data'];
-      }
-    });
-  }
-  onMillunitInput(value: string): void {
-    this.millunits = value? this.millunitDataSet.filter(item=>item.indexOf(value)!=-1) :this.millunitDataSet;
-  }
-  onDesignationInput(value: string): void {
-    this.designations = value?this.designationDataSet.filter(item=>item.indexOf(value)!=-1):this.designationDataSet;
-  }
-  onMatlnameInput(value: string): void {
-    this.matlnames = value?this.matlnameDataSet.filter(item=>item.indexOf(value)!=-1):this.matlnameDataSet;
-  }
-  onHeatbatchnoInput(value: string): void{
-    this.warehousingQueryService.searchHeatbatchno(value).subscribe((res) => {
-      if (res["result"] == "success") {
-        this.heatbatchnos = res['data'];
-      }
-    });
-  }
   statusQ = [{
     value:-1,
     label:"全部"
@@ -81,16 +50,15 @@ export class WarehousingQueryComponent implements OnInit {
     value:0,
     label:"未审核"
   }];
+  codedmarkings = [];
   constructor(public fb: FormBuilder, public warehousingQueryService: WarehousingQueryService) {
     this.warehousingQueryService.getputmaterial().subscribe(res => {
-      this.matlnameDataSet = res['data']['matlname'];
-      this.millunitDataSet = res['data']['millunit'];
-      this.designationDataSet = res['data']['designation'];
+      if (res['result'] === 'success') {
+        this.matlname = res['data']['matlname'];
+        this.millunits = res['data']['millunit'];
+      }
     });
-    this.warehousingQueryService.searchHeatbatchno(null).subscribe(res=>{
-      this.heatbatchnos = res['data'];
-    })
-    this.warehousingQueryService.getCodedmarking(null).subscribe(res=>{
+    this.warehousingQueryService.getCodedmarking().subscribe(res=>{
       if(res['result'] == "success"){
         this.codedmarkings = res['data'];
       }
@@ -117,8 +85,7 @@ export class WarehousingQueryComponent implements OnInit {
       "spec":[null],
       "millunit":[null],
       "indate":[null],
-      "status":[null],
-      "heatbatchno":[null]
+      "status":[null]
     });
     this.searchData();
   }
@@ -140,7 +107,7 @@ export class WarehousingQueryComponent implements OnInit {
     if(this.validateForm.value.status==null){
       this.validateForm.controls['status'].setValue(1);
     }
-    this.warehousingQueryService.searchallmaterial(this.pageindex,this.pagesize,this.validateForm.value.codedmarking,this.validateForm.value.matlname,this.validateForm.value.designation,this.validateForm.value.spec,this.validateForm.value.millunit,this.validateForm.value.heatbatchno,this.validateForm.value.indate,this.validateForm.value.status).subscribe((res)=>{
+    this.warehousingQueryService.searchallmaterial(this.pageindex,this.pagesize,this.validateForm.value.codedmarking,this.validateForm.value.matlname,this.validateForm.value.designation,this.validateForm.value.spec,this.validateForm.value.millunit,this.validateForm.value.indate,this.validateForm.value.status).subscribe((res)=>{
       if(res["result"]=="success"){
         this.total = res["total"];
         this.dataset = res["data"];

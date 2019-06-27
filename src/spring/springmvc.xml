@@ -15,7 +15,7 @@
     <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"/>
     <!--<mvc:resources mapping="/upload/" location="/upload/"/>-->
     <!-- 组件扫描 -->
-    <context:component-scan base-package="start"/>
+    <context:component-scan base-package="start"></context:component-scan>
 
     <mvc:default-servlet-handler/>
     <!-- 适配器和映射器 -->

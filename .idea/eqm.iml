@@ -36,5 +36,7 @@
     <orderEntry type="library" name="itextpdf-5.5.8" level="project" />
     <orderEntry type="library" name="itext-asian" level="project" />
     <orderEntry type="library" name="core-3.3.3" level="project" />
+    <orderEntry type="library" name="swingx-1.6.1" level="project" />
+    <orderEntry type="library" name="commons-codec-1.11" level="project" />
   </component>
 </module>

@@ -17,7 +17,6 @@ export class DesignAuditComponent implements OnInit {
     channel:[],
     saferel:[]
   };
-  dwgnonow = null;
   loading = true;
   constructor(public designAuditService:DesignAuditService,public message : NzMessageService,public _storage:SessionStorageService){
   }
@@ -45,7 +44,6 @@ export class DesignAuditComponent implements OnInit {
   visible = false;
 
   open(dwgno): void {
-    this.dwgnonow = dwgno;
     this.designAuditService.getbydwgno(dwgno,0).subscribe((res)=>{
       this.modelData.data = res["data"];
     });

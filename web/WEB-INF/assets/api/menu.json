@@ -2,6 +2,7 @@
   "data": [
     {
       "name": "材料管理",
+      "route":"/material",
       "data": [
         {
           "icon": "home",
@@ -23,7 +24,7 @@
               "route": "/material/warehousingAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "材料入库查询",
               "route": "/material/warehousingQuery"
             }
@@ -44,7 +45,7 @@
               "route": "/material/materialSubstitutionAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "代用通知单查询",
               "route": "/material/materialSubstitutionQuery"
             }]
@@ -75,31 +76,31 @@
             }]
         },
         {
-          "icon": "code-o",
+          "icon": "laptop",
           "name": "材料查询",
           "submenu": [
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "质保书未到情况查询",
               "route": "/material/warrantyAbsent"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "单项质保书未到查询",
               "route": "/material/singleWarrantyAbsent"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "材料使用查询",
               "route": "/material/materialUsing"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "月材料查询",
               "route": "/material/monthMaterial"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "受压元件对照表",
               "route": "/material/presureParts"
             }]
@@ -143,6 +144,7 @@
     },
     {
       "name": "理化管理",
+      "route":"/physicalAndChemical",
       "data": [
         {
           "icon": "home",
@@ -150,7 +152,7 @@
           "route": "/dashboard"
         },
         {
-          "icon": "user",
+          "icon": "code-o",
           "name": "材料复验",
           "submenu": [
             {
@@ -159,12 +161,12 @@
               "route": "/physicalAndChemical/materialReinspectionCommission"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "材料复验申请审核",
               "route": "/physicalAndChemical/materialReinspectionCommissionAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "材料复验申请查询",
               "route": "/physicalAndChemical/materialReinspectionCommissionQuery"
             },
@@ -179,12 +181,12 @@
               "route": "/physicalAndChemical/materialReinspection"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "材料复验登记审核",
               "route": "/physicalAndChemical/materialReinspectionAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "材料复验登记查询",
               "route": "/physicalAndChemical/materialReinspectionQuery"
             },
@@ -210,12 +212,12 @@
               "route": "/physicalAndChemical/productTestBoardCommission"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "产品试板委托审核",
               "route": "/physicalAndChemical/productTestBoardCommissionAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "产品试板委托查询",
               "route": "/physicalAndChemical/productTestBoardCommissionQuery"
             },
@@ -225,12 +227,12 @@
               "route": "/physicalAndChemical/productTestBoardDataRegistration"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "产品试板登记审核",
               "route": "/physicalAndChemical/productTestBoardDataRegistrationAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "产品试板登记查询",
               "route": "/physicalAndChemical/productTestBoardDataRegistrationQuery"
             },
@@ -254,6 +256,7 @@
     },
     {
       "name": "检验与试验管理",
+      "route":"/inspectionAndTest",
       "data": [
         {
           "icon": "home",
@@ -261,7 +264,7 @@
           "route": "/dashboard"
         },
         {
-          "icon": "user",
+          "icon": "code-o",
           "name": "参数输入",
           "submenu": [
             {
@@ -275,7 +278,7 @@
               "route": "/inspectionAndTest/vacuumParameters"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "真空参数审核",
               "route": "/inspectionAndTest/vacuumParameterAudit"
             },
@@ -285,12 +288,12 @@
               "route": "/inspectionAndTest/productManufacturingParameters"
             },
             {
-              "icon": "laptop",
+              "icon": "audit",
               "name": "产品制造参数审核",
               "route": "/inspectionAndTest/productManufacturingParametersAudit"
             },
             {
-              "icon": "laptop",
+              "icon": "table",
               "name": "产品制造参数查询",
               "route": "/inspectionAndTest/productManufacturingParametersQuery"
             },
@@ -401,6 +404,7 @@
     },
     {
       "name": "设备管理",
+      "route":"/instrument",
       "data": [
         {
           "icon": "home",
@@ -412,24 +416,24 @@
           "name": "计量器具台帐",
           "submenu": [
             {
-              "icon": "user",
+              "icon": "code-o",
               "name": "计量器具台帐输入",
               "route": "/instrument/measuringInstrumentLedger"
             },
             {
-              "icon": "user",
+              "icon": "audit",
               "name": "计量器具台帐审核",
               "route": "/instrument/measuringInstrumentLedgerAudit"
             },
             {
-              "icon": "user",
+              "icon": "table",
               "name": "计量器具台帐查询",
               "route": "/instrument/measuringInstrumentLedgerQuery"
             }
           ]
         },
         {
-          "icon": "laptop",
+          "icon": "setting",
           "name": "设备计量台帐邮箱设置",
           "route": "/instrument/measuringInstrumentSetting"
         }
@@ -437,6 +441,7 @@
     },
     {
       "name":"设计数据管理",
+      "route":"/design",
       "data":[
         {
           "icon": "home",
@@ -449,12 +454,12 @@
           "route" : "/design/input"
         },
         {
-          "icon" : "laptop",
+          "icon" : "audit",
           "name" : "设计参数审核",
           "route" : "/design/audit"
         },
         {
-          "icon" : "laptop",
+          "icon" : "table",
           "name" : "设计参数查询",
           "route" : "/design/query"
         }
@@ -462,6 +467,7 @@
     },
     {
       "name": "系统管理",
+      "route":"/system",
       "data": [
         {
           "icon": "home",
@@ -469,22 +475,22 @@
           "route": "/dashboard"
         },
         {
-          "icon": "code-o",
+          "icon": "setting",
           "name": "系统设置",
           "route": "/system/setting"
         },
         {
-          "icon": "user",
+          "icon": "solution",
           "name": "用户管理",
           "route": "/system/user"
         },
         {
-          "icon": "code-o",
+          "icon": "team",
           "name": "部门角色管理",
           "route": "/system/role"
         },
         {
-          "icon": "code-o",
+          "icon": "key",
           "name": "访问权限管理",
           "route": "/system/accessPermission"
         }

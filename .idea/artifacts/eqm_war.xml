@@ -6,6 +6,11 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="lib">
           <element id="library" level="project" name="jacob" />
+          <element id="library" level="project" name="itextpdf-5.5.8" />
+          <element id="library" level="project" name="itext-asian" />
+          <element id="library" level="project" name="core-3.3.3" />
+          <element id="library" level="project" name="swingx-1.6.1" />
+          <element id="library" level="project" name="commons-codec-1.11" />
         </element>
       </element>
     </root>

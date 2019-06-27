@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>欢迎使用企业质量管理系统</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <style>
         html,body{
             width: 100%;
@@ -35,7 +36,7 @@
             height: 80px;
             font-size: 16px;
             line-height: 80px;
-            background-color: #4c5a5d;
+            background-color: #001529;
             display: inline-block;
         }
         .logo{
@@ -87,7 +88,7 @@
             font-weight: 500;
         }
         .header .nav li:hover{
-            background-color: #6e7c7f
+            background-color: #1890ff
         }
         .header .nav li.active{
             height: 76px;
@@ -149,10 +150,10 @@
             width: 20%;
             background-color: #0692e1;
             height: 4px;
-            box-shadow: 1px #000;
+            box-shadow: 1px 0 0 #000;
         }
         footer{
-            background-color: #4c5a5d;
+            background-color: #001529;
             width: 100%;
             height: 250px;
             line-height: 180px;
@@ -237,7 +238,7 @@
         <img src="assets/install/install-1.png">
     </p>
     <p class="title">2.产品质量计划、产品材料清单等pdf无法正常生成</p>
-    <p class="text">首先请按照下列提示完成JAVA环境变量配置，若仍然不能使用，请检查是否已在服务器安装Microsoft Office产品（2007版需安装excelSaveAsPDFandXPS组件）</p>
+    <p class="text">首先请按照下列提示完成JAVA环境变量配置，若仍然不能使用，请检查是否已在服务器安装Microsoft Office产品（2007版需安装excel->SaveAsPDFandXPS组件）</p>
     <div class="indent">
         <p class="text"><strong>1、新建系统变量</strong></p>
         <p class="text">我的电脑（或计算机、此电脑）右键选择属性，高级设置，环境变量。点击选择【新建系统变量】--弹出“新建系统变量”对话框，在“变量名”文本框输入“JAVA_HOME”,在“变量值”文本框输入软件的安装路径加上"\apache-tomcat-8.5.40\bin\Java\jdk1.8.0_181"。</p>
@@ -254,7 +255,7 @@
     <div class="footer">
         <div class="footer-logo">
             <h1>企业质量管理系统</h1>
-            <div class="banquan">©2019 xx公司 版权所有</div>
+            <div class="banquan">Copyright ©2019 雷恩博科技 版权所有</div>
         </div>
     </div>
 </footer>
