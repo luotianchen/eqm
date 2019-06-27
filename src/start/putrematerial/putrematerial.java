@@ -22,17 +22,18 @@ public class putrematerial {                            //材料复验登记提�
 
         putrematerialresult result = new putrematerialresult();
 
-//        try {
+        try {
             ps = conn.prepareStatement("SELECT * FROM rematerial WHERE codedmarking = ? AND (status = 0 OR status =-2) AND num = ?");
             ps.setString(1,pp.getCodedmarking());
             ps.setInt(2,pp.getNum());
             rs = ps.executeQuery();
             if(rs.next()){
+                ps.close();
                 ps = conn.prepareStatement("UPDATE rematerial SET codedmarking=?,designation=?,stand=?,spec=?," +
                         "c=?,si=?,mn=?,cu=?,ni=?,cr=?,mo=?,nb=?,v=?,ti=?,alt=?,n=?,mg=?,p=?,s=?," +
                         "als=?,fe=?,zn=?,b=?,w=?,sb=?,al=?,zr=?,ca=?,be=?," +
                         "rel1=?,rel2=?,rm1=?,rm2=?,elong1=?,elong2=?,hardness1=?,hardness2=?,hardness3=?,impactp1=?,impactp2=?,impactp3=?," +
-                        "impacttemp=?,bendangle=?,bendaxdia=?,indate=?,user=?,date=? WHERE codedmarking = ? AND status = 0");
+                        "impacttemp=?,bendangle=?,bendaxdia=?,indate=?,user=?,date=? WHERE codedmarking = ? AND (status = 0 OR status =-2) AND num = ?");
                 ps.setString(1,pp.getCodedmarking());
                 ps.setString(2,pp.getDesignation());
                 ps.setString(3,pp.getStand());
@@ -81,9 +82,11 @@ public class putrematerial {                            //材料复验登记提�
                 ps.setString(46,pp.getUser());
                 ps.setDate(47,new java.sql.Date(new java.util.Date().getTime()));
                 ps.setString(48,pp.getCodedmarking());
+                ps.setInt(49,pp.getNum());
                 ps.executeUpdate();
                 ps.close();
             }else {
+                ps.close();
                 ps = conn.prepareStatement("INSERT INTO rematerial(codedmarking,designation,stand,spec," +
                         "c,si,mn,cu,ni,cr,mo,nb,v,ti,alt,n,mg,p,s," +
                         "als,fe,zn,b,w,sb,al,zr,ca,be," +
@@ -145,9 +148,10 @@ public class putrematerial {                            //材料复验登记提�
                 ps.close();
             }
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+            rs.close();
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
