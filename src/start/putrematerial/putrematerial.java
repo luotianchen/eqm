@@ -143,7 +143,12 @@ public class putrematerial {                            //材料复验登记提�
                 ps.setString(45,pp.getIndate());
                 ps.setString(46,pp.getUser());
                 ps.setDate(47,new java.sql.Date(new java.util.Date().getTime()));
-                ps.setInt(48,pp.getNum());
+                if(pp.getNum()==-2){
+                    ps.setInt(48,0);
+                }else {
+                    ps.setInt(48,pp.getNum());
+                }
+
                 ps.executeUpdate();
                 ps.close();
             }
