@@ -62,7 +62,6 @@ public class searchrematerial {                                         //材料
                     ps.setInt(num,sp.getStatus());
                 }
             }
-
             rs = ps.executeQuery();
             while (rs.next()){
                 data = new searchrematerialdata();
