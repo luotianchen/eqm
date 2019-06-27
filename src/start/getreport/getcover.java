@@ -128,6 +128,7 @@ public class getcover {                                                 //获取
             putsheet(sheet,68,1,prodno);
             putsheet(sheet,70,1,date);
             putsheet(sheet,96,1,prodname);
+            putsheet(sheet,97,1,ename);
             putsheet(sheet,101,1,prodno);
 
 
