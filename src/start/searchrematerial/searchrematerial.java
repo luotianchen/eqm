@@ -28,7 +28,6 @@ public class searchrematerial {                                         //材料
 
         String sql = "SELECT `id`, `c`, `mn`, `si`, `p`, `s`, `cr`, `ni`, `ti`, `cu`, `fe`, `n`, `alt`, `mo`, `mg`, `zn`, `nb`, `v`, `als`, `b`, `w`, `sb`, `al`, `zr`, `ca`, `be`, `rel1`, `rel2`, `rm1`, `rm2`, `elong1`, `elong2`, `hardness1`, `hardness2`, `hardness3`, `impactp1`, `impactp2`, `impactp3`, `bendaxdia`, `designation`, `impacttemp`, `bendangle`, `codedmarking`, `stand`, `spec`, `indate`, (SELECT name FROM userform WHERE username = user) as user, (SELECT name FROM userform WHERE username = audit_user) as `audit_user`, `status`, `date`, `times`, `retimes`,`num` FROM rematerial WHERE 1=1 ";
         int num = 0;
-        String sql_100 = " ";
 
         try {
         if(!(sp.getCodedmarking() == null || sp.getCodedmarking().equals(""))){
@@ -60,7 +59,6 @@ public class searchrematerial {                                         //材料
             num = num + 1;
             ps.setString(num,sp.getYear()+"%");
         }
-            System.out.println(sql_100);
         rs = ps.executeQuery();
         while (rs.next()){
             data = new searchrematerialdata();

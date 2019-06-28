@@ -22,9 +22,9 @@ public class changestatusforrematl {                                    //材料
 
         changestatusforrematlresult result = new changestatusforrematlresult();
 
-//        try {
+        try {
             if(cp.getStatus()==1){
-                ps = conn.prepareStatement("DELETE FROM rematerial WHERE codedmarking = ? AND status = 1 AND num = ?");
+                ps = conn.prepareStatement("DELETE FROM rematerial WHERE codedmarking = ? AND (status = 1 OR status = 2) AND num = ?");
                 ps.setString(1,cp.getCodedmarking());
                 ps.setInt(2,cp.getNum());
                 ps.executeUpdate();
@@ -71,9 +71,9 @@ public class changestatusforrematl {                                    //材料
 
 
             result.setResult("success");
-//        }catch (Exception e){
-//            result.setResult("fail");
-//        }
+        }catch (Exception e){
+            result.setResult("fail");
+        }
         conn.close();
         return result;
     }
