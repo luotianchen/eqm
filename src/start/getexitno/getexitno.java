@@ -25,7 +25,7 @@ public class getexitno {                                        //查询所有�
         ArrayList<String> as = new ArrayList<String>();
 
         try {
-            ps = conn.prepareStatement("SELECT * FROM pregaumeatable");
+            ps = conn.prepareStatement("SELECT distinct exitno FROM pregaumeatable");
             rs = ps.executeQuery();
             while (rs.next()){
                 as.add(rs.getString("exitno"));

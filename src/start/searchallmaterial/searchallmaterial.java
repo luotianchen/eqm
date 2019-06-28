@@ -67,7 +67,7 @@ public class searchallmaterial {                                                
         int i = 0;
 
 
-        try{
+//        try{
             sql="FROM putmaterial WHERE 1=1 ";
             if(!(sp.getSearchdata().getCodedmarking()==null||sp.getSearchdata().getCodedmarking().equals(""))){
                 sql=sql+"and codedmarking LIKE ? ";
@@ -105,9 +105,11 @@ public class searchallmaterial {                                                
 
             sql+=" ORDER BY codedmarking DESC";
             ps1 = conn.prepareStatement(sql2 + sql);
+            System.out.println(sql2 + sql);
             sql = sql + sql_end;
 
             ps=conn.prepareStatement(sql1 + sql);
+            System.out.println(sql1 + sql);
             if(codedmarking_p==1){
                 ps.setString(num,"%"+sp.getSearchdata().getCodedmarking()+"%");
                 ps1.setString(num,"%"+sp.getSearchdata().getCodedmarking()+"%");
@@ -168,7 +170,9 @@ public class searchallmaterial {                                                
                 samd.setStatus(rs.getInt("status"));
                 samd.setCodedmarking(rs.getString("codedmarking"));
                 samd.setNote(rs.getString("note"));
-                samd.setIndate(sdf.format(rs.getDate("indate")));
+                if(rs.getDate("indate") != null){
+                    samd.setIndate(sdf.format(rs.getDate("indate")));
+                }
                 samd.setWarrantyno(rs.getString("warrantyno"));
                 samd.setSpec(rs.getString("spec"));
                 samd.setQty(rs.getString("qty"));
@@ -322,9 +326,9 @@ public class searchallmaterial {                                                
             ps.close();
             result.setResult("success");
             result.setData(as);
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         as = null;
         conn.close();
         return result;
