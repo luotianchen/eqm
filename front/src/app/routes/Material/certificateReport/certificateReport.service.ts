@@ -7,7 +7,7 @@ export class CertificateReportService {
   constructor( private http: HttpClient,private api:ApiService) {
   }
   getcodedmarking(){
-    return this.http.get(this.api.BASEURL+"/getcodedmarking");
+    return this.http.post(this.api.BASEURL+"/getcodedmarking",{});
   }
   getReport(codedmarking){
     return this.http.post(this.api.BASEURL+"/getinspectionreport",{codedmarking:codedmarking});

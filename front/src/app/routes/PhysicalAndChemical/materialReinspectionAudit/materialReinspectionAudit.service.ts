@@ -10,7 +10,7 @@ export class MaterialReinspectionAuditService {
   getAudit(){
     return this.http.post(this.api.BASEURL+'/searchrematerial',{
       codedmarking:null,
-      status:101
+      status:0
     })
   }
   Audit(codedmarking,status,num,audit_user){

@@ -9,7 +9,7 @@ export class MaterialReinspectionCommissionService {
   }
   getcodedmarking(){
     return new Promise((resolve, reject) => {
-      this.http.get(this.api.BASEURL+"/getcodedmarking").subscribe(
+      this.http.post(this.api.BASEURL+"/getcodedmarking",{}).subscribe(
         result=>{
           resolve(result);
         }

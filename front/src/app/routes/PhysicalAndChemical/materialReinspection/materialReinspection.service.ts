@@ -42,6 +42,6 @@ export class MaterialReinspectionService {
     return this.http.post(`${this.api.BASEURL}/contraststand`,{matlstand:matlstand,designation:designation,spec:spec});
   }
   searchrematerial(codedmarking){
-    return this.http.post(this.api.BASEURL+"/searchrematerial",{codedmarking:codedmarking,status:-1});
+    return this.http.post(this.api.BASEURL+"/searchrematerial",{codedmarking:codedmarking,status:100});
   }
 }

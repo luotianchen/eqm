@@ -37,6 +37,7 @@ public class searchrematerial {                                         //材料
         if(sp.getStatus() != -1){
             if(sp.getStatus() != 100){
                 sql = sql + "AND status = ? ";
+
             }else {
                 sql = sql + "AND (status = 1 OR status = -2) ";
             }
@@ -59,6 +60,7 @@ public class searchrematerial {                                         //材料
             num = num + 1;
             ps.setString(num,sp.getYear()+"%");
         }
+            System.out.println(sql_100);
         rs = ps.executeQuery();
         while (rs.next()){
             data = new searchrematerialdata();
