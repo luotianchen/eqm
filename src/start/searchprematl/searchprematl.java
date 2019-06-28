@@ -43,7 +43,7 @@ public class searchprematl {                                //受压元件使用
         String codedmarking = null;
         String dwgno = null;
 
-        try {
+//        try {
             ps = conn.prepareStatement("SELECT * FROM prenotiform where prodno = ?");
             ps.setString(1,sp.getProdno());
             rs = ps.executeQuery();
@@ -145,7 +145,7 @@ public class searchprematl {                                //受压元件使用
                 rs1.close();
                 ps1.close();
 
-                ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ?");
+                ps1 = conn.prepareStatement("SELECT * FROM putmaterial WHERE codedmarking = ? AND status = 1");
                 ps1.setString(1,rs.getString("codedmarking"));
                 rs1 = ps1.executeQuery();
                 if(rs1.next()){
@@ -180,9 +180,9 @@ public class searchprematl {                                //受压元件使用
             }
             result.setData(as);
             result.setResult("success");
-        }catch (Exception e){
-            result.setResult("fail");
-        }
+//        }catch (Exception e){
+//            result.setResult("fail");
+//        }
         conn.close();
         return result;
     }

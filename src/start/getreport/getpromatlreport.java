@@ -76,7 +76,7 @@ public class getpromatlreport {                                 //产品材料�
 
         String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         file = new File(uploadPath, filename);
-        try {
+//        try {
 
             File realfile = new File(uploadPath,"产品材料清单.xlsx");
             InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
@@ -184,6 +184,10 @@ public class getpromatlreport {                                 //产品材料�
 
                     material = new ArrayList<String>();
                     codedmarking_f = new ArrayList<String>();
+
+                    workBook.setPrintArea(
+                            0,0,36,0,31
+                    );
                 }
                 if(i>=10){
                     i=0;
@@ -373,7 +377,24 @@ public class getpromatlreport {                                 //产品材料�
             rs1.close();
             ps1.close();
 
-
+//            if(t==0){
+//                for (int x = 0;x<96;x++){
+//                    Row row = sheet.getRow(32+x);
+//                    row.setZeroHeight(true);                    //隐藏下一行
+//                }
+//            }
+//            if(t==1){
+//                for (int x = 0;x<64;x++){
+//                    Row row = sheet.getRow(64+x);
+//                    row.setZeroHeight(true);                    //隐藏下一行
+//                }
+//            }
+//            if(t==2){
+//                for (int x = 0;x<32;x++){
+//                    Row row = sheet.getRow(96+x);
+//                    row.setZeroHeight(true);                    //隐藏下一行
+//                }
+//            }
 
 
 
@@ -397,9 +418,9 @@ public class getpromatlreport {                                 //产品材料�
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             file.delete();
             filepdf.delete();
-        }catch (Exception e){
-            file.delete();
-        }
+//        }catch (Exception e){
+//            file.delete();
+//        }
 
 
         return download;

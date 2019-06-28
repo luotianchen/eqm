@@ -1,6 +1,7 @@
 package start.getreport;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
@@ -143,7 +144,12 @@ public class getweldingreport {                                         //产品
             rs.close();
             ps.close();
 
-
+            if(i<26){
+                for (int x = 0;x<61;x++){
+                    Row row = sheet.getRow(61+x);
+                    row.setZeroHeight(true);                    //隐藏下一行
+                }
+            }
 
 
             OutputStream out = new FileOutputStream(url1);
