@@ -64,7 +64,7 @@ public class gettrackingreport {                                    //焊工材�
 
         String filename = UUID.randomUUID().toString()+".xlsx";                                 //将文件上传的服务器根目录下的upload文件夹
         file = new File(uploadPath, filename);
-//        try {
+        try {
 
             File realfile = new File(uploadPath,"焊工材料跟踪记录.xlsx");
             InputStream inputStream = new FileInputStream(realfile.getAbsoluteFile());                           //服务器根目录的路径
@@ -172,7 +172,7 @@ public class gettrackingreport {                                    //焊工材�
                         ps1.setInt(1,parts_id);
                         rs1 = ps1.executeQuery();
                         if(rs1.next()){
-                            putsheet(sheet,9+i+39,9,rs1.getString("partsname"));
+                            putsheet(sheet,9+i+39-29,9,rs1.getString("partsname"));
                         }
                         rs1.close();
                         ps1.close();
@@ -185,7 +185,7 @@ public class gettrackingreport {                                    //焊工材�
                             ps2.setInt(1,rs1.getInt("contraststand_id_designation"));
                             rs2 = ps2.executeQuery();
                             if(rs2.next()){
-                                putsheet(sheet,9+i+39,10,rs2.getString("designation"));
+                                putsheet(sheet,9+i+39-29,10,rs2.getString("designation"));
                             }
                             rs2.close();
                             ps2.close();
@@ -194,8 +194,8 @@ public class gettrackingreport {                                    //焊工材�
                         ps1.close();
 
 
-                        putsheet(sheet,9+i+39,11,rs.getString("codedmarking"));
-                        putsheet(sheet,9+i+39,13,rs.getString("spec"));
+                        putsheet(sheet,9+i+39-29,11,rs.getString("codedmarking"));
+                        putsheet(sheet,9+i+39-29,13,rs.getString("spec"));
                         i++;
                         p=0;
                     }
@@ -291,9 +291,9 @@ public class gettrackingreport {                                    //焊工材�
             download = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(filepdf),headers, HttpStatus.CREATED);
             file.delete();
             filepdf.delete();
-//        }catch (Exception e){
-//            file.delete();
-//        }
+        }catch (Exception e){
+            file.delete();
+        }
 
 
         return download;
